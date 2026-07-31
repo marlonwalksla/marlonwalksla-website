@@ -154,7 +154,7 @@ function initMarlonWalksMap() {
   });
 
   // =============================================================
-  // B. MAPBOX & HERO POLAROID ENGINE (VECTOR SVG MARKERS)
+  // B. MAPBOX & HERO POLAROID ENGINE (8 CATEGORIES & TAGS)
   // =============================================================
   const mapContainer = document.getElementById('map');
   if (!mapContainer) return;
@@ -177,53 +177,61 @@ function initMarlonWalksMap() {
   });
   map.addControl(geolocate, 'top-right');
 
-  // CLEAN VECTOR SVG ICONS DICTIONARY
+  // CLEAN VECTOR SVG ICONS FOR THE 8 PRIMARY CATEGORIES
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
   const categoryMap = {
-    'iconic-la-landmarks': { color: '#f59e0b', name: 'Iconic Landmarks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
-    'iconic landmarks': { color: '#f59e0b', name: 'Iconic Landmarks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
-    'must-see': { color: '#f59e0b', name: 'Must See', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
-    'must see': { color: '#f59e0b', name: 'Must See', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
-
-    'parks-views': { color: '#10b981', name: 'Parks & Views', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18h8M12 2L3 14h18L12 2z"/></svg>' },
-    'parks & views': { color: '#10b981', name: 'Parks & Views', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18h8M12 2L3 14h18L12 2z"/></svg>' },
-
-    'quick-bites-street-food': { color: '#f97316', name: 'Quick Bites', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M12 2v2"/></svg>' },
-    'quick bites & street food': { color: '#f97316', name: 'Quick Bites', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M12 2v2"/></svg>' },
-
-    'sit-down-dining': { color: '#ef4444', name: 'Sit-Down Dining', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 2v6a3 3 0 0 1-3 3M3 2v7a4 4 0 0 0 4 4v9M11 2v20"/></svg>' },
-    'sit down dining': { color: '#ef4444', name: 'Sit-Down Dining', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 2v6a3 3 0 0 1-3 3M3 2v7a4 4 0 0 0 4 4v9M11 2v20"/></svg>' },
-    'food-dining': { color: '#ef4444', name: 'Food & Dining', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 2v6a3 3 0 0 1-3 3M3 2v7a4 4 0 0 0 4 4v9M11 2v20"/></svg>' },
-    'food & dining': { color: '#ef4444', name: 'Food & Dining', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 2v6a3 3 0 0 1-3 3M3 2v7a4 4 0 0 0 4 4v9M11 2v20"/></svg>' },
-
-    'coffee-treats': { color: '#a855f7', name: 'Coffee & Treats', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>' },
-    'coffee & treats': { color: '#a855f7', name: 'Coffee & Treats', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>' },
-
-    'nightlife-bars': { color: '#6366f1', name: 'Nightlife & Bars', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M19 3l-7 8-7-7h14z"/></svg>' },
-    'nightlife & bars': { color: '#6366f1', name: 'Nightlife & Bars', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M19 3l-7 8-7-7h14z"/></svg>' },
-
-    'malls-outlets': { color: '#06b6d4', name: 'Malls & Outlets', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>' },
-    'malls & outlets': { color: '#06b6d4', name: 'Malls & Outlets', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>' },
-    'shopping': { color: '#06b6d4', name: 'Shopping', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>' },
-
-    'local-shopping-districts': { color: '#3b82f6', name: 'Local Shopping', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
-    'local shopping districts': { color: '#3b82f6', name: 'Local Shopping', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
-
-    'museums-art': { color: '#ec4899', name: 'Museums & Art', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg>' },
-    'museums & art': { color: '#ec4899', name: 'Museums & Art', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg>' },
-
-    'entertainment-sports': { color: '#14b8a6', name: 'Entertainment & Sports', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M18 12h.01M10 12h4"/></svg>' },
-    'entertainment & sports': { color: '#14b8a6', name: 'Entertainment & Sports', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M18 12h.01M10 12h4"/></svg>' }
+    'cafes': { 
+      color: '#a855f7', 
+      name: 'Cafes', 
+      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>' 
+    },
+    'dining': { 
+      color: '#ef4444', 
+      name: 'Dining', 
+      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 2v6a3 3 0 0 1-3 3M3 2v7a4 4 0 0 0 4 4v9M11 2v20"/></svg>' 
+    },
+    'nightlife': { 
+      color: '#6366f1', 
+      name: 'Nightlife', 
+      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M19 3l-7 8-7-7h14z"/></svg>' 
+    },
+    'landmarks': { 
+      color: '#f59e0b', 
+      name: 'Landmarks', 
+      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' 
+    },
+    'arts': { 
+      color: '#ec4899', 
+      name: 'Arts', 
+      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg>' 
+    },
+    'shopping': { 
+      color: '#06b6d4', 
+      name: 'Shopping', 
+      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>' 
+    },
+    'parks': { 
+      color: '#10b981', 
+      name: 'Parks', 
+      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18h8M12 2L3 14h18L12 2z"/></svg>' 
+    },
+    'entertainment': { 
+      color: '#14b8a6', 
+      name: 'Entertainment', 
+      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M18 12h.01M10 12h4"/></svg>' 
+    }
   };
 
-  function getCategoryDetails(rawCat) {
-    if (!rawCat) return { color: '#3898ec', icon: defaultPinSvg, name: 'Spot' };
-    const key = String(rawCat).toLowerCase().replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
-    if (categoryMap[key]) return categoryMap[key];
-    const slugKey = key.replace(/ /g, '-').replace(/&/g, '').replace(/--/g, '-');
-    if (categoryMap[slugKey]) return categoryMap[slugKey];
-    return { color: '#3898ec', icon: defaultPinSvg, name: rawCat };
+  function getCategoryDetails(rawCat, overrideColor) {
+    if (!rawCat) return { color: overrideColor || '#3898ec', icon: defaultPinSvg, name: 'Spot' };
+    const key = String(rawCat).toLowerCase().replace(/&amp;/g, '&').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '').trim();
+    
+    let details = categoryMap[key] || { color: '#3898ec', icon: defaultPinSvg, name: rawCat };
+    if (overrideColor && overrideColor.trim() !== '') {
+      details = { ...details, color: overrideColor };
+    }
+    return details;
   }
 
   function cleanText(str) {
@@ -260,6 +268,7 @@ function initMarlonWalksMap() {
   const allMarkers = [];
   const neighborhoods = new Set();
   const categories = new Set();
+  const tagsSet = new Set();
   const coordTracker = {}; 
 
   document.querySelectorAll('.map-location-marker').forEach((item, index) => {
@@ -267,13 +276,18 @@ function initMarlonWalksMap() {
     let lng = parseFloat(item.getAttribute('data-lng'));
     const title = cleanText(item.getAttribute('data-title') || 'Location');
     const desc = cleanText(item.getAttribute('data-desc') || '');
-    const rawCategory = cleanText(item.getAttribute('data-category') || 'must-see');
+    const rawCategory = cleanText(item.getAttribute('data-category') || 'landmarks');
+    const customColor = cleanText(item.getAttribute('data-color') || item.getAttribute('data-pin-color') || '');
     const neighborhood = cleanText(item.getAttribute('data-neighborhood') || 'Downtown LA');
+    const rawTagsStr = cleanText(item.getAttribute('data-tags') || '');
 
-    const catDetails = getCategoryDetails(rawCategory);
+    const catDetails = getCategoryDetails(rawCategory, customColor);
 
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
+
+    const parsedTags = rawTagsStr ? rawTagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
+    parsedTags.forEach(t => tagsSet.add(t));
 
     if (!isNaN(lat) && !isNaN(lng)) {
       const coordKey = `${lat.toFixed(3)},${lng.toFixed(3)}`;
@@ -301,7 +315,8 @@ function initMarlonWalksMap() {
         .setLngLat([lng, lat]);
 
       wrapper.addEventListener('click', () => {
-        const captionMeta = `${neighborhood}  •  ${catDetails.name}\n${desc}`;
+        const tagsFormatted = parsedTags.length ? `\nTags: ${parsedTags.join(', ')}` : '';
+        const captionMeta = `${neighborhood}  •  ${catDetails.name}\n${desc}${tagsFormatted}`;
         updatePolaroidCaption(title, captionMeta, lat, lng);
         
         const targetZoom = Math.max(map.getZoom(), 15.5);
@@ -317,7 +332,8 @@ function initMarlonWalksMap() {
         lng: lng,
         lat: lat,
         neighborhood: neighborhood,
-        category: rawCategory
+        category: rawCategory,
+        tags: parsedTags
       });
     }
   });
@@ -325,6 +341,7 @@ function initMarlonWalksMap() {
   const form = document.querySelector('.filter-bar form');
   let activeArea = 'All';
   const activeCategories = new Set(['All']);
+  const activeTags = new Set(['All']);
   let countBadgeEl = null;
 
   function createScrollRow(pillsBar) {
@@ -409,7 +426,7 @@ function initMarlonWalksMap() {
 
     const areaRow = createScrollRow(areaPillsBar);
     areaGroup.appendChild(areaRow);
-    form.prepend(areaGroup); 
+    form.appendChild(areaGroup); 
 
     areaPillsBar.addEventListener('click', (e) => {
       const pill = e.target.closest('.area-pill');
@@ -453,7 +470,7 @@ function initMarlonWalksMap() {
 
     const catRow = createScrollRow(catPillsBar);
     catGroup.appendChild(catRow);
-    form.insertBefore(catGroup, form.children[1]); 
+    form.appendChild(catGroup); 
 
     catPillsBar.addEventListener('click', (e) => {
       const pill = e.target.closest('.cat-pill');
@@ -486,9 +503,73 @@ function initMarlonWalksMap() {
 
       applyFilters();
     });
+
+    // 3. DYNAMIC TAGS DASHBOARD GROUP
+    if (tagsSet.size > 0) {
+      const tagGroup = document.createElement('div');
+      tagGroup.className = 'dashboard-group';
+
+      const tagLabel = document.createElement('div');
+      tagLabel.className = 'dashboard-label';
+      tagLabel.innerText = '✨ Filter by Vibe';
+      tagGroup.appendChild(tagLabel);
+
+      const tagPillsBar = document.createElement('div');
+      tagPillsBar.className = 'category-pills-bar';
+
+      const allTagPill = document.createElement('div');
+      allTagPill.className = 'cat-pill is-active';
+      allTagPill.dataset.tag = 'All';
+      allTagPill.innerText = 'All Vibes';
+      tagPillsBar.appendChild(allTagPill);
+
+      Array.from(tagsSet).sort().forEach(tagVal => {
+        const pill = document.createElement('div');
+        pill.className = 'cat-pill';
+        pill.dataset.tag = tagVal;
+        pill.innerText = tagVal;
+        tagPillsBar.appendChild(pill);
+      });
+
+      const tagRow = createScrollRow(tagPillsBar);
+      tagGroup.appendChild(tagRow);
+      form.appendChild(tagGroup);
+
+      tagPillsBar.addEventListener('click', (e) => {
+        const pill = e.target.closest('.cat-pill');
+        if (!pill) return;
+
+        const tagVal = pill.dataset.tag;
+
+        if (tagVal === 'All') {
+          activeTags.clear();
+          activeTags.add('All');
+          tagPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
+          allTagPill.classList.add('is-active');
+        } else {
+          allTagPill.classList.remove('is-active');
+          activeTags.delete('All');
+
+          if (activeTags.has(tagVal)) {
+            activeTags.delete(tagVal);
+            pill.classList.remove('is-active');
+          } else {
+            activeTags.add(tagVal);
+            pill.classList.add('is-active');
+          }
+
+          if (activeTags.size === 0) {
+            activeTags.add('All');
+            allTagPill.classList.add('is-active');
+          }
+        }
+
+        applyFilters();
+      });
+    }
   }
 
-  // 3. MULTI-SELECT MAP FILTERING
+  // 4. MULTI-SELECT MAP FILTERING (NEIGHBORHOODS + CATEGORIES + TAGS)
   function applyFilters() {
     updatePolaroidCaption(
       'Tap any pin to explore!',
@@ -504,10 +585,13 @@ function initMarlonWalksMap() {
       const matchesArea = (activeArea === 'All') || 
                           (item.neighborhood.toLowerCase() === activeArea.toLowerCase());
 
-      const matchesActivity = activeCategories.has('All') || 
-                              activeCategories.has(item.category);
+      const matchesCategory = activeCategories.has('All') || 
+                               activeCategories.has(item.category);
 
-      if (matchesArea && matchesActivity) {
+      const matchesTag = activeTags.has('All') || 
+                         item.tags.some(t => activeTags.has(t));
+
+      if (matchesArea && matchesCategory && matchesTag) {
         item.marker.addTo(map);
         bounds.extend([item.lng, item.lat]);
         visibleCount++;
@@ -534,7 +618,7 @@ function initMarlonWalksMap() {
     }
   }
 
-  // 4. FETCH AND INCREMENT TOTAL MAP VIEWS
+  // 5. FETCH AND INCREMENT TOTAL MAP VIEWS
   async function trackAndDisplayViews() {
     const viewsBadge = document.getElementById('map-views-badge');
     if (!viewsBadge) return;
