@@ -27,8 +27,54 @@
   position: relative;
 }
 
+/* -----------------------------------
+   MASTER MAP POLAROID FRAME (FLEX REORDER)
+----------------------------------- */
+.map-master-polaroid {
+  position: relative;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100%;
+  max-width: 100%;
+  background-color: #ffffff;
+  padding: 16px 16px 24px 16px; 
+  border-radius: 4px; 
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* 1. FILTER TRAY MOVED TO THE TOP (ABOVE MAP) */
+.filter-bar, 
+.map-master-polaroid .filter-bar {
+  order: 1 !important;
+  margin-top: 0 !important;
+  margin-bottom: 16px !important;
+  width: 100% !important;
+}
+
+/* 2. MAP IN THE MIDDLE */
+.map-master-polaroid #map, 
+.map-master-polaroid .map-container {
+  order: 2 !important;
+  width: 100%;
+  height: 480px;
+  border-radius: 2px; 
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #e5e7eb;
+}
+
+/* 3. CAPTION & DIRECTIONS AT THE BOTTOM */
+.hero-card-caption {
+  order: 3 !important;
+  padding-top: 16px !important;
+  text-align: center !important;
+}
+
 /* =========================================
-   MAP CONTROLS TACTILE TRAY (INSIDE POLAROID)
+   MAP CONTROLS TACTILE TRAY
    ========================================= */
 .filter-bar form {
   display: flex !important;
@@ -39,8 +85,7 @@
   border-radius: 16px !important;
   border: 1px solid #e2e8f0 !important;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03) !important;
-  margin-top: 28px !important;
-  margin-bottom: 0 !important;
+  margin: 0 !important;
   box-sizing: border-box;
   width: 100% !important;
 }
@@ -156,25 +201,12 @@
   box-shadow: 0 4px 10px rgba(56, 152, 236, 0.25) !important;
 }
 
-/* Base Active State for Category Pills */
 .cat-pill.is-active {
   background-color: #222222 !important;
   color: #ffffff !important;
   border-color: #222222 !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }
-
-/* Dynamic Category Pill Active Colors */
-.cat-pill[data-category="iconic-la-landmarks"].is-active { background-color: var(--cat-iconic) !important; border-color: var(--cat-iconic) !important; }
-.cat-pill[data-category="parks-views"].is-active { background-color: var(--cat-parks) !important; border-color: var(--cat-parks) !important; }
-.cat-pill[data-category="quick-bites-street-food"].is-active { background-color: var(--cat-quick) !important; border-color: var(--cat-quick) !important; }
-.cat-pill[data-category="sit-down-dining"].is-active { background-color: var(--cat-dining) !important; border-color: var(--cat-dining) !important; }
-.cat-pill[data-category="coffee-treats"].is-active { background-color: var(--cat-coffee) !important; border-color: var(--cat-coffee) !important; }
-.cat-pill[data-category="nightlife-bars"].is-active { background-color: var(--cat-nightlife) !important; border-color: var(--cat-nightlife) !important; }
-.cat-pill[data-category="malls-outlets"].is-active { background-color: var(--cat-malls) !important; border-color: var(--cat-malls) !important; }
-.cat-pill[data-category="local-shopping-districts"].is-active { background-color: var(--cat-local) !important; border-color: var(--cat-local) !important; }
-.cat-pill[data-category="museums-art"].is-active { background-color: var(--cat-museums) !important; border-color: var(--cat-museums) !important; }
-.cat-pill[data-category="entertainment-sports"].is-active { background-color: var(--cat-sports) !important; border-color: var(--cat-sports) !important; }
 
 /* Thicker Desktop Scrollbars */
 .neighborhood-pills-bar::-webkit-scrollbar,
@@ -200,53 +232,15 @@
   background-color: #718096 !important;
 }
 
-/* Hide arrow buttons & standard scrollbars on mobile touch devices */
 @media (hover: none) and (pointer: coarse) {
-  .scroll-arrow-btn {
-    display: none !important;
-  }
+  .scroll-arrow-btn { display: none !important; }
   .neighborhood-pills-bar::-webkit-scrollbar,
-  .category-pills-bar::-webkit-scrollbar {
-    display: none !important;
-  }
+  .category-pills-bar::-webkit-scrollbar { display: none !important; }
   .neighborhood-pills-bar,
-  .category-pills-bar {
-    scrollbar-width: none !important;
-  }
+  .category-pills-bar { scrollbar-width: none !important; }
 }
 
-/* Hide native Webflow Dropdowns in the filter bar */
-.filter-bar select {
-  display: none !important;
-}
-
-/* -----------------------------------
-   MASTER MAP POLAROID FRAME 
------------------------------------ */
-.map-master-polaroid {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 100%;
-  background-color: #ffffff;
-  padding: 16px 16px 24px 16px; 
-  border-radius: 4px; 
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
-  box-sizing: border-box;
-  margin: 0 auto;
-}
-
-.map-master-polaroid #map, 
-.map-master-polaroid .map-container {
-  width: 100%;
-  height: 480px;
-  border-radius: 2px; 
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #e5e7eb; /* Fallback before map loads */
-}
+.filter-bar select { display: none !important; }
 
 .ernesto-photobomb {
   position: absolute;
@@ -258,7 +252,7 @@
   pointer-events: none;
 }
 
-/* Map Custom Markers - Elevated Shadows */
+/* Map Custom Markers */
 .marker-wrapper {
   width: 36px;
   height: 36px;
@@ -274,7 +268,6 @@
   justify-content: center;
   font-size: 18px;
   color: #ffffff;
-  background-color: #222222; /* Default color if no category applied */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   border: 2px solid #ffffff;
   cursor: pointer;
@@ -288,16 +281,9 @@
   z-index: 50 !important;
 }
 
-/* Mapbox Geolocate Button Customization */
 .mapboxgl-ctrl-top-right {
   top: 10px !important;
   right: 10px !important;
-}
-
-/* Polaroid Caption */
-.hero-card-caption {
-  padding-top: 20px !important;
-  text-align: center !important;
 }
 
 #selected-title {
@@ -328,17 +314,12 @@
   transition: all 0.2s ease !important;
 }
 
-#selected-button.is-visible {
-  display: inline-block !important;
-}
-
+#selected-button.is-visible { display: inline-block !important; }
 #selected-button:hover {
   background-color: #1e7cd1 !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 6px 16px rgba(56, 152, 236, 0.4) !important;
 }
 
-/* Site-Wide Polaroid Deck Styles */
 .pc-root {
   position: relative;
   width: 100%;
@@ -366,7 +347,6 @@
   overflow: visible;
 }
 
-/* Core 3D Polaroid Card Mechanics */
 .pc-card {
   position: relative;
   display: flex;
@@ -508,9 +488,8 @@
   z-index: 10;
 }
 
-/* Mobile Responsive */
 @media (max-width: 600px) {
-  .filter-bar form { padding: 14px 6px 10px 6px !important; margin-top: 20px !important; }
+  .filter-bar form { padding: 14px 6px 10px 6px !important; }
   .map-master-polaroid { padding: 12px 12px 20px 12px !important; }
   .map-master-polaroid #map, .map-master-polaroid .map-container { height: 340px !important; }
   .pc-root .swiper-slide { width: 230px !important; }
