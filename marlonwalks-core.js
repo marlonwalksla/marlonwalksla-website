@@ -177,46 +177,52 @@ function initMarlonWalksMap() {
   });
   map.addControl(geolocate, 'top-right');
 
-  // MAPBOX CATEGORY COLORS
-  const categoryColors = {
-    'iconic-la-landmarks': '#f59e0b',
-    'parks-views': '#10b981',
-    'quick-bites-street-food': '#f97316',
-    'sit-down-dining': '#ef4444',
-    'coffee-treats': '#a855f7',
-    'nightlife-bars': '#6366f1',
-    'malls-outlets': '#06b6d4',
-    'local-shopping-districts': '#3b82f6',
-    'museums-art': '#ec4899',
-    'entertainment-sports': '#14b8a6'
+  // UNIVERSAL CATEGORY DICTIONARY (SUPPORTS OLD & NEW NAMES)
+  const categoryMap = {
+    'iconic-la-landmarks': { color: '#f59e0b', emoji: '📸', name: 'Iconic Landmarks' },
+    'iconic landmarks': { color: '#f59e0b', emoji: '📸', name: 'Iconic Landmarks' },
+    'must-see': { color: '#f59e0b', emoji: '⭐', name: 'Must See' },
+    'must see': { color: '#f59e0b', emoji: '⭐', name: 'Must See' },
+
+    'parks-views': { color: '#10b981', emoji: '🌲', name: 'Parks & Views' },
+    'parks & views': { color: '#10b981', emoji: '🌲', name: 'Parks & Views' },
+
+    'quick-bites-street-food': { color: '#f97316', emoji: '🌮', name: 'Quick Bites' },
+    'quick bites & street food': { color: '#f97316', emoji: '🌮', name: 'Quick Bites' },
+
+    'sit-down-dining': { color: '#ef4444', emoji: '🍽️', name: 'Sit-Down Dining' },
+    'sit down dining': { color: '#ef4444', emoji: '🍽️', name: 'Sit-Down Dining' },
+    'food-dining': { color: '#ef4444', emoji: '🍔', name: 'Food & Dining' },
+    'food & dining': { color: '#ef4444', emoji: '🍔', name: 'Food & Dining' },
+
+    'coffee-treats': { color: '#a855f7', emoji: '☕', name: 'Coffee & Treats' },
+    'coffee & treats': { color: '#a855f7', emoji: '☕', name: 'Coffee & Treats' },
+
+    'nightlife-bars': { color: '#6366f1', emoji: '🍸', name: 'Nightlife & Bars' },
+    'nightlife & bars': { color: '#6366f1', emoji: '🍸', name: 'Nightlife & Bars' },
+
+    'malls-outlets': { color: '#06b6d4', emoji: '🛍️', name: 'Malls & Outlets' },
+    'malls & outlets': { color: '#06b6d4', emoji: '🛍️', name: 'Malls & Outlets' },
+    'shopping': { color: '#06b6d4', emoji: '🛍️', name: 'Shopping' },
+
+    'local-shopping-districts': { color: '#3b82f6', emoji: '🏘️', name: 'Local Shopping' },
+    'local shopping districts': { color: '#3b82f6', emoji: '🏘️', name: 'Local Shopping' },
+
+    'museums-art': { color: '#ec4899', emoji: '🎨', name: 'Museums & Art' },
+    'museums & art': { color: '#ec4899', emoji: '🎨', name: 'Museums & Art' },
+
+    'entertainment-sports': { color: '#14b8a6', emoji: '🍿', name: 'Entertainment & Sports' },
+    'entertainment & sports': { color: '#14b8a6', emoji: '🍿', name: 'Entertainment & Sports' }
   };
 
-  const categoryEmojis = {
-    'iconic-la-landmarks': '📸',
-    'parks-views': '🌲',
-    'quick-bites-street-food': '🌮',
-    'sit-down-dining': '🍽️',
-    'coffee-treats': '☕',
-    'nightlife-bars': '🍸',
-    'malls-outlets': '🛍️',
-    'local-shopping-districts': '🏘️',
-    'museums-art': '🎨',
-    'entertainment-sports': '🍿'
-  };
-
-  // DISPLAY NAME FORMATTER FOR UI
-  const categoryNames = {
-    'iconic-la-landmarks': 'Iconic Landmarks',
-    'parks-views': 'Parks & Views',
-    'quick-bites-street-food': 'Quick Bites',
-    'sit-down-dining': 'Sit-Down Dining',
-    'coffee-treats': 'Coffee & Treats',
-    'nightlife-bars': 'Nightlife & Bars',
-    'malls-outlets': 'Malls & Outlets',
-    'local-shopping-districts': 'Local Shopping',
-    'museums-art': 'Museums & Art',
-    'entertainment-sports': 'Entertainment & Sports'
-  };
+  function getCategoryDetails(rawCat) {
+    if (!rawCat) return { color: '#3898ec', emoji: '📍', name: 'Spot' };
+    const key = String(rawCat).toLowerCase().replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+    if (categoryMap[key]) return categoryMap[key];
+    const slugKey = key.replace(/ /g, '-').replace(/&/g, '').replace(/--/g, '-');
+    if (categoryMap[slugKey]) return categoryMap[slugKey];
+    return { color: '#3898ec', emoji: '📍', name: rawCat };
+  }
 
   function cleanText(str) {
     if (!str) return '';
@@ -259,11 +265,13 @@ function initMarlonWalksMap() {
     let lng = parseFloat(item.getAttribute('data-lng'));
     const title = cleanText(item.getAttribute('data-title') || 'Location');
     const desc = cleanText(item.getAttribute('data-desc') || '');
-    const category = cleanText(item.getAttribute('data-category') || 'iconic-la-landmarks');
+    const rawCategory = cleanText(item.getAttribute('data-category') || 'must-see');
     const neighborhood = cleanText(item.getAttribute('data-neighborhood') || 'Downtown LA');
 
+    const catDetails = getCategoryDetails(rawCategory);
+
     if (neighborhood) neighborhoods.add(neighborhood);
-    if (category) categories.add(category);
+    if (rawCategory) categories.add(rawCategory);
 
     if (!isNaN(lat) && !isNaN(lng)) {
       const coordKey = `${lat.toFixed(3)},${lng.toFixed(3)}`;
@@ -277,17 +285,13 @@ function initMarlonWalksMap() {
         lng += offsetRadius * Math.sin(angle);
       }
 
-      const pinColor = categoryColors[category] || '#222222';
-      const emoji = categoryEmojis[category] || '📍';
-      const displayCategory = categoryNames[category] || category;
-
       const wrapper = document.createElement('div');
       wrapper.className = 'marker-wrapper';
 
       const inner = document.createElement('div');
       inner.className = 'custom-emoji-marker';
-      inner.style.backgroundColor = pinColor;
-      inner.innerText = emoji;
+      inner.style.backgroundColor = catDetails.color;
+      inner.innerText = catDetails.emoji;
 
       wrapper.appendChild(inner);
 
@@ -295,7 +299,7 @@ function initMarlonWalksMap() {
         .setLngLat([lng, lat]);
 
       wrapper.addEventListener('click', () => {
-        const captionMeta = `${neighborhood}  •  ${displayCategory}\n${desc}`;
+        const captionMeta = `${neighborhood}  •  ${catDetails.name}\n${desc}`;
         updatePolaroidCaption(title, captionMeta, lat, lng);
         
         const targetZoom = Math.max(map.getZoom(), 15.5);
@@ -311,7 +315,7 @@ function initMarlonWalksMap() {
         lng: lng,
         lat: lat,
         neighborhood: neighborhood,
-        category: category
+        category: rawCategory
       });
     }
   });
@@ -439,9 +443,8 @@ function initMarlonWalksMap() {
       pill.className = 'cat-pill';
       pill.dataset.category = cat;
       
-      const emoji = categoryEmojis[cat] || '📍';
-      const displayCategory = categoryNames[cat] || cat; 
-      pill.innerText = `${emoji} ${displayCategory}`; 
+      const catDetails = getCategoryDetails(cat);
+      pill.innerText = `${catDetails.emoji} ${catDetails.name}`; 
       
       catPillsBar.appendChild(pill);
     });
@@ -534,7 +537,6 @@ function initMarlonWalksMap() {
     const viewsBadge = document.getElementById('map-views-badge');
     if (!viewsBadge) return;
 
-    // STARTING BASE COUNT FROM MYMAPS
     const BASE_VIEWS = 30000; 
 
     try {
