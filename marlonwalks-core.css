@@ -3,17 +3,16 @@
    ========================================= */
 :root {
   --brand-blue: #3898ec;
-  --cat-iconic: #f59e0b;      /* Amber/Gold for Landmarks */
-  --cat-parks: #10b981;       /* Emerald Green for Parks/Views */
-  --cat-quick: #f97316;       /* Vibrant Orange for Quick Bites */
-  --cat-dining: #ef4444;      /* Red for Sit-Down Dining */
-  --cat-coffee: #a855f7;      /* Purple for Coffee & Treats */
-  --cat-nightlife: #6366f1;   /* Indigo for Nightlife & Bars */
-  --cat-malls: #06b6d4;       /* Cyan for Malls & Outlets */
-  --cat-local: #3b82f6;      /* Classic Blue for Local Shopping */
-  --cat-museums: #ec4899;     /* Pink for Museums & Art */
-  --cat-sports: #14b8a6;      /* Teal for Entertainment & Sports */
-}
+  
+  /* 8 Primary Map Categories */
+  --cat-cafes: #a855f7;         /* Vibrant Purple for Cafes */
+  --cat-dining: #ef4444;        /* Red for Dining */
+  --cat-nightlife: #6366f1;     /* Indigo for Nightlife */
+  --cat-landmarks: #f59e0b;     /* Amber/Gold for Landmarks */
+  --cat-arts: #ec4899;          /* Pink for Arts */
+  --cat-shopping: #06b6d4;      /* Cyan for Shopping */
+  --cat-parks: #10b981;         /* Emerald Green for Parks */
+  --cat-entertainment: #14b8a6; /* Teal for Entertainment */
 
 /* Hide Webflow Empty States */
 .w-dyn-empty { display: none !important; }
