@@ -280,15 +280,17 @@ function initMarlonWalksMap() {
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
 
-    // Read tags from nested .tag-item or #tag-item elements OR fallback to data-tags attribute
+    // Read tags from nested .tag-item / #tag-item OR data-tags attribute
     const parentCard = item.closest('.w-dyn-item') || item.parentElement;
     const tagNodes = parentCard ? parentCard.querySelectorAll('.tag-item, #tag-item, [id="tag-item"]') : [];
     let parsedTags = Array.from(tagNodes).map(node => cleanText(node.textContent)).filter(Boolean);
 
     if (parsedTags.length === 0 && rawTagsStr) {
-      parsedTags = rawTagsStr.split(';').map(t => t.trim()).filter(Boolean);
+      parsedTags = rawTagsStr.split(/[,;]/).map(t => t.trim()).filter(Boolean);
     }
 
+    // Clean stray '#' or empty symbols
+    parsedTags = parsedTags.map(t => t.replace(/^#/, '').trim()).filter(t => t && t !== '#');
     parsedTags.forEach(t => tagsSet.add(t));
 
     if (!isNaN(lat) && !isNaN(lng)) {
@@ -401,7 +403,7 @@ function initMarlonWalksMap() {
     viewsBadgeEl.id = 'map-views-badge';
     viewsBadgeEl.className = 'count-badge';
     viewsBadgeEl.style.color = '#718096';
-    viewsBadgeEl.innerText = '👁️ 30,000 VIEWS';
+    viewsBadgeEl.innerText = '30,000 VIEWS';
 
     badgeContainer.appendChild(countBadgeEl);
     badgeContainer.appendChild(viewsBadgeEl);
@@ -629,9 +631,9 @@ function initMarlonWalksMap() {
       const data = await res.json();
       const apiCount = data.count || data.value || 0;
       const totalViews = BASE_VIEWS + apiCount;
-      viewsBadge.innerText = `👁️ ${totalViews.toLocaleString()} VIEWS`;
+      viewsBadge.innerText = `${totalViews.toLocaleString()} VIEWS`;
     } catch (err) {
-      viewsBadge.innerText = `👁️ ${BASE_VIEWS.toLocaleString()} VIEWS`;
+      viewsBadge.innerText = `${BASE_VIEWS.toLocaleString()} VIEWS`;
     }
   }
 
