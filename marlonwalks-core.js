@@ -219,10 +219,10 @@ function initMarlonWalksMap() {
     let details = categoryMap[key];
     if (!details) {
       const matchedKey = Object.keys(categoryMap).find(k => key.includes(k) || k.includes(key));
-      details = matchedKey ? categoryMap[matchedKey] : { color: '#3898ec', icon: defaultPinSvg, name: rawCat };
+      details = matchedKey ? categoryMap[matchedKey] : { color: overrideColor || '#3898ec', icon: defaultPinSvg, name: rawCat };
     }
 
-    if (overrideColor && overrideColor.trim() !== '') {
+    if (overrideColor && overrideColor.trim() !== '' && overrideColor !== '#222222' && !categoryMap[key]) {
       details = { ...details, color: overrideColor };
     }
     return details;
@@ -280,7 +280,7 @@ function initMarlonWalksMap() {
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
 
-    const parsedTags = rawTagsStr ? rawTagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
+    const parsedTags = rawTagsStr ? rawTagsStr.split(';').map(t => t.trim()).filter(Boolean) : [];
     parsedTags.forEach(t => tagsSet.add(t));
 
     if (!isNaN(lat) && !isNaN(lng)) {
@@ -313,8 +313,9 @@ function initMarlonWalksMap() {
         const captionMeta = `${neighborhood}  •  ${catDetails.name}\n${desc}${tagsFormatted}`;
         updatePolaroidCaption(title, captionMeta, lat, lng);
         
-        const targetZoom = Math.max(map.getZoom(), 15.5);
-        map.flyTo({ center: [lng, lat], zoom: targetZoom, duration: 2500 });
+        // Comfortably frame pin while keeping neighborhood context visible
+        const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.0);
+        map.flyTo({ center: [lng, lat], zoom: targetZoom, duration: 1800 });
 
         if (window.swiperInstance) {
           window.swiperInstance.slideToLoop(index);
@@ -599,12 +600,12 @@ function initMarlonWalksMap() {
     }
 
     if (activeArea === 'All') {
-      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2500 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2000 });
     } else if (visibleCount >= 1) {
-      const center = bounds.getCenter();
-      map.flyTo({ center: [center.lng, center.lat], zoom: 13.5, duration: 2500 });
+      // Automatically fit bounds around all visible pins in the neighborhood
+      map.fitBounds(bounds, { padding: 70, maxZoom: 14.0, duration: 2000 });
     } else {
-      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2500 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2000 });
     }
   }
 
