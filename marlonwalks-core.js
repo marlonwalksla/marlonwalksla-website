@@ -177,10 +177,9 @@ function initMarlonWalksMap() {
   });
   map.addControl(geolocate, 'top-right');
 
-  // CLEAN VECTOR SVG ICONS FOR THE 8 PRIMARY CATEGORIES
+  // CLEAN VECTOR SVG ICONS FOR THE 8 PRIMARY CATEGORIES & ALIASES
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
-// 1. EXPANDED CATEGORY MAP WITH SLUG & NAME ALIASES
   const categoryMap = {
     'cafes': { color: '#a855f7', name: 'Cafes', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>' },
     'coffee-cafes': { color: '#a855f7', name: 'Cafes', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>' },
@@ -210,7 +209,6 @@ function initMarlonWalksMap() {
   function getCategoryDetails(rawCat, overrideColor) {
     if (!rawCat) return { color: overrideColor || '#3898ec', icon: defaultPinSvg, name: 'Spot' };
     
-    // Clean string into a single hyphenated key
     const key = String(rawCat)
       .toLowerCase()
       .replace(/&amp;/g, 'and')
@@ -218,10 +216,8 @@ function initMarlonWalksMap() {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
     
-    // Check direct match or alias matches
     let details = categoryMap[key];
     if (!details) {
-      // Fallback check for single word keys (e.g. "cafes" inside "coffee-and-cafes")
       const matchedKey = Object.keys(categoryMap).find(k => key.includes(k) || k.includes(key));
       details = matchedKey ? categoryMap[matchedKey] : { color: '#3898ec', icon: defaultPinSvg, name: rawCat };
     }
@@ -232,52 +228,6 @@ function initMarlonWalksMap() {
     return details;
   }
 
-  // 2. UPDATED APPLY FILTERS ZOOM RESET
-  function applyFilters() {
-    updatePolaroidCaption(
-      'Tap any pin to explore!',
-      'Select a spot on the map to unlock details, category tags, and directions.',
-      null,
-      null
-    );
-
-    const bounds = new mapboxgl.LngLatBounds();
-    let visibleCount = 0;
-
-    allMarkers.forEach(item => {
-      const matchesArea = (activeArea === 'All') || 
-                          (item.neighborhood.toLowerCase() === activeArea.toLowerCase());
-
-      const matchesCategory = activeCategories.has('All') || 
-                               activeCategories.has(item.category);
-
-      const matchesTag = activeTags.has('All') || 
-                         item.tags.some(t => activeTags.has(t));
-
-      if (matchesArea && matchesCategory && matchesTag) {
-        item.marker.addTo(map);
-        bounds.extend([item.lng, item.lat]);
-        visibleCount++;
-      } else {
-        item.marker.remove();
-      }
-    });
-
-    if (countBadgeEl) {
-      countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
-    }
-
-    if (activeArea === 'All') {
-      // Zoom out back to macro level when viewing all of LA
-      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2500 });
-    } else if (visibleCount >= 1) {
-      const center = bounds.getCenter();
-      map.flyTo({ center: [center.lng, center.lat], zoom: 13.5, duration: 2500 });
-    } else {
-      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2500 });
-    }
-  }
-  
   function cleanText(str) {
     if (!str) return '';
     return str.replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
@@ -648,15 +598,11 @@ function initMarlonWalksMap() {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
     }
 
-    const currentZoom = map.getZoom();
-
     if (activeArea === 'All') {
-      const targetZoom = Math.max(currentZoom, 10.5);
-      map.flyTo({ center: dtlaCenter, zoom: targetZoom, duration: 2500 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2500 });
     } else if (visibleCount >= 1) {
       const center = bounds.getCenter();
-      const targetZoom = Math.max(currentZoom, 13.5);
-      map.flyTo({ center: [center.lng, center.lat], zoom: targetZoom, duration: 2500 });
+      map.flyTo({ center: [center.lng, center.lat], zoom: 13.5, duration: 2500 });
     } else {
       map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2500 });
     }
