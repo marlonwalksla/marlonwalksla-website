@@ -13,6 +13,18 @@
   --cat-shopping: #06b6d4;      /* Cyan for Shopping */
   --cat-parks: #10b981;         /* Emerald Green for Parks */
   --cat-entertainment: #14b8a6; /* Teal for Entertainment */
+}
+
+/* Category Filter Pill Dots */
+.cat-dot {
+  display: inline-block !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  margin-right: 6px !important;
+  flex-shrink: 0 !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+}
 
 /* Hide Webflow Empty States */
 .w-dyn-empty { display: none !important; }
