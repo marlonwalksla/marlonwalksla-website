@@ -280,7 +280,15 @@ function initMarlonWalksMap() {
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
 
-    const parsedTags = rawTagsStr ? rawTagsStr.split(';').map(t => t.trim()).filter(Boolean) : [];
+    // Read tags from nested .tag-item or #tag-item elements OR fallback to data-tags attribute
+    const parentCard = item.closest('.w-dyn-item') || item.parentElement;
+    const tagNodes = parentCard ? parentCard.querySelectorAll('.tag-item, #tag-item, [id="tag-item"]') : [];
+    let parsedTags = Array.from(tagNodes).map(node => cleanText(node.textContent)).filter(Boolean);
+
+    if (parsedTags.length === 0 && rawTagsStr) {
+      parsedTags = rawTagsStr.split(';').map(t => t.trim()).filter(Boolean);
+    }
+
     parsedTags.forEach(t => tagsSet.add(t));
 
     if (!isNaN(lat) && !isNaN(lng)) {
