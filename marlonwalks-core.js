@@ -154,7 +154,7 @@ function initMarlonWalksMap() {
   });
 
   // =============================================================
-  // B. MAPBOX & HERO POLAROID ENGINE (8 CATEGORIES & TAGS)
+  // B. MAPBOX & HERO POLAROID ENGINE
   // =============================================================
   const mapContainer = document.getElementById('map');
   if (!mapContainer) return;
@@ -177,7 +177,6 @@ function initMarlonWalksMap() {
   });
   map.addControl(geolocate, 'top-right');
 
-  // CLEAN VECTOR SVG ICONS FOR THE 8 PRIMARY CATEGORIES & ALIASES
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
   const categoryMap = {
@@ -280,7 +279,6 @@ function initMarlonWalksMap() {
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
 
-    // Read tags from nested .tag-item / #tag-item OR data-tags attribute
     const parentCard = item.closest('.w-dyn-item') || item.parentElement;
     const tagNodes = parentCard ? parentCard.querySelectorAll('.tag-item, #tag-item, [id="tag-item"]') : [];
     let parsedTags = Array.from(tagNodes).map(node => cleanText(node.textContent)).filter(Boolean);
@@ -289,7 +287,6 @@ function initMarlonWalksMap() {
       parsedTags = rawTagsStr.split(/[,;]/).map(t => t.trim()).filter(Boolean);
     }
 
-    // Clean stray '#' or empty symbols
     parsedTags = parsedTags.map(t => t.replace(/^#/, '').trim()).filter(t => t && t !== '#');
     parsedTags.forEach(t => tagsSet.add(t));
 
@@ -323,9 +320,8 @@ function initMarlonWalksMap() {
         const captionMeta = `${neighborhood}  •  ${catDetails.name}\n${desc}${tagsFormatted}`;
         updatePolaroidCaption(title, captionMeta, lat, lng);
         
-        // Comfortably frame pin while keeping neighborhood context visible
-        const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.0);
-        map.flyTo({ center: [lng, lat], zoom: targetZoom, duration: 1800 });
+        // NO ZOOM OVERRIDE: Gently centers without zooming in too close
+        map.flyTo({ center: [lng, lat], zoom: map.getZoom(), duration: 1200 });
 
         if (window.swiperInstance) {
           window.swiperInstance.slideToLoop(index);
@@ -343,11 +339,66 @@ function initMarlonWalksMap() {
     }
   });
 
+  const filterBar = document.querySelector('.filter-bar');
   const form = document.querySelector('.filter-bar form');
   let activeArea = 'All';
   const activeCategories = new Set(['All']);
   const activeTags = new Set(['All']);
   let countBadgeEl = null;
+
+  // Setup Mobile Floating Trigger & Slide-Up Drawer Mechanics
+  if (filterBar) {
+    let backdrop = document.querySelector('.mobile-filter-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'mobile-filter-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    const mapPolaroid = document.querySelector('.map-master-polaroid');
+    let triggerBtn = document.querySelector('.mobile-filter-trigger');
+    if (!triggerBtn && mapPolaroid) {
+      triggerBtn = document.createElement('button');
+      triggerBtn.type = 'button';
+      triggerBtn.className = 'mobile-filter-trigger';
+      triggerBtn.innerHTML = `🔍 Filter Spots (<span id="trigger-count">${allMarkers.length}</span>)`;
+      mapPolaroid.appendChild(triggerBtn);
+    }
+
+    const openDrawer = () => {
+      filterBar.classList.add('is-open');
+      backdrop.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeDrawer = () => {
+      filterBar.classList.remove('is-open');
+      backdrop.classList.remove('is-active');
+      document.body.style.overflow = '';
+    };
+
+    if (triggerBtn) triggerBtn.addEventListener('click', openDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+
+    if (form && !form.querySelector('.sheet-header')) {
+      const sheetHeader = document.createElement('div');
+      sheetHeader.className = 'sheet-header';
+      sheetHeader.innerHTML = `
+        <span class="sheet-title">Filter LA Locations</span>
+        <button type="button" class="sheet-close-btn">&times;</button>
+      `;
+      form.insertBefore(sheetHeader, form.firstChild);
+
+      sheetHeader.querySelector('.sheet-close-btn').addEventListener('click', closeDrawer);
+
+      const applyBtn = document.createElement('button');
+      applyBtn.type = 'button';
+      applyBtn.className = 'sheet-apply-btn';
+      applyBtn.innerText = 'Show Spots';
+      applyBtn.addEventListener('click', closeDrawer);
+      form.appendChild(applyBtn);
+    }
+  }
 
   function createScrollRow(pillsBar) {
     const container = document.createElement('div');
@@ -381,7 +432,7 @@ function initMarlonWalksMap() {
   if (form) {
     form.querySelectorAll('.dashboard-group').forEach(el => el.remove());
 
-    // 1. DYNAMIC NEIGHBORHOOD DASHBOARD GROUP
+    // 1. NEIGHBORHOODS
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
@@ -444,7 +495,7 @@ function initMarlonWalksMap() {
       applyFilters();
     });
 
-    // 2. DYNAMIC CATEGORIES DASHBOARD GROUP
+    // 2. CATEGORIES
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -509,7 +560,7 @@ function initMarlonWalksMap() {
       applyFilters();
     });
 
-    // 3. DYNAMIC TAGS DASHBOARD GROUP
+    // 3. TAGS / VIBES
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
       tagGroup.className = 'dashboard-group';
@@ -574,7 +625,6 @@ function initMarlonWalksMap() {
     }
   }
 
-  // 4. MULTI-SELECT MAP FILTERING (NEIGHBORHOODS + CATEGORIES + TAGS)
   function applyFilters() {
     updatePolaroidCaption(
       'Tap any pin to explore!',
@@ -609,17 +659,20 @@ function initMarlonWalksMap() {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
     }
 
+    const triggerCount = document.getElementById('trigger-count');
+    if (triggerCount) {
+      triggerCount.innerText = visibleCount;
+    }
+
     if (activeArea === 'All') {
       map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2000 });
     } else if (visibleCount >= 1) {
-      // Automatically fit bounds around all visible pins in the neighborhood
       map.fitBounds(bounds, { padding: 70, maxZoom: 14.0, duration: 2000 });
     } else {
       map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2000 });
     }
   }
 
-  // 5. FETCH AND INCREMENT TOTAL MAP VIEWS
   async function trackAndDisplayViews() {
     const viewsBadge = document.getElementById('map-views-badge');
     if (!viewsBadge) return;
@@ -643,7 +696,6 @@ function initMarlonWalksMap() {
   });
 }
 
-// LISTEN TO FINSWEET CMS LOAD EVENT
 window.fsAttributes = window.fsAttributes || [];
 window.fsAttributes.push([
   'cmsload',
