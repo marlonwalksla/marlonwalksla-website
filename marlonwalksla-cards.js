@@ -1,4 +1,4 @@
-function initMarlonWalksCards() {
+window.initMarlonWalksCards = function() {
   const roots = document.querySelectorAll('.pc-root');
   
   roots.forEach((root) => {
@@ -110,6 +110,7 @@ function initMarlonWalksCards() {
       touchRatio: 1.0,
       observer: true,
       observeParents: true,
+      observeSlideChildren: true,
 
       breakpoints: {
         0: { spaceBetween: 25 },
@@ -146,3 +147,24 @@ function initMarlonWalksCards() {
       }
     });
   });
+};
+
+/* Attach execution to Finsweet CMS Load and DOM Ready */
+window.fsAttributes = window.fsAttributes || [];
+window.fsAttributes.push([
+  'cmsload',
+  async (listInstances) => {
+    await Promise.all(
+      listInstances.map(instance => instance.renderingQueue || Promise.resolve())
+    );
+    window.initMarlonWalksCards();
+  }
+]);
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    if (typeof window.initMarlonWalksCards === 'function') {
+      window.initMarlonWalksCards();
+    }
+  }, 600);
+});
