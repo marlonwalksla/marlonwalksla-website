@@ -1,0 +1,20 @@
+/* =========================================
+   global-vars.css
+   MARLONWALKS LA - CATEGORY COLOR PALETTE & GLOBALS
+   ========================================= */
+:root {
+  --brand-blue: #3898ec;
+  
+  /* 8 Primary Map Categories */
+  --cat-cafes: #a855f7;         
+  --cat-dining: #ef4444;        
+  --cat-nightlife: #6366f1;     
+  --cat-landmarks: #f59e0b;     
+  --cat-arts: #ec4899;          
+  --cat-shopping: #06b6d4;      
+  --cat-parks: #10b981;         
+  --cat-entertainment: #2563eb; 
+}
+
+/* Hide Webflow Empty States */
+.w-dyn-empty { display: none !important; }
