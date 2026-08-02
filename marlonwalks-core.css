@@ -39,7 +39,7 @@
 }
 
 /* -----------------------------------
-   MASTER MAP POLAROID FRAME (FLEX REORDER)
+   MASTER MAP POLAROID FRAME
 ----------------------------------- */
 .map-master-polaroid {
   position: relative;
@@ -56,7 +56,7 @@
   margin: 0 auto;
 }
 
-/* 1. FILTER TRAY MOVED TO THE TOP (ABOVE MAP) */
+/* 1. FILTER TRAY (DESKTOP DEFAULT) */
 .filter-bar, 
 .map-master-polaroid .filter-bar {
   order: 1 !important;
@@ -65,7 +65,7 @@
   width: 100% !important;
 }
 
-/* 2. MAP IN THE MIDDLE */
+/* 2. MAP CONTAINER */
 .map-master-polaroid #map, 
 .map-master-polaroid .map-container {
   order: 2 !important;
@@ -219,7 +219,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Thicker Desktop Scrollbars */
+/* Scrollbars */
 .neighborhood-pills-bar::-webkit-scrollbar,
 .category-pills-bar::-webkit-scrollbar {
   height: 10px !important;
@@ -263,7 +263,9 @@
   pointer-events: none;
 }
 
-/* Map Custom Markers */
+/* =========================================
+   MAP CUSTOM MARKERS
+   ========================================= */
 .marker-wrapper {
   width: 36px;
   height: 36px;
@@ -297,6 +299,7 @@
   right: 10px !important;
 }
 
+/* Selected Polaroid Caption Details */
 #selected-title {
   margin: 0 0 6px 0 !important;
   font-size: 22px !important;
@@ -331,6 +334,9 @@
   transform: translateY(-1px) !important;
 }
 
+/* =========================================
+   POLAROID SWIPER CAROUSEL & FLIP CARDS
+   ========================================= */
 .pc-root {
   position: relative;
   width: 100%;
@@ -499,10 +505,143 @@
   z-index: 10;
 }
 
-@media (max-width: 600px) {
-  .filter-bar form { padding: 14px 6px 10px 6px !important; }
+/* =========================================
+   MOBILE SLIDE-UP FILTER DRAWER & OVERRIDES
+   ========================================= */
+
+/* Hide Mobile Modal Trigger Elements on Desktop */
+.mobile-filter-trigger,
+.mobile-filter-backdrop,
+.sheet-header,
+.sheet-apply-btn {
+  display: none !important;
+}
+
+/* Mobile Breakpoint (768px and below) */
+@media (max-width: 768px) {
+  .filter-bar form { padding: 14px 10px 10px 10px !important; }
   .map-master-polaroid { padding: 12px 12px 20px 12px !important; }
-  .map-master-polaroid #map, .map-master-polaroid .map-container { height: 340px !important; }
   .pc-root .swiper-slide { width: 230px !important; }
   .ernesto-photobomb { width: 80px; top: -30px; right: -10px; }
+
+  /* Map gets expanded screen height on mobile */
+  .map-master-polaroid #map, 
+  .map-master-polaroid .map-container { 
+    height: 65vh !important; 
+    min-height: 380px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Floating Filter Trigger Pill Button */
+  .mobile-filter-trigger {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    position: absolute !important;
+    top: 24px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 25 !important;
+    background-color: #111827 !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    padding: 10px 18px !important;
+    border-radius: 30px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25) !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease, background-color 0.2s ease !important;
+  }
+
+  .mobile-filter-trigger:active {
+    transform: translateX(-50%) scale(0.96) !important;
+  }
+
+  /* Screen Overlay Backdrop */
+  .mobile-filter-backdrop {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    z-index: 998 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+    backdrop-filter: blur(2px) !important;
+  }
+
+  .mobile-filter-backdrop.is-active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Filter Tray Converted to Slide-Up Bottom Sheet */
+  .filter-bar,
+  .map-master-polaroid .filter-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999 !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    transform: translateY(100%) !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 20px 20px 0 0 !important;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2) !important;
+    background-color: #ffffff !important;
+  }
+
+  .filter-bar.is-open {
+    transform: translateY(0) !important;
+  }
+
+  /* Bottom Sheet Header */
+  .sheet-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .sheet-title {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: #1a202c !important;
+  }
+
+  .sheet-close-btn {
+    background: #edf2f7 !important;
+    border: none !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50% !important;
+    font-size: 18px !important;
+    color: #4a5568 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+  }
+
+  /* Bottom Sheet Apply Button */
+  .sheet-apply-btn {
+    display: block !important;
+    width: 100% !important;
+    padding: 12px !important;
+    background-color: var(--brand-blue) !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    margin-top: 8px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 12px rgba(56, 152, 236, 0.3) !important;
+  }
 }
