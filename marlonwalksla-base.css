@@ -1,3 +1,24 @@
+Here is exactly why those two issues are happening and how we are going to fix them:
+
+### 1. Why the Card Flip was Broken
+
+In modern browsers (Chrome and Safari), having **`will-change: transform;`** on a parent element like `.pc-card` flattens all child 3D transforms. It forces the browser to render the 3D card as a flat 2D image, which causes both front and back faces to bleed through or stay stuck flat.
+
+### 2. Why the Swiper Scroll was Broken
+
+When using Finsweet CMS Load in Webflow, the CMS items are loaded into the page dynamically. If Swiper initializes *before* Finsweet finishes rendering your collection list, Swiper detects 0 slides and locks scrolling entirely.
+
+---
+
+## The Fixes
+
+Update your code in GitHub with these corrected files:
+
+### File 1: Update `marlonwalksla-base.css`
+
+Replace your `marlonwalksla-base.css` with this updated stylesheet. It removes `will-change: transform` and adds explicit Webflow 3D preservation rules for Safari and Chrome:
+
+```css
 /* =========================================
    MARLONWALKS LA - CATEGORY COLOR PALETTE
    ========================================= */
@@ -267,7 +288,9 @@
 
 #selected-button.is-visible { display: inline-block !important; }
 
-/* Polaroid Swiper & Flip Cards */
+/* =========================================
+   POLAROID SWIPER & 3D FLIP CARDS
+   ========================================= */
 .pc-root {
   position: relative;
   width: 100%;
@@ -278,12 +301,12 @@
 }
 
 .pc-root .swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
   width: 280px !important;
-  flex-shrink: 0;
-  box-sizing: border-box;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
 }
 
 .pc-card {
@@ -302,13 +325,16 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   transform: rotate(calc(var(--card-rot, 0deg) + var(--drag-rot, 0deg)));
   transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.4s ease;
+  transform-style: preserve-3d !important;
+  -webkit-transform-style: preserve-3d !important;
 }
 
 .pc-flip-area {
   width: 100%;
   flex: 1;
   margin-bottom: 10px;
-  perspective: 1000px;
+  perspective: 1000px !important;
+  -webkit-perspective: 1000px !important;
   cursor: pointer;
 }
 
@@ -316,11 +342,15 @@
   position: relative;
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
+  transform-style: preserve-3d !important;
+  -webkit-transform-style: preserve-3d !important;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.pc-flip-area.is-flipped .pc-flip-inner { transform: rotateY(180deg); }
+.pc-flip-area.is-flipped .pc-flip-inner { 
+  transform: rotateY(180deg) !important; 
+  -webkit-transform: rotateY(180deg) !important;
+}
 
 .pc-face-front,
 .pc-face-back {
@@ -329,21 +359,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
 }
 
-.pc-face-front { justify-content: space-between; }
+.pc-face-front { 
+  justify-content: space-between; 
+}
 
 .pc-face-back {
   justify-content: space-between;
   padding: 14px 10px;
   box-sizing: border-box;
   text-align: center;
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.98);
   border: 1px dashed rgba(0, 0, 0, 0.15);
   border-radius: 6px;
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) !important;
+  -webkit-transform: rotateY(180deg) !important;
 }
 
 .pc-image {
@@ -378,3 +411,185 @@
   background-color: var(--brand-blue);
   border-radius: 6px;
 }
+
+```
+
+---
+
+### File 2: Update `marlonwalksla-cards.js`
+
+Replace your `marlonwalksla-cards.js` file with this updated script. It awaits Finsweet CMS Load across all list instances so Swiper only initializes when all cards are in the DOM, enabling smooth scrolling:
+
+```javascript
+window.initMarlonWalksCards = function() {
+  const roots = document.querySelectorAll('.pc-root');
+  
+  roots.forEach((root) => {
+    if (root.getAttribute('data-swiper-initialized') === 'true') return;
+    root.setAttribute('data-swiper-initialized', 'true');
+
+    const wrapper = root.querySelector('.swiper-wrapper');
+    const swiperContainer = root.querySelector('.swiper');
+    if (!wrapper || !swiperContainer) return;
+
+    const rotationPatterns = [-3, 2, -1.5, 3, -2];
+    const items = Array.from(wrapper.children);
+    
+    items.forEach((item, index) => {
+      const card = item.querySelector('.pc-card');
+      if (card) {
+        const rotationAngle = rotationPatterns[index % rotationPatterns.length];
+        card.style.setProperty('--card-rot', `${rotationAngle}deg`);
+      }
+    });
+    
+    if (items.length > 0 && items.length < 8) {
+      const dupsNeeded = Math.ceil(8 / items.length) - 1;
+      for (let i = 0; i < dupsNeeded; i++) {
+        items.forEach(item => {
+          const clone = item.cloneNode(true);
+          wrapper.appendChild(clone);
+        });
+      }
+    }
+
+    const cards = root.querySelectorAll('.pc-card');
+    cards.forEach(card => {
+      if (!card.querySelector('.pc-flip-area')) {
+        const button = card.querySelector('.pc-button');
+        const cmsText = card.querySelector('.pc-description-back');
+        const cmsMascot = card.querySelector('.pc-image-back');
+
+        const childrenToWrap = Array.from(card.children).filter(
+          child => child !== button && child !== cmsText && child !== cmsMascot
+        );
+        
+        const flipArea = document.createElement('div');
+        flipArea.className = 'pc-flip-area';
+        const flipInner = document.createElement('div');
+        flipInner.className = 'pc-flip-inner';
+        const faceFront = document.createElement('div');
+        faceFront.className = 'pc-face-front';
+        const faceBack = document.createElement('div');
+        faceBack.className = 'pc-face-back';
+
+        childrenToWrap.forEach(child => faceFront.appendChild(child));
+
+        const frontHint = document.createElement('div');
+        frontHint.className = 'pc-front-hint';
+        frontHint.innerText = 'Tap to flip ↺';
+        faceFront.appendChild(frontHint);
+
+        if (cmsText && cmsText.innerHTML.trim() !== '') {
+          const backTextContainer = document.createElement('div');
+          backTextContainer.className = 'pc-description-back';
+          backTextContainer.innerHTML = cmsText.innerHTML;
+          faceBack.appendChild(backTextContainer);
+        }
+
+        if (cmsMascot && (cmsMascot.getAttribute('src') || cmsMascot.dataset.src)) {
+          const mascotImg = document.createElement('img');
+          mascotImg.className = 'pc-image-back';
+          mascotImg.src = cmsMascot.getAttribute('src') || cmsMascot.dataset.src;
+          mascotImg.alt = cmsMascot.getAttribute('alt') || 'Mascot';
+          faceBack.appendChild(mascotImg);
+        }
+
+        const backHint = document.createElement('div');
+        backHint.className = 'pc-back-hint';
+        backHint.innerText = 'Tap to flip ↺';
+        faceBack.appendChild(backHint);
+
+        flipInner.appendChild(faceFront);
+        flipInner.appendChild(faceBack);
+        flipArea.appendChild(flipInner);
+        
+        if (button) {
+          card.insertBefore(flipArea, button);
+        } else {
+          card.appendChild(flipArea);
+        }
+      }
+    });
+
+    root.addEventListener('click', (e) => {
+      const flipArea = e.target.closest('.pc-flip-area');
+      if (!flipArea) return;
+      const card = flipArea.closest('.pc-card');
+      if (card && !card.classList.contains('is-swiping')) {
+        flipArea.classList.toggle('is-flipped');
+      }
+    });
+
+    let touchStartX = 0;
+
+    window.swiperInstance = new Swiper(swiperContainer, {
+      loop: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      spaceBetween: 40,
+      speed: 400,
+      grabCursor: true,
+      touchRatio: 1.0,
+      observer: true,
+      observeParents: true,
+      observeSlideChildren: true,
+
+      breakpoints: {
+        0: { spaceBetween: 25 },
+        480: { spaceBetween: 40 }
+      },
+
+      on: {
+        touchStart(s, e) {
+          touchStartX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+        },
+        touchMove(s, e) {
+          const currentX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+          const diffX = currentX - touchStartX;
+          const activeSlide = s.slides[s.activeIndex];
+          
+          if (activeSlide) {
+            const activeCard = activeSlide.querySelector('.pc-card');
+            if (activeCard) {
+              activeCard.classList.add('is-swiping');
+              const dragRot = Math.max(-8, Math.min(8, diffX * 0.04));
+              activeCard.style.setProperty('--drag-rot', `${dragRot}deg`);
+            }
+          }
+        },
+        touchEnd(s) {
+          s.slides.forEach(slide => {
+            const activeCard = slide.querySelector('.pc-card');
+            if (activeCard) {
+              activeCard.style.setProperty('--drag-rot', '0deg');
+              setTimeout(() => activeCard.classList.remove('is-swiping'), 100);
+            }
+          });
+        }
+      }
+    });
+  });
+};
+
+/* Attach execution to Finsweet CMS Load and DOM Ready */
+window.fsAttributes = window.fsAttributes || [];
+window.fsAttributes.push([
+  'cmsload',
+  async (listInstances) => {
+    await Promise.all(
+      listInstances.map(instance => instance.renderingQueue || Promise.resolve())
+    );
+    window.initMarlonWalksCards();
+  }
+]);
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    if (typeof window.initMarlonWalksCards === 'function') {
+      window.initMarlonWalksCards();
+    }
+  }, 600);
+});
+
+```
