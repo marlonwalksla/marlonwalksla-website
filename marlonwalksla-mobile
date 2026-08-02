@@ -1,0 +1,126 @@
+/* =========================================
+   MOBILE SLIDE-UP FILTER DRAWER & OVERRIDES
+   ========================================= */
+
+.mobile-filter-trigger,
+.mobile-filter-backdrop,
+.sheet-header,
+.sheet-apply-btn {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .filter-bar form { padding: 14px 10px 10px 10px !important; }
+  .map-master-polaroid { padding: 12px 12px 20px 12px !important; }
+  .pc-root .swiper-slide { width: 230px !important; }
+
+  /* Map takes center stage on mobile */
+  .map-master-polaroid #map, 
+  .map-master-polaroid .map-container { 
+    height: 65vh !important; 
+    min-height: 380px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Floating Filter Pill Button */
+  .mobile-filter-trigger {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    position: absolute !important;
+    top: 24px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 25 !important;
+    background-color: #111827 !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    padding: 10px 18px !important;
+    border-radius: 30px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25) !important;
+    cursor: pointer !important;
+  }
+
+  /* Dark Backdrop Sheet Overlay */
+  .mobile-filter-backdrop {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    z-index: 998 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+    backdrop-filter: blur(2px) !important;
+  }
+
+  .mobile-filter-backdrop.is-active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Slide-Up Bottom Sheet Drawer */
+  .filter-bar,
+  .map-master-polaroid .filter-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999 !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    transform: translateY(100%) !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 20px 20px 0 0 !important;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2) !important;
+    background-color: #ffffff !important;
+  }
+
+  .filter-bar.is-open {
+    transform: translateY(0) !important;
+  }
+
+  .sheet-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .sheet-title {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: #1a202c !important;
+  }
+
+  .sheet-close-btn {
+    background: #edf2f7 !important;
+    border: none !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50% !important;
+    font-size: 18px !important;
+    color: #4a5568 !important;
+    cursor: pointer !important;
+  }
+
+  .sheet-apply-btn {
+    display: block !important;
+    width: 100% !important;
+    padding: 12px !important;
+    background-color: var(--brand-blue) !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    margin-top: 8px !important;
+    cursor: pointer !important;
+  }
+}
