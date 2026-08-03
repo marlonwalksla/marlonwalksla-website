@@ -189,19 +189,23 @@ window.initMapEngine = function() {
     const visibleIds = new Set();
     features.forEach(f => {
       const id = f.properties.id;
-      visibleIds.add(id);
-      if (!activeMarkersMap[id]) {
-        const spot = allSpotsData[id];
-        if (spot) {
-          spot.marker.addTo(map);
-          activeMarkersMap[id] = spot.marker;
+      if (id !== undefined && id !== null) {
+        visibleIds.add(Number(id));
+        if (!activeMarkersMap[id]) {
+          const spot = allSpotsData[id];
+          if (spot) {
+            spot.marker.addTo(map);
+            activeMarkersMap[id] = spot.marker;
+          }
         }
       }
     });
 
     Object.keys(activeMarkersMap).forEach(id => {
       if (!visibleIds.has(Number(id))) {
-        activeMarkersMap[id].remove();
+        if (activeMarkersMap[id]) {
+          activeMarkersMap[id].remove();
+        }
         delete activeMarkersMap[id];
       }
     });
@@ -401,6 +405,8 @@ window.initMapEngine = function() {
     } else {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1800 });
     }
+
+    setTimeout(syncVisibleMarkers, 100);
   }
 
   async function trackAndDisplayViews() {
@@ -488,6 +494,11 @@ window.initMapEngine = function() {
 
     map.on('move', syncVisibleMarkers);
     map.on('moveend', syncVisibleMarkers);
+    map.on('sourcedata', (e) => {
+      if (e.sourceId === 'spots') {
+        syncVisibleMarkers();
+      }
+    });
 
     applyFilters();
     trackAndDisplayViews();
