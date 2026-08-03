@@ -1,37 +1,14 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Map Controls & Filter UI
- * 
- * OVERVIEW:
- * Controls the visual styling for the interactive tactile tray located on the bottom 
- * margin of the polaroid frame. It handles the UI for the `<select>` dropdowns 
- * (used for large datasets like Neighborhoods and Vibes) and the scrollable pill 
- * buttons (used for Categories).
- * 
- * WHAT'S INSIDE:
- * - `.filter-bar form`: The main dashboard container, stylized with a transparent 
- *   background to blend seamlessly into the white polaroid margin.
- * - `.filter-bar select`: Custom styling for native HTML dropdowns to make them look clean and modern.
- * - `.dashboard-group`, `.dashboard-label`, `.count-badge`: Typography for headers and spot counters.
- * - `.area-pill`, `.cat-pill`, `.scroll-arrow-btn`: The interactive pill designs and scroll UI for Categories.
- * 
- * WHEN TO FEED THIS FILE TO GEMINI / AI:
- * - Feed this file if you want to: Change the design, color, or arrows of the `<select>` dropdowns.
- * - Feed this file if you want to: Change the shape, color, or hover animations of the category pill buttons.
- * - Feed this file if you want to: Adjust the spacing between the filter groups.
+ * CATEGORY: MarlonWalksLA Website - Dynamic Polaroid Caption & Filter Controls
  * ============================================================================== */
 
-/* =========================================
-   map-filters.css
-   MAP CONTROLS TACTILE TRAY & PILLS
-   ========================================= */
 .filter-bar form {
   display: flex !important;
   flex-direction: column !important;
-  gap: 16px !important;
+  gap: 10px !important;
   background-color: transparent !important;
-  padding: 4px 4px 0px 4px !important;
-  border-radius: 0 !important;
+  padding: 2px !important;
   border: none !important;
   box-shadow: none !important;
   margin: 0 !important;
@@ -39,12 +16,117 @@
   width: 100% !important;
 }
 
-/* NATIVE DROPDOWN SELECT STYLING (For large datasets like 88 Cities) */
+/* DYNAMIC POLAROID CAPTION CARD */
+.polaroid-caption-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: #fafafa;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  animation: fadeInCaption 0.25s ease-out forwards;
+}
+
+@keyframes fadeInCaption {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.polaroid-caption-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.back-to-filters-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e0;
+  color: #2d3748;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.back-to-filters-btn:hover {
+  background-color: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+  transform: translateX(-2px);
+}
+
+.polaroid-cat-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.polaroid-caption-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.polaroid-caption-meta {
+  font-size: 12px;
+  font-weight: 700;
+  color: #718096;
+}
+
+.polaroid-caption-desc {
+  font-size: 13px;
+  color: #4a5568;
+  line-height: 1.45;
+  margin: 4px 0 2px 0;
+}
+
+.polaroid-tags {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a0aec0;
+  font-style: italic;
+}
+
+.polaroid-caption-footer {
+  margin-top: 6px;
+}
+
+.polaroid-directions-btn {
+  display: inline-block;
+  background-color: #3898ec;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
+}
+
+.polaroid-directions-btn:hover {
+  background-color: #2b7bc4;
+  transform: translateY(-1px);
+}
+
+/* DROPDOWNS & FILTER PANELS */
 .filter-bar select {
   display: block !important;
   width: 100%;
-  padding: 10px 16px;
-  font-size: 14px;
+  padding: 8px 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #4a5568;
   background-color: #f7fafc;
@@ -52,33 +134,22 @@
   border-radius: 8px;
   appearance: none;
   -webkit-appearance: none;
-  -moz-appearance: none;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.02);
   transition: all 0.2s ease;
-  /* Custom Arrow SVG */
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234a5568%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
-  background-position: right 16px top 50%;
+  background-position: right 14px top 50%;
   background-size: 10px auto;
 }
 
-.filter-bar select:hover {
-  border-color: var(--brand-blue);
-  box-shadow: 0 2px 8px rgba(56, 152, 236, 0.1);
-}
-
-.filter-bar select:focus {
-  outline: none;
-  border-color: var(--brand-blue);
-  box-shadow: 0 0 0 3px rgba(56, 152, 236, 0.2);
-}
+.filter-bar select:hover { border-color: #3898ec; }
 
 .dashboard-group {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 6px;
+  gap: 4px;
 }
 
 .dashboard-label {
@@ -95,12 +166,12 @@
 }
 
 .count-badge {
-  color: var(--brand-blue);
+  color: #3898ec;
   font-weight: 800;
   margin-right: 4px;
 }
 
-/* HORIZONTAL PILL CONTROLS (Maintained for Categories) */
+/* HORIZONTAL PILL CONTROLS */
 .pills-scroll-container {
   display: flex !important;
   align-items: center !important;
@@ -113,13 +184,13 @@
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 32px !important;
-  height: 32px !important;
+  width: 28px !important;
+  height: 28px !important;
   border-radius: 50% !important;
   border: 1px solid #cbd5e0 !important;
   background-color: #ffffff !important;
   color: #4a5568 !important;
-  font-size: 18px !important;
+  font-size: 16px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   cursor: pointer !important;
@@ -130,34 +201,30 @@
 }
 
 .scroll-arrow-btn:hover {
-  border-color: var(--brand-blue) !important;
-  color: var(--brand-blue) !important;
-  background-color: #ffffff !important;
+  border-color: #3898ec !important;
+  color: #3898ec !important;
   transform: scale(1.08) !important;
 }
 
-.neighborhood-pills-bar,
 .category-pills-bar {
   display: flex !important;
   flex-wrap: nowrap !important; 
   overflow-x: auto !important; 
-  -webkit-overflow-scrolling: touch !important; 
-  gap: 8px !important;
+  gap: 6px !important;
   justify-content: flex-start !important; 
   width: 100% !important;
-  padding: 4px 4px 8px 4px !important; 
+  padding: 2px 2px 6px 2px !important; 
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
 
-.area-pill,
 .cat-pill {
   flex-shrink: 0 !important; 
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  padding: 8px 16px !important;
-  font-size: 13px !important;
+  padding: 6px 14px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   border-radius: 20px !important;
   border: 1px solid #e2e8f0 !important;
@@ -166,70 +233,34 @@
   cursor: pointer !important;
   user-select: none !important;
   box-shadow: 0 2px 5px rgba(0,0,0,0.03) !important;
-  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  transition: all 0.2s ease !important;
 }
 
-.area-pill:hover, .cat-pill:hover {
-  border-color: var(--brand-blue) !important;
+.cat-pill:hover {
+  border-color: #3898ec !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 12px rgba(56, 152, 236, 0.12) !important;
-}
-
-.area-pill.is-active {
-  background-color: var(--brand-blue) !important;
-  color: #ffffff !important;
-  border-color: var(--brand-blue) !important;
-  box-shadow: 0 4px 10px rgba(56, 152, 236, 0.25) !important;
 }
 
 .cat-pill.is-active {
   background-color: #222222 !important;
   color: #ffffff !important;
   border-color: #222222 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }
 
 .cat-dot {
   display: inline-block !important;
-  width: 10px !important;
-  height: 10px !important;
+  width: 9px !important;
+  height: 9px !important;
   border-radius: 50% !important;
-  margin-right: 6px !important;
+  margin-right: 4px !important;
   flex-shrink: 0 !important;
   border: 1px solid rgba(0, 0, 0, 0.15) !important;
 }
 
-.neighborhood-pills-bar::-webkit-scrollbar,
-.category-pills-bar::-webkit-scrollbar {
-  height: 6px !important;
-}
-
-.neighborhood-pills-bar::-webkit-scrollbar-track,
-.category-pills-bar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.04) !important;
-  border-radius: 10px !important;
-}
-
-.neighborhood-pills-bar::-webkit-scrollbar-thumb,
-.category-pills-bar::-webkit-scrollbar-thumb {
-  background-color: #a0aec0 !important;
-  border-radius: 10px !important;
-  border: 2px solid #f7fafc !important;
-}
-
-.neighborhood-pills-bar::-webkit-scrollbar-thumb:hover,
-.category-pills-bar::-webkit-scrollbar-thumb:hover {
-  background-color: #718096 !important;
-}
+.category-pills-bar::-webkit-scrollbar { height: 4px !important; }
+.category-pills-bar::-webkit-scrollbar-thumb { background-color: #a0aec0 !important; border-radius: 10px !important; }
 
 @media (hover: none) and (pointer: coarse) {
   .scroll-arrow-btn { display: none !important; }
-  .neighborhood-pills-bar::-webkit-scrollbar,
   .category-pills-bar::-webkit-scrollbar { display: none !important; }
-  .neighborhood-pills-bar,
-  .category-pills-bar { scrollbar-width: none !important; }
-}
-
-@media (max-width: 600px) {
-  .filter-bar form { padding: 4px 0px 4px 0px !important; }
 }
