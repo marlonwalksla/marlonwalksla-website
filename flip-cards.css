@@ -1,6 +1,28 @@
+/* ==============================================================================
+ * FILE: flip-cards.css
+ * CATEGORY: MarlonWalksLA Website - 3D Flip Cards & Swiper Styles
+ * 
+ * OVERVIEW:
+ * Handles the visual styling and 3D flip animations for the interactive tour stop 
+ * cards. It controls the Swiper.js carousel layout, ensuring the items look like 
+ * scattered polaroids and flip smoothly to reveal details about the walking tour spots.
+ * 
+ * WHAT'S INSIDE:
+ * - `.pc-root` & `.swiper-slide`: Structural layout constraints for the card carousel.
+ * - `.pc-card`: The main card container with 3D rotation variables and grab cursors.
+ * - `.pc-flip-area`, `.pc-face-front`, `.pc-face-back`: The core mechanics for the 
+ *   180-degree 3D flip effect and backface visibility hiding.
+ * - Typography and media styling for the front and back of the cards (titles, 
+ *   descriptions, hints, and mascot images).
+ * 
+ * WHEN TO FEED THIS FILE TO GEMINI / AI:
+ * - Feed this file if you want to: Adjust the 3D flip animation speed or perspective.
+ * - Feed this file if you want to: Change the size, padding, borders, or shadows of the polaroid cards.
+ * - Feed this file if you want to: Fix responsive layout issues for the cards on mobile screens.
+ * ============================================================================== */
+
 /* =========================================
-   flip-cards.css
-   3D FLIP CARDS & SWIPER INTEGRATION
+   MARLONWALKS LA - 3D FLIP CARDS & SWIPER INTEGRATION
    ========================================= */
 .pc-root {
   position: relative;
