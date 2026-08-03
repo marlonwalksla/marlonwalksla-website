@@ -7,14 +7,14 @@
   font-size: 16px;
   font-weight: 800;
   color: #1a202c;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   letter-spacing: -0.3px;
 }
 
 .filter-bar form {
   display: flex !important;
   flex-direction: column !important;
-  gap: 10px !important;
+  gap: 12px !important;
   background-color: transparent !important;
   padding: 0 !important;
   border: none !important;
@@ -39,7 +39,7 @@
   transition: all 0.2s ease;
   line-height: 1;
   display: inline-block;
-  margin: 8px auto 0 auto;
+  margin: 6px auto 0 auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
@@ -51,15 +51,15 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
 }
 
-/* DYNAMIC POLAROID CAPTION CARD */
+/* POLAROID CAPTION CARD (SPOT DETAILS) */
 .polaroid-caption-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   background-color: #fafafa;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 16px;
+  padding: 18px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   animation: fadeInCaption 0.25s ease-out forwards;
 }
@@ -73,21 +73,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px; /* Space below button */
+  margin-bottom: 4px;
 }
 
-/* DARKER BACK BUTTON */
+/* DARKER SLEEK BACK BUTTON */
 .back-to-filters-btn {
   background: #1a202c;
   border: 1px solid #1a202c;
   color: #ffffff;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 6px 14px;
+  padding: 6px 16px;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
 .back-to-filters-btn:hover {
@@ -97,17 +97,23 @@
 }
 
 .polaroid-cat-badge {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   color: #ffffff;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
+.polaroid-caption-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .polaroid-caption-title {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 800;
   color: #1a202c;
   margin: 0;
@@ -123,8 +129,8 @@
 .polaroid-caption-desc {
   font-size: 13px;
   color: #4a5568;
-  line-height: 1.45;
-  margin: 2px 0;
+  line-height: 1.5;
+  margin: 4px 0 0 0;
 }
 
 .polaroid-tags {
@@ -132,32 +138,52 @@
   font-weight: 600;
   color: #a0aec0;
   font-style: italic;
+  margin-top: 2px;
 }
 
-/* CENTERED GET DIRECTIONS BUTTON */
+/* FLEXIBLE ACTION BUTTON AREA (PRIMARY & SECONDARY CTAS) */
 .polaroid-caption-footer {
   margin-top: 8px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
   width: 100%;
 }
 
 .polaroid-directions-btn {
-  display: inline-block;
-  background-color: #3898ec;
-  color: #ffffff !important;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   text-decoration: none !important;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  padding: 10px 22px;
+  padding: 10px 16px;
   border-radius: 20px;
   transition: all 0.2s ease;
-  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
   text-align: center;
 }
 
-.polaroid-directions-btn:hover {
+.polaroid-directions-btn.primary-cta {
+  background-color: #3898ec;
+  color: #ffffff !important;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
+}
+
+.polaroid-directions-btn.primary-cta:hover {
   background-color: #2b7bc4;
+  transform: translateY(-1px);
+}
+
+.polaroid-directions-btn.secondary-cta {
+  background-color: #ffffff;
+  color: #2d3748 !important;
+  border: 1px solid #cbd5e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.polaroid-directions-btn.secondary-cta:hover {
+  background-color: #edf2f7;
+  border-color: #a0aec0;
   transform: translateY(-1px);
 }
 
@@ -165,7 +191,7 @@
 .filter-bar select {
   display: block !important;
   width: 100%;
-  padding: 8px 14px;
+  padding: 9px 14px;
   font-size: 13px;
   font-weight: 600;
   color: #4a5568;
