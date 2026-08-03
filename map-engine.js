@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-engine.js
- * CATEGORY: MarlonWalksLA Website - Mapbox Engine & LA Adventure Builder
+ * CATEGORY: MarlonWalksLA Website - Build Your LA Adventure
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -120,7 +120,6 @@ window.initMapEngine = async function() {
   const neighborhoods = new Set();
   const categories = new Set();
   const tagsSet = new Set();
-  const coordTracker = {};
 
   // UI VIEWS
   const form = document.querySelector('.filter-bar form');
@@ -251,31 +250,35 @@ window.initMapEngine = async function() {
     const savedIds = getSavedSpots();
     const visitedIds = getVisitedSpots();
     const itineraryIds = [...new Set([...savedIds, ...visitedIds])];
-    const totalSpotsCount = allMarkers.length;
 
     const itineraryMarkers = allMarkers.filter(m => itineraryIds.includes(m.id));
-    const progressPercent = Math.round((visitedIds.length / totalSpotsCount) * 100);
+
+    // Progress Bar Denominator = Total Itinerary Spots Count
+    const totalItineraryCount = itineraryMarkers.length;
+    const visitedCount = visitedIds.length;
+    const progressPercent = totalItineraryCount > 0 ? Math.round((visitedCount / totalItineraryCount) * 100) : 0;
+    const fillWidthPercent = Math.min(progressPercent, 100);
 
     let html = `
       <div class="itinerary-card">
         <div class="itinerary-header">
           <button type="button" class="back-to-filters-btn">‹ Back</button>
-          <div class="itinerary-title">📋 My Saved Itinerary (${itineraryMarkers.length})</div>
+          <div class="itinerary-title">📋 My Saved Itinerary (${totalItineraryCount})</div>
         </div>
 
-        <!-- GAMIFIED PROGRESS BAR -->
+        <!-- GAMIFIED PROGRESS BAR (UPDATED DENOMINATOR) -->
         <div class="itinerary-progress-box">
           <div class="itinerary-progress-label">
-            <span>🎯 Exploration Progress</span>
-            <strong>${visitedIds.length} / ${totalSpotsCount} Spots (${progressPercent}%)</strong>
+            <span>🎯 Itinerary Progress</span>
+            <strong>${visitedCount} / ${totalItineraryCount} Visited (${progressPercent}%)</strong>
           </div>
           <div class="itinerary-progress-track">
-            <div class="itinerary-progress-fill" style="width: ${progressPercent}%;"></div>
+            <div class="itinerary-progress-fill" style="width: ${fillWidthPercent}%;"></div>
           </div>
         </div>
         
         <div class="itinerary-section">
-          ${itineraryMarkers.length === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save or ✅ Visited on any location to build your journey!</p>' : ''}
+          ${totalItineraryCount === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save or ✅ Visited on any location to build your adventure!</p>' : ''}
           <div class="itinerary-list">
             ${itineraryMarkers.map(m => {
               const isVisited = visitedIds.includes(m.id);
@@ -287,7 +290,6 @@ window.initMapEngine = async function() {
                   </div>
                   <div class="itinerary-item-actions">
                     ${isVisited ? '<span class="visited-badge">✓ Visited</span>' : '<span class="saved-badge">📌 Saved</span>'}
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}" target="_blank" class="mini-dir-btn" title="Get Directions">🚗</a>
                   </div>
                 </div>
               `;
@@ -309,10 +311,8 @@ window.initMapEngine = async function() {
       });
     }
 
-    // CLICK ITEM TO MOVE MAP TO PIN
     itineraryView.querySelectorAll('.itinerary-item').forEach(el => {
-      el.addEventListener('click', (e) => {
-        if (e.target.closest('.mini-dir-btn')) return;
+      el.addEventListener('click', () => {
         const id = el.dataset.id;
         const match = allMarkers.find(m => m.id === id);
         if (match) {
@@ -331,14 +331,14 @@ window.initMapEngine = async function() {
     itineraryBadgeBtn.innerText = `📋 My Itinerary (${savedCount})`;
   }
 
-  // 2. PROCESS GEOJSON FEATURES
+  // 2. PROCESS GEOJSON FEATURES (EXACT GEOGRAPHIC PLACEMENT)
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
     const coords = feature.geometry ? feature.geometry.coordinates : null;
     if (!coords || coords.length < 2) return;
 
-    let lng = parseFloat(coords[0]);
-    let lat = parseFloat(coords[1]);
+    const lng = parseFloat(coords[0]);
+    const lat = parseFloat(coords[1]);
     
     if (isNaN(lat) || isNaN(lng)) return;
 
@@ -364,16 +364,6 @@ window.initMapEngine = async function() {
     }
     parsedTags = [...new Set(parsedTags)];
     parsedTags.forEach(t => tagsSet.add(t));
-
-    const coordKey = `${lat.toFixed(3)},${lng.toFixed(3)}`;
-    coordTracker[coordKey] = (coordTracker[coordKey] || 0) + 1;
-    if (coordTracker[coordKey] > 1) {
-      const overlapIndex = coordTracker[coordKey] - 1;
-      const angle = overlapIndex * (2 * Math.PI / 8);
-      const offsetRadius = 0.0012 * Math.ceil(overlapIndex / 8);
-      lat += offsetRadius * Math.cos(angle);
-      lng += offsetRadius * Math.sin(angle);
-    }
 
     const wrapper = document.createElement('div');
     wrapper.className = 'marker-wrapper';
@@ -466,7 +456,7 @@ window.initMapEngine = async function() {
     }
   });
 
-  // 3. BUILD FILTER CONTROLS
+  // 3. BUILD FILTER CONTROLS (MAIN CTA HEADER & MULTI-SELECT CATEGORIES)
   let activeArea = 'All';
   const activeCategories = new Set();
   let activeTag = 'All';
@@ -492,12 +482,21 @@ window.initMapEngine = async function() {
   }
 
   if (filterControlsView) {
+    // MAIN HERO CTA TITLE & TAGLINE
     const mainTitleHeader = document.createElement('div');
-    mainTitleHeader.className = 'map-section-title-row';
+    mainTitleHeader.className = 'map-hero-cta-box';
 
-    const titleText = document.createElement('div');
-    titleText.className = 'map-section-title';
-    titleText.innerText = "📍 Marlon's LA Adventure Builder";
+    const titleText = document.createElement('h2');
+    titleText.className = 'map-hero-cta-title';
+    titleText.innerText = "Build Your LA Adventure";
+
+    const subtitleText = document.createElement('p');
+    subtitleText.className = 'map-hero-cta-subtitle';
+    subtitleText.innerText = "Curate your personal itinerary, save must-see spots, and check off places as you explore!";
+
+    const headerTopRow = document.createElement('div');
+    headerTopRow.className = 'map-section-title-row';
+    headerTopRow.appendChild(titleText);
 
     itineraryBadgeBtn = document.createElement('button');
     itineraryBadgeBtn.type = 'button';
@@ -508,9 +507,16 @@ window.initMapEngine = async function() {
       renderItineraryView();
     });
 
-    mainTitleHeader.appendChild(titleText);
-    mainTitleHeader.appendChild(itineraryBadgeBtn);
+    headerTopRow.appendChild(itineraryBadgeBtn);
+    mainTitleHeader.appendChild(headerTopRow);
+    mainTitleHeader.appendChild(subtitleText);
+
     filterControlsView.appendChild(mainTitleHeader);
+
+    // VISUAL DIVIDER BETWEEN CTA & FILTERS
+    const divider = document.createElement('hr');
+    divider.className = 'filter-section-divider';
+    filterControlsView.appendChild(divider);
 
     // 1. CATEGORIES PILLS
     const catGroup = document.createElement('div');
@@ -554,6 +560,7 @@ window.initMapEngine = async function() {
     catPillsBar.addEventListener('click', (e) => {
       const pill = e.target.closest('.cat-pill');
       if (!pill) return;
+      isItineraryModeActive = false; // Exit itinerary mode on filter click
       const cat = pill.dataset.category;
 
       if (activeCategories.has(cat)) {
@@ -588,6 +595,7 @@ window.initMapEngine = async function() {
       filterControlsView.appendChild(tagGroup);
 
       tagSelect.addEventListener('change', (e) => {
+        isItineraryModeActive = false;
         activeTag = e.target.value;
         applyFilters();
       });
@@ -612,6 +620,7 @@ window.initMapEngine = async function() {
     filterControlsView.appendChild(areaGroup); 
 
     areaSelect.addEventListener('change', (e) => {
+      isItineraryModeActive = false;
       activeArea = e.target.value;
       applyFilters();
     });
@@ -621,7 +630,7 @@ window.initMapEngine = async function() {
     resetContainer.style.display = 'flex';
     resetContainer.style.justifyContent = 'center';
     resetContainer.style.width = '100%';
-    resetContainer.style.marginTop = '6px';
+    resetContainer.style.marginTop = '4px';
 
     const resetBtn = document.createElement('button');
     resetBtn.type = 'button';
@@ -632,6 +641,7 @@ window.initMapEngine = async function() {
     filterControlsView.appendChild(resetContainer);
 
     resetBtn.addEventListener('click', () => {
+      isItineraryModeActive = false;
       activeArea = 'All';
       activeTag = 'All';
       activeCategories.clear();
