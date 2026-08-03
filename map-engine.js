@@ -1,3 +1,28 @@
+/* ==============================================================================
+ * FILE: map-engine.js
+ * CATEGORY: MarlonWalksLA Website - Mapbox Engine & Filtering Logic
+ * 
+ * OVERVIEW:
+ * The primary engine for the interactive walking tour map. This script initializes 
+ * Mapbox, extracts location data directly from the Webflow CMS DOM elements, and 
+ * generates custom emoji markers. It also dynamically builds and powers the 
+ * multi-select filtering dashboard so guests can easily explore spots by neighborhood, 
+ * category, or vibe.
+ * 
+ * WHAT'S INSIDE:
+ * - Mapbox GL JS initialization, center coordinates, and geolocation controls.
+ * - `categoryMap`: A dictionary mapping category names to specific colors and custom SVG icons.
+ * - Dynamic marker generation that plots CMS data onto the map and handles overlapping coordinates (`coordTracker`).
+ * - Click event listeners for map pins that update the polaroid caption and fly the camera to the location.
+ * - Dynamic creation of the filter tray (Neighborhoods, Categories, Tags) and the `applyFilters` logic to hide/show pins and adjust map bounds.
+ * - `trackAndDisplayViews`: An asynchronous call to CounterAPI to track and display total map engagement.
+ * 
+ * WHEN TO FEED THIS FILE TO GEMINI / AI:
+ * - Feed this file if you want to: Add new primary categories, change default map center coordinates, or update the Mapbox style URL.
+ * - Feed this file if you want to: Alter the filtering logic (e.g., changing from "AND" filtering to "OR" filtering).
+ * - Feed this file if you want to: Modify camera behavior, such as zoom levels or fly-to animations when a user clicks a pin or selects a neighborhood.
+ * ============================================================================== */
+
 /* =============================================================
    map-engine.js
    B. MAPBOX & HERO POLAROID ENGINE (8 CATEGORIES & TAGS)
