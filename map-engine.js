@@ -175,7 +175,7 @@ window.initMapEngine = function() {
           center: [lng, lat], 
           zoom: targetZoom, 
           duration: 1200, // Snappy, smooth 1.2s glide
-          padding: { top: 220 } 
+          padding: { top: 120 } 
         });
 
         // 3. Open the popup AFTER the movement completes
