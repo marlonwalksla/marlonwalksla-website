@@ -10,9 +10,10 @@
  * WHAT'S INSIDE:
  * - Mapbox GL JS initialization, center coordinates, and geolocation controls.
  * - Dynamic marker generation with native Mapbox Popups for spot details.
- * - Fast-loading UI dropdowns (`<select>`) for massive datasets (88 Neighborhoods & 28 Vibes).
- * - Horizontal pill scroll UI maintained for the 8 primary categories.
- * - `applyFilters` logic to hide/show pins and adjust map bounds based on dropdown and pill selections.
+ * - Deep tag extraction to ensure all Webflow collection tags are parsed and displayed.
+ * - Fast-loading UI elements dynamically ordered: Categories, Vibes, then Neighborhoods.
+ * - `applyFilters` logic to hide/show pins and adjust map bounds based on selections.
+ * - An animated CounterAPI fetch that smoothly counts up to the true view count.
  * 
  * WHEN TO FEED THIS FILE TO GEMINI / AI:
  * - Feed this file if you want to: Add new primary categories, change default map center coordinates, or update the Mapbox style URL.
@@ -57,7 +58,6 @@ window.initMapEngine = function() {
 
   function getCategoryDetails(rawCat, overrideColor) {
     if (!rawCat) return { color: overrideColor || '#3898ec', icon: defaultPinSvg, name: 'Spot' };
-    
     const key = String(rawCat).toLowerCase().replace(/&amp;/g, 'and').replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     let details = categoryMap[key];
     if (!details) {
@@ -96,15 +96,31 @@ window.initMapEngine = function() {
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
 
+    // Deep Tag Extraction
+    let parsedTags = [];
     const parentCard = item.closest('.w-dyn-item') || item.parentElement;
-    const tagNodes = parentCard ? parentCard.querySelectorAll('.tag-item, #tag-item, [id="tag-item"]') : [];
-    let parsedTags = Array.from(tagNodes).map(node => cleanText(node.textContent)).filter(Boolean);
-
-    if (parsedTags.length === 0 && rawTagsStr) {
-      parsedTags = rawTagsStr.split(/[,;]/).map(t => t.trim()).filter(Boolean);
+    if (parentCard) {
+      const tagNodes = parentCard.querySelectorAll('.tag-item, [id^="tag-item"], [class*="tag-item"]');
+      tagNodes.forEach(node => {
+        const text = cleanText(node.textContent);
+        if (text) {
+          text.split(/[,;]/).forEach(t => {
+            const cleanTag = t.replace(/^#/, '').trim();
+            if (cleanTag) parsedTags.push(cleanTag);
+          });
+        }
+      });
     }
 
-    parsedTags = parsedTags.map(t => t.replace(/^#/, '').trim()).filter(t => t && t !== '#');
+    if (parsedTags.length === 0 && rawTagsStr) {
+      rawTagsStr.split(/[,;]/).forEach(t => {
+        const cleanTag = t.replace(/^#/, '').trim();
+        if (cleanTag) parsedTags.push(cleanTag);
+      });
+    }
+    
+    // Remove duplicates
+    parsedTags = [...new Set(parsedTags)];
     parsedTags.forEach(t => tagsSet.add(t));
 
     if (!isNaN(lat) && !isNaN(lng)) {
@@ -129,7 +145,6 @@ window.initMapEngine = function() {
 
       wrapper.appendChild(inner);
 
-      // Create Mapbox Popup
       const tagsFormatted = parsedTags.length ? `<div class="popup-tags">Tags: ${parsedTags.join(', ')}</div>` : '';
       const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
       const popupHTML = `
@@ -151,7 +166,13 @@ window.initMapEngine = function() {
 
       wrapper.addEventListener('click', () => {
         const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
-        map.flyTo({ center: [lng, lat], zoom: targetZoom, duration: 1800 });
+        map.flyTo({ 
+          center: [lng, lat], 
+          zoom: targetZoom, 
+          duration: 1800,
+          padding: { top: 250 } 
+        });
+
         if (window.swiperInstance) {
           window.swiperInstance.slideToLoop(index);
         }
@@ -194,17 +215,17 @@ window.initMapEngine = function() {
   }
 
   if (form) {
-    form.querySelectorAll('.dashboard-group').forEach(el => el.remove());
+    form.innerHTML = '';
 
-    // 1. NEIGHBORHOOD DROPDOWN (Scaleable for 88 cities)
-    const areaGroup = document.createElement('div');
-    areaGroup.className = 'dashboard-group';
+    // 1. CATEGORIES PILLS (Appended First)
+    const catGroup = document.createElement('div');
+    catGroup.className = 'dashboard-group';
 
-    const areaLabel = document.createElement('div');
-    areaLabel.className = 'dashboard-label';
-    const labelText = document.createElement('span');
-    labelText.innerText = '📍 Neighborhoods';
-    
+    const catLabel = document.createElement('div');
+    catLabel.className = 'dashboard-label';
+    const catLabelText = document.createElement('span');
+    catLabelText.innerText = '🏷️ Categories';
+
     const badgeContainer = document.createElement('div');
     badgeContainer.style.display = 'flex';
     badgeContainer.style.gap = '10px';
@@ -221,31 +242,9 @@ window.initMapEngine = function() {
 
     badgeContainer.appendChild(countBadgeEl);
     badgeContainer.appendChild(viewsBadgeEl);
-    areaLabel.appendChild(labelText);
-    areaLabel.appendChild(badgeContainer);
-    areaGroup.appendChild(areaLabel);
-
-    const areaSelect = document.createElement('select');
-    areaSelect.innerHTML = `<option value="All">All LA Neighborhoods</option>`;
-    Array.from(neighborhoods).sort().forEach(area => {
-      areaSelect.innerHTML += `<option value="${area}">${area}</option>`;
-    });
-
-    areaGroup.appendChild(areaSelect);
-    form.appendChild(areaGroup); 
-
-    areaSelect.addEventListener('change', (e) => {
-      activeArea = e.target.value;
-      applyFilters();
-    });
-
-    // 2. CATEGORIES PILLS (Maintained for UI speed)
-    const catGroup = document.createElement('div');
-    catGroup.className = 'dashboard-group';
-
-    const catLabel = document.createElement('div');
-    catLabel.className = 'dashboard-label';
-    catLabel.innerText = '🏷️ Categories';
+    
+    catLabel.appendChild(catLabelText);
+    catLabel.appendChild(badgeContainer);
     catGroup.appendChild(catLabel);
 
     const catPillsBar = document.createElement('div');
@@ -298,7 +297,7 @@ window.initMapEngine = function() {
       applyFilters();
     });
 
-    // 3. VIBES DROPDOWN (Scaleable for 28 tags)
+    // 2. VIBES DROPDOWN (Appended Second)
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
       tagGroup.className = 'dashboard-group';
@@ -322,6 +321,29 @@ window.initMapEngine = function() {
         applyFilters();
       });
     }
+
+    // 3. NEIGHBORHOOD DROPDOWN (Appended Third)
+    const areaGroup = document.createElement('div');
+    areaGroup.className = 'dashboard-group';
+
+    const areaLabel = document.createElement('div');
+    areaLabel.className = 'dashboard-label';
+    areaLabel.innerText = '📍 Neighborhoods';
+    areaGroup.appendChild(areaLabel);
+
+    const areaSelect = document.createElement('select');
+    areaSelect.innerHTML = `<option value="All">All LA Neighborhoods</option>`;
+    Array.from(neighborhoods).sort().forEach(area => {
+      areaSelect.innerHTML += `<option value="${area}">${area}</option>`;
+    });
+
+    areaGroup.appendChild(areaSelect);
+    form.appendChild(areaGroup); 
+
+    areaSelect.addEventListener('change', (e) => {
+      activeArea = e.target.value;
+      applyFilters();
+    });
   }
 
   function applyFilters() {
@@ -358,11 +380,29 @@ window.initMapEngine = function() {
   async function trackAndDisplayViews() {
     const viewsBadge = document.getElementById('map-views-badge');
     if (!viewsBadge) return;
+    
     const BASE_VIEWS = 30000; 
+    viewsBadge.innerText = `${BASE_VIEWS.toLocaleString()} VIEWS`;
+
     try {
       const res = await fetch('https://api.counterapi.dev/v1/marlonwalksla/master-map-views/up');
       const data = await res.json();
-      viewsBadge.innerText = `${(BASE_VIEWS + (data.count || data.value || 0)).toLocaleString()} VIEWS`;
+      const addedViews = data.count || data.value || 0;
+      
+      if (addedViews > 0) {
+        let startTimestamp = null;
+        const duration = 2000; 
+        
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp;
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+          const easeOut = progress * (2 - progress); 
+          const current = Math.floor(easeOut * addedViews + BASE_VIEWS);
+          viewsBadge.innerText = `${current.toLocaleString()} VIEWS`;
+          if (progress < 1) window.requestAnimationFrame(step);
+        };
+        window.requestAnimationFrame(step);
+      }
     } catch (err) {
       viewsBadge.innerText = `${BASE_VIEWS.toLocaleString()} VIEWS`;
     }
