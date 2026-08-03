@@ -1,7 +1,37 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Saved Itinerary Styles & Filter Controls
+ * CATEGORY: MarlonWalksLA Website - LA Adventure Builder Styles & Controls
  * ============================================================================== */
+
+/* VISITED PIN MAP BADGE */
+.marker-wrapper {
+  position: relative !important;
+}
+
+.marker-wrapper.is-visited-pin .custom-emoji-marker {
+  box-shadow: 0 0 0 3px #10b981, 0 4px 12px rgba(16, 185, 129, 0.45) !important;
+  filter: brightness(0.95);
+}
+
+.marker-wrapper.is-visited-pin::after {
+  content: '✓';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #10b981;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 900;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
 
 .map-section-title-row {
   display: flex;
@@ -24,7 +54,7 @@
   color: #ffffff;
   font-size: 11px;
   font-weight: 800;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -51,7 +81,7 @@
   justify-content: space-between !important;
 }
 
-/* USER ACTION BUTTONS (SAVE & VISITED) */
+/* SLEEK USER ACTION TOGGLE BUTTONS (SAVE & VISITED) */
 .polaroid-caption-user-actions {
   display: flex;
   gap: 8px;
@@ -62,31 +92,76 @@
 .toggle-save-btn, .toggle-visited-btn {
   flex: 1;
   background: #ffffff;
-  border: 1px solid #cbd5e0;
+  border: 1.5px solid #e2e8f0;
   color: #4a5568;
   font-size: 11px;
   font-weight: 700;
-  padding: 7px 10px;
-  border-radius: 16px;
+  padding: 8px 10px;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  text-align: center;
 }
 
 .toggle-save-btn:hover, .toggle-visited-btn:hover {
   border-color: #3898ec;
   color: #3898ec;
+  transform: translateY(-1px);
 }
 
 .toggle-save-btn.is-active {
   background-color: #3898ec;
   color: #ffffff;
   border-color: #3898ec;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
 }
 
 .toggle-visited-btn.is-active {
   background-color: #10b981;
   color: #ffffff;
   border-color: #10b981;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
+}
+
+/* GAMIFIED ITINERARY PROGRESS BAR */
+.itinerary-progress-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+}
+
+.itinerary-progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #4a5568;
+}
+
+.itinerary-progress-label strong {
+  color: #10b981;
+  font-weight: 800;
+}
+
+.itinerary-progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: #edf2f7;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.itinerary-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  border-radius: 10px;
+  transition: width 0.4s ease;
 }
 
 /* ITINERARY LIST CARD VIEW */
@@ -114,11 +189,12 @@
 }
 
 .itinerary-sub-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
-  color: #4a5568;
+  color: #718096;
   margin: 0 0 6px 0;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .empty-itinerary-msg {
@@ -132,7 +208,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  max-height: 280px;
+  max-height: 220px;
   overflow-y: auto;
 }
 
@@ -146,6 +222,10 @@
   padding: 8px 12px;
 }
 
+.itinerary-item.is-visited-item {
+  border-left: 3px solid #10b981;
+}
+
 .itinerary-item-name {
   font-size: 13px;
   font-weight: 700;
@@ -155,6 +235,12 @@
 .itinerary-item-meta {
   font-size: 11px;
   color: #718096;
+}
+
+.visited-check {
+  color: #10b981;
+  font-weight: 900;
+  font-size: 14px;
 }
 
 .mini-dir-btn {
