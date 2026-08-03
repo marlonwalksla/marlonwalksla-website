@@ -1,0 +1,2351 @@
+{
+   "type": "FeatureCollection",
+   "features": [
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2478,34.0505 ]
+    },
+    "properties": {
+    "Name":"Bradbury Building",
+    "Slug":"bradbury-building-e93ee",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a13",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Landmarks",
+    "Tags":"architecture; filming-location; historic; must-see; walkable",
+    "Description":"A charismatic 1893 stunner showing off intricate Victorian ironwork, sunlit skylights, and vintage open-cage elevators."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2489,34.0507 ]
+    },
+    "properties": {
+    "Name":"Grand Central Market",
+    "Slug":"grand-central-market-3f7fa",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a15",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Dining",
+    "Tags":"iconic-eats; street-food; historic; must-see; walkable",
+    "Description":"The bustling, open-hearted belly of DTLA that has been cooking up global aromas and feeding hungry souls since 1917."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2498,34.0478 ]
+    },
+    "properties": {
+    "Name":"The Last Bookstore",
+    "Slug":"the-last-bookstore-5eed5",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a17",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Shopping",
+    "Tags":"architecture; photo-spot; historic; walkable; local-favorite",
+    "Description":"A quirky, eccentric bibliophile living inside a grand old bank vault, surrounded by soaring arches and tunnels of paperbacks."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.25,34.0553 ]
+    },
+    "properties": {
+    "Name":"Walt Disney Concert Hall",
+    "Slug":"walt-disney-concert-hall-844da",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a19",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Arts",
+    "Tags":"architecture; must-see; photo-spot; walkable",
+    "Description":"Frank Gehry's futuristic metallic dancer shining brightly on Grand Avenue, clad in sweeping stainless-steel sails."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2505,34.0545 ]
+    },
+    "properties": {
+    "Name":"The Broad",
+    "Slug":"the-broad-a0dea",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a1b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Arts",
+    "Tags":"free-budget; must-see; photo-spot; walkable",
+    "Description":"A sharp, stylish modern art icon wearing a honeycomb veil, hosting mind-bending contemporary masterpieces inside."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2365,34.0562 ]
+    },
+    "properties": {
+    "Name":"Union Station LA",
+    "Slug":"union-station-la-79528",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a1d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:43 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Landmarks",
+    "Tags":"architecture; historic; public-transit; filming-location; walkable",
+    "Description":"LA's grand old transit patriarch, blending Mission Revival elegance with relaxing garden courtyards and soaring tiled ceilings."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.238,34.0572 ]
+    },
+    "properties": {
+    "Name":"Olvera Street & El Pueblo",
+    "Slug":"olvera-street-and-el-pueblo-a0700",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a1f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Landmarks",
+    "Tags":"historic; walkable; free-budget; tacos",
+    "Description":"The vibrant birth cradle of Los Angeles, humming with mariachi melodies, handmade artisan crafts, and sizzling taquerias."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2502,34.0514 ]
+    },
+    "properties": {
+    "Name":"Angels Flight Railway",
+    "Slug":"angels-flight-railway-6b3cb",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a21",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Landmarks",
+    "Tags":"historic; filming-location; must-see; walkable",
+    "Description":"A plucky, 120-year-old orange wooden funicular faithfully crawling up Bunker Hill to save pedestrians a steep climb."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2427,34.0537 ]
+    },
+    "properties": {
+    "Name":"LA City Hall Observation Deck",
+    "Slug":"la-city-hall-observation-deck-c13cc",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a23",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Landmarks",
+    "Tags":"free-budget; skyline-views; historic; walkable",
+    "Description":"A dignified Art Deco elder standing tall on Spring Street, offering panoramic 27th-floor skyline views for free."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.237,34.065 ]
+    },
+    "properties": {
+    "Name":"Chinatown Central Plaza",
+    "Slug":"chinatown-central-plaza-ba519",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a25",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Chinatown",
+    "Category":"Landmarks",
+    "Tags":"historic; photo-spot; walkable; iconic-eats",
+    "Description":"A colorful, neon-lit neighborhood matriarch framed by golden dragons, pagodas, and historic courtyard eateries."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2396,34.0498 ]
+    },
+    "properties": {
+    "Name":"Little Tokyo Village Plaza",
+    "Slug":"little-tokyo-village-plaza-b5ec7",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a27",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Little Tokyo",
+    "Category":"Shopping",
+    "Tags":"iconic-eats; walkable; photo-spot; local-favorite",
+    "Description":"A charming, historic neighborhood anchor serving up hot ramen, sweet mochi, and lively lantern-lit pedestrian paths."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2386,34.0492 ]
+    },
+    "properties": {
+    "Name":"Japanese American National Museum",
+    "Slug":"japanese-american-national-museum-d534e",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a29",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Little Tokyo",
+    "Category":"Arts",
+    "Tags":"historic; family-friendly; walkable",
+    "Description":"A thoughtful historian preserving deep cultural stories, resilience, and heritage in the heart of Little Tokyo."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2328,34.0435 ]
+    },
+    "properties": {
+    "Name":"Arts District Street Art Wall",
+    "Slug":"arts-district-street-art-wall-8542d",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a2b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Arts District",
+    "Category":"Arts",
+    "Tags":"street-art; photo-spot; walkable; coffee",
+    "Description":"A trendy, ever-changing creative spirit showing off gritty murals, industrial loft cafes, and craft breweries."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2351,34.0458 ]
+    },
+    "properties": {
+    "Name":"Hauser & Wirth LA",
+    "Slug":"hauser-and-wirth-la-44b1e",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a2d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Arts District",
+    "Category":"Arts",
+    "Tags":"free-budget; architecture; rooftop-patio; walkable",
+    "Description":"A sophisticated flour mill turned art gallery that loves hosting garden walks, outdoor dining, and avant-garde exhibits."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2371,34.0596 ]
+    },
+    "properties": {
+    "Name":"Philippe The Original",
+    "Slug":"philippe-the-original-3ad60",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a2f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Dining",
+    "Tags":"iconic-eats; historic; local-favorite",
+    "Description":"A crusty, nostalgic dining legend proudly claiming the birth of the French Dip sandwich on sawdust-covered floors."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2508,34.0448 ]
+    },
+    "properties": {
+    "Name":"Cole's French Dip",
+    "Slug":"cole-s-french-dip-230cb",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a31",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Dining",
+    "Tags":"historic; iconic-eats; late-night; walkable",
+    "Description":"A moody, mahogany-clad speakeasy veteran serving up rich dipped sandwiches and craft cocktails since 1908."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2543,34.0511 ]
+    },
+    "properties": {
+    "Name":"71Above",
+    "Slug":"71above-55e1c",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a33",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Dining",
+    "Tags":"skyline-views; romantic; rooftop-patio",
+    "Description":"An elegant high-flyer perched nearly 1,000 feet up in the clouds, offering breathtaking 360-degree views of the basin."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2647,34.0447 ]
+    },
+    "properties": {
+    "Name":"Grammy Museum at L.A. LIVE",
+    "Slug":"grammy-museum-at-l-a-live-04cd9",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a35",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Entertainment",
+    "Tags":"family-friendly; must-see",
+    "Description":"A rhythm-filled storyteller celebrating musical legends, iconic stage costumes, and interactive recording booths."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2673,34.043 ]
+    },
+    "properties": {
+    "Name":"Crypto.com Arena",
+    "Slug":"crypto-com-arena-db4e3",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a37",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Entertainment",
+    "Tags":"sports-event-hub; must-see",
+    "Description":"LA's high-octane sports powerhouse hosting championship basketball games, arena concerts, and star-studded events."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2526,34.0461 ]
+    },
+    "properties": {
+    "Name":"Los Angeles Theatre",
+    "Slug":"los-angeles-theatre-2461e",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a39",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Arts",
+    "Tags":"architecture; historic; filming-location",
+    "Description":"An opulent Baroque movie palace adorned with French crystal chandeliers and golden mirrors straight out of Versailles."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3004,34.1184 ]
+    },
+    "properties": {
+    "Name":"Griffith Observatory",
+    "Slug":"griffith-observatory-8ca7d",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a3b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Landmarks",
+    "Tags":"must-see; skyline-views; free-budget; filming-location; romantic",
+    "Description":"LA's starry-eyed stargazer sitting atop Mount Hollywood, gazing down at the city lights and up into the cosmos."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3268,34.1016 ]
+    },
+    "properties": {
+    "Name":"Hollywood Walk of Fame",
+    "Slug":"hollywood-walk-of-fame-932c6",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a3d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Landmarks",
+    "Tags":"must-see; celebrity-spot; walkable",
+    "Description":"A star-studded sidewalk entertainer wearing brass stars along Hollywood Boulevard to tell stories of showbiz royalty."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3409,34.102 ]
+    },
+    "properties": {
+    "Name":"TCL Chinese Theatre",
+    "Slug":"tcl-chinese-theatre-b566e",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a3f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Landmarks",
+    "Tags":"historic; must-see; filming-location; celebrity-spot",
+    "Description":"A flamboyant cinematic showman displaying famous handprints and footprints pressed into historic concrete forecourts."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3262,34.1266 ]
+    },
+    "properties": {
+    "Name":"Hollywood Sign Viewpoint (Lake Hollywood Park)",
+    "Slug":"hollywood-sign-viewpoint-lake-hollywood-park-6a0ef",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a41",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Landmarks",
+    "Tags":"photo-spot; free-budget; must-see",
+    "Description":"A picture-perfect grassy hilltop host framing sweeping views of LA's iconic hillside letters."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3391,34.1122 ]
+    },
+    "properties": {
+    "Name":"Hollywood Bowl",
+    "Slug":"hollywood-bowl-5f2f5",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a43",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Entertainment",
+    "Tags":"historic; must-see; local-favorite",
+    "Description":"A beloved amphitheater hosting unforgettable summer nights under the stars surrounded by sound shells and picnic baskets."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3194,34.0837 ]
+    },
+    "properties": {
+    "Name":"Paramount Pictures Studio Tour",
+    "Slug":"paramount-pictures-studio-tour-72d5f",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a45",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Entertainment",
+    "Tags":"filming-location; celebrity-spot; must-see",
+    "Description":"The last remaining major studio anchored inside Hollywood proper, opening its historic gates to cinema lovers."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3378,34.1483 ]
+    },
+    "properties": {
+    "Name":"Warner Bros. Studio Tour Hollywood",
+    "Slug":"warner-bros-studio-tour-hollywood-46817",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a47",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Burbank",
+    "Category":"Entertainment",
+    "Tags":"filming-location; celebrity-spot; must-see; family-friendly",
+    "Description":"A movie magic titan giving fans front-row access to real soundstages, Friends sets, and superhero props."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3685,34.0982 ]
+    },
+    "properties": {
+    "Name":"Chateau Marmont",
+    "Slug":"chateau-marmont-bc711",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a49",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"West Hollywood",
+    "Category":"Dining",
+    "Tags":"celebrity-spot; historic; romantic",
+    "Description":"A secretive Norman castle perched on the Sunset Strip, guarding glamorous secrets of Hollywood legends since 1929."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3857,34.0907 ]
+    },
+    "properties": {
+    "Name":"Sunset Strip & The Roxy",
+    "Slug":"sunset-strip-and-the-roxy-4822b",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a4b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"West Hollywood",
+    "Category":"Nightlife",
+    "Tags":"historic; late-night",
+    "Description":"A rock-'n'-roll nightowl draped in neon billboards, legendary music venues, and rooftop lounges."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3742,34.0962 ]
+    },
+    "properties": {
+    "Name":"The Comedy Store",
+    "Slug":"the-comedy-store-6e9dd",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a4d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"West Hollywood",
+    "Category":"Entertainment",
+    "Tags":"nightlife; celebrity-spot; late-night",
+    "Description":"A legendary, dimly lit laugh sanctuary where comedy icons test out raw stand-up material late into the night."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3892,34.0815 ]
+    },
+    "properties": {
+    "Name":"The Troubadour",
+    "Slug":"the-troubadour-e537d",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a4f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"West Hollywood",
+    "Category":"Entertainment",
+    "Tags":"historic; nightlife",
+    "Description":"An intimate music club that launched folk, rock, and pop icons into stardom."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3614,34.0837 ]
+    },
+    "properties": {
+    "Name":"Melrose Avenue Shopping District",
+    "Slug":"melrose-avenue-shopping-district-2b2bb",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a51",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Shopping",
+    "Tags":"vintage-thrifting; street-art; walkable; photo-spot",
+    "Description":"A fashion-forward trendsetter sporting bright street art walls, vintage clothing shops, and Third Wave coffee bars."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3443,34.0838 ]
+    },
+    "properties": {
+    "Name":"Pink's Hot Dogs",
+    "Slug":"pink-s-hot-dogs-7fd14",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a53",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Dining",
+    "Tags":"iconic-eats; historic; celebrity-spot",
+    "Description":"A fun-loving street food icon serving up legendary chili dogs and celebrity-named hot dogs since 1939."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3512,34.1108 ]
+    },
+    "properties": {
+    "Name":"Runyon Canyon Park",
+    "Slug":"runyon-canyon-park-9b704",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a55",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Parks",
+    "Tags":"skyline-views; dog-friendly; celebrity-spot; free-budget",
+    "Description":"LA's favorite fitness socialite, where hikers, dogs, and celebs catch sun and skyline views above the city."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3192,34.0888 ]
+    },
+    "properties": {
+    "Name":"Hollywood Forever Cemetery",
+    "Slug":"hollywood-forever-cemetery-fca74",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a57",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Landmarks",
+    "Tags":"historic; photo-spot; celebrity-spot",
+    "Description":"A peaceful, culturally vibrant resting place hosting outdoor movie screenings and Day of the Dead festivals among peacocks."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2938,34.1 ]
+    },
+    "properties": {
+    "Name":"Barnsdall Art Park & Hollyhock House",
+    "Slug":"barnsdall-art-park-and-hollyhock-house-ac128",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a59",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Parks",
+    "Tags":"architecture; free-budget; skyline-views; historic",
+    "Description":"Frank Lloyd Wright's hilltop masterpiece overlooking East Hollywood, offering breezy sunset picnic lawns."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3252,34.1018 ]
+    },
+    "properties": {
+    "Name":"Pantages Theatre",
+    "Slug":"pantages-theatre-898cd",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a5b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Arts",
+    "Tags":"architecture; historic; entertainment",
+    "Description":"A dazzling Art Deco theater host bringing Broadway hits to Hollywood Boulevard under a ceiling of silver and gold."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3411,34.1054 ]
+    },
+    "properties": {
+    "Name":"Yamashiro Hollywood",
+    "Slug":"yamashiro-hollywood-5e1e4",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a5d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Dining",
+    "Tags":"skyline-views; romantic; historic",
+    "Description":"A serene Japanese mountain palace perched above Hollywood, featuring koi ponds and panoramic night views."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3262,34.098 ]
+    },
+    "properties": {
+    "Name":"Amoeba Music",
+    "Slug":"amoeba-music-be573",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a5f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Shopping",
+    "Tags":"historic; vintage-thrifting; walkable",
+    "Description":"The ultimate music-obsessed giant, packed to the brim with vinyl records, CDs, movies, and pop culture treasures."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3353,34.1017 ]
+    },
+    "properties": {
+    "Name":"Musso & Frank Grill",
+    "Slug":"musso-and-frank-grill-9777b",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a61",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hollywood",
+    "Category":"Dining",
+    "Tags":"historic; iconic-eats; celebrity-spot",
+    "Description":"Hollywood's oldest restaurant companion, pouring perfect classic martinis in red leather booths since 1919."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3592,34.0639 ]
+    },
+    "properties": {
+    "Name":"LACMA (Urban Light)",
+    "Slug":"lacma-urban-light-28a47",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a63",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Miracle Mile",
+    "Category":"Arts",
+    "Tags":"photo-spot; free-budget; must-see; romantic",
+    "Description":"An artistic beacon glowing on Wilshire Boulevard, welcoming night owls to wander through its forest of 202 cast-iron street lamps."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3559,34.0628 ]
+    },
+    "properties": {
+    "Name":"La Brea Tar Pits & Museum",
+    "Slug":"la-brea-tar-pits-and-museum-debab",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a65",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Miracle Mile",
+    "Category":"Landmarks",
+    "Tags":"family-friendly; historic; must-see",
+    "Description":"Prehistoric time traveler right in the middle of town, bubbling with ice-age tar fossils and mammoth stories."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.361,34.0633 ]
+    },
+    "properties": {
+    "Name":"Academy Museum of Motion Pictures",
+    "Slug":"academy-museum-of-motion-pictures-69c13",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a67",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Miracle Mile",
+    "Category":"Arts",
+    "Tags":"architecture; filming-location; must-see; skyline-views",
+    "Description":"Cinema's biggest fan wearing Renzo Piano's glass sphere dome, celebrating movie magic, props, and red-carpet history."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3614,34.0622 ]
+    },
+    "properties": {
+    "Name":"Petersen Automotive Museum",
+    "Slug":"petersen-automotive-museum-af816",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a69",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Miracle Mile",
+    "Category":"Arts",
+    "Tags":"architecture; family-friendly; must-see",
+    "Description":"A high-speed auto enthusiast wrapped in futuristic red-and-silver steel ribbons, housing legendary cars."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.403,34.0696 ]
+    },
+    "properties": {
+    "Name":"Rodeo Drive",
+    "Slug":"rodeo-drive-b8f8b",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a6b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Beverly Hills",
+    "Category":"Shopping",
+    "Tags":"must-see; photo-spot; celebrity-spot; walkable",
+    "Description":"The pinnacle of luxury and glamour, strolling past palm-lined designer boutiques and immaculate sports cars."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4136,34.0815 ]
+    },
+    "properties": {
+    "Name":"Beverly Hills Hotel (The Pink Palace)",
+    "Slug":"beverly-hills-hotel-the-pink-palace-97936",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a6d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Beverly Hills",
+    "Category":"Landmarks",
+    "Tags":"historic; celebrity-spot; photo-spot",
+    "Description":"A pink-hued Hollywood royalty host tucked behind tropical banana leaves, serving fountain treats and vintage glam."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.402,34.0924 ]
+    },
+    "properties": {
+    "Name":"Greystone Mansion & Gardens",
+    "Slug":"greystone-mansion-and-gardens-b59bd",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a6f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:44 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Beverly Hills",
+    "Category":"Landmarks",
+    "Tags":"architecture; filming-location; free-budget; photo-spot",
+    "Description":"A mysterious 1928 Tudor estate surrounded by manicured stone terraces, fountains, and movie-set history."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.415,34.085 ]
+    },
+    "properties": {
+    "Name":"Virginia Robinson Gardens",
+    "Slug":"virginia-robinson-gardens-ded5e",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a71",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Beverly Hills",
+    "Category":"Parks",
+    "Tags":"historic; architecture; photo-spot",
+    "Description":"Beverly Hills' first historic estate, nestled in a lush palm forest hidden behind quiet residential streets."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3965,34.0206 ]
+    },
+    "properties": {
+    "Name":"Sony Pictures Studios Tour",
+    "Slug":"sony-pictures-studios-tour-b27de",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a73",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Culver City",
+    "Category":"Entertainment",
+    "Tags":"filming-location; historic; must-see",
+    "Description":"A historic studio lot in Culver City where Wizard of Oz and Spider-Man were filmed under the giant rainbow arch."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3842,34.0205 ]
+    },
+    "properties": {
+    "Name":"Baldwin Hills Scenic Overlook (Culver City Stairs)",
+    "Slug":"baldwin-hills-scenic-overlook-culver-city-stairs-c3503",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a75",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Culver City",
+    "Category":"Parks",
+    "Tags":"skyline-views; free-budget; walkable",
+    "Description":"A outdoor stair-climbing favorite offering panoramic views stretching from Downtown LA to the Pacific Ocean."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3606,34.0722 ]
+    },
+    "properties": {
+    "Name":"Original Farmers Market (3rd & Fairfax)",
+    "Slug":"original-farmers-market-3rd-and-fairfax-bd639",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a77",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Mid-City",
+    "Category":"Dining",
+    "Tags":"iconic-eats; historic; walkable; family-friendly",
+    "Description":"A cheerful, open-air elder feeding visitors since 1934 with fresh produce, artisan pastries, and international stalls."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.358,34.072 ]
+    },
+    "properties": {
+    "Name":"The Grove",
+    "Slug":"the-grove-d8dae",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a79",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Mid-City",
+    "Category":"Shopping",
+    "Tags":"family-friendly; walkable; entertainment",
+    "Description":"A lively shopping lifestyle hub featuring dancing fountains, cobblestone streets, and a double-decker trolley."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3,34.062 ]
+    },
+    "properties": {
+    "Name":"Koreatown BBQ District",
+    "Slug":"koreatown-bbq-district-5c24e",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a7b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Koreatown",
+    "Category":"Dining",
+    "Tags":"iconic-eats; late-night; local-favorite",
+    "Description":"A night owl feeding foodies sizzling galbi and banchan on charcoal grills into the early morning hours."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3088,34.0617 ]
+    },
+    "properties": {
+    "Name":"The Wiltern",
+    "Slug":"the-wiltern-b3bf8",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a7d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Koreatown",
+    "Category":"Entertainment",
+    "Tags":"architecture; historic",
+    "Description":"A stunning blue-green Art Deco landmark hosting electric live concerts under ornate ceiling murals."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3615,34.0763 ]
+    },
+    "properties": {
+    "Name":"Canter's Deli",
+    "Slug":"canter-s-deli-3eb20",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a7f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Fairfax",
+    "Category":"Dining",
+    "Tags":"iconic-eats; historic; late-night",
+    "Description":"A 24-hour Fairfax neighborhood staple serving hot pastrami and matzo ball soup since 1931."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4428,34.0375 ]
+    },
+    "properties": {
+    "Name":"Sawtelle Japantown",
+    "Slug":"sawtelle-japantown-ed970",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a81",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Sawtelle",
+    "Category":"Dining",
+    "Tags":"iconic-eats; walkable; local-favorite; street-food",
+    "Description":"A dense, walkable culinary corridor bursting with artisanal ramen, boba, matchas, and Japanese bakeries."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4973,34.0099 ]
+    },
+    "properties": {
+    "Name":"Santa Monica Pier",
+    "Slug":"santa-monica-pier-6f0bc",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a83",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Santa Monica",
+    "Category":"Landmarks",
+    "Tags":"beach-vibes; must-see; family-friendly; photo-spot",
+    "Description":"An energetic wooden pier extending into the Pacific, crowned with a solar-powered Ferris wheel and carnival tunes."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4983,34.0118 ]
+    },
+    "properties": {
+    "Name":"Santa Monica State Beach",
+    "Slug":"santa-monica-state-beach-7a8ad",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a85",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Santa Monica",
+    "Category":"Parks",
+    "Tags":"beach-vibes; free-budget; must-see",
+    "Description":"A vast oceanfront playground offering golden sands, volleyball courts, and endless ocean horizons."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4962,34.0152 ]
+    },
+    "properties": {
+    "Name":"Third Street Promenade",
+    "Slug":"third-street-promenade-773a4",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a87",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Santa Monica",
+    "Category":"Shopping",
+    "Tags":"walkable; family-friendly",
+    "Description":"A pedestrian-only street entertainer lined with shade trees, street performers, and outdoor dining patios."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4695,33.985 ]
+    },
+    "properties": {
+    "Name":"Venice Beach Boardwalk",
+    "Slug":"venice-beach-boardwalk-ffbe3",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a89",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Venice",
+    "Category":"Landmarks",
+    "Tags":"beach-vibes; street-art; must-see",
+    "Description":"A colorful, rebellious free spirit showcasing skateboarders, street artists, fortune tellers, and ocean breezes."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4654,33.9831 ]
+    },
+    "properties": {
+    "Name":"Venice Canals",
+    "Slug":"venice-canals-175f3",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a8b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Venice",
+    "Category":"Landmarks",
+    "Tags":"architecture; photo-spot; romantic; walkable; free-budget",
+    "Description":"A serene Italian dream hidden behind Venice's beach noise, complete with charming footbridges and duck ponds."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.465,33.9902 ]
+    },
+    "properties": {
+    "Name":"Abbot Kinney Boulevard",
+    "Slug":"abbot-kinney-boulevard-fd14b",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a8d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Venice",
+    "Category":"Shopping",
+    "Tags":"walkable; coffee; vintage-thrifting; local-favorite",
+    "Description":"The westside's coolest tastemaker, lined with sleek boutiques, Third Wave coffee bars, and gourmet food trucks."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4728,33.9872 ]
+    },
+    "properties": {
+    "Name":"Muscle Beach Venice",
+    "Slug":"muscle-beach-venice-23ebd",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a8f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Venice",
+    "Category":"Landmarks",
+    "Tags":"beach-vibes; historic; photo-spot",
+    "Description":"An iconic outdoor gym showman where bodybuilders and gymnasts have trained under the beach sun since the 1930s."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.5085,34.0227 ]
+    },
+    "properties": {
+    "Name":"Annenberg Community Beach House",
+    "Slug":"annenberg-community-beach-house-7719c",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a91",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Santa Monica",
+    "Category":"Parks",
+    "Tags":"beach-vibes; family-friendly; historic",
+    "Description":"A welcoming beachside guest house built on Marion Davies' historic estate, open for splash pads and ocean views."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.5002,34.0162 ]
+    },
+    "properties": {
+    "Name":"Palisades Park",
+    "Slug":"palisades-park-9d15c",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a93",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Santa Monica",
+    "Category":"Parks",
+    "Tags":"skyline-views; beach-vibes; romantic; free-budget",
+    "Description":"A peaceful coastal watcher resting along sandstone bluffs, offering front-row seats to Pacific sunsets."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4925,34.0305 ]
+    },
+    "properties": {
+    "Name":"Montana Avenue",
+    "Slug":"montana-avenue-c81b3",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a95",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Santa Monica",
+    "Category":"Shopping",
+    "Tags":"walkable; coffee; local-favorite",
+    "Description":"A relaxed, upscale neighborhood host packed with quiet coffee shops, juice bars, and chic local boutiques."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.8752,34.0389 ]
+    },
+    "properties": {
+    "Name":"El Matador State Beach",
+    "Slug":"el-matador-state-beach-e9cf6",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a97",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Malibu",
+    "Category":"Parks",
+    "Tags":"beach-vibes; photo-spot; romantic; free-budget",
+    "Description":"A dramatic coastal beauty showing off sea caves, sea arches, and golden sunset lighting along steep cliffs."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.6763,34.0366 ]
+    },
+    "properties": {
+    "Name":"Malibu Pier",
+    "Slug":"malibu-pier-0370f",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a99",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Malibu",
+    "Category":"Landmarks",
+    "Tags":"beach-vibes; iconic-eats; photo-spot",
+    "Description":"A rustic twin-tower pier host inviting anglers, surfers, and farm-to-table diners out over the surf."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.5653,34.0459 ]
+    },
+    "properties": {
+    "Name":"The Getty Villa",
+    "Slug":"the-getty-villa-40abe",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a9b",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Malibu",
+    "Category":"Arts",
+    "Tags":"architecture; free-budget; historic; must-see",
+    "Description":"An ancient Roman country house overlooking the sea, filled with Mediterranean antiquities and reflecting pools."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.8258,34.0223 ]
+    },
+    "properties": {
+    "Name":"Zuma Beach",
+    "Slug":"zuma-beach-6061f",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a9d",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Malibu",
+    "Category":"Parks",
+    "Tags":"beach-vibes; free-budget",
+    "Description":"Malibu's wide-open beach lover, famous for clean surf breaks, wide sands, and dolphin spottings."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.8066,34.0011 ]
+    },
+    "properties": {
+    "Name":"Point Dume Nature Preserve",
+    "Slug":"point-dume-nature-preserve-bf7f5",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9a9f",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Malibu",
+    "Category":"Parks",
+    "Tags":"beach-vibes; skyline-views; photo-spot; free-budget",
+    "Description":"A majestic coastal headland standing guard over Malibu, offering cliffside walking trails and whale watching views."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.9634,34.0531 ]
+    },
+    "properties": {
+    "Name":"Neptune's Net",
+    "Slug":"neptune-s-net-820a7",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9aa1",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Malibu",
+    "Category":"Dining",
+    "Tags":"beach-vibes; iconic-eats; filming-location",
+    "Description":"A legendary biker and surfer seafood hangout serving fresh clams, fish & chips, and cold brews right off PCH."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4741,34.078 ]
+    },
+    "properties": {
+    "Name":"The Getty Center",
+    "Slug":"the-getty-center-87f3f",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9aa3",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Brentwood",
+    "Category":"Arts",
+    "Tags":"architecture; free-budget; skyline-views; must-see",
+    "Description":"A travertine marble hilltop fortress showcasing European art, tranquil water gardens, and citywide views."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4439,34.0594 ]
+    },
+    "properties": {
+    "Name":"Hammer Museum",
+    "Slug":"hammer-museum-d7587",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9aa5",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Westwood",
+    "Category":"Arts",
+    "Tags":"free-budget; walkable",
+    "Description":"An intellectual UCLA-adjacent gallery host offering cutting-edge modern art exhibitions with free entry."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.419,34.0588 ]
+    },
+    "properties": {
+    "Name":"Westfield Century City",
+    "Slug":"westfield-century-city-c3716",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9aa7",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Century City",
+    "Category":"Shopping",
+    "Tags":"dining; rooftop-patio; walkable",
+    "Description":"An open-air luxury oasis filled with garden plazas, gourmet food halls, and high-fashion shopping."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.339,33.9535 ]
+    },
+    "properties": {
+    "Name":"SoFi Stadium & Hollywood Park",
+    "Slug":"sofi-stadium-and-hollywood-park-dbd98",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9aa9",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Inglewood",
+    "Category":"Entertainment",
+    "Tags":"sports-event-hub; must-see; architecture",
+    "Description":"An architectural marvel sports mega-venue hosting Super Bowls, mega-concerts, and world-class entertainment."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1145,34.1272 ]
+    },
+    "properties": {
+    "Name":"The Huntington Library & Botanical Gardens",
+    "Slug":"the-huntington-library-and-botanical-gardens-063d5",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9aab",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"San Marino",
+    "Category":"Arts",
+    "Tags":"must-see; architecture; photo-spot; family-friendly",
+    "Description":"A cultured scholar living among 120 acres of breathtaking Japanese, Chinese, and desert gardens."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1503,34.1456 ]
+    },
+    "properties": {
+    "Name":"Old Pasadena Historic District",
+    "Slug":"old-pasadena-historic-district-15cb7",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9aad",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Pasadena",
+    "Category":"Shopping",
+    "Tags":"historic; architecture; walkable; dining",
+    "Description":"A restored 19th-century brick beauty packed with alleyway cafes, boutiques, and historic architecture."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1676,34.1613 ]
+    },
+    "properties": {
+    "Name":"Rose Bowl Stadium",
+    "Slug":"rose-bowl-stadium-c5e46",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9aaf",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Pasadena",
+    "Category":"Entertainment",
+    "Tags":"historic; sports-event-hub; vintage-thrifting",
+    "Description":"A sports and flea market giant nestled in the Arroyo Seco, hosting historic games and world-famous flea markets."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1609,34.1517 ]
+    },
+    "properties": {
+    "Name":"Gamble House",
+    "Slug":"gamble-house-9f8d5",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ab1",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Pasadena",
+    "Category":"Landmarks",
+    "Tags":"architecture; historic; filming-location",
+    "Description":"The ultimate American Craftsman bungalow, handcrafted in 1908 with teak, mahogany, and stained glass details."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1595,34.146 ]
+    },
+    "properties": {
+    "Name":"Norton Simon Museum",
+    "Slug":"norton-simon-museum-0b9da",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ab3",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Pasadena",
+    "Category":"Arts",
+    "Tags":"must-see; historic; walkable",
+    "Description":"An intimate art lover holding masterpieces by Degas, Van Gogh, and Rembrandt alongside sculpture gardens."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1442,34.1478 ]
+    },
+    "properties": {
+    "Name":"Pasadena City Hall",
+    "Slug":"pasadena-city-hall-c707c",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ab5",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Pasadena",
+    "Category":"Landmarks",
+    "Tags":"architecture; photo-spot; filming-location; free-budget",
+    "Description":"A grand Mediterranean Revival palace featuring a soaring dome courtyard that has starred in dozens of TV shows."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2108,34.2013 ]
+    },
+    "properties": {
+    "Name":"Descanso Gardens",
+    "Slug":"descanso-gardens-19119",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ab7",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"La Cañada Flintridge",
+    "Category":"Parks",
+    "Tags":"family-friendly; photo-spot; romantic",
+    "Description":"A camellia and oak forest haven where visitors wander through enchanted railroad trains and rose gardens."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.0519,34.1415 ]
+    },
+    "properties": {
+    "Name":"Los Angeles County Arboretum",
+    "Slug":"los-angeles-county-arboretum-0499d",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ab9",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Arcadia",
+    "Category":"Parks",
+    "Tags":"filming-location; family-friendly; photo-spot",
+    "Description":"A historical garden sanctuary where peacocks roam freely around historic cottages and botanical greenhouses."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1062,34.0969 ]
+    },
+    "properties": {
+    "Name":"Mission San Gabriel Arcángel",
+    "Slug":"mission-san-gabriel-arc-ngel-7af32",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9abb",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"San Gabriel",
+    "Category":"Landmarks",
+    "Tags":"historic; architecture; free-budget",
+    "Description":"A 1771 historic Spanish mission guardian featuring Moorish stone architecture and ancient bells."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1258,34.0792 ]
+    },
+    "properties": {
+    "Name":"Alhambra Asian Culinary Hub (Valley Blvd)",
+    "Slug":"alhambra-asian-culinary-hub-valley-blvd-9b250",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9abd",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Alhambra",
+    "Category":"Dining",
+    "Tags":"iconic-eats; local-favorite; street-food",
+    "Description":"The undisputed dim sum and hand-pulled noodle king of Southern California, brimming with authentic flavors."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.414,33.8837 ]
+    },
+    "properties": {
+    "Name":"Manhattan Beach Pier",
+    "Slug":"manhattan-beach-pier-7aaa0",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9abf",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Manhattan Beach",
+    "Category":"Landmarks",
+    "Tags":"beach-vibes; photo-spot; walkable",
+    "Description":"An elegant beachside pier host ending at a round turquoise aquarium, surrounded by beach volleyball courts."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4013,33.8617 ]
+    },
+    "properties": {
+    "Name":"Hermosa Beach Pier & Plaza",
+    "Slug":"hermosa-beach-pier-and-plaza-b2333",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ac1",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Hermosa Beach",
+    "Category":"Landmarks",
+    "Tags":"beach-vibes; nightlife; walkable",
+    "Description":"An energetic coastal party host lined with surf shops, patio bars, and beachside promenades."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3918,33.842 ]
+    },
+    "properties": {
+    "Name":"Redondo Beach Pier",
+    "Slug":"redondo-beach-pier-01793",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ac3",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:45 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Redondo Beach",
+    "Category":"Landmarks",
+    "Tags":"beach-vibes; iconic-eats; family-friendly",
+    "Description":"A horseshoe-shaped pier veteran serving up fresh live crab, churros, and harbor boat rides."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.378,33.7441 ]
+    },
+    "properties": {
+    "Name":"Wayfarers Chapel (Glass Church Grounds)",
+    "Slug":"wayfarers-chapel-glass-church-grounds-ec200",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ac5",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Rancho Palos Verdes",
+    "Category":"Landmarks",
+    "Tags":"architecture; skyline-views; photo-spot",
+    "Description":"Lloyd Wright's glass-and-redwood sanctuary tucked high on Palos Verdes cliffs with ocean views."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.4111,33.7417 ]
+    },
+    "properties": {
+    "Name":"Point Vicente Lighthouse",
+    "Slug":"point-vicente-lighthouse-f6400",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ac7",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Rancho Palos Verdes",
+    "Category":"Landmarks",
+    "Tags":"skyline-views; free-budget; photo-spot",
+    "Description":"A rugged cliffside coastal lookout watching over Pacific whale migration lanes."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1898,33.7528 ]
+    },
+    "properties": {
+    "Name":"The Queen Mary",
+    "Slug":"the-queen-mary-63e1b",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ac9",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Long Beach",
+    "Category":"Landmarks",
+    "Tags":"historic; must-see; nightlife; family-friendly",
+    "Description":"A grand 1930s ocean liner floating permanently in Long Beach Harbor, rich in Art Deco history and ghost lore."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1969,33.7622 ]
+    },
+    "properties": {
+    "Name":"Aquarium of the Pacific",
+    "Slug":"aquarium-of-the-pacific-30c2a",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9acb",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Long Beach",
+    "Category":"Entertainment",
+    "Tags":"family-friendly; must-see",
+    "Description":"A marine life educator hosting sea otters, shark touch tanks, and vibrant coral reef habitats."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.139,33.7583 ]
+    },
+    "properties": {
+    "Name":"Belmont Shore (2nd Street)",
+    "Slug":"belmont-shore-2nd-street-66fd2",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9acd",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Long Beach",
+    "Category":"Shopping",
+    "Tags":"beach-vibes; walkable; dining",
+    "Description":"A friendly beach-town shopping strip bursting with outdoor dining, ice cream shops, and dog lovers."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2562,34.1444 ]
+    },
+    "properties": {
+    "Name":"The Americana at Brand & Glendale Galleria",
+    "Slug":"the-americana-at-brand-and-glendale-galleria-98a01",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9acf",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Glendale",
+    "Category":"Shopping",
+    "Tags":"shopping; family-friendly; walkable; dining",
+    "Description":"Glendale's polished shopping oasis featuring dancing fountains, trolley cars, and outdoor cafes."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.3762,34.1689 ]
+    },
+    "properties": {
+    "Name":"NoHo Arts District",
+    "Slug":"noho-arts-district-bc2d5",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ad1",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"North Hollywood",
+    "Category":"Arts",
+    "Tags":"walkable; vintage-thrifting",
+    "Description":"The Valley's theatrical bohemian, home to small equity theaters, dance studios, and vintage clothing stores."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2606,34.0728 ]
+    },
+    "properties": {
+    "Name":"Echo Park Lake",
+    "Slug":"echo-park-lake-f9b0d",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ad3",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Echo Park",
+    "Category":"Parks",
+    "Tags":"skyline-views; local-favorite; family-friendly; free-budget",
+    "Description":"An urban oasis where lotus blossoms bloom around swan pedal boats against the DTLA skyline."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2675,34.0883 ]
+    },
+    "properties": {
+    "Name":"Silver Lake Reservoir & Meadow",
+    "Slug":"silver-lake-reservoir-and-meadow-c9ace",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ad5",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Silver Lake",
+    "Category":"Parks",
+    "Tags":"local-favorite; walkable; dog-friendly; free-budget",
+    "Description":"The Eastside's favorite neighborhood gathering lawn for dog walks, picnics, and jogger watching."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2778,34.0908 ]
+    },
+    "properties": {
+    "Name":"Sunset Junction",
+    "Slug":"sunset-junction-83e5a",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ad7",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Silver Lake",
+    "Category":"Shopping",
+    "Tags":"coffee; vintage-thrifting; local-favorite; walkable",
+    "Description":"Silver Lake's hipster crossroads, serving up artisanal espresso, vinyl shops, and indie fashion."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.1883,34.1208 ]
+    },
+    "properties": {
+    "Name":"Highland Park (York & Figueroa)",
+    "Slug":"highland-park-york-and-figueroa-de510",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2861ed74505db7b9ad9",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:46 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Highland Park",
+    "Category":"Shopping",
+    "Tags":"local-favorite; vintage-thrifting; tacos; walkable",
+    "Description":"A vibrant, retro-loving neighborhood blending historic bowling alleys, taco trucks, and vintage boutiques."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.24,34.0739 ]
+    },
+    "properties": {
+    "Name":"Dodger Stadium",
+    "Slug":"dodger-stadium-1a1ab",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2876a5c1d82a329d746",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:47 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:47 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"DTLA",
+    "Category":"Entertainment",
+    "Tags":"sports-event-hub; skyline-views; must-see; historic",
+    "Description":"LA's baseball cathedral resting in Chavez Ravine, serving up Dodger Dogs and sunset views over Downtown."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -118.2081,34.0878 ]
+    },
+    "properties": {
+    "Name":"Heritage Square Museum",
+    "Slug":"heritage-square-museum-8b982",
+    "Collection ID":"6a6d9b5a669054aa407ade0d",
+    "Locale ID":"6a516a44ad462676ba76d688",
+    "Item ID":"6a6da2876a5c1d82a329d748",
+    "Archived":"false",
+    "Draft":"false",
+    "Created On":"Sat Aug 01 2026 07:38:47 GMT+0000 (Coordinated Universal Time)",
+    "Updated On":"Sat Aug 01 2026 07:38:47 GMT+0000 (Coordinated Universal Time)",
+    "Published On":"Sat Aug 01 2026 07:39:47 GMT+0000 (Coordinated Universal Time)",
+    "City":"Lincoln Heights",
+    "Category":"Landmarks",
+    "Tags":"historic; architecture; photo-spot",
+    "Description":"A Victorian time capsule tucked along the Arroyo Seco, showcasing beautifully restored 19th-century LA mansions."
+    }
+  }
+]
+}
