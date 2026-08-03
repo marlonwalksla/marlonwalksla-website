@@ -1,3 +1,26 @@
+/* ==============================================================================
+ * FILE: layout-main.css
+ * CATEGORY: MarlonWalksLA Website - Master Layout & Frame
+ * 
+ * OVERVIEW:
+ * Handles the structural scaffolding and main visual container (the polaroid frame) 
+ * for the interactive map section. It utilizes CSS flexbox to force a specific 
+ * vertical order for the internal components, ensuring the layout remains intact 
+ * regardless of how Webflow outputs the HTML structure.
+ * 
+ * WHAT'S INSIDE:
+ * - `.hero-polaroid-wrapper`: The main constrained wrapper keeping the map centered.
+ * - `.map-master-polaroid`: The white card background with drop shadows resembling a polaroid.
+ * - Flexbox `order` overrides: Forces the filter tray to the top (`order: 1`), the 
+ *   map to the middle (`order: 2`), and the dynamic caption to the bottom (`order: 3`).
+ * - Media queries adjusting the map's height and padding for mobile screens.
+ * 
+ * WHEN TO FEED THIS FILE TO GEMINI / AI:
+ * - Feed this file if you want to: Change the overall width, padding, or shadow of the main map container.
+ * - Feed this file if you want to: Rearrange the order of the map interface (e.g., moving the filter bar below the map).
+ * - Feed this file if you want to: Adjust the height of the Mapbox container on desktop or mobile devices.
+ * ============================================================================== */
+
 /* =========================================
    layout-main.css
    MASTER MAP POLAROID FRAME & LAYOUT
