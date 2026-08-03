@@ -46,7 +46,8 @@ window.initMapEngine = async function() {
     localStorage.setItem('marlon_saved_spots', JSON.stringify(saved));
     updateHeaderBadges();
     updateMarkerStates();
-    if (activeViewMode === 'itinerary') applyModeMapFilter(getSavedSpots());
+    if (activeViewMode === 'itinerary') renderItineraryView();
+    if (activeViewMode === 'visited') renderVisitedView();
   }
   function toggleVisitedSpot(id) {
     let visited = getVisitedSpots();
@@ -58,11 +59,14 @@ window.initMapEngine = async function() {
     localStorage.setItem('marlon_visited_spots', JSON.stringify(visited));
     updateHeaderBadges();
     updateMarkerStates();
-    if (activeViewMode === 'visited') {
-      renderVisitedView();
-    } else if (activeViewMode === 'itinerary') {
-      renderItineraryView();
-    }
+    if (activeViewMode === 'itinerary') renderItineraryView();
+    if (activeViewMode === 'visited') renderVisitedView();
+  }
+  function clearItinerary() {
+    localStorage.setItem('marlon_saved_spots', '[]');
+    updateHeaderBadges();
+    updateMarkerStates();
+    if (activeViewMode === 'itinerary') renderItineraryView();
   }
 
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
@@ -132,7 +136,7 @@ window.initMapEngine = async function() {
   let listCardView = null;
   let itineraryBadgeBtn = null;
   let visitedBadgeBtn = null;
-  let activeViewMode = 'filters'; // 'filters' | 'itinerary' | 'visited'
+  let activeViewMode = 'filters';
 
   if (form) {
     form.innerHTML = '';
@@ -169,8 +173,60 @@ window.initMapEngine = async function() {
     map.resize();
   }
 
-  function showSpotDetailsView(htmlContent, spotId) {
+  // DYNAMICALLY BUILD FRESH SPOT DETAIL HTML
+  function renderSpotDetailsModal(spot) {
     if (!filterControlsView || !spotDetailsView || !listCardView) return;
+
+    const isSaved = getSavedSpots().includes(spot.id);
+    const isVisited = getVisitedSpots().includes(spot.id);
+
+    const catDetails = getCategoryDetails(spot.category, spot.customColor);
+    const tagsFormatted = spot.tags.length ? `<div class="polaroid-tags">${spot.tags.map(t => `#${formatTagDisplay(t)}`).join('  ')}</div>` : '';
+    const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}`;
+
+    const imageHTML = spot.spotImage ? `<div class="polaroid-spot-img-wrap"><img src="${spot.spotImage}" alt="${spot.title}" class="polaroid-spot-img" /></div>` : '';
+    const noteHTML = spot.marlonNote ? `<blockquote class="polaroid-marlon-note"><strong>💡 Marlon's Tip:</strong> "${spot.marlonNote}"</blockquote>` : '';
+    
+    let socialLinksHTML = '';
+    if (spot.instagramUrl || spot.tiktokUrl) {
+      socialLinksHTML = `<div class="polaroid-social-row">`;
+      if (spot.instagramUrl) socialLinksHTML += `<a href="${spot.instagramUrl}" target="_blank" class="social-btn instagram">📸 Watch Instagram Reel</a>`;
+      if (spot.tiktokUrl) socialLinksHTML += `<a href="${spot.tiktokUrl}" target="_blank" class="social-btn tiktok">🎵 Watch TikTok</a>`;
+      socialLinksHTML += `</div>`;
+    }
+
+    const htmlContent = `
+      <div class="polaroid-caption-card">
+        <div class="polaroid-caption-header">
+          <button type="button" class="back-to-filters-btn">‹ Back</button>
+          <span class="polaroid-cat-badge" style="background-color:${catDetails.color};">${catDetails.name}</span>
+        </div>
+        ${imageHTML}
+        <div class="polaroid-caption-body">
+          <h3 class="polaroid-caption-title">${spot.title}</h3>
+          <div class="polaroid-caption-meta">📍 ${spot.neighborhood}</div>
+          ${spot.desc ? `<p class="polaroid-caption-desc">${spot.desc}</p>` : ''}
+          ${noteHTML}
+          ${socialLinksHTML}
+          ${tagsFormatted}
+        </div>
+
+        <div class="polaroid-caption-user-actions">
+          <button type="button" class="toggle-save-btn ${isSaved ? 'is-active' : ''}">
+            ${isSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary'}
+          </button>
+          <button type="button" class="toggle-visited-btn ${isVisited ? 'is-active' : ''}">
+            ${isVisited ? '✅ Visited!' : '✅ Mark as Visited'}
+          </button>
+        </div>
+
+        <div class="polaroid-caption-footer">
+          <a href="${directionsLink}" target="_blank" class="polaroid-directions-btn primary-cta">🚗 Get Directions</a>
+          <a href="https://marlonwalksla.com" target="_blank" class="polaroid-directions-btn secondary-cta">🎟️ Book Walking Tour</a>
+        </div>
+      </div>
+    `;
+
     spotDetailsView.innerHTML = htmlContent;
     filterControlsView.style.display = 'none';
     listCardView.style.display = 'none';
@@ -194,19 +250,19 @@ window.initMapEngine = async function() {
 
     if (saveBtn) {
       saveBtn.addEventListener('click', () => {
-        toggleSavedSpot(spotId);
-        const isSaved = getSavedSpots().includes(spotId);
-        saveBtn.classList.toggle('is-active', isSaved);
-        saveBtn.innerHTML = isSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary';
+        toggleSavedSpot(spot.id);
+        const freshSaved = getSavedSpots().includes(spot.id);
+        saveBtn.classList.toggle('is-active', freshSaved);
+        saveBtn.innerHTML = freshSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary';
       });
     }
 
     if (visitedBtn) {
       visitedBtn.addEventListener('click', () => {
-        toggleVisitedSpot(spotId);
-        const isVisited = getVisitedSpots().includes(spotId);
-        visitedBtn.classList.toggle('is-active', isVisited);
-        visitedBtn.innerHTML = isVisited ? '✅ Visited!' : '✅ Mark as Visited';
+        toggleVisitedSpot(spot.id);
+        const freshVisited = getVisitedSpots().includes(spot.id);
+        visitedBtn.classList.toggle('is-active', freshVisited);
+        visitedBtn.innerHTML = freshVisited ? '✅ Visited!' : '✅ Mark as Visited';
       });
     }
 
@@ -246,7 +302,7 @@ window.initMapEngine = async function() {
     }
   }
 
-  // RENDER SAVED ITINERARY VIEW
+  // RENDER SAVED ITINERARY VIEW (WITH DUAL TOGGLES & CLEAR BUTTON)
   function renderItineraryView() {
     if (!listCardView) return;
     activeViewMode = 'itinerary';
@@ -264,6 +320,7 @@ window.initMapEngine = async function() {
         <div class="itinerary-header">
           <button type="button" class="back-to-filters-btn">‹ Back</button>
           <div class="itinerary-title">📋 Planned Itinerary (${totalCount})</div>
+          ${totalCount > 0 ? '<button type="button" class="clear-itinerary-btn">🗑️ Clear</button>' : '<div></div>'}
         </div>
 
         <div class="itinerary-progress-box">
@@ -288,7 +345,8 @@ window.initMapEngine = async function() {
                     <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
                   </div>
                   <div class="itinerary-item-actions">
-                    <button type="button" class="list-check-btn ${isVisited ? 'is-checked' : ''}" data-id="${m.id}">
+                    <button type="button" class="mini-toggle-btn save-toggle is-active" data-id="${m.id}" title="Remove from Itinerary">📌 Saved</button>
+                    <button type="button" class="mini-toggle-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="Toggle Visited">
                       ${isVisited ? '✓ Visited' : 'Mark Visited'}
                     </button>
                   </div>
@@ -306,11 +364,23 @@ window.initMapEngine = async function() {
     listCardView.style.display = 'block';
 
     const backBtn = listCardView.querySelector('.back-to-filters-btn');
-    if (backBtn) {
-      backBtn.addEventListener('click', showFilterControlsView);
+    if (backBtn) backBtn.addEventListener('click', showFilterControlsView);
+
+    const clearBtn = listCardView.querySelector('.clear-itinerary-btn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (confirm("Clear your saved itinerary?")) clearItinerary();
+      });
     }
 
-    listCardView.querySelectorAll('.list-check-btn').forEach(btn => {
+    listCardView.querySelectorAll('.save-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSavedSpot(btn.dataset.id);
+      });
+    });
+
+    listCardView.querySelectorAll('.visited-toggle').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleVisitedSpot(btn.dataset.id);
@@ -318,7 +388,8 @@ window.initMapEngine = async function() {
     });
 
     listCardView.querySelectorAll('.itinerary-item').forEach(el => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (e) => {
+        if (e.target.closest('.mini-toggle-btn')) return;
         const match = allMarkers.find(m => m.id === el.dataset.id);
         if (match) match.wrapper.click();
       });
@@ -328,11 +399,12 @@ window.initMapEngine = async function() {
     map.resize();
   }
 
-  // RENDER LIFETIME VISITED PASSPORT VIEW
+  // RENDER LIFETIME VISITED PASSPORT VIEW (WITH DUAL TOGGLES)
   function renderVisitedView() {
     if (!listCardView) return;
     activeViewMode = 'visited';
 
+    const savedIds = getSavedSpots();
     const visitedIds = getVisitedSpots();
     const visitedMarkers = allMarkers.filter(m => visitedIds.includes(m.id));
     const totalSpots = allMarkers.length;
@@ -358,17 +430,23 @@ window.initMapEngine = async function() {
         <div class="itinerary-section">
           ${visitedIds.length === 0 ? '<p class="empty-itinerary-msg">No spots visited yet. Click ✅ Visited on places you have explored!</p>' : ''}
           <div class="itinerary-list">
-            ${visitedMarkers.map(m => `
-              <div class="itinerary-item is-visited-item" data-id="${m.id}">
-                <div class="itinerary-item-info">
-                  <div class="itinerary-item-name">${m.title}</div>
-                  <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
+            ${visitedMarkers.map(m => {
+              const isSaved = savedIds.includes(m.id);
+              return `
+                <div class="itinerary-item is-visited-item" data-id="${m.id}">
+                  <div class="itinerary-item-info">
+                    <div class="itinerary-item-name">${m.title}</div>
+                    <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
+                  </div>
+                  <div class="itinerary-item-actions">
+                    <button type="button" class="mini-toggle-btn save-toggle ${isSaved ? 'is-active' : ''}" data-id="${m.id}" title="Toggle Itinerary">
+                      ${isSaved ? '📌 Saved' : '+ Itinerary'}
+                    </button>
+                    <button type="button" class="mini-toggle-btn visited-toggle is-active" data-id="${m.id}" title="Remove from Visited">✓ Visited</button>
+                  </div>
                 </div>
-                <div class="itinerary-item-actions">
-                  <span class="visited-badge">✓ Explored</span>
-                </div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         </div>
       </div>
@@ -380,12 +458,25 @@ window.initMapEngine = async function() {
     listCardView.style.display = 'block';
 
     const backBtn = listCardView.querySelector('.back-to-filters-btn');
-    if (backBtn) {
-      backBtn.addEventListener('click', showFilterControlsView);
-    }
+    if (backBtn) backBtn.addEventListener('click', showFilterControlsView);
+
+    listCardView.querySelectorAll('.save-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSavedSpot(btn.dataset.id);
+      });
+    });
+
+    listCardView.querySelectorAll('.visited-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleVisitedSpot(btn.dataset.id);
+      });
+    });
 
     listCardView.querySelectorAll('.itinerary-item').forEach(el => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (e) => {
+        if (e.target.closest('.mini-toggle-btn')) return;
         const match = allMarkers.find(m => m.id === el.dataset.id);
         if (match) match.wrapper.click();
       });
@@ -406,7 +497,7 @@ window.initMapEngine = async function() {
     }
   }
 
-  // 2. PROCESS GEOJSON FEATURES WITH RICH STORYTELLING (NOTES, PHOTOS, SOCIAL)
+  // 2. PROCESS GEOJSON FEATURES
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
     const coords = feature.geometry ? feature.geometry.coordinates : null;
@@ -425,7 +516,6 @@ window.initMapEngine = async function() {
     const neighborhood = cleanText(props.City || props.city || props.neighborhood || 'Downtown LA');
     const rawTagsStr = cleanText(props.Tags || props.tags || '');
 
-    // STORYTELLING EXTENSIONS (Note, Image, Social Media links)
     const marlonNote = cleanText(props.Note || props.MarlonNote || props.PersonalNote || props.tip || '');
     const spotImage = cleanText(props.Image || props.Photo || props.image_url || '');
     const instagramUrl = cleanText(props.Instagram || props.instagram_url || '');
@@ -459,60 +549,28 @@ window.initMapEngine = async function() {
     const marker = new mapboxgl.Marker({ element: wrapper })
       .setLngLat([lng, lat]);
 
-    const tagsFormatted = parsedTags.length ? `<div class="polaroid-tags">${parsedTags.map(t => `#${formatTagDisplay(t)}`).join('  ')}</div>` : '';
-    const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-
-    const isSaved = getSavedSpots().includes(spotId);
-    const isVisited = getVisitedSpots().includes(spotId);
-
-    // Dynamic Rich Story HTML Assembly
-    const imageHTML = spotImage ? `<div class="polaroid-spot-img-wrap"><img src="${spotImage}" alt="${title}" class="polaroid-spot-img" /></div>` : '';
-    const noteHTML = marlonNote ? `<blockquote class="polaroid-marlon-note"><strong>💡 Marlon's Tip:</strong> "${marlonNote}"</blockquote>` : '';
-    
-    let socialLinksHTML = '';
-    if (instagramUrl || tiktokUrl) {
-      socialLinksHTML = `<div class="polaroid-social-row">`;
-      if (instagramUrl) socialLinksHTML += `<a href="${instagramUrl}" target="_blank" class="social-btn instagram">📸 Watch Instagram Reel</a>`;
-      if (tiktokUrl) socialLinksHTML += `<a href="${tiktokUrl}" target="_blank" class="social-btn tiktok">🎵 Watch TikTok</a>`;
-      socialLinksHTML += `</div>`;
-    }
-
-    const captionHTML = `
-      <div class="polaroid-caption-card">
-        <div class="polaroid-caption-header">
-          <button type="button" class="back-to-filters-btn">‹ Back</button>
-          <span class="polaroid-cat-badge" style="background-color:${catDetails.color};">${catDetails.name}</span>
-        </div>
-        ${imageHTML}
-        <div class="polaroid-caption-body">
-          <h3 class="polaroid-caption-title">${title}</h3>
-          <div class="polaroid-caption-meta">📍 ${neighborhood}</div>
-          ${desc ? `<p class="polaroid-caption-desc">${desc}</p>` : ''}
-          ${noteHTML}
-          ${socialLinksHTML}
-          ${tagsFormatted}
-        </div>
-
-        <div class="polaroid-caption-user-actions">
-          <button type="button" class="toggle-save-btn ${isSaved ? 'is-active' : ''}">
-            ${isSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary'}
-          </button>
-          <button type="button" class="toggle-visited-btn ${isVisited ? 'is-active' : ''}">
-            ${isVisited ? '✅ Visited!' : '✅ Mark as Visited'}
-          </button>
-        </div>
-
-        <div class="polaroid-caption-footer">
-          <a href="${directionsLink}" target="_blank" class="polaroid-directions-btn primary-cta">🚗 Get Directions</a>
-          <a href="https://marlonwalksla.com" target="_blank" class="polaroid-directions-btn secondary-cta">🎟️ Book Walking Tour</a>
-        </div>
-      </div>
-    `;
+    const spotData = {
+      id: spotId,
+      title: title,
+      desc: desc,
+      category: rawCategory,
+      customColor: customColor,
+      neighborhood: neighborhood,
+      tags: parsedTags,
+      marlonNote: marlonNote,
+      spotImage: spotImage,
+      instagramUrl: instagramUrl,
+      tiktokUrl: tiktokUrl,
+      wrapper: wrapper,
+      marker: marker,
+      lng: lng,
+      lat: lat
+    };
 
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
 
-      showSpotDetailsView(captionHTML, spotId);
+      renderSpotDetailsModal(spotData);
 
       const currentZoom = map.getZoom();
       const targetZoom = Math.max(currentZoom, 12.0);
@@ -531,17 +589,7 @@ window.initMapEngine = async function() {
       }
     });
 
-    allMarkers.push({
-      id: spotId,
-      title: title,
-      wrapper: wrapper,
-      marker: marker,
-      lng: lng,
-      lat: lat,
-      neighborhood: neighborhood,
-      category: rawCategory,
-      tags: parsedTags
-    });
+    allMarkers.push(spotData);
   });
 
   map.on('click', () => {
@@ -591,7 +639,6 @@ window.initMapEngine = async function() {
     subtitleText.className = 'map-hero-cta-subtitle';
     subtitleText.innerText = "Curate your personal itinerary, save must-see spots, and check off places as you explore!";
 
-    // Dual CTA Buttons Box (Planned Itinerary + Visited Passport)
     const toggleGroup = document.createElement('div');
     toggleGroup.className = 'itinerary-toggle-group';
 
