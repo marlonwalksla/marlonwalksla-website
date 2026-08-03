@@ -46,6 +46,7 @@ window.initMapEngine = async function() {
     localStorage.setItem('marlon_saved_spots', JSON.stringify(saved));
     updateItineraryBadge();
     updateMarkerStates();
+    if (isItineraryModeActive) applyItineraryMapFilter();
   }
   function toggleVisitedSpot(id) {
     let visited = getVisitedSpots();
@@ -57,6 +58,7 @@ window.initMapEngine = async function() {
     localStorage.setItem('marlon_visited_spots', JSON.stringify(visited));
     updateItineraryBadge();
     updateMarkerStates();
+    if (isItineraryModeActive) applyItineraryMapFilter();
   }
 
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
@@ -173,7 +175,11 @@ window.initMapEngine = async function() {
     const backBtn = spotDetailsView.querySelector('.back-to-filters-btn');
     if (backBtn) {
       backBtn.addEventListener('click', () => {
-        showFilterControlsView();
+        if (isItineraryModeActive) {
+          renderItineraryView();
+        } else {
+          showFilterControlsView();
+        }
       });
     }
 
@@ -244,18 +250,17 @@ window.initMapEngine = async function() {
 
     const savedIds = getSavedSpots();
     const visitedIds = getVisitedSpots();
+    const itineraryIds = [...new Set([...savedIds, ...visitedIds])];
     const totalSpotsCount = allMarkers.length;
 
-    const savedMarkers = allMarkers.filter(m => savedIds.includes(m.id));
-    const visitedMarkers = allMarkers.filter(m => visitedIds.includes(m.id));
-
+    const itineraryMarkers = allMarkers.filter(m => itineraryIds.includes(m.id));
     const progressPercent = Math.round((visitedIds.length / totalSpotsCount) * 100);
 
     let html = `
       <div class="itinerary-card">
         <div class="itinerary-header">
           <button type="button" class="back-to-filters-btn">‹ Back</button>
-          <div class="itinerary-title">📋 My LA Trip</div>
+          <div class="itinerary-title">📋 My Saved Itinerary (${itineraryMarkers.length})</div>
         </div>
 
         <!-- GAMIFIED PROGRESS BAR -->
@@ -270,34 +275,23 @@ window.initMapEngine = async function() {
         </div>
         
         <div class="itinerary-section">
-          <h4 class="itinerary-sub-title">📌 Saved Spots (${savedMarkers.length})</h4>
-          ${savedMarkers.length === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save on any spot to build your trip!</p>' : ''}
+          ${itineraryMarkers.length === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save or ✅ Visited on any location to build your journey!</p>' : ''}
           <div class="itinerary-list">
-            ${savedMarkers.map(m => `
-              <div class="itinerary-item" data-id="${m.id}">
-                <div>
-                  <div class="itinerary-item-name">${m.title}</div>
-                  <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
+            ${itineraryMarkers.map(m => {
+              const isVisited = visitedIds.includes(m.id);
+              return `
+                <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
+                  <div class="itinerary-item-info">
+                    <div class="itinerary-item-name">${m.title}</div>
+                    <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
+                  </div>
+                  <div class="itinerary-item-actions">
+                    ${isVisited ? '<span class="visited-badge">✓ Visited</span>' : '<span class="saved-badge">📌 Saved</span>'}
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}" target="_blank" class="mini-dir-btn" title="Get Directions">🚗</a>
+                  </div>
                 </div>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}" target="_blank" class="mini-dir-btn" title="Get Directions">🚗</a>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-
-        <div class="itinerary-section" style="margin-top: 14px;">
-          <h4 class="itinerary-sub-title">✅ Completed / Visited (${visitedMarkers.length})</h4>
-          ${visitedMarkers.length === 0 ? '<p class="empty-itinerary-msg">No places visited yet. Check off spots as you explore!</p>' : ''}
-          <div class="itinerary-list">
-            ${visitedMarkers.map(m => `
-              <div class="itinerary-item is-visited-item" data-id="${m.id}">
-                <div>
-                  <div class="itinerary-item-name">${m.title}</div>
-                  <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
-                </div>
-                <span class="visited-check">✓</span>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         </div>
       </div>
@@ -315,7 +309,18 @@ window.initMapEngine = async function() {
       });
     }
 
-    // Filter Map to show ONLY saved/visited pins
+    // CLICK ITEM TO MOVE MAP TO PIN
+    itineraryView.querySelectorAll('.itinerary-item').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (e.target.closest('.mini-dir-btn')) return;
+        const id = el.dataset.id;
+        const match = allMarkers.find(m => m.id === id);
+        if (match) {
+          match.wrapper.click();
+        }
+      });
+    });
+
     applyItineraryMapFilter();
     map.resize();
   }
@@ -454,7 +459,11 @@ window.initMapEngine = async function() {
   });
 
   map.on('click', () => {
-    showFilterControlsView();
+    if (isItineraryModeActive) {
+      renderItineraryView();
+    } else {
+      showFilterControlsView();
+    }
   });
 
   // 3. BUILD FILTER CONTROLS
@@ -638,7 +647,10 @@ window.initMapEngine = async function() {
   }
 
   function applyFilters() {
-    if (isItineraryModeActive) return;
+    if (isItineraryModeActive) {
+      applyItineraryMapFilter();
+      return;
+    }
 
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
