@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-engine.js
- * CATEGORY: MarlonWalksLA Website - Mapbox Engine & Saved Itinerary System
+ * CATEGORY: MarlonWalksLA Website - Mapbox Engine & LA Adventure Builder
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -45,6 +45,7 @@ window.initMapEngine = async function() {
     }
     localStorage.setItem('marlon_saved_spots', JSON.stringify(saved));
     updateItineraryBadge();
+    updateMarkerStates();
   }
   function toggleVisitedSpot(id) {
     let visited = getVisitedSpots();
@@ -55,6 +56,7 @@ window.initMapEngine = async function() {
     }
     localStorage.setItem('marlon_visited_spots', JSON.stringify(visited));
     updateItineraryBadge();
+    updateMarkerStates();
   }
 
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
@@ -124,6 +126,7 @@ window.initMapEngine = async function() {
   let spotDetailsView = null;
   let itineraryView = null;
   let itineraryBadgeBtn = null;
+  let isItineraryModeActive = false;
 
   if (form) {
     form.innerHTML = '';
@@ -152,13 +155,15 @@ window.initMapEngine = async function() {
 
   function showFilterControlsView() {
     if (!filterControlsView || !spotDetailsView || !itineraryView) return;
+    isItineraryModeActive = false;
     spotDetailsView.style.display = 'none';
     itineraryView.style.display = 'none';
     filterControlsView.style.display = 'flex';
+    applyFilters();
     map.resize();
   }
 
-  function showSpotDetailsView(htmlContent, spotId, spotTitle) {
+  function showSpotDetailsView(htmlContent, spotId) {
     if (!filterControlsView || !spotDetailsView || !itineraryView) return;
     spotDetailsView.innerHTML = htmlContent;
     filterControlsView.style.display = 'none';
@@ -172,7 +177,6 @@ window.initMapEngine = async function() {
       });
     }
 
-    // Attach Toggle Listener for Saved & Visited
     const saveBtn = spotDetailsView.querySelector('.toggle-save-btn');
     const visitedBtn = spotDetailsView.querySelector('.toggle-visited-btn');
 
@@ -181,7 +185,7 @@ window.initMapEngine = async function() {
         toggleSavedSpot(spotId);
         const isSaved = getSavedSpots().includes(spotId);
         saveBtn.classList.toggle('is-active', isSaved);
-        saveBtn.innerText = isSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary';
+        saveBtn.innerHTML = isSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary';
       });
     }
 
@@ -190,20 +194,62 @@ window.initMapEngine = async function() {
         toggleVisitedSpot(spotId);
         const isVisited = getVisitedSpots().includes(spotId);
         visitedBtn.classList.toggle('is-active', isVisited);
-        visitedBtn.innerText = isVisited ? '✅ Visited!' : '✅ Mark as Visited';
+        visitedBtn.innerHTML = isVisited ? '✅ Visited!' : '✅ Mark as Visited';
       });
     }
 
     map.resize();
   }
 
-  function renderItineraryView() {
-    if (!itineraryView) return;
+  function updateMarkerStates() {
+    const visitedIds = getVisitedSpots();
+    allMarkers.forEach(m => {
+      const isVisited = visitedIds.includes(m.id);
+      if (isVisited) {
+        m.wrapper.classList.add('is-visited-pin');
+      } else {
+        m.wrapper.classList.remove('is-visited-pin');
+      }
+    });
+  }
+
+  function applyItineraryMapFilter() {
     const savedIds = getSavedSpots();
     const visitedIds = getVisitedSpots();
+    const itineraryIds = [...new Set([...savedIds, ...visitedIds])];
+
+    const bounds = new mapboxgl.LngLatBounds();
+    let visibleCount = 0;
+
+    allMarkers.forEach(item => {
+      if (itineraryIds.includes(item.id)) {
+        item.marker.addTo(map);
+        bounds.extend([item.lng, item.lat]);
+        visibleCount++;
+      } else {
+        item.marker.remove();
+      }
+    });
+
+    if (visibleCount >= 1) {
+      map.fitBounds(bounds, { padding: 60, maxZoom: 13.5, duration: 1200 });
+    } else {
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200 });
+    }
+  }
+
+  function renderItineraryView() {
+    if (!itineraryView) return;
+    isItineraryModeActive = true;
+
+    const savedIds = getSavedSpots();
+    const visitedIds = getVisitedSpots();
+    const totalSpotsCount = allMarkers.length;
 
     const savedMarkers = allMarkers.filter(m => savedIds.includes(m.id));
     const visitedMarkers = allMarkers.filter(m => visitedIds.includes(m.id));
+
+    const progressPercent = Math.round((visitedIds.length / totalSpotsCount) * 100);
 
     let html = `
       <div class="itinerary-card">
@@ -211,10 +257,21 @@ window.initMapEngine = async function() {
           <button type="button" class="back-to-filters-btn">‹ Back</button>
           <div class="itinerary-title">📋 My LA Trip</div>
         </div>
+
+        <!-- GAMIFIED PROGRESS BAR -->
+        <div class="itinerary-progress-box">
+          <div class="itinerary-progress-label">
+            <span>🎯 Exploration Progress</span>
+            <strong>${visitedIds.length} / ${totalSpotsCount} Spots (${progressPercent}%)</strong>
+          </div>
+          <div class="itinerary-progress-track">
+            <div class="itinerary-progress-fill" style="width: ${progressPercent}%;"></div>
+          </div>
+        </div>
         
         <div class="itinerary-section">
           <h4 class="itinerary-sub-title">📌 Saved Spots (${savedMarkers.length})</h4>
-          ${savedMarkers.length === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save on any location to build your day!</p>' : ''}
+          ${savedMarkers.length === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save on any spot to build your trip!</p>' : ''}
           <div class="itinerary-list">
             ${savedMarkers.map(m => `
               <div class="itinerary-item" data-id="${m.id}">
@@ -222,7 +279,7 @@ window.initMapEngine = async function() {
                   <div class="itinerary-item-name">${m.title}</div>
                   <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
                 </div>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}" target="_blank" class="mini-dir-btn">🚗</a>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}" target="_blank" class="mini-dir-btn" title="Get Directions">🚗</a>
               </div>
             `).join('')}
           </div>
@@ -230,10 +287,14 @@ window.initMapEngine = async function() {
 
         <div class="itinerary-section" style="margin-top: 14px;">
           <h4 class="itinerary-sub-title">✅ Completed / Visited (${visitedMarkers.length})</h4>
+          ${visitedMarkers.length === 0 ? '<p class="empty-itinerary-msg">No places visited yet. Check off spots as you explore!</p>' : ''}
           <div class="itinerary-list">
             ${visitedMarkers.map(m => `
-              <div class="itinerary-item is-visited" data-id="${m.id}">
-                <div class="itinerary-item-name">${m.title}</div>
+              <div class="itinerary-item is-visited-item" data-id="${m.id}">
+                <div>
+                  <div class="itinerary-item-name">${m.title}</div>
+                  <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
+                </div>
                 <span class="visited-check">✓</span>
               </div>
             `).join('')}
@@ -254,13 +315,15 @@ window.initMapEngine = async function() {
       });
     }
 
+    // Filter Map to show ONLY saved/visited pins
+    applyItineraryMapFilter();
     map.resize();
   }
 
   function updateItineraryBadge() {
     if (!itineraryBadgeBtn) return;
-    const count = getSavedSpots().length;
-    itineraryBadgeBtn.innerText = `📋 My Itinerary (${count})`;
+    const savedCount = getSavedSpots().length;
+    itineraryBadgeBtn.innerText = `📋 My Itinerary (${savedCount})`;
   }
 
   // 2. PROCESS GEOJSON FEATURES
@@ -358,7 +421,7 @@ window.initMapEngine = async function() {
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
 
-      showSpotDetailsView(captionHTML, spotId, title);
+      showSpotDetailsView(captionHTML, spotId);
 
       const currentZoom = map.getZoom();
       const targetZoom = Math.max(currentZoom, 12.0);
@@ -380,6 +443,7 @@ window.initMapEngine = async function() {
     allMarkers.push({
       id: spotId,
       title: title,
+      wrapper: wrapper,
       marker: marker,
       lng: lng,
       lat: lat,
@@ -424,7 +488,7 @@ window.initMapEngine = async function() {
 
     const titleText = document.createElement('div');
     titleText.className = 'map-section-title';
-    titleText.innerText = "📍 Marlon's LA Master Map";
+    titleText.innerText = "📍 Marlon's LA Adventure Builder";
 
     itineraryBadgeBtn = document.createElement('button');
     itineraryBadgeBtn.type = 'button';
@@ -574,6 +638,8 @@ window.initMapEngine = async function() {
   }
 
   function applyFilters() {
+    if (isItineraryModeActive) return;
+
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
 
@@ -607,6 +673,7 @@ window.initMapEngine = async function() {
   }
 
   map.on('load', () => {
+    updateMarkerStates();
     applyFilters();
     map.resize();
   });
