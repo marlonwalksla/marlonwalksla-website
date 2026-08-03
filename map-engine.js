@@ -5,28 +5,21 @@
  * OVERVIEW:
  * The primary engine for the interactive walking tour map. This script initializes 
  * Mapbox, extracts location data directly from the Webflow CMS DOM elements, and 
- * generates custom emoji markers. It also dynamically builds and powers the 
- * multi-select filtering dashboard so guests can easily explore spots by neighborhood, 
- * category, or vibe.
+ * generates custom emoji markers. 
  * 
  * WHAT'S INSIDE:
  * - Mapbox GL JS initialization, center coordinates, and geolocation controls.
- * - `categoryMap`: A dictionary mapping category names to specific colors and custom SVG icons.
- * - Dynamic marker generation that plots CMS data onto the map and handles overlapping coordinates (`coordTracker`).
- * - Click event listeners for map pins that update the polaroid caption and fly the camera to the location.
- * - Dynamic creation of the filter tray (Neighborhoods, Categories, Tags) and the `applyFilters` logic to hide/show pins and adjust map bounds.
- * - `trackAndDisplayViews`: An asynchronous call to CounterAPI to track and display total map engagement.
+ * - Dynamic marker generation with native Mapbox Popups for spot details.
+ * - Fast-loading UI dropdowns (`<select>`) for massive datasets (88 Neighborhoods & 28 Vibes).
+ * - Horizontal pill scroll UI maintained for the 8 primary categories.
+ * - `applyFilters` logic to hide/show pins and adjust map bounds based on dropdown and pill selections.
  * 
  * WHEN TO FEED THIS FILE TO GEMINI / AI:
  * - Feed this file if you want to: Add new primary categories, change default map center coordinates, or update the Mapbox style URL.
- * - Feed this file if you want to: Alter the filtering logic (e.g., changing from "AND" filtering to "OR" filtering).
- * - Feed this file if you want to: Modify camera behavior, such as zoom levels or fly-to animations when a user clicks a pin or selects a neighborhood.
+ * - Feed this file if you want to: Add new data fields (like operating hours) to the Mapbox popups.
+ * - Feed this file if you want to: Alter the filtering logic or dropdown mechanics.
  * ============================================================================== */
 
-/* =============================================================
-   map-engine.js
-   B. MAPBOX & HERO POLAROID ENGINE (8 CATEGORIES & TAGS)
-   ============================================================= */
 window.initMapEngine = function() {
   const mapContainer = document.getElementById('map');
   if (!mapContainer) return;
@@ -53,39 +46,24 @@ window.initMapEngine = function() {
 
   const categoryMap = {
     'cafes': { color: '#a855f7', name: 'Cafes', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>' },
-    'coffee-cafes': { color: '#a855f7', name: 'Cafes', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>' },
     'dining': { color: '#ef4444', name: 'Dining', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>' },
-    'food-dining': { color: '#ef4444', name: 'Dining', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>' },
     'nightlife': { color: '#6366f1', name: 'Nightlife', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M19 3l-7 8-7-7h14z"/></svg>' },
-    'nightlife-bars': { color: '#6366f1', name: 'Nightlife', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M19 3l-7 8-7-7h14z"/></svg>' },
     'landmarks': { color: '#f59e0b', name: 'Landmarks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
-    'must-see': { color: '#f59e0b', name: 'Landmarks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
     'arts': { color: '#ec4899', name: 'Arts', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12c0 5.5 4.5 10 10 10a2.5 2.5 0 0 0 2.5-2.5c0-.88-.45-1.63-1.12-2.07a1.08 1.08 0 0 1-.41-.85c0-.6.48-1.08 1.08-1.08h1.45A5.5 5.5 0 0 0 21 10c0-5.5-4.5-8-9-8z"/><circle cx="7.5" cy="11.5" r="1" fill="currentColor"/><circle cx="12" cy="7.5" r="1" fill="currentColor"/><circle cx="16.5" cy="10.5" r="1" fill="currentColor"/></svg>' },
-    'museums-art': { color: '#ec4899', name: 'Arts', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12c0 5.5 4.5 10 10 10a2.5 2.5 0 0 0 2.5-2.5c0-.88-.45-1.63-1.12-2.07a1.08 1.08 0 0 1-.41-.85c0-.6.48-1.08 1.08-1.08h1.45A5.5 5.5 0 0 0 21 10c0-5.5-4.5-8-9-8z"/><circle cx="7.5" cy="11.5" r="1" fill="currentColor"/><circle cx="12" cy="7.5" r="1" fill="currentColor"/><circle cx="16.5" cy="10.5" r="1" fill="currentColor"/></svg>' },
     'shopping': { color: '#06b6d4', name: 'Shopping', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>' },
-    'shopping-markets': { color: '#06b6d4', name: 'Shopping', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>' },
     'parks': { color: '#10b981', name: 'Parks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18h8M12 2L3 14h18L12 2z"/></svg>' },
-    'parks-open-spaces': { color: '#10b981', name: 'Parks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18h8M12 2L3 14h18L12 2z"/></svg>' },
-    'entertainment': { color: '#2563eb', name: 'Entertainment', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M17 3v18M3 7.5h18M3 12h18M3 16.5h18"/></svg>' },
-    'entertainment-sports': { color: '#2563eb', name: 'Entertainment', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M17 3v18M3 7.5h18M3 12h18M3 16.5h18"/></svg>' }
+    'entertainment': { color: '#2563eb', name: 'Entertainment', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M17 3v18M3 7.5h18M3 12h18M3 16.5h18"/></svg>' }
   };
 
   function getCategoryDetails(rawCat, overrideColor) {
     if (!rawCat) return { color: overrideColor || '#3898ec', icon: defaultPinSvg, name: 'Spot' };
     
-    const key = String(rawCat)
-      .toLowerCase()
-      .replace(/&amp;/g, 'and')
-      .replace(/&/g, 'and')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-    
+    const key = String(rawCat).toLowerCase().replace(/&amp;/g, 'and').replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     let details = categoryMap[key];
     if (!details) {
       const matchedKey = Object.keys(categoryMap).find(k => key.includes(k) || k.includes(key));
       details = matchedKey ? categoryMap[matchedKey] : { color: overrideColor || '#3898ec', icon: defaultPinSvg, name: rawCat };
     }
-
     if (overrideColor && overrideColor.trim() !== '' && overrideColor !== '#222222' && !categoryMap[key]) {
       details = { ...details, color: overrideColor };
     }
@@ -96,32 +74,6 @@ window.initMapEngine = function() {
     if (!str) return '';
     return str.replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
   }
-
-  const titleEl = document.getElementById('selected-title');
-  const descEl = document.getElementById('selected-description');
-  const btnEl = document.getElementById('selected-button');
-
-  function updatePolaroidCaption(title, desc, lat, lng) {
-    if (titleEl) titleEl.textContent = title;
-    if (descEl) descEl.textContent = desc;
-    if (btnEl) {
-      if (lat && lng) {
-        btnEl.href = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-        btnEl.target = '_blank';
-        btnEl.classList.add('is-visible');
-        btnEl.textContent = '🚗 Get Directions';
-      } else {
-        btnEl.classList.remove('is-visible');
-      }
-    }
-  }
-
-  updatePolaroidCaption(
-    'Tap any pin to explore!',
-    'Select a spot on the map to unlock details, category tags, and directions.',
-    null,
-    null
-  );
 
   const allMarkers = [];
   const neighborhoods = new Set();
@@ -177,17 +129,29 @@ window.initMapEngine = function() {
 
       wrapper.appendChild(inner);
 
+      // Create Mapbox Popup
+      const tagsFormatted = parsedTags.length ? `<div class="popup-tags">Tags: ${parsedTags.join(', ')}</div>` : '';
+      const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+      const popupHTML = `
+        <div class="marlon-popup-content">
+          <h3 class="popup-title">${title}</h3>
+          <div class="popup-meta">${neighborhood} &bull; ${catDetails.name}</div>
+          ${desc ? `<div class="popup-desc">${desc}</div>` : ''}
+          ${tagsFormatted}
+          <a href="${directionsLink}" target="_blank" class="popup-btn">🚗 Get Directions</a>
+        </div>
+      `;
+
+      const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true, maxWidth: '280px' })
+        .setHTML(popupHTML);
+
       const marker = new mapboxgl.Marker({ element: wrapper })
-        .setLngLat([lng, lat]);
+        .setLngLat([lng, lat])
+        .setPopup(popup);
 
       wrapper.addEventListener('click', () => {
-        const tagsFormatted = parsedTags.length ? `\nTags: ${parsedTags.join(', ')}` : '';
-        const captionMeta = `${neighborhood}  •  ${catDetails.name}\n${desc}${tagsFormatted}`;
-        updatePolaroidCaption(title, captionMeta, lat, lng);
-        
-        const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.0);
+        const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
         map.flyTo({ center: [lng, lat], zoom: targetZoom, duration: 1800 });
-
         if (window.swiperInstance) {
           window.swiperInstance.slideToLoop(index);
         }
@@ -207,7 +171,7 @@ window.initMapEngine = function() {
   const form = document.querySelector('.filter-bar form');
   let activeArea = 'All';
   const activeCategories = new Set(['All']);
-  const activeTags = new Set(['All']);
+  let activeTag = 'All';
   let countBadgeEl = null;
 
   function createScrollRow(pillsBar) {
@@ -215,39 +179,29 @@ window.initMapEngine = function() {
     container.className = 'pills-scroll-container';
 
     const leftBtn = document.createElement('button');
-    leftBtn.type = 'button';
-    leftBtn.className = 'scroll-arrow-btn';
-    leftBtn.innerHTML = '‹';
+    leftBtn.type = 'button'; leftBtn.className = 'scroll-arrow-btn'; leftBtn.innerHTML = '‹';
 
     const rightBtn = document.createElement('button');
-    rightBtn.type = 'button';
-    rightBtn.className = 'scroll-arrow-btn';
-    rightBtn.innerHTML = '›';
+    rightBtn.type = 'button'; rightBtn.className = 'scroll-arrow-btn'; rightBtn.innerHTML = '›';
 
-    leftBtn.addEventListener('click', () => {
-      pillsBar.scrollBy({ left: -240, behavior: 'smooth' });
-    });
-
-    rightBtn.addEventListener('click', () => {
-      pillsBar.scrollBy({ left: 240, behavior: 'smooth' });
-    });
+    leftBtn.addEventListener('click', () => pillsBar.scrollBy({ left: -240, behavior: 'smooth' }));
+    rightBtn.addEventListener('click', () => pillsBar.scrollBy({ left: 240, behavior: 'smooth' }));
 
     container.appendChild(leftBtn);
     container.appendChild(pillsBar);
     container.appendChild(rightBtn);
-
     return container;
   }
 
   if (form) {
     form.querySelectorAll('.dashboard-group').forEach(el => el.remove());
 
+    // 1. NEIGHBORHOOD DROPDOWN (Scaleable for 88 cities)
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
     const areaLabel = document.createElement('div');
     areaLabel.className = 'dashboard-label';
-    
     const labelText = document.createElement('span');
     labelText.innerText = '📍 Neighborhoods';
     
@@ -267,43 +221,25 @@ window.initMapEngine = function() {
 
     badgeContainer.appendChild(countBadgeEl);
     badgeContainer.appendChild(viewsBadgeEl);
-
     areaLabel.appendChild(labelText);
     areaLabel.appendChild(badgeContainer);
     areaGroup.appendChild(areaLabel);
 
-    const areaPillsBar = document.createElement('div');
-    areaPillsBar.className = 'neighborhood-pills-bar';
-
-    const allAreaPill = document.createElement('div');
-    allAreaPill.className = 'area-pill is-active';
-    allAreaPill.dataset.area = 'All';
-    allAreaPill.innerText = 'All LA';
-    areaPillsBar.appendChild(allAreaPill);
-
+    const areaSelect = document.createElement('select');
+    areaSelect.innerHTML = `<option value="All">All LA Neighborhoods</option>`;
     Array.from(neighborhoods).sort().forEach(area => {
-      const pill = document.createElement('div');
-      pill.className = 'area-pill';
-      pill.dataset.area = area;
-      pill.innerText = area;
-      areaPillsBar.appendChild(pill);
+      areaSelect.innerHTML += `<option value="${area}">${area}</option>`;
     });
 
-    const areaRow = createScrollRow(areaPillsBar);
-    areaGroup.appendChild(areaRow);
+    areaGroup.appendChild(areaSelect);
     form.appendChild(areaGroup); 
 
-    areaPillsBar.addEventListener('click', (e) => {
-      const pill = e.target.closest('.area-pill');
-      if (!pill) return;
-
-      activeArea = pill.dataset.area;
-      areaPillsBar.querySelectorAll('.area-pill').forEach(p => p.classList.remove('is-active'));
-      pill.classList.add('is-active');
-
+    areaSelect.addEventListener('change', (e) => {
+      activeArea = e.target.value;
       applyFilters();
     });
 
+    // 2. CATEGORIES PILLS (Maintained for UI speed)
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -325,10 +261,8 @@ window.initMapEngine = function() {
       const pill = document.createElement('div');
       pill.className = 'cat-pill';
       pill.dataset.category = cat;
-      
       const catDetails = getCategoryDetails(cat);
       pill.innerHTML = `<span class="cat-dot" style="background-color:${catDetails.color}"></span>${catDetails.name}`; 
-      
       catPillsBar.appendChild(pill);
     });
 
@@ -339,7 +273,6 @@ window.initMapEngine = function() {
     catPillsBar.addEventListener('click', (e) => {
       const pill = e.target.closest('.cat-pill');
       if (!pill) return;
-
       const cat = pill.dataset.category;
 
       if (cat === 'All') {
@@ -350,7 +283,6 @@ window.initMapEngine = function() {
       } else {
         allCatPill.classList.remove('is-active');
         activeCategories.delete('All');
-
         if (activeCategories.has(cat)) {
           activeCategories.delete(cat);
           pill.classList.remove('is-active');
@@ -358,16 +290,15 @@ window.initMapEngine = function() {
           activeCategories.add(cat);
           pill.classList.add('is-active');
         }
-
         if (activeCategories.size === 0) {
           activeCategories.add('All');
           allCatPill.classList.add('is-active');
         }
       }
-
       applyFilters();
     });
 
+    // 3. VIBES DROPDOWN (Scaleable for 28 tags)
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
       tagGroup.className = 'dashboard-group';
@@ -377,81 +308,30 @@ window.initMapEngine = function() {
       tagLabel.innerText = '✨ Filter by Vibe';
       tagGroup.appendChild(tagLabel);
 
-      const tagPillsBar = document.createElement('div');
-      tagPillsBar.className = 'category-pills-bar';
-
-      const allTagPill = document.createElement('div');
-      allTagPill.className = 'cat-pill is-active';
-      allTagPill.dataset.tag = 'All';
-      allTagPill.innerText = 'All Vibes';
-      tagPillsBar.appendChild(allTagPill);
-
+      const tagSelect = document.createElement('select');
+      tagSelect.innerHTML = `<option value="All">All Vibes</option>`;
       Array.from(tagsSet).sort().forEach(tagVal => {
-        const pill = document.createElement('div');
-        pill.className = 'cat-pill';
-        pill.dataset.tag = tagVal;
-        pill.innerText = tagVal;
-        tagPillsBar.appendChild(pill);
+        tagSelect.innerHTML += `<option value="${tagVal}">${tagVal}</option>`;
       });
 
-      const tagRow = createScrollRow(tagPillsBar);
-      tagGroup.appendChild(tagRow);
+      tagGroup.appendChild(tagSelect);
       form.appendChild(tagGroup);
 
-      tagPillsBar.addEventListener('click', (e) => {
-        const pill = e.target.closest('.cat-pill');
-        if (!pill) return;
-
-        const tagVal = pill.dataset.tag;
-
-        if (tagVal === 'All') {
-          activeTags.clear();
-          activeTags.add('All');
-          tagPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
-          allTagPill.classList.add('is-active');
-        } else {
-          allTagPill.classList.remove('is-active');
-          activeTags.delete('All');
-
-          if (activeTags.has(tagVal)) {
-            activeTags.delete(tagVal);
-            pill.classList.remove('is-active');
-          } else {
-            activeTags.add(tagVal);
-            pill.classList.add('is-active');
-          }
-
-          if (activeTags.size === 0) {
-            activeTags.add('All');
-            allTagPill.classList.add('is-active');
-          }
-        }
-
+      tagSelect.addEventListener('change', (e) => {
+        activeTag = e.target.value;
         applyFilters();
       });
     }
   }
 
   function applyFilters() {
-    updatePolaroidCaption(
-      'Tap any pin to explore!',
-      'Select a spot on the map to unlock details, category tags, and directions.',
-      null,
-      null
-    );
-
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
 
     allMarkers.forEach(item => {
-      const matchesArea = (activeArea === 'All') || 
-                          (item.neighborhood.toLowerCase() === activeArea.toLowerCase());
-
-      const matchesCategory = activeCategories.has('All') || 
-                               activeCategories.has(item.category);
-
-      const matchesTag = activeTags.has('All') || 
-                         item.tags.some(t => activeTags.has(t));
+      const matchesArea = (activeArea === 'All') || (item.neighborhood === activeArea);
+      const matchesCategory = activeCategories.has('All') || activeCategories.has(item.category);
+      const matchesTag = (activeTag === 'All') || item.tags.includes(activeTag);
 
       if (matchesArea && matchesCategory && matchesTag) {
         item.marker.addTo(map);
@@ -478,15 +358,11 @@ window.initMapEngine = function() {
   async function trackAndDisplayViews() {
     const viewsBadge = document.getElementById('map-views-badge');
     if (!viewsBadge) return;
-
     const BASE_VIEWS = 30000; 
-
     try {
       const res = await fetch('https://api.counterapi.dev/v1/marlonwalksla/master-map-views/up');
       const data = await res.json();
-      const apiCount = data.count || data.value || 0;
-      const totalViews = BASE_VIEWS + apiCount;
-      viewsBadge.innerText = `${totalViews.toLocaleString()} VIEWS`;
+      viewsBadge.innerText = `${(BASE_VIEWS + (data.count || data.value || 0)).toLocaleString()} VIEWS`;
     } catch (err) {
       viewsBadge.innerText = `${BASE_VIEWS.toLocaleString()} VIEWS`;
     }
