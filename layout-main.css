@@ -1,28 +1,8 @@
 /* ==============================================================================
  * FILE: layout-main.css
  * CATEGORY: MarlonWalksLA Website - Master Layout & Frame
- * 
- * OVERVIEW:
- * Handles the structural scaffolding and main visual container (the polaroid frame) 
- * for the interactive map section. It utilizes CSS flexbox to force a specific 
- * vertical order for the internal components to create a "True Polaroid" aesthetic.
- * 
- * WHAT'S INSIDE:
- * - `.hero-polaroid-wrapper`: The main constrained wrapper keeping the map centered.
- * - `.map-master-polaroid`: The white card background with drop shadows resembling a polaroid.
- * - Flexbox `order` overrides: Forces the map to the top (`order: 1`) acting as the photo,
- *   and the filter tray to the bottom (`order: 2`) acting as the written text area.
- * - Hides the old `.hero-card-caption` as data is now handled via Mapbox Popups.
- * 
- * WHEN TO FEED THIS FILE TO GEMINI / AI:
- * - Feed this file if you want to: Change the overall width, padding, or shadow of the polaroid container.
- * - Feed this file if you want to: Adjust the height of the Mapbox container on desktop or mobile devices.
  * ============================================================================== */
 
-/* =========================================
-   layout-main.css
-   MASTER MAP POLAROID FRAME & LAYOUT
-   ========================================= */
 .hero-polaroid-wrapper {
   max-width: 900px;
   margin: 0 auto;
@@ -46,7 +26,7 @@
   margin: 0 auto;
 }
 
-/* 1. MAP AT THE TOP (True Polaroid Photo) */
+/* 1. MAP AT THE TOP */
 .map-master-polaroid #map, 
 .map-master-polaroid .map-container {
   order: 1 !important;
@@ -59,7 +39,7 @@
   margin-bottom: 16px !important;
 }
 
-/* 2. FILTER TRAY AT THE BOTTOM (Polaroid Margin/Text Area) */
+/* 2. FILTER TRAY AT THE BOTTOM */
 .filter-bar, 
 .map-master-polaroid .filter-bar {
   order: 2 !important;
@@ -68,15 +48,21 @@
   width: 100% !important;
 }
 
-/* 3. CAPTION HIDDEN (Moved to Mapbox Popups) */
+/* 3. CAPTION HIDDEN */
 .hero-card-caption {
   display: none !important;
 }
 
+/* MOBILE FRAME OPTIMIZATION */
 @media (max-width: 600px) {
-  .map-master-polaroid { padding: 12px 12px 20px 12px !important; }
+  .hero-polaroid-wrapper {
+    padding: 12px 8px;
+  }
+  .map-master-polaroid { 
+    padding: 10px 10px 16px 10px !important; 
+  }
   .map-master-polaroid #map, .map-master-polaroid .map-container { 
-    height: 420px !important; 
-    margin-bottom: 12px !important;
+    height: 360px !important; 
+    margin-bottom: 10px !important;
   }
 }
