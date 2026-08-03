@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Adventure Builder & Storytelling Styles
+ * CATEGORY: MarlonWalksLA Website - Cleaned Up Stylesheet with Row Toggles
  * ============================================================================== */
 
 /* VISITED PIN EMERALD RING ON MAP CANVAS */
@@ -9,7 +9,7 @@
   filter: brightness(1.02);
 }
 
-/* HERO CTA HEADER & DUAL MODE TOGGLES */
+/* HERO CTA HEADER STYLING */
 .map-hero-cta-box {
   display: flex;
   flex-direction: column;
@@ -87,7 +87,61 @@
   width: 100%;
 }
 
-/* STORYTELLING CARD ENHANCEMENTS (IMAGE, TIP NOTE & SOCIAL) */
+/* LIST ITEM MINI TOGGLES & CLEAR BUTTON */
+.clear-itinerary-btn {
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-itinerary-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+.itinerary-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mini-toggle-btn {
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mini-toggle-btn:hover {
+  border-color: #3898ec;
+  color: #3898ec;
+}
+
+.mini-toggle-btn.save-toggle.is-active {
+  background: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+}
+
+.mini-toggle-btn.visited-toggle.is-active {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+/* STORYTELLING CARD ENHANCEMENTS */
 .polaroid-spot-img-wrap {
   width: 100%;
   height: 160px;
@@ -330,34 +384,6 @@
   font-size: 11px;
   font-weight: 600;
   color: #718096;
-}
-
-.list-check-btn {
-  background: #edf2f7;
-  border: 1px solid #cbd5e0;
-  color: #4a5568;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.list-check-btn:hover,
-.list-check-btn.is-checked {
-  background: #10b981;
-  color: #ffffff;
-  border-color: #10b981;
-}
-
-.visited-badge {
-  font-size: 10px;
-  font-weight: 800;
-  color: #047857;
-  background-color: #d1fae5;
-  padding: 3px 8px;
-  border-radius: 12px;
 }
 
 /* RESET BUTTON */
