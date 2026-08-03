@@ -145,3 +145,10 @@
 @media (max-width: 600px) {
   .ernesto-photobomb { width: 80px; top: -30px; right: -10px; }
 }
+
+.marlon-popup-content {
+  text-align: left;
+  font-family: inherit;
+  max-height: 280px;
+  overflow-y: auto;
+}
