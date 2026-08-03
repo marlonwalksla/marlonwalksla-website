@@ -8,7 +8,7 @@
   flex-direction: column !important;
   gap: 10px !important;
   background-color: transparent !important;
-  padding: 2px !important;
+  padding: 0 !important;
   border: none !important;
   box-shadow: none !important;
   margin: 0 !important;
@@ -16,15 +16,35 @@
   width: 100% !important;
 }
 
+/* RESET BUTTON STYLING */
+.reset-filters-btn {
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.reset-filters-btn:hover {
+  background: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+}
+
 /* DYNAMIC POLAROID CAPTION CARD */
 .polaroid-caption-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   background-color: #fafafa;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   animation: fadeInCaption 0.25s ease-out forwards;
 }
@@ -38,14 +58,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2px;
 }
 
 .back-to-filters-btn {
   background: #ffffff;
   border: 1px solid #cbd5e0;
   color: #2d3748;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   padding: 5px 12px;
   border-radius: 20px;
@@ -62,7 +81,7 @@
 }
 
 .polaroid-cat-badge {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   color: #ffffff;
   padding: 4px 10px;
@@ -89,7 +108,7 @@
   font-size: 13px;
   color: #4a5568;
   line-height: 1.45;
-  margin: 4px 0 2px 0;
+  margin: 2px 0;
 }
 
 .polaroid-tags {
@@ -100,7 +119,7 @@
 }
 
 .polaroid-caption-footer {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .polaroid-directions-btn {
@@ -158,7 +177,7 @@
   color: #718096;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  margin-left: 4px;
+  margin-left: 2px;
   user-select: none;
   display: flex;
   align-items: center;
@@ -168,7 +187,6 @@
 .count-badge {
   color: #3898ec;
   font-weight: 800;
-  margin-right: 4px;
 }
 
 /* HORIZONTAL PILL CONTROLS */
@@ -184,13 +202,13 @@
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 28px !important;
-  height: 28px !important;
+  width: 26px !important;
+  height: 26px !important;
   border-radius: 50% !important;
   border: 1px solid #cbd5e0 !important;
   background-color: #ffffff !important;
   color: #4a5568 !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   cursor: pointer !important;
@@ -223,7 +241,7 @@
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  padding: 6px 14px !important;
+  padding: 6px 12px !important;
   font-size: 12px !important;
   font-weight: 600 !important;
   border-radius: 20px !important;
@@ -249,10 +267,10 @@
 
 .cat-dot {
   display: inline-block !important;
-  width: 9px !important;
-  height: 9px !important;
+  width: 8px !important;
+  height: 8px !important;
   border-radius: 50% !important;
-  margin-right: 4px !important;
+  margin-right: 2px !important;
   flex-shrink: 0 !important;
   border: 1px solid rgba(0, 0, 0, 0.15) !important;
 }
