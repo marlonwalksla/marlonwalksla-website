@@ -1,23 +1,6 @@
 /* ==============================================================================
  * FILE: map-markers.css
  * CATEGORY: MarlonWalksLA Website - Custom Map Markers & Mapbox Popups
- * 
- * OVERVIEW:
- * Controls the visual styling of everything that sits physically on or interacts 
- * directly with the Mapbox instance. This includes the custom map pins and the 
- * native Mapbox Popups that appear when a pin is tapped.
- * 
- * WHAT'S INSIDE:
- * - `.marker-wrapper` & `.custom-emoji-marker`: Size, shape, borders, and bouncy 
- *   hover animations for the map pins.
- * - `.mapboxgl-popup`: Overrides for the native Mapbox tooltip containers.
- * - `.marlon-popup-content`, `.popup-title`, `.popup-desc`, `.popup-btn`: Custom typography 
- *   and styling for the data injected inside the popup.
- * - Positioning and responsive scaling for the `.ernesto-photobomb` graphic.
- * 
- * WHEN TO FEED THIS FILE TO GEMINI / AI:
- * - Feed this file if you want to: Change the size, shadow, or hover animation of the map pins.
- * - Feed this file if you want to: Adjust the typography, color, or layout of the Mapbox popup bubbles and the "Get Directions" button inside them.
  * ============================================================================== */
 
 .marker-wrapper {
@@ -43,7 +26,7 @@
 }
 
 .custom-emoji-marker:hover {
-  transform: scale(1.3) translateY(-4px);
+  transform: scale(1.25) translateY(-3px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
   z-index: 50 !important;
 }
@@ -53,9 +36,7 @@
   right: 10px !important;
 }
 
-/* =========================================
-   MAPBOX POPUP STYLING
-   ========================================= */
+/* MAPBOX POPUP STYLING */
 .mapboxgl-popup-content {
   border-radius: 12px !important;
   padding: 16px 20px 20px 20px !important;
@@ -66,20 +47,22 @@
 .mapboxgl-popup-close-button {
   font-size: 28px !important;
   font-weight: 700 !important;
-  color: #4a5568 !important; /* Darker, high-contrast grey */
+  color: #4a5568 !important;
   padding: 4px 10px 8px 10px !important;
   line-height: 1 !important;
 }
 
 .mapboxgl-popup-close-button:hover {
   background-color: transparent !important;
-  color: #111111 !important; /* Solid black when tapped/hovered */
+  color: #111111 !important;
   transform: scale(1.1);
 }
 
 .marlon-popup-content {
   text-align: left;
   font-family: inherit;
+  max-height: 280px;
+  overflow-y: auto;
 }
 
 .popup-title {
@@ -145,13 +128,19 @@
   pointer-events: none;
 }
 
+/* MOBILE SPECIFIC MARKER & POPUP OPTIMIZATIONS */
 @media (max-width: 600px) {
+  .marker-wrapper {
+    width: 30px;
+    height: 30px;
+  }
+  .custom-emoji-marker {
+    width: 30px;
+    height: 30px;
+  }
+  .custom-emoji-marker svg {
+    width: 15px;
+    height: 15px;
+  }
   .ernesto-photobomb { width: 80px; top: -30px; right: -10px; }
-}
-
-.marlon-popup-content {
-  text-align: left;
-  font-family: inherit;
-  max-height: 280px;
-  overflow-y: auto;
 }
