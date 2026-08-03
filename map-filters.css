@@ -14,29 +14,33 @@
   margin: 0 !important;
   box-sizing: border-box;
   width: 100% !important;
+  height: 100% !important;
+  justify-content: space-between !important;
 }
 
-/* CENTERED RESET BUTTON AT THE BOTTOM */
+/* LARGER CENTERED RESET BUTTON */
 .reset-filters-btn {
   background: #edf2f7;
-  border: 1px solid #cbd5e0;
-  color: #4a5568;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 7px 18px;
-  border-radius: 20px;
+  border: 2px solid #cbd5e0;
+  color: #2d3748;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 24px;
+  border-radius: 24px;
   cursor: pointer;
   transition: all 0.2s ease;
   line-height: 1;
   display: inline-block;
-  margin: 4px auto 0 auto;
+  margin: 8px auto 0 auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .reset-filters-btn:hover {
-  background: #3898ec;
+  background: #ef4444;
   color: #ffffff;
-  border-color: #3898ec;
+  border-color: #ef4444;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
 }
 
 /* DYNAMIC POLAROID CAPTION CARD */
@@ -137,7 +141,7 @@
   text-decoration: none !important;
   font-size: 12px;
   font-weight: 700;
-  padding: 9px 20px;
+  padding: 10px 22px;
   border-radius: 20px;
   transition: all 0.2s ease;
   box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
