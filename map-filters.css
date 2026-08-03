@@ -1,14 +1,39 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Dynamic Polaroid Caption & Filter Controls
+ * CATEGORY: MarlonWalksLA Website - Saved Itinerary Styles & Filter Controls
  * ============================================================================== */
 
+.map-section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
 .map-section-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   color: #1a202c;
-  margin-bottom: 2px;
   letter-spacing: -0.3px;
+}
+
+.itinerary-badge-btn {
+  background: #3898ec;
+  border: none;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(56, 152, 236, 0.3);
+}
+
+.itinerary-badge-btn:hover {
+  background-color: #2b7bc4;
+  transform: translateY(-1px);
 }
 
 .filter-bar form {
@@ -24,6 +49,117 @@
   width: 100% !important;
   height: 100% !important;
   justify-content: space-between !important;
+}
+
+/* USER ACTION BUTTONS (SAVE & VISITED) */
+.polaroid-caption-user-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.toggle-save-btn, .toggle-visited-btn {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 10px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-save-btn:hover, .toggle-visited-btn:hover {
+  border-color: #3898ec;
+  color: #3898ec;
+}
+
+.toggle-save-btn.is-active {
+  background-color: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+}
+
+.toggle-visited-btn.is-active {
+  background-color: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+/* ITINERARY LIST CARD VIEW */
+.itinerary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fafafa;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.itinerary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.itinerary-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1a202c;
+}
+
+.itinerary-sub-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #4a5568;
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+}
+
+.empty-itinerary-msg {
+  font-size: 12px;
+  color: #a0aec0;
+  font-style: italic;
+  margin: 4px 0;
+}
+
+.itinerary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.itinerary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.itinerary-item-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.itinerary-item-meta {
+  font-size: 11px;
+  color: #718096;
+}
+
+.mini-dir-btn {
+  text-decoration: none;
+  font-size: 14px;
 }
 
 /* CENTERED RESET BUTTON */
@@ -51,15 +187,15 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
 }
 
-/* POLAROID CAPTION CARD (SPOT DETAILS) */
+/* POLAROID CAPTION CARD */
 .polaroid-caption-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   background-color: #fafafa;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 18px;
+  padding: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   animation: fadeInCaption 0.25s ease-out forwards;
 }
@@ -73,10 +209,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4px;
 }
 
-/* DARKER SLEEK BACK BUTTON */
 .back-to-filters-btn {
   background: #1a202c;
   border: 1px solid #1a202c;
@@ -141,9 +275,9 @@
   margin-top: 2px;
 }
 
-/* FLEXIBLE ACTION BUTTON AREA (PRIMARY & SECONDARY CTAS) */
+/* FLEXIBLE ACTION BUTTON AREA */
 .polaroid-caption-footer {
-  margin-top: 8px;
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
   gap: 8px;
