@@ -1,13 +1,7 @@
 /* ==============================================================================
  * FILE: layout-main.css
- * CATEGORY: MarlonWalksLA Website - Master Layout & Scroll Snap
+ * CATEGORY: MarlonWalksLA Website - Master Layout
  * ============================================================================== */
-
-/* 1. SCROLL HARD-STOP (CSS SCROLL SNAP) */
-html {
-  scroll-snap-type: y proximity;
-  scroll-behavior: smooth;
-}
 
 .hero-polaroid-wrapper {
   width: 92vw;
@@ -16,10 +10,6 @@ html {
   padding: 16px;
   box-sizing: border-box;
   position: relative;
-  
-  /* Hard stop alignment at the top of the viewport */
-  scroll-snap-align: start;
-  scroll-margin-top: 16px;
 }
 
 .map-master-polaroid {
@@ -75,7 +65,6 @@ html {
   .hero-polaroid-wrapper {
     width: 96vw;
     padding: 8px 4px;
-    scroll-margin-top: 8px;
   }
   .map-master-polaroid { 
     flex-direction: column !important; /* Mobile: Stacked */
