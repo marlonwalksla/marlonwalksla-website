@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Cleaned Up Stylesheet
+ * CATEGORY: MarlonWalksLA Website - Adventure Builder & Storytelling Styles
  * ============================================================================== */
 
 /* VISITED PIN EMERALD RING ON MAP CANVAS */
@@ -9,7 +9,7 @@
   filter: brightness(1.02);
 }
 
-/* HERO CTA HEADER STYLING */
+/* HERO CTA HEADER & DUAL MODE TOGGLES */
 .map-hero-cta-box {
   display: flex;
   flex-direction: column;
@@ -34,26 +34,48 @@
   margin: 0 0 2px 0;
 }
 
-/* PROMINENT ITINERARY CTA BUTTON */
-.itinerary-badge-btn.full-cta {
-  display: block;
+/* DUAL TOGGLE BUTTONS GROUP */
+.itinerary-toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   width: 100%;
-  background: #3898ec;
-  border: none;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 10px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.3);
-  text-align: center;
   margin-top: 4px;
 }
 
-.itinerary-badge-btn.full-cta:hover {
+.itinerary-badge-btn {
+  display: block;
+  width: 100%;
+  border: none;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 9px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.itinerary-badge-btn.primary-mode {
+  background: #3898ec;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.3);
+}
+
+.itinerary-badge-btn.primary-mode:hover {
   background-color: #2b7bc4;
+  transform: translateY(-1px);
+}
+
+.itinerary-badge-btn.visited-mode {
+  background: #f0fdf4;
+  color: #047857;
+  border: 1.5px solid #a7f3d0;
+}
+
+.itinerary-badge-btn.visited-mode:hover {
+  background: #d1fae5;
+  border-color: #10b981;
   transform: translateY(-1px);
 }
 
@@ -65,7 +87,72 @@
   width: 100%;
 }
 
-/* WEBFLOW FORM OVERRIDE (NEEDS !IMPORTANT FOR WEBFLOW DEFAULTS) */
+/* STORYTELLING CARD ENHANCEMENTS (IMAGE, TIP NOTE & SOCIAL) */
+.polaroid-spot-img-wrap {
+  width: 100%;
+  height: 160px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 2px;
+}
+
+.polaroid-spot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.polaroid-marlon-note {
+  background-color: #fffbe3;
+  border-left: 3.5px solid #f59e0b;
+  color: #78350f;
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+}
+
+.polaroid-social-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 4px 0;
+}
+
+.social-btn {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 14px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.social-btn.instagram {
+  background-color: #fdf2f8;
+  color: #db2777 !important;
+  border: 1px solid #fbcfe8;
+}
+
+.social-btn.instagram:hover {
+  background-color: #fbcfe8;
+}
+
+.social-btn.tiktok {
+  background-color: #f1f5f9;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e0;
+}
+
+.social-btn.tiktok:hover {
+  background-color: #e2e8f0;
+}
+
+/* WEBFLOW FORM OVERRIDE */
 .filter-bar form {
   display: flex !important;
   flex-direction: column !important;
@@ -124,7 +211,7 @@
   box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
 }
 
-/* ITINERARY PROGRESS BAR */
+/* PROGRESS BAR */
 .itinerary-progress-box {
   display: flex;
   flex-direction: column;
@@ -164,7 +251,7 @@
   transition: width 0.4s ease;
 }
 
-/* ITINERARY LIST VIEW */
+/* ITINERARY & VISITED LIST CARDS */
 .itinerary-card {
   display: flex;
   flex-direction: column;
@@ -264,7 +351,16 @@
   border-color: #10b981;
 }
 
-/* CENTERED RESET BUTTON */
+.visited-badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #047857;
+  background-color: #d1fae5;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+/* RESET BUTTON */
 .reset-filters-btn {
   background: #edf2f7;
   border: 2px solid #cbd5e0;
@@ -423,7 +519,7 @@
   transform: translateY(-1px);
 }
 
-/* DROPDOWNS & FILTER PANELS (OVERRIDING WEBFLOW DEFAULTS) */
+/* DROPDOWNS & FILTER PANELS */
 .filter-bar select {
   display: block !important;
   width: 100%;
