@@ -1,3 +1,25 @@
+/* ==============================================================================
+ * FILE: map-filters.css
+ * CATEGORY: MarlonWalksLA Website - Map Controls & Filter UI
+ * 
+ * OVERVIEW:
+ * Controls the visual styling for the interactive tactile tray located above the map. 
+ * This governs the look and feel of the scrollable pill buttons for neighborhoods, 
+ * categories, and tags, ensuring guests can intuitively filter walking tour stops.
+ * 
+ * WHAT'S INSIDE:
+ * - `.filter-bar form`: The main dashboard container layout with background and shadow properties.
+ * - `.dashboard-group`, `.dashboard-label`, `.count-badge`: Typography and layout for the filter section headers and dynamic spot counters.
+ * - `.area-pill`, `.cat-pill`: The interactive button designs, including their hover, active (`.is-active`), and transition states.
+ * - `.scroll-arrow-btn`: The left/right desktop navigation arrows for the horizontal scroll containers.
+ * - Custom Webkit scrollbar stylings (`::-webkit-scrollbar`) for a cleaner horizontal scrolling experience.
+ * 
+ * WHEN TO FEED THIS FILE TO GEMINI / AI:
+ * - Feed this file if you want to: Change the shape, color, or hover animations of the filter buttons.
+ * - Feed this file if you want to: Adjust the spacing, padding, or overall height of the filter tray.
+ * - Feed this file if you want to: Modify or hide the custom horizontal scrollbars or navigation arrows on specific devices (like tablets or phones).
+ * ============================================================================== */
+
 /* =========================================
    map-filters.css
    MAP CONTROLS TACTILE TRAY & PILLS
