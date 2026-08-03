@@ -1,7 +1,28 @@
-/* =============================================================
-   flip-cards.js
-   A. POLAROID SWIPER ENGINE & 3D CARD FLIP MECHANICS
-   ============================================================= */
+/* ==============================================================================
+ * FILE: flip-cards.js
+ * CATEGORY: MarlonWalksLA Website - 3D Flip Cards & Swiper Logic
+ * 
+ * OVERVIEW:
+ * Handles the interactive JavaScript logic and dynamic DOM manipulation for the 
+ * polaroid-style tour stop cards. It initializes the Swiper.js carousel, dynamically 
+ * constructs the 3D front/back faces of the cards from CMS data, and manages the 
+ * drag physics and click-to-flip interactions.
+ * 
+ * WHAT'S INSIDE:
+ * - Staggered static rotation logic (`--card-rot`) to give cards a scattered look.
+ * - Auto-cloning mechanism to ensure Swiper loops smoothly even if there are fewer than 8 cards.
+ * - Dynamic DOM construction for the 180-degree flip effect, sorting CMS elements 
+ *   into `.pc-face-front` and `.pc-face-back`.
+ * - Click event listeners to trigger the flip (prevented when actively swiping).
+ * - Swiper.js initialization with touch event listeners for physics-based rotation 
+ *   while dragging (`--drag-rot`).
+ * 
+ * WHEN TO FEED THIS FILE TO GEMINI / AI:
+ * - Feed this file if you want to: Change the drag physics, swipe speed, or rotation limits while interacting with the carousel.
+ * - Feed this file if you want to: Adjust Swiper breakpoint spacing or loop behavior.
+ * - Feed this file if you want to: Add new custom Webflow CMS fields to the cards (like tags or hours) and need to ensure the JS maps them correctly to the front or back face.
+ * ============================================================================== */
+
 window.initFlipCards = function() {
   const roots = document.querySelectorAll('.pc-root');
   
