@@ -1,5 +1,23 @@
+/* ==============================================================================
+ * FILE: global-vars.css
+ * CATEGORY: MarlonWalksLA Website - Global Variables & Brand Colors
+ * 
+ * OVERVIEW:
+ * Stores the foundational design tokens for the entire website. This file is 
+ * critical for maintaining a consistent color palette across the map markers, 
+ * UI buttons, and category tags without having to hunt down individual hex codes.
+ * 
+ * WHAT'S INSIDE:
+ * - `:root` CSS variables defining the primary brand color (`--brand-blue`).
+ * - Hex code variables for the 8 primary map categories (Cafes, Dining, Nightlife, etc.).
+ * - A global utility rule to hide Webflow's default empty CMS states (`.w-dyn-empty`).
+ * 
+ * WHEN TO FEED THIS FILE TO GEMINI / AI:
+ * - Feed this file if you want to: Change the main brand color or update the color of a specific map category.
+ * - Feed this file if you want to: Add new global CSS variables (like font families or spacing tokens) to use across other stylesheets.
+ * ============================================================================== */
+
 /* =========================================
-   global-vars.css
    MARLONWALKS LA - CATEGORY COLOR PALETTE & GLOBALS
    ========================================= */
 :root {
