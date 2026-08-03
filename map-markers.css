@@ -64,14 +64,17 @@
 }
 
 .mapboxgl-popup-close-button {
-  font-size: 20px !important;
-  color: #a0aec0 !important;
-  padding: 4px 8px !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: #4a5568 !important; /* Darker, high-contrast grey */
+  padding: 4px 10px 8px 10px !important;
+  line-height: 1 !important;
 }
 
 .mapboxgl-popup-close-button:hover {
   background-color: transparent !important;
-  color: #111111 !important;
+  color: #111111 !important; /* Solid black when tapped/hovered */
+  transform: scale(1.1);
 }
 
 .marlon-popup-content {
