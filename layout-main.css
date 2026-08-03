@@ -1,7 +1,13 @@
 /* ==============================================================================
  * FILE: layout-main.css
- * CATEGORY: MarlonWalksLA Website - Master Layout & Frame
+ * CATEGORY: MarlonWalksLA Website - Master Layout & Scroll Snap
  * ============================================================================== */
+
+/* 1. SCROLL HARD-STOP (CSS SCROLL SNAP) */
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
 
 .hero-polaroid-wrapper {
   width: 92vw;
@@ -10,6 +16,10 @@
   padding: 16px;
   box-sizing: border-box;
   position: relative;
+  
+  /* Hard stop alignment at the top of the viewport */
+  scroll-snap-align: start;
+  scroll-margin-top: 16px;
 }
 
 .map-master-polaroid {
@@ -29,16 +39,19 @@
   margin: 0 auto;
 }
 
-/* DESKTOP LEFT SIDE: FILTER BAR & CAPTION (340px) */
+/* DESKTOP LEFT SIDE: FILTER BAR & CAPTION */
 .filter-bar, 
 .map-master-polaroid .filter-bar {
   order: 1 !important;
   width: 340px !important;
   flex-shrink: 0 !important;
   margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
 }
 
-/* DESKTOP RIGHT SIDE: SPACIOUS MAP */
+/* DESKTOP RIGHT SIDE: MAP */
 .map-master-polaroid #map, 
 .map-master-polaroid .map-container {
   order: 2 !important;
@@ -57,11 +70,12 @@
   display: none !important;
 }
 
-/* MOBILE FRAME OPTIMIZATION (RESPONSIVE STACK) */
+/* MOBILE FRAME OPTIMIZATION */
 @media (max-width: 820px) {
   .hero-polaroid-wrapper {
     width: 96vw;
     padding: 8px 4px;
+    scroll-margin-top: 8px;
   }
   .map-master-polaroid { 
     flex-direction: column !important; /* Mobile: Stacked */
