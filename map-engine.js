@@ -198,18 +198,20 @@ window.initMapEngine = async function() {
       </div>
     `;
 
-    // Marker Click Event: Transform Polaroid Frame into Story Caption
+    // Marker Click Event: Soft Glide & Story Load
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
 
       showSpotDetailsView(captionHTML);
 
-      const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
+      // Gentle non-aggressive panning
+      const currentZoom = map.getZoom();
+      const targetZoom = Math.max(currentZoom, 11.8);
+
       map.flyTo({ 
         center: [lng, lat], 
         zoom: targetZoom, 
-        duration: 900, 
-        padding: { top: 20 } 
+        duration: 750
       });
 
       if (window.swiperInstance) {
@@ -258,33 +260,40 @@ window.initMapEngine = async function() {
   }
 
   if (filterControlsView) {
-    // 1. CATEGORIES PILLS (TOP)
+    // 1. CATEGORIES PILLS (TOP HEADER WITH RESET BUTTON)
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
     const catLabel = document.createElement('div');
     catLabel.className = 'dashboard-label';
+
+    const catTitleWrapper = document.createElement('div');
+    catTitleWrapper.style.display = 'flex';
+    catTitleWrapper.style.alignItems = 'center';
+    catTitleWrapper.style.gap = '8px';
+
     const catLabelText = document.createElement('span');
     catLabelText.innerText = '🏷️ Categories';
 
+    const resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'reset-filters-btn';
+    resetBtn.innerHTML = '↺ Reset';
+
+    catTitleWrapper.appendChild(catLabelText);
+    catTitleWrapper.appendChild(resetBtn);
+
     const badgeContainer = document.createElement('div');
     badgeContainer.style.display = 'flex';
-    badgeContainer.style.gap = '10px';
+    badgeContainer.style.gap = '8px';
 
     countBadgeEl = document.createElement('span');
     countBadgeEl.className = 'count-badge';
     countBadgeEl.innerText = `${allMarkers.length} SPOTS`;
 
-    const viewsBadgeEl = document.createElement('span');
-    viewsBadgeEl.id = 'map-views-badge';
-    viewsBadgeEl.className = 'count-badge';
-    viewsBadgeEl.style.color = '#718096';
-    viewsBadgeEl.innerText = '30,000 VIEWS';
-
     badgeContainer.appendChild(countBadgeEl);
-    badgeContainer.appendChild(viewsBadgeEl);
     
-    catLabel.appendChild(catLabelText);
+    catLabel.appendChild(catTitleWrapper);
     catLabel.appendChild(badgeContainer);
     catGroup.appendChild(catLabel);
 
@@ -339,6 +348,7 @@ window.initMapEngine = async function() {
     });
 
     // 2. VIBES DROPDOWN (MIDDLE)
+    let tagSelect = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
       tagGroup.className = 'dashboard-group';
@@ -348,7 +358,7 @@ window.initMapEngine = async function() {
       tagLabel.innerText = '✨ Filter by Vibe';
       tagGroup.appendChild(tagLabel);
 
-      const tagSelect = document.createElement('select');
+      tagSelect = document.createElement('select');
       tagSelect.innerHTML = `<option value="All">All Vibes</option>`;
       Array.from(tagsSet).sort().forEach(tagVal => {
         tagSelect.innerHTML += `<option value="${tagVal}">${tagVal}</option>`;
@@ -385,6 +395,23 @@ window.initMapEngine = async function() {
       activeArea = e.target.value;
       applyFilters();
     });
+
+    // ↺ RESET FILTERS LOGIC
+    resetBtn.addEventListener('click', () => {
+      activeArea = 'All';
+      activeTag = 'All';
+      activeCategories.clear();
+      activeCategories.add('All');
+
+      if (areaSelect) areaSelect.value = 'All';
+      if (tagSelect) tagSelect.value = 'All';
+
+      catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
+      allCatPill.classList.add('is-active');
+
+      applyFilters();
+      showFilterControlsView();
+    });
   }
 
   function applyFilters() {
@@ -410,11 +437,11 @@ window.initMapEngine = async function() {
     }
 
     if (activeArea === 'All') {
-      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1800 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1500 });
     } else if (visibleCount >= 1) {
-      map.fitBounds(bounds, { padding: 60, maxZoom: 14.0, duration: 1800 });
+      map.fitBounds(bounds, { padding: 50, maxZoom: 13.5, duration: 1500 });
     } else {
-      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1800 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1500 });
     }
   }
 
