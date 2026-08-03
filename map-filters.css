@@ -3,34 +3,47 @@
  * CATEGORY: MarlonWalksLA Website - LA Adventure Builder Styles & Controls
  * ============================================================================== */
 
-/* VISITED PIN RING BADGE ON MAP CANVAS */
+/* VISITED PIN RING BADGE ON MAP CANVAS (NO OVERLAYING CHECKMARK BADGE) */
 .marker-wrapper {
   position: relative !important;
 }
 
 .marker-wrapper.is-visited-pin .custom-emoji-marker {
-  box-shadow: 0 0 0 3px #10b981, 0 0 0 7px rgba(16, 185, 129, 0.35) !important;
-  filter: brightness(0.98);
+  box-shadow: 0 0 0 4px #10b981, 0 0 0 8px rgba(16, 185, 129, 0.35) !important;
+  filter: brightness(1.02);
 }
 
-.marker-wrapper.is-visited-pin::after {
-  content: '✓';
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background-color: #10b981;
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 900;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
+/* MAIN HERO CTA HEADER STYLING */
+.map-hero-cta-box {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-  z-index: 10;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.map-hero-cta-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a202c;
+  letter-spacing: -0.4px;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.map-hero-cta-subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: #718096;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.filter-section-divider {
+  border: none;
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 2px 0 6px 0;
+  width: 100%;
 }
 
 .map-section-title-row {
@@ -38,14 +51,6 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 4px;
-}
-
-.map-section-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: #1a202c;
-  letter-spacing: -0.3px;
 }
 
 .itinerary-badge-btn {
@@ -59,6 +64,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 6px rgba(56, 152, 236, 0.3);
+  flex-shrink: 0;
 }
 
 .itinerary-badge-btn:hover {
@@ -69,7 +75,7 @@
 .filter-bar form {
   display: flex !important;
   flex-direction: column !important;
-  gap: 12px !important;
+  gap: 10px !important;
   background-color: transparent !important;
   padding: 0 !important;
   border: none !important;
@@ -86,7 +92,7 @@
   display: flex;
   gap: 8px;
   width: 100%;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .toggle-save-btn, .toggle-visited-btn {
@@ -269,12 +275,6 @@
   border-radius: 12px;
 }
 
-.mini-dir-btn {
-  text-decoration: none;
-  font-size: 14px;
-  padding: 2px 4px;
-}
-
 /* CENTERED RESET BUTTON */
 .reset-filters-btn {
   background: #edf2f7;
@@ -288,7 +288,7 @@
   transition: all 0.2s ease;
   line-height: 1;
   display: inline-block;
-  margin: 6px auto 0 auto;
+  margin: 4px auto 0 auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
