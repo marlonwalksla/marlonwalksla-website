@@ -3,21 +3,22 @@
  * CATEGORY: MarlonWalksLA Website - Map Controls & Filter UI
  * 
  * OVERVIEW:
- * Controls the visual styling for the interactive tactile tray located above the map. 
- * This governs the look and feel of the scrollable pill buttons for neighborhoods, 
- * categories, and tags, ensuring guests can intuitively filter walking tour stops.
+ * Controls the visual styling for the interactive tactile tray located on the bottom 
+ * margin of the polaroid frame. It handles the UI for the `<select>` dropdowns 
+ * (used for large datasets like Neighborhoods and Vibes) and the scrollable pill 
+ * buttons (used for Categories).
  * 
  * WHAT'S INSIDE:
- * - `.filter-bar form`: The main dashboard container layout with background and shadow properties.
- * - `.dashboard-group`, `.dashboard-label`, `.count-badge`: Typography and layout for the filter section headers and dynamic spot counters.
- * - `.area-pill`, `.cat-pill`: The interactive button designs, including their hover, active (`.is-active`), and transition states.
- * - `.scroll-arrow-btn`: The left/right desktop navigation arrows for the horizontal scroll containers.
- * - Custom Webkit scrollbar stylings (`::-webkit-scrollbar`) for a cleaner horizontal scrolling experience.
+ * - `.filter-bar form`: The main dashboard container, stylized with a transparent 
+ *   background to blend seamlessly into the white polaroid margin.
+ * - `.filter-bar select`: Custom styling for native HTML dropdowns to make them look clean and modern.
+ * - `.dashboard-group`, `.dashboard-label`, `.count-badge`: Typography for headers and spot counters.
+ * - `.area-pill`, `.cat-pill`, `.scroll-arrow-btn`: The interactive pill designs and scroll UI for Categories.
  * 
  * WHEN TO FEED THIS FILE TO GEMINI / AI:
- * - Feed this file if you want to: Change the shape, color, or hover animations of the filter buttons.
- * - Feed this file if you want to: Adjust the spacing, padding, or overall height of the filter tray.
- * - Feed this file if you want to: Modify or hide the custom horizontal scrollbars or navigation arrows on specific devices (like tablets or phones).
+ * - Feed this file if you want to: Change the design, color, or arrows of the `<select>` dropdowns.
+ * - Feed this file if you want to: Change the shape, color, or hover animations of the category pill buttons.
+ * - Feed this file if you want to: Adjust the spacing between the filter groups.
  * ============================================================================== */
 
 /* =========================================
@@ -27,24 +28,57 @@
 .filter-bar form {
   display: flex !important;
   flex-direction: column !important;
-  gap: 8px !important;
-  background-color: #f7fafc !important;
-  padding: 12px 10px 10px 10px !important;
-  border-radius: 16px !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+  gap: 16px !important;
+  background-color: transparent !important;
+  padding: 4px 4px 0px 4px !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
   margin: 0 !important;
   box-sizing: border-box;
   width: 100% !important;
 }
 
-.filter-bar select { display: none !important; }
+/* NATIVE DROPDOWN SELECT STYLING (For large datasets like 88 Cities) */
+.filter-bar select {
+  display: block !important;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a5568;
+  background-color: #f7fafc;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: all 0.2s ease;
+  /* Custom Arrow SVG */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234a5568%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px top 50%;
+  background-size: 10px auto;
+}
+
+.filter-bar select:hover {
+  border-color: var(--brand-blue);
+  box-shadow: 0 2px 8px rgba(56, 152, 236, 0.1);
+}
+
+.filter-bar select:focus {
+  outline: none;
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(56, 152, 236, 0.2);
+}
 
 .dashboard-group {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 4px;
+  gap: 6px;
 }
 
 .dashboard-label {
@@ -53,7 +87,7 @@
   color: #718096;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  margin-left: 8px;
+  margin-left: 4px;
   user-select: none;
   display: flex;
   align-items: center;
@@ -63,9 +97,10 @@
 .count-badge {
   color: var(--brand-blue);
   font-weight: 800;
-  margin-right: 8px;
+  margin-right: 4px;
 }
 
+/* HORIZONTAL PILL CONTROLS (Maintained for Categories) */
 .pills-scroll-container {
   display: flex !important;
   align-items: center !important;
@@ -196,5 +231,5 @@
 }
 
 @media (max-width: 600px) {
-  .filter-bar form { padding: 10px 6px 8px 6px !important; }
+  .filter-bar form { padding: 4px 0px 4px 0px !important; }
 }
