@@ -61,6 +61,15 @@ window.initMapEngine = async function() {
     return String(str).replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
   }
 
+  // Format hyphenated tags to clean Title Case
+  function formatTagDisplay(tagStr) {
+    if (!tagStr) return '';
+    return String(tagStr)
+      .split('-')
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ');
+  }
+
   // 1. FETCH GEOJSON DATA
   let geojsonData = null;
   const primaryUrl = 'https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/spots.geojson';
@@ -94,7 +103,7 @@ window.initMapEngine = async function() {
     filterControlsView.id = 'filter-controls-view';
     filterControlsView.style.display = 'flex';
     filterControlsView.style.flexDirection = 'column';
-    filterControlsView.style.gap = '10px';
+    filterControlsView.style.gap = '12px';
     filterControlsView.style.width = '100%';
 
     spotDetailsView = document.createElement('div');
@@ -184,7 +193,7 @@ window.initMapEngine = async function() {
     const marker = new mapboxgl.Marker({ element: wrapper })
       .setLngLat([lng, lat]);
 
-    const tagsFormatted = parsedTags.length ? `<div class="polaroid-tags">Tags: ${parsedTags.map(t => `#${t}`).join(' ')}</div>` : '';
+    const tagsFormatted = parsedTags.length ? `<div class="polaroid-tags">${parsedTags.map(t => `#${formatTagDisplay(t)}`).join('  ')}</div>` : '';
     const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
 
     const captionHTML = `
@@ -193,17 +202,19 @@ window.initMapEngine = async function() {
           <button type="button" class="back-to-filters-btn">‹ Back</button>
           <span class="polaroid-cat-badge" style="background-color:${catDetails.color};">${catDetails.name}</span>
         </div>
-        <h3 class="polaroid-caption-title">${title}</h3>
-        <div class="polaroid-caption-meta">📍 ${neighborhood}</div>
-        ${desc ? `<p class="polaroid-caption-desc">${desc}</p>` : ''}
-        ${tagsFormatted}
+        <div class="polaroid-caption-body">
+          <h3 class="polaroid-caption-title">${title}</h3>
+          <div class="polaroid-caption-meta">📍 ${neighborhood}</div>
+          ${desc ? `<p class="polaroid-caption-desc">${desc}</p>` : ''}
+          ${tagsFormatted}
+        </div>
         <div class="polaroid-caption-footer">
-          <a href="${directionsLink}" target="_blank" class="polaroid-directions-btn">🚗 Get Directions</a>
+          <a href="${directionsLink}" target="_blank" class="polaroid-directions-btn primary-cta">🚗 Get Directions</a>
+          <a href="https://marlonwalksla.com" target="_blank" class="polaroid-directions-btn secondary-cta">🎟️ Book Walking Tour</a>
         </div>
       </div>
     `;
 
-    // Smooth Desktop & Mobile Panning on Pin Click
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
 
@@ -271,7 +282,7 @@ window.initMapEngine = async function() {
     mainTitleHeader.innerText = "📍 Explore Marlon's LA";
     filterControlsView.appendChild(mainTitleHeader);
 
-    // 1. CATEGORIES PILLS
+    // 1. CATEGORIES PILLS (WITH CATEGORY COUNT)
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -279,7 +290,7 @@ window.initMapEngine = async function() {
     catLabel.className = 'dashboard-label';
 
     const catLabelText = document.createElement('span');
-    catLabelText.innerText = '🏷️ Categories';
+    catLabelText.innerText = `🏷️ CATEGORIES (${categories.size})`;
 
     const badgeContainer = document.createElement('div');
     badgeContainer.style.display = 'flex';
@@ -325,7 +336,7 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // 2. VIBE DROPDOWN
+    // 2. VIBE DROPDOWN (WITH ITEM COUNT & TITLE-CASED OPTIONS)
     let tagSelect = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
@@ -333,13 +344,14 @@ window.initMapEngine = async function() {
 
       const tagLabel = document.createElement('div');
       tagLabel.className = 'dashboard-label';
-      tagLabel.innerText = '✨ Vibe';
+      tagLabel.innerText = `✨ VIBE (${tagsSet.size})`;
       tagGroup.appendChild(tagLabel);
 
       tagSelect = document.createElement('select');
-      tagSelect.innerHTML = `<option value="All">All Vibes</option>`;
+      tagSelect.innerHTML = `<option value="All">All Vibes (${tagsSet.size})</option>`;
+      
       Array.from(tagsSet).sort().forEach(tagVal => {
-        tagSelect.innerHTML += `<option value="${tagVal}">${tagVal}</option>`;
+        tagSelect.innerHTML += `<option value="${tagVal}">${formatTagDisplay(tagVal)}</option>`;
       });
 
       tagGroup.appendChild(tagSelect);
@@ -351,17 +363,17 @@ window.initMapEngine = async function() {
       });
     }
 
-    // 3. NEIGHBORHOOD DROPDOWN
+    // 3. NEIGHBORHOOD DROPDOWN (WITH 88 LA CITIES REFERENCE)
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
     const areaLabel = document.createElement('div');
     areaLabel.className = 'dashboard-label';
-    areaLabel.innerText = '📍 Neighborhoods';
+    areaLabel.innerText = `📍 NEIGHBORHOODS (${neighborhoods.size} of 88 LA CITIES)`;
     areaGroup.appendChild(areaLabel);
 
     const areaSelect = document.createElement('select');
-    areaSelect.innerHTML = `<option value="All">All LA Neighborhoods</option>`;
+    areaSelect.innerHTML = `<option value="All">All LA Neighborhoods (${neighborhoods.size})</option>`;
     Array.from(neighborhoods).sort().forEach(area => {
       areaSelect.innerHTML += `<option value="${area}">${area}</option>`;
     });
@@ -404,7 +416,6 @@ window.initMapEngine = async function() {
     });
   }
 
-  // SMART FILTER CAMERA MOTION
   function applyFilters() {
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
@@ -430,10 +441,8 @@ window.initMapEngine = async function() {
     const isFiltered = (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
 
     if (!isFiltered) {
-      // Nothing filtered -> Soft default view of DTLA
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200, speed: 0.8 });
     } else if (visibleCount >= 1) {
-      // Filter active -> Frame matching spots smoothly without resetting to DTLA!
       map.fitBounds(bounds, { padding: 60, maxZoom: 13.0, duration: 1400 });
     } else {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200, speed: 0.8 });
