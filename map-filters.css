@@ -3,6 +3,14 @@
  * CATEGORY: MarlonWalksLA Website - Dynamic Polaroid Caption & Filter Controls
  * ============================================================================== */
 
+.map-section-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
 .filter-bar form {
   display: flex !important;
   flex-direction: column !important;
@@ -18,7 +26,7 @@
   justify-content: space-between !important;
 }
 
-/* LARGER CENTERED RESET BUTTON */
+/* CENTERED RESET BUTTON */
 .reset-filters-btn {
   background: #edf2f7;
   border: 2px solid #cbd5e0;
@@ -65,25 +73,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px; /* Spacing between Back button and Title */
+  margin-bottom: 14px; /* Space below button */
 }
 
+/* DARKER BACK BUTTON */
 .back-to-filters-btn {
-  background: #ffffff;
-  border: 1px solid #cbd5e0;
-  color: #2d3748;
+  background: #1a202c;
+  border: 1px solid #1a202c;
+  color: #ffffff;
   font-size: 11px;
   font-weight: 700;
   padding: 6px 14px;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .back-to-filters-btn:hover {
   background-color: #3898ec;
-  color: #ffffff;
   border-color: #3898ec;
   transform: translateX(-2px);
 }
