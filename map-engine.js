@@ -1,9 +1,9 @@
 /* ==============================================================================
  * FILE: map-engine.js
- * CATEGORY: MarlonWalksLA Website - Mapbox Engine & Filtering Logic
+ * CATEGORY: MarlonWalksLA Website - Mapbox Engine & GeoJSON Loader
  * ============================================================================== */
 
-window.initMapEngine = function() {
+window.initMapEngine = async function() {
   const mapContainer = document.getElementById('map');
   if (!mapContainer) return;
 
@@ -15,7 +15,7 @@ window.initMapEngine = function() {
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
     center: dtlaCenter,
-    zoom: 10
+    zoom: 10.2
   });
 
   const geolocate = new mapboxgl.GeolocateControl({
@@ -54,24 +54,47 @@ window.initMapEngine = function() {
 
   function cleanText(str) {
     if (!str) return '';
-    return str.replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+    return String(str).replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
   }
 
-  const allSpotsData = [];
+  // 1. FETCH GEOJSON DIRECTLY FROM GITHUB VIA RAW.GITHACK
+  let geojsonData = null;
+  const primaryUrl = 'https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/spots.geojson';
+  const fallbackUrl = 'https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/MarlonWalksLA%20-%20Maps%20(102).geojson';
+
+  try {
+    let res = await fetch(primaryUrl);
+    if (!res.ok) res = await fetch(fallbackUrl);
+    if (res.ok) geojsonData = await res.json();
+  } catch (err) {
+    console.error('Failed to load GeoJSON dataset:', err);
+  }
+
+  if (!geojsonData || !geojsonData.features) return;
+
+  const allMarkers = [];
   const neighborhoods = new Set();
   const categories = new Set();
   const tagsSet = new Set();
-  const coordTracker = {}; 
+  const coordTracker = {};
 
-  document.querySelectorAll('.map-location-marker').forEach((item, index) => {
-    let lat = parseFloat(item.getAttribute('data-lat'));
-    let lng = parseFloat(item.getAttribute('data-lng'));
-    const title = cleanText(item.getAttribute('data-title') || 'Location');
-    const desc = cleanText(item.getAttribute('data-desc') || '');
-    const rawCategory = cleanText(item.getAttribute('data-category') || 'landmarks');
-    const customColor = cleanText(item.getAttribute('data-color') || item.getAttribute('data-pin-color') || '');
-    const neighborhood = cleanText(item.getAttribute('data-neighborhood') || 'Downtown LA');
-    const rawTagsStr = cleanText(item.getAttribute('data-tags') || '');
+  // 2. PROCESS GEOJSON FEATURES
+  geojsonData.features.forEach((feature, index) => {
+    const props = feature.properties || {};
+    const coords = feature.geometry ? feature.geometry.coordinates : null;
+    if (!coords || coords.length < 2) return;
+
+    let lng = parseFloat(coords[0]);
+    let lat = parseFloat(coords[1]);
+    
+    if (isNaN(lat) || isNaN(lng)) return;
+
+    const title = cleanText(props.Name || props.title || props.name || 'Location');
+    const desc = cleanText(props.Description || props.description || props.desc || '');
+    const rawCategory = cleanText(props.Category || props.category || 'landmarks');
+    const customColor = cleanText(props.Color || props.color || props['Pin Color'] || '');
+    const neighborhood = cleanText(props.City || props.city || props.neighborhood || 'Downtown LA');
+    const rawTagsStr = cleanText(props.Tags || props.tags || '');
 
     const catDetails = getCategoryDetails(rawCategory, customColor);
 
@@ -79,138 +102,87 @@ window.initMapEngine = function() {
     if (rawCategory) categories.add(rawCategory);
 
     let parsedTags = [];
-    const parentCard = item.closest('.w-dyn-item') || item.parentElement;
-    if (parentCard) {
-      const tagNodes = parentCard.querySelectorAll('.tag-item, [id^="tag-item"], [class*="tag-item"]');
-      tagNodes.forEach(node => {
-        const text = cleanText(node.textContent);
-        if (text) {
-          text.split(/[,;]/).forEach(t => {
-            const cleanTag = t.replace(/^#/, '').trim();
-            if (cleanTag) parsedTags.push(cleanTag);
-          });
-        }
-      });
-    }
-
-    if (parsedTags.length === 0 && rawTagsStr) {
+    if (rawTagsStr) {
       rawTagsStr.split(/[,;]/).forEach(t => {
         const cleanTag = t.replace(/^#/, '').trim();
         if (cleanTag) parsedTags.push(cleanTag);
       });
     }
-    
     parsedTags = [...new Set(parsedTags)];
     parsedTags.forEach(t => tagsSet.add(t));
 
-    if (!isNaN(lat) && !isNaN(lng)) {
-      const coordKey = `${lat.toFixed(3)},${lng.toFixed(3)}`;
-      coordTracker[coordKey] = (coordTracker[coordKey] || 0) + 1;
-      
-      if (coordTracker[coordKey] > 1) {
-        const overlapIndex = coordTracker[coordKey] - 1;
-        const angle = overlapIndex * (2 * Math.PI / 8);
-        const offsetRadius = 0.0012 * Math.ceil(overlapIndex / 8);
-        lat += offsetRadius * Math.cos(angle);
-        lng += offsetRadius * Math.sin(angle);
-      }
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'marker-wrapper';
-
-      const inner = document.createElement('div');
-      inner.className = 'custom-emoji-marker';
-      inner.style.backgroundColor = catDetails.color;
-      inner.innerHTML = catDetails.icon;
-
-      wrapper.appendChild(inner);
-
-      const tagsFormatted = parsedTags.length ? `<div class="popup-tags">Tags: ${parsedTags.join(', ')}</div>` : '';
-      const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-      const popupHTML = `
-        <div class="marlon-popup-content">
-          <h3 class="popup-title">${title}</h3>
-          <div class="popup-meta">${neighborhood} &bull; ${catDetails.name}</div>
-          ${desc ? `<div class="popup-desc">${desc}</div>` : ''}
-          ${tagsFormatted}
-          <a href="${directionsLink}" target="_blank" class="popup-btn">🚗 Get Directions</a>
-        </div>
-      `;
-
-      const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true, maxWidth: '280px' })
-        .setLngLat([lng, lat])
-        .setHTML(popupHTML);
-
-      const marker = new mapboxgl.Marker({ element: wrapper })
-        .setLngLat([lng, lat]);
-
-      wrapper.addEventListener('click', () => {
-        const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
-        const activePopups = document.querySelectorAll('.mapboxgl-popup');
-        activePopups.forEach(p => p.remove());
-
-        map.flyTo({ 
-          center: [lng, lat], 
-          zoom: targetZoom, 
-          duration: 1200, 
-          padding: { top: 120 } 
-        });
-
-        map.once('moveend', () => {
-          popup.addTo(map);
-        });
-
-        if (window.swiperInstance) {
-          window.swiperInstance.slideToLoop(index);
-        }
-      });
-
-      allSpotsData.push({
-        id: index,
-        marker: marker,
-        lng: lng,
-        lat: lat,
-        neighborhood: neighborhood,
-        category: rawCategory,
-        tags: parsedTags,
-        title: title
-      });
+    // Handle marker overlaps smoothly
+    const coordKey = `${lat.toFixed(3)},${lng.toFixed(3)}`;
+    coordTracker[coordKey] = (coordTracker[coordKey] || 0) + 1;
+    if (coordTracker[coordKey] > 1) {
+      const overlapIndex = coordTracker[coordKey] - 1;
+      const angle = overlapIndex * (2 * Math.PI / 8);
+      const offsetRadius = 0.0012 * Math.ceil(overlapIndex / 8);
+      lat += offsetRadius * Math.cos(angle);
+      lng += offsetRadius * Math.sin(angle);
     }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'marker-wrapper';
+
+    const inner = document.createElement('div');
+    inner.className = 'custom-emoji-marker';
+    inner.style.backgroundColor = catDetails.color;
+    inner.innerHTML = catDetails.icon;
+
+    wrapper.appendChild(inner);
+
+    const tagsFormatted = parsedTags.length ? `<div class="popup-tags">Tags: ${parsedTags.join(', ')}</div>` : '';
+    const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+    const popupHTML = `
+      <div class="marlon-popup-content">
+        <h3 class="popup-title">${title}</h3>
+        <div class="popup-meta">${neighborhood} &bull; ${catDetails.name}</div>
+        ${desc ? `<div class="popup-desc">${desc}</div>` : ''}
+        ${tagsFormatted}
+        <a href="${directionsLink}" target="_blank" class="popup-btn">🚗 Get Directions</a>
+      </div>
+    `;
+
+    const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true, maxWidth: '280px' })
+      .setLngLat([lng, lat])
+      .setHTML(popupHTML);
+
+    const marker = new mapboxgl.Marker({ element: wrapper })
+      .setLngLat([lng, lat]);
+
+    wrapper.addEventListener('click', () => {
+      const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
+      const activePopups = document.querySelectorAll('.mapboxgl-popup');
+      activePopups.forEach(p => p.remove());
+
+      map.flyTo({ 
+        center: [lng, lat], 
+        zoom: targetZoom, 
+        duration: 1200, 
+        padding: { top: 120 } 
+      });
+
+      map.once('moveend', () => {
+        popup.addTo(map);
+      });
+
+      if (window.swiperInstance) {
+        window.swiperInstance.slideToLoop(index);
+      }
+    });
+
+    allMarkers.push({
+      marker: marker,
+      lng: lng,
+      lat: lat,
+      neighborhood: neighborhood,
+      category: rawCategory,
+      tags: parsedTags
+    });
   });
 
-  const activeMarkersMap = {};
-
-  function syncVisibleMarkers() {
-    if (!map.getSource('spots')) return;
-    const features = map.querySourceFeatures('spots', {
-      filter: ['!', ['has', 'point_count']]
-    });
-
-    const visibleIds = new Set();
-    features.forEach(f => {
-      const id = f.properties.id;
-      if (id !== undefined && id !== null) {
-        visibleIds.add(Number(id));
-        if (!activeMarkersMap[id]) {
-          const spot = allSpotsData[id];
-          if (spot) {
-            spot.marker.addTo(map);
-            activeMarkersMap[id] = spot.marker;
-          }
-        }
-      }
-    });
-
-    Object.keys(activeMarkersMap).forEach(id => {
-      if (!visibleIds.has(Number(id))) {
-        if (activeMarkersMap[id]) {
-          activeMarkersMap[id].remove();
-        }
-        delete activeMarkersMap[id];
-      }
-    });
-  }
-
+  // 3. BUILD FILTER CONTROLS (CATEGORIES -> VIBES -> NEIGHBORHOODS)
   const form = document.querySelector('.filter-bar form');
   let activeArea = 'All';
   const activeCategories = new Set(['All']);
@@ -239,6 +211,7 @@ window.initMapEngine = function() {
   if (form) {
     form.innerHTML = '';
 
+    // 1. CATEGORIES PILLS (TOP)
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -253,7 +226,7 @@ window.initMapEngine = function() {
 
     countBadgeEl = document.createElement('span');
     countBadgeEl.className = 'count-badge';
-    countBadgeEl.innerText = `${allSpotsData.length} SPOTS`;
+    countBadgeEl.innerText = `${allMarkers.length} SPOTS`;
 
     const viewsBadgeEl = document.createElement('span');
     viewsBadgeEl.id = 'map-views-badge';
@@ -318,6 +291,7 @@ window.initMapEngine = function() {
       applyFilters();
     });
 
+    // 2. VIBES DROPDOWN (MIDDLE)
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
       tagGroup.className = 'dashboard-group';
@@ -342,6 +316,7 @@ window.initMapEngine = function() {
       });
     }
 
+    // 3. NEIGHBORHOOD DROPDOWN (BOTTOM)
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
@@ -368,34 +343,23 @@ window.initMapEngine = function() {
   function applyFilters() {
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
-    const filteredFeatures = [];
 
-    allSpotsData.forEach(item => {
+    allMarkers.forEach(item => {
       const matchesArea = (activeArea === 'All') || (item.neighborhood === activeArea);
       const matchesCategory = activeCategories.has('All') || activeCategories.has(item.category);
       const matchesTag = (activeTag === 'All') || item.tags.includes(activeTag);
 
       if (matchesArea && matchesCategory && matchesTag) {
+        item.marker.addTo(map);
         bounds.extend([item.lng, item.lat]);
         visibleCount++;
-        filteredFeatures.push({
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [item.lng, item.lat] },
-          properties: { id: item.id }
-        });
+      } else {
+        item.marker.remove();
       }
     });
 
     if (countBadgeEl) {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
-    }
-
-    const source = map.getSource('spots');
-    if (source) {
-      source.setData({
-        type: 'FeatureCollection',
-        features: filteredFeatures
-      });
     }
 
     if (activeArea === 'All') {
@@ -405,8 +369,6 @@ window.initMapEngine = function() {
     } else {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1800 });
     }
-
-    setTimeout(syncVisibleMarkers, 100);
   }
 
   async function trackAndDisplayViews() {
@@ -417,7 +379,14 @@ window.initMapEngine = function() {
     viewsBadge.innerText = `${BASE_VIEWS.toLocaleString()} VIEWS`;
 
     try {
-      const res = await fetch('https://api.counterapi.dev/v1/marlonwalksla/master-map-views/up');
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+      const res = await fetch('https://api.counterapi.dev/v1/marlonwalksla/master-map-views/up', {
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
       const data = await res.json();
       const addedViews = data.count || data.value || 0;
       
@@ -441,65 +410,6 @@ window.initMapEngine = function() {
   }
 
   map.on('load', () => {
-    map.addSource('spots', {
-      type: 'geojson',
-      data: { type: 'FeatureCollection', features: [] },
-      cluster: true,
-      clusterMaxZoom: 13.5,
-      clusterRadius: 40
-    });
-
-    map.addLayer({
-      id: 'clusters',
-      type: 'circle',
-      source: 'spots',
-      filter: ['has', 'point_count'],
-      paint: {
-        'circle-color': '#3898ec',
-        'circle-radius': ['step', ['get', 'point_count'], 16, 10, 20, 30, 24],
-        'circle-stroke-width': 3,
-        'circle-stroke-color': '#ffffff'
-      }
-    });
-
-    map.addLayer({
-      id: 'cluster-count',
-      type: 'symbol',
-      source: 'spots',
-      filter: ['has', 'point_count'],
-      layout: {
-        'text-field': '{point_count_abbreviated}',
-        'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-        'text-size': 13
-      },
-      paint: {
-        'text-color': '#ffffff'
-      }
-    });
-
-    map.on('click', 'clusters', (e) => {
-      const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
-      const clusterId = features[0].properties.cluster_id;
-      map.getSource('spots').getClusterExpansionZoom(clusterId, (err, zoom) => {
-        if (err) return;
-        map.easeTo({
-          center: features[0].geometry.coordinates,
-          zoom: zoom + 0.5
-        });
-      });
-    });
-
-    map.on('mouseenter', 'clusters', () => { map.getCanvas().style.cursor = 'pointer'; });
-    map.on('mouseleave', 'clusters', () => { map.getCanvas().style.cursor = ''; });
-
-    map.on('move', syncVisibleMarkers);
-    map.on('moveend', syncVisibleMarkers);
-    map.on('sourcedata', (e) => {
-      if (e.sourceId === 'spots') {
-        syncVisibleMarkers();
-      }
-    });
-
     applyFilters();
     trackAndDisplayViews();
   });
