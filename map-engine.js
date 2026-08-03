@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-engine.js
- * CATEGORY: MarlonWalksLA Website - Build Your LA Adventure Engine
+ * CATEGORY: MarlonWalksLA Website - Adventure Builder & Story Map Engine
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -29,7 +29,7 @@ window.initMapEngine = async function() {
     map.resize();
   });
 
-  // LOCAL STORAGE HELPERS (DECOUPLED SAVED vs VISITED)
+  // LOCAL STORAGE HELPERS
   function getSavedSpots() {
     return JSON.parse(localStorage.getItem('marlon_saved_spots') || '[]');
   }
@@ -44,9 +44,9 @@ window.initMapEngine = async function() {
       saved.push(id);
     }
     localStorage.setItem('marlon_saved_spots', JSON.stringify(saved));
-    updateItineraryBadge();
+    updateHeaderBadges();
     updateMarkerStates();
-    if (isItineraryModeActive) applyItineraryMapFilter();
+    if (activeViewMode === 'itinerary') applyModeMapFilter(getSavedSpots());
   }
   function toggleVisitedSpot(id) {
     let visited = getVisitedSpots();
@@ -56,9 +56,11 @@ window.initMapEngine = async function() {
       visited.push(id);
     }
     localStorage.setItem('marlon_visited_spots', JSON.stringify(visited));
-    updateItineraryBadge();
+    updateHeaderBadges();
     updateMarkerStates();
-    if (isItineraryModeActive) {
+    if (activeViewMode === 'visited') {
+      renderVisitedView();
+    } else if (activeViewMode === 'itinerary') {
       renderItineraryView();
     }
   }
@@ -123,13 +125,14 @@ window.initMapEngine = async function() {
   const categories = new Set();
   const tagsSet = new Set();
 
-  // UI VIEWS
+  // UI VIEWS MANAGEMENT
   const form = document.querySelector('.filter-bar form');
   let filterControlsView = null;
   let spotDetailsView = null;
-  let itineraryView = null;
+  let listCardView = null;
   let itineraryBadgeBtn = null;
-  let isItineraryModeActive = false;
+  let visitedBadgeBtn = null;
+  let activeViewMode = 'filters'; // 'filters' | 'itinerary' | 'visited'
 
   if (form) {
     form.innerHTML = '';
@@ -146,38 +149,40 @@ window.initMapEngine = async function() {
     spotDetailsView.style.display = 'none';
     spotDetailsView.style.width = '100%';
 
-    itineraryView = document.createElement('div');
-    itineraryView.id = 'itinerary-view';
-    itineraryView.style.display = 'none';
-    itineraryView.style.width = '100%';
+    listCardView = document.createElement('div');
+    listCardView.id = 'list-card-view';
+    listCardView.style.display = 'none';
+    listCardView.style.width = '100%';
 
     form.appendChild(filterControlsView);
     form.appendChild(spotDetailsView);
-    form.appendChild(itineraryView);
+    form.appendChild(listCardView);
   }
 
   function showFilterControlsView() {
-    if (!filterControlsView || !spotDetailsView || !itineraryView) return;
-    isItineraryModeActive = false;
+    if (!filterControlsView || !spotDetailsView || !listCardView) return;
+    activeViewMode = 'filters';
     spotDetailsView.style.display = 'none';
-    itineraryView.style.display = 'none';
+    listCardView.style.display = 'none';
     filterControlsView.style.display = 'flex';
     applyFilters();
     map.resize();
   }
 
   function showSpotDetailsView(htmlContent, spotId) {
-    if (!filterControlsView || !spotDetailsView || !itineraryView) return;
+    if (!filterControlsView || !spotDetailsView || !listCardView) return;
     spotDetailsView.innerHTML = htmlContent;
     filterControlsView.style.display = 'none';
-    itineraryView.style.display = 'none';
+    listCardView.style.display = 'none';
     spotDetailsView.style.display = 'block';
 
     const backBtn = spotDetailsView.querySelector('.back-to-filters-btn');
     if (backBtn) {
       backBtn.addEventListener('click', () => {
-        if (isItineraryModeActive) {
+        if (activeViewMode === 'itinerary') {
           renderItineraryView();
+        } else if (activeViewMode === 'visited') {
+          renderVisitedView();
         } else {
           showFilterControlsView();
         }
@@ -220,13 +225,12 @@ window.initMapEngine = async function() {
     });
   }
 
-  function applyItineraryMapFilter() {
-    const savedIds = getSavedSpots();
+  function applyModeMapFilter(targetIds) {
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
 
     allMarkers.forEach(item => {
-      if (savedIds.includes(item.id)) {
+      if (targetIds.includes(item.id)) {
         item.marker.addTo(map);
         bounds.extend([item.lng, item.lat]);
         visibleCount++;
@@ -242,32 +246,30 @@ window.initMapEngine = async function() {
     }
   }
 
+  // RENDER SAVED ITINERARY VIEW
   function renderItineraryView() {
-    if (!itineraryView) return;
-    isItineraryModeActive = true;
+    if (!listCardView) return;
+    activeViewMode = 'itinerary';
 
     const savedIds = getSavedSpots();
     const visitedIds = getVisitedSpots();
-
-    // Show ONLY spots saved to the temporary itinerary
     const itineraryMarkers = allMarkers.filter(m => savedIds.includes(m.id));
 
-    const totalItineraryCount = itineraryMarkers.length;
+    const totalCount = itineraryMarkers.length;
     const completedCount = itineraryMarkers.filter(m => visitedIds.includes(m.id)).length;
-    const progressPercent = totalItineraryCount > 0 ? Math.round((completedCount / totalItineraryCount) * 100) : 0;
+    const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
     let html = `
       <div class="itinerary-card">
         <div class="itinerary-header">
           <button type="button" class="back-to-filters-btn">‹ Back</button>
-          <div class="itinerary-title">📋 My Saved Itinerary (${totalItineraryCount})</div>
+          <div class="itinerary-title">📋 Planned Itinerary (${totalCount})</div>
         </div>
 
-        <!-- GAMIFIED PROGRESS BAR -->
         <div class="itinerary-progress-box">
           <div class="itinerary-progress-label">
             <span>🎯 Itinerary Progress</span>
-            <strong>${completedCount} / ${totalItineraryCount} Completed (${progressPercent}%)</strong>
+            <strong>${completedCount} / ${totalCount} Completed (${progressPercent}%)</strong>
           </div>
           <div class="itinerary-progress-track">
             <div class="itinerary-progress-fill" style="width: ${progressPercent}%;"></div>
@@ -275,7 +277,7 @@ window.initMapEngine = async function() {
         </div>
         
         <div class="itinerary-section">
-          ${totalItineraryCount === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save to Itinerary on any location to build your day!</p>' : ''}
+          ${totalCount === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save on any spot to build your day!</p>' : ''}
           <div class="itinerary-list">
             ${itineraryMarkers.map(m => {
               const isVisited = visitedIds.includes(m.id);
@@ -298,49 +300,113 @@ window.initMapEngine = async function() {
       </div>
     `;
 
-    itineraryView.innerHTML = html;
+    listCardView.innerHTML = html;
     filterControlsView.style.display = 'none';
     spotDetailsView.style.display = 'none';
-    itineraryView.style.display = 'block';
+    listCardView.style.display = 'block';
 
-    const backBtn = itineraryView.querySelector('.back-to-filters-btn');
+    const backBtn = listCardView.querySelector('.back-to-filters-btn');
     if (backBtn) {
-      backBtn.addEventListener('click', () => {
-        showFilterControlsView();
-      });
+      backBtn.addEventListener('click', showFilterControlsView);
     }
 
-    // Toggle Visited Directly from Itinerary List
-    itineraryView.querySelectorAll('.list-check-btn').forEach(btn => {
+    listCardView.querySelectorAll('.list-check-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const id = btn.dataset.id;
-        toggleVisitedSpot(id);
+        toggleVisitedSpot(btn.dataset.id);
       });
     });
 
-    // Click Row to Pan Map to Pin
-    itineraryView.querySelectorAll('.itinerary-item').forEach(el => {
+    listCardView.querySelectorAll('.itinerary-item').forEach(el => {
       el.addEventListener('click', () => {
-        const id = el.dataset.id;
-        const match = allMarkers.find(m => m.id === id);
-        if (match) {
-          match.wrapper.click();
-        }
+        const match = allMarkers.find(m => m.id === el.dataset.id);
+        if (match) match.wrapper.click();
       });
     });
 
-    applyItineraryMapFilter();
+    applyModeMapFilter(savedIds);
     map.resize();
   }
 
-  function updateItineraryBadge() {
-    if (!itineraryBadgeBtn) return;
-    const savedCount = getSavedSpots().length;
-    itineraryBadgeBtn.innerText = `📋 View My Itinerary (${savedCount})`;
+  // RENDER LIFETIME VISITED PASSPORT VIEW
+  function renderVisitedView() {
+    if (!listCardView) return;
+    activeViewMode = 'visited';
+
+    const visitedIds = getVisitedSpots();
+    const visitedMarkers = allMarkers.filter(m => visitedIds.includes(m.id));
+    const totalSpots = allMarkers.length;
+    const progressPercent = Math.round((visitedIds.length / totalSpots) * 100);
+
+    let html = `
+      <div class="itinerary-card visited-passport-card">
+        <div class="itinerary-header">
+          <button type="button" class="back-to-filters-btn">‹ Back</button>
+          <div class="itinerary-title">✅ Visited Passport (${visitedIds.length})</div>
+        </div>
+
+        <div class="itinerary-progress-box">
+          <div class="itinerary-progress-label">
+            <span>🏆 Total LA Explored</span>
+            <strong>${visitedIds.length} / ${totalSpots} Spots (${progressPercent}%)</strong>
+          </div>
+          <div class="itinerary-progress-track">
+            <div class="itinerary-progress-fill" style="width: ${progressPercent}%;"></div>
+          </div>
+        </div>
+        
+        <div class="itinerary-section">
+          ${visitedIds.length === 0 ? '<p class="empty-itinerary-msg">No spots visited yet. Click ✅ Visited on places you have explored!</p>' : ''}
+          <div class="itinerary-list">
+            ${visitedMarkers.map(m => `
+              <div class="itinerary-item is-visited-item" data-id="${m.id}">
+                <div class="itinerary-item-info">
+                  <div class="itinerary-item-name">${m.title}</div>
+                  <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
+                </div>
+                <div class="itinerary-item-actions">
+                  <span class="visited-badge">✓ Explored</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+
+    listCardView.innerHTML = html;
+    filterControlsView.style.display = 'none';
+    spotDetailsView.style.display = 'none';
+    listCardView.style.display = 'block';
+
+    const backBtn = listCardView.querySelector('.back-to-filters-btn');
+    if (backBtn) {
+      backBtn.addEventListener('click', showFilterControlsView);
+    }
+
+    listCardView.querySelectorAll('.itinerary-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const match = allMarkers.find(m => m.id === el.dataset.id);
+        if (match) match.wrapper.click();
+      });
+    });
+
+    applyModeMapFilter(visitedIds);
+    map.resize();
   }
 
-  // 2. PROCESS GEOJSON FEATURES (EXACT UNMODIFIED GEO-COORDINATES)
+  function updateHeaderBadges() {
+    if (itineraryBadgeBtn) {
+      const savedCount = getSavedSpots().length;
+      itineraryBadgeBtn.innerText = `📋 Planned Itinerary (${savedCount})`;
+    }
+    if (visitedBadgeBtn) {
+      const visitedCount = getVisitedSpots().length;
+      visitedBadgeBtn.innerText = `✅ Visited Passport (${visitedCount})`;
+    }
+  }
+
+  // 2. PROCESS GEOJSON FEATURES WITH RICH STORYTELLING (NOTES, PHOTOS, SOCIAL)
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
     const coords = feature.geometry ? feature.geometry.coordinates : null;
@@ -358,6 +424,12 @@ window.initMapEngine = async function() {
     const customColor = cleanText(props.Color || props.color || props['Pin Color'] || '');
     const neighborhood = cleanText(props.City || props.city || props.neighborhood || 'Downtown LA');
     const rawTagsStr = cleanText(props.Tags || props.tags || '');
+
+    // STORYTELLING EXTENSIONS (Note, Image, Social Media links)
+    const marlonNote = cleanText(props.Note || props.MarlonNote || props.PersonalNote || props.tip || '');
+    const spotImage = cleanText(props.Image || props.Photo || props.image_url || '');
+    const instagramUrl = cleanText(props.Instagram || props.instagram_url || '');
+    const tiktokUrl = cleanText(props.TikTok || props.tiktok_url || '');
 
     const catDetails = getCategoryDetails(rawCategory, customColor);
 
@@ -393,16 +465,31 @@ window.initMapEngine = async function() {
     const isSaved = getSavedSpots().includes(spotId);
     const isVisited = getVisitedSpots().includes(spotId);
 
+    // Dynamic Rich Story HTML Assembly
+    const imageHTML = spotImage ? `<div class="polaroid-spot-img-wrap"><img src="${spotImage}" alt="${title}" class="polaroid-spot-img" /></div>` : '';
+    const noteHTML = marlonNote ? `<blockquote class="polaroid-marlon-note"><strong>💡 Marlon's Tip:</strong> "${marlonNote}"</blockquote>` : '';
+    
+    let socialLinksHTML = '';
+    if (instagramUrl || tiktokUrl) {
+      socialLinksHTML = `<div class="polaroid-social-row">`;
+      if (instagramUrl) socialLinksHTML += `<a href="${instagramUrl}" target="_blank" class="social-btn instagram">📸 Watch Instagram Reel</a>`;
+      if (tiktokUrl) socialLinksHTML += `<a href="${tiktokUrl}" target="_blank" class="social-btn tiktok">🎵 Watch TikTok</a>`;
+      socialLinksHTML += `</div>`;
+    }
+
     const captionHTML = `
       <div class="polaroid-caption-card">
         <div class="polaroid-caption-header">
           <button type="button" class="back-to-filters-btn">‹ Back</button>
           <span class="polaroid-cat-badge" style="background-color:${catDetails.color};">${catDetails.name}</span>
         </div>
+        ${imageHTML}
         <div class="polaroid-caption-body">
           <h3 class="polaroid-caption-title">${title}</h3>
           <div class="polaroid-caption-meta">📍 ${neighborhood}</div>
           ${desc ? `<p class="polaroid-caption-desc">${desc}</p>` : ''}
+          ${noteHTML}
+          ${socialLinksHTML}
           ${tagsFormatted}
         </div>
 
@@ -458,14 +545,16 @@ window.initMapEngine = async function() {
   });
 
   map.on('click', () => {
-    if (isItineraryModeActive) {
+    if (activeViewMode === 'itinerary') {
       renderItineraryView();
+    } else if (activeViewMode === 'visited') {
+      renderVisitedView();
     } else {
       showFilterControlsView();
     }
   });
 
-  // 3. BUILD FILTER CONTROLS (ITINERARY BUTTON MOVED BELOW TEXT)
+  // 3. BUILD FILTER CONTROLS WITH DUAL CTA BUTTONS
   let activeArea = 'All';
   const activeCategories = new Set();
   let activeTag = 'All';
@@ -491,7 +580,6 @@ window.initMapEngine = async function() {
   }
 
   if (filterControlsView) {
-    // HERO CTA HEADER
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-hero-cta-box';
 
@@ -503,23 +591,32 @@ window.initMapEngine = async function() {
     subtitleText.className = 'map-hero-cta-subtitle';
     subtitleText.innerText = "Curate your personal itinerary, save must-see spots, and check off places as you explore!";
 
-    // Prominent Itinerary Button Placed DIRECTLY Below Text
+    // Dual CTA Buttons Box (Planned Itinerary + Visited Passport)
+    const toggleGroup = document.createElement('div');
+    toggleGroup.className = 'itinerary-toggle-group';
+
     itineraryBadgeBtn = document.createElement('button');
     itineraryBadgeBtn.type = 'button';
-    itineraryBadgeBtn.className = 'itinerary-badge-btn full-cta';
-    updateItineraryBadge();
+    itineraryBadgeBtn.className = 'itinerary-badge-btn primary-mode';
 
-    itineraryBadgeBtn.addEventListener('click', () => {
-      renderItineraryView();
-    });
+    visitedBadgeBtn = document.createElement('button');
+    visitedBadgeBtn.type = 'button';
+    visitedBadgeBtn.className = 'itinerary-badge-btn visited-mode';
+
+    updateHeaderBadges();
+
+    itineraryBadgeBtn.addEventListener('click', renderItineraryView);
+    visitedBadgeBtn.addEventListener('click', renderVisitedView);
+
+    toggleGroup.appendChild(itineraryBadgeBtn);
+    toggleGroup.appendChild(visitedBadgeBtn);
 
     mainTitleHeader.appendChild(titleText);
     mainTitleHeader.appendChild(subtitleText);
-    mainTitleHeader.appendChild(itineraryBadgeBtn);
+    mainTitleHeader.appendChild(toggleGroup);
 
     filterControlsView.appendChild(mainTitleHeader);
 
-    // DIVIDER
     const divider = document.createElement('hr');
     divider.className = 'filter-section-divider';
     filterControlsView.appendChild(divider);
@@ -566,7 +663,7 @@ window.initMapEngine = async function() {
     catPillsBar.addEventListener('click', (e) => {
       const pill = e.target.closest('.cat-pill');
       if (!pill) return;
-      isItineraryModeActive = false;
+      activeViewMode = 'filters';
       const cat = pill.dataset.category;
 
       if (activeCategories.has(cat)) {
@@ -601,7 +698,7 @@ window.initMapEngine = async function() {
       filterControlsView.appendChild(tagGroup);
 
       tagSelect.addEventListener('change', (e) => {
-        isItineraryModeActive = false;
+        activeViewMode = 'filters';
         activeTag = e.target.value;
         applyFilters();
       });
@@ -626,7 +723,7 @@ window.initMapEngine = async function() {
     filterControlsView.appendChild(areaGroup); 
 
     areaSelect.addEventListener('change', (e) => {
-      isItineraryModeActive = false;
+      activeViewMode = 'filters';
       activeArea = e.target.value;
       applyFilters();
     });
@@ -647,7 +744,7 @@ window.initMapEngine = async function() {
     filterControlsView.appendChild(resetContainer);
 
     resetBtn.addEventListener('click', () => {
-      isItineraryModeActive = false;
+      activeViewMode = 'filters';
       activeArea = 'All';
       activeTag = 'All';
       activeCategories.clear();
@@ -663,8 +760,12 @@ window.initMapEngine = async function() {
   }
 
   function applyFilters() {
-    if (isItineraryModeActive) {
-      applyItineraryMapFilter();
+    if (activeViewMode === 'itinerary') {
+      applyModeMapFilter(getSavedSpots());
+      return;
+    }
+    if (activeViewMode === 'visited') {
+      applyModeMapFilter(getVisitedSpots());
       return;
     }
 
