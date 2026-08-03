@@ -9,16 +9,16 @@
  * 
  * WHAT'S INSIDE:
  * - Mapbox GL JS initialization, center coordinates, and geolocation controls.
- * - Dynamic marker generation with native Mapbox Popups for spot details.
- * - Deep tag extraction to ensure all Webflow collection tags are parsed and displayed.
- * - Fast-loading UI elements dynamically ordered: Categories, Vibes, then Neighborhoods.
- * - `applyFilters` logic to hide/show pins and adjust map bounds based on selections.
- * - An animated CounterAPI fetch that smoothly counts up to the true view count.
+ * - Dynamic marker generation with smooth post-flight Mapbox Popups for spot details.
+ * - Camera flyTo padding logic and moveend listener to prevent popup jankiness.
+ * - Fast-loading UI dropdowns (`<select>`) for massive datasets (88 Neighborhoods & 28 Vibes).
+ * - Horizontal pill scroll UI maintained for the 8 primary categories.
+ * - `applyFilters` logic to hide/show pins and adjust map bounds based on dropdown and pill selections.
  * 
  * WHEN TO FEED THIS FILE TO GEMINI / AI:
  * - Feed this file if you want to: Add new primary categories, change default map center coordinates, or update the Mapbox style URL.
  * - Feed this file if you want to: Add new data fields (like operating hours) to the Mapbox popups.
- * - Feed this file if you want to: Alter the filtering logic or dropdown mechanics.
+ * - Feed this file if you want to: Alter the camera speed, popup delay, or filtering mechanics.
  * ============================================================================== */
 
 window.initMapEngine = function() {
@@ -119,7 +119,6 @@ window.initMapEngine = function() {
       });
     }
     
-    // Remove duplicates
     parsedTags = [...new Set(parsedTags)];
     parsedTags.forEach(t => tagsSet.add(t));
 
@@ -158,19 +157,30 @@ window.initMapEngine = function() {
       `;
 
       const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true, maxWidth: '280px' })
+        .setLngLat([lng, lat])
         .setHTML(popupHTML);
 
       const marker = new mapboxgl.Marker({ element: wrapper })
-        .setLngLat([lng, lat])
-        .setPopup(popup);
+        .setLngLat([lng, lat]);
 
       wrapper.addEventListener('click', () => {
         const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
+        
+        // 1. Immediately remove any open popups to clear the viewport
+        const activePopups = document.querySelectorAll('.mapboxgl-popup');
+        activePopups.forEach(p => p.remove());
+
+        // 2. Smoothly fly the camera first
         map.flyTo({ 
           center: [lng, lat], 
           zoom: targetZoom, 
-          duration: 1800,
-          padding: { top: 250 } 
+          duration: 1200, // Snappy, smooth 1.2s glide
+          padding: { top: 220 } 
+        });
+
+        // 3. Open the popup AFTER the movement completes
+        map.once('moveend', () => {
+          popup.addTo(map);
         });
 
         if (window.swiperInstance) {
@@ -217,7 +227,7 @@ window.initMapEngine = function() {
   if (form) {
     form.innerHTML = '';
 
-    // 1. CATEGORIES PILLS (Appended First)
+    // 1. CATEGORIES PILLS
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -297,7 +307,7 @@ window.initMapEngine = function() {
       applyFilters();
     });
 
-    // 2. VIBES DROPDOWN (Appended Second)
+    // 2. VIBES DROPDOWN
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
       tagGroup.className = 'dashboard-group';
@@ -322,7 +332,7 @@ window.initMapEngine = function() {
       });
     }
 
-    // 3. NEIGHBORHOOD DROPDOWN (Appended Third)
+    // 3. NEIGHBORHOOD DROPDOWN
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
