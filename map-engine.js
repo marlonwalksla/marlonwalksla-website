@@ -25,7 +25,6 @@ window.initMapEngine = async function() {
   });
   map.addControl(geolocate, 'top-right');
 
-  // Handle window resizing cleanly
   window.addEventListener('resize', () => {
     map.resize();
   });
@@ -83,7 +82,7 @@ window.initMapEngine = async function() {
   const tagsSet = new Set();
   const coordTracker = {};
 
-  // UI VIEWS (DYNAMIC POLAROID CAPTION vs FILTERS)
+  // UI VIEWS
   const form = document.querySelector('.filter-bar form');
   let filterControlsView = null;
   let spotDetailsView = null;
@@ -162,7 +161,6 @@ window.initMapEngine = async function() {
     parsedTags = [...new Set(parsedTags)];
     parsedTags.forEach(t => tagsSet.add(t));
 
-    // Marker overlap handling
     const coordKey = `${lat.toFixed(3)},${lng.toFixed(3)}`;
     coordTracker[coordKey] = (coordTracker[coordKey] || 0) + 1;
     if (coordTracker[coordKey] > 1) {
@@ -192,7 +190,7 @@ window.initMapEngine = async function() {
     const captionHTML = `
       <div class="polaroid-caption-card">
         <div class="polaroid-caption-header">
-          <button type="button" class="back-to-filters-btn">‹ Back to Filters</button>
+          <button type="button" class="back-to-filters-btn">‹ Back</button>
           <span class="polaroid-cat-badge" style="background-color:${catDetails.color};">${catDetails.name}</span>
         </div>
         <h3 class="polaroid-caption-title">${title}</h3>
@@ -205,7 +203,6 @@ window.initMapEngine = async function() {
       </div>
     `;
 
-    // Marker Click Event: Soft Glide & Story Load
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
 
@@ -235,14 +232,13 @@ window.initMapEngine = async function() {
     });
   });
 
-  // Revert caption back to filter controls on map background click
   map.on('click', () => {
     showFilterControlsView();
   });
 
-  // 3. BUILD FILTER CONTROLS INSIDE filterControlsView
+  // 3. BUILD FILTER CONTROLS (WITHOUT "ALL CATEGORIES" PILL)
   let activeArea = 'All';
-  const activeCategories = new Set(['All']);
+  const activeCategories = new Set();
   let activeTag = 'All';
   let countBadgeEl = null;
 
@@ -266,7 +262,13 @@ window.initMapEngine = async function() {
   }
 
   if (filterControlsView) {
-    // 1. CATEGORIES PILLS (TOP HEADER)
+    // SECTION TITLE HEADER
+    const mainTitleHeader = document.createElement('div');
+    mainTitleHeader.className = 'map-section-title';
+    mainTitleHeader.innerText = "📍 Explore Marlon's LA";
+    filterControlsView.appendChild(mainTitleHeader);
+
+    // 1. CATEGORIES PILLS
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -278,7 +280,6 @@ window.initMapEngine = async function() {
 
     const badgeContainer = document.createElement('div');
     badgeContainer.style.display = 'flex';
-    badgeContainer.style.gap = '8px';
 
     countBadgeEl = document.createElement('span');
     countBadgeEl.className = 'count-badge';
@@ -293,12 +294,7 @@ window.initMapEngine = async function() {
     const catPillsBar = document.createElement('div');
     catPillsBar.className = 'category-pills-bar';
 
-    const allCatPill = document.createElement('div');
-    allCatPill.className = 'cat-pill is-active';
-    allCatPill.dataset.category = 'All';
-    allCatPill.innerText = 'All Categories';
-    catPillsBar.appendChild(allCatPill);
-
+    // Directly render specific categories (No "All Categories" pill)
     Array.from(categories).sort().forEach(cat => {
       const pill = document.createElement('div');
       pill.className = 'cat-pill';
@@ -317,30 +313,17 @@ window.initMapEngine = async function() {
       if (!pill) return;
       const cat = pill.dataset.category;
 
-      if (cat === 'All') {
-        activeCategories.clear();
-        activeCategories.add('All');
-        catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
-        allCatPill.classList.add('is-active');
+      if (activeCategories.has(cat)) {
+        activeCategories.delete(cat);
+        pill.classList.remove('is-active');
       } else {
-        allCatPill.classList.remove('is-active');
-        activeCategories.delete('All');
-        if (activeCategories.has(cat)) {
-          activeCategories.delete(cat);
-          pill.classList.remove('is-active');
-        } else {
-          activeCategories.add(cat);
-          pill.classList.add('is-active');
-        }
-        if (activeCategories.size === 0) {
-          activeCategories.add('All');
-          allCatPill.classList.add('is-active');
-        }
+        activeCategories.add(cat);
+        pill.classList.add('is-active');
       }
       applyFilters();
     });
 
-    // 2. VIBES DROPDOWN (MIDDLE)
+    // 2. VIBES DROPDOWN (RENAMED TO "VIBE")
     let tagSelect = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
@@ -348,7 +331,7 @@ window.initMapEngine = async function() {
 
       const tagLabel = document.createElement('div');
       tagLabel.className = 'dashboard-label';
-      tagLabel.innerText = '✨ Filter by Vibe';
+      tagLabel.innerText = '✨ Vibe';
       tagGroup.appendChild(tagLabel);
 
       tagSelect = document.createElement('select');
@@ -366,7 +349,7 @@ window.initMapEngine = async function() {
       });
     }
 
-    // 3. NEIGHBORHOOD DROPDOWN (BOTTOM)
+    // 3. NEIGHBORHOOD DROPDOWN
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
@@ -389,7 +372,7 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // 4. CENTERED RESET BUTTON AT THE VERY BOTTOM
+    // 4. CENTERED RESET BUTTON AT BOTTOM
     const resetContainer = document.createElement('div');
     resetContainer.style.display = 'flex';
     resetContainer.style.justifyContent = 'center';
@@ -408,13 +391,11 @@ window.initMapEngine = async function() {
       activeArea = 'All';
       activeTag = 'All';
       activeCategories.clear();
-      activeCategories.add('All');
 
       if (areaSelect) areaSelect.value = 'All';
       if (tagSelect) tagSelect.value = 'All';
 
       catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
-      allCatPill.classList.add('is-active');
 
       applyFilters();
       showFilterControlsView();
@@ -427,7 +408,7 @@ window.initMapEngine = async function() {
 
     allMarkers.forEach(item => {
       const matchesArea = (activeArea === 'All') || (item.neighborhood === activeArea);
-      const matchesCategory = activeCategories.has('All') || activeCategories.has(item.category);
+      const matchesCategory = (activeCategories.size === 0) || activeCategories.has(item.category);
       const matchesTag = (activeTag === 'All') || item.tags.includes(activeTag);
 
       if (matchesArea && matchesCategory && matchesTag) {
@@ -452,47 +433,8 @@ window.initMapEngine = async function() {
     }
   }
 
-  async function trackAndDisplayViews() {
-    const viewsBadge = document.getElementById('map-views-badge');
-    if (!viewsBadge) return;
-    
-    const BASE_VIEWS = 30000; 
-    viewsBadge.innerText = `${BASE_VIEWS.toLocaleString()} VIEWS`;
-
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 3500);
-
-      const res = await fetch('https://api.counterapi.dev/v1/marlonwalksla/master-map-views/up', {
-        signal: controller.signal
-      });
-      clearTimeout(timeoutId);
-
-      const data = await res.json();
-      const addedViews = data.count || data.value || 0;
-      
-      if (addedViews > 0) {
-        let startTimestamp = null;
-        const duration = 2000; 
-        
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp;
-          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-          const easeOut = progress * (2 - progress); 
-          const current = Math.floor(easeOut * addedViews + BASE_VIEWS);
-          viewsBadge.innerText = `${current.toLocaleString()} VIEWS`;
-          if (progress < 1) window.requestAnimationFrame(step);
-        };
-        window.requestAnimationFrame(step);
-      }
-    } catch (err) {
-      viewsBadge.innerText = `${BASE_VIEWS.toLocaleString()} VIEWS`;
-    }
-  }
-
   map.on('load', () => {
     applyFilters();
-    trackAndDisplayViews();
     map.resize();
   });
 };
