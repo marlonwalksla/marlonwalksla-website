@@ -3,7 +3,7 @@
  * CATEGORY: MarlonWalksLA Website - LA Adventure Builder Styles & Controls
  * ============================================================================== */
 
-/* VISITED PIN RING BADGE ON MAP CANVAS (NO OVERLAYING CHECKMARK BADGE) */
+/* VISITED PIN EMERALD RING ON MAP CANVAS */
 .marker-wrapper {
   position: relative !important;
 }
@@ -13,11 +13,11 @@
   filter: brightness(1.02);
 }
 
-/* MAIN HERO CTA HEADER STYLING */
+/* HERO CTA HEADER STYLING */
 .map-hero-cta-box {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   width: 100%;
 }
 
@@ -35,7 +35,30 @@
   font-weight: 500;
   color: #718096;
   line-height: 1.4;
-  margin: 0;
+  margin: 0 0 2px 0;
+}
+
+/* PROMINENT ITINERARY CTA BUTTON (PLACED BELOW SUBTITLE) */
+.itinerary-badge-btn.full-cta {
+  display: block;
+  width: 100%;
+  background: #3898ec;
+  border: none;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 10px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.3);
+  text-align: center;
+  margin-top: 4px;
+}
+
+.itinerary-badge-btn.full-cta:hover {
+  background-color: #2b7bc4;
+  transform: translateY(-1px);
 }
 
 .filter-section-divider {
@@ -44,32 +67,6 @@
   background-color: #e2e8f0;
   margin: 2px 0 6px 0;
   width: 100%;
-}
-
-.map-section-title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.itinerary-badge-btn {
-  background: #3898ec;
-  border: none;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 800;
-  padding: 6px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(56, 152, 236, 0.3);
-  flex-shrink: 0;
-}
-
-.itinerary-badge-btn:hover {
-  background-color: #2b7bc4;
-  transform: translateY(-1px);
 }
 
 .filter-bar form {
@@ -130,7 +127,7 @@
   box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
 }
 
-/* PROGRESS BAR */
+/* ITINERARY PROGRESS BAR */
 .itinerary-progress-box {
   display: flex;
   flex-direction: column;
@@ -170,7 +167,7 @@
   transition: width 0.4s ease;
 }
 
-/* UNIFIED ITINERARY LIST CARD VIEW */
+/* ITINERARY LIST VIEW */
 .itinerary-card {
   display: flex;
   flex-direction: column;
@@ -251,28 +248,28 @@
   color: #718096;
 }
 
-.itinerary-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.visited-badge {
+.list-check-btn {
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
   font-size: 10px;
   font-weight: 800;
-  color: #047857;
-  background-color: #d1fae5;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.saved-badge {
-  font-size: 10px;
-  font-weight: 800;
-  color: #1d4ed8;
-  background-color: #dbeafe;
-  padding: 3px 8px;
-  border-radius: 12px;
+.list-check-btn:hover {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.list-check-btn.is-checked {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
 }
 
 /* CENTERED RESET BUTTON */
