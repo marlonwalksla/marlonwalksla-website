@@ -78,6 +78,50 @@ window.initMapEngine = async function() {
   const tagsSet = new Set();
   const coordTracker = {};
 
+  // UI VIEWS (DYNAMIC POLAROID CAPTION vs FILTERS)
+  const form = document.querySelector('.filter-bar form');
+  let filterControlsView = null;
+  let spotDetailsView = null;
+
+  if (form) {
+    form.innerHTML = '';
+    
+    filterControlsView = document.createElement('div');
+    filterControlsView.id = 'filter-controls-view';
+    filterControlsView.style.display = 'flex';
+    filterControlsView.style.flexDirection = 'column';
+    filterControlsView.style.gap = '10px';
+    filterControlsView.style.width = '100%';
+
+    spotDetailsView = document.createElement('div');
+    spotDetailsView.id = 'spot-details-view';
+    spotDetailsView.style.display = 'none';
+    spotDetailsView.style.width = '100%';
+
+    form.appendChild(filterControlsView);
+    form.appendChild(spotDetailsView);
+  }
+
+  function showFilterControlsView() {
+    if (!filterControlsView || !spotDetailsView) return;
+    spotDetailsView.style.display = 'none';
+    filterControlsView.style.display = 'flex';
+  }
+
+  function showSpotDetailsView(htmlContent) {
+    if (!filterControlsView || !spotDetailsView) return;
+    spotDetailsView.innerHTML = htmlContent;
+    filterControlsView.style.display = 'none';
+    spotDetailsView.style.display = 'block';
+
+    const backBtn = spotDetailsView.querySelector('.back-to-filters-btn');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        showFilterControlsView();
+      });
+    }
+  }
+
   // 2. PROCESS GEOJSON FEATURES
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -132,42 +176,40 @@ window.initMapEngine = async function() {
 
     wrapper.appendChild(inner);
 
-    const tagsFormatted = parsedTags.length ? `<div class="popup-tags">Tags: ${parsedTags.join(', ')}</div>` : '';
-    const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-    const popupHTML = `
-      <div class="marlon-popup-content">
-        <h3 class="popup-title">${title}</h3>
-        <div class="popup-meta">${neighborhood} &bull; ${catDetails.name}</div>
-        ${desc ? `<div class="popup-desc">${desc}</div>` : ''}
-        ${tagsFormatted}
-        <a href="${directionsLink}" target="_blank" class="popup-btn">🚗 Get Directions</a>
-      </div>
-    `;
-
-    // Explicitly bind coordinates to Popup for instant rendering
-    const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true, maxWidth: '280px' })
-      .setLngLat([lng, lat])
-      .setHTML(popupHTML);
-
     const marker = new mapboxgl.Marker({ element: wrapper })
       .setLngLat([lng, lat]);
 
-    // Marker click event
+    const tagsFormatted = parsedTags.length ? `<div class="polaroid-tags">Tags: ${parsedTags.map(t => `#${t}`).join(' ')}</div>` : '';
+    const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
+    const captionHTML = `
+      <div class="polaroid-caption-card">
+        <div class="polaroid-caption-header">
+          <button type="button" class="back-to-filters-btn">‹ Back to Filters</button>
+          <span class="polaroid-cat-badge" style="background-color:${catDetails.color};">${catDetails.name}</span>
+        </div>
+        <h3 class="polaroid-caption-title">${title}</h3>
+        <div class="polaroid-caption-meta">📍 ${neighborhood}</div>
+        ${desc ? `<p class="polaroid-caption-desc">${desc}</p>` : ''}
+        ${tagsFormatted}
+        <div class="polaroid-caption-footer">
+          <a href="${directionsLink}" target="_blank" class="polaroid-directions-btn">🚗 Get Directions</a>
+        </div>
+      </div>
+    `;
+
+    // Marker Click Event: Transform Polaroid Frame into Story Caption
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
 
-      // Remove any previously opened popups
-      document.querySelectorAll('.mapboxgl-popup').forEach(p => p.remove());
-
-      // Instantly open popup on map
-      popup.addTo(map);
+      showSpotDetailsView(captionHTML);
 
       const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
       map.flyTo({ 
         center: [lng, lat], 
         zoom: targetZoom, 
         duration: 900, 
-        padding: { top: 100 } 
+        padding: { top: 20 } 
       });
 
       if (window.swiperInstance) {
@@ -185,8 +227,12 @@ window.initMapEngine = async function() {
     });
   });
 
-  // 3. BUILD FILTER CONTROLS
-  const form = document.querySelector('.filter-bar form');
+  // Revert caption back to filter controls on map background click
+  map.on('click', () => {
+    showFilterControlsView();
+  });
+
+  // 3. BUILD FILTER CONTROLS INSIDE filterControlsView
   let activeArea = 'All';
   const activeCategories = new Set(['All']);
   let activeTag = 'All';
@@ -211,9 +257,7 @@ window.initMapEngine = async function() {
     return container;
   }
 
-  if (form) {
-    form.innerHTML = '';
-
+  if (filterControlsView) {
     // 1. CATEGORIES PILLS (TOP)
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
@@ -264,7 +308,7 @@ window.initMapEngine = async function() {
 
     const catRow = createScrollRow(catPillsBar);
     catGroup.appendChild(catRow);
-    form.appendChild(catGroup); 
+    filterControlsView.appendChild(catGroup); 
 
     catPillsBar.addEventListener('click', (e) => {
       const pill = e.target.closest('.cat-pill');
@@ -311,7 +355,7 @@ window.initMapEngine = async function() {
       });
 
       tagGroup.appendChild(tagSelect);
-      form.appendChild(tagGroup);
+      filterControlsView.appendChild(tagGroup);
 
       tagSelect.addEventListener('change', (e) => {
         activeTag = e.target.value;
@@ -335,7 +379,7 @@ window.initMapEngine = async function() {
     });
 
     areaGroup.appendChild(areaSelect);
-    form.appendChild(areaGroup); 
+    filterControlsView.appendChild(areaGroup); 
 
     areaSelect.addEventListener('change', (e) => {
       activeArea = e.target.value;
