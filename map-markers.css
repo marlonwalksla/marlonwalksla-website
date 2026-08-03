@@ -1,31 +1,25 @@
 /* ==============================================================================
  * FILE: map-markers.css
- * CATEGORY: MarlonWalksLA Website - Custom Map Markers & UI Elements
+ * CATEGORY: MarlonWalksLA Website - Custom Map Markers & Mapbox Popups
  * 
  * OVERVIEW:
  * Controls the visual styling of everything that sits physically on or interacts 
- * directly with the Mapbox instance. This includes the custom map pins, the dynamic 
- * text that updates below the map when a pin is clicked, and decorative elements.
+ * directly with the Mapbox instance. This includes the custom map pins and the 
+ * native Mapbox Popups that appear when a pin is tapped.
  * 
  * WHAT'S INSIDE:
  * - `.marker-wrapper` & `.custom-emoji-marker`: Size, shape, borders, and bouncy 
  *   hover animations for the map pins.
- * - Mapbox control overrides (e.g., `.mapboxgl-ctrl-top-right` to position the 
- *   geolocate button).
- * - Typography and button styling for the dynamic polaroid caption 
- *   (`#selected-title`, `#selected-description`, `#selected-button`).
+ * - `.mapboxgl-popup`: Overrides for the native Mapbox tooltip containers.
+ * - `.marlon-popup-content`, `.popup-title`, `.popup-desc`, `.popup-btn`: Custom typography 
+ *   and styling for the data injected inside the popup.
  * - Positioning and responsive scaling for the `.ernesto-photobomb` graphic.
  * 
  * WHEN TO FEED THIS FILE TO GEMINI / AI:
- * - Feed this file if you want to: Change the size, border, shadow, or hover scale animation of the map pins.
- * - Feed this file if you want to: Adjust the typography, color, or layout of the caption text and "Get Directions" button that appear after clicking a pin.
- * - Feed this file if you want to: Tweak the position or mobile size of Ernesto or the Mapbox default controls.
+ * - Feed this file if you want to: Change the size, shadow, or hover animation of the map pins.
+ * - Feed this file if you want to: Adjust the typography, color, or layout of the Mapbox popup bubbles and the "Get Directions" button inside them.
  * ============================================================================== */
 
-/* =========================================
-   map-markers.css
-   CUSTOM MARKERS, POPUPS & MAPBOX ELEMENTS
-   ========================================= */
 .marker-wrapper {
   width: 36px;
   height: 36px;
@@ -59,38 +53,83 @@
   right: 10px !important;
 }
 
-#selected-title {
-  margin: 0 0 6px 0 !important;
-  font-size: 22px !important;
-  font-weight: 700 !important;
+/* =========================================
+   MAPBOX POPUP STYLING
+   ========================================= */
+.mapboxgl-popup-content {
+  border-radius: 12px !important;
+  padding: 16px 20px 20px 20px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.mapboxgl-popup-close-button {
+  font-size: 20px !important;
+  color: #a0aec0 !important;
+  padding: 4px 8px !important;
+}
+
+.mapboxgl-popup-close-button:hover {
+  background-color: transparent !important;
   color: #111111 !important;
 }
 
-#selected-description {
-  margin: 0 0 16px 0 !important;
-  font-size: 14px !important;
-  line-height: 1.5 !important;
-  color: #555555 !important;
-  white-space: pre-line !important;
+.marlon-popup-content {
+  text-align: left;
+  font-family: inherit;
 }
 
-#selected-button {
-  display: none;
-  padding: 11px 24px !important;
-  background-color: var(--brand-blue) !important;
+.popup-title {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.2;
+}
+
+.popup-meta {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--brand-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.popup-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #4a5568;
+  margin-bottom: 12px;
+}
+
+.popup-tags {
+  font-size: 11px;
+  font-style: italic;
+  color: #718096;
+  margin-bottom: 16px;
+}
+
+.popup-btn {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 10px 16px;
+  background-color: var(--brand-blue);
   color: #ffffff !important;
-  text-decoration: none !important;
-  font-weight: 600 !important;
-  font-size: 14px !important;
-  border-radius: 20px !important;
-  box-shadow: 0 4px 12px rgba(56, 152, 236, 0.3) !important;
-  transition: all 0.2s ease !important;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(56, 152, 236, 0.3);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
-#selected-button.is-visible { display: inline-block !important; }
-#selected-button:hover {
-  background-color: #1e7cd1 !important;
-  transform: translateY(-1px) !important;
+.popup-btn:hover {
+  background-color: #1e7cd1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(56, 152, 236, 0.4);
 }
 
 .ernesto-photobomb {
