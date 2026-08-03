@@ -144,19 +144,25 @@ window.initMapEngine = async function() {
       </div>
     `;
 
-    // Create Mapbox Popup
+    // Explicitly bind coordinates to Popup for instant rendering
     const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true, maxWidth: '280px' })
+      .setLngLat([lng, lat])
       .setHTML(popupHTML);
 
-    // Create Mapbox Marker and bind Popup natively
     const marker = new mapboxgl.Marker({ element: wrapper })
-      .setLngLat([lng, lat])
-      .setPopup(popup);
+      .setLngLat([lng, lat]);
 
-    // Smooth pan & Swiper sync on pin tap
-    wrapper.addEventListener('click', () => {
+    // Marker click event
+    wrapper.addEventListener('click', (e) => {
+      e.stopPropagation();
+
+      // Remove any previously opened popups
+      document.querySelectorAll('.mapboxgl-popup').forEach(p => p.remove());
+
+      // Instantly open popup on map
+      popup.addTo(map);
+
       const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
-
       map.flyTo({ 
         center: [lng, lat], 
         zoom: targetZoom, 
@@ -179,7 +185,7 @@ window.initMapEngine = async function() {
     });
   });
 
-  // 3. BUILD FILTER TRAY CONTROLS
+  // 3. BUILD FILTER CONTROLS
   const form = document.querySelector('.filter-bar form');
   let activeArea = 'All';
   const activeCategories = new Set(['All']);
