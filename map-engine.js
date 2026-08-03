@@ -203,18 +203,22 @@ window.initMapEngine = async function() {
       </div>
     `;
 
+    // Smooth Desktop & Mobile Panning on Pin Click
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
 
       showSpotDetailsView(captionHTML);
 
       const currentZoom = map.getZoom();
-      const targetZoom = Math.max(currentZoom, 11.8);
+      const targetZoom = Math.max(currentZoom, 12.0);
 
       map.flyTo({ 
         center: [lng, lat], 
         zoom: targetZoom, 
-        duration: 750
+        duration: 1200,
+        speed: 0.8,
+        curve: 1.2,
+        essential: true
       });
 
       if (window.swiperInstance) {
@@ -236,7 +240,7 @@ window.initMapEngine = async function() {
     showFilterControlsView();
   });
 
-  // 3. BUILD FILTER CONTROLS (WITHOUT "ALL CATEGORIES" PILL)
+  // 3. BUILD FILTER CONTROLS
   let activeArea = 'All';
   const activeCategories = new Set();
   let activeTag = 'All';
@@ -262,7 +266,6 @@ window.initMapEngine = async function() {
   }
 
   if (filterControlsView) {
-    // SECTION TITLE HEADER
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-section-title';
     mainTitleHeader.innerText = "📍 Explore Marlon's LA";
@@ -294,7 +297,6 @@ window.initMapEngine = async function() {
     const catPillsBar = document.createElement('div');
     catPillsBar.className = 'category-pills-bar';
 
-    // Directly render specific categories (No "All Categories" pill)
     Array.from(categories).sort().forEach(cat => {
       const pill = document.createElement('div');
       pill.className = 'cat-pill';
@@ -323,7 +325,7 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // 2. VIBES DROPDOWN (RENAMED TO "VIBE")
+    // 2. VIBE DROPDOWN
     let tagSelect = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
@@ -372,7 +374,7 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // 4. CENTERED RESET BUTTON AT BOTTOM
+    // 4. CENTERED RESET BUTTON
     const resetContainer = document.createElement('div');
     resetContainer.style.display = 'flex';
     resetContainer.style.justifyContent = 'center';
@@ -402,6 +404,7 @@ window.initMapEngine = async function() {
     });
   }
 
+  // SMART FILTER CAMERA MOTION
   function applyFilters() {
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
@@ -424,12 +427,16 @@ window.initMapEngine = async function() {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
     }
 
-    if (activeArea === 'All') {
-      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1500 });
+    const isFiltered = (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
+
+    if (!isFiltered) {
+      // Nothing filtered -> Soft default view of DTLA
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200, speed: 0.8 });
     } else if (visibleCount >= 1) {
-      map.fitBounds(bounds, { padding: 50, maxZoom: 13.5, duration: 1500 });
+      // Filter active -> Frame matching spots smoothly without resetting to DTLA!
+      map.fitBounds(bounds, { padding: 60, maxZoom: 13.0, duration: 1400 });
     } else {
-      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1500 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200, speed: 0.8 });
     }
   }
 
