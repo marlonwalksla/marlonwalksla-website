@@ -57,7 +57,7 @@ window.initMapEngine = async function() {
     return String(str).replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
   }
 
-  // 1. FETCH GEOJSON DIRECTLY FROM GITHUB VIA RAW.GITHACK
+  // 1. FETCH GEOJSON DATA
   let geojsonData = null;
   const primaryUrl = 'https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/spots.geojson';
   const fallbackUrl = 'https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/MarlonWalksLA%20-%20Maps%20(102).geojson';
@@ -111,7 +111,7 @@ window.initMapEngine = async function() {
     parsedTags = [...new Set(parsedTags)];
     parsedTags.forEach(t => tagsSet.add(t));
 
-    // Handle marker overlaps smoothly
+    // Marker overlap handling
     const coordKey = `${lat.toFixed(3)},${lng.toFixed(3)}`;
     coordTracker[coordKey] = (coordTracker[coordKey] || 0) + 1;
     if (coordTracker[coordKey] > 1) {
@@ -144,26 +144,24 @@ window.initMapEngine = async function() {
       </div>
     `;
 
+    // Create Mapbox Popup
     const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true, maxWidth: '280px' })
-      .setLngLat([lng, lat])
       .setHTML(popupHTML);
 
+    // Create Mapbox Marker and bind Popup natively
     const marker = new mapboxgl.Marker({ element: wrapper })
-      .setLngLat([lng, lat]);
+      .setLngLat([lng, lat])
+      .setPopup(popup);
 
+    // Smooth pan & Swiper sync on pin tap
     wrapper.addEventListener('click', () => {
       const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
-      const activePopups = document.querySelectorAll('.mapboxgl-popup');
-      activePopups.forEach(p => p.remove());
-
-      // Instantly open the popup so it glides along during the camera flyTo
-      popup.addTo(map);
 
       map.flyTo({ 
         center: [lng, lat], 
         zoom: targetZoom, 
-        duration: 1000, 
-        padding: { top: 120 } 
+        duration: 900, 
+        padding: { top: 100 } 
       });
 
       if (window.swiperInstance) {
@@ -181,7 +179,7 @@ window.initMapEngine = async function() {
     });
   });
 
-  // 3. BUILD FILTER CONTROLS (CATEGORIES -> VIBES -> NEIGHBORHOODS)
+  // 3. BUILD FILTER TRAY CONTROLS
   const form = document.querySelector('.filter-bar form');
   let activeArea = 'All';
   const activeCategories = new Set(['All']);
