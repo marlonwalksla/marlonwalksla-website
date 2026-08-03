@@ -1,3 +1,27 @@
+/* ==============================================================================
+ * FILE: map-markers.css
+ * CATEGORY: MarlonWalksLA Website - Custom Map Markers & UI Elements
+ * 
+ * OVERVIEW:
+ * Controls the visual styling of everything that sits physically on or interacts 
+ * directly with the Mapbox instance. This includes the custom map pins, the dynamic 
+ * text that updates below the map when a pin is clicked, and decorative elements.
+ * 
+ * WHAT'S INSIDE:
+ * - `.marker-wrapper` & `.custom-emoji-marker`: Size, shape, borders, and bouncy 
+ *   hover animations for the map pins.
+ * - Mapbox control overrides (e.g., `.mapboxgl-ctrl-top-right` to position the 
+ *   geolocate button).
+ * - Typography and button styling for the dynamic polaroid caption 
+ *   (`#selected-title`, `#selected-description`, `#selected-button`).
+ * - Positioning and responsive scaling for the `.ernesto-photobomb` graphic.
+ * 
+ * WHEN TO FEED THIS FILE TO GEMINI / AI:
+ * - Feed this file if you want to: Change the size, border, shadow, or hover scale animation of the map pins.
+ * - Feed this file if you want to: Adjust the typography, color, or layout of the caption text and "Get Directions" button that appear after clicking a pin.
+ * - Feed this file if you want to: Tweak the position or mobile size of Ernesto or the Mapbox default controls.
+ * ============================================================================== */
+
 /* =========================================
    map-markers.css
    CUSTOM MARKERS, POPUPS & MAPBOX ELEMENTS
