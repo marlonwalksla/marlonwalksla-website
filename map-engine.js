@@ -1,24 +1,6 @@
 /* ==============================================================================
  * FILE: map-engine.js
  * CATEGORY: MarlonWalksLA Website - Mapbox Engine & Filtering Logic
- * 
- * OVERVIEW:
- * The primary engine for the interactive walking tour map. This script initializes 
- * Mapbox, extracts location data directly from the Webflow CMS DOM elements, and 
- * generates custom emoji markers. 
- * 
- * WHAT'S INSIDE:
- * - Mapbox GL JS initialization, center coordinates, and geolocation controls.
- * - Dynamic marker generation with smooth post-flight Mapbox Popups for spot details.
- * - Camera flyTo padding logic and moveend listener to prevent popup jankiness.
- * - Fast-loading UI dropdowns (`<select>`) for massive datasets (88 Neighborhoods & 28 Vibes).
- * - Horizontal pill scroll UI maintained for the 8 primary categories.
- * - `applyFilters` logic to hide/show pins and adjust map bounds based on dropdown and pill selections.
- * 
- * WHEN TO FEED THIS FILE TO GEMINI / AI:
- * - Feed this file if you want to: Add new primary categories, change default map center coordinates, or update the Mapbox style URL.
- * - Feed this file if you want to: Add new data fields (like operating hours) to the Mapbox popups.
- * - Feed this file if you want to: Alter the camera speed, popup delay, or filtering mechanics.
  * ============================================================================== */
 
 window.initMapEngine = function() {
@@ -53,7 +35,7 @@ window.initMapEngine = function() {
     'arts': { color: '#ec4899', name: 'Arts', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12c0 5.5 4.5 10 10 10a2.5 2.5 0 0 0 2.5-2.5c0-.88-.45-1.63-1.12-2.07a1.08 1.08 0 0 1-.41-.85c0-.6.48-1.08 1.08-1.08h1.45A5.5 5.5 0 0 0 21 10c0-5.5-4.5-8-9-8z"/><circle cx="7.5" cy="11.5" r="1" fill="currentColor"/><circle cx="12" cy="7.5" r="1" fill="currentColor"/><circle cx="16.5" cy="10.5" r="1" fill="currentColor"/></svg>' },
     'shopping': { color: '#06b6d4', name: 'Shopping', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>' },
     'parks': { color: '#10b981', name: 'Parks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18h8M12 2L3 14h18L12 2z"/></svg>' },
-    'entertainment': { color: '#2563eb', name: 'Entertainment', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M17 3v18M3 7.5h18M3 12h18M3 16.5h18"/></svg>' }
+    'entertainment': { color: '#2563eb', name: 'Entertainment', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2"/><path d="M13 11v2"/><path d="M13 17v2"/></svg>' }
   };
 
   function getCategoryDetails(rawCat, overrideColor) {
@@ -75,7 +57,7 @@ window.initMapEngine = function() {
     return str.replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
   }
 
-  const allMarkers = [];
+  const allSpotsData = [];
   const neighborhoods = new Set();
   const categories = new Set();
   const tagsSet = new Set();
@@ -96,7 +78,6 @@ window.initMapEngine = function() {
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
 
-    // Deep Tag Extraction
     let parsedTags = [];
     const parentCard = item.closest('.w-dyn-item') || item.parentElement;
     if (parentCard) {
@@ -165,20 +146,16 @@ window.initMapEngine = function() {
 
       wrapper.addEventListener('click', () => {
         const targetZoom = Math.min(Math.max(map.getZoom(), 13.5), 14.5);
-        
-        // 1. Immediately remove any open popups to clear the viewport
         const activePopups = document.querySelectorAll('.mapboxgl-popup');
         activePopups.forEach(p => p.remove());
 
-        // 2. Smoothly fly the camera first
         map.flyTo({ 
           center: [lng, lat], 
           zoom: targetZoom, 
-          duration: 1200, // Snappy, smooth 1.2s glide
+          duration: 1200, 
           padding: { top: 120 } 
         });
 
-        // 3. Open the popup AFTER the movement completes
         map.once('moveend', () => {
           popup.addTo(map);
         });
@@ -188,16 +165,47 @@ window.initMapEngine = function() {
         }
       });
 
-      allMarkers.push({
+      allSpotsData.push({
+        id: index,
         marker: marker,
         lng: lng,
         lat: lat,
         neighborhood: neighborhood,
         category: rawCategory,
-        tags: parsedTags
+        tags: parsedTags,
+        title: title
       });
     }
   });
+
+  const activeMarkersMap = {};
+
+  function syncVisibleMarkers() {
+    if (!map.getSource('spots')) return;
+    const features = map.querySourceFeatures('spots', {
+      filter: ['!', ['has', 'point_count']]
+    });
+
+    const visibleIds = new Set();
+    features.forEach(f => {
+      const id = f.properties.id;
+      visibleIds.add(id);
+      if (!activeMarkersMap[id]) {
+        const spot = allSpotsData[id];
+        if (spot) {
+          spot.marker.addTo(map);
+          activeMarkersMap[id] = spot.marker;
+        }
+      }
+    });
+
+    Object.keys(activeMarkersMap).forEach(id => {
+      if (!visibleIds.has(Number(id))) {
+        activeMarkersMap[id].remove();
+        delete activeMarkersMap[id];
+      }
+    });
+  }
 
   const form = document.querySelector('.filter-bar form');
   let activeArea = 'All';
@@ -227,7 +235,6 @@ window.initMapEngine = function() {
   if (form) {
     form.innerHTML = '';
 
-    // 1. CATEGORIES PILLS
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -242,7 +249,7 @@ window.initMapEngine = function() {
 
     countBadgeEl = document.createElement('span');
     countBadgeEl.className = 'count-badge';
-    countBadgeEl.innerText = `${allMarkers.length} SPOTS`;
+    countBadgeEl.innerText = `${allSpotsData.length} SPOTS`;
 
     const viewsBadgeEl = document.createElement('span');
     viewsBadgeEl.id = 'map-views-badge';
@@ -307,7 +314,6 @@ window.initMapEngine = function() {
       applyFilters();
     });
 
-    // 2. VIBES DROPDOWN
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
       tagGroup.className = 'dashboard-group';
@@ -332,7 +338,6 @@ window.initMapEngine = function() {
       });
     }
 
-    // 3. NEIGHBORHOOD DROPDOWN
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
@@ -359,18 +364,21 @@ window.initMapEngine = function() {
   function applyFilters() {
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
+    const filteredFeatures = [];
 
-    allMarkers.forEach(item => {
+    allSpotsData.forEach(item => {
       const matchesArea = (activeArea === 'All') || (item.neighborhood === activeArea);
       const matchesCategory = activeCategories.has('All') || activeCategories.has(item.category);
       const matchesTag = (activeTag === 'All') || item.tags.includes(activeTag);
 
       if (matchesArea && matchesCategory && matchesTag) {
-        item.marker.addTo(map);
         bounds.extend([item.lng, item.lat]);
         visibleCount++;
-      } else {
-        item.marker.remove();
+        filteredFeatures.push({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [item.lng, item.lat] },
+          properties: { id: item.id }
+        });
       }
     });
 
@@ -378,12 +386,20 @@ window.initMapEngine = function() {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
     }
 
+    const source = map.getSource('spots');
+    if (source) {
+      source.setData({
+        type: 'FeatureCollection',
+        features: filteredFeatures
+      });
+    }
+
     if (activeArea === 'All') {
-      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2000 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1800 });
     } else if (visibleCount >= 1) {
-      map.fitBounds(bounds, { padding: 70, maxZoom: 14.0, duration: 2000 });
+      map.fitBounds(bounds, { padding: 60, maxZoom: 14.0, duration: 1800 });
     } else {
-      map.flyTo({ center: dtlaCenter, zoom: 10.5, duration: 2000 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1800 });
     }
   }
 
@@ -419,6 +435,60 @@ window.initMapEngine = function() {
   }
 
   map.on('load', () => {
+    map.addSource('spots', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] },
+      cluster: true,
+      clusterMaxZoom: 13.5,
+      clusterRadius: 40
+    });
+
+    map.addLayer({
+      id: 'clusters',
+      type: 'circle',
+      source: 'spots',
+      filter: ['has', 'point_count'],
+      paint: {
+        'circle-color': '#3898ec',
+        'circle-radius': ['step', ['get', 'point_count'], 16, 10, 20, 30, 24],
+        'circle-stroke-width': 3,
+        'circle-stroke-color': '#ffffff'
+      }
+    });
+
+    map.addLayer({
+      id: 'cluster-count',
+      type: 'symbol',
+      source: 'spots',
+      filter: ['has', 'point_count'],
+      layout: {
+        'text-field': '{point_count_abbreviated}',
+        'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+        'text-size': 13
+      },
+      paint: {
+        'text-color': '#ffffff'
+      }
+    });
+
+    map.on('click', 'clusters', (e) => {
+      const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+      const clusterId = features[0].properties.cluster_id;
+      map.getSource('spots').getClusterExpansionZoom(clusterId, (err, zoom) => {
+        if (err) return;
+        map.easeTo({
+          center: features[0].geometry.coordinates,
+          zoom: zoom + 0.5
+        });
+      });
+    });
+
+    map.on('mouseenter', 'clusters', () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', 'clusters', () => { map.getCanvas().style.cursor = ''; });
+
+    map.on('move', syncVisibleMarkers);
+    map.on('moveend', syncVisibleMarkers);
+
     applyFilters();
     trackAndDisplayViews();
   });
