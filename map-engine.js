@@ -25,6 +25,11 @@ window.initMapEngine = async function() {
   });
   map.addControl(geolocate, 'top-right');
 
+  // Handle window resizing cleanly
+  window.addEventListener('resize', () => {
+    map.resize();
+  });
+
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
   const categoryMap = {
@@ -106,6 +111,7 @@ window.initMapEngine = async function() {
     if (!filterControlsView || !spotDetailsView) return;
     spotDetailsView.style.display = 'none';
     filterControlsView.style.display = 'flex';
+    map.resize();
   }
 
   function showSpotDetailsView(htmlContent) {
@@ -120,6 +126,7 @@ window.initMapEngine = async function() {
         showFilterControlsView();
       });
     }
+    map.resize();
   }
 
   // 2. PROCESS GEOJSON FEATURES
@@ -204,7 +211,6 @@ window.initMapEngine = async function() {
 
       showSpotDetailsView(captionHTML);
 
-      // Gentle non-aggressive panning
       const currentZoom = map.getZoom();
       const targetZoom = Math.max(currentZoom, 11.8);
 
@@ -260,28 +266,15 @@ window.initMapEngine = async function() {
   }
 
   if (filterControlsView) {
-    // 1. CATEGORIES PILLS (TOP HEADER WITH RESET BUTTON)
+    // 1. CATEGORIES PILLS (TOP HEADER)
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
     const catLabel = document.createElement('div');
     catLabel.className = 'dashboard-label';
 
-    const catTitleWrapper = document.createElement('div');
-    catTitleWrapper.style.display = 'flex';
-    catTitleWrapper.style.alignItems = 'center';
-    catTitleWrapper.style.gap = '8px';
-
     const catLabelText = document.createElement('span');
     catLabelText.innerText = '🏷️ Categories';
-
-    const resetBtn = document.createElement('button');
-    resetBtn.type = 'button';
-    resetBtn.className = 'reset-filters-btn';
-    resetBtn.innerHTML = '↺ Reset';
-
-    catTitleWrapper.appendChild(catLabelText);
-    catTitleWrapper.appendChild(resetBtn);
 
     const badgeContainer = document.createElement('div');
     badgeContainer.style.display = 'flex';
@@ -293,7 +286,7 @@ window.initMapEngine = async function() {
 
     badgeContainer.appendChild(countBadgeEl);
     
-    catLabel.appendChild(catTitleWrapper);
+    catLabel.appendChild(catLabelText);
     catLabel.appendChild(badgeContainer);
     catGroup.appendChild(catLabel);
 
@@ -396,7 +389,21 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // ↺ RESET FILTERS LOGIC
+    // 4. CENTERED RESET BUTTON AT THE VERY BOTTOM
+    const resetContainer = document.createElement('div');
+    resetContainer.style.display = 'flex';
+    resetContainer.style.justifyContent = 'center';
+    resetContainer.style.width = '100%';
+    resetContainer.style.marginTop = '6px';
+
+    const resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'reset-filters-btn';
+    resetBtn.innerHTML = '↺ Reset Filters';
+
+    resetContainer.appendChild(resetBtn);
+    filterControlsView.appendChild(resetContainer);
+
     resetBtn.addEventListener('click', () => {
       activeArea = 'All';
       activeTag = 'All';
@@ -486,5 +493,6 @@ window.initMapEngine = async function() {
   map.on('load', () => {
     applyFilters();
     trackAndDisplayViews();
+    map.resize();
   });
 };
