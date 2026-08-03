@@ -156,15 +156,14 @@ window.initMapEngine = async function() {
       const activePopups = document.querySelectorAll('.mapboxgl-popup');
       activePopups.forEach(p => p.remove());
 
+      // Instantly open the popup so it glides along during the camera flyTo
+      popup.addTo(map);
+
       map.flyTo({ 
         center: [lng, lat], 
         zoom: targetZoom, 
-        duration: 1200, 
+        duration: 1000, 
         padding: { top: 120 } 
-      });
-
-      map.once('moveend', () => {
-        popup.addTo(map);
       });
 
       if (window.swiperInstance) {
