@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: itinerary-ui.css
- * CATEGORY: MarlonWalksLA Website - Clean Multi-Day Itinerary Checklist
+ * CATEGORY: MarlonWalksLA Website - Green Checked Items & Bottom Day Clear Button
  * ============================================================================== */
 
 .itinerary-view-wrapper {
@@ -10,21 +10,10 @@
   width: 100%;
 }
 
-.itinerary-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.line-through {
-  text-decoration: line-through;
-  color: #94a3b8 !important;
-}
-
 .day-filter-bar {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   overflow-x: auto;
   padding: 2px 0;
   margin-bottom: 2px;
@@ -43,7 +32,7 @@
   color: #4a5568;
   font-size: 10px;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 4px 8px;
   border-radius: 14px;
   cursor: pointer;
   flex-shrink: 0;
@@ -148,6 +137,24 @@
   margin: 4px 0 2px 2px;
 }
 
+.itinerary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* GREEN HIGHLIGHT FOR CHECKED LOCATIONS (NO STRIKETHROUGH) */
+.itinerary-item.is-visited-item {
+  background-color: #f0fdf4;
+  border-color: #10b981;
+}
+
 .itinerary-item-actions {
   display: flex;
   align-items: center;
@@ -168,12 +175,15 @@
   font-weight: 800;
   cursor: pointer;
   padding: 0;
+  transition: all 0.2s ease;
 }
 
+/* GREEN CHECKMARK PILL */
 .icon-btn.visited-toggle.is-active {
   background: #10b981;
   color: #ffffff;
   border-color: #10b981;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
 }
 
 .icon-btn.remove-toggle,
@@ -239,15 +249,29 @@
   cursor: pointer;
 }
 
-.clear-itinerary-btn {
+/* BOTTOM DAY CLEAR BUTTON */
+.clear-day-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.clear-day-bottom-btn {
   background: #fee2e2;
   border: 1px solid #fca5a5;
   color: #991b1b;
   font-size: 10px;
   font-weight: 800;
-  padding: 3px 8px;
-  border-radius: 12px;
+  padding: 6px 14px;
+  border-radius: 16px;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-day-bottom-btn:hover {
+  background: #fca5a5;
+  color: #ffffff;
 }
 
 .empty-itinerary-msg {
@@ -255,22 +279,6 @@
   color: #a0aec0;
   font-style: italic;
   margin: 4px 0;
-}
-
-.itinerary-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  border: 1.5px solid #cbd5e0;
-  border-radius: 8px;
-  padding: 8px 10px;
-  cursor: pointer;
-}
-
-.itinerary-item.is-visited-item {
-  background-color: #f0fdf4;
-  border-color: #6ee7b7;
 }
 
 .itinerary-item-info {
