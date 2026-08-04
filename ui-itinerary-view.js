@@ -1,10 +1,34 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - 5-Day Custom Itinerary Checklist
+ * CATEGORY: MarlonWalksLA Website - Custom Itinerary Checklist (All + Days 1-4)
  * ============================================================================== */
 
 window.MarlonItineraryView = {
-  activeDay: 'Day 1',
+  activeDay: 'All',
+
+  getSpotsCountForDay: function(dayName, allMarkers, itinMap, savedRoutesMap, allPresets) {
+    if (dayName === 'All') {
+      return window.MarlonStorage.getSavedSpotIds().length;
+    }
+
+    let count = Object.keys(itinMap).filter(sId => itinMap[sId] === dayName).length;
+    const dayRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === dayName);
+
+    dayRouteIds.forEach(rId => {
+      const p = allPresets.find(item => item.id === rId);
+      if (p) {
+        p.spotTitles.forEach(t => {
+          const cleanT = t.toLowerCase().trim();
+          const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
+          if (match && !window.MarlonStorage.isSpotExcludedFromRoute(rId, match.id)) {
+            count++;
+          }
+        });
+      }
+    });
+
+    return count;
+  },
 
   renderItinerary: function(container, allMarkers, callbacks) {
     if (!container) return;
@@ -16,10 +40,22 @@ window.MarlonItineraryView = {
 
     const activeDay = this.activeDay;
 
-    const activeRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === activeDay);
-    const activeCustomSpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
+    const daysList = ['All', 'Day 1', 'Day 2', 'Day 3', 'Day 4'];
+    const dayCounts = {};
+    daysList.forEach(d => {
+      dayCounts[d] = this.getSpotsCountForDay(d, allMarkers, itinMap, savedRoutesMap, allPresets);
+    });
 
-    const availablePresets = allPresets.filter(p => !savedRoutesMap[p.id]);
+    let activeRouteIds = [];
+    let activeCustomSpotIds = [];
+
+    if (activeDay === 'All') {
+      activeRouteIds = Object.keys(savedRoutesMap);
+      activeCustomSpotIds = Object.keys(itinMap);
+    } else {
+      activeRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === activeDay);
+      activeCustomSpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
+    }
 
     let html = `
       <div class="itinerary-view-wrapper">
@@ -30,11 +66,14 @@ window.MarlonItineraryView = {
 
         <div class="day-filter-bar">
           <span class="day-label">Plan Day:</span>
-          <button type="button" class="day-pill ${activeDay === 'Day 1' ? 'is-active' : ''}" data-day="Day 1">Day 1</button>
-          <button type="button" class="day-pill ${activeDay === 'Day 2' ? 'is-active' : ''}" data-day="Day 2">Day 2</button>
-          <button type="button" class="day-pill ${activeDay === 'Day 3' ? 'is-active' : ''}" data-day="Day 3">Day 3</button>
-          <button type="button" class="day-pill ${activeDay === 'Day 4' ? 'is-active' : ''}" data-day="Day 4">Day 4</button>
-          <button type="button" class="day-pill ${activeDay === 'Day 5' ? 'is-active' : ''}" data-day="Day 5">Day 5</button>
+          ${daysList.map(d => {
+            const hasItems = dayCounts[d] > 0;
+            return `
+              <button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''} ${hasItems ? 'has-items' : ''}" data-day="${d}">
+                ${d} ${hasItems ? `(${dayCounts[d]})` : ''}
+              </button>
+            `;
+          }).join('')}
         </div>
         
         <div class="itinerary-section">
@@ -43,6 +82,7 @@ window.MarlonItineraryView = {
             ${activeRouteIds.map(routeId => {
               const preset = allPresets.find(p => p.id === routeId);
               if (!preset) return '';
+              const routeAssignedDay = savedRoutesMap[routeId] || 'Day 1';
 
               const routeSpotMarkers = [];
               preset.spotTitles.forEach(t => {
@@ -62,11 +102,10 @@ window.MarlonItineraryView = {
                     </div>
                     <div class="route-block-controls">
                       <select class="route-day-select" data-route="${preset.id}">
-                        <option value="Day 1" ${activeDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
-                        <option value="Day 2" ${activeDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
-                        <option value="Day 3" ${activeDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
-                        <option value="Day 4" ${activeDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
-                        <option value="Day 5" ${activeDay === 'Day 5' ? 'selected' : ''}>Day 5</option>
+                        <option value="Day 1" ${routeAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
+                        <option value="Day 2" ${routeAssignedDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
+                        <option value="Day 3" ${routeAssignedDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                        <option value="Day 4" ${routeAssignedDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
                       </select>
                       <button type="button" class="icon-btn remove-route-block-btn" data-route="${preset.id}" title="Remove Route Block">✕</button>
                     </div>
@@ -98,6 +137,7 @@ window.MarlonItineraryView = {
               ${activeCustomSpotIds.map(sId => {
                 const m = allMarkers.find(item => item.id === sId);
                 if (!m) return '';
+                const spotAssignedDay = itinMap[sId] || 'Day 1';
                 const isVisited = visitedIds.includes(m.id);
                 return `
                   <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
@@ -106,11 +146,10 @@ window.MarlonItineraryView = {
                       <div class="itinerary-item-meta-row">
                         <span>${m.neighborhood}</span>
                         <select class="day-assign-select" data-id="${m.id}">
-                          <option value="Day 1" ${activeDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
-                          <option value="Day 2" ${activeDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
-                          <option value="Day 3" ${activeDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
-                          <option value="Day 4" ${activeDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
-                          <option value="Day 5" ${activeDay === 'Day 5' ? 'selected' : ''}>Day 5</option>
+                          <option value="Day 1" ${spotAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
+                          <option value="Day 2" ${spotAssignedDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
+                          <option value="Day 3" ${spotAssignedDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                          <option value="Day 4" ${spotAssignedDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
                         </select>
                       </div>
                     </div>
@@ -128,40 +167,23 @@ window.MarlonItineraryView = {
             ` : ''}
           </div>
 
-          <!-- IMPORT PRESETS PANEL AT THE BOTTOM -->
-          ${availablePresets.length > 0 ? `
-            <div class="preset-import-box">
-              <div class="preset-title">✨ Import Route into ${activeDay}:</div>
-              <div class="preset-list">
-                ${availablePresets.map(p => `
-                  <div class="preset-item">
-                    <div>
-                      <div class="preset-item-name">${p.title}</div>
-                      <div class="preset-item-meta">${p.duration}</div>
-                    </div>
-                    <button type="button" class="import-preset-btn" data-preset="${p.id}">⚡ Import Block</button>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          ` : ''}
-
-          <!-- CLEAR ONLY CURRENT ACTIVE DAY BUTTON AT THE BOTTOM -->
+          <!-- CLEAR DAY BUTTON AT THE BOTTOM -->
           ${(activeRouteIds.length > 0 || activeCustomSpotIds.length > 0) ? `
             <div class="clear-day-container">
-              <button type="button" class="clear-day-bottom-btn">🗑️ Clear ${activeDay} Plans</button>
+              <button type="button" class="clear-day-bottom-btn">🗑️ Clear ${activeDay === 'All' ? 'All Plans' : `${activeDay} Plans`}</button>
             </div>
           ` : ''}
         </div>
       </div>
     `;
 
-    container.innerHTML = htmlContent = html;
+    container.innerHTML = html;
 
     const clearDayBtn = container.querySelector('.clear-day-bottom-btn');
     if (clearDayBtn && callbacks.onClearDay) {
       clearDayBtn.addEventListener('click', () => {
-        if (confirm(`Clear all route blocks and spots planned for ${activeDay}?`)) {
+        const msg = activeDay === 'All' ? 'Clear your entire planned itinerary?' : `Clear all route blocks and spots planned for ${activeDay}?`;
+        if (confirm(msg)) {
           callbacks.onClearDay(activeDay);
         }
       });
@@ -172,12 +194,6 @@ window.MarlonItineraryView = {
         this.activeDay = btn.dataset.day;
         this.renderItinerary(container, allMarkers, callbacks);
         if (callbacks.onDayChange) callbacks.onDayChange(this.activeDay);
-      });
-    });
-
-    container.querySelectorAll('.import-preset-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (callbacks.onImportPreset) callbacks.onImportPreset(btn.dataset.preset, this.activeDay);
       });
     });
 
