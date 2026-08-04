@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: itinerary-ui.css
- * CATEGORY: MarlonWalksLA Website - Multi-Day & Collapsible Route Blocks
+ * CATEGORY: MarlonWalksLA Website - Slim Nested Pills & Bottom Import Box
  * ============================================================================== */
 
 /* DUAL TOGGLE BUTTONS GROUP */
@@ -93,6 +93,7 @@
   max-height: 280px;
   overflow-y: auto;
   padding-right: 2px;
+  margin-bottom: 8px;
 }
 
 .route-block-card {
@@ -107,7 +108,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
+  padding: 8px 10px;
   background-color: #eff6ff;
   cursor: pointer;
   user-select: none;
@@ -121,11 +122,11 @@
 .route-block-title-wrap {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .route-block-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   color: #1e3a8a;
 }
@@ -160,17 +161,34 @@
 .route-block-body {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 8px;
+  gap: 4px;
+  padding: 6px;
   background-color: #f8fafc;
   border-top: 1px solid #e2e8f0;
 }
 
+/* SLIM & COMPACT NESTED ITEM PILLS */
 .nested-spot-item {
   background: #ffffff !important;
   border: 1px solid #e2e8f0 !important;
-  padding: 8px 10px !important;
+  padding: 4px 8px !important;
   border-radius: 6px !important;
+  min-height: 32px !important;
+}
+
+.nested-spot-item .itinerary-item-name {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.nested-spot-item .itinerary-item-meta {
+  font-size: 9px !important;
+}
+
+.icon-btn.nested-icon-btn {
+  width: 22px !important;
+  height: 22px !important;
+  font-size: 10px !important;
 }
 
 .custom-spots-block-title {
@@ -216,20 +234,20 @@
 .itinerary-item-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   border: 1px solid #cbd5e0;
   background: #ffffff;
   color: #718096;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -255,20 +273,22 @@
 }
 
 .icon-btn.remove-toggle,
-.icon-btn.remove-route-block-btn {
+.icon-btn.remove-route-block-btn,
+.icon-btn.remove-nested-spot-btn {
   background: #fef2f2;
   border-color: #fca5a5;
   color: #ef4444;
 }
 
 .icon-btn.remove-toggle:hover,
-.icon-btn.remove-route-block-btn:hover {
+.icon-btn.remove-route-block-btn:hover,
+.icon-btn.remove-nested-spot-btn:hover {
   background: #ef4444;
   color: #ffffff;
   border-color: #ef4444;
 }
 
-/* PRESET ROUTES IMPORT BOX */
+/* PRESET ROUTES IMPORT BOX (MOVED TO BOTTOM) */
 .preset-import-box {
   display: flex;
   flex-direction: column;
@@ -276,8 +296,8 @@
   background: #f8fafc;
   border: 1px dashed #cbd5e0;
   border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 8px;
+  padding: 10px;
+  margin-top: 6px;
 }
 
 .preset-title {
@@ -299,17 +319,17 @@
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  padding: 8px 10px;
+  padding: 6px 8px;
 }
 
 .preset-item-name {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   color: #1e293b;
 }
 
 .preset-item-meta {
-  font-size: 10px;
+  font-size: 9px;
   color: #64748b;
 }
 
@@ -319,7 +339,7 @@
   color: #ffffff;
   font-size: 10px;
   font-weight: 800;
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
