@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: itinerary-ui.css
- * CATEGORY: MarlonWalksLA Website - Green Checked Items & Bottom Day Clear Button
+ * CATEGORY: MarlonWalksLA Website - Active Day Indicators & Itinerary Styling
  * ============================================================================== */
 
 .itinerary-view-wrapper {
@@ -36,12 +36,23 @@
   border-radius: 14px;
   cursor: pointer;
   flex-shrink: 0;
+  transition: all 0.2s ease;
 }
 
+/* DAY HAS PLANNED ITEMS (BLUE ACCENT) */
+.day-pill.has-items {
+  background-color: #eff6ff;
+  border-color: #93c5fd;
+  color: #1e40af;
+  font-weight: 800;
+}
+
+/* DAY PILL IS SELECTED/ACTIVE */
 .day-pill.is-active {
-  background: #3898ec;
-  color: #ffffff;
-  border-color: #3898ec;
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
 }
 
 .itinerary-blocks-container {
@@ -149,7 +160,6 @@
   transition: all 0.2s ease;
 }
 
-/* GREEN HIGHLIGHT FOR CHECKED LOCATIONS (NO STRIKETHROUGH) */
 .itinerary-item.is-visited-item {
   background-color: #f0fdf4;
   border-color: #10b981;
@@ -178,7 +188,6 @@
   transition: all 0.2s ease;
 }
 
-/* GREEN CHECKMARK PILL */
 .icon-btn.visited-toggle.is-active {
   background: #10b981;
   color: #ffffff;
@@ -194,62 +203,6 @@
   color: #ef4444;
 }
 
-.preset-import-box {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: #f8fafc;
-  border: 1px dashed #cbd5e0;
-  border-radius: 8px;
-  padding: 8px;
-  margin-top: 4px;
-}
-
-.preset-title {
-  font-size: 10px;
-  font-weight: 800;
-  color: #475569;
-}
-
-.preset-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.preset-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 6px 8px;
-}
-
-.preset-item-name {
-  font-size: 11px;
-  font-weight: 800;
-  color: #1e293b;
-}
-
-.preset-item-meta {
-  font-size: 9px;
-  color: #64748b;
-}
-
-.import-preset-btn {
-  background: #3898ec;
-  border: none;
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 4px 8px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-/* BOTTOM DAY CLEAR BUTTON */
 .clear-day-container {
   display: flex;
   justify-content: center;
