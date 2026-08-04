@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-engine.js
- * CATEGORY: MarlonWalksLA Website - Adventure Builder & Story Map Engine
+ * CATEGORY: MarlonWalksLA Website - Multi-Day & Importable Itineraries Engine
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -29,26 +29,44 @@ window.initMapEngine = async function() {
     map.resize();
   });
 
-  // LOCAL STORAGE HELPERS
-  function getSavedSpots() {
-    return JSON.parse(localStorage.getItem('marlon_saved_spots') || '[]');
+  // MULTI-DAY ITINERARY DATA STRUCTURE ({ spotId: 'Day 1' })
+  function getSavedItineraryMap() {
+    return JSON.parse(localStorage.getItem('marlon_saved_itinerary_map') || '{}');
   }
+
+  function setSavedItineraryMap(dataMap) {
+    localStorage.setItem('marlon_saved_itinerary_map', JSON.stringify(dataMap));
+    updateHeaderBadges();
+    updateMarkerStates();
+  }
+
+  function getSavedSpotIds() {
+    return Object.keys(getSavedItineraryMap());
+  }
+
   function getVisitedSpots() {
     return JSON.parse(localStorage.getItem('marlon_visited_spots') || '[]');
   }
-  function toggleSavedSpot(id) {
-    let saved = getSavedSpots();
-    if (saved.includes(id)) {
-      saved = saved.filter(item => item !== id);
+
+  function toggleSavedSpot(id, day = 'Day 1') {
+    let itinMap = getSavedItineraryMap();
+    if (itinMap[id]) {
+      delete itinMap[id];
     } else {
-      saved.push(id);
+      itinMap[id] = day;
     }
-    localStorage.setItem('marlon_saved_spots', JSON.stringify(saved));
-    updateHeaderBadges();
-    updateMarkerStates();
+    setSavedItineraryMap(itinMap);
     if (activeViewMode === 'itinerary') renderItineraryView();
     if (activeViewMode === 'visited') renderVisitedView();
   }
+
+  function setSpotDay(id, day) {
+    let itinMap = getSavedItineraryMap();
+    itinMap[id] = day;
+    setSavedItineraryMap(itinMap);
+    if (activeViewMode === 'itinerary') renderItineraryView();
+  }
+
   function toggleVisitedSpot(id) {
     let visited = getVisitedSpots();
     if (visited.includes(id)) {
@@ -62,11 +80,22 @@ window.initMapEngine = async function() {
     if (activeViewMode === 'itinerary') renderItineraryView();
     if (activeViewMode === 'visited') renderVisitedView();
   }
+
   function clearItinerary() {
-    localStorage.setItem('marlon_saved_spots', '[]');
+    localStorage.setItem('marlon_saved_itinerary_map', '{}');
     updateHeaderBadges();
     updateMarkerStates();
     if (activeViewMode === 'itinerary') renderItineraryView();
+  }
+
+  // IMPORT PRESET ITINERARY
+  function importPresetRoute(presetSpots, defaultDay = 'Day 1') {
+    let itinMap = getSavedItineraryMap();
+    presetSpots.forEach(spotId => {
+      itinMap[spotId] = defaultDay;
+    });
+    setSavedItineraryMap(itinMap);
+    renderItineraryView();
   }
 
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
@@ -137,6 +166,7 @@ window.initMapEngine = async function() {
   let itineraryBadgeBtn = null;
   let visitedBadgeBtn = null;
   let activeViewMode = 'filters';
+  let activeItineraryDayFilter = 'All';
 
   if (form) {
     form.innerHTML = '';
@@ -173,11 +203,10 @@ window.initMapEngine = async function() {
     map.resize();
   }
 
-  // DYNAMICALLY BUILD FRESH SPOT DETAIL HTML
   function renderSpotDetailsModal(spot) {
     if (!filterControlsView || !spotDetailsView || !listCardView) return;
 
-    const isSaved = getSavedSpots().includes(spot.id);
+    const isSaved = getSavedSpotIds().includes(spot.id);
     const isVisited = getVisitedSpots().includes(spot.id);
 
     const catDetails = getCategoryDetails(spot.category, spot.customColor);
@@ -190,7 +219,7 @@ window.initMapEngine = async function() {
     let socialLinksHTML = '';
     if (spot.instagramUrl || spot.tiktokUrl) {
       socialLinksHTML = `<div class="polaroid-social-row">`;
-      if (spot.instagramUrl) socialLinksHTML += `<a href="${spot.instagramUrl}" target="_blank" class="social-btn instagram">📸 Watch Instagram Reel</a>`;
+      if (spot.instagramUrl) socialLinksHTML += `<a href="${spot.instagramUrl}" target="_blank" class="social-btn instagram">📸 Watch Reel</a>`;
       if (spot.tiktokUrl) socialLinksHTML += `<a href="${spot.tiktokUrl}" target="_blank" class="social-btn tiktok">🎵 Watch TikTok</a>`;
       socialLinksHTML += `</div>`;
     }
@@ -251,7 +280,7 @@ window.initMapEngine = async function() {
     if (saveBtn) {
       saveBtn.addEventListener('click', () => {
         toggleSavedSpot(spot.id);
-        const freshSaved = getSavedSpots().includes(spot.id);
+        const freshSaved = getSavedSpotIds().includes(spot.id);
         saveBtn.classList.toggle('is-active', freshSaved);
         saveBtn.innerHTML = freshSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary';
       });
@@ -302,18 +331,30 @@ window.initMapEngine = async function() {
     }
   }
 
-  // RENDER SAVED ITINERARY VIEW (WITH DUAL TOGGLES & CLEAR BUTTON)
+  // RENDER MULTI-DAY ITINERARY VIEW (WITH PRESETS & DAY PILLS)
   function renderItineraryView() {
     if (!listCardView) return;
     activeViewMode = 'itinerary';
 
-    const savedIds = getSavedSpots();
+    const itinMap = getSavedItineraryMap();
+    const savedIds = Object.keys(itinMap);
     const visitedIds = getVisitedSpots();
-    const itineraryMarkers = allMarkers.filter(m => savedIds.includes(m.id));
 
-    const totalCount = itineraryMarkers.length;
-    const completedCount = itineraryMarkers.filter(m => visitedIds.includes(m.id)).length;
+    let filteredMarkers = allMarkers.filter(m => savedIds.includes(m.id));
+
+    if (activeItineraryDayFilter !== 'All') {
+      filteredMarkers = filteredMarkers.filter(m => itinMap[m.id] === activeItineraryDayFilter);
+    }
+
+    const totalCount = Object.keys(itinMap).length;
+    const completedCount = Object.keys(itinMap).filter(id => visitedIds.includes(id)).length;
     const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+
+    // PRESET ROUTES CATALOGUE
+    const presets = [
+      { id: 'dtla-walk', name: "🏛️ Essential DTLA Walk", count: '4 Spots • ~2.5 hrs', spots: ['walt-disney-concert-hall', 'grand-central-market', 'bradbury-building', 'the-broad'] },
+      { id: 'hollywood-magic', name: "🎬 Hollywood & Movie Magic", count: '4 Spots • ~3.5 hrs', spots: ['tcl-chinese-theatre', 'hollywood-bowl', 'paramount-pictures-studio-tour', 'pantages-theatre'] }
+    ];
 
     let html = `
       <div class="itinerary-card">
@@ -321,6 +362,15 @@ window.initMapEngine = async function() {
           <button type="button" class="back-to-filters-btn">‹ Back</button>
           <div class="itinerary-title">📋 Planned Itinerary (${totalCount})</div>
           ${totalCount > 0 ? '<button type="button" class="clear-itinerary-btn">🗑️ Clear</button>' : '<div></div>'}
+        </div>
+
+        <!-- DAY SORTING PILLS -->
+        <div class="day-filter-bar">
+          <span class="day-label">Filter Day:</span>
+          <button type="button" class="day-pill ${activeItineraryDayFilter === 'All' ? 'is-active' : ''}" data-day="All">All Days</button>
+          <button type="button" class="day-pill ${activeItineraryDayFilter === 'Day 1' ? 'is-active' : ''}" data-day="Day 1">Day 1</button>
+          <button type="button" class="day-pill ${activeItineraryDayFilter === 'Day 2' ? 'is-active' : ''}" data-day="Day 2">Day 2</button>
+          <button type="button" class="day-pill ${activeItineraryDayFilter === 'Day 3' ? 'is-active' : ''}" data-day="Day 3">Day 3</button>
         </div>
 
         <div class="itinerary-progress-box">
@@ -334,15 +384,39 @@ window.initMapEngine = async function() {
         </div>
         
         <div class="itinerary-section">
-          ${totalCount === 0 ? '<p class="empty-itinerary-msg">No spots saved yet. Click 📌 Save on any spot to build your day!</p>' : ''}
+          ${totalCount === 0 ? `
+            <div class="preset-import-box">
+              <div class="preset-title">✨ Don't know where to start? Import Marlon's Curated Routes:</div>
+              <div class="preset-list">
+                ${presets.map(p => `
+                  <div class="preset-item">
+                    <div>
+                      <div class="preset-item-name">${p.name}</div>
+                      <div class="preset-item-meta">${p.count}</div>
+                    </div>
+                    <button type="button" class="import-preset-btn" data-preset="${p.id}">⚡ Import Route</button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
           <div class="itinerary-list">
-            ${itineraryMarkers.map(m => {
+            ${filteredMarkers.map(m => {
               const isVisited = visitedIds.includes(m.id);
+              const currentDay = itinMap[m.id] || 'Day 1';
               return `
                 <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
                   <div class="itinerary-item-info">
                     <div class="itinerary-item-name">${m.title}</div>
                     <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
+                    <div class="day-assign-wrap">
+                      <select class="day-assign-select" data-id="${m.id}">
+                        <option value="Day 1" ${currentDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
+                        <option value="Day 2" ${currentDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
+                        <option value="Day 3" ${currentDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="itinerary-item-actions">
                     <button type="button" class="mini-toggle-btn save-toggle is-active" data-id="${m.id}" title="Remove from Itinerary">📌 Saved</button>
@@ -373,6 +447,31 @@ window.initMapEngine = async function() {
       });
     }
 
+    // Day Filter Pill Clicks
+    listCardView.querySelectorAll('.day-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeItineraryDayFilter = btn.dataset.day;
+        renderItineraryView();
+      });
+    });
+
+    // Preset Import Clicks
+    listCardView.querySelectorAll('.import-preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pId = btn.dataset.preset;
+        const match = presets.find(p => p.id === pId);
+        if (match) importPresetRoute(match.spots);
+      });
+    });
+
+    // Day Select Dropdown Listener
+    listCardView.querySelectorAll('.day-assign-select').forEach(sel => {
+      sel.addEventListener('change', (e) => {
+        e.stopPropagation();
+        setSpotDay(sel.dataset.id, sel.value);
+      });
+    });
+
     listCardView.querySelectorAll('.save-toggle').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -389,22 +488,23 @@ window.initMapEngine = async function() {
 
     listCardView.querySelectorAll('.itinerary-item').forEach(el => {
       el.addEventListener('click', (e) => {
-        if (e.target.closest('.mini-toggle-btn')) return;
+        if (e.target.closest('.mini-toggle-btn') || e.target.closest('.day-assign-select')) return;
         const match = allMarkers.find(m => m.id === el.dataset.id);
         if (match) match.wrapper.click();
       });
     });
 
-    applyModeMapFilter(savedIds);
+    const activeMapSpotIds = filteredMarkers.map(m => m.id);
+    applyModeMapFilter(activeMapSpotIds);
     map.resize();
   }
 
-  // RENDER LIFETIME VISITED PASSPORT VIEW (WITH DUAL TOGGLES)
+  // RENDER LIFETIME VISITED PASSPORT VIEW
   function renderVisitedView() {
     if (!listCardView) return;
     activeViewMode = 'visited';
 
-    const savedIds = getSavedSpots();
+    const savedIds = getSavedSpotIds();
     const visitedIds = getVisitedSpots();
     const visitedMarkers = allMarkers.filter(m => visitedIds.includes(m.id));
     const totalSpots = allMarkers.length;
@@ -488,7 +588,7 @@ window.initMapEngine = async function() {
 
   function updateHeaderBadges() {
     if (itineraryBadgeBtn) {
-      const savedCount = getSavedSpots().length;
+      const savedCount = getSavedSpotIds().length;
       itineraryBadgeBtn.innerText = `📋 Planned Itinerary (${savedCount})`;
     }
     if (visitedBadgeBtn) {
@@ -602,7 +702,7 @@ window.initMapEngine = async function() {
     }
   });
 
-  // 3. BUILD FILTER CONTROLS WITH DUAL CTA BUTTONS
+  // 3. BUILD FILTER CONTROLS
   let activeArea = 'All';
   const activeCategories = new Set();
   let activeTag = 'All';
@@ -808,7 +908,7 @@ window.initMapEngine = async function() {
 
   function applyFilters() {
     if (activeViewMode === 'itinerary') {
-      applyModeMapFilter(getSavedSpots());
+      applyModeMapFilter(getSavedSpotIds());
       return;
     }
     if (activeViewMode === 'visited') {
