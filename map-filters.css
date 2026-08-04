@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Condensed Pill & Clean Stylesheet
+ * CATEGORY: MarlonWalksLA Website - Compact Icons & Reorder Controls Stylesheet
  * ============================================================================== */
 
 /* VISITED PIN EMERALD RING ON MAP CANVAS */
@@ -100,6 +100,82 @@
 
 .day-assign-select:hover {
   border-color: #3898ec !important;
+}
+
+/* REORDER BUTTONS & COMPACT ICON BUTTONS */
+.reorder-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-right: 6px;
+}
+
+.reorder-btn {
+  background: transparent;
+  border: none;
+  color: #a0aec0;
+  font-size: 10px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.reorder-btn:hover {
+  color: #3898ec;
+}
+
+.itinerary-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e0;
+  background: #ffffff;
+  color: #718096;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.icon-btn:hover {
+  border-color: #3898ec;
+  color: #3898ec;
+  transform: scale(1.05);
+}
+
+.icon-btn.visited-toggle.is-active {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.icon-btn.save-toggle.is-active {
+  background: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+}
+
+.icon-btn.remove-toggle {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.icon-btn.remove-toggle:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
 }
 
 /* PRESET ROUTES IMPORT BOX */
@@ -216,7 +292,7 @@
   width: 100%;
 }
 
-/* LIST ITEM MINI TOGGLES & CLEAR BUTTON */
+/* LIST ITEM CLEAR BUTTON */
 .clear-itinerary-btn {
   background: #fee2e2;
   border: 1px solid #fca5a5;
@@ -233,41 +309,6 @@
   background: #ef4444;
   color: #ffffff;
   border-color: #ef4444;
-}
-
-.itinerary-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.mini-toggle-btn {
-  background: #edf2f7;
-  border: 1px solid #cbd5e0;
-  color: #4a5568;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.mini-toggle-btn:hover {
-  border-color: #3898ec;
-  color: #3898ec;
-}
-
-.mini-toggle-btn.save-toggle.is-active {
-  background: #3898ec;
-  color: #ffffff;
-  border-color: #3898ec;
-}
-
-.mini-toggle-btn.visited-toggle.is-active {
-  background: #10b981;
-  color: #ffffff;
-  border-color: #10b981;
 }
 
 /* STORYTELLING CARD ENHANCEMENTS */
@@ -441,7 +482,7 @@
   background: #ffffff;
   border: 1.5px solid #e2e8f0;
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 8px 10px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -461,6 +502,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  flex: 1;
 }
 
 .itinerary-item-name {
