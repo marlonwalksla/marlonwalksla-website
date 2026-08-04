@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Cleaned Up Stylesheet with Row Toggles
+ * CATEGORY: MarlonWalksLA Website - Multi-Day & Preset Import Styles
  * ============================================================================== */
 
 /* VISITED PIN EMERALD RING ON MAP CANVAS */
@@ -32,6 +32,119 @@
   color: #718096;
   line-height: 1.4;
   margin: 0 0 2px 0;
+}
+
+/* DAY FILTER PILLS BAR */
+.day-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 0;
+  margin-bottom: 2px;
+}
+
+.day-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #718096;
+  text-transform: uppercase;
+  margin-right: 2px;
+}
+
+.day-pill {
+  background: #ffffff;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.day-pill.is-active {
+  background: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+}
+
+.day-assign-wrap {
+  margin-top: 2px;
+}
+
+.day-assign-select {
+  font-size: 10px;
+  font-weight: 700;
+  color: #3898ec;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+/* PRESET ROUTES IMPORT BOX */
+.preset-import-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.preset-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #475569;
+}
+
+.preset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.preset-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.preset-item-name {
+  font-size: 12px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.preset-item-meta {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.import-preset-btn {
+  background: #3898ec;
+  border: none;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.import-preset-btn:hover {
+  background: #2b7bc4;
 }
 
 /* DUAL TOGGLE BUTTONS GROUP */
