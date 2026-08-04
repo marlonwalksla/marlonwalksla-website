@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.css
- * CATEGORY: MarlonWalksLA Website - Contrast Feed & Blue Saved Buttons
+ * CATEGORY: MarlonWalksLA Website - Core Map Styles & Stacked Categories
  * ============================================================================== */
 
 .marker-wrapper.is-route-highlighted .custom-emoji-marker {
@@ -125,7 +125,6 @@
   background: #f0f7ff !important;
 }
 
-/* SAVED STATE: BLUE (NOT GREEN) */
 .featured-preset-card.is-imported {
   border-color: #3898ec;
   background: #eff6ff;
@@ -213,7 +212,7 @@
   border: 1px solid #e2e8f0;
 }
 
-/* DISTINCT CONTRAST SECTION FOR INDIVIDUAL FEATURED SPOTS */
+/* INDIVIDUAL FEATURED SPOTS CONTAINER */
 .featured-spot-feed-container {
   background-color: #f8fafc;
   border: 1.5px dashed #cbd5e0;
@@ -224,16 +223,6 @@
   gap: 6px;
   max-height: 180px;
   overflow-y: auto;
-}
-
-.all-la-spot-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-height: 180px;
-  overflow-y: auto;
-  padding-right: 2px;
-  margin-top: 2px;
 }
 
 .spot-feed-card {
@@ -275,7 +264,6 @@
   transition: all 0.2s ease;
 }
 
-/* SAVED STATE: BLUE (NOT GREEN) */
 .spot-feed-save-btn.is-active {
   background: #2563eb;
   color: #ffffff;
@@ -327,37 +315,13 @@
   justify-content: space-between;
 }
 
-.count-badge {
-  color: #3898ec;
-  font-weight: 800;
-}
-
-.pills-scroll-container {
+/* STACKED CATEGORIES BAR */
+.category-pills-bar.stacked {
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-wrap: wrap;
+  gap: 5px;
   width: 100%;
-}
-
-.scroll-arrow-btn {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1px solid #cbd5e0;
-  background-color: #ffffff;
-  color: #4a5568;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.category-pills-bar {
-  display: flex;
-  overflow-x: auto; 
-  gap: 4px;
-  width: 100%;
-  padding: 2px;
+  padding: 2px 0;
 }
 
 .cat-pill {
@@ -369,7 +333,7 @@
   font-size: 10px;
   font-weight: 600;
   border-radius: 14px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #cbd5e0;
   background-color: #ffffff;
   color: #4a5568;
   cursor: pointer;
