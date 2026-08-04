@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Engine & 3-Tab View Switcher
+ * CATEGORY: MarlonWalksLA Website - Explore Los Angeles Core Engine
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -186,33 +186,37 @@ window.initMapEngine = async function() {
   }
 
   function updateMarkerStates() {
+    const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
     const visitedIds = window.MarlonStorage.getVisitedSpots();
+
     allMarkers.forEach(m => {
       const isVisited = visitedIds.includes(m.id);
+      const isPinned = savedSpotIds.includes(m.id);
+
       if (isVisited) {
         m.wrapper.classList.add('is-visited-pin');
+        m.wrapper.classList.remove('is-pinned-ring');
+      } else if (isPinned) {
+        m.wrapper.classList.add('is-pinned-ring');
+        m.wrapper.classList.remove('is-visited-pin');
       } else {
         m.wrapper.classList.remove('is-visited-pin');
+        m.wrapper.classList.remove('is-pinned-ring');
       }
     });
     updateTabCounts();
   }
 
-  function highlightRoutePinsOnMap(routeId) {
+  function panToRouteOnMap(routeId) {
     const presets = window.MARLON_ROUTES_PRESETS || [];
     const preset = presets.find(p => p.id === routeId);
-    
-    allMarkers.forEach(m => m.wrapper.classList.remove('is-route-highlighted'));
 
     if (preset) {
       const targetSpotIds = [];
       preset.spotTitles.forEach(t => {
         const cleanT = t.toLowerCase().trim();
         const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
-        if (match) {
-          match.wrapper.classList.add('is-route-highlighted');
-          targetSpotIds.push(match.id);
-        }
+        if (match) targetSpotIds.push(match.id);
       });
       if (targetSpotIds.length > 0) applyModeMapFilter(targetSpotIds);
     }
@@ -245,24 +249,22 @@ window.initMapEngine = async function() {
         const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
         const itinMap = window.MarlonStorage.getItineraryMap();
 
-        Object.keys(savedRoutesMap).forEach(rId => {
-          if (savedRoutesMap[rId] === dayToClear) {
-            window.MarlonStorage.toggleRouteBlock(rId);
-          }
-        });
+        if (dayToClear === 'All') {
+          window.MarlonStorage.clearItinerary();
+        } else {
+          Object.keys(savedRoutesMap).forEach(rId => {
+            if (savedRoutesMap[rId] === dayToClear) {
+              window.MarlonStorage.toggleRouteBlock(rId);
+            }
+          });
 
-        Object.keys(itinMap).forEach(sId => {
-          if (itinMap[sId] === dayToClear) {
-            window.MarlonStorage.toggleSavedSpot(sId);
-          }
-        });
+          Object.keys(itinMap).forEach(sId => {
+            if (itinMap[sId] === dayToClear) {
+              window.MarlonStorage.toggleSavedSpot(sId);
+            }
+          });
+        }
 
-        updateMarkerStates();
-        renderItinerary();
-        renderFeaturedPackages();
-      },
-      onImportPreset: (pId, day) => {
-        window.MarlonStorage.toggleRouteBlock(pId, day);
         updateMarkerStates();
         renderItinerary();
         renderFeaturedPackages();
@@ -307,23 +309,29 @@ window.initMapEngine = async function() {
     const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
     const allPresets = window.MARLON_ROUTES_PRESETS || [];
 
-    let activeDaySpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
-    const activeRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === activeDay);
+    let activeSpotIds = [];
 
-    activeRouteIds.forEach(rId => {
-      const p = allPresets.find(item => item.id === rId);
-      if (p) {
-        p.spotTitles.forEach(t => {
-          const cleanT = t.toLowerCase().trim();
-          const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
-          if (match && !activeDaySpotIds.includes(match.id) && !window.MarlonStorage.isSpotExcludedFromRoute(rId, match.id)) {
-            activeDaySpotIds.push(match.id);
-          }
-        });
-      }
-    });
+    if (activeDay === 'All') {
+      activeSpotIds = window.MarlonStorage.getSavedSpotIds();
+    } else {
+      activeSpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
+      const activeRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === activeDay);
 
-    applyModeMapFilter(activeDaySpotIds);
+      activeRouteIds.forEach(rId => {
+        const p = allPresets.find(item => item.id === rId);
+        if (p) {
+          p.spotTitles.forEach(t => {
+            const cleanT = t.toLowerCase().trim();
+            const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
+            if (match && !activeSpotIds.includes(match.id) && !window.MarlonStorage.isSpotExcludedFromRoute(rId, match.id)) {
+              activeSpotIds.push(match.id);
+            }
+          });
+        }
+      });
+    }
+
+    applyModeMapFilter(activeSpotIds);
   }
 
   // PROCESS GEOJSON FEATURES
@@ -404,7 +412,7 @@ window.initMapEngine = async function() {
         window.MarlonSpotCard.render(spotData, spotDetailsView, {
           onBack: () => switchTab(activeTab),
           onToggleSave: (sId) => {
-            window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay || 'Day 1');
+            window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
             updateMarkerStates();
             renderFeaturedPackages();
           },
@@ -437,7 +445,7 @@ window.initMapEngine = async function() {
     }
   });
 
-  // BUILD TOP HEADER VIEW WITH "EXPLORE LOS ANGELES" TITLE & 3-TAB SWITCHER
+  // BUILD TOP HEADER VIEW
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-hero-cta-box';
@@ -493,7 +501,7 @@ window.initMapEngine = async function() {
     featuredView.innerHTML = `
       <div class="featured-feed-header">
         <span class="featured-feed-title">🎯 EXPLORE WITH MARLON & ERNESTO</span>
-        <span class="featured-feed-subtitle">Click a card to highlight map pins, or add to your trip:</span>
+        <span class="featured-feed-subtitle">Click a card to frame map pins, or add to your trip:</span>
       </div>
 
       <div class="featured-preset-list">
@@ -541,8 +549,7 @@ window.initMapEngine = async function() {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const pId = btn.dataset.preset;
-        window.MarlonStorage.toggleRouteBlock(pId, window.MarlonItineraryView.activeDay || 'Day 1');
-        highlightRoutePinsOnMap(pId);
+        window.MarlonStorage.toggleRouteBlock(pId, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
         updateMarkerStates();
         renderFeaturedPackages();
       });
@@ -555,18 +562,19 @@ window.initMapEngine = async function() {
 
         if (activeSelectedRouteId === pId) {
           activeSelectedRouteId = null;
-          allMarkers.forEach(m => m.wrapper.classList.remove('is-route-highlighted'));
           applyFilters();
         } else {
           activeSelectedRouteId = pId;
-          highlightRoutePinsOnMap(pId);
+          panToRouteOnMap(pId);
         }
         renderFeaturedPackages();
       });
     });
+
+    applyFilters();
   }
 
-  // BUILD ALL LA FILTERS (STACKED CATEGORIES & NO BOTTOM SPOT FEED)
+  // BUILD ALL LA FILTERS
   let activeArea = 'All';
   const activeCategories = new Set();
   let activeTag = 'All';
@@ -716,7 +724,7 @@ window.initMapEngine = async function() {
     targetContainer.querySelectorAll('.spot-feed-save-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        window.MarlonStorage.toggleSavedSpot(btn.dataset.id, window.MarlonItineraryView.activeDay || 'Day 1');
+        window.MarlonStorage.toggleSavedSpot(btn.dataset.id, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
         updateMarkerStates();
         applyFilters();
       });
