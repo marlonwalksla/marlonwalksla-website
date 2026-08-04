@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Engine & Scroll-Preserved Feed
+ * CATEGORY: MarlonWalksLA Website - 3-Tab Mobile Switcher & Core Orchestrator
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -82,11 +82,12 @@ window.initMapEngine = async function() {
   let allLaView = null;
   let spotDetailsView = null;
   let listCardView = null;
-  let itineraryBadgeBtn = null;
-  let spotFeedListEl = null;
 
-  let activeViewMode = 'explore'; 
-  let activeScopeMode = 'featured'; 
+  let scopeFeaturedBtn = null;
+  let scopeAllBtn = null;
+  let scopeTripBtn = null;
+
+  let activeTab = 'featured'; // 'featured', 'all', 'trip'
   let activeSelectedRouteId = null;
 
   if (form) {
@@ -123,40 +124,55 @@ window.initMapEngine = async function() {
     form.appendChild(topHeaderView);
     form.appendChild(featuredView);
     form.appendChild(allLaView);
-    form.appendChild(spotDetailsView);
     form.appendChild(listCardView);
+    form.appendChild(spotDetailsView);
   }
 
-  function showExploreView() {
-    activeViewMode = 'explore';
+  function updateTabCounts() {
+    const featuredPresets = window.MARLON_ROUTES_PRESETS || [];
+    const featuredTitles = featuredPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim()));
+    const featuredCount = allMarkers.filter(m => {
+      const cleanTitle = m.title.toLowerCase().trim();
+      return featuredTitles.some(t => cleanTitle.includes(t) || t.includes(cleanTitle));
+    }).length;
+
+    const allCount = allMarkers.length;
+    const tripCount = window.MarlonStorage.getSavedSpotIds().length;
+
+    if (scopeFeaturedBtn) scopeFeaturedBtn.innerText = `✨ Featured (${featuredCount})`;
+    if (scopeAllBtn) scopeAllBtn.innerText = `🌐 All LA (${allCount})`;
+    if (scopeTripBtn) scopeTripBtn.innerText = `📋 Your Trip (${tripCount})`;
+  }
+
+  function switchTab(targetTab) {
+    activeTab = targetTab;
     topHeaderView.style.display = 'block';
     spotDetailsView.style.display = 'none';
-    listCardView.style.display = 'none';
 
-    if (activeScopeMode === 'featured') {
+    if (scopeFeaturedBtn) scopeFeaturedBtn.classList.toggle('is-active', targetTab === 'featured');
+    if (scopeAllBtn) scopeAllBtn.classList.toggle('is-active', targetTab === 'all');
+    if (scopeTripBtn) scopeTripBtn.classList.toggle('is-active', targetTab === 'trip');
+
+    if (targetTab === 'featured') {
       featuredView.style.display = 'flex';
       allLaView.style.display = 'none';
-    } else {
+      listCardView.style.display = 'none';
+      applyFilters();
+    } else if (targetTab === 'all') {
       featuredView.style.display = 'none';
       allLaView.style.display = 'flex';
+      listCardView.style.display = 'none';
+      applyFilters();
+    } else if (targetTab === 'trip') {
+      featuredView.style.display = 'none';
+      allLaView.style.display = 'none';
+      listCardView.style.display = 'block';
+      renderItinerary();
     }
-    applyFilters();
-    map.resize();
-  }
-
-  function showItineraryView() {
-    activeViewMode = 'itinerary';
-    topHeaderView.style.display = 'none';
-    featuredView.style.display = 'none';
-    allLaView.style.display = 'none';
-    spotDetailsView.style.display = 'none';
-    listCardView.style.display = 'block';
-    renderItinerary();
     map.resize();
   }
 
   function showSpotDetailsView() {
-    activeViewMode = 'spot-details';
     topHeaderView.style.display = 'none';
     featuredView.style.display = 'none';
     allLaView.style.display = 'none';
@@ -175,6 +191,7 @@ window.initMapEngine = async function() {
         m.wrapper.classList.remove('is-visited-pin');
       }
     });
+    updateTabCounts();
   }
 
   function highlightRoutePinsOnMap(routeId) {
@@ -194,13 +211,6 @@ window.initMapEngine = async function() {
         }
       });
       if (targetSpotIds.length > 0) applyModeMapFilter(targetSpotIds);
-    }
-  }
-
-  function updateHeaderBadge() {
-    if (itineraryBadgeBtn) {
-      const savedCount = window.MarlonStorage.getSavedSpotIds().length;
-      itineraryBadgeBtn.innerText = `📋 Planned Itinerary (${savedCount})`;
     }
   }
 
@@ -227,11 +237,10 @@ window.initMapEngine = async function() {
 
   function renderItinerary() {
     window.MarlonItineraryView.renderItinerary(listCardView, allMarkers, {
-      onBack: showExploreView,
+      onBack: () => switchTab(activeTab === 'trip' ? 'featured' : activeTab),
       onClear: () => {
         if (confirm("Clear your whole planned itinerary?")) {
           window.MarlonStorage.clearItinerary();
-          updateHeaderBadge();
           updateMarkerStates();
           renderItinerary();
           renderFeaturedPackages();
@@ -239,21 +248,18 @@ window.initMapEngine = async function() {
       },
       onImportPreset: (pId, day) => {
         window.MarlonStorage.toggleRouteBlock(pId, day);
-        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
         renderFeaturedPackages();
       },
       onRemoveRoute: (rId) => {
         window.MarlonStorage.toggleRouteBlock(rId);
-        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
         renderFeaturedPackages();
       },
       onRemoveNestedSpot: (rId, sId) => {
         window.MarlonStorage.excludeSpotFromRoute(rId, sId);
-        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
       },
@@ -267,13 +273,11 @@ window.initMapEngine = async function() {
       },
       onRemoveSpot: (sId) => {
         window.MarlonStorage.toggleSavedSpot(sId);
-        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
       },
       onToggleVisited: (sId) => {
         window.MarlonStorage.toggleVisitedSpot(sId);
-        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
       },
@@ -383,16 +387,14 @@ window.initMapEngine = async function() {
       if (window.MarlonSpotCard) {
         showSpotDetailsView();
         window.MarlonSpotCard.render(spotData, spotDetailsView, {
-          onBack: showExploreView,
+          onBack: () => switchTab(activeTab),
           onToggleSave: (sId) => {
             window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay || 'Day 1');
-            updateHeaderBadge();
             updateMarkerStates();
             renderFeaturedPackages();
           },
           onToggleVisited: (sId) => {
             window.MarlonStorage.toggleVisitedSpot(sId);
-            updateHeaderBadge();
             updateMarkerStates();
           }
         }, categoryMap, defaultPinSvg);
@@ -415,11 +417,12 @@ window.initMapEngine = async function() {
   });
 
   map.on('click', () => {
-    if (activeViewMode === 'itinerary') renderItinerary();
-    else if (activeViewMode === 'spot-details') showExploreView();
+    if (topHeaderView.style.display === 'none') {
+      switchTab(activeTab);
+    }
   });
 
-  // BUILD TOP HEADER VIEW ("BUILD YOUR OWN")
+  // BUILD TOP HEADER VIEW WITH COMPACT 3-TAB SWITCHER
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-hero-cta-box';
@@ -428,50 +431,32 @@ window.initMapEngine = async function() {
     titleText.className = 'map-hero-cta-title';
     titleText.innerText = "Build Your Own";
 
-    const subtitleText = document.createElement('p');
-    subtitleText.className = 'map-hero-cta-subtitle';
-    subtitleText.innerText = "Free to build your custom itinerary! Explore our curated packages or create your own route from scratch.";
-
-    itineraryBadgeBtn = document.createElement('button');
-    itineraryBadgeBtn.type = 'button';
-    itineraryBadgeBtn.className = 'itinerary-badge-btn primary-mode';
-    updateHeaderBadge();
-
-    itineraryBadgeBtn.addEventListener('click', showItineraryView);
-
     const scopeToggleWrap = document.createElement('div');
-    scopeToggleWrap.className = 'scope-toggle-wrap';
+    scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
 
-    const scopeFeaturedBtn = document.createElement('button');
+    scopeFeaturedBtn = document.createElement('button');
     scopeFeaturedBtn.type = 'button';
     scopeFeaturedBtn.className = 'scope-toggle-btn is-active';
-    scopeFeaturedBtn.innerText = '✨ Featured';
 
-    const scopeAllBtn = document.createElement('button');
+    scopeAllBtn = document.createElement('button');
     scopeAllBtn.type = 'button';
     scopeAllBtn.className = 'scope-toggle-btn';
-    scopeAllBtn.innerText = '🌐 All LA';
 
-    scopeFeaturedBtn.addEventListener('click', () => {
-      activeScopeMode = 'featured';
-      scopeFeaturedBtn.classList.add('is-active');
-      scopeAllBtn.classList.remove('is-active');
-      showExploreView();
-    });
+    scopeTripBtn = document.createElement('button');
+    scopeTripBtn.type = 'button';
+    scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn';
 
-    scopeAllBtn.addEventListener('click', () => {
-      activeScopeMode = 'all';
-      scopeAllBtn.classList.add('is-active');
-      scopeFeaturedBtn.classList.remove('is-active');
-      showExploreView();
-    });
+    updateTabCounts();
+
+    scopeFeaturedBtn.addEventListener('click', () => switchTab('featured'));
+    scopeAllBtn.addEventListener('click', () => switchTab('all'));
+    scopeTripBtn.addEventListener('click', () => switchTab('trip'));
 
     scopeToggleWrap.appendChild(scopeFeaturedBtn);
     scopeToggleWrap.appendChild(scopeAllBtn);
+    scopeToggleWrap.appendChild(scopeTripBtn);
 
     mainTitleHeader.appendChild(titleText);
-    mainTitleHeader.appendChild(subtitleText);
-    mainTitleHeader.appendChild(itineraryBadgeBtn);
     mainTitleHeader.appendChild(scopeToggleWrap);
 
     topHeaderView.appendChild(mainTitleHeader);
@@ -481,20 +466,19 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(divider);
   }
 
-  // BUILD FEATURED PACKAGES SIDEBAR FEED (WITH SCROLL POSITION PRESERVATION)
+  // BUILD FEATURED PACKAGES SIDEBAR FEED
   function renderFeaturedPackages() {
     if (!featuredView) return;
     const presets = window.MARLON_ROUTES_PRESETS || [];
     const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
 
-    // Preserve scroll position before updating innerHTML
     const existingList = featuredView.querySelector('.featured-preset-list');
     const savedScrollPos = existingList ? existingList.scrollTop : 0;
 
     featuredView.innerHTML = `
       <div class="featured-feed-header">
         <span class="featured-feed-title">🎯 Pre-Curated Tour Packages</span>
-        <span class="featured-feed-subtitle">Click a card to highlight its map pins, or add the block to your itinerary:</span>
+        <span class="featured-feed-subtitle">Click a card to highlight map pins, or add to your trip:</span>
       </div>
       <div class="featured-preset-list">
         ${presets.map(p => {
@@ -525,7 +509,6 @@ window.initMapEngine = async function() {
       </div>
     `;
 
-    // Restore scroll position after innerHTML update
     const newList = featuredView.querySelector('.featured-preset-list');
     if (newList) newList.scrollTop = savedScrollPos;
 
@@ -534,7 +517,6 @@ window.initMapEngine = async function() {
         e.stopPropagation();
         const pId = btn.dataset.preset;
         window.MarlonStorage.toggleRouteBlock(pId, window.MarlonItineraryView.activeDay || 'Day 1');
-        updateHeaderBadge();
         updateMarkerStates();
         renderFeaturedPackages();
       });
@@ -733,7 +715,6 @@ window.initMapEngine = async function() {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         window.MarlonStorage.toggleSavedSpot(btn.dataset.id, window.MarlonItineraryView.activeDay || 'Day 1');
-        updateHeaderBadge();
         updateMarkerStates();
         applyFilters();
       });
@@ -749,7 +730,7 @@ window.initMapEngine = async function() {
   }
 
   function applyFilters() {
-    if (activeViewMode === 'itinerary') return;
+    if (activeTab === 'trip') return;
 
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
@@ -762,7 +743,7 @@ window.initMapEngine = async function() {
       const cleanTitle = item.title.toLowerCase().trim();
       const isFeaturedSpot = featuredTitles.some(t => cleanTitle.includes(t) || t.includes(cleanTitle));
 
-      const matchesScope = (activeScopeMode === 'all') || isFeaturedSpot;
+      const matchesScope = (activeTab === 'all') || isFeaturedSpot;
       const matchesArea = (activeArea === 'All') || (item.neighborhood === activeArea);
       const matchesCategory = (activeCategories.size === 0) || activeCategories.has(item.category);
       const matchesTag = (activeTag === 'All') || item.tags.includes(activeTag);
@@ -781,11 +762,11 @@ window.initMapEngine = async function() {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
     }
 
-    if (activeScopeMode === 'all') {
+    if (activeTab === 'all') {
       renderSpotFeed(visibleSpots);
     }
 
-    const isFiltered = (activeScopeMode !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
+    const isFiltered = (activeTab !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
 
     if (!isFiltered) {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200, speed: 0.8 });
@@ -799,6 +780,6 @@ window.initMapEngine = async function() {
   map.on('load', () => {
     updateMarkerStates();
     renderFeaturedPackages();
-    showExploreView();
+    switchTab('featured');
   });
 };
