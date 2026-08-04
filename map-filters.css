@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Multi-Day & Preset Import Styles
+ * CATEGORY: MarlonWalksLA Website - Condensed Pill & Clean Stylesheet
  * ============================================================================== */
 
 /* VISITED PIN EMERALD RING ON MAP CANVAS */
@@ -71,19 +71,35 @@
   border-color: #3898ec;
 }
 
-.day-assign-wrap {
+/* CONDENSED INLINE DAY ASSIGNMENT SELECTOR */
+.itinerary-item-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #718096;
   margin-top: 2px;
 }
 
 .day-assign-select {
-  font-size: 10px;
-  font-weight: 700;
-  color: #3898ec;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-radius: 10px;
-  padding: 2px 6px;
-  cursor: pointer;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #2563eb !important;
+  background-color: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 10px !important;
+  padding: 2px 8px 2px 6px !important;
+  cursor: pointer !important;
+  line-height: 1 !important;
+  height: 22px !important;
+  display: inline-block !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+.day-assign-select:hover {
+  border-color: #3898ec !important;
 }
 
 /* PRESET ROUTES IMPORT BOX */
@@ -378,46 +394,6 @@
   box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
 }
 
-/* PROGRESS BAR */
-.itinerary-progress-box {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-bottom: 4px;
-}
-
-.itinerary-progress-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  color: #4a5568;
-}
-
-.itinerary-progress-label strong {
-  color: #10b981;
-  font-weight: 800;
-}
-
-.itinerary-progress-track {
-  width: 100%;
-  height: 8px;
-  background-color: #edf2f7;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.itinerary-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #10b981, #34d399);
-  border-radius: 10px;
-  transition: width 0.4s ease;
-}
-
 /* ITINERARY & VISITED LIST CARDS */
 .itinerary-card {
   display: flex;
@@ -491,12 +467,6 @@
   font-size: 13px;
   font-weight: 800;
   color: #1a202c;
-}
-
-.itinerary-item-meta {
-  font-size: 11px;
-  font-weight: 600;
-  color: #718096;
 }
 
 /* RESET BUTTON */
