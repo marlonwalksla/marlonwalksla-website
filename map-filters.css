@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Compact Icons & Reorder Controls Stylesheet
+ * CATEGORY: MarlonWalksLA Website - Expandable Route Block Styles
  * ============================================================================== */
 
 /* VISITED PIN EMERALD RING ON MAP CANVAS */
@@ -41,7 +41,7 @@
   gap: 6px;
   overflow-x: auto;
   padding: 2px 0;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .day-label {
@@ -58,7 +58,7 @@
   color: #4a5568;
   font-size: 11px;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -69,6 +69,102 @@
   background: #3898ec;
   color: #ffffff;
   border-color: #3898ec;
+}
+
+/* COLLAPSIBLE ROUTE BLOCK CARDS */
+.itinerary-blocks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.route-block-card {
+  background: #ffffff;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.route-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: #eff6ff;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.route-block-header::-webkit-details-marker {
+  display: none;
+}
+
+.route-block-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.route-block-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+.route-block-meta {
+  font-size: 10px;
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.route-block-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.route-day-select {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #2563eb !important;
+  background-color: #ffffff !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 10px !important;
+  padding: 2px 6px !important;
+  cursor: pointer !important;
+  height: 22px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+.route-block-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.nested-spot-item {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 8px 10px !important;
+  border-radius: 6px !important;
+}
+
+.custom-spots-block-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  margin: 6px 0 2px 2px;
 }
 
 /* CONDENSED INLINE DAY ASSIGNMENT SELECTOR */
@@ -102,29 +198,7 @@
   border-color: #3898ec !important;
 }
 
-/* REORDER BUTTONS & COMPACT ICON BUTTONS */
-.reorder-col {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-right: 6px;
-}
-
-.reorder-btn {
-  background: transparent;
-  border: none;
-  color: #a0aec0;
-  font-size: 10px;
-  cursor: pointer;
-  padding: 0 2px;
-  line-height: 1;
-  transition: color 0.15s ease;
-}
-
-.reorder-btn:hover {
-  color: #3898ec;
-}
-
+/* COMPACT ICON BUTTONS */
 .itinerary-item-actions {
   display: flex;
   align-items: center;
@@ -166,13 +240,15 @@
   border-color: #3898ec;
 }
 
-.icon-btn.remove-toggle {
+.icon-btn.remove-toggle,
+.icon-btn.remove-route-block-btn {
   background: #fef2f2;
   border-color: #fca5a5;
   color: #ef4444;
 }
 
-.icon-btn.remove-toggle:hover {
+.icon-btn.remove-toggle:hover,
+.icon-btn.remove-route-block-btn:hover {
   background: #ef4444;
   color: #ffffff;
   border-color: #ef4444;
