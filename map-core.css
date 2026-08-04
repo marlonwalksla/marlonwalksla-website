@@ -224,3 +224,34 @@
   .scroll-arrow-btn { display: none; }
   .category-pills-bar::-webkit-scrollbar { display: none; }
 }
+
+/* SCOPE TOGGLE SEGMENTED BUTTON */
+.scope-toggle-wrap {
+  display: flex;
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  border-radius: 20px;
+  padding: 2px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.scope-toggle-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #4a5568;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.scope-toggle-btn.is-active {
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
