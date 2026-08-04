@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Clean Multi-Day Itinerary Checklist
+ * CATEGORY: MarlonWalksLA Website - 5-Day Custom Itinerary Checklist
  * ============================================================================== */
 
 window.MarlonItineraryView = {
@@ -24,10 +24,7 @@ window.MarlonItineraryView = {
     let html = `
       <div class="itinerary-view-wrapper">
         <div class="featured-feed-header">
-          <div class="itinerary-header-row">
-            <span class="featured-feed-title">📋 YOUR CUSTOM ITINERARY</span>
-            ${(activeRouteIds.length > 0 || activeCustomSpotIds.length > 0) ? '<button type="button" class="clear-itinerary-btn">🗑️ Clear Day</button>' : ''}
-          </div>
+          <span class="featured-feed-title">📋 YOUR CUSTOM ITINERARY</span>
           <span class="featured-feed-subtitle">Manage your schedule, check off locations, and track your days:</span>
         </div>
 
@@ -36,6 +33,8 @@ window.MarlonItineraryView = {
           <button type="button" class="day-pill ${activeDay === 'Day 1' ? 'is-active' : ''}" data-day="Day 1">Day 1</button>
           <button type="button" class="day-pill ${activeDay === 'Day 2' ? 'is-active' : ''}" data-day="Day 2">Day 2</button>
           <button type="button" class="day-pill ${activeDay === 'Day 3' ? 'is-active' : ''}" data-day="Day 3">Day 3</button>
+          <button type="button" class="day-pill ${activeDay === 'Day 4' ? 'is-active' : ''}" data-day="Day 4">Day 4</button>
+          <button type="button" class="day-pill ${activeDay === 'Day 5' ? 'is-active' : ''}" data-day="Day 5">Day 5</button>
         </div>
         
         <div class="itinerary-section">
@@ -66,6 +65,8 @@ window.MarlonItineraryView = {
                         <option value="Day 1" ${activeDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
                         <option value="Day 2" ${activeDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
                         <option value="Day 3" ${activeDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                        <option value="Day 4" ${activeDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
+                        <option value="Day 5" ${activeDay === 'Day 5' ? 'selected' : ''}>Day 5</option>
                       </select>
                       <button type="button" class="icon-btn remove-route-block-btn" data-route="${preset.id}" title="Remove Route Block">✕</button>
                     </div>
@@ -77,7 +78,7 @@ window.MarlonItineraryView = {
                       return `
                         <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
                           <div class="itinerary-item-info">
-                            <div class="itinerary-item-name ${isVisited ? 'line-through' : ''}">📍 ${m.title}</div>
+                            <div class="itinerary-item-name">📍 ${m.title}</div>
                             <div class="itinerary-item-meta">${m.neighborhood}</div>
                           </div>
                           <div class="itinerary-item-actions">
@@ -101,13 +102,15 @@ window.MarlonItineraryView = {
                 return `
                   <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
                     <div class="itinerary-item-info">
-                      <div class="itinerary-item-name ${isVisited ? 'line-through' : ''}">📍 ${m.title}</div>
+                      <div class="itinerary-item-name">📍 ${m.title}</div>
                       <div class="itinerary-item-meta-row">
                         <span>${m.neighborhood}</span>
                         <select class="day-assign-select" data-id="${m.id}">
                           <option value="Day 1" ${activeDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
                           <option value="Day 2" ${activeDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
                           <option value="Day 3" ${activeDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                          <option value="Day 4" ${activeDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
+                          <option value="Day 5" ${activeDay === 'Day 5' ? 'selected' : ''}>Day 5</option>
                         </select>
                       </div>
                     </div>
@@ -142,14 +145,27 @@ window.MarlonItineraryView = {
               </div>
             </div>
           ` : ''}
+
+          <!-- CLEAR ONLY CURRENT ACTIVE DAY BUTTON AT THE BOTTOM -->
+          ${(activeRouteIds.length > 0 || activeCustomSpotIds.length > 0) ? `
+            <div class="clear-day-container">
+              <button type="button" class="clear-day-bottom-btn">🗑️ Clear ${activeDay} Plans</button>
+            </div>
+          ` : ''}
         </div>
       </div>
     `;
 
-    container.innerHTML = html;
+    container.innerHTML = htmlContent = html;
 
-    const clearBtn = container.querySelector('.clear-itinerary-btn');
-    if (clearBtn && callbacks.onClear) clearBtn.addEventListener('click', callbacks.onClear);
+    const clearDayBtn = container.querySelector('.clear-day-bottom-btn');
+    if (clearDayBtn && callbacks.onClearDay) {
+      clearDayBtn.addEventListener('click', () => {
+        if (confirm(`Clear all route blocks and spots planned for ${activeDay}?`)) {
+          callbacks.onClearDay(activeDay);
+        }
+      });
+    }
 
     container.querySelectorAll('.day-pill').forEach(btn => {
       btn.addEventListener('click', () => {
