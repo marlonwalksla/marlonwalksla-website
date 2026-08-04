@@ -38,23 +38,7 @@ window.MarlonItineraryView = {
         </div>
         
         <div class="itinerary-section">
-          ${availablePresets.length > 0 ? `
-            <div class="preset-import-box">
-              <div class="preset-title">✨ Import Route into ${activeDay}:</div>
-              <div class="preset-list">
-                ${availablePresets.map(p => `
-                  <div class="preset-item">
-                    <div>
-                      <div class="preset-item-name">${p.title}</div>
-                      <div class="preset-item-meta">${p.duration}</div>
-                    </div>
-                    <button type="button" class="import-preset-btn" data-preset="${p.id}">⚡ Import Block</button>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          ` : ''}
-
+          <!-- RENDER COLLAPSIBLE ROUTE BLOCKS & CUSTOM SPOTS FIRST -->
           <div class="itinerary-blocks-container">
             ${activeRouteIds.map(routeId => {
               const preset = allPresets.find(p => p.id === routeId);
@@ -64,7 +48,9 @@ window.MarlonItineraryView = {
               preset.spotTitles.forEach(t => {
                 const cleanT = t.toLowerCase().trim();
                 const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
-                if (match) routeSpotMarkers.push(match);
+                if (match && !window.MarlonStorage.isSpotExcludedFromRoute(preset.id, match.id)) {
+                  routeSpotMarkers.push(match);
+                }
               });
 
               return `
@@ -94,7 +80,8 @@ window.MarlonItineraryView = {
                             <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
                           </div>
                           <div class="itinerary-item-actions">
-                            <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}">✓</button>
+                            <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}">✓</button>
+                            <button type="button" class="icon-btn nested-icon-btn remove-nested-spot-btn" data-route="${preset.id}" data-id="${m.id}" title="Remove spot from block">✕</button>
                           </div>
                         </div>
                       `;
@@ -133,9 +120,27 @@ window.MarlonItineraryView = {
             ` : ''}
 
             ${activeRouteIds.length === 0 && activeCustomSpotIds.length === 0 ? `
-              <p class="empty-itinerary-msg">No plans for ${activeDay} yet. Save spots from the map or import a route above!</p>
+              <p class="empty-itinerary-msg">No plans for ${activeDay} yet. Save spots from the map or import a route below!</p>
             ` : ''}
           </div>
+
+          <!-- IMPORT PRESETS PANEL AT THE BOTTOM -->
+          ${availablePresets.length > 0 ? `
+            <div class="preset-import-box">
+              <div class="preset-title">✨ Import Route into ${activeDay}:</div>
+              <div class="preset-list">
+                ${availablePresets.map(p => `
+                  <div class="preset-item">
+                    <div>
+                      <div class="preset-item-name">${p.title}</div>
+                      <div class="preset-item-meta">${p.duration}</div>
+                    </div>
+                    <button type="button" class="import-preset-btn" data-preset="${p.id}">⚡ Import Block</button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
         </div>
       </div>
     `;
@@ -166,6 +171,13 @@ window.MarlonItineraryView = {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         if (callbacks.onRemoveRoute) callbacks.onRemoveRoute(btn.dataset.route);
+      });
+    });
+
+    container.querySelectorAll('.remove-nested-spot-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (callbacks.onRemoveNestedSpot) callbacks.onRemoveNestedSpot(btn.dataset.route, btn.dataset.id);
       });
     });
 
