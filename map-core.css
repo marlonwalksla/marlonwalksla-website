@@ -1,13 +1,22 @@
 /* ==============================================================================
  * FILE: map-core.css
- * CATEGORY: MarlonWalksLA Website - Featured Package Cards & Spot Feed Styles
+ * CATEGORY: MarlonWalksLA Website - Route Highlighting & UI Core
  * ============================================================================== */
 
+/* MAP PIN ROUTE SELECTION HALO GLOW */
+.marker-wrapper.is-route-highlighted .custom-emoji-marker {
+  box-shadow: 0 0 0 4px #3898ec, 0 0 0 9px rgba(56, 152, 236, 0.4) !important;
+  transform: scale(1.15);
+  z-index: 999 !important;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 .marker-wrapper.is-visited-pin .custom-emoji-marker {
-  box-shadow: 0 0 0 4px #10b981, 0 0 0 8px rgba(16, 185, 129, 0.35) !important;
+  box-shadow: 0 0 0 3.5px #10b981, 0 0 0 7px rgba(16, 185, 129, 0.3) !important;
   filter: brightness(1.02);
 }
 
+/* TOP HERO & HEADERS */
 .map-hero-cta-box {
   display: flex;
   flex-direction: column;
@@ -83,7 +92,7 @@
   width: 100%;
 }
 
-/* FEATURED PRESET SIDEBAR CARDS */
+/* FEATURED PRESET SIDEBAR CARDS WITH HIGHLIGHTING */
 .featured-feed-header {
   display: flex;
   flex-direction: column;
@@ -114,27 +123,36 @@
 }
 
 .featured-preset-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background: #ffffff;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid #cbd5e0;
   border-radius: 8px;
   padding: 10px 12px;
   cursor: pointer;
   transition: all 0.2s ease;
-  gap: 8px;
 }
 
 .featured-preset-card:hover {
   border-color: #3898ec;
   transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.featured-preset-card.is-selected {
+  border-color: #2563eb !important;
+  background: #f0f7ff !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2) !important;
 }
 
 .featured-preset-card.is-imported {
-  background: #eff6ff;
-  border-color: #93c5fd;
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.featured-card-main-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .featured-preset-info {
@@ -182,6 +200,70 @@
 
 .featured-import-btn.is-active {
   background: #10b981;
+}
+
+/* COLLAPSIBLE PREVIEW INSIDE FEATURED CARD */
+.featured-preview-details {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed #cbd5e0;
+}
+
+.featured-preview-summary {
+  font-size: 10px;
+  font-weight: 800;
+  color: #3b82f6;
+  cursor: pointer;
+  user-select: none;
+}
+
+.featured-preview-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.featured-preview-item {
+  font-size: 11px;
+  font-weight: 600;
+  color: #334155;
+  background: #ffffff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+/* OPTIONAL LODGING / HOTEL ANCHOR BANNER */
+.lodging-anchor-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+}
+
+.lodging-anchor-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.lodging-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.lodging-input-field {
+  flex: 1;
+  font-size: 11px;
+  padding: 5px 8px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  background: #ffffff;
 }
 
 /* ALL LA SPOT FEED */
