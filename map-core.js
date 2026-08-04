@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Mode Switcher
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Color Highlighter
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -85,18 +85,17 @@ window.initMapEngine = async function() {
   let itineraryBadgeBtn = null;
   let spotFeedListEl = null;
 
-  let activeViewMode = 'explore'; // 'explore', 'itinerary', 'spot-details'
-  let activeScopeMode = 'featured'; // 'featured' or 'all'
+  let activeViewMode = 'explore'; 
+  let activeScopeMode = 'featured'; 
+  let activeSelectedRouteId = null;
 
   if (form) {
     form.innerHTML = '';
 
-    // 1. Permanent Top Header (Itinerary Button + View Mode Switcher)
     topHeaderView = document.createElement('div');
     topHeaderView.id = 'top-header-view';
     topHeaderView.style.width = '100%';
 
-    // 2. Featured Packages Container
     featuredView = document.createElement('div');
     featuredView.id = 'featured-view';
     featuredView.style.display = 'flex';
@@ -104,7 +103,6 @@ window.initMapEngine = async function() {
     featuredView.style.gap = '10px';
     featuredView.style.width = '100%';
 
-    // 3. All LA Manual Builder Container (Filters + Spot Feed)
     allLaView = document.createElement('div');
     allLaView.id = 'all-la-view';
     allLaView.style.display = 'none';
@@ -112,13 +110,11 @@ window.initMapEngine = async function() {
     allLaView.style.gap = '12px';
     allLaView.style.width = '100%';
 
-    // 4. Polaroid Spot Details View
     spotDetailsView = document.createElement('div');
     spotDetailsView.id = 'spot-details-view';
     spotDetailsView.style.display = 'none';
     spotDetailsView.style.width = '100%';
 
-    // 5. Multi-Day Itinerary View
     listCardView = document.createElement('div');
     listCardView.id = 'list-card-view';
     listCardView.style.display = 'none';
@@ -179,6 +175,26 @@ window.initMapEngine = async function() {
         m.wrapper.classList.remove('is-visited-pin');
       }
     });
+  }
+
+  function highlightRoutePinsOnMap(routeId) {
+    const presets = window.MARLON_ROUTES_PRESETS || [];
+    const preset = presets.find(p => p.id === routeId);
+    
+    allMarkers.forEach(m => m.wrapper.classList.remove('is-route-highlighted'));
+
+    if (preset) {
+      const targetSpotIds = [];
+      preset.spotTitles.forEach(t => {
+        const cleanT = t.toLowerCase().trim();
+        const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
+        if (match) {
+          match.wrapper.classList.add('is-route-highlighted');
+          targetSpotIds.push(match.id);
+        }
+      });
+      if (targetSpotIds.length > 0) applyModeMapFilter(targetSpotIds);
+    }
   }
 
   function updateHeaderBadge() {
@@ -369,15 +385,10 @@ window.initMapEngine = async function() {
         window.MarlonSpotCard.render(spotData, spotDetailsView, {
           onBack: showExploreView,
           onToggleSave: (sId) => {
-            window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay);
+            window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay || 'Day 1');
             updateHeaderBadge();
             updateMarkerStates();
             renderFeaturedPackages();
-          },
-          onToggleVisited: (sId) => {
-            window.MarlonStorage.toggleVisitedSpot(sId);
-            updateHeaderBadge();
-            updateMarkerStates();
           }
         }, categoryMap, defaultPinSvg);
       }
@@ -419,7 +430,6 @@ window.initMapEngine = async function() {
 
     itineraryBadgeBtn.addEventListener('click', showItineraryView);
 
-    // View Mode Segmented Switcher
     const scopeToggleWrap = document.createElement('div');
     scopeToggleWrap.className = 'scope-toggle-wrap';
 
@@ -461,7 +471,7 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(divider);
   }
 
-  // BUILD FEATURED PACKAGES SIDEBAR FEED
+  // BUILD FEATURED PACKAGES SIDEBAR FEED (WITH COLOR HIGHLIGHTS & PREVIEWS)
   function renderFeaturedPackages() {
     if (!featuredView) return;
     const presets = window.MARLON_ROUTES_PRESETS || [];
@@ -470,21 +480,31 @@ window.initMapEngine = async function() {
     featuredView.innerHTML = `
       <div class="featured-feed-header">
         <span class="featured-feed-title">🎯 Pre-Curated Tour Packages</span>
-        <span class="featured-feed-subtitle">Select a package to add the complete route directly to your itinerary:</span>
+        <span class="featured-feed-subtitle">Click a card to highlight its map pins, or add the block to your itinerary:</span>
       </div>
       <div class="featured-preset-list">
         ${presets.map(p => {
           const isImported = !!savedRoutesMap[p.id];
+          const isSelected = activeSelectedRouteId === p.id;
           return `
-            <div class="featured-preset-card ${isImported ? 'is-imported' : ''}">
-              <div class="featured-preset-info">
-                <div class="featured-preset-title">${p.title}</div>
-                <div class="featured-preset-meta">${p.duration}</div>
-                <div class="featured-preset-desc">${p.description || ''}</div>
+            <div class="featured-preset-card ${isImported ? 'is-imported' : ''} ${isSelected ? 'is-selected' : ''}" data-preset="${p.id}">
+              <div class="featured-card-main-row">
+                <div class="featured-preset-info">
+                  <div class="featured-preset-title">${p.title}</div>
+                  <div class="featured-preset-meta">${p.duration}</div>
+                  <div class="featured-preset-desc">${p.description || ''}</div>
+                </div>
+                <button type="button" class="featured-import-btn ${isImported ? 'is-active' : ''}" data-preset="${p.id}">
+                  ${isImported ? '✓ Added' : '⚡ Add Route'}
+                </button>
               </div>
-              <button type="button" class="featured-import-btn ${isImported ? 'is-active' : ''}" data-preset="${p.id}">
-                ${isImported ? '✓ In Itinerary' : '⚡ Add Route'}
-              </button>
+
+              <details class="featured-preview-details">
+                <summary class="featured-preview-summary">▼ View Included Spots (${p.spotTitles.length})</summary>
+                <div class="featured-preview-list">
+                  ${p.spotTitles.map(t => `<div class="featured-preview-item">📍 ${t}</div>`).join('')}
+                </div>
+              </details>
             </div>
           `;
         }).join('')}
@@ -504,18 +524,18 @@ window.initMapEngine = async function() {
 
     featuredView.querySelectorAll('.featured-preset-card').forEach(card => {
       card.addEventListener('click', (e) => {
-        if (e.target.closest('.featured-import-btn')) return;
-        const pId = card.querySelector('.featured-import-btn').dataset.preset;
-        const preset = presets.find(item => item.id === pId);
-        if (preset) {
-          const targetSpotIds = [];
-          preset.spotTitles.forEach(t => {
-            const cleanT = t.toLowerCase().trim();
-            const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
-            if (match) targetSpotIds.push(match.id);
-          });
-          applyModeMapFilter(targetSpotIds);
+        if (e.target.closest('.featured-import-btn') || e.target.closest('.featured-preview-details')) return;
+        const pId = card.dataset.preset;
+
+        if (activeSelectedRouteId === pId) {
+          activeSelectedRouteId = null;
+          allMarkers.forEach(m => m.wrapper.classList.remove('is-route-highlighted'));
+          applyFilters();
+        } else {
+          activeSelectedRouteId = pId;
+          highlightRoutePinsOnMap(pId);
         }
+        renderFeaturedPackages();
       });
     });
   }
@@ -546,7 +566,6 @@ window.initMapEngine = async function() {
   }
 
   if (allLaView) {
-    // Categories
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -593,7 +612,6 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // Vibe Dropdown
     let tagSelect = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
@@ -619,7 +637,6 @@ window.initMapEngine = async function() {
       });
     }
 
-    // Neighborhood Dropdown
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
@@ -642,7 +659,6 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // Reset Button
     const resetContainer = document.createElement('div');
     resetContainer.style.display = 'flex';
     resetContainer.style.justifyContent = 'center';
@@ -668,7 +684,6 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // Individual Spot Cards List Container
     spotFeedListEl = document.createElement('div');
     spotFeedListEl.className = 'all-la-spot-feed';
     allLaView.appendChild(spotFeedListEl);
