@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Engine
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & View Switcher
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -119,6 +119,20 @@ window.initMapEngine = async function() {
     map.resize();
   }
 
+  function showItineraryListView() {
+    if (!filterControlsView || !spotDetailsView || !listCardView) return;
+    filterControlsView.style.display = 'none';
+    spotDetailsView.style.display = 'none';
+    listCardView.style.display = 'block';
+  }
+
+  function showSpotDetailsModalView() {
+    if (!filterControlsView || !spotDetailsView || !listCardView) return;
+    filterControlsView.style.display = 'none';
+    listCardView.style.display = 'none';
+    spotDetailsView.style.display = 'block';
+  }
+
   function updateMarkerStates() {
     const visitedIds = window.MarlonStorage.getVisitedSpots();
     allMarkers.forEach(m => {
@@ -164,6 +178,7 @@ window.initMapEngine = async function() {
   }
 
   function renderItinerary() {
+    showItineraryListView();
     window.MarlonItineraryView.renderItinerary(listCardView, allMarkers, {
       onBack: showFilterControlsView,
       onClear: () => {
@@ -244,6 +259,7 @@ window.initMapEngine = async function() {
   }
 
   function renderVisited() {
+    showItineraryListView();
     window.MarlonItineraryView.renderVisited(listCardView, allMarkers, {
       onBack: showFilterControlsView,
       onToggleSave: (sId) => {
@@ -342,6 +358,7 @@ window.initMapEngine = async function() {
       e.stopPropagation();
 
       if (window.MarlonSpotCard) {
+        showSpotDetailsModalView();
         window.MarlonSpotCard.render(spotData, spotDetailsView, {
           onBack: () => {
             if (activeViewMode === 'itinerary') renderItinerary();
