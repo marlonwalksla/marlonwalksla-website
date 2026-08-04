@@ -1,0 +1,423 @@
+/* ==============================================================================
+ * FILE: itinerary-ui.css
+ * CATEGORY: MarlonWalksLA Website - Multi-Day & Collapsible Route Blocks
+ * ============================================================================== */
+
+/* DUAL TOGGLE BUTTONS GROUP */
+.itinerary-toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.itinerary-badge-btn {
+  display: block;
+  width: 100%;
+  border: none;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 9px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.itinerary-badge-btn.primary-mode {
+  background: #3898ec;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.3);
+}
+
+.itinerary-badge-btn.primary-mode:hover {
+  background-color: #2b7bc4;
+  transform: translateY(-1px);
+}
+
+.itinerary-badge-btn.visited-mode {
+  background: #f0fdf4;
+  color: #047857;
+  border: 1.5px solid #a7f3d0;
+}
+
+.itinerary-badge-btn.visited-mode:hover {
+  background: #d1fae5;
+  border-color: #10b981;
+  transform: translateY(-1px);
+}
+
+/* DAY FILTER PILLS BAR */
+.day-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 0;
+  margin-bottom: 4px;
+}
+
+.day-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #718096;
+  text-transform: uppercase;
+  margin-right: 2px;
+}
+
+.day-pill {
+  background: #ffffff;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.day-pill.is-active {
+  background: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+}
+
+/* COLLAPSIBLE ROUTE BLOCK CARDS */
+.itinerary-blocks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.route-block-card {
+  background: #ffffff;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.route-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: #eff6ff;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.route-block-header::-webkit-details-marker {
+  display: none;
+}
+
+.route-block-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.route-block-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+.route-block-meta {
+  font-size: 10px;
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.route-block-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.route-day-select {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #2563eb !important;
+  background-color: #ffffff !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 10px !important;
+  padding: 2px 6px !important;
+  cursor: pointer !important;
+  height: 22px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+.route-block-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.nested-spot-item {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 8px 10px !important;
+  border-radius: 6px !important;
+}
+
+.custom-spots-block-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  margin: 6px 0 2px 2px;
+}
+
+/* CONDENSED INLINE DAY ASSIGNMENT SELECTOR */
+.itinerary-item-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #718096;
+  margin-top: 2px;
+}
+
+.day-assign-select {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #2563eb !important;
+  background-color: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 10px !important;
+  padding: 2px 8px 2px 6px !important;
+  cursor: pointer !important;
+  line-height: 1 !important;
+  height: 22px !important;
+  display: inline-block !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+.day-assign-select:hover {
+  border-color: #3898ec !important;
+}
+
+/* COMPACT ICON BUTTONS */
+.itinerary-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e0;
+  background: #ffffff;
+  color: #718096;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.icon-btn:hover {
+  border-color: #3898ec;
+  color: #3898ec;
+  transform: scale(1.05);
+}
+
+.icon-btn.visited-toggle.is-active {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.icon-btn.save-toggle.is-active {
+  background: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+}
+
+.icon-btn.remove-toggle,
+.icon-btn.remove-route-block-btn {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.icon-btn.remove-toggle:hover,
+.icon-btn.remove-route-block-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+/* PRESET ROUTES IMPORT BOX */
+.preset-import-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.preset-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #475569;
+}
+
+.preset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.preset-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.preset-item-name {
+  font-size: 12px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.preset-item-meta {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.import-preset-btn {
+  background: #3898ec;
+  border: none;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.import-preset-btn:hover {
+  background: #2b7bc4;
+}
+
+.clear-itinerary-btn {
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-itinerary-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+.itinerary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fafafa;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.itinerary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.itinerary-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1a202c;
+}
+
+.empty-itinerary-msg {
+  font-size: 12px;
+  color: #a0aec0;
+  font-style: italic;
+  margin: 4px 0;
+}
+
+.itinerary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.itinerary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.itinerary-item:hover {
+  border-color: #3898ec;
+  transform: translateX(2px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.itinerary-item.is-visited-item {
+  background-color: #f0fdf4;
+  border-color: #6ee7b7;
+}
+
+.itinerary-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.itinerary-item-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1a202c;
+}
