@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Engine & Explore Los Angeles Layout
+ * CATEGORY: MarlonWalksLA Website - Core Engine & 3-Tab View Switcher
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -88,7 +88,6 @@ window.initMapEngine = async function() {
   let scopeTripBtn = null;
 
   let featuredSpotFeedEl = null;
-  let allLaSpotFeedEl = null;
 
   let activeTab = 'featured'; 
   let activeSelectedRouteId = null;
@@ -242,13 +241,25 @@ window.initMapEngine = async function() {
 
   function renderItinerary() {
     window.MarlonItineraryView.renderItinerary(listCardView, allMarkers, {
-      onClear: () => {
-        if (confirm("Clear your whole planned itinerary?")) {
-          window.MarlonStorage.clearItinerary();
-          updateMarkerStates();
-          renderItinerary();
-          renderFeaturedPackages();
-        }
+      onClearDay: (dayToClear) => {
+        const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
+        const itinMap = window.MarlonStorage.getItineraryMap();
+
+        Object.keys(savedRoutesMap).forEach(rId => {
+          if (savedRoutesMap[rId] === dayToClear) {
+            window.MarlonStorage.toggleRouteBlock(rId);
+          }
+        });
+
+        Object.keys(itinMap).forEach(sId => {
+          if (itinMap[sId] === dayToClear) {
+            window.MarlonStorage.toggleSavedSpot(sId);
+          }
+        });
+
+        updateMarkerStates();
+        renderItinerary();
+        renderFeaturedPackages();
       },
       onImportPreset: (pId, day) => {
         window.MarlonStorage.toggleRouteBlock(pId, day);
@@ -470,7 +481,7 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(divider);
   }
 
-  // BUILD FEATURED PACKAGES SIDEBAR FEED (USES BLUE BUTTONS FOR ADDED)
+  // BUILD FEATURED PACKAGES SIDEBAR FEED
   function renderFeaturedPackages() {
     if (!featuredView) return;
     const presets = window.MARLON_ROUTES_PRESETS || [];
@@ -481,7 +492,7 @@ window.initMapEngine = async function() {
 
     featuredView.innerHTML = `
       <div class="featured-feed-header">
-        <span class="featured-feed-title">🎯 PRE-CURATED TOUR PACKAGES</span>
+        <span class="featured-feed-title">🎯 EXPLORE WITH MARLON & ERNESTO</span>
         <span class="featured-feed-subtitle">Click a card to highlight map pins, or add to your trip:</span>
       </div>
 
@@ -498,7 +509,7 @@ window.initMapEngine = async function() {
                   <div class="featured-preset-desc">${p.description || ''}</div>
                 </div>
                 <button type="button" class="featured-import-btn ${isImported ? 'is-active' : ''}" data-preset="${p.id}">
-                  ${isImported ? '📌 Added' : '📌 Add Route'}
+                  ${isImported ? '📌 Added' : '📌 Add'}
                 </button>
               </div>
 
@@ -531,6 +542,7 @@ window.initMapEngine = async function() {
         e.stopPropagation();
         const pId = btn.dataset.preset;
         window.MarlonStorage.toggleRouteBlock(pId, window.MarlonItineraryView.activeDay || 'Day 1');
+        highlightRoutePinsOnMap(pId);
         updateMarkerStates();
         renderFeaturedPackages();
       });
@@ -554,30 +566,10 @@ window.initMapEngine = async function() {
     });
   }
 
-  // BUILD ALL LA FILTERS & SPOT FEED
+  // BUILD ALL LA FILTERS (STACKED CATEGORIES & NO BOTTOM SPOT FEED)
   let activeArea = 'All';
   const activeCategories = new Set();
   let activeTag = 'All';
-  let countBadgeEl = null;
-
-  function createScrollRow(pillsBar) {
-    const container = document.createElement('div');
-    container.className = 'pills-scroll-container';
-
-    const leftBtn = document.createElement('button');
-    leftBtn.type = 'button'; leftBtn.className = 'scroll-arrow-btn'; leftBtn.innerHTML = '‹';
-
-    const rightBtn = document.createElement('button');
-    rightBtn.type = 'button'; rightBtn.className = 'scroll-arrow-btn'; rightBtn.innerHTML = '›';
-
-    leftBtn.addEventListener('click', () => pillsBar.scrollBy({ left: -240, behavior: 'smooth' }));
-    rightBtn.addEventListener('click', () => pillsBar.scrollBy({ left: 240, behavior: 'smooth' }));
-
-    container.appendChild(leftBtn);
-    container.appendChild(pillsBar);
-    container.appendChild(rightBtn);
-    return container;
-  }
 
   if (allLaView) {
     const headerIntro = document.createElement('div');
@@ -593,19 +585,11 @@ window.initMapEngine = async function() {
 
     const catLabel = document.createElement('div');
     catLabel.className = 'dashboard-label';
-    const catLabelText = document.createElement('span');
-    catLabelText.innerText = '🏷️ CATEGORIES';
-
-    countBadgeEl = document.createElement('span');
-    countBadgeEl.className = 'count-badge';
-    countBadgeEl.innerText = `${allMarkers.length} SPOTS`;
-
-    catLabel.appendChild(catLabelText);
-    catLabel.appendChild(countBadgeEl);
+    catLabel.innerText = '🏷️ CATEGORIES';
     catGroup.appendChild(catLabel);
 
     const catPillsBar = document.createElement('div');
-    catPillsBar.className = 'category-pills-bar';
+    catPillsBar.className = 'category-pills-bar stacked';
 
     Array.from(categories).sort().forEach(cat => {
       const pill = document.createElement('div');
@@ -616,7 +600,7 @@ window.initMapEngine = async function() {
       catPillsBar.appendChild(pill);
     });
 
-    catGroup.appendChild(createScrollRow(catPillsBar));
+    catGroup.appendChild(catPillsBar);
     allLaView.appendChild(catGroup); 
 
     catPillsBar.addEventListener('click', (e) => {
@@ -705,10 +689,6 @@ window.initMapEngine = async function() {
       catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
       applyFilters();
     });
-
-    allLaSpotFeedEl = document.createElement('div');
-    allLaSpotFeedEl.className = 'all-la-spot-feed';
-    allLaView.appendChild(allLaSpotFeedEl);
   }
 
   function renderSpotFeed(targetContainer, visibleSpots) {
@@ -780,14 +760,8 @@ window.initMapEngine = async function() {
       }
     });
 
-    if (countBadgeEl) {
-      countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
-    }
-
     if (activeTab === 'featured') {
       renderSpotFeed(featuredSpotFeedEl, visibleSpots);
-    } else if (activeTab === 'all') {
-      renderSpotFeed(allLaSpotFeedEl, visibleSpots);
     }
 
     const isFiltered = (activeTab !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
