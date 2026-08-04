@@ -30,7 +30,6 @@ window.MarlonSpotCard = {
     if (!container) return;
 
     const isSaved = window.MarlonStorage.getSavedSpotIds().includes(spot.id);
-    const isVisited = window.MarlonStorage.getVisitedSpots().includes(spot.id);
 
     const catDetails = this.getCategoryDetails(spot.category, spot.customColor, categoryMap, defaultPinSvg);
     const tagsFormatted = spot.tags.length ? `<div class="polaroid-tags">${spot.tags.map(t => `#${this.formatTagDisplay(t)}`).join('  ')}</div>` : '';
@@ -67,9 +66,6 @@ window.MarlonSpotCard = {
           <button type="button" class="toggle-save-btn ${isSaved ? 'is-active' : ''}">
             ${isSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary'}
           </button>
-          <button type="button" class="toggle-visited-btn ${isVisited ? 'is-active' : ''}">
-            ${isVisited ? '✅ Visited!' : '✅ Mark as Visited'}
-          </button>
         </div>
 
         <div class="polaroid-caption-footer">
@@ -91,16 +87,6 @@ window.MarlonSpotCard = {
         const freshSaved = window.MarlonStorage.getSavedSpotIds().includes(spot.id);
         saveBtn.classList.toggle('is-active', freshSaved);
         saveBtn.innerHTML = freshSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary';
-      });
-    }
-
-    const visitedBtn = container.querySelector('.toggle-visited-btn');
-    if (visitedBtn && callbacks.onToggleVisited) {
-      visitedBtn.addEventListener('click', () => {
-        callbacks.onToggleVisited(spot.id);
-        const freshVisited = window.MarlonStorage.getVisitedSpots().includes(spot.id);
-        visitedBtn.classList.toggle('is-active', freshVisited);
-        visitedBtn.innerHTML = freshVisited ? '✅ Visited!' : '✅ Mark as Visited';
       });
     }
   }
