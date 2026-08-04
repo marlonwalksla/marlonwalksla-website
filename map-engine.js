@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-engine.js
- * CATEGORY: MarlonWalksLA Website - Mapbox Engine & UI Controller
+ * CATEGORY: MarlonWalksLA Website - Adventure Builder & Story Map Engine
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -264,7 +264,7 @@ window.initMapEngine = async function() {
     }
   }
 
-  // RENDER MULTI-DAY ITINERARY VIEW
+  // RENDER MULTI-DAY ITINERARY VIEW (WITHOUT PROGRESS BARS)
   function renderItineraryView() {
     if (!listCardView) return;
     activeViewMode = 'itinerary';
@@ -280,10 +280,8 @@ window.initMapEngine = async function() {
     }
 
     const totalCount = Object.keys(itinMap).length;
-    const completedCount = Object.keys(itinMap).filter(id => visitedIds.includes(id)).length;
-    const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
-
     const presets = window.MARLON_ROUTES_PRESETS || [];
+    const targetImportDay = activeItineraryDayFilter === 'All' ? 'Day 1' : activeItineraryDayFilter;
 
     let html = `
       <div class="itinerary-card">
@@ -300,21 +298,11 @@ window.initMapEngine = async function() {
           <button type="button" class="day-pill ${activeItineraryDayFilter === 'Day 2' ? 'is-active' : ''}" data-day="Day 2">Day 2</button>
           <button type="button" class="day-pill ${activeItineraryDayFilter === 'Day 3' ? 'is-active' : ''}" data-day="Day 3">Day 3</button>
         </div>
-
-        <div class="itinerary-progress-box">
-          <div class="itinerary-progress-label">
-            <span>🎯 Itinerary Progress</span>
-            <strong>${completedCount} / ${totalCount} Completed (${progressPercent}%)</strong>
-          </div>
-          <div class="itinerary-progress-track">
-            <div class="itinerary-progress-fill" style="width: ${progressPercent}%;"></div>
-          </div>
-        </div>
         
         <div class="itinerary-section">
-          ${totalCount === 0 ? `
+          ${filteredMarkers.length === 0 ? `
             <div class="preset-import-box">
-              <div class="preset-title">✨ Import Marlon's Curated LA Routes:</div>
+              <div class="preset-title">✨ Import Curated Routes into ${targetImportDay}:</div>
               <div class="preset-list">
                 ${presets.map(p => `
                   <div class="preset-item">
@@ -337,8 +325,8 @@ window.initMapEngine = async function() {
                 <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
                   <div class="itinerary-item-info">
                     <div class="itinerary-item-name">${m.title}</div>
-                    <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
-                    <div class="day-assign-wrap">
+                    <div class="itinerary-item-meta-row">
+                      <span>📍 ${m.neighborhood}</span>
                       <select class="day-assign-select" data-id="${m.id}">
                         <option value="Day 1" ${currentDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
                         <option value="Day 2" ${currentDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
@@ -392,7 +380,7 @@ window.initMapEngine = async function() {
         const pId = btn.dataset.preset;
         const match = presets.find(p => p.id === pId);
         if (match) {
-          window.MarlonStorage.importPresetRoute(match.spotTitles, allMarkers);
+          window.MarlonStorage.importPresetRoute(match.spotTitles, allMarkers, targetImportDay);
           updateHeaderBadges();
           updateMarkerStates();
           renderItineraryView();
@@ -441,7 +429,7 @@ window.initMapEngine = async function() {
     map.resize();
   }
 
-  // RENDER VISITED PASSPORT VIEW
+  // RENDER LIFETIME VISITED PASSPORT VIEW (WITHOUT PROGRESS BARS)
   function renderVisitedView() {
     if (!listCardView) return;
     activeViewMode = 'visited';
@@ -449,24 +437,12 @@ window.initMapEngine = async function() {
     const savedIds = window.MarlonStorage.getSavedSpotIds();
     const visitedIds = window.MarlonStorage.getVisitedSpots();
     const visitedMarkers = allMarkers.filter(m => visitedIds.includes(m.id));
-    const totalSpots = allMarkers.length;
-    const progressPercent = Math.round((visitedIds.length / totalSpots) * 100);
 
     let html = `
       <div class="itinerary-card visited-passport-card">
         <div class="itinerary-header">
           <button type="button" class="back-to-filters-btn">‹ Back</button>
           <div class="itinerary-title">✅ Visited Passport (${visitedIds.length})</div>
-        </div>
-
-        <div class="itinerary-progress-box">
-          <div class="itinerary-progress-label">
-            <span>🏆 Total LA Explored</span>
-            <strong>${visitedIds.length} / ${totalSpots} Spots (${progressPercent}%)</strong>
-          </div>
-          <div class="itinerary-progress-track">
-            <div class="itinerary-progress-fill" style="width: ${progressPercent}%;"></div>
-          </div>
         </div>
         
         <div class="itinerary-section">
