@@ -76,8 +76,8 @@ window.MarlonItineraryView = {
                       return `
                         <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
                           <div class="itinerary-item-info">
-                            <div class="itinerary-item-name ${isVisited ? 'line-through' : ''}">${m.title}</div>
-                            <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
+                            <div class="itinerary-item-name ${isVisited ? 'line-through' : ''}">📍 ${m.title}</div>
+                            <div class="itinerary-item-meta">${m.neighborhood}</div>
                           </div>
                           <div class="itinerary-item-actions">
                             <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Completed' : 'Mark Visited'}">✓</button>
@@ -100,9 +100,9 @@ window.MarlonItineraryView = {
                 return `
                   <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
                     <div class="itinerary-item-info">
-                      <div class="itinerary-item-name ${isVisited ? 'line-through' : ''}">${m.title}</div>
+                      <div class="itinerary-item-name ${isVisited ? 'line-through' : ''}">📍 ${m.title}</div>
                       <div class="itinerary-item-meta-row">
-                        <span>📍 ${m.neighborhood}</span>
+                        <span>${m.neighborhood}</span>
                         <select class="day-assign-select" data-id="${m.id}">
                           <option value="Day 1" ${activeDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
                           <option value="Day 2" ${activeDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
