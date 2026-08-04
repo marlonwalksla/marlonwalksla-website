@@ -1,54 +1,30 @@
 /* ==============================================================================
  * FILE: itinerary-ui.css
- * CATEGORY: MarlonWalksLA Website - Slim Nested Pills & Bottom Import Box
+ * CATEGORY: MarlonWalksLA Website - Multi-Day Live Itinerary Checklist
  * ============================================================================== */
 
-/* DUAL TOGGLE BUTTONS GROUP */
-.itinerary-toggle-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
-  margin-top: 4px;
-}
-
-.itinerary-badge-btn {
-  display: block;
-  width: 100%;
-  border: none;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 9px 14px;
-  border-radius: 20px;
+.back-to-explore-btn {
+  background: #1a202c;
+  border: 1px solid #1a202c;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 18px;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: center;
 }
 
-.itinerary-badge-btn.primary-mode {
-  background: #3898ec;
-  color: #ffffff;
-  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.3);
+.back-to-explore-btn:hover {
+  background-color: #3898ec;
+  border-color: #3898ec;
 }
 
-.itinerary-badge-btn.primary-mode:hover {
-  background-color: #2b7bc4;
-  transform: translateY(-1px);
+.line-through {
+  text-decoration: line-through;
+  color: #94a3b8 !important;
 }
 
-.itinerary-badge-btn.visited-mode {
-  background: #f0fdf4;
-  color: #047857;
-  border: 1.5px solid #a7f3d0;
-}
-
-.itinerary-badge-btn.visited-mode:hover {
-  background: #d1fae5;
-  border-color: #10b981;
-  transform: translateY(-1px);
-}
-
-/* DAY FILTER PILLS BAR */
 .day-filter-bar {
   display: flex;
   align-items: center;
@@ -63,7 +39,6 @@
   font-weight: 800;
   color: #718096;
   text-transform: uppercase;
-  margin-right: 2px;
 }
 
 .day-pill {
@@ -75,7 +50,6 @@
   padding: 4px 12px;
   border-radius: 14px;
   cursor: pointer;
-  transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
@@ -85,7 +59,6 @@
   border-color: #3898ec;
 }
 
-/* COLLAPSIBLE ROUTE BLOCK CARDS */
 .itinerary-blocks-container {
   display: flex;
   flex-direction: column;
@@ -101,7 +74,6 @@
   border: 1.5px solid #bfdbfe;
   border-radius: 8px;
   overflow: hidden;
-  transition: all 0.2s ease;
 }
 
 .route-block-header {
@@ -143,7 +115,7 @@
   gap: 6px;
 }
 
-.route-day-select {
+.route-day-select, .day-assign-select {
   font-size: 10px !important;
   font-weight: 700 !important;
   color: #2563eb !important;
@@ -153,9 +125,7 @@
   padding: 2px 6px !important;
   cursor: pointer !important;
   height: 22px !important;
-  line-height: 1 !important;
   margin: 0 !important;
-  box-shadow: none !important;
 }
 
 .route-block-body {
@@ -167,28 +137,11 @@
   border-top: 1px solid #e2e8f0;
 }
 
-/* SLIM & COMPACT NESTED ITEM PILLS */
 .nested-spot-item {
   background: #ffffff !important;
   border: 1px solid #e2e8f0 !important;
   padding: 4px 8px !important;
   border-radius: 6px !important;
-  min-height: 32px !important;
-}
-
-.nested-spot-item .itinerary-item-name {
-  font-size: 11px !important;
-  font-weight: 700 !important;
-}
-
-.nested-spot-item .itinerary-item-meta {
-  font-size: 9px !important;
-}
-
-.icon-btn.nested-icon-btn {
-  width: 22px !important;
-  height: 22px !important;
-  font-size: 10px !important;
 }
 
 .custom-spots-block-title {
@@ -199,38 +152,6 @@
   margin: 6px 0 2px 2px;
 }
 
-/* CONDENSED INLINE DAY ASSIGNMENT SELECTOR */
-.itinerary-item-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  font-weight: 600;
-  color: #718096;
-  margin-top: 2px;
-}
-
-.day-assign-select {
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  color: #2563eb !important;
-  background-color: #eff6ff !important;
-  border: 1px solid #bfdbfe !important;
-  border-radius: 10px !important;
-  padding: 2px 8px 2px 6px !important;
-  cursor: pointer !important;
-  line-height: 1 !important;
-  height: 22px !important;
-  display: inline-block !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-}
-
-.day-assign-select:hover {
-  border-color: #3898ec !important;
-}
-
-/* COMPACT ICON BUTTONS */
 .itinerary-item-actions {
   display: flex;
   align-items: center;
@@ -250,26 +171,13 @@
   font-size: 11px;
   font-weight: 800;
   cursor: pointer;
-  transition: all 0.2s ease;
   padding: 0;
-}
-
-.icon-btn:hover {
-  border-color: #3898ec;
-  color: #3898ec;
-  transform: scale(1.05);
 }
 
 .icon-btn.visited-toggle.is-active {
   background: #10b981;
   color: #ffffff;
   border-color: #10b981;
-}
-
-.icon-btn.save-toggle.is-active {
-  background: #3898ec;
-  color: #ffffff;
-  border-color: #3898ec;
 }
 
 .icon-btn.remove-toggle,
@@ -280,15 +188,6 @@
   color: #ef4444;
 }
 
-.icon-btn.remove-toggle:hover,
-.icon-btn.remove-route-block-btn:hover,
-.icon-btn.remove-nested-spot-btn:hover {
-  background: #ef4444;
-  color: #ffffff;
-  border-color: #ef4444;
-}
-
-/* PRESET ROUTES IMPORT BOX (MOVED TO BOTTOM) */
 .preset-import-box {
   display: flex;
   flex-direction: column;
@@ -342,11 +241,6 @@
   padding: 4px 8px;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.import-preset-btn:hover {
-  background: #2b7bc4;
 }
 
 .clear-itinerary-btn {
@@ -358,13 +252,6 @@
   padding: 3px 8px;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.clear-itinerary-btn:hover {
-  background: #ef4444;
-  color: #ffffff;
-  border-color: #ef4444;
 }
 
 .itinerary-card {
@@ -375,7 +262,6 @@
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 .itinerary-header {
@@ -385,7 +271,7 @@
 }
 
 .itinerary-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
   color: #1a202c;
 }
@@ -397,15 +283,6 @@
   margin: 4px 0;
 }
 
-.itinerary-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 280px;
-  overflow-y: auto;
-  padding-right: 2px;
-}
-
 .itinerary-item {
   display: flex;
   align-items: center;
@@ -415,13 +292,6 @@
   border-radius: 8px;
   padding: 8px 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.itinerary-item:hover {
-  border-color: #3898ec;
-  transform: translateX(2px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
 .itinerary-item.is-visited-item {
