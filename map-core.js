@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - 3-Tab Orchestrator & Unified Sidebar Engine
+ * CATEGORY: MarlonWalksLA Website - Core Engine & Explore Los Angeles Layout
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -122,6 +122,8 @@ window.initMapEngine = async function() {
     listCardView = document.createElement('div');
     listCardView.id = 'list-card-view';
     listCardView.style.display = 'none';
+    listCardView.style.flexDirection = 'column';
+    listCardView.style.gap = '10px';
     listCardView.style.width = '100%';
 
     form.appendChild(topHeaderView);
@@ -424,14 +426,14 @@ window.initMapEngine = async function() {
     }
   });
 
-  // BUILD TOP HEADER VIEW WITH COMPACT 3-TAB SWITCHER
+  // BUILD TOP HEADER VIEW WITH "EXPLORE LOS ANGELES" TITLE & 3-TAB SWITCHER
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-hero-cta-box';
 
     const titleText = document.createElement('h2');
     titleText.className = 'map-hero-cta-title';
-    titleText.innerText = "Build Your Own";
+    titleText.innerText = "Explore Los Angeles";
 
     const scopeToggleWrap = document.createElement('div');
     scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
@@ -468,7 +470,7 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(divider);
   }
 
-  // BUILD FEATURED PACKAGES SIDEBAR FEED (WITH INDIVIDUAL SPOTS ATTACHED BELOW)
+  // BUILD FEATURED PACKAGES SIDEBAR FEED (USES BLUE BUTTONS FOR ADDED)
   function renderFeaturedPackages() {
     if (!featuredView) return;
     const presets = window.MARLON_ROUTES_PRESETS || [];
@@ -496,7 +498,7 @@ window.initMapEngine = async function() {
                   <div class="featured-preset-desc">${p.description || ''}</div>
                 </div>
                 <button type="button" class="featured-import-btn ${isImported ? 'is-active' : ''}" data-preset="${p.id}">
-                  ${isImported ? '✓ Added' : '⚡ Add Route'}
+                  ${isImported ? '📌 Added' : '📌 Add Route'}
                 </button>
               </div>
 
@@ -511,8 +513,8 @@ window.initMapEngine = async function() {
         }).join('')}
       </div>
 
-      <!-- INDIVIDUAL LOCATIONS FEED UNDER FEATURED PACKAGES -->
-      <div class="featured-feed-header" style="margin-top: 10px;">
+      <!-- INDIVIDUAL FEATURED SPOTS SECTION BELOW -->
+      <div class="featured-feed-header" style="margin-top: 6px;">
         <span class="featured-feed-title">📍 INDIVIDUAL FEATURED SPOTS</span>
         <span class="featured-feed-subtitle">Save individual locations directly into your day itinerary:</span>
       </div>
@@ -723,7 +725,7 @@ window.initMapEngine = async function() {
             <div class="spot-feed-meta">📍 ${spot.neighborhood}</div>
           </div>
           <button type="button" class="spot-feed-save-btn ${isSaved ? 'is-active' : ''}" data-id="${spot.id}">
-            ${isSaved ? '📌 Saved' : '+ Save'}
+            ${isSaved ? '📌 Saved' : '📌 Save'}
           </button>
         </div>
       `;
