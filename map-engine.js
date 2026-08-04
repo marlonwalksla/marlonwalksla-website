@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-engine.js
- * CATEGORY: MarlonWalksLA Website - Adventure Builder & Story Map Engine
+ * CATEGORY: MarlonWalksLA Website - Adventure Builder Engine
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -264,24 +264,42 @@ window.initMapEngine = async function() {
     }
   }
 
-  // RENDER MULTI-DAY ITINERARY VIEW (WITHOUT PROGRESS BARS)
+  // RENDER ITINERARY VIEW (WITH REORDERING & SMART PRESET FILTERING)
   function renderItineraryView() {
     if (!listCardView) return;
     activeViewMode = 'itinerary';
 
     const itinMap = window.MarlonStorage.getItineraryMap();
-    const savedIds = Object.keys(itinMap);
+    const orderedSavedIds = window.MarlonStorage.getSavedSpotIds();
     const visitedIds = window.MarlonStorage.getVisitedSpots();
 
-    let filteredMarkers = allMarkers.filter(m => savedIds.includes(m.id));
+    // Map markers in strict user-defined order
+    let orderedMarkers = [];
+    orderedSavedIds.forEach(id => {
+      const match = allMarkers.find(m => m.id === id);
+      if (match) orderedMarkers.push(match);
+    });
 
+    let filteredMarkers = orderedMarkers;
     if (activeItineraryDayFilter !== 'All') {
       filteredMarkers = filteredMarkers.filter(m => itinMap[m.id] === activeItineraryDayFilter);
     }
 
-    const totalCount = Object.keys(itinMap).length;
-    const presets = window.MARLON_ROUTES_PRESETS || [];
+    const totalCount = orderedSavedIds.length;
     const targetImportDay = activeItineraryDayFilter === 'All' ? 'Day 1' : activeItineraryDayFilter;
+
+    // Filter out presets whose spots are ALL already saved in the itinerary
+    const allPresets = window.MARLON_ROUTES_PRESETS || [];
+    const availablePresets = allPresets.filter(preset => {
+      const missingSpots = preset.spotTitles.filter(title => {
+        const cleanTarget = title.toLowerCase().trim();
+        return !orderedSavedIds.some(savedId => {
+          const match = allMarkers.find(m => m.id === savedId);
+          return match && (match.title.toLowerCase().includes(cleanTarget) || cleanTarget.includes(match.title.toLowerCase()));
+        });
+      });
+      return missingSpots.length > 0;
+    });
 
     let html = `
       <div class="itinerary-card">
@@ -300,17 +318,17 @@ window.initMapEngine = async function() {
         </div>
         
         <div class="itinerary-section">
-          ${filteredMarkers.length === 0 ? `
+          ${availablePresets.length > 0 ? `
             <div class="preset-import-box">
               <div class="preset-title">✨ Import Curated Routes into ${targetImportDay}:</div>
               <div class="preset-list">
-                ${presets.map(p => `
+                ${availablePresets.map(p => `
                   <div class="preset-item">
                     <div>
                       <div class="preset-item-name">${p.title}</div>
                       <div class="preset-item-meta">${p.duration}</div>
                     </div>
-                    <button type="button" class="import-preset-btn" data-preset="${p.id}">⚡ Import Route</button>
+                    <button type="button" class="import-preset-btn" data-preset="${p.id}">⚡ Import</button>
                   </div>
                 `).join('')}
               </div>
@@ -318,11 +336,17 @@ window.initMapEngine = async function() {
           ` : ''}
 
           <div class="itinerary-list">
-            ${filteredMarkers.map(m => {
+            ${filteredMarkers.map((m, idx) => {
               const isVisited = visitedIds.includes(m.id);
               const currentDay = itinMap[m.id] || 'Day 1';
               return `
                 <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
+                  <!-- REORDER ARROWS -->
+                  <div class="reorder-col">
+                    <button type="button" class="reorder-btn move-up-btn" data-id="${m.id}" title="Move Up">▲</button>
+                    <button type="button" class="reorder-btn move-down-btn" data-id="${m.id}" title="Move Down">▼</button>
+                  </div>
+
                   <div class="itinerary-item-info">
                     <div class="itinerary-item-name">${m.title}</div>
                     <div class="itinerary-item-meta-row">
@@ -334,11 +358,10 @@ window.initMapEngine = async function() {
                       </select>
                     </div>
                   </div>
+
                   <div class="itinerary-item-actions">
-                    <button type="button" class="mini-toggle-btn save-toggle is-active" data-id="${m.id}" title="Remove from Itinerary">📌 Saved</button>
-                    <button type="button" class="mini-toggle-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="Toggle Visited">
-                      ${isVisited ? '✓ Visited' : 'Mark Visited'}
-                    </button>
+                    <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Visited' : 'Mark Visited'}">✓</button>
+                    <button type="button" class="icon-btn remove-toggle" data-id="${m.id}" title="Remove from Itinerary">✕</button>
                   </div>
                 </div>
               `;
@@ -378,13 +401,30 @@ window.initMapEngine = async function() {
     listCardView.querySelectorAll('.import-preset-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const pId = btn.dataset.preset;
-        const match = presets.find(p => p.id === pId);
+        const match = allPresets.find(p => p.id === pId);
         if (match) {
           window.MarlonStorage.importPresetRoute(match.spotTitles, allMarkers, targetImportDay);
           updateHeaderBadges();
           updateMarkerStates();
           renderItineraryView();
         }
+      });
+    });
+
+    // Reorder Click Handlers
+    listCardView.querySelectorAll('.move-up-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.MarlonStorage.moveSpot(btn.dataset.id, 'up');
+        renderItineraryView();
+      });
+    });
+
+    listCardView.querySelectorAll('.move-down-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.MarlonStorage.moveSpot(btn.dataset.id, 'down');
+        renderItineraryView();
       });
     });
 
@@ -396,7 +436,7 @@ window.initMapEngine = async function() {
       });
     });
 
-    listCardView.querySelectorAll('.save-toggle').forEach(btn => {
+    listCardView.querySelectorAll('.remove-toggle').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         window.MarlonStorage.toggleSavedSpot(btn.dataset.id);
@@ -418,7 +458,7 @@ window.initMapEngine = async function() {
 
     listCardView.querySelectorAll('.itinerary-item').forEach(el => {
       el.addEventListener('click', (e) => {
-        if (e.target.closest('.mini-toggle-btn') || e.target.closest('.day-assign-select')) return;
+        if (e.target.closest('.icon-btn') || e.target.closest('.day-assign-select') || e.target.closest('.reorder-btn')) return;
         const match = allMarkers.find(m => m.id === el.dataset.id);
         if (match) match.wrapper.click();
       });
@@ -429,7 +469,7 @@ window.initMapEngine = async function() {
     map.resize();
   }
 
-  // RENDER LIFETIME VISITED PASSPORT VIEW (WITHOUT PROGRESS BARS)
+  // RENDER LIFETIME VISITED PASSPORT VIEW
   function renderVisitedView() {
     if (!listCardView) return;
     activeViewMode = 'visited';
@@ -457,10 +497,8 @@ window.initMapEngine = async function() {
                     <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
                   </div>
                   <div class="itinerary-item-actions">
-                    <button type="button" class="mini-toggle-btn save-toggle ${isSaved ? 'is-active' : ''}" data-id="${m.id}">
-                      ${isSaved ? '📌 Saved' : '+ Itinerary'}
-                    </button>
-                    <button type="button" class="mini-toggle-btn visited-toggle is-active" data-id="${m.id}">✓ Visited</button>
+                    <button type="button" class="icon-btn save-toggle ${isSaved ? 'is-active' : ''}" data-id="${m.id}" title="Toggle Itinerary">📌</button>
+                    <button type="button" class="icon-btn visited-toggle is-active" data-id="${m.id}" title="Remove Visited">✓</button>
                   </div>
                 </div>
               `;
@@ -500,7 +538,7 @@ window.initMapEngine = async function() {
 
     listCardView.querySelectorAll('.itinerary-item').forEach(el => {
       el.addEventListener('click', (e) => {
-        if (e.target.closest('.mini-toggle-btn')) return;
+        if (e.target.closest('.icon-btn')) return;
         const match = allMarkers.find(m => m.id === el.dataset.id);
         if (match) match.wrapper.click();
       });
