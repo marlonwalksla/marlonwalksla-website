@@ -1,15 +1,17 @@
 /* ==============================================================================
  * FILE: map-core.css
- * CATEGORY: MarlonWalksLA Website - Core Map Styles & Stacked Categories
+ * CATEGORY: MarlonWalksLA Website - Pin Rings & Map Marker States
  * ============================================================================== */
 
-.marker-wrapper.is-route-highlighted .custom-emoji-marker {
-  box-shadow: 0 0 0 4px #3898ec, 0 0 0 9px rgba(56, 152, 236, 0.4) !important;
-  transform: scale(1.15);
-  z-index: 999 !important;
+/* BLUE RING FOR PINNED/SAVED ITEMS */
+.marker-wrapper.is-pinned-ring .custom-emoji-marker {
+  box-shadow: 0 0 0 3.5px #2563eb, 0 0 0 8px rgba(37, 99, 235, 0.35) !important;
+  transform: scale(1.1);
+  z-index: 998 !important;
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* GREEN RING FOR VISITED ITEMS */
 .marker-wrapper.is-visited-pin .custom-emoji-marker {
   box-shadow: 0 0 0 3.5px #10b981, 0 0 0 7px rgba(16, 185, 129, 0.3) !important;
   filter: brightness(1.02);
@@ -212,7 +214,7 @@
   border: 1px solid #e2e8f0;
 }
 
-/* INDIVIDUAL FEATURED SPOTS CONTAINER */
+/* DISTINCT CONTRAST SECTION FOR INDIVIDUAL FEATURED SPOTS */
 .featured-spot-feed-container {
   background-color: #f8fafc;
   border: 1.5px dashed #cbd5e0;
@@ -315,7 +317,6 @@
   justify-content: space-between;
 }
 
-/* STACKED CATEGORIES BAR */
 .category-pills-bar.stacked {
   display: flex;
   flex-wrap: wrap;
