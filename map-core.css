@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.css
- * CATEGORY: MarlonWalksLA Website - 3-Tab Mobile Switcher & Compact Core Styles
+ * CATEGORY: MarlonWalksLA Website - Unified Desktop & Mobile Styling
  * ============================================================================== */
 
 .marker-wrapper.is-route-highlighted .custom-emoji-marker {
@@ -102,7 +102,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 280px;
+  max-height: 220px;
   overflow-y: auto;
   padding-right: 2px;
 }
@@ -209,7 +209,8 @@
   border: 1px solid #e2e8f0;
 }
 
-/* ALL LA SPOT FEED */
+/* INDIVIDUAL SPOTS FEED */
+.featured-spot-feed-container,
 .all-la-spot-feed {
   display: flex;
   flex-direction: column;
@@ -217,7 +218,7 @@
   max-height: 180px;
   overflow-y: auto;
   padding-right: 2px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .spot-feed-card {
@@ -225,10 +226,15 @@
   align-items: center;
   justify-content: space-between;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 6px 10px;
+  border: 1.5px solid #cbd5e0;
+  border-radius: 8px;
+  padding: 8px 10px;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.spot-feed-card:hover {
+  border-color: #3898ec;
 }
 
 .spot-feed-title {
@@ -248,7 +254,7 @@
   color: #475569;
   font-size: 10px;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 4px 8px;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -281,7 +287,7 @@
   font-weight: 600;
   color: #4a5568;
   background-color: #f7fafc;
-  border: 1px solid #cbd5e0;
+  border: 1.5px solid #cbd5e0;
   border-radius: 8px;
   appearance: none;
   cursor: pointer;
