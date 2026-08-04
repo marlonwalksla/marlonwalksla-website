@@ -1,0 +1,242 @@
+/* ==============================================================================
+ * FILE: spot-card.css
+ * CATEGORY: MarlonWalksLA Website - Polaroid Spot Story Card Styling
+ * ============================================================================== */
+
+.polaroid-caption-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fafafa;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  animation: fadeInCaption 0.25s ease-out forwards;
+}
+
+@keyframes fadeInCaption {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.polaroid-caption-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-to-filters-btn {
+  background: #1a202c;
+  border: 1px solid #1a202c;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.back-to-filters-btn:hover {
+  background-color: #3898ec;
+  border-color: #3898ec;
+  transform: translateX(-2px);
+}
+
+.polaroid-cat-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.polaroid-spot-img-wrap {
+  width: 100%;
+  height: 160px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 2px;
+}
+
+.polaroid-spot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.polaroid-caption-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.polaroid-caption-title {
+  font-size: 21px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.polaroid-caption-meta {
+  font-size: 12px;
+  font-weight: 700;
+  color: #718096;
+}
+
+.polaroid-caption-desc {
+  font-size: 13px;
+  color: #4a5568;
+  line-height: 1.5;
+  margin: 4px 0 0 0;
+}
+
+.polaroid-marlon-note {
+  background-color: #fffbe3;
+  border-left: 3.5px solid #f59e0b;
+  color: #78350f;
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+}
+
+.polaroid-social-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 4px 0;
+}
+
+.social-btn {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 14px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.social-btn.instagram {
+  background-color: #fdf2f8;
+  color: #db2777 !important;
+  border: 1px solid #fbcfe8;
+}
+
+.social-btn.instagram:hover {
+  background-color: #fbcfe8;
+}
+
+.social-btn.tiktok {
+  background-color: #f1f5f9;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e0;
+}
+
+.social-btn.tiktok:hover {
+  background-color: #e2e8f0;
+}
+
+.polaroid-tags {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a0aec0;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.polaroid-caption-user-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.toggle-save-btn, .toggle-visited-btn {
+  flex: 1;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  color: #4a5568;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  text-align: center;
+}
+
+.toggle-save-btn:hover, .toggle-visited-btn:hover {
+  border-color: #3898ec;
+  color: #3898ec;
+  transform: translateY(-1px);
+}
+
+.toggle-save-btn.is-active {
+  background-color: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
+}
+
+.toggle-visited-btn.is-active {
+  background-color: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
+}
+
+.polaroid-caption-footer {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.polaroid-directions-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.polaroid-directions-btn.primary-cta {
+  background-color: #3898ec;
+  color: #ffffff !important;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
+}
+
+.polaroid-directions-btn.primary-cta:hover {
+  background-color: #2b7bc4;
+  transform: translateY(-1px);
+}
+
+.polaroid-directions-btn.secondary-cta {
+  background-color: #ffffff;
+  color: #2d3748 !important;
+  border: 1px solid #cbd5e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.polaroid-directions-btn.secondary-cta:hover {
+  background-color: #edf2f7;
+  border-color: #a0aec0;
+  transform: translateY(-1px);
+}
