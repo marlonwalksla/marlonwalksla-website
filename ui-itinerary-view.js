@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Itinerary & Visited Passport Views
+ * CATEGORY: MarlonWalksLA Website - Multi-Day Live Itinerary Checklist
  * ============================================================================== */
 
 window.MarlonItineraryView = {
@@ -25,7 +25,7 @@ window.MarlonItineraryView = {
     let html = `
       <div class="itinerary-card">
         <div class="itinerary-header">
-          <button type="button" class="back-to-filters-btn">‹ Back</button>
+          <button type="button" class="back-to-explore-btn">‹ Back to Explore</button>
           <div class="itinerary-title">📋 Planned Itinerary (${totalSavedCount})</div>
           ${totalSavedCount > 0 ? '<button type="button" class="clear-itinerary-btn">🗑️ Clear All</button>' : '<div></div>'}
         </div>
@@ -38,7 +38,7 @@ window.MarlonItineraryView = {
         </div>
         
         <div class="itinerary-section">
-          <!-- RENDER COLLAPSIBLE ROUTE BLOCKS & CUSTOM SPOTS FIRST -->
+          <!-- COLLAPSIBLE ROUTE BLOCKS & CUSTOM SPOTS CHECKLIST -->
           <div class="itinerary-blocks-container">
             ${activeRouteIds.map(routeId => {
               const preset = allPresets.find(p => p.id === routeId);
@@ -76,11 +76,11 @@ window.MarlonItineraryView = {
                       return `
                         <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
                           <div class="itinerary-item-info">
-                            <div class="itinerary-item-name">${m.title}</div>
+                            <div class="itinerary-item-name ${isVisited ? 'line-through' : ''}">${m.title}</div>
                             <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
                           </div>
                           <div class="itinerary-item-actions">
-                            <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}">✓</button>
+                            <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Completed' : 'Mark Visited'}">✓</button>
                             <button type="button" class="icon-btn nested-icon-btn remove-nested-spot-btn" data-route="${preset.id}" data-id="${m.id}" title="Remove spot from block">✕</button>
                           </div>
                         </div>
@@ -100,7 +100,7 @@ window.MarlonItineraryView = {
                 return `
                   <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
                     <div class="itinerary-item-info">
-                      <div class="itinerary-item-name">${m.title}</div>
+                      <div class="itinerary-item-name ${isVisited ? 'line-through' : ''}">${m.title}</div>
                       <div class="itinerary-item-meta-row">
                         <span>📍 ${m.neighborhood}</span>
                         <select class="day-assign-select" data-id="${m.id}">
@@ -111,7 +111,7 @@ window.MarlonItineraryView = {
                       </div>
                     </div>
                     <div class="itinerary-item-actions">
-                      <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}">✓</button>
+                      <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Completed' : 'Mark Visited'}">✓</button>
                       <button type="button" class="icon-btn remove-toggle" data-id="${m.id}">✕</button>
                     </div>
                   </div>
@@ -147,7 +147,7 @@ window.MarlonItineraryView = {
 
     container.innerHTML = html;
 
-    const backBtn = container.querySelector('.back-to-filters-btn');
+    const backBtn = container.querySelector('.back-to-explore-btn');
     if (backBtn && callbacks.onBack) backBtn.addEventListener('click', callbacks.onBack);
 
     const clearBtn = container.querySelector('.clear-itinerary-btn');
@@ -212,70 +212,6 @@ window.MarlonItineraryView = {
     container.querySelectorAll('.itinerary-item').forEach(el => {
       el.addEventListener('click', (e) => {
         if (e.target.closest('.icon-btn') || e.target.closest('.day-assign-select') || e.target.closest('.route-day-select')) return;
-        if (callbacks.onSpotClick) callbacks.onSpotClick(el.dataset.id);
-      });
-    });
-  },
-
-  renderVisited: function(container, allMarkers, callbacks) {
-    if (!container) return;
-
-    const savedIds = window.MarlonStorage.getSavedSpotIds();
-    const visitedIds = window.MarlonStorage.getVisitedSpots();
-    const visitedMarkers = allMarkers.filter(m => visitedIds.includes(m.id));
-
-    let html = `
-      <div class="itinerary-card visited-passport-card">
-        <div class="itinerary-header">
-          <button type="button" class="back-to-filters-btn">‹ Back</button>
-          <div class="itinerary-title">✅ Visited Passport (${visitedIds.length})</div>
-        </div>
-        
-        <div class="itinerary-section">
-          ${visitedIds.length === 0 ? '<p class="empty-itinerary-msg">No spots visited yet. Click ✅ Visited on places you have explored!</p>' : ''}
-          <div class="itinerary-list">
-            ${visitedMarkers.map(m => {
-              const isSaved = savedIds.includes(m.id);
-              return `
-                <div class="itinerary-item is-visited-item" data-id="${m.id}">
-                  <div class="itinerary-item-info">
-                    <div class="itinerary-item-name">${m.title}</div>
-                    <div class="itinerary-item-meta">📍 ${m.neighborhood}</div>
-                  </div>
-                  <div class="itinerary-item-actions">
-                    <button type="button" class="icon-btn save-toggle ${isSaved ? 'is-active' : ''}" data-id="${m.id}">📌</button>
-                    <button type="button" class="icon-btn visited-toggle is-active" data-id="${m.id}">✓</button>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      </div>
-    `;
-
-    container.innerHTML = html;
-
-    const backBtn = container.querySelector('.back-to-filters-btn');
-    if (backBtn && callbacks.onBack) backBtn.addEventListener('click', callbacks.onBack);
-
-    container.querySelectorAll('.save-toggle').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (callbacks.onToggleSave) callbacks.onToggleSave(btn.dataset.id);
-      });
-    });
-
-    container.querySelectorAll('.visited-toggle').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (callbacks.onToggleVisited) callbacks.onToggleVisited(btn.dataset.id);
-      });
-    });
-
-    container.querySelectorAll('.itinerary-item').forEach(el => {
-      el.addEventListener('click', (e) => {
-        if (e.target.closest('.icon-btn')) return;
         if (callbacks.onSpotClick) callbacks.onSpotClick(el.dataset.id);
       });
     });
