@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & View Switcher
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Scope Filter
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -83,6 +83,7 @@ window.initMapEngine = async function() {
   let itineraryBadgeBtn = null;
   let visitedBadgeBtn = null;
   let activeViewMode = 'filters';
+  let activeScopeMode = 'packages'; // Default to showing Featured Packages only!
 
   if (form) {
     form.innerHTML = '';
@@ -472,7 +473,48 @@ window.initMapEngine = async function() {
     divider.className = 'filter-section-divider';
     filterControlsView.appendChild(divider);
 
-    // CATEGORIES PILLS
+    // 0. SCOPE SWITCHER (FEATURED PACKAGES VS ALL SPOTS)
+    const scopeGroup = document.createElement('div');
+    scopeGroup.className = 'dashboard-group';
+
+    const scopeLabel = document.createElement('div');
+    scopeLabel.className = 'dashboard-label';
+    scopeLabel.innerText = '🗺️ VIEW MODE';
+    scopeGroup.appendChild(scopeLabel);
+
+    const scopeToggleWrap = document.createElement('div');
+    scopeToggleWrap.className = 'scope-toggle-wrap';
+
+    const scopePackagesBtn = document.createElement('button');
+    scopePackagesBtn.type = 'button';
+    scopePackagesBtn.className = 'scope-toggle-btn is-active';
+    scopePackagesBtn.innerText = '✨ Featured Packages';
+
+    const scopeAllBtn = document.createElement('button');
+    scopeAllBtn.type = 'button';
+    scopeAllBtn.className = 'scope-toggle-btn';
+    scopeAllBtn.innerText = '🌐 All LA Spots';
+
+    scopePackagesBtn.addEventListener('click', () => {
+      activeScopeMode = 'packages';
+      scopePackagesBtn.classList.add('is-active');
+      scopeAllBtn.classList.remove('is-active');
+      applyFilters();
+    });
+
+    scopeAllBtn.addEventListener('click', () => {
+      activeScopeMode = 'all';
+      scopeAllBtn.classList.add('is-active');
+      scopePackagesBtn.classList.remove('is-active');
+      applyFilters();
+    });
+
+    scopeToggleWrap.appendChild(scopePackagesBtn);
+    scopeToggleWrap.appendChild(scopeAllBtn);
+    scopeGroup.appendChild(scopeToggleWrap);
+    filterControlsView.appendChild(scopeGroup);
+
+    // 1. CATEGORIES PILLS
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -527,7 +569,7 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // VIBE DROPDOWN
+    // 2. VIBE DROPDOWN
     let tagSelect = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
@@ -555,7 +597,7 @@ window.initMapEngine = async function() {
       });
     }
 
-    // NEIGHBORHOOD DROPDOWN
+    // 3. NEIGHBORHOOD DROPDOWN
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
@@ -579,7 +621,7 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // RESET BUTTON
+    // 4. RESET BUTTON
     const resetContainer = document.createElement('div');
     resetContainer.style.display = 'flex';
     resetContainer.style.justifyContent = 'center';
@@ -596,12 +638,16 @@ window.initMapEngine = async function() {
 
     resetBtn.addEventListener('click', () => {
       activeViewMode = 'filters';
+      activeScopeMode = 'packages';
       activeArea = 'All';
       activeTag = 'All';
       activeCategories.clear();
 
       if (areaSelect) areaSelect.value = 'All';
       if (tagSelect) tagSelect.value = 'All';
+
+      scopePackagesBtn.classList.add('is-active');
+      scopeAllBtn.classList.remove('is-active');
 
       catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
 
@@ -623,12 +669,20 @@ window.initMapEngine = async function() {
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
 
+    // Collect all titles from presets for featured packages mode
+    const featuredPresets = window.MARLON_ROUTES_PRESETS || [];
+    const featuredTitles = featuredPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim()));
+
     allMarkers.forEach(item => {
+      const cleanTitle = item.title.toLowerCase().trim();
+      const isFeaturedSpot = featuredTitles.some(t => cleanTitle.includes(t) || t.includes(cleanTitle));
+
+      const matchesScope = (activeScopeMode === 'all') || isFeaturedSpot;
       const matchesArea = (activeArea === 'All') || (item.neighborhood === activeArea);
       const matchesCategory = (activeCategories.size === 0) || activeCategories.has(item.category);
       const matchesTag = (activeTag === 'All') || item.tags.includes(activeTag);
 
-      if (matchesArea && matchesCategory && matchesTag) {
+      if (matchesScope && matchesArea && matchesCategory && matchesTag) {
         item.marker.addTo(map);
         bounds.extend([item.lng, item.lat]);
         visibleCount++;
@@ -641,7 +695,7 @@ window.initMapEngine = async function() {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
     }
 
-    const isFiltered = (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
+    const isFiltered = (activeScopeMode !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
 
     if (!isFiltered) {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200, speed: 0.8 });
