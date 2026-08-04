@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - 3-Tab Mobile Switcher & Core Orchestrator
+ * CATEGORY: MarlonWalksLA Website - 3-Tab Orchestrator & Unified Sidebar Engine
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -87,7 +87,10 @@ window.initMapEngine = async function() {
   let scopeAllBtn = null;
   let scopeTripBtn = null;
 
-  let activeTab = 'featured'; // 'featured', 'all', 'trip'
+  let featuredSpotFeedEl = null;
+  let allLaSpotFeedEl = null;
+
+  let activeTab = 'featured'; 
   let activeSelectedRouteId = null;
 
   if (form) {
@@ -108,7 +111,7 @@ window.initMapEngine = async function() {
     allLaView.id = 'all-la-view';
     allLaView.style.display = 'none';
     allLaView.style.flexDirection = 'column';
-    allLaView.style.gap = '12px';
+    allLaView.style.gap = '10px';
     allLaView.style.width = '100%';
 
     spotDetailsView = document.createElement('div');
@@ -237,7 +240,6 @@ window.initMapEngine = async function() {
 
   function renderItinerary() {
     window.MarlonItineraryView.renderItinerary(listCardView, allMarkers, {
-      onBack: () => switchTab(activeTab === 'trip' ? 'featured' : activeTab),
       onClear: () => {
         if (confirm("Clear your whole planned itinerary?")) {
           window.MarlonStorage.clearItinerary();
@@ -466,7 +468,7 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(divider);
   }
 
-  // BUILD FEATURED PACKAGES SIDEBAR FEED
+  // BUILD FEATURED PACKAGES SIDEBAR FEED (WITH INDIVIDUAL SPOTS ATTACHED BELOW)
   function renderFeaturedPackages() {
     if (!featuredView) return;
     const presets = window.MARLON_ROUTES_PRESETS || [];
@@ -477,9 +479,10 @@ window.initMapEngine = async function() {
 
     featuredView.innerHTML = `
       <div class="featured-feed-header">
-        <span class="featured-feed-title">🎯 Pre-Curated Tour Packages</span>
+        <span class="featured-feed-title">🎯 PRE-CURATED TOUR PACKAGES</span>
         <span class="featured-feed-subtitle">Click a card to highlight map pins, or add to your trip:</span>
       </div>
+
       <div class="featured-preset-list">
         ${presets.map(p => {
           const isImported = !!savedRoutesMap[p.id];
@@ -507,7 +510,16 @@ window.initMapEngine = async function() {
           `;
         }).join('')}
       </div>
+
+      <!-- INDIVIDUAL LOCATIONS FEED UNDER FEATURED PACKAGES -->
+      <div class="featured-feed-header" style="margin-top: 10px;">
+        <span class="featured-feed-title">📍 INDIVIDUAL FEATURED SPOTS</span>
+        <span class="featured-feed-subtitle">Save individual locations directly into your day itinerary:</span>
+      </div>
+      <div class="featured-spot-feed-container"></div>
     `;
+
+    featuredSpotFeedEl = featuredView.querySelector('.featured-spot-feed-container');
 
     const newList = featuredView.querySelector('.featured-preset-list');
     if (newList) newList.scrollTop = savedScrollPos;
@@ -566,6 +578,14 @@ window.initMapEngine = async function() {
   }
 
   if (allLaView) {
+    const headerIntro = document.createElement('div');
+    headerIntro.className = 'featured-feed-header';
+    headerIntro.innerHTML = `
+      <span class="featured-feed-title">🌐 EXPLORE ALL LOCATIONS</span>
+      <span class="featured-feed-subtitle">Filter by category, vibe, or neighborhood to curate your route:</span>
+    `;
+    allLaView.appendChild(headerIntro);
+
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
@@ -684,17 +704,17 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    spotFeedListEl = document.createElement('div');
-    spotFeedListEl.className = 'all-la-spot-feed';
-    allLaView.appendChild(spotFeedListEl);
+    allLaSpotFeedEl = document.createElement('div');
+    allLaSpotFeedEl.className = 'all-la-spot-feed';
+    allLaView.appendChild(allLaSpotFeedEl);
   }
 
-  function renderSpotFeed(visibleSpots) {
-    if (!spotFeedListEl) return;
+  function renderSpotFeed(targetContainer, visibleSpots) {
+    if (!targetContainer) return;
     const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
-    const savedScrollPos = spotFeedListEl.scrollTop || 0;
+    const savedScrollPos = targetContainer.scrollTop || 0;
 
-    spotFeedListEl.innerHTML = visibleSpots.map(spot => {
+    targetContainer.innerHTML = visibleSpots.map(spot => {
       const isSaved = savedSpotIds.includes(spot.id);
       return `
         <div class="spot-feed-card" data-id="${spot.id}">
@@ -709,9 +729,9 @@ window.initMapEngine = async function() {
       `;
     }).join('');
 
-    spotFeedListEl.scrollTop = savedScrollPos;
+    targetContainer.scrollTop = savedScrollPos;
 
-    spotFeedListEl.querySelectorAll('.spot-feed-save-btn').forEach(btn => {
+    targetContainer.querySelectorAll('.spot-feed-save-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         window.MarlonStorage.toggleSavedSpot(btn.dataset.id, window.MarlonItineraryView.activeDay || 'Day 1');
@@ -720,7 +740,7 @@ window.initMapEngine = async function() {
       });
     });
 
-    spotFeedListEl.querySelectorAll('.spot-feed-card').forEach(card => {
+    targetContainer.querySelectorAll('.spot-feed-card').forEach(card => {
       card.addEventListener('click', (e) => {
         if (e.target.closest('.spot-feed-save-btn')) return;
         const match = allMarkers.find(m => m.id === card.dataset.id);
@@ -762,8 +782,10 @@ window.initMapEngine = async function() {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
     }
 
-    if (activeTab === 'all') {
-      renderSpotFeed(visibleSpots);
+    if (activeTab === 'featured') {
+      renderSpotFeed(featuredSpotFeedEl, visibleSpots);
+    } else if (activeTab === 'all') {
+      renderSpotFeed(allLaSpotFeedEl, visibleSpots);
     }
 
     const isFiltered = (activeTab !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
