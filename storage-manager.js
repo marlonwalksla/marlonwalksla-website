@@ -16,6 +16,24 @@ window.MarlonStorage = {
     return JSON.parse(localStorage.getItem('marlon_visited_spots') || '[]');
   },
 
+  getExcludedRouteSpots: function() {
+    return JSON.parse(localStorage.getItem('marlon_excluded_route_spots') || '[]');
+  },
+
+  isSpotExcludedFromRoute: function(routeId, spotId) {
+    const excluded = this.getExcludedRouteSpots();
+    return excluded.includes(`${routeId}::${spotId}`);
+  },
+
+  excludeSpotFromRoute: function(routeId, spotId) {
+    let excluded = this.getExcludedRouteSpots();
+    const key = `${routeId}::${spotId}`;
+    if (!excluded.includes(key)) {
+      excluded.push(key);
+      localStorage.setItem('marlon_excluded_route_spots', JSON.stringify(excluded));
+    }
+  },
+
   getSavedSpotIds: function() {
     const spotMap = this.getItineraryMap();
     const routeMap = this.getSavedRoutesMap();
@@ -23,7 +41,7 @@ window.MarlonStorage = {
 
     let spotIds = Object.keys(spotMap);
 
-    // Include all spots belonging to imported route blocks
+    // Include non-excluded spots from imported route blocks
     Object.keys(routeMap).forEach(routeId => {
       const preset = presets.find(p => p.id === routeId);
       if (preset && window.MARLON_ALL_MARKERS) {
@@ -33,7 +51,7 @@ window.MarlonStorage = {
             const cleanTitle = m.title.toLowerCase().trim();
             return cleanTitle.includes(cleanTarget) || cleanTarget.includes(cleanTitle);
           });
-          if (match && !spotIds.includes(match.id)) {
+          if (match && !spotIds.includes(match.id) && !this.isSpotExcludedFromRoute(routeId, match.id)) {
             spotIds.push(match.id);
           }
         });
@@ -92,5 +110,6 @@ window.MarlonStorage = {
   clearItinerary: function() {
     localStorage.setItem('marlon_saved_itinerary_map', '{}');
     localStorage.setItem('marlon_saved_routes_map', '{}');
+    localStorage.setItem('marlon_excluded_route_spots', '[]');
   }
 };
