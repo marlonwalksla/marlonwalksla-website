@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Scope Filter
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Mode Switcher
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -77,61 +77,96 @@ window.initMapEngine = async function() {
 
   // UI CONTAINER SETUP
   const form = document.querySelector('.filter-bar form');
-  let filterControlsView = null;
+  let topHeaderView = null;
+  let featuredView = null;
+  let allLaView = null;
   let spotDetailsView = null;
   let listCardView = null;
   let itineraryBadgeBtn = null;
-  let visitedBadgeBtn = null;
-  let activeViewMode = 'filters';
-  let activeScopeMode = 'packages'; // Default to showing Featured Packages only!
+  let spotFeedListEl = null;
+
+  let activeViewMode = 'explore'; // 'explore', 'itinerary', 'spot-details'
+  let activeScopeMode = 'featured'; // 'featured' or 'all'
 
   if (form) {
     form.innerHTML = '';
-    
-    filterControlsView = document.createElement('div');
-    filterControlsView.id = 'filter-controls-view';
-    filterControlsView.style.display = 'flex';
-    filterControlsView.style.flexDirection = 'column';
-    filterControlsView.style.gap = '12px';
-    filterControlsView.style.width = '100%';
 
+    // 1. Permanent Top Header (Itinerary Button + View Mode Switcher)
+    topHeaderView = document.createElement('div');
+    topHeaderView.id = 'top-header-view';
+    topHeaderView.style.width = '100%';
+
+    // 2. Featured Packages Container
+    featuredView = document.createElement('div');
+    featuredView.id = 'featured-view';
+    featuredView.style.display = 'flex';
+    featuredView.style.flexDirection = 'column';
+    featuredView.style.gap = '10px';
+    featuredView.style.width = '100%';
+
+    // 3. All LA Manual Builder Container (Filters + Spot Feed)
+    allLaView = document.createElement('div');
+    allLaView.id = 'all-la-view';
+    allLaView.style.display = 'none';
+    allLaView.style.flexDirection = 'column';
+    allLaView.style.gap = '12px';
+    allLaView.style.width = '100%';
+
+    // 4. Polaroid Spot Details View
     spotDetailsView = document.createElement('div');
     spotDetailsView.id = 'spot-details-view';
     spotDetailsView.style.display = 'none';
     spotDetailsView.style.width = '100%';
 
+    // 5. Multi-Day Itinerary View
     listCardView = document.createElement('div');
     listCardView.id = 'list-card-view';
     listCardView.style.display = 'none';
     listCardView.style.width = '100%';
 
-    form.appendChild(filterControlsView);
+    form.appendChild(topHeaderView);
+    form.appendChild(featuredView);
+    form.appendChild(allLaView);
     form.appendChild(spotDetailsView);
     form.appendChild(listCardView);
   }
 
-  function showFilterControlsView() {
-    if (!filterControlsView || !spotDetailsView || !listCardView) return;
-    activeViewMode = 'filters';
+  function showExploreView() {
+    activeViewMode = 'explore';
+    topHeaderView.style.display = 'block';
     spotDetailsView.style.display = 'none';
     listCardView.style.display = 'none';
-    filterControlsView.style.display = 'flex';
+
+    if (activeScopeMode === 'featured') {
+      featuredView.style.display = 'flex';
+      allLaView.style.display = 'none';
+    } else {
+      featuredView.style.display = 'none';
+      allLaView.style.display = 'flex';
+    }
     applyFilters();
     map.resize();
   }
 
-  function showItineraryListView() {
-    if (!filterControlsView || !spotDetailsView || !listCardView) return;
-    filterControlsView.style.display = 'none';
+  function showItineraryView() {
+    activeViewMode = 'itinerary';
+    topHeaderView.style.display = 'none';
+    featuredView.style.display = 'none';
+    allLaView.style.display = 'none';
     spotDetailsView.style.display = 'none';
     listCardView.style.display = 'block';
+    renderItinerary();
+    map.resize();
   }
 
-  function showSpotDetailsModalView() {
-    if (!filterControlsView || !spotDetailsView || !listCardView) return;
-    filterControlsView.style.display = 'none';
+  function showSpotDetailsView() {
+    activeViewMode = 'spot-details';
+    topHeaderView.style.display = 'none';
+    featuredView.style.display = 'none';
+    allLaView.style.display = 'none';
     listCardView.style.display = 'none';
     spotDetailsView.style.display = 'block';
+    map.resize();
   }
 
   function updateMarkerStates() {
@@ -146,14 +181,10 @@ window.initMapEngine = async function() {
     });
   }
 
-  function updateHeaderBadges() {
+  function updateHeaderBadge() {
     if (itineraryBadgeBtn) {
       const savedCount = window.MarlonStorage.getSavedSpotIds().length;
       itineraryBadgeBtn.innerText = `📋 Planned Itinerary (${savedCount})`;
-    }
-    if (visitedBadgeBtn) {
-      const visitedCount = window.MarlonStorage.getVisitedSpots().length;
-      visitedBadgeBtn.innerText = `✅ Visited Passport (${visitedCount})`;
     }
   }
 
@@ -179,32 +210,34 @@ window.initMapEngine = async function() {
   }
 
   function renderItinerary() {
-    showItineraryListView();
     window.MarlonItineraryView.renderItinerary(listCardView, allMarkers, {
-      onBack: showFilterControlsView,
+      onBack: showExploreView,
       onClear: () => {
         if (confirm("Clear your whole planned itinerary?")) {
           window.MarlonStorage.clearItinerary();
-          updateHeaderBadges();
+          updateHeaderBadge();
           updateMarkerStates();
           renderItinerary();
+          renderFeaturedPackages();
         }
       },
       onImportPreset: (pId, day) => {
         window.MarlonStorage.toggleRouteBlock(pId, day);
-        updateHeaderBadges();
+        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
+        renderFeaturedPackages();
       },
       onRemoveRoute: (rId) => {
         window.MarlonStorage.toggleRouteBlock(rId);
-        updateHeaderBadges();
+        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
+        renderFeaturedPackages();
       },
       onRemoveNestedSpot: (rId, sId) => {
         window.MarlonStorage.excludeSpotFromRoute(rId, sId);
-        updateHeaderBadges();
+        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
       },
@@ -218,13 +251,13 @@ window.initMapEngine = async function() {
       },
       onRemoveSpot: (sId) => {
         window.MarlonStorage.toggleSavedSpot(sId);
-        updateHeaderBadges();
+        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
       },
       onToggleVisited: (sId) => {
         window.MarlonStorage.toggleVisitedSpot(sId);
-        updateHeaderBadges();
+        updateHeaderBadge();
         updateMarkerStates();
         renderItinerary();
       },
@@ -256,33 +289,6 @@ window.initMapEngine = async function() {
     });
 
     applyModeMapFilter(activeDaySpotIds);
-    map.resize();
-  }
-
-  function renderVisited() {
-    showItineraryListView();
-    window.MarlonItineraryView.renderVisited(listCardView, allMarkers, {
-      onBack: showFilterControlsView,
-      onToggleSave: (sId) => {
-        window.MarlonStorage.toggleSavedSpot(sId);
-        updateHeaderBadges();
-        updateMarkerStates();
-        renderVisited();
-      },
-      onToggleVisited: (sId) => {
-        window.MarlonStorage.toggleVisitedSpot(sId);
-        updateHeaderBadges();
-        updateMarkerStates();
-        renderVisited();
-      },
-      onSpotClick: (sId) => {
-        const match = allMarkers.find(m => m.id === sId);
-        if (match) match.wrapper.click();
-      }
-    });
-
-    applyModeMapFilter(window.MarlonStorage.getVisitedSpots());
-    map.resize();
   }
 
   // PROCESS GEOJSON FEATURES
@@ -359,21 +365,18 @@ window.initMapEngine = async function() {
       e.stopPropagation();
 
       if (window.MarlonSpotCard) {
-        showSpotDetailsModalView();
+        showSpotDetailsView();
         window.MarlonSpotCard.render(spotData, spotDetailsView, {
-          onBack: () => {
-            if (activeViewMode === 'itinerary') renderItinerary();
-            else if (activeViewMode === 'visited') renderVisited();
-            else showFilterControlsView();
-          },
+          onBack: showExploreView,
           onToggleSave: (sId) => {
             window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay);
-            updateHeaderBadges();
+            updateHeaderBadge();
             updateMarkerStates();
+            renderFeaturedPackages();
           },
           onToggleVisited: (sId) => {
             window.MarlonStorage.toggleVisitedSpot(sId);
-            updateHeaderBadges();
+            updateHeaderBadge();
             updateMarkerStates();
           }
         }, categoryMap, defaultPinSvg);
@@ -397,11 +400,127 @@ window.initMapEngine = async function() {
 
   map.on('click', () => {
     if (activeViewMode === 'itinerary') renderItinerary();
-    else if (activeViewMode === 'visited') renderVisited();
-    else showFilterControlsView();
+    else if (activeViewMode === 'spot-details') showExploreView();
   });
 
-  // BUILD MAIN FILTER CONTROLS
+  // BUILD TOP HEADER VIEW
+  if (topHeaderView) {
+    const mainTitleHeader = document.createElement('div');
+    mainTitleHeader.className = 'map-hero-cta-box';
+
+    const titleText = document.createElement('h2');
+    titleText.className = 'map-hero-cta-title';
+    titleText.innerText = "Build Your LA Adventure";
+
+    itineraryBadgeBtn = document.createElement('button');
+    itineraryBadgeBtn.type = 'button';
+    itineraryBadgeBtn.className = 'itinerary-badge-btn primary-mode';
+    updateHeaderBadge();
+
+    itineraryBadgeBtn.addEventListener('click', showItineraryView);
+
+    // View Mode Segmented Switcher
+    const scopeToggleWrap = document.createElement('div');
+    scopeToggleWrap.className = 'scope-toggle-wrap';
+
+    const scopeFeaturedBtn = document.createElement('button');
+    scopeFeaturedBtn.type = 'button';
+    scopeFeaturedBtn.className = 'scope-toggle-btn is-active';
+    scopeFeaturedBtn.innerText = '✨ Featured';
+
+    const scopeAllBtn = document.createElement('button');
+    scopeAllBtn.type = 'button';
+    scopeAllBtn.className = 'scope-toggle-btn';
+    scopeAllBtn.innerText = '🌐 All LA';
+
+    scopeFeaturedBtn.addEventListener('click', () => {
+      activeScopeMode = 'featured';
+      scopeFeaturedBtn.classList.add('is-active');
+      scopeAllBtn.classList.remove('is-active');
+      showExploreView();
+    });
+
+    scopeAllBtn.addEventListener('click', () => {
+      activeScopeMode = 'all';
+      scopeAllBtn.classList.add('is-active');
+      scopeFeaturedBtn.classList.remove('is-active');
+      showExploreView();
+    });
+
+    scopeToggleWrap.appendChild(scopeFeaturedBtn);
+    scopeToggleWrap.appendChild(scopeAllBtn);
+
+    mainTitleHeader.appendChild(titleText);
+    mainTitleHeader.appendChild(itineraryBadgeBtn);
+    mainTitleHeader.appendChild(scopeToggleWrap);
+
+    topHeaderView.appendChild(mainTitleHeader);
+
+    const divider = document.createElement('hr');
+    divider.className = 'filter-section-divider';
+    topHeaderView.appendChild(divider);
+  }
+
+  // BUILD FEATURED PACKAGES SIDEBAR FEED
+  function renderFeaturedPackages() {
+    if (!featuredView) return;
+    const presets = window.MARLON_ROUTES_PRESETS || [];
+    const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
+
+    featuredView.innerHTML = `
+      <div class="featured-feed-header">
+        <span class="featured-feed-title">🎯 Pre-Curated Tour Packages</span>
+        <span class="featured-feed-subtitle">Select a package to add the complete route directly to your itinerary:</span>
+      </div>
+      <div class="featured-preset-list">
+        ${presets.map(p => {
+          const isImported = !!savedRoutesMap[p.id];
+          return `
+            <div class="featured-preset-card ${isImported ? 'is-imported' : ''}">
+              <div class="featured-preset-info">
+                <div class="featured-preset-title">${p.title}</div>
+                <div class="featured-preset-meta">${p.duration}</div>
+                <div class="featured-preset-desc">${p.description || ''}</div>
+              </div>
+              <button type="button" class="featured-import-btn ${isImported ? 'is-active' : ''}" data-preset="${p.id}">
+                ${isImported ? '✓ In Itinerary' : '⚡ Add Route'}
+              </button>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    featuredView.querySelectorAll('.featured-import-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const pId = btn.dataset.preset;
+        window.MarlonStorage.toggleRouteBlock(pId, window.MarlonItineraryView.activeDay || 'Day 1');
+        updateHeaderBadge();
+        updateMarkerStates();
+        renderFeaturedPackages();
+      });
+    });
+
+    featuredView.querySelectorAll('.featured-preset-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.featured-import-btn')) return;
+        const pId = card.querySelector('.featured-import-btn').dataset.preset;
+        const preset = presets.find(item => item.id === pId);
+        if (preset) {
+          const targetSpotIds = [];
+          preset.spotTitles.forEach(t => {
+            const cleanT = t.toLowerCase().trim();
+            const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
+            if (match) targetSpotIds.push(match.id);
+          });
+          applyModeMapFilter(targetSpotIds);
+        }
+      });
+    });
+  }
+
+  // BUILD ALL LA FILTERS & SPOT FEED
   let activeArea = 'All';
   const activeCategories = new Set();
   let activeTag = 'All';
@@ -426,115 +545,22 @@ window.initMapEngine = async function() {
     return container;
   }
 
-  if (filterControlsView) {
-    const mainTitleHeader = document.createElement('div');
-    mainTitleHeader.className = 'map-hero-cta-box';
-
-    const titleText = document.createElement('h2');
-    titleText.className = 'map-hero-cta-title';
-    titleText.innerText = "Build Your LA Adventure";
-
-    const subtitleText = document.createElement('p');
-    subtitleText.className = 'map-hero-cta-subtitle';
-    subtitleText.innerText = "Curate your personal itinerary, save must-see spots, and check off places as you explore!";
-
-    const toggleGroup = document.createElement('div');
-    toggleGroup.className = 'itinerary-toggle-group';
-
-    itineraryBadgeBtn = document.createElement('button');
-    itineraryBadgeBtn.type = 'button';
-    itineraryBadgeBtn.className = 'itinerary-badge-btn primary-mode';
-
-    visitedBadgeBtn = document.createElement('button');
-    visitedBadgeBtn.type = 'button';
-    visitedBadgeBtn.className = 'itinerary-badge-btn visited-mode';
-
-    updateHeaderBadges();
-
-    itineraryBadgeBtn.addEventListener('click', () => {
-      activeViewMode = 'itinerary';
-      renderItinerary();
-    });
-    visitedBadgeBtn.addEventListener('click', () => {
-      activeViewMode = 'visited';
-      renderVisited();
-    });
-
-    toggleGroup.appendChild(itineraryBadgeBtn);
-    toggleGroup.appendChild(visitedBadgeBtn);
-
-    mainTitleHeader.appendChild(titleText);
-    mainTitleHeader.appendChild(subtitleText);
-    mainTitleHeader.appendChild(toggleGroup);
-
-    filterControlsView.appendChild(mainTitleHeader);
-
-    const divider = document.createElement('hr');
-    divider.className = 'filter-section-divider';
-    filterControlsView.appendChild(divider);
-
-    // 0. SCOPE SWITCHER (FEATURED PACKAGES VS ALL SPOTS)
-    const scopeGroup = document.createElement('div');
-    scopeGroup.className = 'dashboard-group';
-
-    const scopeLabel = document.createElement('div');
-    scopeLabel.className = 'dashboard-label';
-    scopeLabel.innerText = '🗺️ VIEW MODE';
-    scopeGroup.appendChild(scopeLabel);
-
-    const scopeToggleWrap = document.createElement('div');
-    scopeToggleWrap.className = 'scope-toggle-wrap';
-
-    const scopePackagesBtn = document.createElement('button');
-    scopePackagesBtn.type = 'button';
-    scopePackagesBtn.className = 'scope-toggle-btn is-active';
-    scopePackagesBtn.innerText = '✨ Featured Packages';
-
-    const scopeAllBtn = document.createElement('button');
-    scopeAllBtn.type = 'button';
-    scopeAllBtn.className = 'scope-toggle-btn';
-    scopeAllBtn.innerText = '🌐 All LA Spots';
-
-    scopePackagesBtn.addEventListener('click', () => {
-      activeScopeMode = 'packages';
-      scopePackagesBtn.classList.add('is-active');
-      scopeAllBtn.classList.remove('is-active');
-      applyFilters();
-    });
-
-    scopeAllBtn.addEventListener('click', () => {
-      activeScopeMode = 'all';
-      scopeAllBtn.classList.add('is-active');
-      scopePackagesBtn.classList.remove('is-active');
-      applyFilters();
-    });
-
-    scopeToggleWrap.appendChild(scopePackagesBtn);
-    scopeToggleWrap.appendChild(scopeAllBtn);
-    scopeGroup.appendChild(scopeToggleWrap);
-    filterControlsView.appendChild(scopeGroup);
-
-    // 1. CATEGORIES PILLS
+  if (allLaView) {
+    // Categories
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
     const catLabel = document.createElement('div');
     catLabel.className = 'dashboard-label';
-
     const catLabelText = document.createElement('span');
     catLabelText.innerText = '🏷️ CATEGORIES';
-
-    const badgeContainer = document.createElement('div');
-    badgeContainer.style.display = 'flex';
 
     countBadgeEl = document.createElement('span');
     countBadgeEl.className = 'count-badge';
     countBadgeEl.innerText = `${allMarkers.length} SPOTS`;
 
-    badgeContainer.appendChild(countBadgeEl);
-    
     catLabel.appendChild(catLabelText);
-    catLabel.appendChild(badgeContainer);
+    catLabel.appendChild(countBadgeEl);
     catGroup.appendChild(catLabel);
 
     const catPillsBar = document.createElement('div');
@@ -549,14 +575,12 @@ window.initMapEngine = async function() {
       catPillsBar.appendChild(pill);
     });
 
-    const catRow = createScrollRow(catPillsBar);
-    catGroup.appendChild(catRow);
-    filterControlsView.appendChild(catGroup); 
+    catGroup.appendChild(createScrollRow(catPillsBar));
+    allLaView.appendChild(catGroup); 
 
     catPillsBar.addEventListener('click', (e) => {
       const pill = e.target.closest('.cat-pill');
       if (!pill) return;
-      activeViewMode = 'filters';
       const cat = pill.dataset.category;
 
       if (activeCategories.has(cat)) {
@@ -569,7 +593,7 @@ window.initMapEngine = async function() {
       applyFilters();
     });
 
-    // 2. VIBE DROPDOWN
+    // Vibe Dropdown
     let tagSelect = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
@@ -582,22 +606,20 @@ window.initMapEngine = async function() {
 
       tagSelect = document.createElement('select');
       tagSelect.innerHTML = `<option value="All">All Vibes</option>`;
-      
       Array.from(tagsSet).sort().forEach(tagVal => {
         tagSelect.innerHTML += `<option value="${tagVal}">${formatTagDisplay(tagVal)}</option>`;
       });
 
       tagGroup.appendChild(tagSelect);
-      filterControlsView.appendChild(tagGroup);
+      allLaView.appendChild(tagGroup);
 
       tagSelect.addEventListener('change', (e) => {
-        activeViewMode = 'filters';
         activeTag = e.target.value;
         applyFilters();
       });
     }
 
-    // 3. NEIGHBORHOOD DROPDOWN
+    // Neighborhood Dropdown
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
@@ -613,20 +635,18 @@ window.initMapEngine = async function() {
     });
 
     areaGroup.appendChild(areaSelect);
-    filterControlsView.appendChild(areaGroup); 
+    allLaView.appendChild(areaGroup); 
 
     areaSelect.addEventListener('change', (e) => {
-      activeViewMode = 'filters';
       activeArea = e.target.value;
       applyFilters();
     });
 
-    // 4. RESET BUTTON
+    // Reset Button
     const resetContainer = document.createElement('div');
     resetContainer.style.display = 'flex';
     resetContainer.style.justifyContent = 'center';
     resetContainer.style.width = '100%';
-    resetContainer.style.marginTop = '4px';
 
     const resetBtn = document.createElement('button');
     resetBtn.type = 'button';
@@ -634,11 +654,9 @@ window.initMapEngine = async function() {
     resetBtn.innerHTML = '↺ Reset Filters';
 
     resetContainer.appendChild(resetBtn);
-    filterControlsView.appendChild(resetContainer);
+    allLaView.appendChild(resetContainer);
 
     resetBtn.addEventListener('click', () => {
-      activeViewMode = 'filters';
-      activeScopeMode = 'packages';
       activeArea = 'All';
       activeTag = 'All';
       activeCategories.clear();
@@ -646,30 +664,61 @@ window.initMapEngine = async function() {
       if (areaSelect) areaSelect.value = 'All';
       if (tagSelect) tagSelect.value = 'All';
 
-      scopePackagesBtn.classList.add('is-active');
-      scopeAllBtn.classList.remove('is-active');
-
       catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
-
       applyFilters();
-      showFilterControlsView();
+    });
+
+    // Individual Spot Cards List Container
+    spotFeedListEl = document.createElement('div');
+    spotFeedListEl.className = 'all-la-spot-feed';
+    allLaView.appendChild(spotFeedListEl);
+  }
+
+  function renderSpotFeed(visibleSpots) {
+    if (!spotFeedListEl) return;
+    const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
+
+    spotFeedListEl.innerHTML = visibleSpots.map(spot => {
+      const isSaved = savedSpotIds.includes(spot.id);
+      return `
+        <div class="spot-feed-card" data-id="${spot.id}">
+          <div class="spot-feed-info">
+            <div class="spot-feed-title">${spot.title}</div>
+            <div class="spot-feed-meta">📍 ${spot.neighborhood}</div>
+          </div>
+          <button type="button" class="spot-feed-save-btn ${isSaved ? 'is-active' : ''}" data-id="${spot.id}">
+            ${isSaved ? '📌 Saved' : '+ Save'}
+          </button>
+        </div>
+      `;
+    }).join('');
+
+    spotFeedListEl.querySelectorAll('.spot-feed-save-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.MarlonStorage.toggleSavedSpot(btn.dataset.id, window.MarlonItineraryView.activeDay || 'Day 1');
+        updateHeaderBadge();
+        updateMarkerStates();
+        applyFilters();
+      });
+    });
+
+    spotFeedListEl.querySelectorAll('.spot-feed-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.spot-feed-save-btn')) return;
+        const match = allMarkers.find(m => m.id === card.dataset.id);
+        if (match) match.wrapper.click();
+      });
     });
   }
 
   function applyFilters() {
-    if (activeViewMode === 'itinerary') {
-      applyModeMapFilter(window.MarlonStorage.getSavedSpotIds());
-      return;
-    }
-    if (activeViewMode === 'visited') {
-      applyModeMapFilter(window.MarlonStorage.getVisitedSpots());
-      return;
-    }
+    if (activeViewMode === 'itinerary') return;
 
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
+    const visibleSpots = [];
 
-    // Collect all titles from presets for featured packages mode
     const featuredPresets = window.MARLON_ROUTES_PRESETS || [];
     const featuredTitles = featuredPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim()));
 
@@ -686,6 +735,7 @@ window.initMapEngine = async function() {
         item.marker.addTo(map);
         bounds.extend([item.lng, item.lat]);
         visibleCount++;
+        visibleSpots.push(item);
       } else {
         item.marker.remove();
       }
@@ -693,6 +743,10 @@ window.initMapEngine = async function() {
 
     if (countBadgeEl) {
       countBadgeEl.innerText = `${visibleCount} ${visibleCount === 1 ? 'SPOT' : 'SPOTS'}`;
+    }
+
+    if (activeScopeMode === 'all') {
+      renderSpotFeed(visibleSpots);
     }
 
     const isFiltered = (activeScopeMode !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
@@ -708,7 +762,7 @@ window.initMapEngine = async function() {
 
   map.on('load', () => {
     updateMarkerStates();
-    applyFilters();
-    map.resize();
+    renderFeaturedPackages();
+    showExploreView();
   });
 };
