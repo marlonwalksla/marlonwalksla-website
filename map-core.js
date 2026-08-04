@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Color Highlighter
+ * CATEGORY: MarlonWalksLA Website - Core Engine & Scroll-Preserved Feed
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -389,6 +389,11 @@ window.initMapEngine = async function() {
             updateHeaderBadge();
             updateMarkerStates();
             renderFeaturedPackages();
+          },
+          onToggleVisited: (sId) => {
+            window.MarlonStorage.toggleVisitedSpot(sId);
+            updateHeaderBadge();
+            updateMarkerStates();
           }
         }, categoryMap, defaultPinSvg);
       }
@@ -414,14 +419,18 @@ window.initMapEngine = async function() {
     else if (activeViewMode === 'spot-details') showExploreView();
   });
 
-  // BUILD TOP HEADER VIEW
+  // BUILD TOP HEADER VIEW ("BUILD YOUR OWN")
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-hero-cta-box';
 
     const titleText = document.createElement('h2');
     titleText.className = 'map-hero-cta-title';
-    titleText.innerText = "Build Your LA Adventure";
+    titleText.innerText = "Build Your Own";
+
+    const subtitleText = document.createElement('p');
+    subtitleText.className = 'map-hero-cta-subtitle';
+    subtitleText.innerText = "Free to build your custom itinerary! Explore our curated packages or create your own route from scratch.";
 
     itineraryBadgeBtn = document.createElement('button');
     itineraryBadgeBtn.type = 'button';
@@ -461,6 +470,7 @@ window.initMapEngine = async function() {
     scopeToggleWrap.appendChild(scopeAllBtn);
 
     mainTitleHeader.appendChild(titleText);
+    mainTitleHeader.appendChild(subtitleText);
     mainTitleHeader.appendChild(itineraryBadgeBtn);
     mainTitleHeader.appendChild(scopeToggleWrap);
 
@@ -471,11 +481,15 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(divider);
   }
 
-  // BUILD FEATURED PACKAGES SIDEBAR FEED (WITH COLOR HIGHLIGHTS & PREVIEWS)
+  // BUILD FEATURED PACKAGES SIDEBAR FEED (WITH SCROLL POSITION PRESERVATION)
   function renderFeaturedPackages() {
     if (!featuredView) return;
     const presets = window.MARLON_ROUTES_PRESETS || [];
     const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
+
+    // Preserve scroll position before updating innerHTML
+    const existingList = featuredView.querySelector('.featured-preset-list');
+    const savedScrollPos = existingList ? existingList.scrollTop : 0;
 
     featuredView.innerHTML = `
       <div class="featured-feed-header">
@@ -510,6 +524,10 @@ window.initMapEngine = async function() {
         }).join('')}
       </div>
     `;
+
+    // Restore scroll position after innerHTML update
+    const newList = featuredView.querySelector('.featured-preset-list');
+    if (newList) newList.scrollTop = savedScrollPos;
 
     featuredView.querySelectorAll('.featured-import-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -692,6 +710,7 @@ window.initMapEngine = async function() {
   function renderSpotFeed(visibleSpots) {
     if (!spotFeedListEl) return;
     const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
+    const savedScrollPos = spotFeedListEl.scrollTop || 0;
 
     spotFeedListEl.innerHTML = visibleSpots.map(spot => {
       const isSaved = savedSpotIds.includes(spot.id);
@@ -707,6 +726,8 @@ window.initMapEngine = async function() {
         </div>
       `;
     }).join('');
+
+    spotFeedListEl.scrollTop = savedScrollPos;
 
     spotFeedListEl.querySelectorAll('.spot-feed-save-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
