@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.css
- * CATEGORY: MarlonWalksLA Website - Unified Desktop & Mobile Styling
+ * CATEGORY: MarlonWalksLA Website - Contrast Feed & Blue Saved Buttons
  * ============================================================================== */
 
 .marker-wrapper.is-route-highlighted .custom-emoji-marker {
@@ -102,7 +102,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 220px;
+  max-height: 200px;
   overflow-y: auto;
   padding-right: 2px;
 }
@@ -125,9 +125,10 @@
   background: #f0f7ff !important;
 }
 
+/* SAVED STATE: BLUE (NOT GREEN) */
 .featured-preset-card.is-imported {
-  border-color: #10b981;
-  background: #f0fdf4;
+  border-color: #3898ec;
+  background: #eff6ff;
 }
 
 .featured-card-main-row {
@@ -163,19 +164,22 @@
 }
 
 .featured-import-btn {
-  background: #3898ec;
-  border: none;
-  color: #ffffff;
+  background: #ffffff;
+  border: 1.5px solid #3898ec;
+  color: #3898ec;
   font-size: 10px;
   font-weight: 800;
-  padding: 5px 10px;
+  padding: 4px 10px;
   border-radius: 12px;
   cursor: pointer;
   flex-shrink: 0;
+  transition: all 0.2s ease;
 }
 
 .featured-import-btn.is-active {
-  background: #10b981;
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
 }
 
 .featured-preview-details {
@@ -209,8 +213,19 @@
   border: 1px solid #e2e8f0;
 }
 
-/* INDIVIDUAL SPOTS FEED */
-.featured-spot-feed-container,
+/* DISTINCT CONTRAST SECTION FOR INDIVIDUAL FEATURED SPOTS */
+.featured-spot-feed-container {
+  background-color: #f8fafc;
+  border: 1.5px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
 .all-la-spot-feed {
   display: flex;
   flex-direction: column;
@@ -227,8 +242,8 @@
   justify-content: space-between;
   background: #ffffff;
   border: 1.5px solid #cbd5e0;
-  border-radius: 8px;
-  padding: 8px 10px;
+  border-radius: 6px;
+  padding: 6px 10px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -249,20 +264,22 @@
 }
 
 .spot-feed-save-btn {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e0;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e0;
   color: #475569;
   font-size: 10px;
   font-weight: 700;
-  padding: 4px 8px;
+  padding: 3px 8px;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+/* SAVED STATE: BLUE (NOT GREEN) */
 .spot-feed-save-btn.is-active {
-  background: #3898ec;
+  background: #2563eb;
   color: #ffffff;
-  border-color: #3898ec;
+  border-color: #2563eb;
 }
 
 .filter-bar form {
