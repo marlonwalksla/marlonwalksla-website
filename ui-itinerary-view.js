@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Multi-Day Live Itinerary Checklist
+ * CATEGORY: MarlonWalksLA Website - Clean Multi-Day Itinerary Checklist
  * ============================================================================== */
 
 window.MarlonItineraryView = {
@@ -20,14 +20,15 @@ window.MarlonItineraryView = {
     const activeCustomSpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
 
     const availablePresets = allPresets.filter(p => !savedRoutesMap[p.id]);
-    const totalSavedCount = window.MarlonStorage.getSavedSpotIds().length;
 
     let html = `
-      <div class="itinerary-card">
-        <div class="itinerary-header">
-          <button type="button" class="back-to-explore-btn">‹ Back to Explore</button>
-          <div class="itinerary-title">📋 Planned Itinerary (${totalSavedCount})</div>
-          ${totalSavedCount > 0 ? '<button type="button" class="clear-itinerary-btn">🗑️ Clear All</button>' : '<div></div>'}
+      <div class="itinerary-view-wrapper">
+        <div class="featured-feed-header">
+          <div class="itinerary-header-row">
+            <span class="featured-feed-title">📋 YOUR CUSTOM ITINERARY</span>
+            ${(activeRouteIds.length > 0 || activeCustomSpotIds.length > 0) ? '<button type="button" class="clear-itinerary-btn">🗑️ Clear Day</button>' : ''}
+          </div>
+          <span class="featured-feed-subtitle">Manage your schedule, check off locations, and track your days:</span>
         </div>
 
         <div class="day-filter-bar">
@@ -120,7 +121,7 @@ window.MarlonItineraryView = {
             ` : ''}
 
             ${activeRouteIds.length === 0 && activeCustomSpotIds.length === 0 ? `
-              <p class="empty-itinerary-msg">No plans for ${activeDay} yet. Save spots from the map or import a route below!</p>
+              <p class="empty-itinerary-msg">No plans for ${activeDay} yet. Save spots from the Featured or All LA tab!</p>
             ` : ''}
           </div>
 
@@ -146,9 +147,6 @@ window.MarlonItineraryView = {
     `;
 
     container.innerHTML = html;
-
-    const backBtn = container.querySelector('.back-to-explore-btn');
-    if (backBtn && callbacks.onBack) backBtn.addEventListener('click', callbacks.onBack);
 
     const clearBtn = container.querySelector('.clear-itinerary-btn');
     if (clearBtn && callbacks.onClear) clearBtn.addEventListener('click', callbacks.onClear);
