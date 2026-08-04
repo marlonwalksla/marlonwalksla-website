@@ -1,0 +1,226 @@
+/* ==============================================================================
+ * FILE: map-core.css
+ * CATEGORY: MarlonWalksLA Website - Mapbox Canvas & Filter Bar Core
+ * ============================================================================== */
+
+/* VISITED PIN EMERALD RING ON MAP CANVAS */
+.marker-wrapper.is-visited-pin .custom-emoji-marker {
+  box-shadow: 0 0 0 4px #10b981, 0 0 0 8px rgba(16, 185, 129, 0.35) !important;
+  filter: brightness(1.02);
+}
+
+/* HERO CTA HEADER */
+.map-hero-cta-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.map-hero-cta-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a202c;
+  letter-spacing: -0.4px;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.map-hero-cta-subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: #718096;
+  line-height: 1.4;
+  margin: 0 0 2px 0;
+}
+
+.filter-section-divider {
+  border: none;
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 2px 0 6px 0;
+  width: 100%;
+}
+
+/* WEBFLOW FORM OVERRIDE */
+.filter-bar form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+  width: 100% !important;
+  height: 100% !important;
+  justify-content: space-between !important;
+}
+
+/* DROPDOWNS & FILTER PANELS */
+.filter-bar select {
+  display: block !important;
+  width: 100%;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  background-color: #f7fafc;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: all 0.2s ease;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234a5568%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px top 50%;
+  background-size: 10px auto;
+}
+
+.filter-bar select:hover { border-color: #3898ec; }
+
+.dashboard-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+}
+
+.dashboard-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-left: 2px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.count-badge {
+  color: #3898ec;
+  font-weight: 800;
+}
+
+/* HORIZONTAL PILL CONTROLS */
+.pills-scroll-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.scroll-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e0;
+  background-color: #ffffff;
+  color: #4a5568;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.scroll-arrow-btn:hover {
+  border-color: #3898ec;
+  color: #3898ec;
+  transform: scale(1.08);
+}
+
+.category-pills-bar {
+  display: flex;
+  flex-wrap: nowrap; 
+  overflow-x: auto; 
+  gap: 6px;
+  justify-content: flex-start; 
+  width: 100%;
+  padding: 2px 2px 6px 2px; 
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.cat-pill {
+  flex-shrink: 0; 
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #4a5568;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  transition: all 0.2s ease;
+}
+
+.cat-pill:hover {
+  border-color: #3898ec;
+  transform: translateY(-2px);
+}
+
+.cat-pill.is-active {
+  background-color: #222222;
+  color: #ffffff;
+  border-color: #222222;
+}
+
+.cat-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 2px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.reset-filters-btn {
+  background: #edf2f7;
+  border: 2px solid #cbd5e0;
+  color: #2d3748;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 24px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+  display: inline-block;
+  margin: 4px auto 0 auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.reset-filters-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.category-pills-bar::-webkit-scrollbar { height: 4px; }
+.category-pills-bar::-webkit-scrollbar-thumb { background-color: #a0aec0; border-radius: 10px; }
+
+@media (hover: none) and (pointer: coarse) {
+  .scroll-arrow-btn { display: none; }
+  .category-pills-bar::-webkit-scrollbar { display: none; }
+}
