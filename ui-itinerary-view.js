@@ -1,34 +1,10 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Custom Itinerary Checklist (All + Days 1-4)
+ * CATEGORY: MarlonWalksLA Website - Custom Itinerary Checklist
  * ============================================================================== */
 
 window.MarlonItineraryView = {
-  activeDay: 'All',
-
-  getSpotsCountForDay: function(dayName, allMarkers, itinMap, savedRoutesMap, allPresets) {
-    if (dayName === 'All') {
-      return window.MarlonStorage.getSavedSpotIds().length;
-    }
-
-    let count = Object.keys(itinMap).filter(sId => itinMap[sId] === dayName).length;
-    const dayRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === dayName);
-
-    dayRouteIds.forEach(rId => {
-      const p = allPresets.find(item => item.id === rId);
-      if (p) {
-        p.spotTitles.forEach(t => {
-          const cleanT = t.toLowerCase().trim();
-          const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
-          if (match && !window.MarlonStorage.isSpotExcludedFromRoute(rId, match.id)) {
-            count++;
-          }
-        });
-      }
-    });
-
-    return count;
-  },
+  activeDay: 'Unassigned',
 
   renderItinerary: function(container, allMarkers, callbacks) {
     if (!container) return;
@@ -39,50 +15,40 @@ window.MarlonItineraryView = {
     const allPresets = window.MARLON_ROUTES_PRESETS || [];
 
     const activeDay = this.activeDay;
+    const daysList = ['Unassigned', 'Day 1', 'Day 2', 'Day 3', 'Day 4'];
 
-    const daysList = ['All', 'Day 1', 'Day 2', 'Day 3', 'Day 4'];
-    const dayCounts = {};
-    daysList.forEach(d => {
-      dayCounts[d] = this.getSpotsCountForDay(d, allMarkers, itinMap, savedRoutesMap, allPresets);
+    const activeRouteIds = Object.keys(savedRoutesMap).filter(rId => {
+      const assigned = savedRoutesMap[rId] || 'Unassigned';
+      return assigned === activeDay;
     });
 
-    let activeRouteIds = [];
-    let activeCustomSpotIds = [];
-
-    if (activeDay === 'All') {
-      activeRouteIds = Object.keys(savedRoutesMap);
-      activeCustomSpotIds = Object.keys(itinMap);
-    } else {
-      activeRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === activeDay);
-      activeCustomSpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
-    }
+    const activeCustomSpotIds = Object.keys(itinMap).filter(sId => {
+      const assigned = itinMap[sId] || 'Unassigned';
+      return assigned === activeDay;
+    });
 
     let html = `
       <div class="itinerary-view-wrapper">
         <div class="featured-feed-header">
-          <span class="featured-feed-title">📋 YOUR CUSTOM ITINERARY</span>
-          <span class="featured-feed-subtitle">Manage your schedule, check off locations, and track your days:</span>
+          <span class="featured-feed-title">📋 YOUR TRIP ITINERARY</span>
         </div>
 
         <div class="day-filter-bar">
           <span class="day-label">Plan Day:</span>
-          ${daysList.map(d => {
-            const hasItems = dayCounts[d] > 0;
-            return `
-              <button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''} ${hasItems ? 'has-items' : ''}" data-day="${d}">
-                ${d} ${hasItems ? `(${dayCounts[d]})` : ''}
-              </button>
-            `;
-          }).join('')}
+          ${daysList.map(d => `
+            <button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''}" data-day="${d}">
+              ${d}
+            </button>
+          `).join('')}
         </div>
         
         <div class="itinerary-section">
-          <!-- COLLAPSIBLE ROUTE BLOCKS & CUSTOM SPOTS CHECKLIST -->
           <div class="itinerary-blocks-container">
+            <!-- ROUTE BLOCKS -->
             ${activeRouteIds.map(routeId => {
               const preset = allPresets.find(p => p.id === routeId);
               if (!preset) return '';
-              const routeAssignedDay = savedRoutesMap[routeId] || 'Day 1';
+              const routeAssignedDay = savedRoutesMap[routeId] || 'Unassigned';
 
               const routeSpotMarkers = [];
               preset.spotTitles.forEach(t => {
@@ -101,7 +67,8 @@ window.MarlonItineraryView = {
                       <span class="route-block-meta">${routeSpotMarkers.length} Spots • ${preset.duration.split('•')[1] || ''}</span>
                     </div>
                     <div class="route-block-controls">
-                      <select class="route-day-select" data-route="${preset.id}">
+                      <select class="compact-day-select route-day-select" data-route="${preset.id}">
+                        <option value="Unassigned" ${routeAssignedDay === 'Unassigned' ? 'selected' : ''}>Unassigned</option>
                         <option value="Day 1" ${routeAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
                         <option value="Day 2" ${routeAssignedDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
                         <option value="Day 3" ${routeAssignedDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
@@ -115,14 +82,16 @@ window.MarlonItineraryView = {
                     ${routeSpotMarkers.map(m => {
                       const isVisited = visitedIds.includes(m.id);
                       return `
-                        <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
-                          <div class="itinerary-item-info">
-                            <div class="itinerary-item-name">📍 ${m.title}</div>
-                            <div class="itinerary-item-meta">${m.neighborhood}</div>
+                        <div class="location-pill-card ${isVisited ? 'is-visited' : ''}" data-id="${m.id}">
+                          <div class="pill-left-group">
+                            <div class="pill-info">
+                              <span class="pill-title">📍 ${m.title}</span>
+                              <span class="pill-meta">${m.neighborhood}</span>
+                            </div>
                           </div>
-                          <div class="itinerary-item-actions">
-                            <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Completed' : 'Mark Visited'}">✓</button>
-                            <button type="button" class="icon-btn nested-icon-btn remove-nested-spot-btn" data-route="${preset.id}" data-id="${m.id}" title="Remove spot from block">✕</button>
+                          <div class="pill-right-group">
+                            <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Completed' : 'Mark Visited'}">✓</button>
+                            <button type="button" class="icon-btn remove-nested-spot-btn" data-route="${preset.id}" data-id="${m.id}" title="Remove spot from block">✕</button>
                           </div>
                         </div>
                       `;
@@ -132,30 +101,34 @@ window.MarlonItineraryView = {
               `;
             }).join('')}
 
+            <!-- CUSTOM SPOTS -->
             ${activeCustomSpotIds.length > 0 ? `
-              <div class="custom-spots-block-title">📌 Custom Saved Spots (${activeCustomSpotIds.length})</div>
+              <div class="custom-spots-block-title">📌 SAVED LOCATIONS</div>
               ${activeCustomSpotIds.map(sId => {
                 const m = allMarkers.find(item => item.id === sId);
                 if (!m) return '';
-                const spotAssignedDay = itinMap[sId] || 'Day 1';
+                const spotAssignedDay = itinMap[sId] || 'Unassigned';
                 const isVisited = visitedIds.includes(m.id);
                 return `
-                  <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
-                    <div class="itinerary-item-info">
-                      <div class="itinerary-item-name">📍 ${m.title}</div>
-                      <div class="itinerary-item-meta-row">
-                        <span>${m.neighborhood}</span>
-                        <select class="day-assign-select" data-id="${m.id}">
-                          <option value="Day 1" ${spotAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
-                          <option value="Day 2" ${spotAssignedDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
-                          <option value="Day 3" ${spotAssignedDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
-                          <option value="Day 4" ${spotAssignedDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
-                        </select>
+                  <div class="location-pill-card ${isVisited ? 'is-visited' : ''}" data-id="${m.id}">
+                    <div class="pill-left-group">
+                      <div class="pill-info">
+                        <span class="pill-title">📍 ${m.title}</span>
+                        <div class="pill-meta-row">
+                          <span class="pill-meta">${m.neighborhood}</span>
+                          <select class="compact-day-select day-assign-select" data-id="${m.id}">
+                            <option value="Unassigned" ${spotAssignedDay === 'Unassigned' ? 'selected' : ''}>Unassigned</option>
+                            <option value="Day 1" ${spotAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
+                            <option value="Day 2" ${spotAssignedDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
+                            <option value="Day 3" ${spotAssignedDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                            <option value="Day 4" ${spotAssignedDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
-                    <div class="itinerary-item-actions">
+                    <div class="pill-right-group">
                       <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Completed' : 'Mark Visited'}">✓</button>
-                      <button type="button" class="icon-btn remove-toggle" data-id="${m.id}">✕</button>
+                      <button type="button" class="icon-btn remove-toggle" data-id="${m.id}" title="Remove spot">✕</button>
                     </div>
                   </div>
                 `;
@@ -163,14 +136,13 @@ window.MarlonItineraryView = {
             ` : ''}
 
             ${activeRouteIds.length === 0 && activeCustomSpotIds.length === 0 ? `
-              <p class="empty-itinerary-msg">No plans for ${activeDay} yet. Save spots from the Featured or All LA tab!</p>
+              <p class="empty-itinerary-msg">No locations in ${activeDay}. Save spots from the map to plan your day!</p>
             ` : ''}
           </div>
 
-          <!-- CLEAR DAY BUTTON AT THE BOTTOM -->
           ${(activeRouteIds.length > 0 || activeCustomSpotIds.length > 0) ? `
             <div class="clear-day-container">
-              <button type="button" class="clear-day-bottom-btn">🗑️ Clear ${activeDay === 'All' ? 'All Plans' : `${activeDay} Plans`}</button>
+              <button type="button" class="clear-day-bottom-btn">🗑️ Clear ${activeDay === 'Unassigned' ? 'Unassigned List' : `${activeDay} Plans`}</button>
             </div>
           ` : ''}
         </div>
@@ -182,8 +154,7 @@ window.MarlonItineraryView = {
     const clearDayBtn = container.querySelector('.clear-day-bottom-btn');
     if (clearDayBtn && callbacks.onClearDay) {
       clearDayBtn.addEventListener('click', () => {
-        const msg = activeDay === 'All' ? 'Clear your entire planned itinerary?' : `Clear all route blocks and spots planned for ${activeDay}?`;
-        if (confirm(msg)) {
+        if (confirm(`Clear all items in ${activeDay}?`)) {
           callbacks.onClearDay(activeDay);
         }
       });
@@ -239,9 +210,9 @@ window.MarlonItineraryView = {
       });
     });
 
-    container.querySelectorAll('.itinerary-item').forEach(el => {
+    container.querySelectorAll('.location-pill-card').forEach(el => {
       el.addEventListener('click', (e) => {
-        if (e.target.closest('.icon-btn') || e.target.closest('.day-assign-select') || e.target.closest('.route-day-select')) return;
+        if (e.target.closest('.icon-btn') || e.target.closest('.compact-day-select')) return;
         if (callbacks.onSpotClick) callbacks.onSpotClick(el.dataset.id);
       });
     });
