@@ -65,10 +65,10 @@ window.MarlonSpotCard = {
 
         <div class="polaroid-caption-user-actions">
           <button type="button" class="toggle-save-btn ${isSaved ? 'is-active' : ''}">
-            ${isSaved ? '📌 Saved to Itinerary' : '📌 Save to Itinerary'}
+            ${isSaved ? '📌' : '📌 Add to Trip'}
           </button>
           <button type="button" class="toggle-visited-btn ${isVisited ? 'is-active' : ''}">
-            ${isVisited ? '✅ Visited!' : '✅ Mark as Visited'}
+            ${isVisited ? '✅' : '✅ Add to Visited'}
           </button>
         </div>
 
