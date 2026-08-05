@@ -243,7 +243,7 @@ window.initMapEngine = async function() {
     }
   }
 
-  function renderItinerary() {
+ function renderItinerary() {
     window.MarlonItineraryView.renderItinerary(listCardView, allMarkers, {
       onClearDay: (dayToClear) => {
         const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
@@ -300,7 +300,13 @@ window.initMapEngine = async function() {
       },
       onSpotClick: (sId) => {
         const match = allMarkers.find(m => m.id === sId);
-        if (match) match.wrapper.click();
+        if (match) {
+          map.flyTo({
+            center: [match.lng, match.lat],
+            zoom: Math.max(map.getZoom(), 13.0),
+            duration: 1000
+          });
+        }
       }
     });
 
