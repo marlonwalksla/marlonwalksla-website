@@ -175,7 +175,6 @@ window.initMapEngine = async function() {
     topHeaderView.style.display = 'block';
     spotDetailsView.style.display = 'none';
 
-    // DYNAMICALLY REPLACE MAIN TITLE
     const tabTitles = {
       'marlon': 'MarlonWalksLA Tours',
       'featured-spots': 'Featured Locations',
@@ -222,19 +221,33 @@ window.initMapEngine = async function() {
     const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
     const visitedIds = window.MarlonStorage.getVisitedSpots();
 
+    // GET SPOTS INCLUDED IN CURRENTLY SELECTED PREVIEW TOUR
+    let previewSpotIds = [];
+    if (activeSelectedRouteId) {
+      const presets = window.MARLON_ROUTES_PRESETS || [];
+      const preset = presets.find(p => p.id === activeSelectedRouteId);
+      if (preset) {
+        preset.spotTitles.forEach(t => {
+          const cleanT = t.toLowerCase().trim();
+          const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
+          if (match) previewSpotIds.push(match.id);
+        });
+      }
+    }
+
     allMarkers.forEach(m => {
       const isVisited = visitedIds.includes(m.id);
       const isPinned = savedSpotIds.includes(m.id);
+      const isPreview = previewSpotIds.includes(m.id);
+
+      m.wrapper.classList.remove('is-visited-pin', 'is-pinned-ring', 'is-selected-preview');
 
       if (isVisited) {
         m.wrapper.classList.add('is-visited-pin');
-        m.wrapper.classList.remove('is-pinned-ring');
       } else if (isPinned) {
         m.wrapper.classList.add('is-pinned-ring');
-        m.wrapper.classList.remove('is-visited-pin');
-      } else {
-        m.wrapper.classList.remove('is-visited-pin');
-        m.wrapper.classList.remove('is-pinned-ring');
+      } else if (isPreview) {
+        m.wrapper.classList.add('is-selected-preview');
       }
     });
     updateTabCounts();
@@ -583,9 +596,17 @@ window.initMapEngine = async function() {
                   <div class="featured-preset-meta">${p.duration}</div>
                   <div class="featured-preset-desc">${p.description || ''}</div>
                 </div>
-                <button type="button" class="featured-import-btn ${isImported ? 'is-active' : ''}" data-preset="${p.id}">
-                  ${isImported ? '📌 Added' : '📌 Add'}
-                </button>
+                
+                <div class="featured-card-actions">
+                  <button type="button" class="featured-import-btn ${isImported ? 'is-active' : ''}" data-preset="${p.id}">
+                    ${isImported ? '📌 Added' : '📌 Add'}
+                  </button>
+                  ${p.bookingUrl ? `
+                    <a href="${p.bookingUrl}" target="_blank" class="featured-book-btn" onclick="event.stopPropagation();">
+                      ${p.bookingLabel || '🎟️ Book'}
+                    </a>
+                  ` : ''}
+                </div>
               </div>
 
               <details class="featured-preview-details">
@@ -612,7 +633,7 @@ window.initMapEngine = async function() {
 
     marlonToursView.querySelectorAll('.featured-preset-card').forEach(card => {
       card.addEventListener('click', (e) => {
-        if (e.target.closest('.featured-import-btn') || e.target.closest('.featured-preview-details')) return;
+        if (e.target.closest('.featured-card-actions') || e.target.closest('.featured-preview-details')) return;
         const pId = card.dataset.preset;
 
         if (activeSelectedRouteId === pId) {
@@ -622,6 +643,7 @@ window.initMapEngine = async function() {
           activeSelectedRouteId = pId;
           panToRouteOnMap(pId);
         }
+        updateMarkerStates();
         renderMarlonTours();
       });
     });
