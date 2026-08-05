@@ -4,8 +4,8 @@
  * ============================================================================== */
 
 .hero-polaroid-wrapper {
-  width: 92vw;
-  max-width: 1100px;
+  width: 94vw;
+  max-width: 1240px; /* EXPANDED HORIZONTAL WIDTH */
   margin: 0 auto;
   padding: 16px;
   box-sizing: border-box;
@@ -33,12 +33,12 @@
 .filter-bar, 
 .map-master-polaroid .filter-bar {
   order: 1 !important;
-  width: 340px !important;
+  width: 390px !important; /* EXPANDED SIDEBAR WIDTH */
   flex-shrink: 0 !important;
   margin: 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: space-between !important;
+  justify-content: flex-start !important;
 }
 
 /* DESKTOP RIGHT SIDE: MAP */
