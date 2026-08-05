@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Custom Itinerary Checklist (All + Days 1-4)
+ * CATEGORY: MarlonWalksLA Website - Custom Explorer Itinerary Checklist
  * ============================================================================== */
 
 window.MarlonItineraryView = {
@@ -60,8 +60,8 @@ window.MarlonItineraryView = {
     let html = `
       <div class="itinerary-view-wrapper">
         <div class="featured-feed-header">
-          <span class="featured-feed-title">📋 YOUR CUSTOM ITINERARY</span>
-          <span class="featured-feed-subtitle">Manage your schedule, check off locations, and track your days:</span>
+          <span class="featured-feed-title">🗺️ YOUR LA EXPLORER TRIP</span>
+          <span class="featured-feed-subtitle">Map out your LA adventure, route your stops, and check off locations as you explore:</span>
         </div>
 
         <div class="day-filter-bar">
@@ -77,7 +77,7 @@ window.MarlonItineraryView = {
         </div>
         
         <div class="itinerary-section">
-          <!-- COLLAPSIBLE ROUTE BLOCKS & CUSTOM SPOTS CHECKLIST -->
+          <!-- COLLAPSIBLE ROUTE PACKAGES -->
           <div class="itinerary-blocks-container">
             ${activeRouteIds.map(routeId => {
               const preset = allPresets.find(p => p.id === routeId);
@@ -98,33 +98,57 @@ window.MarlonItineraryView = {
                   <summary class="route-block-header">
                     <div class="route-block-title-wrap">
                       <span class="route-block-title">${preset.title}</span>
-                      <span class="route-block-meta">${routeSpotMarkers.length} Spots • ${preset.duration.split('•')[1] || ''}</span>
+                      <span class="route-block-meta">${routeSpotMarkers.length} Stops • ${preset.duration.split('•')[1] || ''}</span>
                     </div>
                     <div class="route-block-controls">
-                      <select class="route-day-select" data-route="${preset.id}">
+                      <select class="route-day-select compact-day-select" data-route="${preset.id}">
                         <option value="Day 1" ${routeAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
                         <option value="Day 2" ${routeAssignedDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
                         <option value="Day 3" ${routeAssignedDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
                         <option value="Day 4" ${routeAssignedDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
                       </select>
-                      <button type="button" class="icon-btn remove-route-block-btn" data-route="${preset.id}" title="Remove Route Block">✕</button>
+                      <button type="button" class="icon-btn remove-route-block-btn" data-route="${preset.id}" title="Remove Route Package">✕</button>
                     </div>
                   </summary>
 
-                  <div class="route-block-body">
-                    ${routeSpotMarkers.map(m => {
+                  <div class="route-block-body waypoint-timeline-container">
+                    ${routeSpotMarkers.map((m, idx) => {
                       const isVisited = visitedIds.includes(m.id);
+                      const isLast = idx === routeSpotMarkers.length - 1;
                       return `
-                        <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
-                          <div class="itinerary-item-info">
-                            <div class="itinerary-item-name">📍 ${m.title}</div>
-                            <div class="itinerary-item-meta">${m.neighborhood}</div>
+                        <div class="waypoint-row">
+                          <div class="waypoint-timeline">
+                            <span class="waypoint-node ${idx === 0 ? 'is-start' : 'is-stop'}"></span>
+                            ${!isLast ? '<span class="waypoint-line"></span>' : ''}
                           </div>
-                          <div class="itinerary-item-actions">
-                            <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Completed' : 'Mark Visited'}">✓</button>
-                            <button type="button" class="icon-btn nested-icon-btn remove-nested-spot-btn" data-route="${preset.id}" data-id="${m.id}" title="Remove spot from block">✕</button>
+
+                          <div class="location-pill-card ${isVisited ? 'is-visited' : ''}" data-id="${m.id}">
+                            <div class="pill-left-group">
+                              <button type="button" class="icon-btn pin-location-btn" data-id="${m.id}" title="Center Map on Location">📍</button>
+                              <div class="pill-info">
+                                <div class="pill-title">${m.title}</div>
+                                <div class="pill-meta">${m.neighborhood}</div>
+                              </div>
+                            </div>
+
+                            <div class="pill-right-group">
+                              <span class="time-spent-badge" title="Estimated time spent">⏱️ 45m</span>
+                              <div class="pill-actions">
+                                <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Explored!' : 'Mark Visited'}">✓</button>
+                                <button type="button" class="icon-btn remove-nested-spot-btn" data-route="${preset.id}" data-id="${m.id}" title="Remove stop">✕</button>
+                              </div>
+                            </div>
                           </div>
                         </div>
+
+                        ${!isLast ? `
+                          <div class="eta-connector-row">
+                            <span class="eta-spacer"></span>
+                            <div class="eta-pill-badge" title="Travel time between stops">
+                              <span class="eta-icon">🚶</span> <span class="eta-text">-- min</span>
+                            </div>
+                          </div>
+                        ` : ''}
                       `;
                     }).join('')}
                   </div>
@@ -132,42 +156,68 @@ window.MarlonItineraryView = {
               `;
             }).join('')}
 
+            <!-- MY LOCATIONS SECTION -->
             ${activeCustomSpotIds.length > 0 ? `
-              <div class="custom-spots-block-title">📌 Custom Saved Spots (${activeCustomSpotIds.length})</div>
-              ${activeCustomSpotIds.map(sId => {
-                const m = allMarkers.find(item => item.id === sId);
-                if (!m) return '';
-                const spotAssignedDay = itinMap[sId] || 'Day 1';
-                const isVisited = visitedIds.includes(m.id);
-                return `
-                  <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
-                    <div class="itinerary-item-info">
-                      <div class="itinerary-item-name">📍 ${m.title}</div>
-                      <div class="itinerary-item-meta-row">
-                        <span>${m.neighborhood}</span>
-                        <select class="day-assign-select" data-id="${m.id}">
-                          <option value="Day 1" ${spotAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
-                          <option value="Day 2" ${spotAssignedDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
-                          <option value="Day 3" ${spotAssignedDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
-                          <option value="Day 4" ${spotAssignedDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
-                        </select>
+              <div class="custom-spots-block-title">📍 MY LOCATIONS (${activeCustomSpotIds.length})</div>
+              <div class="waypoint-timeline-container">
+                ${activeCustomSpotIds.map((sId, idx) => {
+                  const m = allMarkers.find(item => item.id === sId);
+                  if (!m) return '';
+                  const spotAssignedDay = itinMap[sId] || 'Day 1';
+                  const isVisited = visitedIds.includes(m.id);
+                  const isLast = idx === activeCustomSpotIds.length - 1;
+                  return `
+                    <div class="waypoint-row">
+                      <div class="waypoint-timeline">
+                        <span class="waypoint-node ${idx === 0 ? 'is-start' : 'is-stop'}"></span>
+                        ${!isLast ? '<span class="waypoint-line"></span>' : ''}
+                      </div>
+
+                      <div class="location-pill-card ${isVisited ? 'is-visited' : ''}" data-id="${m.id}">
+                        <div class="pill-left-group">
+                          <button type="button" class="icon-btn pin-location-btn" data-id="${m.id}" title="Center Map on Location">📍</button>
+                          <div class="pill-info">
+                            <div class="pill-title">${m.title}</div>
+                            <div class="pill-meta-row">
+                              <span class="pill-meta">${m.neighborhood}</span>
+                              <select class="day-assign-select compact-day-select" data-id="${m.id}">
+                                <option value="Day 1" ${spotAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
+                                <option value="Day 2" ${spotAssignedDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
+                                <option value="Day 3" ${spotAssignedDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                                <option value="Day 4" ${spotAssignedDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="pill-right-group">
+                          <span class="time-spent-badge" title="Estimated time spent">⏱️ 45m</span>
+                          <div class="pill-actions">
+                            <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Explored!' : 'Mark Visited'}">✓</button>
+                            <button type="button" class="icon-btn remove-toggle" data-id="${m.id}" title="Remove location">✕</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="itinerary-item-actions">
-                      <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="${isVisited ? 'Completed' : 'Mark Visited'}">✓</button>
-                      <button type="button" class="icon-btn remove-toggle" data-id="${m.id}">✕</button>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
+
+                    ${!isLast ? `
+                      <div class="eta-connector-row">
+                        <span class="eta-spacer"></span>
+                        <div class="eta-pill-badge" title="Travel time between stops">
+                          <span class="eta-icon">🚶</span> <span class="eta-text">-- min</span>
+                        </div>
+                      </div>
+                    ` : ''}
+                  `;
+                }).join('')}
+              </div>
             ` : ''}
 
             ${activeRouteIds.length === 0 && activeCustomSpotIds.length === 0 ? `
-              <p class="empty-itinerary-msg">No plans for ${activeDay} yet. Save spots from the Featured or All LA tab!</p>
+              <p class="empty-itinerary-msg">No spots saved for ${activeDay} yet. Discover LA locations in the Featured or All LA tab!</p>
             ` : ''}
           </div>
 
-          <!-- CLEAR DAY BUTTON AT THE BOTTOM -->
           ${(activeRouteIds.length > 0 || activeCustomSpotIds.length > 0) ? `
             <div class="clear-day-container">
               <button type="button" class="clear-day-bottom-btn">🗑️ Clear ${activeDay === 'All' ? 'All Plans' : `${activeDay} Plans`}</button>
@@ -182,7 +232,7 @@ window.MarlonItineraryView = {
     const clearDayBtn = container.querySelector('.clear-day-bottom-btn');
     if (clearDayBtn && callbacks.onClearDay) {
       clearDayBtn.addEventListener('click', () => {
-        const msg = activeDay === 'All' ? 'Clear your entire planned itinerary?' : `Clear all route blocks and spots planned for ${activeDay}?`;
+        const msg = activeDay === 'All' ? 'Clear your entire planned trip?' : `Clear all route packages and locations saved for ${activeDay}?`;
         if (confirm(msg)) {
           callbacks.onClearDay(activeDay);
         }
@@ -239,9 +289,16 @@ window.MarlonItineraryView = {
       });
     });
 
-    container.querySelectorAll('.itinerary-item').forEach(el => {
+    container.querySelectorAll('.pin-location-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (callbacks.onSpotClick) callbacks.onSpotClick(btn.dataset.id);
+      });
+    });
+
+    container.querySelectorAll('.location-pill-card').forEach(el => {
       el.addEventListener('click', (e) => {
-        if (e.target.closest('.icon-btn') || e.target.closest('.day-assign-select') || e.target.closest('.route-day-select')) return;
+        if (e.target.closest('.icon-btn') || e.target.closest('.compact-day-select')) return;
         if (callbacks.onSpotClick) callbacks.onSpotClick(el.dataset.id);
       });
     });
