@@ -300,32 +300,7 @@ window.initMapEngine = async function() {
       },
       onSpotClick: (sId) => {
         const match = allMarkers.find(m => m.id === sId);
-        if (match) {
-          map.flyTo({
-            center: [match.lng, match.lat],
-            zoom: Math.max(map.getZoom(), 13.0),
-            duration: 1000
-          });
-        }
-      },
-      onSelectRouteBlock: (rId) => {
-        const presets = window.MARLON_ROUTES_PRESETS || [];
-        const preset = presets.find(p => p.id === rId);
-
-        allMarkers.forEach(m => m.wrapper.classList.remove('is-focused-pin'));
-
-        if (preset) {
-          const targetSpotIds = [];
-          preset.spotTitles.forEach(t => {
-            const cleanT = t.toLowerCase().trim();
-            const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
-            if (match) {
-              match.wrapper.classList.add('is-focused-pin');
-              targetSpotIds.push(match.id);
-            }
-          });
-          if (targetSpotIds.length > 0) applyModeMapFilter(targetSpotIds);
-        }
+        if (match) match.wrapper.click();
       }
     });
 
@@ -436,12 +411,11 @@ window.initMapEngine = async function() {
         showSpotDetailsView();
         window.MarlonSpotCard.render(spotData, spotDetailsView, {
           onBack: () => switchTab(activeTab),
-onToggleSave: (sId) => {
-  window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
-  updateMarkerStates();
-  renderFeaturedPackages();
-  applyFilters(true); // Preserves map zoom and center position
-}
+          onToggleSave: (sId) => {
+            window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
+            updateMarkerStates();
+            renderFeaturedPackages();
+          },
           onToggleVisited: (sId) => {
             window.MarlonStorage.toggleVisitedSpot(sId);
             updateMarkerStates();
@@ -765,7 +739,7 @@ onToggleSave: (sId) => {
     });
   }
 
- function applyFilters(preserveCamera = false) {
+  function applyFilters() {
     if (activeTab === 'trip') return;
 
     const bounds = new mapboxgl.LngLatBounds();
@@ -798,9 +772,6 @@ onToggleSave: (sId) => {
       renderSpotFeed(featuredSpotFeedEl, visibleSpots);
     }
 
-    // PREVENT MAP CAMERA RESET WHEN ADDING/SAVING SPOTS
-    if (preserveCamera) return;
-
     const isFiltered = (activeTab !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
 
     if (!isFiltered) {
@@ -811,3 +782,10 @@ onToggleSave: (sId) => {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200, speed: 0.8 });
     }
   }
+
+  map.on('load', () => {
+    updateMarkerStates();
+    renderFeaturedPackages();
+    switchTab('featured');
+  });
+};
