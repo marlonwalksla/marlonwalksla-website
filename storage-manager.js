@@ -41,7 +41,6 @@ window.MarlonStorage = {
 
     let spotIds = Object.keys(spotMap);
 
-    // Include non-excluded spots from imported route blocks
     Object.keys(routeMap).forEach(routeId => {
       const preset = presets.find(p => p.id === routeId);
       if (preset && window.MARLON_ALL_MARKERS) {
@@ -61,7 +60,7 @@ window.MarlonStorage = {
     return spotIds;
   },
 
-  toggleSavedSpot: function(id, defaultDay = 'Day 1') {
+  toggleSavedSpot: function(id, defaultDay = 'Unassigned') {
     let map = this.getItineraryMap();
     if (map[id]) {
       delete map[id];
@@ -79,7 +78,7 @@ window.MarlonStorage = {
     }
   },
 
-  toggleRouteBlock: function(routeId, day = 'Day 1') {
+  toggleRouteBlock: function(routeId, day = 'Unassigned') {
     let routes = this.getSavedRoutesMap();
     if (routes[routeId]) {
       delete routes[routeId];
