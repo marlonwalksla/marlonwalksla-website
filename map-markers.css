@@ -145,9 +145,9 @@
   .ernesto-photobomb { width: 80px; top: -30px; right: -10px; }
 }
 
-/* ENLARGED HIGHLIGHT STATE FOR SELECTED ROUTE / GROUP PINS */
+/* FOCUSED PIN HIGHLIGHT STATE */
 .marker-wrapper.is-focused-pin .custom-emoji-marker {
-  transform: scale(1.45) !important;
+  transform: scale(1.1) !important;
   z-index: 999 !important;
-  box-shadow: 0 0 0 4px #ffffff, 0 0 0 8px #2563eb, 0 8px 20px rgba(37, 99, 235, 0.4) !important;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 5px #2563eb, 0 4px 10px rgba(37, 99, 235, 0.3) !important;
 }
