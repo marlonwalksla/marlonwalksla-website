@@ -63,6 +63,11 @@ window.MarlonItineraryView = {
                       <span class="route-block-meta">${routeSpotMarkers.length} Spots • ${preset.duration.split('•')[1] || ''}</span>
                     </div>
                     <div class="route-block-controls">
+                      ${preset.bookingUrl ? `
+                        <a href="${preset.bookingUrl}" target="_blank" class="featured-book-btn" onclick="event.stopPropagation();">
+                          ${preset.bookingLabel || '🎟️ Book'}
+                        </a>
+                      ` : ''}
                       <select class="compact-day-select route-day-select" data-route="${preset.id}">
                         <option value="Unassigned" ${routeAssignedDay === 'Unassigned' ? 'selected' : ''}>Unassigned</option>
                         <option value="Day 1" ${routeAssignedDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
