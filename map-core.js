@@ -243,7 +243,7 @@ window.initMapEngine = async function() {
     }
   }
 
- function renderItinerary() {
+  function renderItinerary() {
     window.MarlonItineraryView.renderItinerary(listCardView, allMarkers, {
       onClearDay: (dayToClear) => {
         const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
@@ -306,6 +306,25 @@ window.initMapEngine = async function() {
             zoom: Math.max(map.getZoom(), 13.0),
             duration: 1000
           });
+        }
+      },
+      onSelectRouteBlock: (rId) => {
+        const presets = window.MARLON_ROUTES_PRESETS || [];
+        const preset = presets.find(p => p.id === rId);
+
+        allMarkers.forEach(m => m.wrapper.classList.remove('is-focused-pin'));
+
+        if (preset) {
+          const targetSpotIds = [];
+          preset.spotTitles.forEach(t => {
+            const cleanT = t.toLowerCase().trim();
+            const match = allMarkers.find(m => m.title.toLowerCase().includes(cleanT) || cleanT.includes(m.title.toLowerCase()));
+            if (match) {
+              match.wrapper.classList.add('is-focused-pin');
+              targetSpotIds.push(match.id);
+            }
+          });
+          if (targetSpotIds.length > 0) applyModeMapFilter(targetSpotIds);
         }
       }
     });
