@@ -221,7 +221,6 @@ window.initMapEngine = async function() {
     const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
     const visitedIds = window.MarlonStorage.getVisitedSpots();
 
-    // GET SPOTS INCLUDED IN CURRENTLY SELECTED PREVIEW TOUR
     let previewSpotIds = [];
     if (activeSelectedRouteId) {
       const presets = window.MARLON_ROUTES_PRESETS || [];
@@ -521,7 +520,6 @@ window.initMapEngine = async function() {
     }
   });
 
-  // HEADER BAR WITH DYNAMIC TAB TITLE
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-hero-cta-box';
@@ -577,11 +575,14 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(divider);
   }
 
-  // TAB 1: MARLONWALKSLA TOURS
+  // TAB 1: MARLONWALKSLA TOURS (PRESERVES SCROLL POSITION)
   function renderMarlonTours() {
     if (!marlonToursView) return;
     const presets = window.MARLON_ROUTES_PRESETS || [];
     const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
+
+    const existingList = marlonToursView.querySelector('.featured-preset-list');
+    const savedScrollPos = existingList ? existingList.scrollTop : 0;
 
     marlonToursView.innerHTML = `
       <div class="featured-preset-list">
@@ -620,6 +621,9 @@ window.initMapEngine = async function() {
         }).join('')}
       </div>
     `;
+
+    const newList = marlonToursView.querySelector('.featured-preset-list');
+    if (newList) newList.scrollTop = savedScrollPos;
 
     marlonToursView.querySelectorAll('.featured-import-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
