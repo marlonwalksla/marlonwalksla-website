@@ -436,11 +436,12 @@ window.initMapEngine = async function() {
         showSpotDetailsView();
         window.MarlonSpotCard.render(spotData, spotDetailsView, {
           onBack: () => switchTab(activeTab),
-          onToggleSave: (sId) => {
-            window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
-            updateMarkerStates();
-            renderFeaturedPackages();
-          },
+onToggleSave: (sId) => {
+  window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
+  updateMarkerStates();
+  renderFeaturedPackages();
+  applyFilters(true); // Preserves map zoom and center position
+}
           onToggleVisited: (sId) => {
             window.MarlonStorage.toggleVisitedSpot(sId);
             updateMarkerStates();
@@ -764,7 +765,7 @@ window.initMapEngine = async function() {
     });
   }
 
-  function applyFilters() {
+ function applyFilters(preserveCamera = false) {
     if (activeTab === 'trip') return;
 
     const bounds = new mapboxgl.LngLatBounds();
@@ -797,6 +798,9 @@ window.initMapEngine = async function() {
       renderSpotFeed(featuredSpotFeedEl, visibleSpots);
     }
 
+    // PREVENT MAP CAMERA RESET WHEN ADDING/SAVING SPOTS
+    if (preserveCamera) return;
+
     const isFiltered = (activeTab !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
 
     if (!isFiltered) {
@@ -807,10 +811,3 @@ window.initMapEngine = async function() {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1200, speed: 0.8 });
     }
   }
-
-  map.on('load', () => {
-    updateMarkerStates();
-    renderFeaturedPackages();
-    switchTab('featured');
-  });
-};
