@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: itinerary-ui.css
- * CATEGORY: MarlonWalksLA Website - Active Day Indicators & Itinerary Styling
+ * CATEGORY: MarlonWalksLA Website - Explorer Waypoint Timeline & Location Pills
  * ============================================================================== */
 
 .itinerary-view-wrapper {
@@ -16,7 +16,7 @@
   gap: 4px;
   overflow-x: auto;
   padding: 2px 0;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .day-label {
@@ -24,6 +24,7 @@
   font-weight: 800;
   color: #718096;
   text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 .day-pill {
@@ -39,7 +40,6 @@
   transition: all 0.2s ease;
 }
 
-/* DAY HAS PLANNED ITEMS (BLUE ACCENT) */
 .day-pill.has-items {
   background-color: #eff6ff;
   border-color: #93c5fd;
@@ -47,7 +47,6 @@
   font-weight: 800;
 }
 
-/* DAY PILL IS SELECTED/ACTIVE */
 .day-pill.is-active {
   background: #2563eb !important;
   color: #ffffff !important;
@@ -55,28 +54,268 @@
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
 }
 
-.itinerary-blocks-container {
+/* WAYPOINT TIMELINE CONTAINER */
+.waypoint-timeline-container {
   display: flex;
   flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.waypoint-row {
+  display: flex;
+  align-items: stretch;
   gap: 8px;
-  max-height: 220px;
-  overflow-y: auto;
-  padding-right: 2px;
-  margin-bottom: 6px;
+  width: 100%;
+}
+
+.waypoint-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16px;
+  flex-shrink: 0;
+  position: relative;
+  padding-top: 10px;
+}
+
+.waypoint-node {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #2563eb;
+  background: #ffffff;
+  box-sizing: border-box;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.waypoint-node.is-start {
+  background: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.waypoint-line {
+  width: 2px;
+  flex: 1;
+  background-color: #cbd5e0;
+  margin-top: 2px;
+  z-index: 1;
+}
+
+/* LOCATION PILL CARD */
+.location-pill-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e0;
+  border-radius: 18px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  margin-bottom: 4px;
+}
+
+.location-pill-card:hover {
+  border-color: #3898ec;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+.location-pill-card.is-visited {
+  background-color: #f0fdf4;
+  border-color: #10b981;
+}
+
+.pill-left-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pill-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.pill-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pill-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-meta {
+  font-size: 9px;
+  font-weight: 600;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* COMPACT DAY SELECTOR (PREVENTS CARD BREAKING) */
+.compact-day-select {
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  color: #2563eb !important;
+  background-color: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 8px !important;
+  padding: 1px 4px !important;
+  cursor: pointer !important;
+  height: 18px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  width: auto !important;
+  display: inline-block !important;
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+}
+
+.compact-day-select:hover {
+  border-color: #2563eb !important;
+}
+
+/* RIGHT GROUP: TIME BADGE & ACTIONS */
+.pill-right-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: 6px;
+}
+
+.time-spent-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #475569;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.pill-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e0;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.icon-btn:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+  transform: scale(1.08);
+}
+
+.icon-btn.pin-location-btn {
+  background: #f8fafc;
+  border-color: #cbd5e0;
+}
+
+.icon-btn.visited-toggle.is-active {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.icon-btn.remove-toggle,
+.icon-btn.remove-route-block-btn,
+.icon-btn.remove-nested-spot-btn {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.icon-btn.remove-toggle:hover,
+.icon-btn.remove-route-block-btn:hover,
+.icon-btn.remove-nested-spot-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+/* ETA CONNECTOR ROW */
+.eta-connector-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -2px 0 2px 0;
+}
+
+.eta-spacer {
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.eta-pill-badge {
+  font-size: 8px;
+  font-weight: 700;
+  color: #94a3b8;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e0;
+  border-radius: 6px;
+  padding: 1px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* SECTION TITLES & CARDS */
+.custom-spots-block-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 8px 0 4px 2px;
 }
 
 .route-block-card {
   background: #ffffff;
   border: 1.5px solid #cbd5e0;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
+  margin-bottom: 6px;
 }
 
 .route-block-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 10px;
+  padding: 6px 10px;
   background-color: #f0f7ff;
   cursor: pointer;
   user-select: none;
@@ -94,13 +333,13 @@
 }
 
 .route-block-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   color: #1e3a8a;
 }
 
 .route-block-meta {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   color: #3b82f6;
 }
@@ -108,99 +347,13 @@
 .route-block-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
-}
-
-.route-day-select, .day-assign-select {
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  color: #2563eb !important;
-  background-color: #ffffff !important;
-  border: 1px solid #cbd5e0 !important;
-  border-radius: 10px !important;
-  padding: 2px 6px !important;
-  cursor: pointer !important;
-  height: 22px !important;
-  margin: 0 !important;
+  gap: 4px;
 }
 
 .route-block-body {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 6px;
+  padding: 8px 6px 4px 6px;
   background-color: #f8fafc;
   border-top: 1px dashed #cbd5e0;
-}
-
-.nested-spot-item {
-  background: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
-  padding: 4px 8px !important;
-  border-radius: 6px !important;
-}
-
-.custom-spots-block-title {
-  font-size: 10px;
-  font-weight: 800;
-  color: #64748b;
-  text-transform: uppercase;
-  margin: 4px 0 2px 2px;
-}
-
-.itinerary-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  border: 1.5px solid #cbd5e0;
-  border-radius: 8px;
-  padding: 8px 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.itinerary-item.is-visited-item {
-  background-color: #f0fdf4;
-  border-color: #10b981;
-}
-
-.itinerary-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 1px solid #cbd5e0;
-  background: #ffffff;
-  color: #718096;
-  font-size: 10px;
-  font-weight: 800;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.2s ease;
-}
-
-.icon-btn.visited-toggle.is-active {
-  background: #10b981;
-  color: #ffffff;
-  border-color: #10b981;
-  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
-}
-
-.icon-btn.remove-toggle,
-.icon-btn.remove-route-block-btn,
-.icon-btn.remove-nested-spot-btn {
-  background: #fef2f2;
-  border-color: #fca5a5;
-  color: #ef4444;
 }
 
 .clear-day-container {
@@ -216,33 +369,21 @@
   color: #991b1b;
   font-size: 10px;
   font-weight: 800;
-  padding: 6px 14px;
-  border-radius: 16px;
+  padding: 5px 12px;
+  border-radius: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .clear-day-bottom-btn:hover {
-  background: #fca5a5;
+  background: #ef4444;
   color: #ffffff;
 }
 
 .empty-itinerary-msg {
   font-size: 11px;
-  color: #a0aec0;
+  color: #94a3b8;
   font-style: italic;
-  margin: 4px 0;
-}
-
-.itinerary-item-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-}
-
-.itinerary-item-name {
-  font-size: 12px;
-  font-weight: 800;
-  color: #1a202c;
+  margin: 8px 0;
+  text-align: center;
 }
