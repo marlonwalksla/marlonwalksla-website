@@ -128,7 +128,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 6px;
+  gap: 8px;
 }
 
 .featured-preset-info {
@@ -136,6 +136,7 @@
   flex-direction: column;
   gap: 2px;
   flex: 1;
+  min-width: 0;
 }
 
 .featured-preset-title {
@@ -156,26 +157,28 @@
   line-height: 1.3;
 }
 
-/* TOUR CARD CTA ACTIONS */
+/* STANDARDIZED BUTTON CONTAINER (130px FIXED WIDTH) */
 .featured-card-actions {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  align-items: flex-end;
+  width: 130px;
   flex-shrink: 0;
 }
 
 .featured-import-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   background: #ffffff;
   border: 1.5px solid #3898ec;
   color: #3898ec;
   font-size: 10px;
   font-weight: 800;
-  padding: 4px 10px;
+  padding: 5px 8px;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 100%;
   text-align: center;
 }
 
@@ -186,13 +189,15 @@
 }
 
 .featured-book-btn {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   background: #f0fdf4;
   border: 1.5px solid #10b981;
   color: #047857;
   font-size: 10px;
   font-weight: 800;
-  padding: 4px 8px;
+  padding: 5px 8px;
   border-radius: 12px;
   text-decoration: none !important;
   transition: all 0.2s ease;
@@ -203,6 +208,20 @@
 .featured-book-btn:hover {
   background: #10b981;
   color: #ffffff;
+}
+
+/* ROUTE BLOCK CONTROLS IN YOUR TRIP VIEW */
+.route-block-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.route-block-controls .featured-book-btn {
+  width: auto;
+  padding: 3px 8px;
+  font-size: 9px;
 }
 
 .featured-preview-details {
