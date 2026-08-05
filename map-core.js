@@ -76,6 +76,7 @@ window.initMapEngine = async function() {
 
   const form = document.querySelector('.filter-bar form');
   let topHeaderView = null;
+  let dynamicTitleText = null;
   let marlonToursView = null;
   let featuredSpotsView = null;
   let allLaView = null;
@@ -150,20 +151,39 @@ window.initMapEngine = async function() {
   }
 
   function updateTabCounts() {
-    const tripCount = window.MarlonStorage.getSavedSpotIds().length;
-    const visitedCount = window.MarlonStorage.getVisitedSpots().length;
+    const presetsCount = (window.MARLON_ROUTES_PRESETS || []).length;
+    const featuredPresets = window.MARLON_ROUTES_PRESETS || [];
+    const featuredTitles = featuredPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim()));
+    const featuredCount = allMarkers.filter(m => {
+      const cleanTitle = m.title.toLowerCase().trim();
+      return featuredTitles.some(t => cleanTitle.includes(t) || t.includes(cleanTitle));
+    }).length;
 
-    if (tabMarlonBtn) tabMarlonBtn.innerText = `🚶‍♂️ MarlonWalksLA`;
-    if (tabFeaturedBtn) tabFeaturedBtn.innerText = `✨ Featured Spots`;
-    if (tabAllBtn) tabAllBtn.innerText = `🌐 All LA`;
+    const allCount = allMarkers.length;
+    const visitedCount = window.MarlonStorage.getVisitedSpots().length;
+    const tripCount = window.MarlonStorage.getSavedSpotIds().length;
+
+    if (tabMarlonBtn) tabMarlonBtn.innerText = `🚶‍♂️ Tours (${presetsCount})`;
+    if (tabFeaturedBtn) tabFeaturedBtn.innerText = `✨ Featured (${featuredCount})`;
+    if (tabAllBtn) tabAllBtn.innerText = `🌐 All (${allCount})`;
     if (tabVisitedBtn) tabVisitedBtn.innerText = `✅ Visited (${visitedCount})`;
-    if (tabTripBtn) tabTripBtn.innerText = `📋 Your Trip (${tripCount})`;
+    if (tabTripBtn) tabTripBtn.innerText = `📋 Trip (${tripCount})`;
   }
 
   function switchTab(targetTab) {
     activeTab = targetTab;
     topHeaderView.style.display = 'block';
     spotDetailsView.style.display = 'none';
+
+    // DYNAMICALLY REPLACE MAIN TITLE
+    const tabTitles = {
+      'marlon': 'MarlonWalksLA Tours',
+      'featured-spots': 'Featured Locations',
+      'all': 'Explore All LA',
+      'visited': 'Visited Passport',
+      'trip': 'Your Trip Itinerary'
+    };
+    if (dynamicTitleText) dynamicTitleText.innerText = tabTitles[targetTab] || 'Explore Los Angeles';
 
     if (tabMarlonBtn) tabMarlonBtn.classList.toggle('is-active', targetTab === 'marlon');
     if (tabFeaturedBtn) tabFeaturedBtn.classList.toggle('is-active', targetTab === 'featured-spots');
@@ -342,10 +362,7 @@ window.initMapEngine = async function() {
     const visitedSpots = allMarkers.filter(m => visitedIds.includes(m.id));
 
     visitedView.innerHTML = `
-      <div class="featured-feed-header">
-        <span class="featured-feed-title">✅ VISITED PASSPORT (${visitedSpots.length})</span>
-      </div>
-      <div class="featured-spot-feed-container" style="max-height: 380px;">
+      <div class="featured-spot-feed-container" style="max-height: 420px;">
         ${visitedSpots.length === 0 ? '<p class="empty-itinerary-msg">No locations checked off yet. Mark places as visited as you explore!</p>' : ''}
         ${visitedSpots.map(s => `
           <div class="spot-feed-card" data-id="${s.id}">
@@ -491,14 +508,14 @@ window.initMapEngine = async function() {
     }
   });
 
-  // 5-TAB HEADER BAR
+  // HEADER BAR WITH DYNAMIC TAB TITLE
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-hero-cta-box';
 
-    const titleText = document.createElement('h2');
-    titleText.className = 'map-hero-cta-title';
-    titleText.innerText = "Explore Los Angeles";
+    dynamicTitleText = document.createElement('h2');
+    dynamicTitleText.className = 'map-hero-cta-title';
+    dynamicTitleText.innerText = "MarlonWalksLA Tours";
 
     const scopeToggleWrap = document.createElement('div');
     scopeToggleWrap.className = 'scope-toggle-wrap tri-tab multi-tab-bar';
@@ -537,7 +554,7 @@ window.initMapEngine = async function() {
     scopeToggleWrap.appendChild(tabVisitedBtn);
     scopeToggleWrap.appendChild(tabTripBtn);
 
-    mainTitleHeader.appendChild(titleText);
+    mainTitleHeader.appendChild(dynamicTitleText);
     mainTitleHeader.appendChild(scopeToggleWrap);
 
     topHeaderView.appendChild(mainTitleHeader);
@@ -547,17 +564,13 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(divider);
   }
 
-  // TAB 1: MARLONWALKSLA GUIDED WALKS
+  // TAB 1: MARLONWALKSLA TOURS
   function renderMarlonTours() {
     if (!marlonToursView) return;
     const presets = window.MARLON_ROUTES_PRESETS || [];
     const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
 
     marlonToursView.innerHTML = `
-      <div class="featured-feed-header">
-        <span class="featured-feed-title">🚶‍♂️ MARLONWALKSLA TOURS</span>
-      </div>
-
       <div class="featured-preset-list">
         ${presets.map(p => {
           const isImported = !!savedRoutesMap[p.id];
@@ -616,12 +629,7 @@ window.initMapEngine = async function() {
 
   // TAB 2: FEATURED SPOTS
   if (featuredSpotsView) {
-    featuredSpotsView.innerHTML = `
-      <div class="featured-feed-header">
-        <span class="featured-feed-title">✨ FEATURED LOCATIONS</span>
-      </div>
-      <div class="featured-spot-feed-container" style="max-height: 380px;"></div>
-    `;
+    featuredSpotsView.innerHTML = `<div class="featured-spot-feed-container" style="max-height: 420px;"></div>`;
     featuredSpotFeedEl = featuredSpotsView.querySelector('.featured-spot-feed-container');
   }
 
@@ -631,11 +639,6 @@ window.initMapEngine = async function() {
   let activeTag = 'All';
 
   if (allLaView) {
-    const headerIntro = document.createElement('div');
-    headerIntro.className = 'featured-feed-header';
-    headerIntro.innerHTML = `<span class="featured-feed-title">🌐 ALL LOCATIONS</span>`;
-    allLaView.appendChild(headerIntro);
-
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
