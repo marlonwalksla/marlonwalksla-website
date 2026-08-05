@@ -29,10 +29,6 @@ window.MarlonItineraryView = {
 
     let html = `
       <div class="itinerary-view-wrapper">
-        <div class="featured-feed-header">
-          <span class="featured-feed-title">📋 YOUR TRIP ITINERARY</span>
-        </div>
-
         <div class="day-filter-bar">
           <span class="day-label">Plan Day:</span>
           ${daysList.map(d => `
