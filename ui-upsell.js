@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-upsell.js
- * CATEGORY: MarlonWalksLA Website - Recommended Tour Card Generator
+ * CATEGORY: MarlonWalksLA Website - Recommended Tour Card (Anchored at Bottom)
  * ============================================================================== */
 
 window.MarlonUpsell = {
@@ -25,7 +25,7 @@ window.MarlonUpsell = {
     let tourDesc = dtlaCount >= 1 
       ? `You have ${dtlaCount} DTLA spot(s) saved! Join Marlon's 2-hr historic walking tour.`
       : "Marlon's flagship 2-hour walking tour through historic DTLA architecture, markets, and culture.";
-    let tourUrl = "https://marlonwalksla.com";
+    let tourUrl = "https://www.freetour.com/los-angeles/free-tour-of-downtown-los-angeles";
     let btnText = "🎟️ Book Free Walk";
 
     if (hollywoodCount > dtlaCount) {
@@ -54,6 +54,7 @@ window.MarlonUpsell = {
       });
     }
 
-    container.prepend(card);
+    // APPEND TO THE BOTTOM OF YOUR TRIP TAB
+    container.appendChild(card);
   }
 };
