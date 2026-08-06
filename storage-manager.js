@@ -73,7 +73,7 @@ window.MarlonStorage = {
     return spotIds;
   },
 
-  toggleSavedSpot: function(id, defaultDay = 'Day 1') {
+toggleSavedSpot: function(id, defaultDay = 'All') {
     let map = this.getItineraryMap();
     if (map[id]) {
       delete map[id];
