@@ -36,9 +36,10 @@ window.initMapEngine = async function() {
   const tagsSet = new Set();
 
   const form = document.querySelector('.filter-bar form');
-  let searchWrapper = null, hotelAnchorBox = null, topHeaderView = null, featuredView = null, allLaView = null, spotDetailsView = null, listCardView = null;
+  let searchWrapper = null, hotelAnchorBox = null, topHeaderView = null, featuredView = null, allLaView = null, listCardView = null;
   let scopeFeaturedBtn = null, scopeAllBtn = null, scopeTripBtn = null;
   let activeTab = 'trip';
+  let activePopup = null; // Track floating popups
 
   if (form) {
     const filterBarParent = form.closest('.filter-bar');
@@ -46,28 +47,23 @@ window.initMapEngine = async function() {
     form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); return false; });
     form.innerHTML = '';
 
-    const dragHandle = document.createElement('div');
-    dragHandle.className = 'mobile-drag-handle';
-    form.appendChild(dragHandle);
+    const dragHandle = document.createElement('div'); dragHandle.className = 'mobile-drag-handle'; form.appendChild(dragHandle);
     dragHandle.addEventListener('click', (e) => { e.preventDefault(); if (filterBarParent) { filterBarParent.classList.toggle('is-expanded'); filterBarParent.classList.toggle('is-collapsed'); } });
 
-    searchWrapper = document.createElement('div');
-    searchWrapper.className = 'map-search-wrapper';
+    // CREATE CONTAINERS BUT DO NOT APPEND SEARCH/HOTEL GLOBALLY YET
+    searchWrapper = document.createElement('div'); searchWrapper.className = 'map-search-wrapper';
     searchWrapper.innerHTML = `<input type="text" class="map-search-input" placeholder="🔍 Search 102 spots, hotels, locations..." /><div class="search-results-dropdown"></div>`;
-    form.appendChild(searchWrapper);
+    hotelAnchorBox = document.createElement('div'); hotelAnchorBox.className = 'hotel-anchor-box';
 
-    hotelAnchorBox = document.createElement('div'); hotelAnchorBox.className = 'hotel-anchor-box'; form.appendChild(hotelAnchorBox);
     topHeaderView = document.createElement('div'); topHeaderView.id = 'top-header-view';
     featuredView = document.createElement('div'); featuredView.id = 'featured-view'; featuredView.style.display = 'none';
     allLaView = document.createElement('div'); allLaView.id = 'all-la-view'; allLaView.style.display = 'none';
-    spotDetailsView = document.createElement('div'); spotDetailsView.id = 'spot-details-view'; spotDetailsView.style.display = 'none';
     listCardView = document.createElement('div'); listCardView.id = 'list-card-view'; listCardView.style.display = 'flex'; listCardView.style.flexDirection = 'column';
 
     form.appendChild(topHeaderView);
     form.appendChild(listCardView);
     form.appendChild(featuredView);
     form.appendChild(allLaView);
-    form.appendChild(spotDetailsView);
   }
 
   function updateMarkerStates() {
@@ -89,25 +85,25 @@ window.initMapEngine = async function() {
     const tripCount = window.MarlonStorage.getSavedSpotIds().length;
 
     if (scopeFeaturedBtn) scopeFeaturedBtn.innerText = `✨ Featured (${featuredCount})`;
-    if (scopeAllBtn) scopeAllBtn.innerText = `🌐 All (${allCount})`; /* FIX 6: RENAME ALL LA TO ALL */
-    if (scopeTripBtn) scopeTripBtn.innerText = `📋 Your Trip (${tripCount})`;
+    if (scopeAllBtn) scopeAllBtn.innerText = `🌐 All (${allCount})`;
+    if (scopeTripBtn) scopeTripBtn.innerText = `📋 Trip (${tripCount})`; // Renamed to "Trip"
   }
 
   function switchTab(targetTab) {
     activeTab = targetTab;
-    topHeaderView.style.display = 'block';
-    spotDetailsView.style.display = 'none';
-
+    
+    // Toggle active classes on buttons
     if (scopeFeaturedBtn) scopeFeaturedBtn.classList.toggle('is-active', targetTab === 'featured');
     if (scopeAllBtn) scopeAllBtn.classList.toggle('is-active', targetTab === 'all');
     if (scopeTripBtn) scopeTripBtn.classList.toggle('is-active', targetTab === 'trip');
 
+    // Strict Tab Visibility Toggling
     if (targetTab === 'featured') {
       featuredView.style.display = 'flex'; allLaView.style.display = 'none'; listCardView.style.display = 'none';
       if (window.MarlonFeaturedView) window.MarlonFeaturedView.render(featuredView, allMarkers, { onImportRoute: () => { updateMarkerStates(); renderItinerary(); }, onPanToRoute: (pId) => { const preset = (window.MARLON_ROUTES_PRESETS || []).find(p => p.id === pId); if (preset) { const bounds = new mapboxgl.LngLatBounds(); preset.spotTitles.forEach(t => { const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase())); if (match) bounds.extend([match.lng, match.lat]); }); map.fitBounds(bounds, { padding: 60, maxZoom: 13.5 }); } }, onResetRoutePan: () => map.flyTo({ center: dtlaCenter, zoom: 10.2 }) });
     } else if (targetTab === 'all') {
       featuredView.style.display = 'none'; allLaView.style.display = 'flex'; listCardView.style.display = 'none';
-      if (window.MarlonAllLaView) window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter);
+      if (window.MarlonAllLaView) window.MarlonAllLaView.render(allLaView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, hotelAnchorBox, () => window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter));
     } else if (targetTab === 'trip') {
       featuredView.style.display = 'none'; allLaView.style.display = 'none'; listCardView.style.display = 'flex';
       renderItinerary();
@@ -152,23 +148,26 @@ window.initMapEngine = async function() {
     const marker = new mapboxgl.Marker({ element: wrapper }).setLngLat([lng, lat]);
     const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
     
-    // FIX 9: CARD POP-OUT ON MAP PIN CLICK
+    // FIX: MAPBOX POPUP BEHAVIOR (Floating above pin)
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
       map.flyTo({ center: [lng, lat], zoom: 13.5 });
       
-      if (window.MarlonSpotCard && spotDetailsView) {
-        window.MarlonSpotCard.render(spotData, spotDetailsView, {
-          onBack: () => switchTab(activeTab),
-          onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); },
-          onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); }
-        }, categoryMap, defaultPinSvg);
+      if (activePopup) activePopup.remove();
+
+      if (window.MarlonSpotCard) {
+        const popupContainer = document.createElement('div');
         
-        topHeaderView.style.display = 'none';
-        featuredView.style.display = 'none';
-        allLaView.style.display = 'none';
-        listCardView.style.display = 'none';
-        spotDetailsView.style.display = 'block';
+        window.MarlonSpotCard.render(spotData, popupContainer, {
+          onBack: () => { if(activePopup) activePopup.remove(); },
+          onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); renderItinerary(); },
+          onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); renderItinerary(); }
+        }, categoryMap, defaultPinSvg);
+
+        activePopup = new mapboxgl.Popup({ offset: 25, closeOnClick: true, focusAfterOpen: false })
+          .setLngLat([lng, lat])
+          .setDOMContent(popupContainer)
+          .addTo(map);
       }
     });
     allMarkers.push(spotData);
@@ -192,7 +191,7 @@ window.initMapEngine = async function() {
     mainTitleHeader.appendChild(titleText); mainTitleHeader.appendChild(scopeToggleWrap); topHeaderView.appendChild(mainTitleHeader);
   }
 
-  // [Initialize Sub-modules exactly as they were]
+  // INIT SUB-MODULES
   if (window.MarlonSearch) {
     window.MarlonSearch.init(searchWrapper, map, allMarkers, dtlaCenter, {
       onSelectSpot: (spotId) => { window.MarlonStorage.toggleSavedSpot(spotId, 'All'); updateMarkerStates(); renderItinerary(); },
@@ -200,7 +199,6 @@ window.initMapEngine = async function() {
     });
   }
   if (window.MarlonHotel) window.MarlonHotel.updateUI(hotelAnchorBox, () => searchWrapper.querySelector('.map-search-input').focus());
-  if (window.MarlonAllLaView) window.MarlonAllLaView.render(allLaView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, () => window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter));
 
   map.on('load', () => { if (window.MarlonHotel) window.MarlonHotel.renderMarker(map); updateMarkerStates(); switchTab('trip'); });
 };
