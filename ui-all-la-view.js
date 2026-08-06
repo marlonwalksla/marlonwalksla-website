@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-all-la-view.js
- * CATEGORY: MarlonWalksLA Website - All LA Directory & Pin Engine
+ * CATEGORY: MarlonWalksLA Website - All LA Directory & Filter Controls
  * ============================================================================== */
 
 window.MarlonAllLaView = {
@@ -15,18 +15,17 @@ window.MarlonAllLaView = {
     const headerIntro = document.createElement('div');
     headerIntro.className = 'featured-feed-header';
     headerIntro.innerHTML = `
-      <span class="featured-feed-title">🌐 EXPLORE ALL LOCATIONS</span>
-      <span class="featured-feed-subtitle">Filter by category, vibe, or neighborhood to curate your route:</span>
+      <span class="featured-feed-title">🌐 All Locations</span>
     `;
     container.appendChild(headerIntro);
 
-    // CATEGORIES PILLS BAR
+    // CATEGORIES
     const catGroup = document.createElement('div');
     catGroup.className = 'dashboard-group';
 
     const catLabel = document.createElement('div');
     catLabel.className = 'dashboard-label';
-    catLabel.innerText = '🏷️ CATEGORIES';
+    catLabel.innerText = '🏷️ Categories';
     catGroup.appendChild(catLabel);
 
     const catPillsBar = document.createElement('div');
@@ -60,7 +59,7 @@ window.MarlonAllLaView = {
       if (applyFiltersCallback) applyFiltersCallback();
     });
 
-    // VIBE DROPDOWN
+    // VIBE
     let tagSelect = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div');
@@ -68,7 +67,7 @@ window.MarlonAllLaView = {
 
       const tagLabel = document.createElement('div');
       tagLabel.className = 'dashboard-label';
-      tagLabel.innerText = '✨ VIBE';
+      tagLabel.innerText = '✨ Vibe';
       tagGroup.appendChild(tagLabel);
 
       tagSelect = document.createElement('select');
@@ -87,13 +86,13 @@ window.MarlonAllLaView = {
       });
     }
 
-    // NEIGHBORHOOD DROPDOWN
+    // NEIGHBORHOODS
     const areaGroup = document.createElement('div');
     areaGroup.className = 'dashboard-group';
 
     const areaLabel = document.createElement('div');
     areaLabel.className = 'dashboard-label';
-    areaLabel.innerText = '📍 NEIGHBORHOODS';
+    areaLabel.innerText = '📍 Neighborhoods';
     areaGroup.appendChild(areaLabel);
 
     const areaSelect = document.createElement('select');
