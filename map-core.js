@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Explore Los Angeles Core Orchestrator
+ * CATEGORY: MarlonWalksLA Website - Your LA Story Core Engine & Trip Landing
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -87,9 +87,7 @@ window.initMapEngine = async function() {
   let scopeAllBtn = null;
   let scopeTripBtn = null;
 
-  let featuredSpotFeedEl = null;
-
-  let activeTab = 'featured'; 
+  let activeTab = 'trip'; 
   let activeSelectedRouteId = null;
 
   if (form) {
@@ -101,7 +99,7 @@ window.initMapEngine = async function() {
 
     featuredView = document.createElement('div');
     featuredView.id = 'featured-view';
-    featuredView.style.display = 'flex';
+    featuredView.style.display = 'none';
     featuredView.style.flexDirection = 'column';
     featuredView.style.gap = '10px';
     featuredView.style.width = '100%';
@@ -120,15 +118,15 @@ window.initMapEngine = async function() {
 
     listCardView = document.createElement('div');
     listCardView.id = 'list-card-view';
-    listCardView.style.display = 'none';
+    listCardView.style.display = 'flex';
     listCardView.style.flexDirection = 'column';
     listCardView.style.gap = '10px';
     listCardView.style.width = '100%';
 
     form.appendChild(topHeaderView);
+    form.appendChild(listCardView);
     form.appendChild(featuredView);
     form.appendChild(allLaView);
-    form.appendChild(listCardView);
     form.appendChild(spotDetailsView);
   }
 
@@ -170,7 +168,7 @@ window.initMapEngine = async function() {
     } else if (targetTab === 'trip') {
       featuredView.style.display = 'none';
       allLaView.style.display = 'none';
-      listCardView.style.display = 'block';
+      listCardView.style.display = 'flex';
       renderItinerary();
     }
     map.resize();
@@ -311,7 +309,15 @@ window.initMapEngine = async function() {
 
     let activeSpotIds = [];
 
-    if (activeDay === 'All') {
+    if (activeDay === 'Popular') {
+      const featuredTitles = allPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim()));
+      allMarkers.forEach(m => {
+        const cleanTitle = m.title.toLowerCase().trim();
+        if (featuredTitles.some(t => cleanTitle.includes(t) || t.includes(cleanTitle))) {
+          activeSpotIds.push(m.id);
+        }
+      });
+    } else if (activeDay === 'All') {
       activeSpotIds = window.MarlonStorage.getSavedSpotIds();
     } else {
       activeSpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
@@ -412,7 +418,7 @@ window.initMapEngine = async function() {
         window.MarlonSpotCard.render(spotData, spotDetailsView, {
           onBack: () => switchTab(activeTab),
           onToggleSave: (sId) => {
-            window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
+            window.MarlonStorage.toggleSavedSpot(sId, window.MarlonItineraryView.activeDay === 'All' || window.MarlonItineraryView.activeDay === 'Popular' ? 'Day 1' : window.MarlonItineraryView.activeDay);
             updateMarkerStates();
             renderFeaturedPackages();
           },
@@ -445,21 +451,21 @@ window.initMapEngine = async function() {
     }
   });
 
-  // BUILD TOP HEADER VIEW
+  // BUILD TOP HEADER VIEW ("YOUR LA STORY")
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div');
     mainTitleHeader.className = 'map-hero-cta-box';
 
     const titleText = document.createElement('h2');
     titleText.className = 'map-hero-cta-title';
-    titleText.innerText = "Explore Los Angeles";
+    titleText.innerText = "Your LA Story";
 
     const scopeToggleWrap = document.createElement('div');
     scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
 
     scopeFeaturedBtn = document.createElement('button');
     scopeFeaturedBtn.type = 'button';
-    scopeFeaturedBtn.className = 'scope-toggle-btn is-active';
+    scopeFeaturedBtn.className = 'scope-toggle-btn';
 
     scopeAllBtn = document.createElement('button');
     scopeAllBtn.type = 'button';
@@ -467,7 +473,7 @@ window.initMapEngine = async function() {
 
     scopeTripBtn = document.createElement('button');
     scopeTripBtn.type = 'button';
-    scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn';
+    scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn is-active';
 
     updateTabCounts();
 
@@ -475,9 +481,9 @@ window.initMapEngine = async function() {
     scopeAllBtn.addEventListener('click', () => switchTab('all'));
     scopeTripBtn.addEventListener('click', () => switchTab('trip'));
 
+    scopeToggleWrap.appendChild(scopeTripBtn);
     scopeToggleWrap.appendChild(scopeFeaturedBtn);
     scopeToggleWrap.appendChild(scopeAllBtn);
-    scopeToggleWrap.appendChild(scopeTripBtn);
 
     mainTitleHeader.appendChild(titleText);
     mainTitleHeader.appendChild(scopeToggleWrap);
@@ -531,16 +537,7 @@ window.initMapEngine = async function() {
           `;
         }).join('')}
       </div>
-
-      <!-- INDIVIDUAL FEATURED SPOTS SECTION BELOW -->
-      <div class="featured-feed-header" style="margin-top: 6px;">
-        <span class="featured-feed-title">📍 INDIVIDUAL FEATURED SPOTS</span>
-        <span class="featured-feed-subtitle">Save individual locations directly into your day itinerary:</span>
-      </div>
-      <div class="featured-spot-feed-container"></div>
     `;
-
-    featuredSpotFeedEl = featuredView.querySelector('.featured-spot-feed-container');
 
     const newList = featuredView.querySelector('.featured-preset-list');
     if (newList) newList.scrollTop = savedScrollPos;
@@ -549,7 +546,7 @@ window.initMapEngine = async function() {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const pId = btn.dataset.preset;
-        window.MarlonStorage.toggleRouteBlock(pId, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
+        window.MarlonStorage.toggleRouteBlock(pId, window.MarlonItineraryView.activeDay === 'All' || window.MarlonItineraryView.activeDay === 'Popular' ? 'Day 1' : window.MarlonItineraryView.activeDay);
         updateMarkerStates();
         renderFeaturedPackages();
       });
@@ -699,52 +696,11 @@ window.initMapEngine = async function() {
     });
   }
 
-  function renderSpotFeed(targetContainer, visibleSpots) {
-    if (!targetContainer) return;
-    const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
-    const savedScrollPos = targetContainer.scrollTop || 0;
-
-    targetContainer.innerHTML = visibleSpots.map(spot => {
-      const isSaved = savedSpotIds.includes(spot.id);
-      return `
-        <div class="spot-feed-card" data-id="${spot.id}">
-          <div class="spot-feed-info">
-            <div class="spot-feed-title">${spot.title}</div>
-            <div class="spot-feed-meta">📍 ${spot.neighborhood}</div>
-          </div>
-          <button type="button" class="spot-feed-save-btn ${isSaved ? 'is-active' : ''}" data-id="${spot.id}">
-            ${isSaved ? '📌 Saved' : '📌 Save'}
-          </button>
-        </div>
-      `;
-    }).join('');
-
-    targetContainer.scrollTop = savedScrollPos;
-
-    targetContainer.querySelectorAll('.spot-feed-save-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        window.MarlonStorage.toggleSavedSpot(btn.dataset.id, window.MarlonItineraryView.activeDay === 'All' ? 'Day 1' : window.MarlonItineraryView.activeDay);
-        updateMarkerStates();
-        applyFilters();
-      });
-    });
-
-    targetContainer.querySelectorAll('.spot-feed-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.spot-feed-save-btn')) return;
-        const match = allMarkers.find(m => m.id === card.dataset.id);
-        if (match) match.wrapper.click();
-      });
-    });
-  }
-
   function applyFilters() {
     if (activeTab === 'trip') return;
 
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
-    const visibleSpots = [];
 
     const featuredPresets = window.MARLON_ROUTES_PRESETS || [];
     const featuredTitles = featuredPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim()));
@@ -762,15 +718,10 @@ window.initMapEngine = async function() {
         item.marker.addTo(map);
         bounds.extend([item.lng, item.lat]);
         visibleCount++;
-        visibleSpots.push(item);
       } else {
         item.marker.remove();
       }
     });
-
-    if (activeTab === 'featured') {
-      renderSpotFeed(featuredSpotFeedEl, visibleSpots);
-    }
 
     const isFiltered = (activeTab !== 'all') || (activeArea !== 'All') || (activeCategories.size > 0) || (activeTag !== 'All');
 
@@ -786,6 +737,6 @@ window.initMapEngine = async function() {
   map.on('load', () => {
     updateMarkerStates();
     renderFeaturedPackages();
-    switchTab('featured');
+    switchTab('trip');
   });
 };
