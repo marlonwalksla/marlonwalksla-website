@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-all-la-view.js
- * CATEGORY: MarlonWalksLA Website - All LA Directory & Filter Controls
+ * CATEGORY: MarlonWalksLA Website - All LA Directory & Pin Engine
  * ============================================================================== */
 
 window.MarlonAllLaView = {
@@ -136,5 +136,31 @@ window.MarlonAllLaView = {
       catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
       if (applyFiltersCallback) applyFiltersCallback();
     });
+  },
+
+  applyFilters: function(allMarkers, map, dtlaCenter) {
+    if (!allMarkers || !map) return;
+    const bounds = new mapboxgl.LngLatBounds();
+    let visibleCount = 0;
+
+    allMarkers.forEach(item => {
+      const matchesArea = (this.activeArea === 'All') || (item.neighborhood === this.activeArea);
+      const matchesCategory = (this.activeCategories.size === 0) || this.activeCategories.has(item.category);
+      const matchesTag = (this.activeTag === 'All') || (item.tags && item.tags.includes(this.activeTag));
+
+      if (matchesArea && matchesCategory && matchesTag) {
+        item.marker.addTo(map);
+        bounds.extend([item.lng, item.lat]);
+        visibleCount++;
+      } else {
+        item.marker.remove();
+      }
+    });
+
+    if (visibleCount >= 1) {
+      map.fitBounds(bounds, { padding: 60, maxZoom: 13.0, duration: 1000 });
+    } else {
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1000 });
+    }
   }
 };
