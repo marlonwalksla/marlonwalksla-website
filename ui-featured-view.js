@@ -16,7 +16,7 @@ window.MarlonFeaturedView = {
 
     container.innerHTML = `
       <div class="featured-feed-header">
-        <span class="featured-feed-title">🎯 Featured Tours</span>
+        <span class="featured-feed-title">🎯 Featured</span>
       </div>
 
       <div class="featured-preset-list">
