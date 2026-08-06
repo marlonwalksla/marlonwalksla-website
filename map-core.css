@@ -188,3 +188,58 @@
     cursor: pointer;
   }
 }
+
+/* FIX 8: PERFECT CIRCLE MAP MARKERS */
+.custom-emoji-marker {
+  width: 32px;
+  height: 32px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+}
+
+/* FIX 4: FEATURED PILLS STYLING */
+.featured-preview-item {
+  display: inline-block;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e0;
+  color: #475569;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin: 2px 4px 2px 0;
+}
+
+/* FIX 10: EDITABLE DAY TITLE INPUT */
+.day-title-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1e3a8a;
+  outline: none;
+  padding: 4px 0;
+}
+.day-title-input:focus {
+  border-bottom: 2px solid #2563eb;
+}
+
+.empty-slot-input {
+  width: 100%;
+  border: 1px dashed #cbd5e0;
+  background: #f8fafc;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #64748b;
+  outline: none;
+  box-sizing: border-box;
+}
+.empty-slot-input:focus { border-color: #3898ec; background: #ffffff; }
