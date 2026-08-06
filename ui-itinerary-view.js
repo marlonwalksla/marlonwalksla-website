@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Trip Designer Checklist (All + Days 1-4 + Popular)
+ * CATEGORY: MarlonWalksLA Website - Simplified Trip Checklist (ESL Friendly)
  * ============================================================================== */
 
 window.MarlonItineraryView = {
@@ -69,8 +69,7 @@ window.MarlonItineraryView = {
     let html = `
       <div class="itinerary-view-wrapper">
         <div class="featured-feed-header">
-          <span class="featured-feed-title">📋 YOUR CUSTOM ITINERARY</span>
-          <span class="featured-feed-subtitle">Group your days, check off spots as you go, and export your map:</span>
+          <span class="featured-feed-title">📋 Your Trip</span>
         </div>
 
         <div class="day-filter-bar">
@@ -88,12 +87,7 @@ window.MarlonItineraryView = {
         
         <div class="itinerary-section">
           ${activeDay === 'Popular' ? `
-            <!-- POPULAR INDIVIDUAL SPOTS SUB-TAB FEED -->
             <div class="popular-spots-container">
-              <div class="featured-feed-header">
-                <span class="featured-feed-title">📍 POPULAR LA LOCATIONS</span>
-                <span class="featured-feed-subtitle">Quickly tap + Save to add these popular spots into Day 1:</span>
-              </div>
               <div class="popular-spot-feed-list">
                 ${allMarkers.filter(m => {
                   const featuredTitles = allPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim()));
@@ -116,7 +110,6 @@ window.MarlonItineraryView = {
               </div>
             </div>
           ` : `
-            <!-- COLLAPSIBLE ROUTE BLOCKS & CUSTOM SPOTS CHECKLIST -->
             <div class="itinerary-blocks-container">
               ${activeRouteIds.map(routeId => {
                 const preset = allPresets.find(p => p.id === routeId);
@@ -172,7 +165,7 @@ window.MarlonItineraryView = {
               }).join('')}
 
               ${activeCustomSpotIds.length > 0 ? `
-                <div class="custom-spots-block-title">📌 Custom Saved Spots (${activeCustomSpotIds.length})</div>
+                <div class="custom-spots-block-title">📌 Saved Spots (${activeCustomSpotIds.length})</div>
                 ${activeCustomSpotIds.map(sId => {
                   const m = allMarkers.find(item => item.id === sId);
                   if (!m) return '';
@@ -202,11 +195,10 @@ window.MarlonItineraryView = {
               ` : ''}
 
               ${activeRouteIds.length === 0 && activeCustomSpotIds.length === 0 ? `
-                <p class="empty-itinerary-msg">No plans for ${activeDay} yet. Click "Popular" above or pin spots from Featured/All LA!</p>
+                <p class="empty-itinerary-msg">No saved spots for ${activeDay} yet.</p>
               ` : ''}
             </div>
 
-            <!-- CLEAR DAY BUTTON AT THE BOTTOM -->
             ${(activeRouteIds.length > 0 || activeCustomSpotIds.length > 0) ? `
               <div class="clear-day-container">
                 <button type="button" class="clear-day-bottom-btn">🗑️ Clear ${activeDay === 'All' ? 'All Plans' : `${activeDay} Plans`}</button>
@@ -219,13 +211,11 @@ window.MarlonItineraryView = {
 
     container.innerHTML = html;
 
-    // EVENT LISTENERS WITH FORM SUBMIT PREVENTION
     const clearDayBtn = container.querySelector('.clear-day-bottom-btn');
     if (clearDayBtn && callbacks.onClearDay) {
       clearDayBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        const msg = activeDay === 'All' ? 'Clear your entire planned itinerary?' : `Clear all route blocks and spots planned for ${activeDay}?`;
-        if (confirm(msg)) callbacks.onClearDay(activeDay);
+        if (confirm(`Clear plans for ${activeDay}?`)) callbacks.onClearDay(activeDay);
       });
     }
 
@@ -238,50 +228,12 @@ window.MarlonItineraryView = {
       });
     });
 
-    container.querySelectorAll('.popular-spot-feed-list .spot-feed-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (e.target.closest('.spot-feed-save-btn')) return;
-        if (callbacks.onSpotClick) callbacks.onSpotClick(card.dataset.id);
-      });
-    });
-
     container.querySelectorAll('.day-pill').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         this.activeDay = btn.dataset.day;
         this.renderItinerary(container, allMarkers, callbacks);
         if (callbacks.onDayChange) callbacks.onDayChange(this.activeDay);
-      });
-    });
-
-    container.querySelectorAll('.remove-route-block-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (callbacks.onRemoveRoute) callbacks.onRemoveRoute(btn.dataset.route);
-      });
-    });
-
-    container.querySelectorAll('.remove-nested-spot-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (callbacks.onRemoveNestedSpot) callbacks.onRemoveNestedSpot(btn.dataset.route, btn.dataset.id);
-      });
-    });
-
-    container.querySelectorAll('.route-day-select').forEach(sel => {
-      sel.addEventListener('change', (e) => {
-        e.stopPropagation();
-        if (callbacks.onChangeRouteDay) callbacks.onChangeRouteDay(sel.dataset.route, sel.value);
-      });
-    });
-
-    container.querySelectorAll('.day-assign-select').forEach(sel => {
-      sel.addEventListener('change', (e) => {
-        e.stopPropagation();
-        if (callbacks.onChangeSpotDay) callbacks.onChangeSpotDay(sel.dataset.id, sel.value);
       });
     });
 
@@ -298,14 +250,6 @@ window.MarlonItineraryView = {
         e.preventDefault();
         e.stopPropagation();
         if (callbacks.onToggleVisited) callbacks.onToggleVisited(btn.dataset.id);
-      });
-    });
-
-    container.querySelectorAll('.itinerary-item').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (e.target.closest('.icon-btn') || e.target.closest('.day-assign-select') || e.target.closest('.route-day-select')) return;
-        if (callbacks.onSpotClick) callbacks.onSpotClick(el.dataset.id);
       });
     });
   }
