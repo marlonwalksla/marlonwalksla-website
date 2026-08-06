@@ -16,8 +16,7 @@ window.MarlonFeaturedView = {
 
     container.innerHTML = `
       <div class="featured-feed-header">
-        <span class="featured-feed-title">🎯 EXPLORE WITH MARLON & ERNESTO</span>
-        <span class="featured-feed-subtitle">Click a card to frame map pins, or add to your trip:</span>
+        <span class="featured-feed-title">🎯 Featured Tours</span>
       </div>
 
       <div class="featured-preset-list">
@@ -38,7 +37,7 @@ window.MarlonFeaturedView = {
               </div>
 
               <details class="featured-preview-details">
-                <summary class="featured-preview-summary">▼ View Included Spots (${p.spotTitles.length})</summary>
+                <summary class="featured-preview-summary">▼ Included Spots (${p.spotTitles.length})</summary>
                 <div class="featured-preview-list">
                   ${p.spotTitles.map(t => `<div class="featured-preview-item">📍 ${t}</div>`).join('')}
                 </div>
