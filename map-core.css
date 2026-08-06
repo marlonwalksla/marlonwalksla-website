@@ -243,3 +243,98 @@
   box-sizing: border-box;
 }
 .empty-slot-input:focus { border-color: #3898ec; background: #ffffff; }
+
+/* FIX: CONSTRAIN DESKTOP SIDE PANEL HEIGHT */
+.filter-bar, 
+.map-master-polaroid .filter-bar {
+  max-height: 520px !important;
+  overflow-y: auto !important;
+}
+
+/* FIX: PERFECT CIRCLE MAP MARKERS */
+.custom-emoji-marker {
+  width: 32px;
+  height: 32px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+}
+
+/* FIX: HORIZONTAL PILL WRAPPING FOR ALL LA FILTERS */
+.category-pills-bar {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  padding: 4px 0 !important;
+}
+
+/* FIX: FEATURED ROUTE PILLS STYLING */
+.featured-preview-item {
+  display: inline-block;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e0;
+  color: #475569;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin: 2px 4px 2px 0;
+}
+
+/* FIX: FLOATING MAPBOX POPUP OVERRIDES */
+.mapboxgl-popup {
+  z-index: 1050 !important;
+}
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  width: 280px;
+}
+.mapboxgl-popup-close-button {
+  background: #1a202c !important;
+  color: #ffffff !important;
+  border-radius: 50% !important;
+  width: 24px !important;
+  height: 24px !important;
+  font-size: 16px !important;
+  top: -8px !important;
+  right: -8px !important;
+  z-index: 10 !important;
+  border: 2px solid #ffffff !important;
+}
+
+/* FIX: EDITABLE DAY TITLE INPUTS */
+.day-title-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 800;
+  color: #1e3a8a;
+  outline: none;
+  padding: 4px 0;
+}
+.day-title-input:focus {
+  border-bottom: 2px solid #2563eb;
+}
+
+.empty-slot-input {
+  width: 100%;
+  border: 1px dashed #cbd5e0;
+  background: #f8fafc;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #64748b;
+  outline: none;
+  box-sizing: border-box;
+}
+.empty-slot-input:focus { border-color: #3898ec; background: #ffffff; }
