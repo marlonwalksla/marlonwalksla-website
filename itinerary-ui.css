@@ -332,3 +332,26 @@
   align-items: center;
   gap: 4px;
 }
+
+
+.spot-feed-meta {
+  font-size: 9px !important;
+  color: #94a3b8 !important;
+  margin-top: 2px;
+}
+
+.itinerary-item {
+  padding: 6px 8px !important;
+}
+
+.itinerary-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-btn.pin-toggle.is-active {
+  background: #3898ec;
+  color: #ffffff;
+  border-color: #3898ec;
+}
