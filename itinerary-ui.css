@@ -1,12 +1,12 @@
 /* ==============================================================================
  * FILE: itinerary-ui.css
- * CATEGORY: MarlonWalksLA Website - Compact Explorer Itinerary & Pill Cards
+ * CATEGORY: MarlonWalksLA Website - Popular Spots List & Itinerary Formatting
  * ============================================================================== */
 
 .itinerary-view-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
 }
 
@@ -24,7 +24,6 @@
   font-weight: 800;
   color: #718096;
   text-transform: uppercase;
-  flex-shrink: 0;
 }
 
 .day-pill {
@@ -33,11 +32,12 @@
   color: #4a5568;
   font-size: 10px;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 12px;
+  padding: 4px 8px;
+  border-radius: 14px;
   cursor: pointer;
   flex-shrink: 0;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .day-pill.has-items {
@@ -54,40 +54,94 @@
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
 }
 
-.itinerary-blocks-container {
+.popular-spots-container {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  max-height: 220px;
-  overflow-y: auto;
-  padding-right: 2px;
+  width: 100%;
 }
 
-/* COMPACT ROUTE CARDS (MATCHING FEATURED CARDS) */
-.route-block-card {
-  background: #f8fafc;
-  border: 1.5px solid #cbd5e0;
+.popular-spot-feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 2px;
+  background-color: #f8fafc;
+  border: 1.5px dashed #cbd5e0;
   border-radius: 8px;
-  overflow: hidden;
+  padding: 6px;
+}
+
+.spot-feed-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.route-block-card:hover {
+.spot-feed-card:hover {
   border-color: #3898ec;
 }
 
-.route-block-card.is-selected {
-  background: #ffffff !important;
-  border-color: #2563eb !important;
-  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.18);
+.spot-feed-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.spot-feed-meta {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.spot-feed-save-btn {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e0;
+  color: #475569;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.spot-feed-save-btn.is-active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+.itinerary-blocks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 2px;
+  margin-bottom: 6px;
+}
+
+.route-block-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e0;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .route-block-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 8px;
-  background-color: transparent;
+  padding: 8px 10px;
+  background-color: #f0f7ff;
   cursor: pointer;
   user-select: none;
   list-style: none;
@@ -104,21 +158,34 @@
 }
 
 .route-block-title {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
-  color: #0f172a;
+  color: #1e3a8a;
 }
 
 .route-block-meta {
-  font-size: 9px;
-  font-weight: 700;
-  color: #2563eb;
+  font-size: 10px;
+  font-weight: 600;
+  color: #3b82f6;
 }
 
 .route-block-controls {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+}
+
+.route-day-select, .day-assign-select {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #2563eb !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e0 !important;
+  border-radius: 10px !important;
+  padding: 2px 6px !important;
+  cursor: pointer !important;
+  height: 22px !important;
+  margin: 0 !important;
 }
 
 .route-block-body {
@@ -126,146 +193,70 @@
   flex-direction: column;
   gap: 4px;
   padding: 6px;
-  background-color: #ffffff;
+  background-color: #f8fafc;
   border-top: 1px dashed #cbd5e0;
 }
 
-/* COMPACT LOCATION PILLS */
-.my-locations-container {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.nested-spot-item {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
 }
 
-.location-pill-card {
+.custom-spots-block-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  margin: 4px 0 2px 2px;
+}
+
+.itinerary-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #ffffff;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
-  padding: 4px 8px;
+  border: 1.5px solid #cbd5e0;
+  border-radius: 8px;
+  padding: 8px 10px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.location-pill-card:hover {
-  border-color: #3898ec;
-  background: #f0f7ff;
-}
-
-.location-pill-card.is-visited {
+.itinerary-item.is-visited-item {
   background-color: #f0fdf4;
   border-color: #10b981;
 }
 
-.pill-left-group {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: 1;
-  min-width: 0;
-}
-
-.pill-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-}
-
-.pill-title {
-  font-size: 11px;
-  font-weight: 800;
-  color: #1e293b;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pill-meta-row {
+.itinerary-item-actions {
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.pill-meta {
-  font-size: 9px;
-  font-weight: 600;
-  color: #64748b;
-  white-space: nowrap;
-}
-
-.compact-day-select {
-  font-size: 9px !important;
-  font-weight: 800 !important;
-  color: #2563eb !important;
-  background-color: #eff6ff !important;
-  border: 1px solid #bfdbfe !important;
-  border-radius: 6px !important;
-  padding: 1px 4px !important;
-  cursor: pointer !important;
-  height: 18px !important;
-  line-height: 1 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  width: auto !important;
-  display: inline-block !important;
-}
-
-.pill-right-group {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-  margin-left: 4px;
-}
-
-.time-spent-badge {
-  font-size: 9px;
-  font-weight: 700;
-  color: #475569;
-  background-color: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  padding: 1px 5px;
-  border-radius: 8px;
-  white-space: nowrap;
-}
-
-.pill-actions {
-  display: flex;
-  align-items: center;
-  gap: 3px;
 }
 
 .icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid #cbd5e0;
   background: #ffffff;
-  color: #64748b;
-  font-size: 9px;
+  color: #718096;
+  font-size: 10px;
   font-weight: 800;
   cursor: pointer;
   padding: 0;
   transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.icon-btn:hover {
-  border-color: #2563eb;
-  color: #2563eb;
-  transform: scale(1.08);
 }
 
 .icon-btn.visited-toggle.is-active {
   background: #10b981;
   color: #ffffff;
   border-color: #10b981;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
 }
 
 .icon-btn.remove-toggle,
@@ -276,20 +267,11 @@
   color: #ef4444;
 }
 
-.custom-spots-block-title {
-  font-size: 10px;
-  font-weight: 800;
-  color: #475569;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 6px 0 2px 2px;
-}
-
 .clear-day-container {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .clear-day-bottom-btn {
@@ -298,21 +280,33 @@
   color: #991b1b;
   font-size: 10px;
   font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 12px;
+  padding: 6px 14px;
+  border-radius: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .clear-day-bottom-btn:hover {
-  background: #ef4444;
+  background: #fca5a5;
   color: #ffffff;
 }
 
 .empty-itinerary-msg {
-  font-size: 10px;
-  color: #64748b;
+  font-size: 11px;
+  color: #a0aec0;
   font-style: italic;
-  margin: 6px 0;
-  text-align: center;
+  margin: 4px 0;
+}
+
+.itinerary-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.itinerary-item-name {
+  font-size: 12px;
+  font-weight: 800;
+  color: #1a202c;
 }
