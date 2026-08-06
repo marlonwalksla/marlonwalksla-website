@@ -1,9 +1,22 @@
 /* ==============================================================================
  * FILE: storage-manager.js
- * CATEGORY: MarlonWalksLA Website - Local Storage & Route Block Manager
+ * CATEGORY: MarlonWalksLA Website - Local Storage, Hotel Anchor & Route Manager
  * ============================================================================== */
 
 window.MarlonStorage = {
+  getHotel: function() {
+    return JSON.parse(localStorage.getItem('marlon_hotel_anchor') || 'null');
+  },
+
+  setHotel: function(hotelObj) {
+    // hotelObj format: { id: 'hotel-xyz', name: 'The Line Hotel', lat: 34.06, lng: -118.30, address: 'Koreatown' }
+    localStorage.setItem('marlon_hotel_anchor', JSON.stringify(hotelObj));
+  },
+
+  clearHotel: function() {
+    localStorage.removeItem('marlon_hotel_anchor');
+  },
+
   getItineraryMap: function() {
     return JSON.parse(localStorage.getItem('marlon_saved_itinerary_map') || '{}');
   },
@@ -60,7 +73,7 @@ window.MarlonStorage = {
     return spotIds;
   },
 
-  toggleSavedSpot: function(id, defaultDay = 'Unassigned') {
+  toggleSavedSpot: function(id, defaultDay = 'Day 1') {
     let map = this.getItineraryMap();
     if (map[id]) {
       delete map[id];
@@ -78,7 +91,7 @@ window.MarlonStorage = {
     }
   },
 
-  toggleRouteBlock: function(routeId, day = 'Unassigned') {
+  toggleRouteBlock: function(routeId, day = 'Day 1') {
     let routes = this.getSavedRoutesMap();
     if (routes[routeId]) {
       delete routes[routeId];
