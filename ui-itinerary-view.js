@@ -10,7 +10,6 @@ window.MarlonItineraryView = {
       return allMarkers.filter(m => featuredTitles.some(t => m.title.toLowerCase().trim().includes(t))).length;
     }
     
-    /* FIX 2: "ALL" ACTS AS A CATCHALL FOR UNASSIGNED */
     if (dayName === 'All') {
       return Object.keys(itinMap).filter(id => !itinMap[id] || itinMap[id] === 'All').length;
     }
@@ -53,17 +52,16 @@ window.MarlonItineraryView = {
       activeCustomSpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
     }
 
+    // FIX: REMOVED THE DUPLICATE "📋 YOUR TRIP" HEADER HERE
     let html = `
       <div class="itinerary-view-wrapper">
-        <div class="featured-feed-header"><span class="featured-feed-title">📋 Your Trip</span></div>
-        <div class="day-filter-bar">
+        <div class="day-filter-bar" style="margin-top: 4px;">
           <span class="day-label">Plan Day:</span>
           ${daysList.map(d => `<button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''} ${dayCounts[d] > 0 ? 'has-items' : ''}" data-day="${d}">${d === 'Popular' ? '🔥 Popular' : d} ${dayCounts[d] > 0 ? `(${dayCounts[d]})` : ''}</button>`).join('')}
         </div>
         <div class="itinerary-section">
     `;
 
-    /* FIX 3 & 5: POPULAR & NESTED SPOTS - THIN BARS & UNIFORM 3 BUTTONS (Pin, Check, X) */
     if (activeDay === 'Popular') {
       html += `
         <div class="popular-spots-container">
@@ -91,7 +89,7 @@ window.MarlonItineraryView = {
     } else {
       html += `<div class="itinerary-blocks-container">`;
 
-      /* FIX 10: ALWAYS RENDER A DAY BLOCK WITH CUSTOM TITLE AND EMPTY INPUTS IF NO SPOTS EXIST */
+      // FIX: ALWAYS RENDER A DAY BLOCK WITH CUSTOM TITLE AND EMPTY INPUTS IF NO SPOTS EXIST
       if (activeDay !== 'All' && activeRouteIds.length === 0 && activeCustomSpotIds.length === 0) {
         const customTitle = localStorage.getItem(`marlon_day_title_${activeDay}`) || activeDay;
         html += `
@@ -131,7 +129,7 @@ window.MarlonItineraryView = {
                   const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase().trim()));
                   if (!match || window.MarlonStorage.isSpotExcludedFromRoute(preset.id, match.id)) return '';
                   const isVisited = visitedIds.includes(match.id);
-                  const isSaved = true; // Inherently saved if in route
+                  const isSaved = true; 
                   return `
                     <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${match.id}">
                       <div class="itinerary-item-info">
@@ -195,11 +193,11 @@ window.MarlonItineraryView = {
     html += `</div></div>`;
     container.innerHTML = html;
 
-    // Attach Listeners
     container.querySelectorAll('.day-pill').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); this.activeDay = btn.dataset.day; this.renderItinerary(container, allMarkers, callbacks); }));
     container.querySelectorAll('.pin-toggle').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); window.MarlonStorage.toggleSavedSpot(btn.dataset.id, activeDay !== 'Popular' && activeDay !== 'All' ? activeDay : 'All'); this.renderItinerary(container, allMarkers, callbacks); }));
     container.querySelectorAll('.visited-toggle').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); if (callbacks.onToggleVisited) callbacks.onToggleVisited(btn.dataset.id); }));
     container.querySelectorAll('.remove-toggle').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); if (callbacks.onRemoveSpot) callbacks.onRemoveSpot(btn.dataset.id); }));
+    container.querySelectorAll('.remove-nested-spot-btn').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); window.MarlonStorage.excludeSpotFromRoute(btn.dataset.route, btn.dataset.id); this.renderItinerary(container, allMarkers, callbacks); }));
     container.querySelectorAll('.day-title-input').forEach(input => input.addEventListener('change', (e) => { localStorage.setItem(`marlon_day_title_${input.dataset.day}`, e.target.value); }));
     container.querySelectorAll('.day-assign-select').forEach(sel => sel.addEventListener('change', (e) => { e.stopPropagation(); window.MarlonStorage.setSpotDay(sel.dataset.id, sel.value); this.renderItinerary(container, allMarkers, callbacks); }));
     
