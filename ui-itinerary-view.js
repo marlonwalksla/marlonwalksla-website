@@ -219,18 +219,19 @@ window.MarlonItineraryView = {
 
     container.innerHTML = html;
 
+    // EVENT LISTENERS WITH FORM SUBMIT PREVENTION
     const clearDayBtn = container.querySelector('.clear-day-bottom-btn');
     if (clearDayBtn && callbacks.onClearDay) {
-      clearDayBtn.addEventListener('click', () => {
+      clearDayBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         const msg = activeDay === 'All' ? 'Clear your entire planned itinerary?' : `Clear all route blocks and spots planned for ${activeDay}?`;
-        if (confirm(msg)) {
-          callbacks.onClearDay(activeDay);
-        }
+        if (confirm(msg)) callbacks.onClearDay(activeDay);
       });
     }
 
     container.querySelectorAll('.popular-spot-feed-list .spot-feed-save-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         window.MarlonStorage.toggleSavedSpot(btn.dataset.id, 'Day 1');
         this.renderItinerary(container, allMarkers, callbacks);
@@ -239,13 +240,15 @@ window.MarlonItineraryView = {
 
     container.querySelectorAll('.popular-spot-feed-list .spot-feed-card').forEach(card => {
       card.addEventListener('click', (e) => {
+        e.preventDefault();
         if (e.target.closest('.spot-feed-save-btn')) return;
         if (callbacks.onSpotClick) callbacks.onSpotClick(card.dataset.id);
       });
     });
 
     container.querySelectorAll('.day-pill').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
         this.activeDay = btn.dataset.day;
         this.renderItinerary(container, allMarkers, callbacks);
         if (callbacks.onDayChange) callbacks.onDayChange(this.activeDay);
@@ -254,6 +257,7 @@ window.MarlonItineraryView = {
 
     container.querySelectorAll('.remove-route-block-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         if (callbacks.onRemoveRoute) callbacks.onRemoveRoute(btn.dataset.route);
       });
@@ -261,6 +265,7 @@ window.MarlonItineraryView = {
 
     container.querySelectorAll('.remove-nested-spot-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         if (callbacks.onRemoveNestedSpot) callbacks.onRemoveNestedSpot(btn.dataset.route, btn.dataset.id);
       });
@@ -282,6 +287,7 @@ window.MarlonItineraryView = {
 
     container.querySelectorAll('.remove-toggle').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         if (callbacks.onRemoveSpot) callbacks.onRemoveSpot(btn.dataset.id);
       });
@@ -289,6 +295,7 @@ window.MarlonItineraryView = {
 
     container.querySelectorAll('.visited-toggle').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         if (callbacks.onToggleVisited) callbacks.onToggleVisited(btn.dataset.id);
       });
@@ -296,6 +303,7 @@ window.MarlonItineraryView = {
 
     container.querySelectorAll('.itinerary-item').forEach(el => {
       el.addEventListener('click', (e) => {
+        e.preventDefault();
         if (e.target.closest('.icon-btn') || e.target.closest('.day-assign-select') || e.target.closest('.route-day-select')) return;
         if (callbacks.onSpotClick) callbacks.onSpotClick(el.dataset.id);
       });
