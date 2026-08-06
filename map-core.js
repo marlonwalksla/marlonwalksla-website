@@ -45,7 +45,7 @@ window.initMapEngine = async function() {
     return String(str).replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
   }
 
-  // FETCH GEOJSON
+  // FETCH GEOJSON DATA
   let geojsonData = null;
   try {
     let res = await fetch('https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/spots.geojson');
@@ -82,7 +82,7 @@ window.initMapEngine = async function() {
     }
   }
 
-  // UI CONTAINER SETUP
+  // UI CONTAINER SETUP & WEBFLOW FORM SUBMIT PREVENTION
   const form = document.querySelector('.filter-bar form');
   let searchWrapper = null;
   let hotelAnchorBox = null;
@@ -99,6 +99,13 @@ window.initMapEngine = async function() {
   let activeTab = 'trip';
 
   if (form) {
+    // CRITICAL BUGFIX: Prevent Webflow form submission redirect
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    });
+
     form.innerHTML = '';
 
     // Mobile Drag Handle
@@ -159,7 +166,10 @@ window.initMapEngine = async function() {
         </div>
         <button type="button" class="featured-import-btn" id="set-hotel-btn">Set Base</button>
       `;
-      document.getElementById('set-hotel-btn')?.addEventListener('click', promptHotelSearch);
+      document.getElementById('set-hotel-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        promptHotelSearch();
+      });
     } else {
       hotelAnchorBox.innerHTML = `
         <div>
@@ -168,7 +178,8 @@ window.initMapEngine = async function() {
         </div>
         <button type="button" class="clear-itinerary-btn" id="change-hotel-btn">Edit</button>
       `;
-      document.getElementById('change-hotel-btn')?.addEventListener('click', () => {
+      document.getElementById('change-hotel-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
         window.MarlonStorage.clearHotel();
         renderHotelMarkerOnMap();
         updateHotelBoxUI();
@@ -186,6 +197,10 @@ window.initMapEngine = async function() {
   function setupSearchEvents(wrapper) {
     const input = wrapper.querySelector('.map-search-input');
     const dropdown = wrapper.querySelector('.search-results-dropdown');
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') e.preventDefault();
+    });
 
     input.addEventListener('input', async () => {
       const query = input.value.trim().toLowerCase();
@@ -210,7 +225,6 @@ window.initMapEngine = async function() {
         </div>
       `).join('');
 
-      // External Geocoding Fetch via Mapbox API
       if (query.length > 3) {
         try {
           const geoRes = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?proximity=${dtlaCenter[0]},${dtlaCenter[1]}&access_token=${mapboxgl.accessToken}`);
@@ -234,7 +248,8 @@ window.initMapEngine = async function() {
       dropdown.style.display = 'block';
 
       dropdown.querySelectorAll('.search-result-item').forEach(item => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
           const type = item.dataset.type;
           if (type === 'curated') {
             const match = allMarkers.find(m => m.id === item.dataset.id);
@@ -353,11 +368,13 @@ window.initMapEngine = async function() {
       }
     });
 
-    // CONTEXTUAL PROXIMITY UPSELL EVALUATOR
     renderProximityUpsellCard();
   }
 
+  // ALWAYS VISIBLE RECOMMENDED TOUR CARD ENGINE
   function renderProximityUpsellCard() {
+    if (!listCardView) return;
+
     const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
     const savedSpots = allMarkers.filter(m => savedSpotIds.includes(m.id));
     
@@ -365,38 +382,44 @@ window.initMapEngine = async function() {
     let hollywoodCount = 0;
 
     savedSpots.forEach(s => {
-      if (s.neighborhood.toLowerCase().includes('dtla')) dtlaCount++;
-      if (s.neighborhood.toLowerCase().includes('hollywood')) hollywoodCount++;
+      if (s.neighborhood && s.neighborhood.toLowerCase().includes('dtla')) dtlaCount++;
+      if (s.neighborhood && s.neighborhood.toLowerCase().includes('hollywood')) hollywoodCount++;
     });
 
     let existingUpsell = listCardView.querySelector('.proximity-upsell-card');
     if (existingUpsell) existingUpsell.remove();
 
-    if (dtlaCount >= 1) {
-      const card = document.createElement('div');
-      card.className = 'proximity-upsell-card';
-      card.innerHTML = `
-        <div class="proximity-upsell-header">
-          <span class="proximity-badge">🔥 Recommended Tour For You</span>
-        </div>
-        <div class="proximity-title">🚶 DTLA Free Walking Tour</div>
-        <div class="proximity-desc">You have ${dtlaCount} DTLA spots saved! Join Marlon for a 2-hr historic walking tour.</div>
-        <button type="button" class="proximity-cta-btn" onclick="window.open('https://marlonwalksla.com','_blank')">🎟️ Book Free Walk</button>
-      `;
-      listCardView.prepend(card);
-    } else if (hollywoodCount >= 1) {
-      const card = document.createElement('div');
-      card.className = 'proximity-upsell-card';
-      card.innerHTML = `
-        <div class="proximity-upsell-header">
-          <span class="proximity-badge">🎧 Audio Guide Recommendation</span>
-        </div>
-        <div class="proximity-title">🎬 Hollywood Movie Magic Guide</div>
-        <div class="proximity-desc">Near your Hollywood pins! Unlock self-guided audio stories ($14.99).</div>
-        <button type="button" class="proximity-cta-btn" onclick="window.open('https://marlonwalksla.com','_blank')">🔓 Unlock Audio Guide</button>
-      `;
-      listCardView.prepend(card);
+    let tourTitle = "🚶 DTLA Free Walking Tour";
+    let tourDesc = dtlaCount >= 1 
+      ? `You have ${dtlaCount} DTLA spot(s) saved! Join Marlon's 2-hr historic walking tour.`
+      : "Marlon's flagship 2-hour walking tour through historic DTLA architecture, markets, and culture.";
+    let tourUrl = "https://marlonwalksla.com";
+    let btnText = "🎟️ Book Free Walk";
+
+    if (hollywoodCount > dtlaCount) {
+      tourTitle = "🎬 Hollywood Movie Magic Guide";
+      tourDesc = "Near your Hollywood pins! Unlock self-guided audio stories and cinema history.";
+      btnText = "🔓 Unlock Audio Guide";
     }
+
+    const card = document.createElement('div');
+    card.className = 'proximity-upsell-card';
+    card.innerHTML = `
+      <div class="proximity-upsell-header">
+        <span class="proximity-badge">RECOMMENDED TOUR</span>
+      </div>
+      <div class="proximity-title">${tourTitle}</div>
+      <div class="proximity-desc">${tourDesc}</div>
+      <button type="button" class="proximity-cta-btn">${btnText}</button>
+    `;
+
+    card.querySelector('.proximity-cta-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(tourUrl, '_blank');
+    });
+
+    listCardView.prepend(card);
   }
 
   // PROCESS GEOJSON FEATURES
@@ -463,19 +486,22 @@ window.initMapEngine = async function() {
     scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
 
     scopeFeaturedBtn = document.createElement('button');
+    scopeFeaturedBtn.type = 'button';
     scopeFeaturedBtn.className = 'scope-toggle-btn';
 
     scopeAllBtn = document.createElement('button');
+    scopeAllBtn.type = 'button';
     scopeAllBtn.className = 'scope-toggle-btn';
 
     scopeTripBtn = document.createElement('button');
+    scopeTripBtn.type = 'button';
     scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn is-active';
 
     updateTabCounts();
 
-    scopeFeaturedBtn.addEventListener('click', () => switchTab('featured'));
-    scopeAllBtn.addEventListener('click', () => switchTab('all'));
-    scopeTripBtn.addEventListener('click', () => switchTab('trip'));
+    scopeFeaturedBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('featured'); });
+    scopeAllBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('all'); });
+    scopeTripBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('trip'); });
 
     scopeToggleWrap.appendChild(scopeTripBtn);
     scopeToggleWrap.appendChild(scopeFeaturedBtn);
