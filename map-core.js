@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Initialization & Orchestrator
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Mobile Sheet Handler
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -79,6 +79,9 @@ window.initMapEngine = async function() {
   let activeTab = 'trip';
 
   if (form) {
+    const filterBarParent = form.closest('.filter-bar');
+    if (filterBarParent) filterBarParent.classList.add('is-collapsed');
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -87,9 +90,18 @@ window.initMapEngine = async function() {
 
     form.innerHTML = '';
 
+    // Mobile Drag Handle with Toggle Click Listener
     const dragHandle = document.createElement('div');
     dragHandle.className = 'mobile-drag-handle';
     form.appendChild(dragHandle);
+
+    dragHandle.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (filterBarParent) {
+        filterBarParent.classList.toggle('is-expanded');
+        filterBarParent.classList.toggle('is-collapsed');
+      }
+    });
 
     searchWrapper = document.createElement('div');
     searchWrapper.className = 'map-search-wrapper';
@@ -178,10 +190,31 @@ window.initMapEngine = async function() {
       featuredView.style.display = 'flex';
       allLaView.style.display = 'none';
       listCardView.style.display = 'none';
+      if (window.MarlonFeaturedView) {
+        window.MarlonFeaturedView.render(featuredView, allMarkers, {
+          onImportRoute: () => { updateMarkerStates(); renderItinerary(); },
+          onPanToRoute: (pId) => {
+            const preset = (window.MARLON_ROUTES_PRESETS || []).find(p => p.id === pId);
+            if (preset) {
+              const bounds = new mapboxgl.LngLatBounds();
+              preset.spotTitles.forEach(t => {
+                const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase()));
+                if (match) bounds.extend([match.lng, match.lat]);
+              });
+              map.fitBounds(bounds, { padding: 60, maxZoom: 13.5 });
+            }
+          },
+          onResetRoutePan: () => map.flyTo({ center: dtlaCenter, zoom: 10.2 })
+        });
+      }
     } else if (targetTab === 'all') {
       featuredView.style.display = 'none';
       allLaView.style.display = 'flex';
       listCardView.style.display = 'none';
+      // FIX FOR ALL LA PINS NOT SHOWING
+      if (window.MarlonAllLaView) {
+        window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter);
+      }
     } else if (targetTab === 'trip') {
       featuredView.style.display = 'none';
       allLaView.style.display = 'none';
@@ -217,7 +250,7 @@ window.initMapEngine = async function() {
     if (window.MarlonUpsell) window.MarlonUpsell.renderCard(listCardView, allMarkers);
   }
 
-  // PROCESS GEOJSON
+  // PROCESS GEOJSON FEATURES
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
     const coords = feature.geometry ? feature.geometry.coordinates : null;
@@ -333,43 +366,9 @@ window.initMapEngine = async function() {
     window.MarlonHotel.updateUI(hotelAnchorBox, () => searchWrapper.querySelector('.map-search-input').focus());
   }
 
-  if (window.MarlonFeaturedView) {
-    window.MarlonFeaturedView.render(featuredView, allMarkers, {
-      onImportRoute: () => {
-        updateMarkerStates();
-        renderItinerary();
-      },
-      onPanToRoute: (pId) => {
-        const preset = (window.MARLON_ROUTES_PRESETS || []).find(p => p.id === pId);
-        if (preset) {
-          const bounds = new mapboxgl.LngLatBounds();
-          preset.spotTitles.forEach(t => {
-            const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase()));
-            if (match) bounds.extend([match.lng, match.lat]);
-          });
-          map.fitBounds(bounds, { padding: 60, maxZoom: 13.5 });
-        }
-      },
-      onResetRoutePan: () => map.flyTo({ center: dtlaCenter, zoom: 10.2 })
-    });
-  }
-
   if (window.MarlonAllLaView) {
     window.MarlonAllLaView.render(allLaView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, () => {
-      const bounds = new mapboxgl.LngLatBounds();
-      let visible = 0;
-      allMarkers.forEach(item => {
-        const matchesArea = (window.MarlonAllLaView.activeArea === 'All') || (item.neighborhood === window.MarlonAllLaView.activeArea);
-        const matchesCat = (window.MarlonAllLaView.activeCategories.size === 0) || window.MarlonAllLaView.activeCategories.has(item.category);
-        if (matchesArea && matchesCat) {
-          item.marker.addTo(map);
-          bounds.extend([item.lng, item.lat]);
-          visible++;
-        } else {
-          item.marker.remove();
-        }
-      });
-      if (visible >= 1) map.fitBounds(bounds, { padding: 60, maxZoom: 13.0 });
+      window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter);
     });
   }
 
