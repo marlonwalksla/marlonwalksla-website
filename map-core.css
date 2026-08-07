@@ -199,25 +199,25 @@
     overflow: hidden !important; 
   }
   
-  /* Reduced from 85dvh so it doesn't swallow the whole map */
+/* Reduced from 65dvh to 50dvh so it doesn't swallow the whole map */
   .filter-bar.is-expanded { 
-    height: 65dvh !important; 
+    height: 50dvh !important; 
     overflow-y: auto !important; 
   }
 
-  /* Upgraded Drag Button */
+  /* Upgraded Drag Button - Now a compact circle */
   .mobile-drag-handle {
     display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
     background: #f1f5f9;
     border: 1.5px solid #cbd5e0;
-    border-radius: 14px;
+    border-radius: 50%;
     margin: 0 auto 12px auto;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     color: #475569;
     font-weight: 800;
     transition: all 0.2s ease;
