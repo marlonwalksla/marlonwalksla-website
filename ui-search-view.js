@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-search-view.js
- * CATEGORY: MarlonWalksLA Website - Tabbed Filter & Search Engine
+ * CATEGORY: MarlonWalksLA Website - Unified Search & Filter Engine
  * ============================================================================== */
 
 window.MarlonSearchView = {
@@ -33,15 +33,15 @@ window.MarlonSearchView = {
     masterWrap.className = 'search-view-wrapper';
     masterWrap.style.display = 'flex';
     masterWrap.style.flexDirection = 'column';
-    masterWrap.style.gap = '10px';
+    masterWrap.style.gap = '8px';
     masterWrap.style.width = '100%';
 
     // ==========================================
-    // 1. TOP FILTER TOGGLE PILLS (MIRRORS TRIP DAY PILLS)
+    // 1. TOP MODE SWITCHER PILLS
     // ==========================================
     const filterModeBar = document.createElement('div');
     filterModeBar.className = 'day-filter-bar';
-    filterModeBar.style.marginTop = '4px';
+    filterModeBar.style.marginTop = '2px';
 
     const modes = [
       { id: 'popular', label: '🔥 Popular' },
@@ -59,54 +59,50 @@ window.MarlonSearchView = {
     masterWrap.appendChild(filterModeBar);
 
     // ==========================================
-    // 2. SEARCH BAR CONTAINER (EXPANDABLE CARD)
+    // 2. UNIFIED CARD CONTAINER (SEARCH + PILLS)
     // ==========================================
+    const unifiedCard = document.createElement('div');
+    unifiedCard.className = 'route-block-card unified-search-card';
+    unifiedCard.style.overflow = 'visible';
+    unifiedCard.style.display = 'flex';
+    unifiedCard.style.flexDirection = 'column';
+    unifiedCard.style.gap = '8px';
+    unifiedCard.style.padding = '10px 12px';
+
+    // Top Row: Search Input + Red Clear (X) Button
+    const cardTopRow = document.createElement('div');
+    cardTopRow.style.display = 'flex';
+    cardTopRow.style.alignItems = 'center';
+    cardTopRow.style.gap = '8px';
+    cardTopRow.style.width = '100%';
+
     if (searchWrapper) {
-      const searchCard = document.createElement('div');
-      searchCard.className = 'route-block-card search-card-block';
-      searchCard.style.padding = '10px 12px';
-      searchCard.style.overflow = 'visible';
-
-      const searchTitle = document.createElement('div');
-      searchTitle.className = 'route-block-title';
-      searchTitle.style.fontSize = '12px';
-      searchTitle.style.marginBottom = '6px';
-      searchTitle.innerHTML = '🔍 SEARCH LA';
-
-      searchCard.appendChild(searchTitle);
-      searchCard.appendChild(searchWrapper);
-      masterWrap.appendChild(searchCard);
+      searchWrapper.style.flex = '1';
+      searchWrapper.style.margin = '0';
+      cardTopRow.appendChild(searchWrapper);
     }
 
-    // ==========================================
-    // 3. DYNAMIC FILTER CONTENT BLOCK
-    // ==========================================
-    const filterCard = document.createElement('div');
-    filterCard.className = 'route-block-card';
-    filterCard.style.overflow = 'visible';
+    const resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'icon-btn remove-toggle mini-reset-btn';
+    resetBtn.title = 'Clear Filters';
+    resetBtn.innerHTML = '✕';
+    resetBtn.style.flexShrink = '0';
 
-    const filterHeader = document.createElement('div');
-    filterHeader.className = 'route-block-header';
-    filterHeader.style.justifyContent = 'space-between';
-    filterHeader.style.backgroundColor = '#f0f7ff';
+    cardTopRow.appendChild(resetBtn);
+    unifiedCard.appendChild(cardTopRow);
 
-    let headerTitleText = '🔥 Popular Spots';
-    if (this.activeTabMode === 'categories') headerTitleText = '🏷️ Categories';
-    if (this.activeTabMode === 'vibes') headerTitleText = '✨ Vibes';
-    if (this.activeTabMode === 'neighborhoods') headerTitleText = '📍 Neighborhoods';
-
-    filterHeader.innerHTML = `
-      <span class="route-block-title">${headerTitleText}</span>
-      <button type="button" class="icon-btn remove-toggle mini-reset-btn" title="Clear Filter">✕</button>
-    `;
-
+    // Content Body: Dynamic Filter Pills
     const filterBody = document.createElement('div');
-    filterBody.className = 'route-block-body';
-    filterBody.style.padding = '10px';
+    filterBody.className = 'unified-filter-body';
+    filterBody.style.display = 'flex';
+    filterBody.style.flexDirection = 'column';
+    filterBody.style.gap = '6px';
+    filterBody.style.paddingTop = '2px';
 
     const allMarkers = window.MARLON_ALL_MARKERS || [];
 
-    // RENDER ACTIVE MODE CONTENT
+    // RENDER ACTIVE MODE PILLS DIRECTLY
     if (this.activeTabMode === 'popular') {
       const popPillsBar = document.createElement('div');
       popPillsBar.className = 'category-pills-bar';
@@ -125,7 +121,7 @@ window.MarlonSearchView = {
           pill.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            match.wrapper.click(); // Fly to marker on map
+            match.wrapper.click(); // Pans map & opens popup
           });
           popPillsBar.appendChild(pill);
         }
@@ -233,13 +229,11 @@ window.MarlonSearchView = {
       filterBody.appendChild(areaPillsBar);
     }
 
-    filterCard.appendChild(filterHeader);
-    filterCard.appendChild(filterBody);
-    masterWrap.appendChild(filterCard);
-
+    unifiedCard.appendChild(filterBody);
+    masterWrap.appendChild(unifiedCard);
     container.appendChild(masterWrap);
 
-    // TAB SWITCHING LISTENERS
+    // MODE SWITCHING LISTENERS
     filterModeBar.querySelectorAll('.day-pill').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -249,7 +243,7 @@ window.MarlonSearchView = {
     });
 
     // RED CIRCULAR RESET BUTTON ACTION
-    filterHeader.querySelector('.mini-reset-btn').addEventListener('click', (e) => {
+    resetBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       if (this.activeTabMode === 'categories') this.activeCategories.clear();
@@ -284,3 +278,6 @@ window.MarlonSearchView = {
     }
   }
 };
+
+// Backward compatibility alias for map-core.js
+window.MarlonAllLaView = window.MarlonSearchView;
