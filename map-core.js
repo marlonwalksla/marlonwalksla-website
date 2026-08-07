@@ -134,10 +134,10 @@ window.initMapEngine = async function() {
 
     if (targetTab === 'search') {
       searchView.style.display = 'flex';
-      if (window.MarlonAllLaView) {
-        window.MarlonAllLaView.render(
+      if (window.MarlonSearchView) {
+        window.MarlonSearchView.render(
           searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
-          () => window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter)
+          () => window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter)
         );
       }
     } else if (targetTab === 'trip') {
