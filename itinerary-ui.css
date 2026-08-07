@@ -3,355 +3,47 @@
  * CATEGORY: MarlonWalksLA Website - Popular Spots List & Itinerary Formatting
  * ============================================================================== */
 
-.itinerary-view-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
+.itinerary-view-wrapper { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.day-filter-bar { display: flex; align-items: center; gap: 4px; overflow-x: auto; padding: 2px 0; margin-bottom: 2px; }
+.day-label { font-size: 10px; font-weight: 800; color: #718096; text-transform: uppercase; }
+.day-pill { background: #ffffff; border: 1px solid #cbd5e0; color: #4a5568; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 14px; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; white-space: nowrap; }
+.day-pill.has-items { background-color: #eff6ff; border-color: #93c5fd; color: #1e40af; font-weight: 800; }
+.day-pill.is-active { background: #2563eb !important; color: #ffffff !important; border-color: #2563eb !important; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3); }
 
-.day-filter-bar {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  overflow-x: auto;
-  padding: 2px 0;
-  margin-bottom: 2px;
-}
+.popular-spots-container { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+.popular-spot-feed-list { display: flex; flex-direction: column; gap: 6px; max-height: 300px; overflow-y: auto; padding-right: 2px; background-color: #f8fafc; border: 1.5px dashed #cbd5e0; border-radius: 8px; padding: 6px; }
 
-.day-label {
-  font-size: 10px;
-  font-weight: 800;
-  color: #718096;
-  text-transform: uppercase;
-}
+.itinerary-blocks-container { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; padding-right: 2px; margin-bottom: 6px; }
+.route-block-card { background: #ffffff; border: 1.5px solid #cbd5e0; border-radius: 8px; overflow: hidden; }
+.route-block-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background-color: #f0f7ff; cursor: pointer; user-select: none; list-style: none; }
+.route-block-header::-webkit-details-marker { display: none; }
+.route-block-title-wrap { display: flex; flex-direction: column; gap: 1px; }
+.route-block-title { font-size: 12px; font-weight: 800; color: #1e3a8a; }
+.route-block-meta { font-size: 10px; font-weight: 600; color: #3b82f6; }
+.route-block-controls { display: flex; align-items: center; gap: 6px; }
 
-.day-pill {
-  background: #ffffff;
-  border: 1px solid #cbd5e0;
-  color: #4a5568;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 14px;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
+.route-day-select, .day-assign-select { font-size: 10px !important; font-weight: 700 !important; color: #2563eb !important; background-color: #ffffff !important; border: 1px solid #cbd5e0 !important; border-radius: 10px !important; padding: 2px 6px !important; cursor: pointer !important; height: 22px !important; margin: 0 !important; outline: none; }
 
-.day-pill.has-items {
-  background-color: #eff6ff;
-  border-color: #93c5fd;
-  color: #1e40af;
-  font-weight: 800;
-}
+.route-block-body { display: flex; flex-direction: column; gap: 4px; padding: 6px; background-color: #f8fafc; border-top: 1px dashed #cbd5e0; }
+.nested-spot-item { background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 6px !important; }
+.custom-spots-block-title { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; margin: 8px 0 2px 2px; }
 
-.day-pill.is-active {
-  background: #2563eb !important;
-  color: #ffffff !important;
-  border-color: #2563eb !important;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
-}
+.itinerary-item { display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1.5px solid #cbd5e0; border-radius: 8px; padding: 6px 8px !important; cursor: pointer; transition: all 0.2s ease; }
+.itinerary-item.is-visited-item { background-color: #f0fdf4; border-color: #10b981; }
 
-.popular-spots-container {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
-}
+.itinerary-item-info { display: flex; flex-direction: column; gap: 0px; flex: 1; }
+.itinerary-item-name { font-size: 12px; font-weight: 800; color: #1a202c; }
+.spot-feed-meta { font-size: 9px !important; color: #94a3b8 !important; margin-top: 2px; }
 
-.popular-spot-feed-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-height: 240px;
-  overflow-y: auto;
-  padding-right: 2px;
-  background-color: #f8fafc;
-  border: 1.5px dashed #cbd5e0;
-  border-radius: 8px;
-  padding: 6px;
-}
+/* DAY SELECTOR MOVED NEXT TO ACTION BUTTONS */
+.itinerary-item-actions { display: flex; align-items: center; gap: 4px; }
 
-.spot-feed-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  border: 1.5px solid #cbd5e0;
-  border-radius: 6px;
-  padding: 6px 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; border: 1px solid #cbd5e0; background: #ffffff; color: #718096; font-size: 10px; font-weight: 800; cursor: pointer; padding: 0; transition: all 0.2s ease; }
+.icon-btn.pin-toggle.is-active { background: #3898ec; color: #ffffff; border-color: #3898ec; }
+.icon-btn.visited-toggle.is-active { background: #10b981; color: #ffffff; border-color: #10b981; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3); }
+.icon-btn.remove-toggle, .icon-btn.remove-route-block-btn, .icon-btn.remove-nested-spot-btn { background: #fef2f2; border-color: #fca5a5; color: #ef4444; }
 
-.spot-feed-card:hover {
-  border-color: #3898ec;
-}
-
-.spot-feed-title {
-  font-size: 12px;
-  font-weight: 800;
-  color: #1e293b;
-}
-
-.spot-feed-meta {
-  font-size: 10px;
-  color: #64748b;
-}
-
-.spot-feed-save-btn {
-  background: #ffffff;
-  border: 1.5px solid #cbd5e0;
-  color: #475569;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.spot-feed-save-btn.is-active {
-  background: #2563eb;
-  color: #ffffff;
-  border-color: #2563eb;
-}
-
-.itinerary-blocks-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 240px;
-  overflow-y: auto;
-  padding-right: 2px;
-  margin-bottom: 6px;
-}
-
-.route-block-card {
-  background: #ffffff;
-  border: 1.5px solid #cbd5e0;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.route-block-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px;
-  background-color: #f0f7ff;
-  cursor: pointer;
-  user-select: none;
-  list-style: none;
-}
-
-.route-block-header::-webkit-details-marker {
-  display: none;
-}
-
-.route-block-title-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.route-block-title {
-  font-size: 12px;
-  font-weight: 800;
-  color: #1e3a8a;
-}
-
-.route-block-meta {
-  font-size: 10px;
-  font-weight: 600;
-  color: #3b82f6;
-}
-
-.route-block-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.route-day-select, .day-assign-select {
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  color: #2563eb !important;
-  background-color: #ffffff !important;
-  border: 1px solid #cbd5e0 !important;
-  border-radius: 10px !important;
-  padding: 2px 6px !important;
-  cursor: pointer !important;
-  height: 22px !important;
-  margin: 0 !important;
-}
-
-.route-block-body {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 6px;
-  background-color: #f8fafc;
-  border-top: 1px dashed #cbd5e0;
-}
-
-.nested-spot-item {
-  background: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
-  padding: 4px 8px !important;
-  border-radius: 6px !important;
-}
-
-.custom-spots-block-title {
-  font-size: 10px;
-  font-weight: 800;
-  color: #64748b;
-  text-transform: uppercase;
-  margin: 4px 0 2px 2px;
-}
-
-.itinerary-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  border: 1.5px solid #cbd5e0;
-  border-radius: 8px;
-  padding: 8px 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.itinerary-item.is-visited-item {
-  background-color: #f0fdf4;
-  border-color: #10b981;
-}
-
-.itinerary-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 1px solid #cbd5e0;
-  background: #ffffff;
-  color: #718096;
-  font-size: 10px;
-  font-weight: 800;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.2s ease;
-}
-
-.icon-btn.visited-toggle.is-active {
-  background: #10b981;
-  color: #ffffff;
-  border-color: #10b981;
-  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
-}
-
-.icon-btn.remove-toggle,
-.icon-btn.remove-route-block-btn,
-.icon-btn.remove-nested-spot-btn {
-  background: #fef2f2;
-  border-color: #fca5a5;
-  color: #ef4444;
-}
-
-.clear-day-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 6px;
-}
-
-.clear-day-bottom-btn {
-  background: #fee2e2;
-  border: 1px solid #fca5a5;
-  color: #991b1b;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 6px 14px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.clear-day-bottom-btn:hover {
-  background: #fca5a5;
-  color: #ffffff;
-}
-
-.empty-itinerary-msg {
-  font-size: 11px;
-  color: #a0aec0;
-  font-style: italic;
-  margin: 4px 0;
-}
-
-.itinerary-item-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-}
-
-.itinerary-item-name {
-  font-size: 12px;
-  font-weight: 800;
-  color: #1a202c;
-}
-
-.spot-feed-meta {
-  font-size: 9px !important;
-  color: #94a3b8 !important;
-  margin-top: 2px;
-}
-
-.itinerary-item {
-  padding: 6px 8px !important;
-}
-
-.icon-btn.pin-toggle.is-active {
-  background: #3898ec;
-  color: #ffffff;
-  border-color: #3898ec;
-}
-
-.itinerary-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-
-.spot-feed-meta {
-  font-size: 9px !important;
-  color: #94a3b8 !important;
-  margin-top: 2px;
-}
-
-.itinerary-item {
-  padding: 6px 8px !important;
-}
-
-.itinerary-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.icon-btn.pin-toggle.is-active {
-  background: #3898ec;
-  color: #ffffff;
-  border-color: #3898ec;
-}
+.clear-day-container { display: flex; justify-content: center; width: 100%; margin-top: 6px; }
+.clear-day-bottom-btn { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; font-size: 10px; font-weight: 800; padding: 6px 14px; border-radius: 16px; cursor: pointer; transition: all 0.2s ease; }
+.clear-day-bottom-btn:hover { background: #fca5a5; color: #ffffff; }
+.empty-itinerary-msg { font-size: 11px; color: #a0aec0; font-style: italic; margin: 4px 0; text-align: center; }
