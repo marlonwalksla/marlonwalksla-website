@@ -23,7 +23,17 @@ window.initMapEngine = async function() {
   window.addEventListener('resize', () => { map.resize(); updateMapPadding(); });
 
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
-  const categoryMap = { /* Keep your existing categoryMap object here */ };
+
+  // CATEGORY MAP WITH UNIQUE COLORS & SVG ICONS
+  const categoryMap = {
+    'landmarks': { color: '#ef4444', name: 'Landmarks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h6M9 14h6M9 18h6"/></svg>' },
+    'arts': { color: '#a855f7', name: 'Arts & Culture', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>' },
+    'dining': { color: '#f59e0b', name: 'Dining & Food', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8v13M14 8v13M10 8v13M6 8v13M6 3v5M18 3v5"/></svg>' },
+    'entertainment': { color: '#ec4899', name: 'Entertainment', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>' },
+    'nightlife': { color: '#6366f1', name: 'Nightlife', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' },
+    'parks': { color: '#10b981', name: 'Parks & Nature', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 22h20L12 2z"/></svg>' },
+    'shopping': { color: '#06b6d4', name: 'Shopping', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>' }
+  };
 
   function cleanText(str) { return str ? String(str).replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim() : ''; }
 
@@ -76,7 +86,6 @@ window.initMapEngine = async function() {
       } 
     });
 
-    // Close bottom sheet when tapping anywhere on the map
     map.on('click', (e) => {
       if (window.innerWidth <= 820 && filterBarParent && filterBarParent.classList.contains('is-expanded')) {
         filterBarParent.classList.remove('is-expanded');
@@ -172,12 +181,14 @@ window.initMapEngine = async function() {
     const lng = parseFloat(coords[0]), lat = parseFloat(coords[1]);
     const spotId = cleanText(props.Slug || props.Item_ID || props.Name || `spot-${index}`).toLowerCase().replace(/[^a-z0-9]+/g, '-');
     const title = cleanText(props.Name || props.title || props.name || 'Location');
-    const rawCategory = cleanText(props.Category || props.category || 'landmarks');
+    const rawCategory = cleanText(props.Category || props.category || 'landmarks').toLowerCase();
     const customColor = cleanText(props.Color || props.color || '');
     const neighborhood = cleanText(props.City || props.city || 'Downtown LA');
     const rawTagsStr = cleanText(props.Tags || props.tags || '');
 
-    const catDetails = window.MarlonSpotCard ? window.MarlonSpotCard.getCategoryDetails(rawCategory, customColor, categoryMap, defaultPinSvg) : { color: '#3898ec', icon: defaultPinSvg, name: 'Spot' };
+    // Get color & icon from categoryMap or fallback
+    const catLookup = categoryMap[rawCategory] || (window.MarlonSpotCard ? window.MarlonSpotCard.getCategoryDetails(rawCategory, customColor, categoryMap, defaultPinSvg) : null);
+    const catDetails = catLookup || { color: customColor || '#ef4444', icon: defaultPinSvg, name: rawCategory };
 
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
@@ -188,7 +199,9 @@ window.initMapEngine = async function() {
     inner.style.backgroundColor = catDetails.color; inner.innerHTML = catDetails.icon;
     wrapper.appendChild(inner);
 
-    const marker = new mapboxgl.Marker({ element: wrapper }).setLngLat([lng, lat]);
+    // FIX 1 & 2: Create marker AND add it to the map immediately on load
+    const marker = new mapboxgl.Marker({ element: wrapper }).setLngLat([lng, lat]).addTo(map);
+    
     const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
     
     wrapper.addEventListener('click', (e) => {
