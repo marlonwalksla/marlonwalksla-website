@@ -50,7 +50,7 @@
 .nav-collapse-area {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 40px; /* Creates the separation on desktop */
 }
 
 .button-group, .header-icon-group {
@@ -102,7 +102,7 @@
     display: block; 
   }
 
-  /* Hide the nav items by default and prepare for vertical stacking */
+  /* Hide the nav items by default and prepare for vertical layout */
   .nav-collapse-area {
     display: none; 
     flex-direction: column;
@@ -116,14 +116,21 @@
     display: flex;
   }
 
-  .button-group, .header-icon-group {
+  /* Stack text links vertically and center them */
+  .button-group {
     flex-direction: column;
     width: 100%;
     text-align: center;
-  }
-
-  .button-group {
     border-bottom: 1px solid #444;
     padding-bottom: 20px;
+    gap: 25px; /* Adds breathing room between mobile links */
+  }
+
+  /* Keep social icons horizontal and centered */
+  .header-icon-group {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 30px; 
   }
 }
