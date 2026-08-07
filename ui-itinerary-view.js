@@ -1,5 +1,6 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
+ * CATEGORY: MarlonWalksLA Website - Simplified Trip Checklist
  * ============================================================================== */
 
 window.MarlonItineraryView = {
@@ -10,14 +11,11 @@ window.MarlonItineraryView = {
       const targetCities = ['DTLA', 'Hollywood', 'Santa Monica', 'Venice'];
       return allMarkers.filter(m => targetCities.some(city => m.neighborhood && m.neighborhood.toLowerCase().includes(city.toLowerCase()))).length;
     }
-    
     if (dayName === 'All') {
       return Object.keys(itinMap).filter(id => !itinMap[id] || itinMap[id] === 'All').length;
     }
-
     let count = Object.keys(itinMap).filter(sId => itinMap[sId] === dayName).length;
     const dayRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === dayName);
-
     dayRouteIds.forEach(rId => {
       const p = allPresets.find(item => item.id === rId);
       if (p) {
@@ -28,6 +26,74 @@ window.MarlonItineraryView = {
       }
     });
     return count;
+  },
+
+  showConfirmModal: function(title, message, skipKey, onConfirm) {
+    if (localStorage.getItem(skipKey) === 'true') {
+      onConfirm();
+      return;
+    }
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'marlon-modal-overlay';
+    overlay.innerHTML = `
+      <div class="marlon-modal-box">
+        <div class="marlon-modal-title">${title}</div>
+        <div class="marlon-modal-text">${message}</div>
+        <label class="marlon-modal-checkbox">
+          <input type="checkbox" id="marlon-skip-cb"> Don't ask me again
+        </label>
+        <div class="marlon-modal-actions">
+          <button class="marlon-btn-cancel">Cancel</button>
+          <button class="marlon-btn-confirm">Yes, Delete</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    
+    overlay.querySelector('.marlon-btn-cancel').onclick = () => overlay.remove();
+    overlay.querySelector('.marlon-btn-confirm').onclick = () => {
+      if (overlay.querySelector('#marlon-skip-cb').checked) {
+        localStorage.setItem(skipKey, 'true');
+      }
+      overlay.remove();
+      onConfirm();
+    };
+  },
+
+  copyDayToClipboard: function(dayName, spotIds, routeIds, allMarkers, extSpotsMap, allPresets) {
+    let text = `🗺️ My LA Trip: ${dayName === 'All' ? 'Unassigned Spots' : dayName}\n\n`;
+    
+    routeIds.forEach(rId => {
+      const p = allPresets.find(item => item.id === rId);
+      if (p) {
+        text += `✨ Route: ${p.title}\n`;
+        p.spotTitles.forEach(t => {
+          const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase().trim()));
+          if (match && !window.MarlonStorage.isSpotExcludedFromRoute(rId, match.id)) {
+            text += `📍 ${match.title}\n`;
+          }
+        });
+        text += `\n`;
+      }
+    });
+
+    if (spotIds.length > 0) {
+      text += `📌 Saved Spots:\n`;
+      spotIds.forEach(id => {
+        let m = allMarkers.find(item => item.id === id) || extSpotsMap[id];
+        if (m) {
+          text += `📍 ${m.title} ${m.neighborhood ? `(${m.neighborhood})` : ''}\n`;
+          if (m.isExternal) text += `🔗 ${m.gmapsUrl}\n`;
+        }
+      });
+    }
+    
+    navigator.clipboard.writeText(text).then(() => {
+      alert(`Copied ${dayName} itinerary to clipboard!`);
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
   },
 
   renderItinerary: function(container, allMarkers, callbacks) {
@@ -57,7 +123,6 @@ window.MarlonItineraryView = {
     let html = `
       <div class="itinerary-view-wrapper">
         <div class="day-filter-bar" style="margin-top: 4px;">
-          <span class="day-label">Plan Day:</span>
           ${daysList.map(d => `<button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''} ${dayCounts[d] > 0 ? 'has-items' : ''}" data-day="${d}">${d === 'Popular' ? '🔥 Popular' : d} ${dayCounts[d] > 0 ? `(${dayCounts[d]})` : ''}</button>`).join('')}
         </div>
         <div class="itinerary-section">
@@ -117,7 +182,7 @@ window.MarlonItineraryView = {
           const preset = allPresets.find(p => p.id === routeId);
           if (!preset) return '';
           return `
-            <details class="route-block-card" open>
+            <details class="route-block-card" open style="margin-bottom: 8px;">
               <summary class="route-block-header">
                 <div class="route-block-title-wrap">
                   <span class="route-block-title">${preset.title}</span>
@@ -164,8 +229,14 @@ window.MarlonItineraryView = {
           const customTitle = localStorage.getItem(`marlon_day_title_${activeDay}`) || activeDay;
           html += `
             <div class="route-block-card">
-              <div class="route-block-header">
-                <input type="text" class="day-title-input" data-day="${activeDay}" value="${customTitle}" placeholder="Name your day (e.g. Museum Day)">
+              <div class="route-block-header" style="justify-content: space-between;">
+                <div style="flex:1;">
+                  <input type="text" class="day-title-input" data-day="${activeDay}" value="${customTitle}" placeholder="Name your day (e.g. Museum Day)">
+                </div>
+                <div style="display:flex; gap: 6px; padding-left: 6px;">
+                  <button type="button" class="icon-btn share-day-btn" data-day="${activeDay}" title="Share this day">📤</button>
+                  <button type="button" class="icon-btn clear-day-btn" data-day="${activeDay}" title="Clear plans">🗑️</button>
+                </div>
               </div>
               <div class="route-block-body">
           `;
@@ -216,8 +287,12 @@ window.MarlonItineraryView = {
            if (activeCustomSpotIds.length > 0) {
               html += `
                 <div class="route-block-card">
-                  <div class="route-block-header" style="background-color: #f0f7ff; cursor: default;">
+                  <div class="route-block-header" style="background-color: #f0f7ff; justify-content: space-between; cursor: default;">
                     <span class="route-block-title" style="font-size: 13px;">📌 Unassigned Spots (${activeCustomSpotIds.length})</span>
+                    <div style="display:flex; gap: 6px;">
+                      <button type="button" class="icon-btn share-day-btn" data-day="All" title="Share unassigned spots">📤</button>
+                      <button type="button" class="icon-btn clear-day-btn" data-day="All" title="Clear unassigned spots">🗑️</button>
+                    </div>
                   </div>
                   <div class="route-block-body">
               `;
@@ -280,9 +355,6 @@ window.MarlonItineraryView = {
       }
       
       html += `</div>`;
-      if (activeRouteIds.length > 0 || activeCustomSpotIds.length > 0) {
-        html += `<div class="clear-day-container"><button type="button" class="clear-day-bottom-btn">🗑️ Clear ${activeDay === 'All' ? 'All Plans' : `${activeDay} Plans`}</button></div>`;
-      }
     }
     
     html += `</div></div>`;
@@ -347,16 +419,8 @@ window.MarlonItineraryView = {
             } else {
               const extId = 'ext-' + Date.now();
               const gmapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.dataset.query);
-              const spotData = {
-                id: extId,
-                title: item.dataset.query,
-                neighborhood: 'External Location',
-                gmapsUrl: gmapsUrl,
-                isExternal: true
-              };
-              if (window.MarlonStorage.addExternalSpot) {
-                window.MarlonStorage.addExternalSpot(spotData, dayTarget);
-              }
+              const spotData = { id: extId, title: item.dataset.query, neighborhood: 'External Location', gmapsUrl: gmapsUrl, isExternal: true };
+              if (window.MarlonStorage.addExternalSpot) window.MarlonStorage.addExternalSpot(spotData, dayTarget);
               window.MarlonItineraryView.renderItinerary(container, allMarkers, callbacks);
               dropdown.style.display = 'none';
               input.value = '';
@@ -366,21 +430,44 @@ window.MarlonItineraryView = {
       });
 
       document.addEventListener('click', (e) => {
-        if (!input.contains(e.target) && !dropdown.contains(e.target)) {
-          dropdown.style.display = 'none';
-        }
+        if (!input.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display = 'none';
       });
     });
 
     container.querySelectorAll('.day-pill').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); this.activeDay = btn.dataset.day; this.renderItinerary(container, allMarkers, callbacks); }));
+    
+    // CUSTOM MODAL FOR REMOVAL
+    container.querySelectorAll('.remove-toggle, .remove-nested-spot-btn').forEach(btn => btn.addEventListener('click', (e) => { 
+      e.preventDefault(); e.stopPropagation(); 
+      this.showConfirmModal("Remove Spot?", "Are you sure you want to remove this location from your trip?", "marlon_skip_remove", () => {
+        if (btn.classList.contains('remove-nested-spot-btn')) {
+          window.MarlonStorage.excludeSpotFromRoute(btn.dataset.route, btn.dataset.id);
+        } else {
+          if (callbacks.onRemoveSpot) callbacks.onRemoveSpot(btn.dataset.id);
+        }
+        this.renderItinerary(container, allMarkers, callbacks);
+      });
+    }));
+
+    // CUSTOM MODAL FOR CLEARING A DAY
+    container.querySelectorAll('.clear-day-btn').forEach(btn => btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const d = btn.dataset.day;
+      this.showConfirmModal(`Clear ${d}?`, `This will remove all spots and routes currently assigned to ${d}.`, "marlon_skip_clear", () => {
+         if (callbacks.onClearDay) callbacks.onClearDay(d);
+      });
+    }));
+
+    // SHARE BUTTON
+    container.querySelectorAll('.share-day-btn').forEach(btn => btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const d = btn.dataset.day;
+      this.copyDayToClipboard(d, activeCustomSpotIds, activeRouteIds, allMarkers, extSpotsMap, allPresets);
+    }));
+
     container.querySelectorAll('.pin-toggle').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); window.MarlonStorage.toggleSavedSpot(btn.dataset.id, activeDay !== 'Popular' && activeDay !== 'All' ? activeDay : 'All'); this.renderItinerary(container, allMarkers, callbacks); }));
     container.querySelectorAll('.visited-toggle').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); if (callbacks.onToggleVisited) callbacks.onToggleVisited(btn.dataset.id); }));
-    container.querySelectorAll('.remove-toggle').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); if (callbacks.onRemoveSpot) callbacks.onRemoveSpot(btn.dataset.id); }));
-    container.querySelectorAll('.remove-nested-spot-btn').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); window.MarlonStorage.excludeSpotFromRoute(btn.dataset.route, btn.dataset.id); this.renderItinerary(container, allMarkers, callbacks); }));
     container.querySelectorAll('.day-title-input').forEach(input => input.addEventListener('change', (e) => { localStorage.setItem(`marlon_day_title_${input.dataset.day}`, e.target.value); }));
     container.querySelectorAll('.day-assign-select').forEach(sel => sel.addEventListener('change', (e) => { e.stopPropagation(); window.MarlonStorage.setSpotDay(sel.dataset.id, sel.value); this.renderItinerary(container, allMarkers, callbacks); }));
-    
-    const clearDayBtn = container.querySelector('.clear-day-bottom-btn');
-    if (clearDayBtn && callbacks.onClearDay) clearDayBtn.addEventListener('click', (e) => { e.preventDefault(); if (confirm(`Clear plans for ${activeDay}?`)) callbacks.onClearDay(activeDay); });
   }
 };
