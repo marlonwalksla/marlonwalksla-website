@@ -1,22 +1,21 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
+ * CATEGORY: MarlonWalksLA Website - Simplified Trip Checklist
  * ============================================================================== */
+
 window.MarlonItineraryView = {
   activeDay: 'All',
 
   getSpotsCountForDay: function(dayName, allMarkers, itinMap, savedRoutesMap, allPresets) {
     if (dayName === 'Popular') {
-      const featuredTitles = allPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim()));
-      return allMarkers.filter(m => featuredTitles.some(t => m.title.toLowerCase().trim().includes(t))).length;
+      const targetCities = ['DTLA', 'Hollywood', 'Santa Monica', 'Venice'];
+      return allMarkers.filter(m => targetCities.some(city => m.neighborhood && m.neighborhood.toLowerCase().includes(city.toLowerCase()))).length;
     }
-    
     if (dayName === 'All') {
       return Object.keys(itinMap).filter(id => !itinMap[id] || itinMap[id] === 'All').length;
     }
-
     let count = Object.keys(itinMap).filter(sId => itinMap[sId] === dayName).length;
     const dayRouteIds = Object.keys(savedRoutesMap).filter(rId => savedRoutesMap[rId] === dayName);
-
     dayRouteIds.forEach(rId => {
       const p = allPresets.find(item => item.id === rId);
       if (p) {
@@ -52,7 +51,6 @@ window.MarlonItineraryView = {
       activeCustomSpotIds = Object.keys(itinMap).filter(sId => itinMap[sId] === activeDay);
     }
 
-    // FIX: REMOVED THE DUPLICATE "📋 YOUR TRIP" HEADER HERE
     let html = `
       <div class="itinerary-view-wrapper">
         <div class="day-filter-bar" style="margin-top: 4px;">
@@ -63,33 +61,37 @@ window.MarlonItineraryView = {
     `;
 
     if (activeDay === 'Popular') {
-      html += `
-        <div class="popular-spots-container">
-          <div class="popular-spot-feed-list">
-            ${allMarkers.filter(m => allPresets.flatMap(p => p.spotTitles.map(t => t.toLowerCase().trim())).some(t => m.title.toLowerCase().trim().includes(t))).map(m => {
-              const isSaved = savedSpotIds.includes(m.id);
-              const isVisited = visitedIds.includes(m.id);
-              return `
-                <div class="itinerary-item spot-feed-card" data-id="${m.id}">
-                  <div class="itinerary-item-info">
-                    <div class="itinerary-item-name">📍 ${m.title}</div>
-                    <div class="spot-feed-meta">${m.neighborhood}</div>
-                  </div>
-                  <div class="itinerary-item-actions">
-                    <button type="button" class="icon-btn nested-icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${m.id}" title="Pin">📌</button>
-                    <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="Visited">✓</button>
-                    <button type="button" class="icon-btn nested-icon-btn remove-toggle" data-id="${m.id}" title="Remove">✕</button>
-                  </div>
+      const targetCities = ['DTLA', 'Hollywood', 'Santa Monica', 'Venice'];
+      const popularSpots = allMarkers.filter(m => targetCities.some(city => m.neighborhood && m.neighborhood.toLowerCase().includes(city.toLowerCase())));
+      
+      html += `<div class="popular-spots-container"><div class="popular-spot-feed-list">`;
+      targetCities.forEach(city => {
+        const citySpots = popularSpots.filter(m => m.neighborhood.toLowerCase().includes(city.toLowerCase()));
+        if (citySpots.length > 0) {
+          html += `<div class="custom-spots-block-title" style="margin-top:8px;">🏙️ ${city}</div>`;
+          html += citySpots.map(m => {
+            const isSaved = savedSpotIds.includes(m.id);
+            const isVisited = visitedIds.includes(m.id);
+            return `
+              <div class="itinerary-item spot-feed-card" data-id="${m.id}">
+                <div class="itinerary-item-info">
+                  <div class="itinerary-item-name">📍 ${m.title}</div>
+                  <div class="spot-feed-meta">${m.neighborhood}</div>
                 </div>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      `;
+                <div class="itinerary-item-actions">
+                  <button type="button" class="icon-btn nested-icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${m.id}" title="Pin">📌</button>
+                  <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="Visited">✓</button>
+                  <button type="button" class="icon-btn nested-icon-btn remove-toggle" data-id="${m.id}" title="Remove">✕</button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      });
+      html += `</div></div>`;
     } else {
       html += `<div class="itinerary-blocks-container">`;
 
-      // FIX: ALWAYS RENDER A DAY BLOCK WITH CUSTOM TITLE AND EMPTY INPUTS IF NO SPOTS EXIST
       if (activeDay !== 'All' && activeRouteIds.length === 0 && activeCustomSpotIds.length === 0) {
         const customTitle = localStorage.getItem(`marlon_day_title_${activeDay}`) || activeDay;
         html += `
@@ -161,18 +163,16 @@ window.MarlonItineraryView = {
                 <div class="itinerary-item ${isVisited ? 'is-visited-item' : ''}" data-id="${sId}">
                   <div class="itinerary-item-info">
                     <div class="itinerary-item-name">📍 ${m.title}</div>
-                    <div class="itinerary-item-meta-row">
-                      <span class="spot-feed-meta">${m.neighborhood}</span>
-                      <select class="day-assign-select" data-id="${sId}">
-                        <option value="All" ${itinMap[sId] === 'All' ? 'selected' : ''}>Unassigned</option>
-                        <option value="Day 1" ${itinMap[sId] === 'Day 1' ? 'selected' : ''}>Day 1</option>
-                        <option value="Day 2" ${itinMap[sId] === 'Day 2' ? 'selected' : ''}>Day 2</option>
-                        <option value="Day 3" ${itinMap[sId] === 'Day 3' ? 'selected' : ''}>Day 3</option>
-                        <option value="Day 4" ${itinMap[sId] === 'Day 4' ? 'selected' : ''}>Day 4</option>
-                      </select>
-                    </div>
+                    <div class="spot-feed-meta">${m.neighborhood}</div>
                   </div>
                   <div class="itinerary-item-actions">
+                    <select class="day-assign-select" data-id="${sId}">
+                      <option value="All" ${itinMap[sId] === 'All' ? 'selected' : ''}>Unassigned</option>
+                      <option value="Day 1" ${itinMap[sId] === 'Day 1' ? 'selected' : ''}>Day 1</option>
+                      <option value="Day 2" ${itinMap[sId] === 'Day 2' ? 'selected' : ''}>Day 2</option>
+                      <option value="Day 3" ${itinMap[sId] === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                      <option value="Day 4" ${itinMap[sId] === 'Day 4' ? 'selected' : ''}>Day 4</option>
+                    </select>
                     <button type="button" class="icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${sId}" title="Pin">📌</button>
                     <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${sId}" title="Visited">✓</button>
                     <button type="button" class="icon-btn remove-toggle" data-id="${sId}">✕</button>
@@ -192,6 +192,9 @@ window.MarlonItineraryView = {
     
     html += `</div></div>`;
     container.innerHTML = html;
+
+    // ADD UPSELL SAFELY AFTER INNER HTML IS SET
+    if (window.MarlonUpsell) window.MarlonUpsell.renderCard(container, allMarkers);
 
     container.querySelectorAll('.day-pill').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); this.activeDay = btn.dataset.day; this.renderItinerary(container, allMarkers, callbacks); }));
     container.querySelectorAll('.pin-toggle').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); window.MarlonStorage.toggleSavedSpot(btn.dataset.id, activeDay !== 'Popular' && activeDay !== 'All' ? activeDay : 'All'); this.renderItinerary(container, allMarkers, callbacks); }));
