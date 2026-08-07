@@ -6,7 +6,7 @@
 window.MarlonAllLaView = {
   activeArea: 'All', activeCategories: new Set(), activeTag: 'All',
 
-  render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback, routeCallbacks) {
+  render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback) {
     if (!container) return;
     
     if (container.dataset.isRendered === 'true') return;
@@ -21,11 +21,9 @@ window.MarlonAllLaView = {
 
     const filtersContainer = document.createElement('div'); 
     filtersContainer.className = 'filters-master-container';
-    
-    const colorPalette = ['#ec4899', '#a855f7', '#6366f1', '#3b82f6', '#0ea5e9', '#10b981', '#84cc16', '#f59e0b', '#f97316', '#ef4444'];
 
     // ==========================================
-    // 1. POPULAR SPOTS (Moved from Trip Tab)
+    // 1. POPULAR SPOTS (Horizontal Feed)
     // ==========================================
     const allMarkers = window.MARLON_ALL_MARKERS || [];
     const targetCities = ['DTLA', 'Hollywood', 'Santa Monica', 'Venice'];
@@ -75,7 +73,7 @@ window.MarlonAllLaView = {
     }
 
     // ==========================================
-    // 2. COLLAPSIBLE CATEGORIES
+    // 2. COLLAPSIBLE CATEGORIES (Soft Tinted Pills)
     // ==========================================
     const catGroup = document.createElement('details'); 
     catGroup.className = 'filter-details-group';
@@ -122,7 +120,7 @@ window.MarlonAllLaView = {
     });
 
     // ==========================================
-    // 3. COLLAPSIBLE VIBES
+    // 3. COLLAPSIBLE VIBES (Unicolor Pills)
     // ==========================================
     let vibePillsBar = null;
     if (tagsSet.size > 0) {
@@ -143,9 +141,8 @@ window.MarlonAllLaView = {
       
       vibePillsBar = document.createElement('div'); 
       vibePillsBar.className = 'category-pills-bar';
-      Array.from(tagsSet).sort().forEach((tagVal, index) => {
+      Array.from(tagsSet).sort().forEach(tagVal => {
         const pill = document.createElement('div'); pill.className = 'cat-pill vibe-pill'; pill.dataset.tag = tagVal;
-        pill.style.setProperty('--pill-theme', colorPalette[index % colorPalette.length]);
 
         if (this.activeTag === tagVal) pill.classList.add('is-active');
         pill.innerHTML = tagVal.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -173,7 +170,7 @@ window.MarlonAllLaView = {
     }
 
     // ==========================================
-    // 4. COLLAPSIBLE NEIGHBORHOODS
+    // 4. COLLAPSIBLE NEIGHBORHOODS (Unicolor Pills)
     // ==========================================
     const areaGroup = document.createElement('details'); 
     areaGroup.className = 'filter-details-group';
@@ -191,9 +188,8 @@ window.MarlonAllLaView = {
     
     const areaPillsBar = document.createElement('div'); 
     areaPillsBar.className = 'category-pills-bar';
-    Array.from(neighborhoods).sort().forEach((area, index) => { 
+    Array.from(neighborhoods).sort().forEach(area => { 
       const pill = document.createElement('div'); pill.className = 'cat-pill area-pill'; pill.dataset.area = area;
-      pill.style.setProperty('--pill-theme', colorPalette[(index + 4) % colorPalette.length]);
 
       if (this.activeArea === area) pill.classList.add('is-active');
       pill.innerHTML = area;
@@ -220,51 +216,6 @@ window.MarlonAllLaView = {
     });
 
     container.appendChild(filtersContainer);
-
-    // ==========================================
-    // 5. ROUTES SLIDER (BOTTOM)
-    // ==========================================
-    const allPresets = window.MARLON_ROUTES_PRESETS || [];
-    if (allPresets.length > 0) {
-      const routesSection = document.createElement('div');
-      routesSection.className = 'routes-section';
-      routesSection.style.marginTop = '12px';
-      routesSection.style.borderTop = '2px dashed #cbd5e0';
-      routesSection.style.paddingTop = '16px';
-
-      routesSection.innerHTML = `
-        <div class="featured-feed-title" style="margin-bottom: 4px; font-size: 14px; font-weight: 800;">🚶 Pre-Built Routes</div>
-        <div class="routes-slider-wrapper">
-          ${allPresets.map(preset => `
-            <div class="route-slide-card">
-              <div style="font-size: 13px; font-weight: 800; color: #0f172a;">${preset.title}</div>
-              <div style="font-size: 10px; font-weight: 700; color: #3b82f6;">${preset.duration} • ${preset.spotTitles.length} stops</div>
-              <div style="font-size: 11px; color: #475569; margin: 4px 0; line-height: 1.4;">${preset.desc}</div>
-              <div style="display: flex; gap: 6px; margin-top: auto; padding-top: 8px;">
-                 <button type="button" class="import-route-btn" data-id="${preset.id}" style="flex:1; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; font-size:11px; font-weight:800; cursor:pointer;">+ Add to Trip</button>
-                 <button type="button" class="view-route-btn" data-id="${preset.id}" style="flex:1; background:#f8fafc; color:#475569; border:1px solid #cbd5e0; padding:8px; border-radius:6px; font-size:11px; font-weight:800; cursor:pointer;">🗺️ View</button>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-      container.appendChild(routesSection);
-
-      routesSection.querySelectorAll('.import-route-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault(); e.stopPropagation();
-          window.MarlonStorage.toggleRouteBlock(btn.dataset.id, 'Day 1');
-          alert('Route added to Day 1!');
-          if (routeCallbacks && routeCallbacks.onImportRoute) routeCallbacks.onImportRoute();
-        });
-      });
-      routesSection.querySelectorAll('.view-route-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault(); e.stopPropagation();
-          if (routeCallbacks && routeCallbacks.onPanToRoute) routeCallbacks.onPanToRoute(btn.dataset.id);
-        });
-      });
-    }
   },
 
   applyFilters: function(allMarkers, map, dtlaCenter) {
