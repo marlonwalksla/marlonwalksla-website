@@ -78,7 +78,7 @@ window.MarlonStorage = {
     return JSON.parse(localStorage.getItem('marlon_external_spots_data') || '{}');
   },
 
-clearItinerary: function() {
+  clearItinerary: function() {
     localStorage.setItem('marlon_saved_itinerary_map', '{}');
     localStorage.setItem('marlon_saved_routes_map', '{}');
     localStorage.setItem('marlon_excluded_route_spots', '[]');
