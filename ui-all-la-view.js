@@ -9,19 +9,16 @@ window.MarlonAllLaView = {
   render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback, routeCallbacks) {
     if (!container) return;
     
-    // FIX: Only render the HTML once to prevent the Search Bar from glitching out on tab switches
     if (container.dataset.isRendered === 'true') return;
     container.dataset.isRendered = 'true';
     container.innerHTML = ``;
 
-    // 1. MASTER SEARCH BAR (TOP) - Added top margin for breathing room
     if (searchWrapper) {
       searchWrapper.style.marginTop = '16px';
       searchWrapper.style.marginBottom = '8px';
       container.appendChild(searchWrapper);
     }
 
-    // 2. FILTERS CONTAINER
     const filtersContainer = document.createElement('div'); 
     filtersContainer.className = 'filters-master-container';
     
@@ -74,17 +71,29 @@ window.MarlonAllLaView = {
       });
     }
 
-    // Neighborhoods & Reset
+    // Neighborhoods (Now Using Pills!)
     const areaGroup = document.createElement('div'); areaGroup.className = 'dashboard-group';
     const areaLabel = document.createElement('div'); areaLabel.className = 'dashboard-label'; areaLabel.innerText = '📍 Neighborhoods'; areaGroup.appendChild(areaLabel);
-    const areaSelect = document.createElement('select'); 
-    areaSelect.style.padding = '8px'; areaSelect.style.borderRadius = '6px'; areaSelect.style.border = '1px solid #cbd5e0';
-    areaSelect.innerHTML = `<option value="All">All LA Neighborhoods</option>`;
+    
+    const areaPillsBar = document.createElement('div'); areaPillsBar.className = 'category-pills-bar';
     Array.from(neighborhoods).sort().forEach(area => { 
-      areaSelect.innerHTML += `<option value="${area}" ${this.activeArea === area ? 'selected' : ''}>${area}</option>`; 
+      const pill = document.createElement('div'); pill.className = 'cat-pill area-pill'; pill.dataset.area = area;
+      if (this.activeArea === area) pill.classList.add('is-active');
+      pill.innerHTML = area;
+      areaPillsBar.appendChild(pill);
     });
-    areaGroup.appendChild(areaSelect); filtersContainer.appendChild(areaGroup); 
-    areaSelect.addEventListener('change', (e) => { this.activeArea = e.target.value; if (applyFiltersCallback) applyFiltersCallback(); });
+    areaGroup.appendChild(areaPillsBar); filtersContainer.appendChild(areaGroup); 
+    
+    areaPillsBar.addEventListener('click', (e) => {
+      e.preventDefault(); const pill = e.target.closest('.area-pill'); if (!pill) return;
+      const area = pill.dataset.area;
+      if (this.activeArea === area) { this.activeArea = 'All'; pill.classList.remove('is-active'); } 
+      else { 
+        areaPillsBar.querySelectorAll('.area-pill').forEach(p => p.classList.remove('is-active'));
+        this.activeArea = area; pill.classList.add('is-active'); 
+      }
+      if (applyFiltersCallback) applyFiltersCallback();
+    });
 
     const resetBtn = document.createElement('button'); resetBtn.type = 'button'; resetBtn.className = 'reset-filters-btn'; resetBtn.innerHTML = '↺ Reset Filters';
     resetBtn.style.padding = '8px'; resetBtn.style.background = '#f1f5f9'; resetBtn.style.border = '1px solid #cbd5e0'; resetBtn.style.borderRadius = '6px'; resetBtn.style.cursor = 'pointer'; resetBtn.style.fontWeight = '700';
@@ -92,7 +101,7 @@ window.MarlonAllLaView = {
     
     resetBtn.addEventListener('click', (e) => {
       e.preventDefault(); this.activeArea = 'All'; this.activeTag = 'All'; this.activeCategories.clear();
-      if (areaSelect) areaSelect.value = 'All';
+      areaPillsBar.querySelectorAll('.area-pill').forEach(p => p.classList.remove('is-active'));
       catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
       if (vibePillsBar) vibePillsBar.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('is-active'));
       if (applyFiltersCallback) applyFiltersCallback();
@@ -155,7 +164,11 @@ window.MarlonAllLaView = {
       if (matchesArea && matchesCategory && matchesTag) { item.marker.addTo(map); bounds.extend([item.lng, item.lat]); visibleCount++; } 
       else { item.marker.remove(); }
     });
-    if (visibleCount >= 1) map.fitBounds(bounds, { padding: 60, maxZoom: 13.0, duration: 1000 });
-    else map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 1000 });
+    if (visibleCount >= 1) {
+       // Maximum zoom to prevent zooming in too closely on single markers
+       map.fitBounds(bounds, { maxZoom: 13.0 });
+    } else {
+       map.flyTo({ center: dtlaCenter, zoom: 10.2 });
+    }
   }
 };
