@@ -50,7 +50,13 @@
 .nav-collapse-area {
   display: flex;
   align-items: center;
-  gap: 40px; /* Creates the separation on desktop */
+  flex-grow: 1; /* Fills the remaining space next to the logo */
+}
+
+.nav-links-container {
+  flex-grow: 1; /* Takes up the middle space to push icons to the end */
+  display: flex;
+  justify-content: center; /* Places the text links in the middle */
 }
 
 .button-group, .header-icon-group {
@@ -117,6 +123,10 @@
   }
 
   /* Stack text links vertically and center them */
+  .nav-links-container {
+    width: 100%;
+  }
+
   .button-group {
     flex-direction: column;
     width: 100%;
