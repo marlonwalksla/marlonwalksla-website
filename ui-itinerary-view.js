@@ -1,6 +1,5 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Simplified Trip Checklist
  * ============================================================================== */
 
 window.MarlonItineraryView = {
@@ -38,6 +37,7 @@ window.MarlonItineraryView = {
     const visitedIds = window.MarlonStorage.getVisitedSpots();
     const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
     const allPresets = window.MARLON_ROUTES_PRESETS || [];
+    const extSpotsMap = window.MarlonStorage.getExternalSpots ? window.MarlonStorage.getExternalSpots() : {};
     const activeDay = this.activeDay;
 
     const daysList = ['All', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Popular'];
@@ -75,6 +75,7 @@ window.MarlonItineraryView = {
           html += citySpots.map(m => {
             const isSaved = savedSpotIds.includes(m.id);
             const isVisited = visitedIds.includes(m.id);
+            const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}`;
             return `
               <div class="itinerary-item spot-feed-card" data-id="${m.id}">
                 <div class="itinerary-item-info">
@@ -82,6 +83,7 @@ window.MarlonItineraryView = {
                   <div class="spot-feed-meta">${m.neighborhood}</div>
                 </div>
                 <div class="itinerary-item-actions">
+                  <a href="${gmapsLink}" target="_blank" class="icon-btn nested-icon-btn" title="Open Map" style="text-decoration:none;">🚗</a>
                   <button type="button" class="icon-btn nested-icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${m.id}" title="Pin">📌</button>
                   <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="Visited">✓</button>
                   <button type="button" class="icon-btn nested-icon-btn remove-toggle" data-id="${m.id}" title="Remove">✕</button>
@@ -137,6 +139,7 @@ window.MarlonItineraryView = {
                   if (!match || window.MarlonStorage.isSpotExcludedFromRoute(preset.id, match.id)) return '';
                   const isVisited = visitedIds.includes(match.id);
                   const isSaved = true; 
+                  const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${match.lat},${match.lng}`;
                   return `
                     <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${match.id}">
                       <div class="itinerary-item-info">
@@ -144,6 +147,7 @@ window.MarlonItineraryView = {
                         <div class="spot-feed-meta">${match.neighborhood}</div>
                       </div>
                       <div class="itinerary-item-actions">
+                        <a href="${gmapsLink}" target="_blank" class="icon-btn nested-icon-btn" title="Open Map" style="text-decoration:none;">🚗</a>
                         <button type="button" class="icon-btn nested-icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${match.id}" title="Pin">📌</button>
                         <button type="button" class="icon-btn nested-icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${match.id}" title="Visited">✓</button>
                         <button type="button" class="icon-btn nested-icon-btn remove-nested-spot-btn" data-route="${preset.id}" data-id="${match.id}" title="Remove">✕</button>
@@ -167,10 +171,14 @@ window.MarlonItineraryView = {
           `;
           if (activeCustomSpotIds.length > 0) {
             html += activeCustomSpotIds.map(sId => {
-              const m = allMarkers.find(item => item.id === sId);
+              let m = allMarkers.find(item => item.id === sId);
+              if (!m && extSpotsMap[sId]) m = extSpotsMap[sId];
               if (!m) return '';
+
               const isVisited = visitedIds.includes(m.id);
               const isSaved = true;
+              const gmapsLink = m.isExternal ? m.gmapsUrl : `https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}`;
+
               return `
                 <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${sId}">
                   <div class="itinerary-item-info">
@@ -187,6 +195,7 @@ window.MarlonItineraryView = {
                     </div>
                   </div>
                   <div class="itinerary-item-actions">
+                    <a href="${gmapsLink}" target="_blank" class="icon-btn" title="Open Map" style="text-decoration:none;">🚗</a>
                     <button type="button" class="icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${sId}" title="Pin">📌</button>
                     <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${sId}" title="Visited">✓</button>
                     <button type="button" class="icon-btn remove-toggle" data-id="${sId}">✕</button>
@@ -213,10 +222,14 @@ window.MarlonItineraryView = {
                   <div class="route-block-body">
               `;
               html += activeCustomSpotIds.map(sId => {
-                const m = allMarkers.find(item => item.id === sId);
+                let m = allMarkers.find(item => item.id === sId);
+                if (!m && extSpotsMap[sId]) m = extSpotsMap[sId];
                 if (!m) return '';
+
                 const isVisited = visitedIds.includes(m.id);
                 const isSaved = true;
+                const gmapsLink = m.isExternal ? m.gmapsUrl : `https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}`;
+
                 return `
                   <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${sId}">
                     <div class="itinerary-item-info">
@@ -233,6 +246,7 @@ window.MarlonItineraryView = {
                       </div>
                     </div>
                     <div class="itinerary-item-actions">
+                      <a href="${gmapsLink}" target="_blank" class="icon-btn" title="Open Map" style="text-decoration:none;">🚗</a>
                       <button type="button" class="icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${sId}" title="Pin">📌</button>
                       <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${sId}" title="Visited">✓</button>
                       <button type="button" class="icon-btn remove-toggle" data-id="${sId}">✕</button>
@@ -283,7 +297,6 @@ window.MarlonItineraryView = {
       }
     }
 
-    // MANUAL SEARCH LOGIC
     container.querySelectorAll('.manual-spot-search').forEach(input => {
       const dropdown = input.nextElementSibling;
       const dayTarget = input.dataset.day;
@@ -314,7 +327,7 @@ window.MarlonItineraryView = {
           <div class="search-result-item" data-type="google" data-query="${input.value.trim()}">
             <div>
               <div class="search-result-title">🗺️ Search "${input.value.trim()}"</div>
-              <div class="search-result-meta">Open in Google Maps</div>
+              <div class="search-result-meta">Save custom Google Map link</div>
             </div>
             <span class="search-badge address">External</span>
           </div>
@@ -332,8 +345,19 @@ window.MarlonItineraryView = {
               window.MarlonStorage.toggleSavedSpot(item.dataset.id, dayTarget);
               window.MarlonItineraryView.renderItinerary(container, allMarkers, callbacks);
             } else {
+              const extId = 'ext-' + Date.now();
               const gmapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.dataset.query);
-              window.open(gmapsUrl, '_blank');
+              const spotData = {
+                id: extId,
+                title: item.dataset.query,
+                neighborhood: 'External Location',
+                gmapsUrl: gmapsUrl,
+                isExternal: true
+              };
+              if (window.MarlonStorage.addExternalSpot) {
+                window.MarlonStorage.addExternalSpot(spotData, dayTarget);
+              }
+              window.MarlonItineraryView.renderItinerary(container, allMarkers, callbacks);
               dropdown.style.display = 'none';
               input.value = '';
             }
