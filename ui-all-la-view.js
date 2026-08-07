@@ -22,19 +22,34 @@ window.MarlonAllLaView = {
     const filtersContainer = document.createElement('div'); 
     filtersContainer.className = 'filters-master-container';
     
-    // Categories
-    const catGroup = document.createElement('div'); catGroup.className = 'dashboard-group';
-    const catLabel = document.createElement('div'); catLabel.className = 'dashboard-label'; catLabel.innerText = '🏷️ Categories'; catGroup.appendChild(catLabel);
+    // ==========================================
+    // 1. COLLAPSIBLE CATEGORIES
+    // ==========================================
+    const catGroup = document.createElement('details'); 
+    catGroup.className = 'filter-details-group';
+    catGroup.open = true; // Open by default
     
-    const catPillsBar = document.createElement('div'); catPillsBar.className = 'category-pills-bar';
+    const catSummary = document.createElement('summary'); 
+    catSummary.className = 'filter-summary';
+    catSummary.innerHTML = `
+      <div class="filter-summary-title">🏷️ Categories</div>
+      <button type="button" class="mini-reset-btn">Reset</button>
+    `;
+    catGroup.appendChild(catSummary);
+    
+    const catBody = document.createElement('div');
+    catBody.className = 'filter-details-body';
+    
+    const catPillsBar = document.createElement('div'); 
+    catPillsBar.className = 'category-pills-bar';
     Array.from(categories).sort().forEach(cat => {
       const pill = document.createElement('div'); pill.className = 'cat-pill'; pill.dataset.category = cat;
       if (this.activeCategories.has(cat)) pill.classList.add('is-active');
-      const catDetails = window.MarlonSpotCard ? window.MarlonSpotCard.getCategoryDetails(cat, '', categoryMap, defaultPinSvg) : { color: '#3898ec', name: cat };
+      const catDetails = window.MarlonSpotCard ? window.MarlonSpotCard.getCategoryDetails(cat, '', categoryMap, defaultPinSvg) : { color: '#2B82B9', name: cat };
       pill.innerHTML = `<span class="cat-dot" style="background-color:${catDetails.color}; width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:6px;"></span>${catDetails.name}`; 
       catPillsBar.appendChild(pill);
     });
-    catGroup.appendChild(catPillsBar); filtersContainer.appendChild(catGroup); 
+    catBody.appendChild(catPillsBar); catGroup.appendChild(catBody); filtersContainer.appendChild(catGroup); 
     
     catPillsBar.addEventListener('click', (e) => {
       e.preventDefault(); const pill = e.target.closest('.cat-pill'); if (!pill) return;
@@ -44,20 +59,41 @@ window.MarlonAllLaView = {
       if (applyFiltersCallback) applyFiltersCallback();
     });
 
-    // Vibes
+    catSummary.querySelector('.mini-reset-btn').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation(); // Prevents the accordion from closing
+      this.activeCategories.clear();
+      catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
+      if (applyFiltersCallback) applyFiltersCallback();
+    });
+
+    // ==========================================
+    // 2. COLLAPSIBLE VIBES
+    // ==========================================
     let vibePillsBar = null;
     if (tagsSet.size > 0) {
-      const tagGroup = document.createElement('div'); tagGroup.className = 'dashboard-group';
-      const tagLabel = document.createElement('div'); tagLabel.className = 'dashboard-label'; tagLabel.innerText = '✨ Vibe'; tagGroup.appendChild(tagLabel);
+      const tagGroup = document.createElement('details'); 
+      tagGroup.className = 'filter-details-group';
       
-      vibePillsBar = document.createElement('div'); vibePillsBar.className = 'category-pills-bar';
+      const tagSummary = document.createElement('summary'); 
+      tagSummary.className = 'filter-summary';
+      tagSummary.innerHTML = `
+        <div class="filter-summary-title">✨ Vibe</div>
+        <button type="button" class="mini-reset-btn">Reset</button>
+      `;
+      tagGroup.appendChild(tagSummary);
+      
+      const tagBody = document.createElement('div');
+      tagBody.className = 'filter-details-body';
+      
+      vibePillsBar = document.createElement('div'); 
+      vibePillsBar.className = 'category-pills-bar';
       Array.from(tagsSet).sort().forEach(tagVal => {
         const pill = document.createElement('div'); pill.className = 'cat-pill vibe-pill'; pill.dataset.tag = tagVal;
         if (this.activeTag === tagVal) pill.classList.add('is-active');
         pill.innerHTML = tagVal.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
         vibePillsBar.appendChild(pill);
       });
-      tagGroup.appendChild(vibePillsBar); filtersContainer.appendChild(tagGroup);
+      tagBody.appendChild(vibePillsBar); tagGroup.appendChild(tagBody); filtersContainer.appendChild(tagGroup);
       
       vibePillsBar.addEventListener('click', (e) => {
         e.preventDefault(); const pill = e.target.closest('.vibe-pill'); if (!pill) return;
@@ -69,20 +105,41 @@ window.MarlonAllLaView = {
         }
         if (applyFiltersCallback) applyFiltersCallback();
       });
+
+      tagSummary.querySelector('.mini-reset-btn').addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        this.activeTag = 'All';
+        vibePillsBar.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('is-active'));
+        if (applyFiltersCallback) applyFiltersCallback();
+      });
     }
 
-    // Neighborhoods (Now Using Pills!)
-    const areaGroup = document.createElement('div'); areaGroup.className = 'dashboard-group';
-    const areaLabel = document.createElement('div'); areaLabel.className = 'dashboard-label'; areaLabel.innerText = '📍 Neighborhoods'; areaGroup.appendChild(areaLabel);
+    // ==========================================
+    // 3. COLLAPSIBLE NEIGHBORHOODS
+    // ==========================================
+    const areaGroup = document.createElement('details'); 
+    areaGroup.className = 'filter-details-group';
     
-    const areaPillsBar = document.createElement('div'); areaPillsBar.className = 'category-pills-bar';
+    const areaSummary = document.createElement('summary'); 
+    areaSummary.className = 'filter-summary';
+    areaSummary.innerHTML = `
+      <div class="filter-summary-title">📍 Neighborhoods</div>
+      <button type="button" class="mini-reset-btn">Reset</button>
+    `;
+    areaGroup.appendChild(areaSummary);
+    
+    const areaBody = document.createElement('div');
+    areaBody.className = 'filter-details-body';
+    
+    const areaPillsBar = document.createElement('div'); 
+    areaPillsBar.className = 'category-pills-bar';
     Array.from(neighborhoods).sort().forEach(area => { 
       const pill = document.createElement('div'); pill.className = 'cat-pill area-pill'; pill.dataset.area = area;
       if (this.activeArea === area) pill.classList.add('is-active');
       pill.innerHTML = area;
       areaPillsBar.appendChild(pill);
     });
-    areaGroup.appendChild(areaPillsBar); filtersContainer.appendChild(areaGroup); 
+    areaBody.appendChild(areaPillsBar); areaGroup.appendChild(areaBody); filtersContainer.appendChild(areaGroup); 
     
     areaPillsBar.addEventListener('click', (e) => {
       e.preventDefault(); const pill = e.target.closest('.area-pill'); if (!pill) return;
@@ -95,12 +152,21 @@ window.MarlonAllLaView = {
       if (applyFiltersCallback) applyFiltersCallback();
     });
 
-    const resetBtn = document.createElement('button'); resetBtn.type = 'button'; resetBtn.className = 'reset-filters-btn'; resetBtn.innerHTML = '↺ Reset Filters';
-    resetBtn.style.padding = '8px'; resetBtn.style.background = '#f1f5f9'; resetBtn.style.border = '1px solid #cbd5e0'; resetBtn.style.borderRadius = '6px'; resetBtn.style.cursor = 'pointer'; resetBtn.style.fontWeight = '700';
-    filtersContainer.appendChild(resetBtn);
+    areaSummary.querySelector('.mini-reset-btn').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      this.activeArea = 'All';
+      areaPillsBar.querySelectorAll('.area-pill').forEach(p => p.classList.remove('is-active'));
+      if (applyFiltersCallback) applyFiltersCallback();
+    });
+
+    // Master Reset Button (Clears Everything)
+    const masterResetBtn = document.createElement('button'); masterResetBtn.type = 'button'; masterResetBtn.className = 'reset-filters-btn'; masterResetBtn.innerHTML = '↺ Clear All Filters';
+    masterResetBtn.style.padding = '10px'; masterResetBtn.style.background = '#f1f5f9'; masterResetBtn.style.border = '1px solid #cbd5e0'; masterResetBtn.style.borderRadius = '8px'; masterResetBtn.style.cursor = 'pointer'; masterResetBtn.style.fontWeight = '800'; masterResetBtn.style.color = '#475569';
+    filtersContainer.appendChild(masterResetBtn);
     
-    resetBtn.addEventListener('click', (e) => {
-      e.preventDefault(); this.activeArea = 'All'; this.activeTag = 'All'; this.activeCategories.clear();
+    masterResetBtn.addEventListener('click', (e) => {
+      e.preventDefault(); 
+      this.activeArea = 'All'; this.activeTag = 'All'; this.activeCategories.clear();
       areaPillsBar.querySelectorAll('.area-pill').forEach(p => p.classList.remove('is-active'));
       catPillsBar.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('is-active'));
       if (vibePillsBar) vibePillsBar.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('is-active'));
@@ -109,17 +175,19 @@ window.MarlonAllLaView = {
 
     container.appendChild(filtersContainer);
 
-    // 3. ROUTES SLIDER (BOTTOM)
+    // ==========================================
+    // 4. ROUTES SLIDER (BOTTOM)
+    // ==========================================
     const allPresets = window.MARLON_ROUTES_PRESETS || [];
     if (allPresets.length > 0) {
       const routesSection = document.createElement('div');
       routesSection.className = 'routes-section';
-      routesSection.style.marginTop = '8px';
+      routesSection.style.marginTop = '12px';
       routesSection.style.borderTop = '2px dashed #cbd5e0';
-      routesSection.style.paddingTop = '12px';
+      routesSection.style.paddingTop = '16px';
 
       routesSection.innerHTML = `
-        <div class="featured-feed-title" style="margin-bottom: 2px;">🚶 Pre-Built Routes</div>
+        <div class="featured-feed-title" style="margin-bottom: 4px; font-size: 14px; font-weight: 800;">🚶 Pre-Built Routes</div>
         <div class="routes-slider-wrapper">
           ${allPresets.map(preset => `
             <div class="route-slide-card">
@@ -165,7 +233,6 @@ window.MarlonAllLaView = {
       else { item.marker.remove(); }
     });
     if (visibleCount >= 1) {
-       // Maximum zoom to prevent zooming in too closely on single markers
        map.fitBounds(bounds, { maxZoom: 13.0 });
     } else {
        map.flyTo({ center: dtlaCenter, zoom: 10.2 });
