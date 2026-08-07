@@ -583,19 +583,28 @@ details[open] .filter-summary-title::after {
 }
 
 .mini-reset-btn {
-  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #ef4444;
+  font-size: 11px;
   font-weight: 800;
-  color: #64748b;
-  background: #e2e8f0;
-  border: none;
-  padding: 4px 8px;
-  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  padding: 0;
+  line-height: 1;
 }
+
 .mini-reset-btn:hover {
-  background: #cbd5e0;
-  color: #0f172a;
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  transform: scale(1.08);
 }
 
 .filter-details-body {
