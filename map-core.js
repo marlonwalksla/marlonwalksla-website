@@ -15,7 +15,12 @@ window.initMapEngine = async function() {
 
   const geolocate = new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true, showUserHeading: true });
   map.addControl(geolocate, 'top-right');
-  window.addEventListener('resize', () => map.resize());
+
+  function updateMapPadding() {
+    if (window.innerWidth <= 820) map.setPadding({ bottom: 260 });
+    else map.setPadding({ bottom: 0 });
+  }
+  window.addEventListener('resize', () => { map.resize(); updateMapPadding(); });
 
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
   const categoryMap = { /* Keep your existing categoryMap object here */ };
@@ -50,8 +55,35 @@ window.initMapEngine = async function() {
     form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); return false; });
     form.innerHTML = '';
 
-    const dragHandle = document.createElement('div'); dragHandle.className = 'mobile-drag-handle'; form.appendChild(dragHandle);
-    dragHandle.addEventListener('click', (e) => { e.preventDefault(); if (filterBarParent) { filterBarParent.classList.toggle('is-expanded'); filterBarParent.classList.toggle('is-collapsed'); } });
+    const dragHandle = document.createElement('button'); 
+    dragHandle.className = 'mobile-drag-handle'; 
+    dragHandle.innerHTML = '↑'; 
+    form.appendChild(dragHandle);
+
+    dragHandle.addEventListener('click', (e) => { 
+      e.preventDefault(); 
+      if (filterBarParent) { 
+        const isExpanded = filterBarParent.classList.contains('is-expanded');
+        if (isExpanded) {
+          filterBarParent.classList.remove('is-expanded'); 
+          filterBarParent.classList.add('is-collapsed');
+          dragHandle.innerHTML = '↑';
+        } else {
+          filterBarParent.classList.remove('is-collapsed'); 
+          filterBarParent.classList.add('is-expanded');
+          dragHandle.innerHTML = '↓';
+        }
+      } 
+    });
+
+    // Close bottom sheet when tapping anywhere on the map
+    map.on('click', (e) => {
+      if (window.innerWidth <= 820 && filterBarParent && filterBarParent.classList.contains('is-expanded')) {
+        filterBarParent.classList.remove('is-expanded');
+        filterBarParent.classList.add('is-collapsed');
+        dragHandle.innerHTML = '↑';
+      }
+    });
 
     searchWrapper = document.createElement('div'); searchWrapper.className = 'map-search-wrapper';
     searchWrapper.innerHTML = `<input type="text" class="map-search-input" placeholder="🔍 Search 102 spots, hotels, locations..." /><div class="search-results-dropdown"></div>`;
@@ -105,7 +137,7 @@ window.initMapEngine = async function() {
                   const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase())); 
                   if (match) bounds.extend([match.lng, match.lat]); 
                 }); 
-                map.fitBounds(bounds, { padding: 60, maxZoom: 13.5 }); 
+                map.fitBounds(bounds, { maxZoom: 13.5 }); 
               } 
             }
           }
@@ -213,5 +245,10 @@ window.initMapEngine = async function() {
   }
   if (window.MarlonHotel) window.MarlonHotel.updateUI(hotelAnchorBox, () => { switchTab('search'); setTimeout(() => searchWrapper.querySelector('.map-search-input').focus(), 100); });
 
-  map.on('load', () => { if (window.MarlonHotel) window.MarlonHotel.renderMarker(map); updateMarkerStates(); switchTab('trip'); });
+  map.on('load', () => { 
+    updateMapPadding();
+    if (window.MarlonHotel) window.MarlonHotel.renderMarker(map); 
+    updateMarkerStates(); 
+    switchTab('trip'); 
+  });
 };
