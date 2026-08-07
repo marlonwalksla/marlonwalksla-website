@@ -608,43 +608,47 @@ details[open] .filter-summary-title::after {
   --ernesto-blue: #2B82B9;
   --ernesto-pink: #FF00E6; 
   --ernesto-orange: #F58220; 
+  --ernesto-green: #10b981; 
 }
 
-/* Tint inactive tabs so they are instantly recognizable */
+/* Make tabs slightly narrower so 4 fit nicely on mobile */
+.scope-toggle-btn { padding: 8px 10px !important; }
+
+/* Inactive tabs */
 .scope-toggle-btn:nth-child(1) { background-color: #f0f9ff !important; color: var(--ernesto-blue) !important; border-color: #bae6fd !important; }
 .scope-toggle-btn:nth-child(2) { background-color: #fff7ed !important; color: var(--ernesto-orange) !important; border-color: #fed7aa !important; }
 .scope-toggle-btn:nth-child(3) { background-color: #fdf2f8 !important; color: var(--ernesto-pink) !important; border-color: #fbcfe8 !important; }
+.scope-toggle-btn:nth-child(4) { background-color: #ecfdf5 !important; color: var(--ernesto-green) !important; border-color: #a7f3d0 !important; }
 
-/* Solid colors for active tabs */
+/* Active tabs */
 .scope-toggle-btn:nth-child(1).is-active { background-color: var(--ernesto-blue) !important; color: #ffffff !important; border-color: var(--ernesto-blue) !important; }
 .scope-toggle-btn:nth-child(2).is-active { background-color: var(--ernesto-orange) !important; color: #ffffff !important; border-color: var(--ernesto-orange) !important; }
 .scope-toggle-btn:nth-child(3).is-active { background-color: var(--ernesto-pink) !important; color: #ffffff !important; border-color: var(--ernesto-pink) !important; }
+.scope-toggle-btn:nth-child(4).is-active { background-color: var(--ernesto-green) !important; color: #ffffff !important; border-color: var(--ernesto-green) !important; }
 
-/* Dynamic Pill Colors (Uses CSS Variables set by JavaScript) */
-.cat-pill, .vibe-pill, .area-pill {
-  border-color: var(--pill-theme, #cbd5e0) !important;
-  color: var(--pill-theme, #475569) !important;
+/* =========================================================
+   PILL STYLING (Soft Categories & Unicolor Filters)
+   ========================================================= */
+/* 1. Category Pills - Soft colored background, solid on click */
+.cat-pill {
+  /* color-mix creates a soft 15% opacity version of the brand color! */
+  background-color: color-mix(in srgb, var(--pill-theme) 15%, transparent) !important;
+  border-color: var(--pill-theme) !important;
+  color: var(--pill-theme) !important;
+}
+.cat-pill.is-active {
+  background-color: var(--pill-theme) !important;
+  color: #ffffff !important;
+}
+
+/* 2. Vibes & Neighborhoods - Clean Unicolor Default */
+.vibe-pill, .area-pill {
+  border-color: #cbd5e0 !important;
+  color: #475569 !important;
   background: #ffffff !important;
 }
-.cat-pill.is-active, .vibe-pill.is-active, .area-pill.is-active {
-  background-color: var(--pill-theme, #2B82B9) !important;
+.vibe-pill.is-active, .area-pill.is-active {
+  background-color: var(--ernesto-blue) !important;
   color: #ffffff !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* Red "X" Reset Button */
-.mini-reset-btn {
-  font-size: 14px;
-  font-weight: 800;
-  color: #ef4444 !important;
-  background: #fee2e2 !important;
-  border: 1px solid #fca5a5 !important;
-  padding: 2px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.mini-reset-btn:hover {
-  background: #ef4444 !important;
-  color: #ffffff !important;
+  border-color: var(--ernesto-blue) !important;
 }
