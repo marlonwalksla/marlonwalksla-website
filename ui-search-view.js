@@ -1,5 +1,5 @@
 /* ==============================================================================
- * FILE: ui-all-la-view.js
+ * FILE: ui-search-view.js
  * CATEGORY: MarlonWalksLA Website - All LA Directory & Filter Controls
  * ============================================================================== */
 
