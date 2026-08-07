@@ -23,10 +23,16 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  flex-wrap: wrap; /* Allows the expanded mobile menu to drop below the top bar */
+  flex-wrap: wrap;
 }
 
-/* Logo Setup */
+/* Logo Setup - Set to flex: 1 to balance the right side */
+.grid-3-col > .grid-item-manual:first-child {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .logo-link {
   display: flex;
   align-items: center;
@@ -52,14 +58,21 @@
 .nav-collapse-area {
   display: flex;
   align-items: center;
-  flex: 1;
-  padding-left: 30px;
+  flex: 2; /* Gives the middle navigation area dominant flex space */
+  width: 100%;
 }
 
 .nav-links-container {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Perfectly centers the links in the bar */
+}
+
+/* Social Icons - Set to flex: 1 to match the logo column width */
+.social-icons-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .button-group, .header-icon-group {
@@ -111,18 +124,20 @@
     display: block; 
   }
 
-  /* Force the collapse area to drop down and take full width */
+  .grid-3-col > .grid-item-manual:first-child {
+    flex: none; /* Reset equal flex spacing on mobile */
+  }
+
   .nav-collapse-area {
     display: none; 
     flex-direction: column;
-    flex-basis: 100%; /* Forces this div to sit below the logo row */
+    flex-basis: 100%;
     width: 100%;
     margin-top: 20px;
     padding-left: 0;
     gap: 20px;
   }
 
-  /* When the .js adds the 'active' class, show the menu */
   .nav-collapse-area.active {
     display: flex;
   }
@@ -132,18 +147,22 @@
     flex: none;
   }
 
-  /* Place text links left to right and center them */
   .button-group {
-    flex-direction: row; /* Swapped to row for horizontal layout */
+    flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap; /* Keeps them tidy if viewed on a very narrow phone */
+    flex-wrap: wrap;
     width: 100%;
-    border-bottom: 1px solid #444; /* Your divisor */
+    border-bottom: 1px solid #444;
     padding-bottom: 20px;
     gap: 25px;
   }
 
-  /* Keep social icons horizontal and centered */
+  .social-icons-container {
+    flex: none;
+    justify-content: center;
+    width: 100%;
+  }
+
   .header-icon-group {
     flex-direction: row;
     justify-content: center;
