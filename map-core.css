@@ -155,7 +155,7 @@
   .hero-polaroid-wrapper {
     padding: 0 !important;
     width: 100vw !important;
-    height: 100dvh !important; /* Uses dynamic viewport for Safari/Chrome */
+    height: 100dvh !important;
   }
 
   /* 3. Force the map container to act as a fixed background */
@@ -188,19 +188,19 @@
     left: 0 !important;
     right: 0 !important;
     width: 100vw !important;
-    z-index: 9999 !important; /* Forces it above the map */
+    z-index: 9999 !important; 
     background: #ffffff !important;
     border-top-left-radius: 24px !important;
     border-top-right-radius: 24px !important;
     box-shadow: 0 -10px 25px rgba(0,0,0,0.15) !important;
-    padding: 8px 16px 32px 16px !important; /* Extra bottom padding for iOS home bar */
+    padding: 8px 16px 32px 16px !important; 
     box-sizing: border-box !important;
-    transition: height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important; /* Smooth swipe animation */
+    transition: height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important; 
   }
 
   /* 5. Taller collapsed state to fit all the new Search tabs */
   .filter-bar.is-collapsed { 
-    height: 200px !important; 
+    height: 260px !important; /* Perfect height to reveal the search bar */
     overflow: hidden !important; 
   }
   
