@@ -600,3 +600,51 @@ details[open] .filter-summary-title::after {
   border-top: 1px solid #e2e8f0;
   background: #ffffff;
 }
+
+/* =========================================================
+   MARLONWALKSLA BRAND PALETTE & TAB COLORS
+   ========================================================= */
+:root {
+  --ernesto-blue: #2B82B9;
+  --ernesto-pink: #FF00E6; 
+  --ernesto-orange: #F58220; 
+}
+
+/* Tint inactive tabs so they are instantly recognizable */
+.scope-toggle-btn:nth-child(1) { background-color: #f0f9ff !important; color: var(--ernesto-blue) !important; border-color: #bae6fd !important; }
+.scope-toggle-btn:nth-child(2) { background-color: #fff7ed !important; color: var(--ernesto-orange) !important; border-color: #fed7aa !important; }
+.scope-toggle-btn:nth-child(3) { background-color: #fdf2f8 !important; color: var(--ernesto-pink) !important; border-color: #fbcfe8 !important; }
+
+/* Solid colors for active tabs */
+.scope-toggle-btn:nth-child(1).is-active { background-color: var(--ernesto-blue) !important; color: #ffffff !important; border-color: var(--ernesto-blue) !important; }
+.scope-toggle-btn:nth-child(2).is-active { background-color: var(--ernesto-orange) !important; color: #ffffff !important; border-color: var(--ernesto-orange) !important; }
+.scope-toggle-btn:nth-child(3).is-active { background-color: var(--ernesto-pink) !important; color: #ffffff !important; border-color: var(--ernesto-pink) !important; }
+
+/* Dynamic Pill Colors (Uses CSS Variables set by JavaScript) */
+.cat-pill, .vibe-pill, .area-pill {
+  border-color: var(--pill-theme, #cbd5e0) !important;
+  color: var(--pill-theme, #475569) !important;
+  background: #ffffff !important;
+}
+.cat-pill.is-active, .vibe-pill.is-active, .area-pill.is-active {
+  background-color: var(--pill-theme, #2B82B9) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Red "X" Reset Button */
+.mini-reset-btn {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ef4444 !important;
+  background: #fee2e2 !important;
+  border: 1px solid #fca5a5 !important;
+  padding: 2px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mini-reset-btn:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
