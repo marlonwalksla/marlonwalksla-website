@@ -429,7 +429,7 @@
    SEARCH TAB POSTURE (FIX SQUISHED COLUMNS)
    ========================================================= */
 #search-view {
-  display: flex !important;
+  /* Let JavaScript control the display state! */
   flex-direction: column !important;
   gap: 14px;
   width: 100%;
