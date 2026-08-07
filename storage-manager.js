@@ -64,9 +64,24 @@ window.MarlonStorage = {
     localStorage.setItem('marlon_visited_spots', JSON.stringify(visited));
   },
 
-  clearItinerary: function() {
+  addExternalSpot: function(spotData, day) {
+    let extSpots = JSON.parse(localStorage.getItem('marlon_external_spots_data') || '{}');
+    extSpots[spotData.id] = spotData;
+    localStorage.setItem('marlon_external_spots_data', JSON.stringify(extSpots));
+    
+    let map = this.getItineraryMap();
+    map[spotData.id] = day;
+    localStorage.setItem('marlon_saved_itinerary_map', JSON.stringify(map));
+  },
+
+  getExternalSpots: function() {
+    return JSON.parse(localStorage.getItem('marlon_external_spots_data') || '{}');
+  },
+
+clearItinerary: function() {
     localStorage.setItem('marlon_saved_itinerary_map', '{}');
     localStorage.setItem('marlon_saved_routes_map', '{}');
     localStorage.setItem('marlon_excluded_route_spots', '[]');
+    localStorage.setItem('marlon_external_spots_data', '{}');
   }
 };
