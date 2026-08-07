@@ -252,20 +252,17 @@ window.MarlonItineraryView = {
 
               return `
                 <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${sId}">
-                  <div class="itinerary-item-info">
-                    <div class="itinerary-item-name">📍 ${m.title}</div>
-                    <div class="itinerary-item-meta-row">
-                      <span class="spot-feed-meta">${m.neighborhood}</span>
-                      <select class="day-assign-select" data-id="${sId}">
-                        <option value="All" ${!itinMap[sId] || itinMap[sId] === 'All' ? 'selected' : ''}>Unassigned</option>
-                        <option value="Day 1" ${itinMap[sId] === 'Day 1' ? 'selected' : ''}>Day 1</option>
-                        <option value="Day 2" ${itinMap[sId] === 'Day 2' ? 'selected' : ''}>Day 2</option>
-                        <option value="Day 3" ${itinMap[sId] === 'Day 3' ? 'selected' : ''}>Day 3</option>
-                        <option value="Day 4" ${itinMap[sId] === 'Day 4' ? 'selected' : ''}>Day 4</option>
-                      </select>
-                    </div>
+                  <div class="itinerary-item-info" style="flex: 1; padding-right: 4px;">
+                    <div class="itinerary-item-name" style="margin-bottom: 2px;">📍 ${m.title}</div>
                   </div>
-                  <div class="itinerary-item-actions">
+                  <div class="itinerary-item-actions" style="gap: 4px; display: flex; align-items: center;">
+                    <select class="day-assign-select" data-id="${sId}" style="margin-right: 2px; padding: 2px 4px !important;">
+                      <option value="All" ${!itinMap[sId] || itinMap[sId] === 'All' ? 'selected' : ''}>Unassigned</option>
+                      <option value="Day 1" ${itinMap[sId] === 'Day 1' ? 'selected' : ''}>Day 1</option>
+                      <option value="Day 2" ${itinMap[sId] === 'Day 2' ? 'selected' : ''}>Day 2</option>
+                      <option value="Day 3" ${itinMap[sId] === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                      <option value="Day 4" ${itinMap[sId] === 'Day 4' ? 'selected' : ''}>Day 4</option>
+                    </select>
                     <a href="${gmapsLink}" target="_blank" class="icon-btn" title="Open Map" style="text-decoration:none;">🚗</a>
                     <button type="button" class="icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${sId}" title="Pin">📌</button>
                     <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${sId}" title="Visited">✓</button>
@@ -307,20 +304,17 @@ window.MarlonItineraryView = {
 
                 return `
                   <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${sId}">
-                    <div class="itinerary-item-info">
-                      <div class="itinerary-item-name">📍 ${m.title}</div>
-                      <div class="itinerary-item-meta-row">
-                        <span class="spot-feed-meta">${m.neighborhood}</span>
-                        <select class="day-assign-select" data-id="${sId}">
-                          <option value="All" ${!itinMap[sId] || itinMap[sId] === 'All' ? 'selected' : ''}>Unassigned</option>
-                          <option value="Day 1" ${itinMap[sId] === 'Day 1' ? 'selected' : ''}>Day 1</option>
-                          <option value="Day 2" ${itinMap[sId] === 'Day 2' ? 'selected' : ''}>Day 2</option>
-                          <option value="Day 3" ${itinMap[sId] === 'Day 3' ? 'selected' : ''}>Day 3</option>
-                          <option value="Day 4" ${itinMap[sId] === 'Day 4' ? 'selected' : ''}>Day 4</option>
-                        </select>
-                      </div>
+                    <div class="itinerary-item-info" style="flex: 1; padding-right: 4px;">
+                      <div class="itinerary-item-name" style="margin-bottom: 2px;">📍 ${m.title}</div>
                     </div>
-                    <div class="itinerary-item-actions">
+                    <div class="itinerary-item-actions" style="gap: 4px; display: flex; align-items: center;">
+                      <select class="day-assign-select" data-id="${sId}" style="margin-right: 2px; padding: 2px 4px !important;">
+                        <option value="All" ${!itinMap[sId] || itinMap[sId] === 'All' ? 'selected' : ''}>Unassigned</option>
+                        <option value="Day 1" ${itinMap[sId] === 'Day 1' ? 'selected' : ''}>Day 1</option>
+                        <option value="Day 2" ${itinMap[sId] === 'Day 2' ? 'selected' : ''}>Day 2</option>
+                        <option value="Day 3" ${itinMap[sId] === 'Day 3' ? 'selected' : ''}>Day 3</option>
+                        <option value="Day 4" ${itinMap[sId] === 'Day 4' ? 'selected' : ''}>Day 4</option>
+                      </select>
                       <a href="${gmapsLink}" target="_blank" class="icon-btn" title="Open Map" style="text-decoration:none;">🚗</a>
                       <button type="button" class="icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${sId}" title="Pin">📌</button>
                       <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${sId}" title="Visited">✓</button>
