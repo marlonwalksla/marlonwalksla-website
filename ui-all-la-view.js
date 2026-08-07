@@ -8,15 +8,20 @@ window.MarlonAllLaView = {
 
   render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback, routeCallbacks) {
     if (!container) return;
+    
+    // FIX: Only render the HTML once to prevent the Search Bar from glitching out on tab switches
+    if (container.dataset.isRendered === 'true') return;
+    container.dataset.isRendered = 'true';
     container.innerHTML = ``;
 
-    // 1. MASTER SEARCH BAR (TOP)
+    // 1. MASTER SEARCH BAR (TOP) - Added top margin for breathing room
     if (searchWrapper) {
-      searchWrapper.style.marginBottom = '4px';
+      searchWrapper.style.marginTop = '16px';
+      searchWrapper.style.marginBottom = '8px';
       container.appendChild(searchWrapper);
     }
 
-    // 2. FILTERS CONTAINER (Fixes the side-by-side squish)
+    // 2. FILTERS CONTAINER
     const filtersContainer = document.createElement('div'); 
     filtersContainer.className = 'filters-master-container';
     
