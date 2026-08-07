@@ -224,14 +224,10 @@ window.initMapEngine = async function() {
     allMarkers.push(spotData);
   });
 
-  if (topHeaderView) {
+if (topHeaderView) {
     const mainTitleHeader = document.createElement('div'); mainTitleHeader.className = 'map-hero-cta-box';
     mainTitleHeader.style.marginTop = '0'; mainTitleHeader.style.paddingTop = '0';
-    
-    const titleText = document.createElement('h2'); titleText.className = 'map-hero-cta-title'; 
-    titleText.innerText = "Build Your LA Trip";
-    titleText.style.marginTop = '0';
-    
+        
     const scopeToggleWrap = document.createElement('div'); scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
     scopeToggleWrap.style.overflowX = 'auto';
     scopeToggleWrap.style.justifyContent = 'flex-start';
@@ -247,7 +243,10 @@ window.initMapEngine = async function() {
     scopeToggleWrap.appendChild(scopeSearchBtn); 
     scopeToggleWrap.appendChild(scopeTripBtn); 
     scopeToggleWrap.appendChild(scopePassportBtn);
-    mainTitleHeader.appendChild(titleText); mainTitleHeader.appendChild(scopeToggleWrap); topHeaderView.appendChild(mainTitleHeader);
+    
+    // Append only the tabs to the header
+    mainTitleHeader.appendChild(scopeToggleWrap); 
+    topHeaderView.appendChild(mainTitleHeader);
   }
 
   if (window.MarlonSearch) {
