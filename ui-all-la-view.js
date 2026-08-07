@@ -6,17 +6,11 @@
 window.MarlonAllLaView = {
   activeArea: 'All', activeCategories: new Set(), activeTag: 'All',
 
-  render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, hotelAnchorBox, applyFiltersCallback) {
+  render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback) {
     if (!container) return;
     container.innerHTML = ``;
 
     if (searchWrapper) container.appendChild(searchWrapper);
-    if (hotelAnchorBox) container.appendChild(hotelAnchorBox);
-
-    const headerIntro = document.createElement('div');
-    headerIntro.className = 'featured-feed-header';
-    headerIntro.innerHTML = `<span class="featured-feed-title" style="margin-top:10px;">🌐 All Locations</span>`;
-    container.appendChild(headerIntro);
 
     const catGroup = document.createElement('div'); catGroup.className = 'dashboard-group';
     const catLabel = document.createElement('div'); catLabel.className = 'dashboard-label'; catLabel.innerText = '🏷️ Categories'; catGroup.appendChild(catLabel);
