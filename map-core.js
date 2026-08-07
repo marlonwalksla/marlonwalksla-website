@@ -91,7 +91,26 @@ window.initMapEngine = async function() {
 
     if (targetTab === 'search') {
       searchView.style.display = 'flex';
-      if (window.MarlonAllLaView) window.MarlonAllLaView.render(searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, () => window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter));
+      if (window.MarlonAllLaView) {
+        window.MarlonAllLaView.render(
+          searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
+          () => window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter),
+          {
+            onImportRoute: () => { updateMarkerStates(); renderItinerary(); },
+            onPanToRoute: (pId) => { 
+              const preset = (window.MARLON_ROUTES_PRESETS || []).find(p => p.id === pId); 
+              if (preset) { 
+                const bounds = new mapboxgl.LngLatBounds(); 
+                preset.spotTitles.forEach(t => { 
+                  const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase())); 
+                  if (match) bounds.extend([match.lng, match.lat]); 
+                }); 
+                map.fitBounds(bounds, { padding: 60, maxZoom: 13.5 }); 
+              } 
+            }
+          }
+        );
+      }
     } else if (targetTab === 'trip') {
       tripView.style.display = 'flex';
       renderItinerary();
