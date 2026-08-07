@@ -338,3 +338,45 @@
   box-sizing: border-box;
 }
 .empty-slot-input:focus { border-color: #3898ec; background: #ffffff; }
+
+/* =========================================================
+   4-TAB NAVIGATION BAR STYLING
+   ========================================================= */
+.scope-toggle-wrap {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important; /* Forces a single line */
+  gap: 4px !important;
+  background-color: #f1f5f9;
+  padding: 4px;
+  border-radius: 8px;
+  width: 100%;
+  overflow-x: auto; /* Allows smooth swipe on tiny phones */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Hides the scrollbar cleanly */
+}
+
+.scope-toggle-wrap::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in Webkit browsers */
+}
+
+.scope-toggle-btn {
+  flex: 1 1 auto; /* Allows buttons to shrink evenly */
+  white-space: nowrap; /* Prevents text from breaking */
+  padding: 6px 10px; /* Tighter padding to fit all 4 */
+  font-size: 11px;
+  font-weight: 800;
+  color: #475569;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.scope-toggle-btn.is-active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
