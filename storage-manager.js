@@ -78,6 +78,16 @@ window.MarlonStorage = {
     return JSON.parse(localStorage.getItem('marlon_external_spots_data') || '{}');
   },
 
+  // NEW: PASSPORT & PROFILE DATA
+  getProfile: function() {
+    return JSON.parse(localStorage.getItem('marlon_user_profile') || '{"avatar": "default", "flightNotes": "", "carNotes": ""}');
+  },
+  updateProfile: function(key, value) {
+    let profile = this.getProfile();
+    profile[key] = value;
+    localStorage.setItem('marlon_user_profile', JSON.stringify(profile));
+  },
+
   clearItinerary: function() {
     localStorage.setItem('marlon_saved_itinerary_map', '{}');
     localStorage.setItem('marlon_saved_routes_map', '{}');
