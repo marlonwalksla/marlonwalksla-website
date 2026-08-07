@@ -54,8 +54,8 @@ window.initMapEngine = async function() {
 
   const form = document.querySelector('.filter-bar form');
   let searchWrapper = null, hotelAnchorBox = null, topHeaderView = null;
-  let searchView = null, tripView = null, passportView = null;
-  let scopeSearchBtn = null, scopeTripBtn = null, scopePassportBtn = null;
+  let searchView = null, tripView = null, passportView = null, routesView = null;
+  let scopeSearchBtn = null, scopeTripBtn = null, scopePassportBtn = null, scopeRoutesBtn = null;
   let activeTab = 'trip';
   let activePopup = null; 
 
@@ -125,31 +125,19 @@ window.initMapEngine = async function() {
     if (scopeSearchBtn) scopeSearchBtn.classList.toggle('is-active', targetTab === 'search');
     if (scopeTripBtn) scopeTripBtn.classList.toggle('is-active', targetTab === 'trip');
     if (scopePassportBtn) scopePassportBtn.classList.toggle('is-active', targetTab === 'passport');
+    if (scopeRoutesBtn) scopeRoutesBtn.classList.toggle('is-active', targetTab === 'routes');
 
     searchView.style.display = 'none';
     tripView.style.display = 'none';
     passportView.style.display = 'none';
+    if (routesView) routesView.style.display = 'none';
 
     if (targetTab === 'search') {
       searchView.style.display = 'flex';
       if (window.MarlonAllLaView) {
         window.MarlonAllLaView.render(
           searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
-          () => window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter),
-          {
-            onImportRoute: () => { updateMarkerStates(); renderItinerary(); },
-            onPanToRoute: (pId) => { 
-              const preset = (window.MARLON_ROUTES_PRESETS || []).find(p => p.id === pId); 
-              if (preset) { 
-                const bounds = new mapboxgl.LngLatBounds(); 
-                preset.spotTitles.forEach(t => { 
-                  const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase())); 
-                  if (match) bounds.extend([match.lng, match.lat]); 
-                }); 
-                map.fitBounds(bounds, { maxZoom: 13.5 }); 
-              } 
-            }
-          }
+          () => window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter)
         );
       }
     } else if (targetTab === 'trip') {
@@ -158,6 +146,24 @@ window.initMapEngine = async function() {
     } else if (targetTab === 'passport') {
       passportView.style.display = 'block';
       if (window.MarlonPassport) window.MarlonPassport.render(passportView, hotelAnchorBox, () => { switchTab('search'); setTimeout(() => searchWrapper.querySelector('.map-search-input').focus(), 100); });
+    } else if (targetTab === 'routes') {
+      if (routesView) routesView.style.display = 'block';
+      if (window.MarlonRoutesView) {
+        window.MarlonRoutesView.render(routesView, {
+          onImportRoute: () => { updateMarkerStates(); renderItinerary(); switchTab('trip'); },
+          onPanToRoute: (pId) => { 
+            const preset = (window.MARLON_ROUTES_PRESETS || []).find(p => p.id === pId); 
+            if (preset) { 
+              const bounds = new mapboxgl.LngLatBounds(); 
+              preset.spotTitles.forEach(t => { 
+                const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase())); 
+                if (match) bounds.extend([match.lng, match.lat]); 
+              }); 
+              map.fitBounds(bounds, { maxZoom: 13.5 }); 
+            } 
+          }
+        });
+      }
     }
     map.resize();
   }
@@ -199,7 +205,6 @@ window.initMapEngine = async function() {
     inner.style.backgroundColor = catDetails.color; inner.innerHTML = catDetails.icon;
     wrapper.appendChild(inner);
 
-    // FIX 1 & 2: Create marker AND add it to the map immediately on load
     const marker = new mapboxgl.Marker({ element: wrapper }).setLngLat([lng, lat]).addTo(map);
     
     const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
@@ -224,7 +229,7 @@ window.initMapEngine = async function() {
     allMarkers.push(spotData);
   });
 
-if (topHeaderView) {
+  if (topHeaderView) {
     const mainTitleHeader = document.createElement('div'); mainTitleHeader.className = 'map-hero-cta-box';
     mainTitleHeader.style.marginTop = '0'; mainTitleHeader.style.paddingTop = '0';
         
@@ -236,17 +241,26 @@ if (topHeaderView) {
     scopeTripBtn = document.createElement('button'); scopeTripBtn.type = 'button'; scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn is-active'; scopeTripBtn.innerText = `📋 Trip`;
     scopePassportBtn = document.createElement('button'); scopePassportBtn.type = 'button'; scopePassportBtn.className = 'scope-toggle-btn'; scopePassportBtn.innerText = `🪅 Passport`;
     
+    // NEW ROUTES BUTTON
+    scopeRoutesBtn = document.createElement('button'); scopeRoutesBtn.type = 'button'; scopeRoutesBtn.className = 'scope-toggle-btn'; scopeRoutesBtn.innerText = `🛣️ Routes`;
+    
     scopeSearchBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('search'); });
     scopeTripBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('trip'); });
     scopePassportBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('passport'); });
+    scopeRoutesBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('routes'); });
 
     scopeToggleWrap.appendChild(scopeSearchBtn); 
     scopeToggleWrap.appendChild(scopeTripBtn); 
     scopeToggleWrap.appendChild(scopePassportBtn);
+    scopeToggleWrap.appendChild(scopeRoutesBtn);
     
     // Append only the tabs to the header
     mainTitleHeader.appendChild(scopeToggleWrap); 
     topHeaderView.appendChild(mainTitleHeader);
+
+    // Create the Routes Container
+    routesView = document.createElement('div'); routesView.id = 'routes-view'; routesView.style.display = 'none';
+    form.appendChild(routesView);
   }
 
   if (window.MarlonSearch) {
