@@ -13,22 +13,64 @@ window.MarlonAllLaView = {
     container.dataset.isRendered = 'true';
     container.innerHTML = ``;
 
-    if (searchWrapper) {
-      searchWrapper.style.marginTop = '16px';
-      searchWrapper.style.marginBottom = '8px';
-      container.appendChild(searchWrapper);
-    }
-
     const filtersContainer = document.createElement('div'); 
     filtersContainer.className = 'filters-master-container';
 
     // ==========================================
-    // 1. POPULAR SPOTS (Horizontal Feed)
+    // 0. SEARCH BAR CONTAINER CARD
+    // ==========================================
+    if (searchWrapper) {
+      const searchCard = document.createElement('div');
+      searchCard.className = 'filter-details-group search-card-group';
+      searchCard.style.marginBottom = '14px';
+      searchCard.style.padding = '12px 14px';
+
+      const searchTitle = document.createElement('div');
+      searchTitle.className = 'filter-summary-title';
+      searchTitle.style.fontSize = '12px';
+      searchTitle.style.fontWeight = '800';
+      searchTitle.style.color = '#0f172a';
+      searchTitle.style.marginBottom = '8px';
+      searchTitle.style.textTransform = 'uppercase';
+      searchTitle.style.letterSpacing = '0.5px';
+      searchTitle.innerHTML = '🔍 Search LA';
+
+      searchCard.appendChild(searchTitle);
+      searchCard.appendChild(searchWrapper);
+      filtersContainer.appendChild(searchCard);
+    }
+
+    // ==========================================
+    // 1. POPULAR SPOTS (15 Curated Pills with Emojis)
     // ==========================================
     const allMarkers = window.MARLON_ALL_MARKERS || [];
-    const targetCities = ['DTLA', 'Hollywood', 'Santa Monica', 'Venice'];
-    const popularSpots = allMarkers.filter(m => targetCities.some(city => m.neighborhood && m.neighborhood.toLowerCase().includes(city.toLowerCase())));
     
+    const popularConfig = [
+      { name: 'Grand Central Market', emoji: '🌮' },
+      { name: 'Bradbury Building', emoji: '🏛️' },
+      { name: 'The Last Bookstore', emoji: '📚' },
+      { name: 'Walt Disney Concert Hall', emoji: '🎵' },
+      { name: 'The Broad', emoji: '🎨' },
+      { name: 'Griffith Observatory', emoji: '🔭' },
+      { name: 'Santa Monica Pier', emoji: '🎡' },
+      { name: 'Venice Canals', emoji: '🚣' },
+      { name: 'LACMA', emoji: '💡' },
+      { name: 'Beverly Hills Hotel', emoji: '🌴' },
+      { name: 'Olvera Street', emoji: '🪅' },
+      { name: 'Union Station LA', emoji: '🚂' },
+      { name: 'Angels Flight Railway', emoji: '🚋' },
+      { name: 'TCL Chinese Theatre', emoji: '🎬' },
+      { name: 'Dodger Stadium', emoji: '⚾' }
+    ];
+
+    const popularSpots = [];
+    popularConfig.forEach(cfg => {
+      const match = allMarkers.find(m => m.title.toLowerCase().trim().includes(cfg.name.toLowerCase().trim()));
+      if (match) {
+        popularSpots.push({ marker: match, emoji: cfg.emoji, name: match.title });
+      }
+    });
+
     if (popularSpots.length > 0) {
       const popGroup = document.createElement('details'); 
       popGroup.className = 'filter-details-group';
@@ -42,32 +84,29 @@ window.MarlonAllLaView = {
       
       const popBody = document.createElement('div');
       popBody.className = 'filter-details-body';
-      popBody.style.padding = '12px 14px';
       
-      const popSlider = document.createElement('div');
-      popSlider.className = 'routes-slider-wrapper'; 
-      popSlider.style.display = 'flex';
-      popSlider.style.gap = '8px';
-      popSlider.style.overflowX = 'auto';
-      popSlider.style.paddingBottom = '8px';
+      const popPillsBar = document.createElement('div');
+      popPillsBar.className = 'category-pills-bar';
+      popPillsBar.style.display = 'flex';
+      popPillsBar.style.flexWrap = 'wrap';
+      popPillsBar.style.gap = '6px';
       
-      popularSpots.forEach(m => {
-        const card = document.createElement('div');
-        card.className = 'route-slide-card';
-        card.style.minWidth = '140px';
-        card.style.cursor = 'pointer';
-        card.innerHTML = `
-          <div style="font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">📍 ${m.title}</div>
-          <div style="font-size: 10px; color: #475569;">${m.neighborhood}</div>
-        `;
-        card.addEventListener('click', (e) => {
+      popularSpots.slice(0, 15).forEach(item => {
+        const pill = document.createElement('div');
+        pill.className = 'cat-pill vibe-pill popular-pill';
+        pill.style.cursor = 'pointer';
+        pill.innerHTML = `${item.emoji} ${item.name}`;
+        
+        pill.addEventListener('click', (e) => {
           e.preventDefault();
-          m.wrapper.click(); // Triggers the map to fly to it and open the popup
+          e.stopPropagation();
+          item.marker.wrapper.click(); // Pans map & opens popup card
         });
-        popSlider.appendChild(card);
+        
+        popPillsBar.appendChild(pill);
       });
       
-      popBody.appendChild(popSlider);
+      popBody.appendChild(popPillsBar);
       popGroup.appendChild(popBody);
       filtersContainer.appendChild(popGroup);
     }
