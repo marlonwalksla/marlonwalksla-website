@@ -5,11 +5,11 @@
 
 /* Base Footer Styles - Compact & Dark */
 .custom-footer {
-  background-color: #121826; /* Deep navy blue inspired by Ernesto */
-  color: #ffffff; /* Crisp white text */
-  padding: 2.5rem 0 1rem 0; /* Significantly reduced vertical height */
+  background-color: #121826; 
+  color: #ffffff; 
+  padding: 2.5rem 0 1rem 0; 
   width: 100%;
-  border-top: 2px solid #ff007f; /* A subtle magenta accent line at the top */
+  border-top: 2px solid #ff007f; /* Ernesto's Magenta */
 }
 
 .custom-footer .container {
@@ -23,8 +23,8 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 30px; /* Tighter gap to reduce height */
-  margin-bottom: 2rem; /* Reduced space before the bottom bar */
+  gap: 30px; 
+  margin-bottom: 2rem; 
 }
 
 /* Brand Column */
@@ -32,7 +32,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 300px;
+  max-width: 250px;
 }
 
 .footer-logo-link {
@@ -56,22 +56,6 @@
   letter-spacing: 1px;
 }
 
-/* Social Icons */
-.footer-socials {
-  display: flex;
-  gap: 15px;
-}
-
-.footer-social-icon {
-  color: #94a3b8; /* Light gray */
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.footer-social-icon:hover {
-  color: #00e5ff; /* Ernesto's camera Cyan on hover */
-  transform: translateY(-2px);
-}
-
 /* Link Columns */
 .footer-links-col {
   display: flex;
@@ -82,7 +66,7 @@
 .footer-heading {
   font-size: 1.1rem;
   font-weight: bold;
-  margin-bottom: 1rem; /* Tighter margin */
+  margin-bottom: 1rem; 
   color: #ffffff;
 }
 
@@ -92,14 +76,16 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Tighter list spacing */
+  gap: 12px; 
 }
 
 .footer-list a {
   text-decoration: none;
-  color: #cbd5e1; /* Soft silver for links */
+  color: #cbd5e1; 
   font-weight: 600;
   font-size: 0.95rem;
+  display: flex;
+  align-items: center; /* Ensures text and icons line up perfectly */
   transition: color 0.2s ease;
 }
 
@@ -107,8 +93,35 @@
   color: #00e5ff; /* Ernesto's camera Cyan */
 }
 
+/* Social link wrapper specific styles */
+.social-link-wrapper {
+  gap: 8px; /* Spacing between the social logo and the text */
+}
+
+.social-logo {
+  opacity: 0.8;
+}
+
+.footer-list a:hover .social-logo {
+  opacity: 1; /* Brightens the logo on hover */
+}
+
+/* Review Highlight */
 .highlight-link {
-  color: #ff007f !important; /* Ernesto's neon Magenta for the review link */
+  color: #ffe600 !important; /* Ernesto's bright yellow hat color */
+}
+
+/* External Link Indicator Icon */
+.ext-icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.footer-list a:hover .ext-icon {
+  opacity: 0.9;
 }
 
 /* Bottom Bar (Copyright & Legal) */
@@ -117,7 +130,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding-top: 1.5rem; /* Reduced padding */
+  padding-top: 1.5rem; 
   border-top: 1px solid rgba(255,255,255,0.1);
   gap: 15px;
 }
