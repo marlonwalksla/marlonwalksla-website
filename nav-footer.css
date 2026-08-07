@@ -23,7 +23,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 30px; 
+  gap: 40px; /* Increased gap slightly for extra breathing room between columns */
   margin-bottom: 2rem; 
 }
 
@@ -32,7 +32,9 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 250px;
+  /* max-width removed to allow the wide display font to fit perfectly */
+  margin-right: auto; /* Pushes the link columns safely to the right side of the page */
+  padding-right: 40px; /* Safety buffer before it wraps on smaller screens */
 }
 
 .footer-logo-link {
@@ -85,7 +87,7 @@
   font-weight: 600;
   font-size: 0.95rem;
   display: flex;
-  align-items: center; /* Ensures text and icons line up perfectly */
+  align-items: center; 
   transition: color 0.2s ease;
 }
 
@@ -95,7 +97,7 @@
 
 /* Social link wrapper specific styles */
 .social-link-wrapper {
-  gap: 8px; /* Spacing between the social logo and the text */
+  gap: 8px; 
 }
 
 .social-logo {
@@ -103,7 +105,7 @@
 }
 
 .footer-list a:hover .social-logo {
-  opacity: 1; /* Brightens the logo on hover */
+  opacity: 1; 
 }
 
 /* Review Highlight */
@@ -163,7 +165,12 @@
 @media (max-width: 768px) {
   .footer-top-grid {
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
+  }
+  
+  .footer-brand-col {
+    margin-right: 0; /* Resets the wedge so items stack properly on mobile */
+    padding-right: 0;
   }
   
   .footer-bottom-bar {
