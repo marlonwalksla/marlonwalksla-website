@@ -1,18 +1,27 @@
 /* ==============================================================================
  * FILE: ui-all-la-view.js
+ * CATEGORY: MarlonWalksLA Website - All LA Directory & Filter Controls
  * ============================================================================== */
+
 window.MarlonAllLaView = {
   activeArea: 'All', activeCategories: new Set(), activeTag: 'All',
 
-  render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, applyFiltersCallback) {
+  render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, hotelAnchorBox, applyFiltersCallback) {
     if (!container) return;
-    container.innerHTML = `<div class="featured-feed-header"><span class="featured-feed-title">🌐 All Locations</span></div>`;
+    container.innerHTML = ``;
 
-    // CATEGORIES (PILLS WITH DOTS)
+    if (searchWrapper) container.appendChild(searchWrapper);
+    if (hotelAnchorBox) container.appendChild(hotelAnchorBox);
+
+    const headerIntro = document.createElement('div');
+    headerIntro.className = 'featured-feed-header';
+    headerIntro.innerHTML = `<span class="featured-feed-title" style="margin-top:10px;">🌐 All Locations</span>`;
+    container.appendChild(headerIntro);
+
     const catGroup = document.createElement('div'); catGroup.className = 'dashboard-group';
     const catLabel = document.createElement('div'); catLabel.className = 'dashboard-label'; catLabel.innerText = '🏷️ Categories'; catGroup.appendChild(catLabel);
     
-    const catPillsBar = document.createElement('div'); catPillsBar.className = 'category-pills-bar stacked';
+    const catPillsBar = document.createElement('div'); catPillsBar.className = 'category-pills-bar';
     Array.from(categories).sort().forEach(cat => {
       const pill = document.createElement('div'); pill.className = 'cat-pill'; pill.dataset.category = cat;
       const catDetails = window.MarlonSpotCard ? window.MarlonSpotCard.getCategoryDetails(cat, '', categoryMap, defaultPinSvg) : { color: '#3898ec', name: cat };
@@ -29,13 +38,12 @@ window.MarlonAllLaView = {
       if (applyFiltersCallback) applyFiltersCallback();
     });
 
-    // FIX 7: VIBE PILLS
     let vibePillsBar = null;
     if (tagsSet.size > 0) {
       const tagGroup = document.createElement('div'); tagGroup.className = 'dashboard-group';
       const tagLabel = document.createElement('div'); tagLabel.className = 'dashboard-label'; tagLabel.innerText = '✨ Vibe'; tagGroup.appendChild(tagLabel);
       
-      vibePillsBar = document.createElement('div'); vibePillsBar.className = 'category-pills-bar stacked';
+      vibePillsBar = document.createElement('div'); vibePillsBar.className = 'category-pills-bar';
       Array.from(tagsSet).sort().forEach(tagVal => {
         const pill = document.createElement('div'); pill.className = 'cat-pill vibe-pill'; pill.dataset.tag = tagVal;
         pill.innerHTML = tagVal.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -55,7 +63,6 @@ window.MarlonAllLaView = {
       });
     }
 
-    // NEIGHBORHOODS
     const areaGroup = document.createElement('div'); areaGroup.className = 'dashboard-group';
     const areaLabel = document.createElement('div'); areaLabel.className = 'dashboard-label'; areaLabel.innerText = '📍 Neighborhoods'; areaGroup.appendChild(areaLabel);
     const areaSelect = document.createElement('select'); areaSelect.innerHTML = `<option value="All">All LA Neighborhoods</option>`;
