@@ -39,8 +39,8 @@ window.initMapEngine = async function() {
 
   const form = document.querySelector('.filter-bar form');
   let searchWrapper = null, hotelAnchorBox = null, topHeaderView = null;
-  let searchView = null, tripView = null, featuredView = null, passportView = null;
-  let scopeSearchBtn = null, scopeTripBtn = null, scopeMarlonBtn = null, scopePassportBtn = null;
+  let searchView = null, tripView = null, passportView = null;
+  let scopeSearchBtn = null, scopeTripBtn = null, scopePassportBtn = null;
   let activeTab = 'trip';
   let activePopup = null; 
 
@@ -60,13 +60,11 @@ window.initMapEngine = async function() {
     topHeaderView = document.createElement('div'); topHeaderView.id = 'top-header-view';
     searchView = document.createElement('div'); searchView.id = 'search-view'; searchView.style.display = 'none';
     tripView = document.createElement('div'); tripView.id = 'trip-view'; tripView.style.display = 'flex'; tripView.style.flexDirection = 'column';
-    featuredView = document.createElement('div'); featuredView.id = 'featured-view'; featuredView.style.display = 'none';
     passportView = document.createElement('div'); passportView.id = 'passport-view'; passportView.style.display = 'none';
 
     form.appendChild(topHeaderView);
     form.appendChild(searchView);
     form.appendChild(tripView);
-    form.appendChild(featuredView);
     form.appendChild(passportView);
   }
 
@@ -85,12 +83,10 @@ window.initMapEngine = async function() {
     
     if (scopeSearchBtn) scopeSearchBtn.classList.toggle('is-active', targetTab === 'search');
     if (scopeTripBtn) scopeTripBtn.classList.toggle('is-active', targetTab === 'trip');
-    if (scopeMarlonBtn) scopeMarlonBtn.classList.toggle('is-active', targetTab === 'marlon');
     if (scopePassportBtn) scopePassportBtn.classList.toggle('is-active', targetTab === 'passport');
 
     searchView.style.display = 'none';
     tripView.style.display = 'none';
-    featuredView.style.display = 'none';
     passportView.style.display = 'none';
 
     if (targetTab === 'search') {
@@ -99,9 +95,6 @@ window.initMapEngine = async function() {
     } else if (targetTab === 'trip') {
       tripView.style.display = 'flex';
       renderItinerary();
-    } else if (targetTab === 'marlon') {
-      featuredView.style.display = 'flex';
-      if (window.MarlonFeaturedView) window.MarlonFeaturedView.render(featuredView, allMarkers, { onImportRoute: () => { updateMarkerStates(); renderItinerary(); }, onPanToRoute: (pId) => { const preset = (window.MARLON_ROUTES_PRESETS || []).find(p => p.id === pId); if (preset) { const bounds = new mapboxgl.LngLatBounds(); preset.spotTitles.forEach(t => { const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase())); if (match) bounds.extend([match.lng, match.lat]); }); map.fitBounds(bounds, { padding: 60, maxZoom: 13.5 }); } }, onResetRoutePan: () => map.flyTo({ center: dtlaCenter, zoom: 10.2 }) });
     } else if (targetTab === 'passport') {
       passportView.style.display = 'block';
       if (window.MarlonPassport) window.MarlonPassport.render(passportView, hotelAnchorBox, () => { switchTab('search'); setTimeout(() => searchWrapper.querySelector('.map-search-input').focus(), 100); });
@@ -176,23 +169,19 @@ window.initMapEngine = async function() {
     titleText.style.marginTop = '0';
     
     const scopeToggleWrap = document.createElement('div'); scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
-    // Use smaller padding/font if needed to fit 4 buttons nicely
     scopeToggleWrap.style.overflowX = 'auto';
     scopeToggleWrap.style.justifyContent = 'flex-start';
     
     scopeSearchBtn = document.createElement('button'); scopeSearchBtn.type = 'button'; scopeSearchBtn.className = 'scope-toggle-btn'; scopeSearchBtn.innerText = `🔍 Search`;
     scopeTripBtn = document.createElement('button'); scopeTripBtn.type = 'button'; scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn is-active'; scopeTripBtn.innerText = `📋 Trip`;
-    scopeMarlonBtn = document.createElement('button'); scopeMarlonBtn.type = 'button'; scopeMarlonBtn.className = 'scope-toggle-btn'; scopeMarlonBtn.innerText = `🚶 MarlonWalksLA`;
     scopePassportBtn = document.createElement('button'); scopePassportBtn.type = 'button'; scopePassportBtn.className = 'scope-toggle-btn'; scopePassportBtn.innerText = `🪅 Passport`;
     
     scopeSearchBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('search'); });
     scopeTripBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('trip'); });
-    scopeMarlonBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('marlon'); });
     scopePassportBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('passport'); });
 
     scopeToggleWrap.appendChild(scopeSearchBtn); 
     scopeToggleWrap.appendChild(scopeTripBtn); 
-    scopeToggleWrap.appendChild(scopeMarlonBtn);
     scopeToggleWrap.appendChild(scopePassportBtn);
     mainTitleHeader.appendChild(titleText); mainTitleHeader.appendChild(scopeToggleWrap); topHeaderView.appendChild(mainTitleHeader);
   }
