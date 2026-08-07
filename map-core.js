@@ -1,6 +1,8 @@
 /* ==============================================================================
  * FILE: map-core.js
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Mobile Sheet Handler
  * ============================================================================== */
+
 window.initMapEngine = async function() {
   const mapContainer = document.getElementById('map');
   if (!mapContainer) return;
@@ -39,7 +41,7 @@ window.initMapEngine = async function() {
   let searchWrapper = null, hotelAnchorBox = null, topHeaderView = null, featuredView = null, allLaView = null, listCardView = null;
   let scopeFeaturedBtn = null, scopeAllBtn = null, scopeTripBtn = null;
   let activeTab = 'trip';
-  let activePopup = null; // Track floating popups
+  let activePopup = null; 
 
   if (form) {
     const filterBarParent = form.closest('.filter-bar');
@@ -50,7 +52,6 @@ window.initMapEngine = async function() {
     const dragHandle = document.createElement('div'); dragHandle.className = 'mobile-drag-handle'; form.appendChild(dragHandle);
     dragHandle.addEventListener('click', (e) => { e.preventDefault(); if (filterBarParent) { filterBarParent.classList.toggle('is-expanded'); filterBarParent.classList.toggle('is-collapsed'); } });
 
-    // CREATE CONTAINERS BUT DO NOT APPEND SEARCH/HOTEL GLOBALLY YET
     searchWrapper = document.createElement('div'); searchWrapper.className = 'map-search-wrapper';
     searchWrapper.innerHTML = `<input type="text" class="map-search-input" placeholder="🔍 Search 102 spots, hotels, locations..." /><div class="search-results-dropdown"></div>`;
     hotelAnchorBox = document.createElement('div'); hotelAnchorBox.className = 'hotel-anchor-box';
@@ -74,7 +75,7 @@ window.initMapEngine = async function() {
       else if (savedSpotIds.includes(m.id)) { m.wrapper.classList.add('is-pinned-ring'); m.wrapper.classList.remove('is-visited-pin'); }
       else { m.wrapper.classList.remove('is-visited-pin'); m.wrapper.classList.remove('is-pinned-ring'); }
     });
-    updateTabCounts();
+    updateTabCounts(); // Updates instantly
   }
 
   function updateTabCounts() {
@@ -86,26 +87,29 @@ window.initMapEngine = async function() {
 
     if (scopeFeaturedBtn) scopeFeaturedBtn.innerText = `✨ Featured (${featuredCount})`;
     if (scopeAllBtn) scopeAllBtn.innerText = `🌐 All (${allCount})`;
-    if (scopeTripBtn) scopeTripBtn.innerText = `📋 Trip (${tripCount})`; // Renamed to "Trip"
+    if (scopeTripBtn) scopeTripBtn.innerText = `📋 Trip (${tripCount})`;
   }
 
   function switchTab(targetTab) {
     activeTab = targetTab;
     
-    // Toggle active classes on buttons
     if (scopeFeaturedBtn) scopeFeaturedBtn.classList.toggle('is-active', targetTab === 'featured');
     if (scopeAllBtn) scopeAllBtn.classList.toggle('is-active', targetTab === 'all');
     if (scopeTripBtn) scopeTripBtn.classList.toggle('is-active', targetTab === 'trip');
 
-    // Strict Tab Visibility Toggling
+    // STRICT TAB ISOLATION
+    featuredView.style.display = 'none';
+    allLaView.style.display = 'none';
+    listCardView.style.display = 'none';
+
     if (targetTab === 'featured') {
-      featuredView.style.display = 'flex'; allLaView.style.display = 'none'; listCardView.style.display = 'none';
+      featuredView.style.display = 'flex';
       if (window.MarlonFeaturedView) window.MarlonFeaturedView.render(featuredView, allMarkers, { onImportRoute: () => { updateMarkerStates(); renderItinerary(); }, onPanToRoute: (pId) => { const preset = (window.MARLON_ROUTES_PRESETS || []).find(p => p.id === pId); if (preset) { const bounds = new mapboxgl.LngLatBounds(); preset.spotTitles.forEach(t => { const match = allMarkers.find(m => m.title.toLowerCase().includes(t.toLowerCase())); if (match) bounds.extend([match.lng, match.lat]); }); map.fitBounds(bounds, { padding: 60, maxZoom: 13.5 }); } }, onResetRoutePan: () => map.flyTo({ center: dtlaCenter, zoom: 10.2 }) });
     } else if (targetTab === 'all') {
-      featuredView.style.display = 'none'; allLaView.style.display = 'flex'; listCardView.style.display = 'none';
+      allLaView.style.display = 'flex';
       if (window.MarlonAllLaView) window.MarlonAllLaView.render(allLaView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, hotelAnchorBox, () => window.MarlonAllLaView.applyFilters(allMarkers, map, dtlaCenter));
     } else if (targetTab === 'trip') {
-      featuredView.style.display = 'none'; allLaView.style.display = 'none'; listCardView.style.display = 'flex';
+      listCardView.style.display = 'flex';
       renderItinerary();
     }
     map.resize();
@@ -118,7 +122,6 @@ window.initMapEngine = async function() {
       onToggleVisited: (sId) => { window.MarlonStorage.toggleVisitedSpot(sId); updateMarkerStates(); renderItinerary(); },
       onSpotClick: (sId) => { const match = allMarkers.find(m => m.id === sId); if (match) match.wrapper.click(); }
     });
-    if (window.MarlonUpsell) window.MarlonUpsell.renderCard(listCardView, allMarkers);
   }
 
   geojsonData.features.forEach((feature, index) => {
@@ -148,7 +151,7 @@ window.initMapEngine = async function() {
     const marker = new mapboxgl.Marker({ element: wrapper }).setLngLat([lng, lat]);
     const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
     
-    // FIX: MAPBOX POPUP BEHAVIOR (Floating above pin)
+    // FLOATING POPUP CREATION
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
       map.flyTo({ center: [lng, lat], zoom: 13.5 });
@@ -157,7 +160,6 @@ window.initMapEngine = async function() {
 
       if (window.MarlonSpotCard) {
         const popupContainer = document.createElement('div');
-        
         window.MarlonSpotCard.render(spotData, popupContainer, {
           onBack: () => { if(activePopup) activePopup.remove(); },
           onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); renderItinerary(); },
@@ -175,7 +177,12 @@ window.initMapEngine = async function() {
 
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div'); mainTitleHeader.className = 'map-hero-cta-box';
-    const titleText = document.createElement('h2'); titleText.className = 'map-hero-cta-title'; titleText.innerText = "Your LA Story";
+    mainTitleHeader.style.marginTop = '0'; mainTitleHeader.style.paddingTop = '0';
+    
+    const titleText = document.createElement('h2'); titleText.className = 'map-hero-cta-title'; 
+    titleText.innerText = "Build Your LA Trip"; // NEW TITLE
+    titleText.style.marginTop = '0';
+    
     const scopeToggleWrap = document.createElement('div'); scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
     
     scopeFeaturedBtn = document.createElement('button'); scopeFeaturedBtn.type = 'button'; scopeFeaturedBtn.className = 'scope-toggle-btn';
@@ -191,7 +198,6 @@ window.initMapEngine = async function() {
     mainTitleHeader.appendChild(titleText); mainTitleHeader.appendChild(scopeToggleWrap); topHeaderView.appendChild(mainTitleHeader);
   }
 
-  // INIT SUB-MODULES
   if (window.MarlonSearch) {
     window.MarlonSearch.init(searchWrapper, map, allMarkers, dtlaCenter, {
       onSelectSpot: (spotId) => { window.MarlonStorage.toggleSavedSpot(spotId, 'All'); updateMarkerStates(); renderItinerary(); },
