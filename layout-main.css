@@ -1,6 +1,8 @@
 /* ==============================================================================
  * FILE: layout-main.css
+ * CATEGORY: MarlonWalksLA Website - Master Layout
  * ============================================================================== */
+
 .hero-polaroid-wrapper {
   width: 94vw;
   max-width: 1240px;
@@ -27,7 +29,7 @@
   margin: 0 auto;
 }
 
-/* FIX 1: CONSTRAIN DESKTOP SIDE PANEL HEIGHT */
+/* CONSTRAIN DESKTOP SIDE PANEL HEIGHT */
 .filter-bar, 
 .map-master-polaroid .filter-bar {
   order: 1 !important;
@@ -37,7 +39,7 @@
   display: flex !important;
   flex-direction: column !important;
   justify-content: flex-start !important;
-  max-height: 520px !important; /* Matches Map Height */
+  max-height: 520px !important; 
   overflow-y: auto !important;
 }
 
