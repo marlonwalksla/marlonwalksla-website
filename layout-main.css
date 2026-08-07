@@ -1,7 +1,20 @@
 /* ==============================================================================
  * FILE: layout-main.css
- * CATEGORY: MarlonWalksLA Website - Master Layout
+ * CATEGORY: MarlonWalksLA Website - Master Layout & Navigation Centering
  * ============================================================================== */
+
+/* ABSOLUTE CENTERING FOR HEADER NAVIGATION LINKS */
+.navbar, 
+.w-nav {
+  position: relative !important;
+}
+
+.nav-menu, 
+.w-nav-menu {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
 
 .hero-polaroid-wrapper {
   width: 94vw;
@@ -62,6 +75,13 @@
 }
 
 @media (max-width: 820px) {
+  /* RESET NAVIGATION MENU POSITIONING FOR MOBILE DROPDOWN */
+  .nav-menu, 
+  .w-nav-menu {
+    position: static !important;
+    transform: none !important;
+  }
+
   .hero-polaroid-wrapper { width: 96vw; padding: 8px 4px; }
   .map-master-polaroid { flex-direction: column !important; padding: 12px !important; gap: 12px !important; }
   .map-master-polaroid #map, 
