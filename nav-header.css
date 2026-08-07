@@ -1,0 +1,129 @@
+/* ==============================================================================
+ * FILE: nav-header.css
+ * CATEGORY: MarlonWalksLA Website - Global Navigation Header & Mobile Menu Styling
+ * ============================================================================== */
+
+/* Base Header Styles */
+.custom-header {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 1rem 0;
+  width: 100%;
+}
+
+.container {
+  max-width: 1136px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Desktop Grid Layout */
+.grid-3-col {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Logo Setup */
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  gap: 10px;
+}
+
+.nav-logo-icon .logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.paragraph-xlarge {
+  font-size: 1.25rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Nav Links & Social Icons Setup */
+.nav-collapse-area {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.button-group, .header-icon-group {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+  align-items: center;
+}
+
+.header-link, .header-icon-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.header-link:hover, .header-icon-link:hover {
+  opacity: 0.7;
+}
+
+.header-icon-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile Toggle Button (Hidden on Desktop) */
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger-line {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px 0;
+  background-color: #ffffff;
+  transition: 0.3s ease;
+}
+
+/* --- Switching to Mobile --- */
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block; 
+  }
+
+  /* Hide the nav items by default and prepare for vertical stacking */
+  .nav-collapse-area {
+    display: none; 
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+    gap: 20px;
+  }
+
+  /* When the .js adds the 'active' class, show the menu */
+  .nav-collapse-area.active {
+    display: flex;
+  }
+
+  .button-group, .header-icon-group {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+  .button-group {
+    border-bottom: 1px solid #444;
+    padding-bottom: 20px;
+  }
+}
