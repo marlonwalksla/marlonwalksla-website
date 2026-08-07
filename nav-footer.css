@@ -3,13 +3,13 @@
  * CATEGORY: MarlonWalksLA Website - Global Footer Styling
  * ============================================================================== */
 
-/* Base Footer Styles */
+/* Base Footer Styles - Compact & Dark */
 .custom-footer {
-  background-color: transparent; /* Inherits the page's warm beige background */
-  color: #333333; /* Dark gray for high contrast readability */
-  padding: 4rem 0 2rem 0;
+  background-color: #121826; /* Deep navy blue inspired by Ernesto */
+  color: #ffffff; /* Crisp white text */
+  padding: 2.5rem 0 1rem 0; /* Significantly reduced vertical height */
   width: 100%;
-  border-top: 1px solid rgba(0,0,0,0.05);
+  border-top: 2px solid #ff007f; /* A subtle magenta accent line at the top */
 }
 
 .custom-footer .container {
@@ -23,15 +23,15 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 40px;
-  margin-bottom: 3rem;
+  gap: 30px; /* Tighter gap to reduce height */
+  margin-bottom: 2rem; /* Reduced space before the bottom bar */
 }
 
 /* Brand Column */
 .footer-brand-col {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   max-width: 300px;
 }
 
@@ -39,7 +39,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #333333;
+  color: #ffffff;
   gap: 15px;
 }
 
@@ -63,12 +63,12 @@
 }
 
 .footer-social-icon {
-  color: #555555;
+  color: #94a3b8; /* Light gray */
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .footer-social-icon:hover {
-  color: #000000;
+  color: #00e5ff; /* Ernesto's camera Cyan on hover */
   transform: translateY(-2px);
 }
 
@@ -82,8 +82,8 @@
 .footer-heading {
   font-size: 1.1rem;
   font-weight: bold;
-  margin-bottom: 1.2rem;
-  color: #222222;
+  margin-bottom: 1rem; /* Tighter margin */
+  color: #ffffff;
 }
 
 .footer-list {
@@ -92,23 +92,23 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px; /* Tighter list spacing */
 }
 
 .footer-list a {
   text-decoration: none;
-  color: #555555;
+  color: #cbd5e1; /* Soft silver for links */
   font-weight: 600;
   font-size: 0.95rem;
   transition: color 0.2s ease;
 }
 
 .footer-list a:hover {
-  color: #000000;
+  color: #00e5ff; /* Ernesto's camera Cyan */
 }
 
 .highlight-link {
-  color: #0066cc !important; /* Highlights the review link */
+  color: #ff007f !important; /* Ernesto's neon Magenta for the review link */
 }
 
 /* Bottom Bar (Copyright & Legal) */
@@ -117,16 +117,16 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  gap: 20px;
+  padding-top: 1.5rem; /* Reduced padding */
+  border-top: 1px solid rgba(255,255,255,0.1);
+  gap: 15px;
 }
 
 .copyright-text {
   margin: 0;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #666666;
+  color: #94a3b8;
 }
 
 .legal-links {
@@ -136,21 +136,21 @@
 
 .legal-links a {
   text-decoration: none;
-  color: #666666;
+  color: #94a3b8;
   font-size: 0.85rem;
   font-weight: 600;
   transition: color 0.2s ease;
 }
 
 .legal-links a:hover {
-  color: #000000;
+  color: #ffffff;
 }
 
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
   .footer-top-grid {
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
   }
   
   .footer-bottom-bar {
