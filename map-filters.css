@@ -1,15 +1,20 @@
 /* ==============================================================================
  * FILE: map-filters.css
- * CATEGORY: MarlonWalksLA Website - Expandable Route Block Styles
+ * CATEGORY: MarlonWalksLA Website - Expandable Route Block & Filter Styles
  * ============================================================================== */
 
-/* VISITED PIN EMERALD RING ON MAP CANVAS */
+/* =========================================================
+   1. MAP CANVAS OVERLAYS & PINS
+   ========================================================= */
+/* Visited pin emerald ring on Mapbox canvas */
 .marker-wrapper.is-visited-pin .custom-emoji-marker {
   box-shadow: 0 0 0 4px #10b981, 0 0 0 8px rgba(16, 185, 129, 0.35) !important;
   filter: brightness(1.02);
 }
 
-/* HERO CTA HEADER STYLING */
+/* =========================================================
+   2. HERO CTA HEADER
+   ========================================================= */
 .map-hero-cta-box {
   display: flex;
   flex-direction: column;
@@ -34,7 +39,9 @@
   margin: 0 0 2px 0;
 }
 
-/* DAY FILTER PILLS BAR */
+/* =========================================================
+   3. DAY FILTER PILLS BAR
+   ========================================================= */
 .day-filter-bar {
   display: flex;
   align-items: center;
@@ -71,7 +78,9 @@
   border-color: #3898ec;
 }
 
-/* COLLAPSIBLE ROUTE BLOCK CARDS */
+/* =========================================================
+   4. COLLAPSIBLE ROUTE BLOCK CARDS
+   ========================================================= */
 .itinerary-blocks-container {
   display: flex;
   flex-direction: column;
@@ -167,7 +176,9 @@
   margin: 6px 0 2px 2px;
 }
 
-/* CONDENSED INLINE DAY ASSIGNMENT SELECTOR */
+/* =========================================================
+   5. INLINE DAY ASSIGNMENT & ICON BUTTONS
+   ========================================================= */
 .itinerary-item-meta-row {
   display: flex;
   align-items: center;
@@ -198,7 +209,6 @@
   border-color: #3898ec !important;
 }
 
-/* COMPACT ICON BUTTONS */
 .itinerary-item-actions {
   display: flex;
   align-items: center;
@@ -254,7 +264,9 @@
   border-color: #ef4444;
 }
 
-/* PRESET ROUTES IMPORT BOX */
+/* =========================================================
+   6. PRESET ROUTES IMPORT & TOGGLES
+   ========================================================= */
 .preset-import-box {
   display: flex;
   flex-direction: column;
@@ -315,7 +327,6 @@
   background: #2b7bc4;
 }
 
-/* DUAL TOGGLE BUTTONS GROUP */
 .itinerary-toggle-group {
   display: flex;
   flex-direction: column;
@@ -368,7 +379,6 @@
   width: 100%;
 }
 
-/* LIST ITEM CLEAR BUTTON */
 .clear-itinerary-btn {
   background: #fee2e2;
   border: 1px solid #fca5a5;
@@ -387,7 +397,61 @@
   border-color: #ef4444;
 }
 
-/* STORYTELLING CARD ENHANCEMENTS */
+/* =========================================================
+   7. POLAROID STORY CARDS & SOCIAL LINKS
+   ========================================================= */
+.polaroid-caption-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fafafa;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  animation: fadeInCaption 0.25s ease-out forwards;
+}
+
+@keyframes fadeInCaption {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.polaroid-caption-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-to-filters-btn {
+  background: #1a202c;
+  border: 1px solid #1a202c;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.back-to-filters-btn:hover {
+  background-color: #3898ec;
+  border-color: #3898ec;
+  transform: translateX(-2px);
+}
+
+.polaroid-cat-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .polaroid-spot-img-wrap {
   width: 100%;
   height: 160px;
@@ -401,6 +465,33 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.polaroid-caption-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.polaroid-caption-title {
+  font-size: 21px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.polaroid-caption-meta {
+  font-size: 12px;
+  font-weight: 700;
+  color: #718096;
+}
+
+.polaroid-caption-desc {
+  font-size: 13px;
+  color: #4a5568;
+  line-height: 1.5;
+  margin: 4px 0 0 0;
 }
 
 .polaroid-marlon-note {
@@ -452,23 +543,14 @@
   background-color: #e2e8f0;
 }
 
-/* WEBFLOW FORM OVERRIDE */
-.filter-bar form {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-  background-color: transparent !important;
-  padding: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-  margin: 0 !important;
-  box-sizing: border-box;
-  width: 100% !important;
-  height: 100% !important;
-  justify-content: space-between !important;
+.polaroid-tags {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a0aec0;
+  font-style: italic;
+  margin-top: 2px;
 }
 
-/* USER ACTION TOGGLE BUTTONS */
 .polaroid-caption-user-actions {
   display: flex;
   gap: 8px;
@@ -511,7 +593,54 @@
   box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
 }
 
-/* ITINERARY & VISITED LIST CARDS */
+.polaroid-caption-footer {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.polaroid-directions-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.polaroid-directions-btn.primary-cta {
+  background-color: #3898ec;
+  color: #ffffff !important;
+  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
+}
+
+.polaroid-directions-btn.primary-cta:hover {
+  background-color: #2b7bc4;
+  transform: translateY(-1px);
+}
+
+.polaroid-directions-btn.secondary-cta {
+  background-color: #ffffff;
+  color: #2d3748 !important;
+  border: 1px solid #cbd5e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.polaroid-directions-btn.secondary-cta:hover {
+  background-color: #edf2f7;
+  border-color: #a0aec0;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   8. ITINERARY & VISITED LIST CARDS
+   ========================================================= */
 .itinerary-card {
   display: flex;
   flex-direction: column;
@@ -587,7 +716,6 @@
   color: #1a202c;
 }
 
-/* RESET BUTTON */
 .reset-filters-btn {
   background: #edf2f7;
   border: 2px solid #cbd5e0;
@@ -612,141 +740,24 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
 }
 
-/* POLAROID CAPTION CARD */
-.polaroid-caption-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background-color: #fafafa;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-  animation: fadeInCaption 0.25s ease-out forwards;
-}
-
-@keyframes fadeInCaption {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.polaroid-caption-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.back-to-filters-btn {
-  background: #1a202c;
-  border: 1px solid #1a202c;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-}
-
-.back-to-filters-btn:hover {
-  background-color: #3898ec;
-  border-color: #3898ec;
-  transform: translateX(-2px);
-}
-
-.polaroid-cat-badge {
-  font-size: 11px;
-  font-weight: 800;
-  color: #ffffff;
-  padding: 5px 12px;
-  border-radius: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.polaroid-caption-body {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.polaroid-caption-title {
-  font-size: 21px;
-  font-weight: 800;
-  color: #1a202c;
-  margin: 0;
-  line-height: 1.25;
-}
-
-.polaroid-caption-meta {
-  font-size: 12px;
-  font-weight: 700;
-  color: #718096;
-}
-
-.polaroid-caption-desc {
-  font-size: 13px;
-  color: #4a5568;
-  line-height: 1.5;
-  margin: 4px 0 0 0;
-}
-
-.polaroid-tags {
-  font-size: 11px;
-  font-weight: 600;
-  color: #a0aec0;
-  font-style: italic;
-  margin-top: 2px;
-}
-
-/* ACTION BUTTON AREA */
-.polaroid-caption-footer {
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.polaroid-directions-btn {
-  display: block;
-  width: 100%;
+/* =========================================================
+   9. DROPDOWNS & CATEGORY SCROLL PILLS
+   ========================================================= */
+.filter-bar form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
   box-sizing: border-box;
-  text-decoration: none !important;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 16px;
-  border-radius: 20px;
-  transition: all 0.2s ease;
-  text-align: center;
+  width: 100% !important;
+  height: 100% !important;
+  justify-content: space-between !important;
 }
 
-.polaroid-directions-btn.primary-cta {
-  background-color: #3898ec;
-  color: #ffffff !important;
-  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
-}
-
-.polaroid-directions-btn.primary-cta:hover {
-  background-color: #2b7bc4;
-  transform: translateY(-1px);
-}
-
-.polaroid-directions-btn.secondary-cta {
-  background-color: #ffffff;
-  color: #2d3748 !important;
-  border: 1px solid #cbd5e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
-.polaroid-directions-btn.secondary-cta:hover {
-  background-color: #edf2f7;
-  border-color: #a0aec0;
-  transform: translateY(-1px);
-}
-
-/* DROPDOWNS & FILTER PANELS */
 .filter-bar select {
   display: block !important;
   width: 100%;
@@ -768,7 +779,9 @@
   background-size: 10px auto;
 }
 
-.filter-bar select:hover { border-color: #3898ec; }
+.filter-bar select:hover { 
+  border-color: #3898ec; 
+}
 
 .dashboard-group {
   display: flex;
@@ -795,7 +808,6 @@
   font-weight: 800;
 }
 
-/* HORIZONTAL PILL CONTROLS */
 .pills-scroll-container {
   display: flex;
   align-items: center;
@@ -881,8 +893,14 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-.category-pills-bar::-webkit-scrollbar { height: 4px; }
-.category-pills-bar::-webkit-scrollbar-thumb { background-color: #a0aec0; border-radius: 10px; }
+.category-pills-bar::-webkit-scrollbar { 
+  height: 4px; 
+}
+
+.category-pills-bar::-webkit-scrollbar-thumb { 
+  background-color: #a0aec0; 
+  border-radius: 10px; 
+}
 
 @media (hover: none) and (pointer: coarse) {
   .scroll-arrow-btn { display: none; }
