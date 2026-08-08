@@ -1,5 +1,5 @@
 /* ==============================================================================
- * FILE: ui-passport-view.js
+ * FILE: ui-view-passport.js
  * CATEGORY: MarlonWalksLA Website - Passport, Profile & Contact Info Engine
  * ============================================================================== */
 
