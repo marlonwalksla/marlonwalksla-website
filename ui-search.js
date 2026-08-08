@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-search.js
- * CATEGORY: MarlonWalksLA Website - Master Search Bar (Matches Trip Search Logic)
+ * CATEGORY: MarlonWalksLA Website - Master Search Bar
  * ============================================================================== */
 
 window.MarlonSearch = {
@@ -11,16 +11,13 @@ window.MarlonSearch = {
     if (!input || !dropdown) return;
 
     input.addEventListener('input', (e) => {
-      const query = input.value.trim().toLowerCase();
-      if (query.length < 2) {
+      const query = input.value;
+      const curatedMatches = window.MarlonComponents.getSearchMatches(query, allMarkers, 4);
+
+      if (curatedMatches.length === 0 && query.trim().length < 2) {
         dropdown.style.display = 'none';
         return;
       }
-
-      const curatedMatches = allMarkers.filter(m => 
-        m.title.toLowerCase().includes(query) || 
-        (m.neighborhood && m.neighborhood.toLowerCase().includes(query))
-      ).slice(0, 4);
 
       let dropdownHtml = curatedMatches.map(m => `
         <div class="search-result-item" data-type="curated" data-id="${m.id}">
@@ -33,9 +30,9 @@ window.MarlonSearch = {
       `).join('');
 
       dropdownHtml += `
-        <div class="search-result-item" data-type="google" data-query="${input.value.trim()}">
+        <div class="search-result-item" data-type="google" data-query="${query.trim()}">
           <div>
-            <div class="search-result-title">🗺️ Search "${input.value.trim()}"</div>
+            <div class="search-result-title">🗺️ Search "${query.trim()}"</div>
             <div class="search-result-meta">Save custom Google Map link</div>
           </div>
           <span class="search-badge address" style="background:#fef3c7; color:#92400e; padding:4px 8px; border-radius:6px; font-size:9px; font-weight:800; border:1px solid #fcd34d;">EXTERNAL</span>
@@ -44,27 +41,28 @@ window.MarlonSearch = {
 
       dropdown.innerHTML = dropdownHtml;
       dropdown.style.display = 'block';
+    });
 
-      dropdown.querySelectorAll('.search-result-item').forEach(item => {
-        item.addEventListener('click', (ev) => {
-          ev.preventDefault();
-          ev.stopPropagation();
-          
-          if (item.dataset.type === 'curated') {
-            if (callbacks.onSelectSpot) callbacks.onSelectSpot(item.dataset.id);
-            input.value = '';
-            dropdown.style.display = 'none';
-          } else {
-            const extId = 'ext-' + Date.now();
-            const gmapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.dataset.query);
-            const spotData = { id: extId, title: item.dataset.query, neighborhood: 'External Location', gmapsUrl: gmapsUrl, isExternal: true };
-            if (window.MarlonStorage.addExternalSpot) window.MarlonStorage.addExternalSpot(spotData, 'All');
-            if (callbacks.onSelectSpot) callbacks.onSelectSpot(extId);
-            input.value = '';
-            dropdown.style.display = 'none';
-          }
-        });
-      });
+    // Event Delegation for dropdown clicks
+    dropdown.addEventListener('click', (ev) => {
+      const item = ev.target.closest('.search-result-item');
+      if (!item) return;
+      
+      ev.preventDefault();
+      ev.stopPropagation();
+      
+      if (item.dataset.type === 'curated') {
+        if (callbacks.onSelectSpot) callbacks.onSelectSpot(item.dataset.id);
+      } else {
+        const extId = 'ext-' + Date.now();
+        const gmapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(item.dataset.query);
+        const spotData = { id: extId, title: item.dataset.query, neighborhood: 'External Location', gmapsUrl: gmapsUrl, isExternal: true };
+        if (window.MarlonStorage.addExternalSpot) window.MarlonStorage.addExternalSpot(spotData, 'All');
+        if (callbacks.onSelectSpot) callbacks.onSelectSpot(extId);
+      }
+      
+      input.value = '';
+      dropdown.style.display = 'none';
     });
 
     document.addEventListener('click', (e) => {

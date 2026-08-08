@@ -6,7 +6,19 @@
 window.MarlonComponents = {
   
   // ---------------------------------------------------------------------------
-  // 1. REUSABLE SPOT ITEM ROW (🚗 Directions | 📌 Pin | ✓ Visited | ✕ Remove)
+  // 1. CENTRALIZED SEARCH BRAIN
+  // ---------------------------------------------------------------------------
+  getSearchMatches: function(query, allMarkers, limit = 4) {
+    if (!query || query.length < 2) return [];
+    const lowerQuery = query.toLowerCase().trim();
+    return allMarkers.filter(m => 
+      m.title.toLowerCase().includes(lowerQuery) || 
+      (m.neighborhood && m.neighborhood.toLowerCase().includes(lowerQuery))
+    ).slice(0, limit);
+  },
+
+  // ---------------------------------------------------------------------------
+  // 2. REUSABLE SPOT ITEM ROW
   // ---------------------------------------------------------------------------
   renderSpotItemHTML: function(spot, options = {}) {
     const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
@@ -42,10 +54,9 @@ window.MarlonComponents = {
   },
 
   // ---------------------------------------------------------------------------
-  // 2. REUSABLE SHELL CONTAINER (Header Top | List Center | Search Bottom)
+  // 3. REUSABLE SHELL CONTAINER
   // ---------------------------------------------------------------------------
   createShellCard: function(options = {}) {
-    // Options: { title: '...', headerActionsHTML: '...', itemsHTML: '...', searchWrapper: HTMLElement }
     const card = document.createElement('div');
     card.className = 'route-block-card reusable-shell-card';
     card.style.display = 'flex';
@@ -53,7 +64,6 @@ window.MarlonComponents = {
     card.style.overflow = 'visible';
     card.style.marginBottom = '10px';
 
-    // 1. Header Row
     const header = document.createElement('div');
     header.className = 'route-block-header';
     header.style.backgroundColor = '#f0f7ff';
@@ -66,7 +76,6 @@ window.MarlonComponents = {
     `;
     card.appendChild(header);
 
-    // 2. Body Container (List Items)
     const body = document.createElement('div');
     body.className = 'route-block-body';
     body.style.display = 'flex';
@@ -85,7 +94,6 @@ window.MarlonComponents = {
 
     body.appendChild(listFeed);
 
-    // 3. Bottom Search Bar (Fixed at the bottom of the shell)
     if (options.searchWrapper) {
       const searchWrapContainer = document.createElement('div');
       searchWrapContainer.className = 'manual-search-wrap';

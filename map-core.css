@@ -323,4 +323,48 @@
   .mobile-drag-handle {
     display: none !important;
   }
+  /* ==============================================================================
+ * MARLON WALKS LA - EXTRACTED ROUTE UI STYLES
+ * ============================================================================== */
+.route-view-content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.route-view-desc {
+  font-size: 12px;
+  color: #334155;
+  line-height: 1.5;
+}
+.route-highlight-box {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+.route-highlight-title {
+  font-weight: 800;
+  font-size: 12px;
+}
+.route-highlight-list {
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* Color Themes */
+.theme-blue { background: #eff6ff; border-color: #bfdbfe; }
+.theme-blue .route-highlight-title { color: #1e40af; }
+.theme-blue .route-highlight-list { color: #1e3a8a; }
+
+.theme-yellow { background: #fefce8; border-color: #fef08a; }
+.theme-yellow .route-highlight-title { color: #854d0e; }
+.theme-yellow .route-highlight-list { color: #713f12; }
+
+.theme-green { background: #f0fdf4; border-color: #bbf7d0; }
+.theme-green .route-highlight-title { color: #166534; }
+.theme-green .route-highlight-list { color: #14532d; }
+
+.theme-purple { background: #faf5ff; border-color: #e9d5ff; }
+.theme-purple .route-highlight-title { color: #6b21a8; }
+.theme-purple .route-highlight-list { color: #581c87; }
 }
