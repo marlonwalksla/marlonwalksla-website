@@ -17,7 +17,7 @@ window.initMapEngine = async function() {
   map.addControl(geolocate, 'top-right');
 
   function updateMapPadding() {
-    if (window.innerWidth <= 820) map.setPadding({ top: 10, bottom: 20, left: 10, right: 10 });
+    if (window.innerWidth <= 820) map.setPadding({ top: 10, bottom: 10, left: 10, right: 10 });
     else map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
   }
   window.addEventListener('resize', () => { map.resize(); updateMapPadding(); });
@@ -209,7 +209,7 @@ window.initMapEngine = async function() {
     
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
-      map.flyTo({ center: [lng, lat], zoom: 13.5, padding: { top: 10, bottom: window.innerWidth <= 820 ? 40 : 0, left: 10, right: 10 } });
+      map.flyTo({ center: [lng, lat], zoom: 13.5, padding: { top: 10, bottom: 10, left: 10, right: 10 } });
       if (activePopup) activePopup.remove();
       if (window.MarlonSpotCard) {
         const popupContainer = document.createElement('div');
