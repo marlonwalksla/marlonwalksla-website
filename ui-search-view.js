@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-search-view.js
- * CATEGORY: MarlonWalksLA Website - Unified Search & Filter Engine
+ * CATEGORY: MarlonWalksLA Website - Tabbed Filter & Search Engine with Item Controls
  * ============================================================================== */
 
 window.MarlonSearchView = {
@@ -9,18 +9,17 @@ window.MarlonSearchView = {
   activeCategories: new Set(),
   activeTag: 'All',
 
-  // Top 10 Curated LA Locations
   top10Popular: [
-    { name: 'Griffith Observatory', emoji: '🔭' },
-    { name: 'Santa Monica Pier', emoji: '🎡' },
-    { name: 'Venice Canals', emoji: '🚣' },
-    { name: 'The Grove', emoji: '🛍️' },
-    { name: 'The Broad', emoji: '🎨' },
-    { name: 'The Getty Center', emoji: '🏛️' },
-    { name: 'Rodeo Drive', emoji: '🌴' },
-    { name: 'Hollywood Walk of Fame', emoji: '🌟' },
-    { name: 'Lake Hollywood Park', emoji: '🏔️' },
-    { name: 'LACMA', emoji: '💡' }
+    'Griffith Observatory',
+    'Santa Monica Pier',
+    'Venice Canals',
+    'The Grove',
+    'The Broad',
+    'The Getty Center',
+    'Rodeo Drive',
+    'Hollywood Walk of Fame',
+    'Lake Hollywood Park',
+    'LACMA'
   ],
 
   render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback) {
@@ -28,6 +27,10 @@ window.MarlonSearchView = {
     
     container.dataset.isRendered = 'true';
     container.innerHTML = '';
+
+    const allMarkers = window.MARLON_ALL_MARKERS || [];
+    const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
+    const visitedIds = window.MarlonStorage.getVisitedSpots();
 
     const masterWrap = document.createElement('div');
     masterWrap.className = 'search-view-wrapper';
@@ -59,7 +62,7 @@ window.MarlonSearchView = {
     masterWrap.appendChild(filterModeBar);
 
     // ==========================================
-    // 2. UNIFIED CARD CONTAINER (SEARCH + PILLS)
+    // 2. UNIFIED CARD CONTAINER (SEARCH + ACTIONS)
     // ==========================================
     const unifiedCard = document.createElement('div');
     unifiedCard.className = 'route-block-card unified-search-card';
@@ -69,11 +72,11 @@ window.MarlonSearchView = {
     unifiedCard.style.gap = '8px';
     unifiedCard.style.padding = '10px 12px';
 
-    // Top Row: Search Input + Red Clear (X) Button
+    // Top Row: Search Bar + Pin All Button + Clear Reset Button
     const cardTopRow = document.createElement('div');
     cardTopRow.style.display = 'flex';
     cardTopRow.style.alignItems = 'center';
-    cardTopRow.style.gap = '8px';
+    cardTopRow.style.gap = '6px';
     cardTopRow.style.width = '100%';
 
     if (searchWrapper) {
@@ -82,6 +85,16 @@ window.MarlonSearchView = {
       cardTopRow.appendChild(searchWrapper);
     }
 
+    const pinAllBtn = document.createElement('button');
+    pinAllBtn.type = 'button';
+    pinAllBtn.className = 'import-preset-btn';
+    pinAllBtn.title = 'Pin All Visible Spots to Trip';
+    pinAllBtn.innerHTML = '📌 Pin All';
+    pinAllBtn.style.fontSize = '10px';
+    pinAllBtn.style.padding = '6px 10px';
+    pinAllBtn.style.whiteSpace = 'nowrap';
+    pinAllBtn.style.flexShrink = '0';
+
     const resetBtn = document.createElement('button');
     resetBtn.type = 'button';
     resetBtn.className = 'icon-btn remove-toggle mini-reset-btn';
@@ -89,51 +102,28 @@ window.MarlonSearchView = {
     resetBtn.innerHTML = '✕';
     resetBtn.style.flexShrink = '0';
 
+    cardTopRow.appendChild(pinAllBtn);
     cardTopRow.appendChild(resetBtn);
     unifiedCard.appendChild(cardTopRow);
 
-    // Content Body: Dynamic Filter Pills
-    const filterBody = document.createElement('div');
-    filterBody.className = 'unified-filter-body';
-    filterBody.style.display = 'flex';
-    filterBody.style.flexDirection = 'column';
-    filterBody.style.gap = '6px';
-    filterBody.style.paddingTop = '2px';
+    // Sub-Filter Pills (Categories / Vibes / Neighborhoods)
+    const filterPillsRow = document.createElement('div');
+    filterPillsRow.className = 'category-pills-bar';
+    filterPillsRow.style.display = 'flex';
+    filterPillsRow.style.flexWrap = 'wrap';
+    filterPillsRow.style.gap = '6px';
 
-    const allMarkers = window.MARLON_ALL_MARKERS || [];
+    let spotsToDisplay = [];
 
-    // RENDER ACTIVE MODE PILLS DIRECTLY
     if (this.activeTabMode === 'popular') {
-      const popPillsBar = document.createElement('div');
-      popPillsBar.className = 'category-pills-bar';
-      popPillsBar.style.display = 'flex';
-      popPillsBar.style.flexWrap = 'wrap';
-      popPillsBar.style.gap = '6px';
-
-      this.top10Popular.forEach(cfg => {
-        const match = allMarkers.find(m => m.title.toLowerCase().trim().includes(cfg.name.toLowerCase().trim()));
-        if (match) {
-          const pill = document.createElement('div');
-          pill.className = 'cat-pill vibe-pill popular-pill';
-          pill.style.cursor = 'pointer';
-          pill.innerHTML = `${cfg.emoji} ${match.title}`;
-
-          pill.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            match.wrapper.click(); // Pans map & opens popup
-          });
-          popPillsBar.appendChild(pill);
+      filterPillsRow.style.display = 'none';
+      this.top10Popular.forEach(name => {
+        const match = allMarkers.find(m => m.title.toLowerCase().trim().includes(name.toLowerCase().trim()));
+        if (match && !spotsToDisplay.includes(match)) {
+          spotsToDisplay.push(match);
         }
       });
-      filterBody.appendChild(popPillsBar);
     } else if (this.activeTabMode === 'categories') {
-      const catPillsBar = document.createElement('div');
-      catPillsBar.className = 'category-pills-bar';
-      catPillsBar.style.display = 'flex';
-      catPillsBar.style.flexWrap = 'wrap';
-      catPillsBar.style.gap = '6px';
-
       Array.from(categories).sort().forEach(cat => {
         const pill = document.createElement('div');
         pill.className = 'cat-pill';
@@ -143,31 +133,11 @@ window.MarlonSearchView = {
 
         if (this.activeCategories.has(cat)) pill.classList.add('is-active');
         pill.innerHTML = catDetails.name;
-        catPillsBar.appendChild(pill);
+        filterPillsRow.appendChild(pill);
       });
 
-      catPillsBar.addEventListener('click', (e) => {
-        const pill = e.target.closest('.cat-pill');
-        if (!pill) return;
-        const cat = pill.dataset.category;
-        if (this.activeCategories.has(cat)) {
-          this.activeCategories.delete(cat);
-          pill.classList.remove('is-active');
-        } else {
-          this.activeCategories.add(cat);
-          pill.classList.add('is-active');
-        }
-        if (applyFiltersCallback) applyFiltersCallback();
-      });
-
-      filterBody.appendChild(catPillsBar);
+      spotsToDisplay = allMarkers.filter(m => (this.activeCategories.size === 0) || this.activeCategories.has(m.category));
     } else if (this.activeTabMode === 'vibes') {
-      const vibePillsBar = document.createElement('div');
-      vibePillsBar.className = 'category-pills-bar';
-      vibePillsBar.style.display = 'flex';
-      vibePillsBar.style.flexWrap = 'wrap';
-      vibePillsBar.style.gap = '6px';
-
       Array.from(tagsSet).sort().forEach(tagVal => {
         const pill = document.createElement('div');
         pill.className = 'cat-pill vibe-pill';
@@ -175,32 +145,11 @@ window.MarlonSearchView = {
 
         if (this.activeTag === tagVal) pill.classList.add('is-active');
         pill.innerHTML = tagVal.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        vibePillsBar.appendChild(pill);
+        filterPillsRow.appendChild(pill);
       });
 
-      vibePillsBar.addEventListener('click', (e) => {
-        const pill = e.target.closest('.vibe-pill');
-        if (!pill) return;
-        const tag = pill.dataset.tag;
-        if (this.activeTag === tag) {
-          this.activeTag = 'All';
-          pill.classList.remove('is-active');
-        } else {
-          vibePillsBar.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('is-active'));
-          this.activeTag = tag;
-          pill.classList.add('is-active');
-        }
-        if (applyFiltersCallback) applyFiltersCallback();
-      });
-
-      filterBody.appendChild(vibePillsBar);
+      spotsToDisplay = allMarkers.filter(m => (this.activeTag === 'All') || (m.tags && m.tags.includes(this.activeTag)));
     } else if (this.activeTabMode === 'neighborhoods') {
-      const areaPillsBar = document.createElement('div');
-      areaPillsBar.className = 'category-pills-bar';
-      areaPillsBar.style.display = 'flex';
-      areaPillsBar.style.flexWrap = 'wrap';
-      areaPillsBar.style.gap = '6px';
-
       Array.from(neighborhoods).sort().forEach(area => {
         const pill = document.createElement('div');
         pill.className = 'cat-pill area-pill';
@@ -208,32 +157,60 @@ window.MarlonSearchView = {
 
         if (this.activeArea === area) pill.classList.add('is-active');
         pill.innerHTML = area;
-        areaPillsBar.appendChild(pill);
+        filterPillsRow.appendChild(pill);
       });
 
-      areaPillsBar.addEventListener('click', (e) => {
-        const pill = e.target.closest('.area-pill');
-        if (!pill) return;
-        const area = pill.dataset.area;
-        if (this.activeArea === area) {
-          this.activeArea = 'All';
-          pill.classList.remove('is-active');
-        } else {
-          areaPillsBar.querySelectorAll('.area-pill').forEach(p => p.classList.remove('is-active'));
-          this.activeArea = area;
-          pill.classList.add('is-active');
-        }
-        if (applyFiltersCallback) applyFiltersCallback();
-      });
-
-      filterBody.appendChild(areaPillsBar);
+      spotsToDisplay = allMarkers.filter(m => (this.activeArea === 'All') || (m.neighborhood === this.activeArea));
     }
 
-    unifiedCard.appendChild(filterBody);
+    unifiedCard.appendChild(filterPillsRow);
+
+    // ==========================================
+    // 3. SPOTS LIST CONTAINER (MATCHES TRIP ITINERARY ROWS)
+    // ==========================================
+    const spotsListContainer = document.createElement('div');
+    spotsListContainer.className = 'popular-spot-feed-list';
+    spotsListContainer.style.display = 'flex';
+    spotsListContainer.style.flexDirection = 'column';
+    spotsListContainer.style.gap = '6px';
+    spotsListContainer.style.maxHeight = '320px';
+    spotsListContainer.style.overflowY = 'auto';
+    spotsListContainer.style.paddingRight = '2px';
+    spotsListContainer.style.marginTop = '4px';
+
+    if (spotsToDisplay.length === 0) {
+      spotsListContainer.innerHTML = `<div style="text-align:center; padding:12px; color:#94a3b8; font-size:12px; font-style:italic;">No locations match this filter.</div>`;
+    } else {
+      spotsListContainer.innerHTML = spotsToDisplay.map(m => {
+        const isSaved = savedSpotIds.includes(m.id);
+        const isVisited = visitedIds.includes(m.id);
+        const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lng}`;
+
+        return `
+          <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${m.id}">
+            <div class="itinerary-item-info spot-info-click" data-id="${m.id}" style="flex: 1; padding-right: 4px; cursor: pointer;">
+              <div class="itinerary-item-name" style="margin-bottom: 2px;">📍 ${m.title}</div>
+              ${m.neighborhood ? `<div class="spot-feed-meta">${m.neighborhood}</div>` : ''}
+            </div>
+            <div class="itinerary-item-actions" style="gap: 4px; display: flex; align-items: center;">
+              <a href="${gmapsLink}" target="_blank" class="icon-btn" title="Open Map" style="text-decoration:none;">🚗</a>
+              <button type="button" class="icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${m.id}" title="Pin to Trip">📌</button>
+              <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${m.id}" title="Visited">✓</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    unifiedCard.appendChild(spotsListContainer);
     masterWrap.appendChild(unifiedCard);
     container.appendChild(masterWrap);
 
-    // MODE SWITCHING LISTENERS
+    // ==========================================
+    // 4. ATTACH EVENT LISTENERS
+    // ==========================================
+    
+    // Mode switcher pills
     filterModeBar.querySelectorAll('.day-pill').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -242,7 +219,82 @@ window.MarlonSearchView = {
       });
     });
 
-    // RED CIRCULAR RESET BUTTON ACTION
+    // Filter sub-pills (Categories / Vibes / Neighborhoods)
+    filterPillsRow.addEventListener('click', (e) => {
+      const pill = e.target.closest('.cat-pill');
+      if (!pill) return;
+
+      if (this.activeTabMode === 'categories') {
+        const cat = pill.dataset.category;
+        if (this.activeCategories.has(cat)) this.activeCategories.delete(cat);
+        else this.activeCategories.add(cat);
+      } else if (this.activeTabMode === 'vibes') {
+        const tag = pill.dataset.tag;
+        if (this.activeTag === tag) this.activeTag = 'All';
+        else this.activeTag = tag;
+      } else if (this.activeTabMode === 'neighborhoods') {
+        const area = pill.dataset.area;
+        if (this.activeArea === area) this.activeArea = 'All';
+        else this.activeArea = area;
+      }
+
+      if (applyFiltersCallback) applyFiltersCallback();
+      this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
+    });
+
+    // Click on item row text -> Fly to marker & open detail popup
+    spotsListContainer.querySelectorAll('.spot-info-click').forEach(info => {
+      info.addEventListener('click', (e) => {
+        e.preventDefault();
+        const mId = info.dataset.id;
+        const match = allMarkers.find(m => m.id === mId);
+        if (match && match.wrapper) match.wrapper.click();
+      });
+    });
+
+    // Pin toggle button on individual spot row
+    spotsListContainer.querySelectorAll('.pin-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.MarlonStorage.toggleSavedSpot(btn.dataset.id, 'All');
+        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
+      });
+    });
+
+    // Visited toggle button on individual spot row
+    spotsListContainer.querySelectorAll('.visited-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.MarlonStorage.toggleVisitedSpot(btn.dataset.id);
+        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
+      });
+    });
+
+    // Pin All Button action
+    pinAllBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const currentSaved = window.MarlonStorage.getSavedSpotIds();
+      let addedCount = 0;
+
+      spotsToDisplay.forEach(m => {
+        if (!currentSaved.includes(m.id)) {
+          window.MarlonStorage.toggleSavedSpot(m.id, 'All');
+          addedCount++;
+        }
+      });
+
+      if (addedCount > 0) {
+        alert(`📌 Added ${addedCount} spot(s) to your Trip!`);
+      } else {
+        alert(`All visible spots are already in your Trip!`);
+      }
+      this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
+    });
+
+    // Clear Reset button action
     resetBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -278,6 +330,3 @@ window.MarlonSearchView = {
     }
   }
 };
-
-// Backward compatibility alias for map-core.js
-window.MarlonAllLaView = window.MarlonSearchView;
