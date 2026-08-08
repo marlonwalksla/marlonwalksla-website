@@ -1,9 +1,11 @@
 /* ==============================================================================
- * FILE: map-core.css
+ * FILE: map-markers.css
  * CATEGORY: MarlonWalksLA Website - Compact Desktop & Mobile Bottom Sheet UI
  * ============================================================================== */
 
-/* HOTEL ANCHOR MARKER STYLING */
+/* =========================================================
+   1. HOTEL ANCHOR MARKER
+   ========================================================= */
 .hotel-marker-pin {
   width: 36px;
   height: 36px;
@@ -19,7 +21,9 @@
   z-index: 1000 !important;
 }
 
-/* DESKTOP COMPACT SEARCH & HOTEL BASE */
+/* =========================================================
+   2. DESKTOP SEARCH INPUT & DROPDOWN
+   ========================================================= */
 .map-search-wrapper {
   position: relative;
   width: 100%;
@@ -95,6 +99,9 @@
 .search-badge.curated { background: #dbeafe; color: #1e40af; }
 .search-badge.address { background: #fef3c7; color: #92400e; }
 
+/* =========================================================
+   3. HOTEL ANCHOR UI BOX
+   ========================================================= */
 .hotel-anchor-box {
   background: #f8fafc;
   border: 1px solid #cbd5e0;
@@ -118,7 +125,9 @@
   color: #64748b;
 }
 
-/* RECOMMENDED TOUR CARD STYLING */
+/* =========================================================
+   4. RECOMMENDED TOUR PROXIMITY UPSELL CARD
+   ========================================================= */
 .proximity-upsell-card {
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
   border: 1.5px solid #93c5fd;
@@ -172,7 +181,9 @@
   background: #1d4ed8;
 }
 
-/* MOBILE BOTTOM SHEET & STICKY TAB BAR */
+/* =========================================================
+   5. MOBILE BOTTOM SHEET & STICKY TAB BAR
+   ========================================================= */
 .mobile-drag-handle {
   display: none;
 }
@@ -225,7 +236,7 @@
     flex-direction: column !important;
   }
 
-  /* SHEET STATES */
+  /* Sheet States */
   .filter-bar.is-collapsed {
     height: 140px !important;
     overflow: hidden !important;
@@ -247,7 +258,7 @@
     flex-shrink: 0;
   }
 
-  /* STICKY BOTTOM TABS ON MOBILE */
+  /* Sticky Bottom Tabs on Mobile */
   .scope-toggle-wrap.tri-tab {
     position: sticky !important;
     bottom: 0 !important;
