@@ -183,7 +183,9 @@
   border: 2px solid #ffffff !important;
 }
 
-/* MOBILE POLAROID SPLIT & ZERO GAP FIX */
+/* =========================================================
+   MOBILE POLAROID SPLIT & DYNAMIC HEIGHT RATIOS
+   ========================================================= */
 @media (max-width: 820px) {
   body:has(#map), html:has(#map) {
     overflow: hidden !important;
@@ -203,7 +205,7 @@
 
   .map-master-polaroid {
     position: fixed !important; 
-    top: 0 !important; /* Locks map directly flush to top of page frame */
+    top: 0 !important;
     left: 0 !important;
     display: flex !important;
     flex-direction: column !important;
@@ -217,20 +219,22 @@
     background: #f8fafc !important;
   }
 
+  /* TOP FRAME: Map Photo Area (62% of screen height) */
   .map-master-polaroid #map {
     position: relative !important;
     width: 100vw !important;
-    height: 48dvh !important;
-    min-height: 48dvh !important;
+    height: 62dvh !important;
+    min-height: 62dvh !important;
     z-index: 1 !important;
     border-bottom: 2px solid #e2e8f0 !important;
   }
 
+  /* BOTTOM FRAME: Controls Panel (38% of screen height) */
   .filter-bar {
     position: relative !important;
     width: 100vw !important;
-    height: 52dvh !important;
-    max-height: 52dvh !important;
+    height: 38dvh !important;
+    max-height: 38dvh !important;
     z-index: 2 !important; 
     background: #ffffff !important;
     border-top-left-radius: 16px !important;
@@ -241,6 +245,10 @@
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
+  }
+
+  .mobile-drag-handle {
+    display: none !important;
   }
 }
 
