@@ -238,16 +238,18 @@
   transform: scale(1.05);
 }
 
+/* FIX: Added .pin-toggle so pinned buttons turn blue instantly */
 .icon-btn.visited-toggle.is-active {
-  background: #10b981;
-  color: #ffffff;
-  border-color: #10b981;
+  background: #10b981 !important;
+  color: #ffffff !important;
+  border-color: #10b981 !important;
 }
 
+.icon-btn.pin-toggle.is-active,
 .icon-btn.save-toggle.is-active {
-  background: #3898ec;
-  color: #ffffff;
-  border-color: #3898ec;
+  background: #3898ec !important;
+  color: #ffffff !important;
+  border-color: #3898ec !important;
 }
 
 .icon-btn.remove-toggle,
