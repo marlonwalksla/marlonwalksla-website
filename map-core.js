@@ -145,7 +145,7 @@ window.initMapEngine = async function() {
       renderItinerary();
     } else if (targetTab === 'passport') {
       passportView.style.display = 'block';
-      if (window.MarlonPassport) window.MarlonPassport.render(passportView, hotelAnchorBox, () => { switchTab('search'); setTimeout(() => searchWrapper.querySelector('.map-search-input').focus(), 100); });
+      if (window.MarlonPassportView) window.MarlonPassportView.render(passportView, hotelAnchorBox, () => { switchTab('search'); setTimeout(() => searchWrapper.querySelector('.map-search-input').focus(), 100); });
     } else if (targetTab === 'routes') {
       if (routesView) routesView.style.display = 'block';
       if (window.MarlonRoutesView) {
