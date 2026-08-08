@@ -132,7 +132,7 @@ window.initMapEngine = async function() {
       if (v) { v.classList.remove('view-is-active'); v.classList.add('view-is-hidden'); }
     });
 
-    if (targetTab === 'search' && searchView) {
+if (targetTab === 'search' && searchView) {
       searchView.classList.remove('view-is-hidden');
       searchView.classList.add('view-is-active');
       if (window.MarlonSearchView) {
@@ -140,6 +140,8 @@ window.initMapEngine = async function() {
           searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
           () => window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter)
         );
+        // FORCE MAP SYNC ON LOAD
+        window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter);
       }
     } else if (targetTab === 'trip' && tripView) {
       tripView.classList.remove('view-is-hidden');
