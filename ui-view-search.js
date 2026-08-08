@@ -130,7 +130,7 @@ window.MarlonSearchView = {
     container.appendChild(masterWrap);
 
     /* =========================================================
-     * 6. EVENT DELEGATION & ACTIONS
+     * 6. EVENT DELEGATION & ACTIONS (LIVE MAP SYNC INCLUDED)
      * Centralized event listener for tab switches, toggles, and resets.
      * ========================================================= */
     masterWrap.addEventListener('click', (e) => {
@@ -180,6 +180,7 @@ window.MarlonSearchView = {
         if (addedCount > 0) alert(`📌 Added ${addedCount} spot(s) to your Trip!`);
         this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
         if (applyFiltersCallback) applyFiltersCallback();
+        if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
 
@@ -189,6 +190,7 @@ window.MarlonSearchView = {
         window.MarlonStorage.toggleVisitedSpot(visitedToggle.dataset.id);
         this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
         if (applyFiltersCallback) applyFiltersCallback();
+        if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
 
@@ -198,6 +200,7 @@ window.MarlonSearchView = {
         window.MarlonStorage.toggleSavedSpot(pinToggle.dataset.id, 'All');
         this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
         if (applyFiltersCallback) applyFiltersCallback();
+        if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
 
@@ -209,6 +212,7 @@ window.MarlonSearchView = {
         this.activeArea = 'All';
         this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
         if (applyFiltersCallback) applyFiltersCallback();
+        if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
     });
