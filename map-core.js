@@ -66,17 +66,17 @@ window.initMapEngine = async function() {
     onRemoveSpot: function (spotId) {
       if (window.MarlonStorage) window.MarlonStorage.removeSavedSpot(spotId);
       updateMarkerStates();
-      renderItinerary();
+      renderTrip();
     },
     onClearDay: function (dayName) {
       if (window.MarlonStorage) window.MarlonStorage.clearDay(dayName);
       updateMarkerStates();
-      renderItinerary();
+      renderTrip();
     },
     onToggleVisited: function (spotId) {
       if (window.MarlonStorage) window.MarlonStorage.toggleVisitedSpot(spotId);
       updateMarkerStates();
-      renderItinerary();
+      renderTrip();
     },
     onImportPreset: function (presetKey) {
       if (window.MarlonStorage && window.MARLON_ROUTES_PRESETS) {
@@ -144,7 +144,7 @@ window.initMapEngine = async function() {
     } else if (targetTab === 'trip' && tripView) {
       tripView.classList.remove('view-is-hidden');
       tripView.classList.add('view-is-active');
-      renderItinerary();
+      renderTrip();
     } else if (targetTab === 'passport' && passportView) {
       passportView.classList.remove('view-is-hidden');
       passportView.classList.add('view-is-active');
@@ -171,9 +171,10 @@ window.initMapEngine = async function() {
     switchTab(initialTab);
   }
 
-  function renderItinerary() {
-    if (window.MarlonItineraryView && tripView) {
-      window.MarlonItineraryView.renderItinerary(tripView, allMarkers, callbacks);
+  function renderTrip() {
+    const tripModule = window.MarlonTripView || window.MarlonItineraryView;
+    if (tripModule && tripView) {
+      tripModule.renderTrip(tripView, allMarkers, callbacks);
     }
   }
 
@@ -214,8 +215,8 @@ window.initMapEngine = async function() {
         const popupContainer = document.createElement('div');
         window.MarlonSpotCard.render(spotData, popupContainer, {
           onBack: () => { if(activePopup) activePopup.remove(); },
-          onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderItinerary(); },
-          onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderItinerary(); }
+          onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderTrip(); },
+          onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderTrip(); }
         }, categoryMap, defaultPinSvg);
         activePopup = new mapboxgl.Popup({ offset: 25, closeOnClick: true, focusAfterOpen: false })
           .setLngLat([lng, lat])
