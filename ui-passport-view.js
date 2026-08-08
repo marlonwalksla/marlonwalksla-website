@@ -1,21 +1,21 @@
 /* ==============================================================================
  * FILE: ui-passport-view.js
- * CATEGORY: MarlonWalksLA Website - User Passport, Hotel & Transport Engine
+ * CATEGORY: MarlonWalksLA Website - Passport View Module
  * ============================================================================== */
 
-window.MarlonPassport = {
-  activeTab: 'you', // 'you', 'hotel', 'transit'
+window.MarlonPassportView = {
+  activeTab: 'you',
   selectedMascot: localStorage.getItem('marlon_mascot') || '🦙',
   userName: localStorage.getItem('marlon_user_name') || 'LA Explorer',
 
   mascots: ['🦙', '🦁', '🐻', '🦩', '🐯', '🦊', '🐼', '🐨'],
 
-  render: function(container, allMarkers, callbacks) {
+  render: function(container, allMarkers = [], callbacks = {}) {
     if (!container) return;
     container.innerHTML = '';
 
-    const visitedIds = window.MarlonStorage.getVisitedSpots();
-    const extSpotsMap = window.MarlonStorage.getExternalSpots ? window.MarlonStorage.getExternalSpots() : {};
+    const visitedIds = window.MarlonStorage ? window.MarlonStorage.getVisitedSpots() : [];
+    const extSpotsMap = (window.MarlonStorage && window.MarlonStorage.getExternalSpots) ? window.MarlonStorage.getExternalSpots() : {};
 
     const masterWrap = document.createElement('div');
     masterWrap.className = 'passport-view-wrapper';
@@ -23,7 +23,6 @@ window.MarlonPassport = {
     masterWrap.style.flexDirection = 'column';
     masterWrap.style.height = '100%';
 
-    // Sub-Tab Switcher
     const tabNav = document.createElement('div');
     tabNav.className = 'day-filter-bar';
     tabNav.style.marginBottom = '8px';
@@ -43,7 +42,6 @@ window.MarlonPassport = {
 
     masterWrap.appendChild(tabNav);
 
-    // Tab Content Wrapper
     const contentArea = document.createElement('div');
     contentArea.style.flex = '1';
     contentArea.style.display = 'flex';
@@ -63,7 +61,7 @@ window.MarlonPassport = {
       } else {
         visitedItemsHTML = visitedIds.map(sId => {
           let m = allMarkers.find(item => item.id === sId) || extSpotsMap[sId];
-          return m ? window.MarlonComponents.renderSpotItemHTML(m) : '';
+          return (m && window.MarlonComponents) ? window.MarlonComponents.renderSpotItemHTML(m) : '';
         }).join('');
       }
 
@@ -85,14 +83,15 @@ window.MarlonPassport = {
         </div>
       `;
 
-      const shellCard = window.MarlonComponents.createShellCard({
-        title: `✅ Visited Locations (${visitedIds.length})`,
-        itemsHTML: visitedItemsHTML
-      });
-
-      const shellBody = shellCard.querySelector('.route-block-body');
-      shellBody.insertAdjacentHTML('afterbegin', profileHeaderHTML);
-      contentArea.appendChild(shellCard);
+      if (window.MarlonComponents) {
+        const shellCard = window.MarlonComponents.createShellCard({
+          title: `✅ Visited Locations (${visitedIds.length})`,
+          itemsHTML: visitedItemsHTML
+        });
+        const shellBody = shellCard.querySelector('.route-block-body');
+        if (shellBody) shellBody.insertAdjacentHTML('afterbegin', profileHeaderHTML);
+        contentArea.appendChild(shellCard);
+      }
 
     } else if (this.activeTab === 'hotel') {
       const savedHotel = localStorage.getItem('marlon_hotel_address') || '';
@@ -115,12 +114,13 @@ window.MarlonPassport = {
         </div>
       `;
 
-      const shellCard = window.MarlonComponents.createShellCard({
-        title: '🏨 Hotel Basecamp',
-        itemsHTML: hotelContent
-      });
-
-      contentArea.appendChild(shellCard);
+      if (window.MarlonComponents) {
+        const shellCard = window.MarlonComponents.createShellCard({
+          title: '🏨 Hotel Basecamp',
+          itemsHTML: hotelContent
+        });
+        contentArea.appendChild(shellCard);
+      }
 
     } else if (this.activeTab === 'transit') {
       const transitContent = `
@@ -140,18 +140,18 @@ window.MarlonPassport = {
         </div>
       `;
 
-      const shellCard = window.MarlonComponents.createShellCard({
-        title: '🚗 LA Transportation Guide',
-        itemsHTML: transitContent
-      });
-
-      contentArea.appendChild(shellCard);
+      if (window.MarlonComponents) {
+        const shellCard = window.MarlonComponents.createShellCard({
+          title: '🚗 LA Transportation Guide',
+          itemsHTML: transitContent
+        });
+        contentArea.appendChild(shellCard);
+      }
     }
 
     masterWrap.appendChild(contentArea);
     container.appendChild(masterWrap);
 
-    // Event Listeners
     tabNav.querySelectorAll('.day-pill').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -195,7 +195,7 @@ window.MarlonPassport = {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          window.MarlonStorage.toggleSavedSpot(btn.dataset.id, 'All');
+          if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(btn.dataset.id, 'All');
           this.render(container, allMarkers, callbacks);
         });
       });
