@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: ui-view-search.js
- * CATEGORY: MarlonWalksLA Website - Tabbed Filter & Search Engine using Central Components
+ * CATEGORY: MarlonWalksLA Website - Tabbed Filter & Search Engine
  * ============================================================================== */
 
 window.MarlonSearchView = {
@@ -109,7 +109,7 @@ window.MarlonSearchView = {
     masterWrap.appendChild(shellCard);
     container.appendChild(masterWrap);
 
-    // Event Delegation
+    // Event Delegation for ALL buttons
     masterWrap.addEventListener('click', (e) => {
       const modeBtn = e.target.closest('.day-pill');
       if (modeBtn) {
@@ -140,6 +140,33 @@ window.MarlonSearchView = {
       if (infoBtn) {
         const match = allMarkers.find(m => m.id === infoBtn.dataset.id);
         if (match && match.wrapper) match.wrapper.click();
+        return;
+      }
+
+      const pinAllBtn = e.target.closest('.pin-all-btn');
+      if (pinAllBtn) {
+        e.stopPropagation();
+        const currentSaved = window.MarlonStorage.getSavedSpotIds();
+        let addedCount = 0;
+        spotsToDisplay.forEach(m => {
+          if (!currentSaved.includes(m.id)) {
+            window.MarlonStorage.toggleSavedSpot(m.id, 'All');
+            addedCount++;
+          }
+        });
+        if (addedCount > 0) alert(`📌 Added ${addedCount} spot(s) to your Trip!`);
+        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
+        if (applyFiltersCallback) applyFiltersCallback();
+        return;
+      }
+
+      const visitedToggle = e.target.closest('.visited-toggle');
+      if (visitedToggle) {
+        e.stopPropagation();
+        window.MarlonStorage.toggleVisitedSpot(visitedToggle.dataset.id);
+        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
+        if (applyFiltersCallback) applyFiltersCallback();
+        return;
       }
 
       const pinToggle = e.target.closest('.pin-toggle');
@@ -147,6 +174,8 @@ window.MarlonSearchView = {
         e.stopPropagation();
         window.MarlonStorage.toggleSavedSpot(pinToggle.dataset.id, 'All');
         this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
+        if (applyFiltersCallback) applyFiltersCallback();
+        return;
       }
 
       const resetBtn = e.target.closest('.mini-reset-btn');
@@ -157,6 +186,7 @@ window.MarlonSearchView = {
         this.activeArea = 'All';
         this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
         if (applyFiltersCallback) applyFiltersCallback();
+        return;
       }
     });
   },
