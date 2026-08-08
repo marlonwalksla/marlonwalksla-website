@@ -183,31 +183,77 @@
     z-index: 1 !important;
   }
 
-  .filter-bar {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100vw !important;
-    z-index: 9999 !important; 
-    background: #ffffff !important;
-    border-top-left-radius: 24px !important;
-    border-top-right-radius: 24px !important;
-    box-shadow: 0 -10px 25px rgba(0,0,0,0.15) !important;
-    padding: 12px 16px 32px 16px !important; 
-    box-sizing: border-box !important;
-    transition: height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important; 
-  }
+/* =========================================================
+   STRICT FLEXBOX FRAME & VIEW VISIBILITY FIXES
+   ========================================================= */
 
-  .filter-bar.is-collapsed { 
-    height: 260px !important; 
-    overflow: hidden !important; 
-  }
+/* Main outer container */
+.filter-bar, 
+.filter-bar form,
+.map-master-polaroid .filter-bar {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 520px !important;
+  max-height: 520px !important;
+  overflow: hidden !important; /* Prevents outer card overflow */
+}
 
-  .filter-bar.is-expanded { 
-    height: 50dvh !important; 
-    overflow-y: auto !important; 
-  }
+/* Header tab bar stays fixed at the top */
+#top-header-view {
+  flex-shrink: 0 !important;
+}
+
+/* Base style for tab views */
+#search-view, 
+#trip-view, 
+#passport-view, 
+#routes-view {
+  flex: 1 !important;
+  min-height: 0 !important; /* Essential for inner flex scrolling */
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+/* Class to cleanly hide non-active views */
+.view-is-hidden {
+  display: none !important;
+}
+
+.view-is-active {
+  display: flex !important;
+}
+
+/* Shell Card & Body Layout */
+.search-view-wrapper, 
+.itinerary-view-wrapper, 
+.passport-view-wrapper, 
+.routes-view-wrapper,
+.reusable-shell-card {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  margin-bottom: 0 !important;
+}
+
+.reusable-shell-card .route-block-body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  padding: 8px !important;
+}
+
+/* ONLY the list inside the shell scrolls */
+.shell-items-feed,
+.popular-spot-feed-list {
+  flex: 1 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+}
 
   .mobile-drag-handle {
     display: flex !important;
