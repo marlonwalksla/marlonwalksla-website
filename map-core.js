@@ -16,11 +16,8 @@ window.initMapEngine = async function() {
   const geolocate = new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true, showUserHeading: true });
   map.addControl(geolocate, 'top-right');
 
-  function updateMapPadding() {
-    if (window.innerWidth <= 820) map.setPadding({ top: 10, bottom: 10, left: 10, right: 10 });
-    else map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
-  }
-  window.addEventListener('resize', () => { map.resize(); updateMapPadding(); });
+  // Removed old padding logic - relying exclusively on Mapbox Bounds now
+  window.addEventListener('resize', () => { map.resize(); });
 
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
@@ -94,7 +91,7 @@ window.initMapEngine = async function() {
     form.innerHTML = '';
 
     searchWrapper = document.createElement('div'); searchWrapper.className = 'map-search-wrapper';
-    searchWrapper.innerHTML = `<input type="text" class="map-search-input" placeholder="🔍 Search 102 spots, hotels, locations..." /><div class="search-results-dropdown"></div>`;
+    searchWrapper.innerHTML = `<input type="text" class="map-search-input" placeholder="剥 Search 102 spots, hotels, locations..." /><div class="search-results-dropdown"></div>`;
 
     topHeaderView = document.createElement('div'); topHeaderView.id = 'top-header-view';
     searchView = document.createElement('div'); searchView.id = 'search-view'; searchView.className = 'view-is-hidden';
@@ -132,7 +129,7 @@ window.initMapEngine = async function() {
       if (v) { v.classList.remove('view-is-active'); v.classList.add('view-is-hidden'); }
     });
 
-if (targetTab === 'search' && searchView) {
+    if (targetTab === 'search' && searchView) {
       searchView.classList.remove('view-is-hidden');
       searchView.classList.add('view-is-active');
       if (window.MarlonSearchView) {
@@ -140,7 +137,6 @@ if (targetTab === 'search' && searchView) {
           searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
           () => window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter)
         );
-        // FORCE MAP SYNC ON LOAD
         window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter);
       }
     } else if (targetTab === 'trip' && tripView) {
@@ -209,9 +205,10 @@ if (targetTab === 'search' && searchView) {
     
     const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
     
+    // Removed old artificial padding from flyTo
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
-      map.flyTo({ center: [lng, lat], zoom: 13.5, padding: { top: 10, bottom: 10, left: 10, right: 10 } });
+      map.flyTo({ center: [lng, lat], zoom: 13.5 });
       if (activePopup) activePopup.remove();
       if (window.MarlonSpotCard) {
         const popupContainer = document.createElement('div');
@@ -235,10 +232,10 @@ if (targetTab === 'search' && searchView) {
         
     const scopeToggleWrap = document.createElement('div'); scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
     
-    scopeSearchBtn = document.createElement('button'); scopeSearchBtn.type = 'button'; scopeSearchBtn.className = 'scope-toggle-btn'; scopeSearchBtn.innerText = `🔍 Search`;
-    scopeTripBtn = document.createElement('button'); scopeTripBtn.type = 'button'; scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn'; scopeTripBtn.innerText = `📋 Trip`;
-    scopePassportBtn = document.createElement('button'); scopePassportBtn.type = 'button'; scopePassportBtn.className = 'scope-toggle-btn'; scopePassportBtn.innerText = `👤 Passport`;
-    scopeRoutesBtn = document.createElement('button'); scopeRoutesBtn.type = 'button'; scopeRoutesBtn.className = 'scope-toggle-btn'; scopeRoutesBtn.innerText = `🛣️ Routes`;
+    scopeSearchBtn = document.createElement('button'); scopeSearchBtn.type = 'button'; scopeSearchBtn.className = 'scope-toggle-btn'; scopeSearchBtn.innerText = `剥 Search`;
+    scopeTripBtn = document.createElement('button'); scopeTripBtn.type = 'button'; scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn'; scopeTripBtn.innerText = `搭 Trip`;
+    scopePassportBtn = document.createElement('button'); scopePassportBtn.type = 'button'; scopePassportBtn.className = 'scope-toggle-btn'; scopePassportBtn.innerText = `側 Passport`;
+    scopeRoutesBtn = document.createElement('button'); scopeRoutesBtn.type = 'button'; scopeRoutesBtn.className = 'scope-toggle-btn'; scopeRoutesBtn.innerText = `屮ｸRoutes`;
     
     scopeSearchBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('search'); });
     scopeTripBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('trip'); });
@@ -259,7 +256,6 @@ if (targetTab === 'search' && searchView) {
   }
 
   map.on('load', () => { 
-    updateMapPadding();
     if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
     updateMarkerStates(); 
     initDefaultTab(); 
