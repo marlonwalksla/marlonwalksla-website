@@ -155,38 +155,48 @@ window.initMapEngine = async function() {
   function switchTab(targetTab) {
     activeTab = targetTab;
     
+    // Update button active states
     if (scopeSearchBtn) scopeSearchBtn.classList.toggle('is-active', targetTab === 'search');
     if (scopeTripBtn) scopeTripBtn.classList.toggle('is-active', targetTab === 'trip');
     if (scopePassportBtn) scopePassportBtn.classList.toggle('is-active', targetTab === 'passport');
     if (scopeRoutesBtn) scopeRoutesBtn.classList.toggle('is-active', targetTab === 'routes');
 
-    if (searchView) searchView.style.display = 'none';
-    if (tripView) tripView.style.display = 'none';
-    if (passportView) passportView.style.display = 'none';
-    if (routesView) routesView.style.display = 'none';
+    // Hide all view containers
+    const views = [searchView, tripView, passportView, routesView];
+    views.forEach(v => { 
+      if (v) {
+        v.classList.remove('view-is-active');
+        v.classList.add('view-is-hidden');
+      }
+    });
 
-    if (targetTab === 'search') {
-      if (searchView) searchView.style.display = 'flex';
+    // Show active view container
+    if (targetTab === 'search' && searchView) {
+      searchView.classList.remove('view-is-hidden');
+      searchView.classList.add('view-is-active');
       if (window.MarlonSearchView) {
         window.MarlonSearchView.render(
           searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
           () => window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter)
         );
       }
-    } else if (targetTab === 'trip') {
-      if (tripView) tripView.style.display = 'flex';
+    } else if (targetTab === 'trip' && tripView) {
+      tripView.classList.remove('view-is-hidden');
+      tripView.classList.add('view-is-active');
       renderItinerary();
-    } else if (targetTab === 'passport') {
-      if (passportView) passportView.style.display = 'flex';
+    } else if (targetTab === 'passport' && passportView) {
+      passportView.classList.remove('view-is-hidden');
+      passportView.classList.add('view-is-active');
       if (window.MarlonPassportView) window.MarlonPassportView.render(passportView, allMarkers, callbacks);
-    } else if (targetTab === 'routes') {
-      if (routesView) routesView.style.display = 'flex';
+    } else if (targetTab === 'routes' && routesView) {
+      routesView.classList.remove('view-is-hidden');
+      routesView.classList.add('view-is-active');
       if (window.MarlonRoutesView) {
         const allPresets = window.MARLON_ROUTES_PRESETS || [];
         window.MarlonRoutesView.render(routesView, allPresets, callbacks);
       }
     }
-    map.resize();
+    if (map) map.resize();
   }
 
   function initDefaultTab() {
