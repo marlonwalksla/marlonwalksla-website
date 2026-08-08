@@ -243,3 +243,33 @@
     overflow: hidden !important;
   }
 }
+
+/* =========================================================
+   FULL-HEIGHT FLEX STRETCH FIX FOR TRIP TAB
+   ========================================================= */
+.itinerary-section,
+.itinerary-blocks-container {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+#trip-view .reusable-shell-card {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  margin-bottom: 0 !important;
+}
+
+#trip-view .route-block-body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  justify-content: space-between !important; /* Pushes list up and search input to bottom */
+}
