@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Mobile Sheet Handler
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -16,19 +16,14 @@ window.initMapEngine = async function() {
   const geolocate = new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true, showUserHeading: true });
   map.addControl(geolocate, 'top-right');
 
-function updateMapPadding() {
-    if (window.innerWidth <= 820) {
-      // Offset bottom padding so camera centers in the top map photo frame
-      map.setPadding({ top: 20, bottom: 40, left: 10, right: 10 });
-    } else {
-      map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
-    }
+  function updateMapPadding() {
+    if (window.innerWidth <= 820) map.setPadding({ top: 10, bottom: 20, left: 10, right: 10 });
+    else map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
   }
   window.addEventListener('resize', () => { map.resize(); updateMapPadding(); });
 
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
-  // CATEGORY MAP WITH UNIQUE COLORS & SVG ICONS
   const categoryMap = {
     'landmarks': { color: '#ef4444', name: 'Landmarks', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h6M9 14h6M9 18h6"/></svg>' },
     'arts': { color: '#a855f7', name: 'Arts & Culture', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>' },
@@ -57,10 +52,10 @@ function updateMapPadding() {
   const tagsSet = new Set();
 
   const form = document.querySelector('.filter-bar form');
-  let searchWrapper = null, hotelAnchorBox = null, topHeaderView = null;
+  let searchWrapper = null, topHeaderView = null;
   let searchView = null, tripView = null, passportView = null, routesView = null;
   let scopeSearchBtn = null, scopeTripBtn = null, scopePassportBtn = null, scopeRoutesBtn = null;
-  let activeTab = 'trip';
+  let activeTab = 'search';
   let activePopup = null; 
 
   const callbacks = {
@@ -95,49 +90,17 @@ function updateMapPadding() {
   };
 
   if (form) {
-    const filterBarParent = form.closest('.filter-bar');
-    if (filterBarParent) filterBarParent.classList.add('is-collapsed');
     form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); return false; });
     form.innerHTML = '';
 
-    const dragHandle = document.createElement('button'); 
-    dragHandle.className = 'mobile-drag-handle'; 
-    dragHandle.innerHTML = '↑'; 
-    form.appendChild(dragHandle);
-
-    dragHandle.addEventListener('click', (e) => { 
-      e.preventDefault(); 
-      if (filterBarParent) { 
-        const isExpanded = filterBarParent.classList.contains('is-expanded');
-        if (isExpanded) {
-          filterBarParent.classList.remove('is-expanded'); 
-          filterBarParent.classList.add('is-collapsed');
-          dragHandle.innerHTML = '↑';
-        } else {
-          filterBarParent.classList.remove('is-collapsed'); 
-          filterBarParent.classList.add('is-expanded');
-          dragHandle.innerHTML = '↓';
-        }
-      } 
-    });
-
-    map.on('click', (e) => {
-      if (window.innerWidth <= 820 && filterBarParent && filterBarParent.classList.contains('is-expanded')) {
-        filterBarParent.classList.remove('is-expanded');
-        filterBarParent.classList.add('is-collapsed');
-        dragHandle.innerHTML = '↑';
-      }
-    });
-
     searchWrapper = document.createElement('div'); searchWrapper.className = 'map-search-wrapper';
     searchWrapper.innerHTML = `<input type="text" class="map-search-input" placeholder="🔍 Search 102 spots, hotels, locations..." /><div class="search-results-dropdown"></div>`;
-    hotelAnchorBox = document.createElement('div'); hotelAnchorBox.className = 'hotel-anchor-box';
 
     topHeaderView = document.createElement('div'); topHeaderView.id = 'top-header-view';
-    searchView = document.createElement('div'); searchView.id = 'search-view'; searchView.style.display = 'none';
-    tripView = document.createElement('div'); tripView.id = 'trip-view'; tripView.style.display = 'none';
-    passportView = document.createElement('div'); passportView.id = 'passport-view'; passportView.style.display = 'none';
-    routesView = document.createElement('div'); routesView.id = 'routes-view'; routesView.style.display = 'none';
+    searchView = document.createElement('div'); searchView.id = 'search-view'; searchView.className = 'view-is-hidden';
+    tripView = document.createElement('div'); tripView.id = 'trip-view'; tripView.className = 'view-is-hidden';
+    passportView = document.createElement('div'); passportView.id = 'passport-view'; passportView.className = 'view-is-hidden';
+    routesView = document.createElement('div'); routesView.id = 'routes-view'; routesView.className = 'view-is-hidden';
 
     form.appendChild(topHeaderView);
     form.appendChild(searchView);
@@ -147,8 +110,8 @@ function updateMapPadding() {
   }
 
   function updateMarkerStates() {
-    const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
-    const visitedIds = window.MarlonStorage.getVisitedSpots();
+    const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
+    const visitedIds = window.MarlonStorage ? window.MarlonStorage.getVisitedSpots() : [];
     allMarkers.forEach(m => {
       if (visitedIds.includes(m.id)) { m.wrapper.classList.add('is-visited-pin'); m.wrapper.classList.remove('is-pinned-ring'); }
       else if (savedSpotIds.includes(m.id)) { m.wrapper.classList.add('is-pinned-ring'); m.wrapper.classList.remove('is-visited-pin'); }
@@ -159,22 +122,16 @@ function updateMapPadding() {
   function switchTab(targetTab) {
     activeTab = targetTab;
     
-    // Update button active states
     if (scopeSearchBtn) scopeSearchBtn.classList.toggle('is-active', targetTab === 'search');
     if (scopeTripBtn) scopeTripBtn.classList.toggle('is-active', targetTab === 'trip');
     if (scopePassportBtn) scopePassportBtn.classList.toggle('is-active', targetTab === 'passport');
     if (scopeRoutesBtn) scopeRoutesBtn.classList.toggle('is-active', targetTab === 'routes');
 
-    // Hide all view containers
     const views = [searchView, tripView, passportView, routesView];
-    views.forEach(v => { 
-      if (v) {
-        v.classList.remove('view-is-active');
-        v.classList.add('view-is-hidden');
-      }
+    views.forEach(v => {
+      if (v) { v.classList.remove('view-is-active'); v.classList.add('view-is-hidden'); }
     });
 
-    // Show active view container
     if (targetTab === 'search' && searchView) {
       searchView.classList.remove('view-is-hidden');
       searchView.classList.add('view-is-active');
@@ -215,7 +172,7 @@ function updateMapPadding() {
   }
 
   function renderItinerary() {
-    if (window.MarlonItineraryView) {
+    if (window.MarlonItineraryView && tripView) {
       window.MarlonItineraryView.renderItinerary(tripView, allMarkers, callbacks);
     }
   }
@@ -249,18 +206,9 @@ function updateMapPadding() {
     
     const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
     
-wrapper.addEventListener('click', (e) => {
+    wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
-      
-      // Calculate responsive offset for flyTo center point
-      const bottomPadding = window.innerWidth <= 820 ? 60 : 0;
-      
-      map.flyTo({ 
-        center: [lng, lat], 
-        zoom: 14.0,
-        padding: { top: 20, bottom: bottomPadding, left: 10, right: 10 }
-      });
-
+      map.flyTo({ center: [lng, lat], zoom: 13.5, padding: { top: 10, bottom: window.innerWidth <= 820 ? 40 : 0, left: 10, right: 10 } });
       if (activePopup) activePopup.remove();
       if (window.MarlonSpotCard) {
         const popupContainer = document.createElement('div');
@@ -269,7 +217,6 @@ wrapper.addEventListener('click', (e) => {
           onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderItinerary(); },
           onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderItinerary(); }
         }, categoryMap, defaultPinSvg);
-
         activePopup = new mapboxgl.Popup({ offset: 25, closeOnClick: true, focusAfterOpen: false })
           .setLngLat([lng, lat])
           .setDOMContent(popupContainer)
@@ -284,8 +231,6 @@ wrapper.addEventListener('click', (e) => {
     mainTitleHeader.style.marginTop = '0'; mainTitleHeader.style.paddingTop = '0';
         
     const scopeToggleWrap = document.createElement('div'); scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
-    scopeToggleWrap.style.overflowX = 'auto';
-    scopeToggleWrap.style.justifyContent = 'flex-start';
     
     scopeSearchBtn = document.createElement('button'); scopeSearchBtn.type = 'button'; scopeSearchBtn.className = 'scope-toggle-btn'; scopeSearchBtn.innerText = `🔍 Search`;
     scopeTripBtn = document.createElement('button'); scopeTripBtn.type = 'button'; scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn'; scopeTripBtn.innerText = `📋 Trip`;
@@ -312,7 +257,7 @@ wrapper.addEventListener('click', (e) => {
 
   map.on('load', () => { 
     updateMapPadding();
-    if (window.MarlonHotel) window.MarlonHotel.renderMarker(map); 
+    if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
     updateMarkerStates(); 
     initDefaultTab(); 
   });
