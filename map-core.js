@@ -4,6 +4,10 @@
  * ============================================================================== */
 
 window.initMapEngine = async function() {
+  /* =========================================================
+   * 1. MAPBOX INITIALIZATION & SETUP
+   * Sets up the core map canvas, API token, and camera controls.
+   * ========================================================= */
   const mapContainer = document.getElementById('map');
   if (!mapContainer) return;
 
@@ -19,6 +23,10 @@ window.initMapEngine = async function() {
   // Removed old padding logic - relying exclusively on Mapbox Bounds now
   window.addEventListener('resize', () => { map.resize(); });
 
+  /* =========================================================
+   * 2. ICONS & CATEGORY DICTIONARY
+   * Defines the visual theme (colors and SVGs) for map pins.
+   * ========================================================= */
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
   const categoryMap = {
@@ -33,6 +41,10 @@ window.initMapEngine = async function() {
 
   function cleanText(str) { return str ? String(str).replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim() : ''; }
 
+  /* =========================================================
+   * 3. DATA FETCHING
+   * Pulls the raw spot data from your external GeoJSON file.
+   * ========================================================= */
   let geojsonData = null;
   try {
     let res = await fetch('https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/spots.geojson');
@@ -42,6 +54,10 @@ window.initMapEngine = async function() {
 
   if (!geojsonData || !geojsonData.features) return;
 
+  /* =========================================================
+   * 4. STATE VARIABLES & DOM ELEMENTS
+   * Sets up empty arrays/containers to hold generated data.
+   * ========================================================= */
   const allMarkers = [];
   window.MARLON_ALL_MARKERS = allMarkers;
   const neighborhoods = new Set();
@@ -55,6 +71,10 @@ window.initMapEngine = async function() {
   let activeTab = 'search';
   let activePopup = null; 
 
+  /* =========================================================
+   * 5. GLOBAL CALLBACKS & STATE MANAGEMENT
+   * Functions that handle user interactions (saving, clearing).
+   * ========================================================= */
   const callbacks = {
     onSelectSpot: function (spotId) {
       const match = allMarkers.find(m => m.id === spotId);
@@ -86,6 +106,10 @@ window.initMapEngine = async function() {
     }
   };
 
+  /* =========================================================
+   * 6. BUILD UI CONTAINERS
+   * Constructs the physical HTML structure for the tab views.
+   * ========================================================= */
   if (form) {
     form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); return false; });
     form.innerHTML = '';
@@ -106,6 +130,10 @@ window.initMapEngine = async function() {
     form.appendChild(routesView);
   }
 
+  /* =========================================================
+   * 7. VIEW SWITCHING LOGIC
+   * Controls which tab is currently active and visible.
+   * ========================================================= */
   function updateMarkerStates() {
     const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
     const visitedIds = window.MarlonStorage ? window.MarlonStorage.getVisitedSpots() : [];
@@ -177,6 +205,10 @@ window.initMapEngine = async function() {
     }
   }
 
+  /* =========================================================
+   * 8. MARKER GENERATION
+   * Loops through GeoJSON to plot physical map pins.
+   * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
     const coords = feature.geometry ? feature.geometry.coordinates : null;
@@ -227,6 +259,10 @@ window.initMapEngine = async function() {
     allMarkers.push(spotData);
   });
 
+  /* =========================================================
+   * 9. MASTER NAVIGATION HEADER
+   * Builds the main tab bar (Search, Trip, Passport, Routes).
+   * ========================================================= */
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div'); mainTitleHeader.className = 'map-hero-cta-box';
     mainTitleHeader.style.marginTop = '0'; mainTitleHeader.style.paddingTop = '0';
@@ -252,6 +288,10 @@ window.initMapEngine = async function() {
     topHeaderView.appendChild(mainTitleHeader);
   }
 
+  /* =========================================================
+   * 10. FINAL LAUNCH
+   * Initializes master search and finalizes map loading state.
+   * ========================================================= */
   if (window.MarlonSearch) {
     window.MarlonSearch.init(searchWrapper, map, allMarkers, dtlaCenter, callbacks);
   }
