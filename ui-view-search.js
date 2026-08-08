@@ -243,11 +243,29 @@ window.MarlonSearchView = {
     if (!allMarkers || !map) return;
     const bounds = new mapboxgl.LngLatBounds();
     let visibleCount = 0;
+
+    let popularMatches = [];
+    if (this.activeTabMode === 'popular') {
+      this.top10Popular.forEach(name => {
+        const match = allMarkers.find(m => m.title.toLowerCase().trim().includes(name.toLowerCase().trim()));
+        if (match) popularMatches.push(match.id);
+      });
+    }
+
     allMarkers.forEach(item => {
-      const matchesArea = (this.activeArea === 'All') || (item.neighborhood === this.activeArea);
-      const matchesCategory = (this.activeCategories.size === 0) || this.activeCategories.has(item.category);
-      const matchesTag = (this.activeTag === 'All') || (item.tags && item.tags.includes(this.activeTag));
-      if (matchesArea && matchesCategory && matchesTag) { 
+      let isVisible = false;
+      
+      if (this.activeTabMode === 'popular') {
+        isVisible = popularMatches.includes(item.id);
+      } else if (this.activeTabMode === 'categories') {
+        isVisible = (this.activeCategories.size === 0) || this.activeCategories.has(item.category);
+      } else if (this.activeTabMode === 'vibes') {
+        isVisible = (this.activeTag === 'All') || (item.tags && item.tags.includes(this.activeTag));
+      } else if (this.activeTabMode === 'neighborhoods') {
+        isVisible = (this.activeArea === 'All') || (item.neighborhood === this.activeArea);
+      }
+
+      if (isVisible) { 
         item.marker.addTo(map); 
         bounds.extend([item.lng, item.lat]); 
         visibleCount++; 
@@ -255,10 +273,10 @@ window.MarlonSearchView = {
         item.marker.remove(); 
       }
     });
+
     if (visibleCount >= 1) {
-      map.fitBounds(bounds, { maxZoom: 13.0 });
+      map.fitBounds(bounds, { padding: 50, maxZoom: 13.0 });
     } else {
       map.flyTo({ center: dtlaCenter, zoom: 10.2 });
     }
   }
-};
