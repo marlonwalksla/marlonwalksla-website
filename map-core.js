@@ -16,9 +16,13 @@ window.initMapEngine = async function() {
   const geolocate = new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true, showUserHeading: true });
   map.addControl(geolocate, 'top-right');
 
-  function updateMapPadding() {
-    if (window.innerWidth <= 820) map.setPadding({ bottom: 260 });
-    else map.setPadding({ bottom: 0 });
+function updateMapPadding() {
+    if (window.innerWidth <= 820) {
+      // Offset bottom padding so camera centers in the top map photo frame
+      map.setPadding({ top: 20, bottom: 40, left: 10, right: 10 });
+    } else {
+      map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
+    }
   }
   window.addEventListener('resize', () => { map.resize(); updateMapPadding(); });
 
@@ -245,9 +249,18 @@ window.initMapEngine = async function() {
     
     const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
     
-    wrapper.addEventListener('click', (e) => {
+wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
-      map.flyTo({ center: [lng, lat], zoom: 13.5 });
+      
+      // Calculate responsive offset for flyTo center point
+      const bottomPadding = window.innerWidth <= 820 ? 60 : 0;
+      
+      map.flyTo({ 
+        center: [lng, lat], 
+        zoom: 14.0,
+        padding: { top: 20, bottom: bottomPadding, left: 10, right: 10 }
+      });
+
       if (activePopup) activePopup.remove();
       if (window.MarlonSpotCard) {
         const popupContainer = document.createElement('div');
@@ -256,6 +269,7 @@ window.initMapEngine = async function() {
           onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderItinerary(); },
           onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderItinerary(); }
         }, categoryMap, defaultPinSvg);
+
         activePopup = new mapboxgl.Popup({ offset: 25, closeOnClick: true, focusAfterOpen: false })
           .setLngLat([lng, lat])
           .setDOMContent(popupContainer)
