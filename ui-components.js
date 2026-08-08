@@ -15,8 +15,8 @@ window.MarlonComponents = {
   },
 
   renderSpotItemHTML: function(spot, options = {}) {
-    const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
-    const visitedIds = window.MarlonStorage.getVisitedSpots();
+    const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
+    const visitedIds = window.MarlonStorage ? window.MarlonStorage.getVisitedSpots() : [];
     
     const isSaved = savedSpotIds.includes(spot.id);
     const isVisited = visitedIds.includes(spot.id);
@@ -26,7 +26,6 @@ window.MarlonComponents = {
       <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${spot.id}">
         <div class="itinerary-item-info spot-info-click" data-id="${spot.id}" style="flex: 1; padding-right: 4px; cursor: pointer;">
           <div class="itinerary-item-name" style="margin-bottom: 2px;">📍 ${spot.title}</div>
-          <!-- Neighborhood removed per request -->
         </div>
         <div class="itinerary-item-actions" style="gap: 4px; display: flex; align-items: center;">
           ${options.showDaySelect ? `
@@ -50,15 +49,19 @@ window.MarlonComponents = {
   createShellCard: function(options = {}) {
     const card = document.createElement('div');
     card.className = 'route-block-card reusable-shell-card';
+    
+    // Strict flex column with NO overflow:visible
     card.style.display = 'flex';
     card.style.flexDirection = 'column';
-    card.style.overflow = 'visible';
-    card.style.marginBottom = '10px';
+    card.style.flex = '1 1 0%';
+    card.style.minHeight = '0';
+    card.style.overflow = 'hidden';
 
     const header = document.createElement('div');
     header.className = 'route-block-header';
     header.style.backgroundColor = '#f0f7ff';
     header.style.justifyContent = 'space-between';
+    header.style.flex = '0 0 auto'; // Fixed header height
     header.innerHTML = `
       <span class="route-block-title" style="font-size: 13px;">${options.title || 'Locations'}</span>
       <div style="display:flex; gap: 6px; align-items:center;">
@@ -71,7 +74,9 @@ window.MarlonComponents = {
     body.className = 'route-block-body';
     body.style.display = 'flex';
     body.style.flexDirection = 'column';
-    body.style.gap = '6px';
+    body.style.flex = '1 1 0%';
+    body.style.minHeight = '0';
+    body.style.overflow = 'hidden';
     body.style.padding = '8px';
 
     const listFeed = document.createElement('div');
@@ -79,8 +84,10 @@ window.MarlonComponents = {
     listFeed.style.display = 'flex';
     listFeed.style.flexDirection = 'column';
     listFeed.style.gap = '6px';
-    // Removed max-height here so the flexbox layout controls the height dynamically
-    listFeed.style.overflowY = 'auto';
+    listFeed.style.flex = '1 1 0%';
+    listFeed.style.minHeight = '0';
+    listFeed.style.overflowY = 'auto'; // Only the internal list scrolls
+    listFeed.style.webkitOverflowScrolling = 'touch';
     listFeed.innerHTML = options.itemsHTML || '';
 
     body.appendChild(listFeed);
@@ -90,6 +97,7 @@ window.MarlonComponents = {
       searchWrapContainer.className = 'manual-search-wrap';
       searchWrapContainer.style.position = 'relative';
       searchWrapContainer.style.marginTop = '6px';
+      searchWrapContainer.style.flex = '0 0 auto'; // Fixed search bar height at bottom
       searchWrapContainer.appendChild(options.searchWrapper);
       body.appendChild(searchWrapContainer);
     }
