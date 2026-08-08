@@ -1,5 +1,5 @@
 /* ==============================================================================
- * FILE: ui-search-view.js
+ * FILE: ui-view-search.js
  * CATEGORY: MarlonWalksLA Website - Tabbed Filter & Search Engine using Central Components
  * ============================================================================== */
 
