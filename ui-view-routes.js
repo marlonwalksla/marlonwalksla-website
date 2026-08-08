@@ -4,7 +4,7 @@
  * ============================================================================== */
 
 window.MarlonRoutesView = {
-  activeTab: 'freetour', // 'freetour', 'selfguided', 'private', 'explore'
+  activeTab: 'freetour',
 
   render: function(container, presets, callbacks) {
     if (!container) return;
@@ -16,7 +16,6 @@ window.MarlonRoutesView = {
     masterWrap.style.flexDirection = 'column';
     masterWrap.style.height = '100%';
 
-    // Route Sub-Tab Nav
     const tabNav = document.createElement('div');
     tabNav.className = 'day-filter-bar';
     tabNav.style.marginBottom = '8px';
@@ -49,65 +48,49 @@ window.MarlonRoutesView = {
     if (this.activeTab === 'freetour') {
       cardTitle = '🏛️ DTLA Free Walking Tour';
       cardContent = `
-        <div style="padding: 12px; display:flex; flex-direction:column; gap:10px;">
-          <div style="font-size:12px; color:#334155; line-height:1.5;">
-            Join Marlon's flagship 2-hour walking tour through historic DTLA architecture, markets, hidden tunnels, and rich culture.
+        <div class="route-view-content">
+          <div class="route-view-desc">Join Marlon's flagship 2-hour walking tour through historic DTLA architecture, markets, hidden tunnels, and rich culture.</div>
+          <div class="route-highlight-box theme-blue">
+            <div class="route-highlight-title">📍 Highlights</div>
+            <div class="route-highlight-list">Bradbury Building • Grand Central Market • Angels Flight • Last Bookstore</div>
           </div>
-          <div style="background:#eff6ff; border:1px solid #bfdbfe; padding:10px; border-radius:8px;">
-            <div style="font-weight:800; font-size:12px; color:#1e40af;">📍 Highlights</div>
-            <div style="font-size:11px; color:#1e3a8a; margin-top:2px;">Bradbury Building • Grand Central Market • Angels Flight • Last Bookstore</div>
-          </div>
-          <a href="https://freetour.com" target="_blank" class="import-preset-btn" style="text-align:center; text-decoration:none; padding:10px; font-weight:800;">
-            🎟️ Book Free Walk
-          </a>
+          <a href="https://freetour.com" target="_blank" class="import-preset-btn" style="text-align:center; text-decoration:none; padding:10px; font-weight:800;">🎟️ Book Free Walk</a>
         </div>
       `;
     } else if (this.activeTab === 'selfguided') {
       cardTitle = '🎧 Hollywood Stars & Glamour Tour';
       cardContent = `
-        <div style="padding: 12px; display:flex; flex-direction:column; gap:10px;">
-          <div style="font-size:12px; color:#334155; line-height:1.5;">
-            Self-guided audio walkthrough of Hollywood's iconic landmarks at your own pace.
+        <div class="route-view-content">
+          <div class="route-view-desc">Self-guided audio walkthrough of Hollywood's iconic landmarks at your own pace.</div>
+          <div class="route-highlight-box theme-yellow">
+            <div class="route-highlight-title">📍 Highlights</div>
+            <div class="route-highlight-list">TCL Chinese Theatre • Walk of Fame • Dolby Theatre • El Capitan</div>
           </div>
-          <div style="background:#fefce8; border:1px solid #fef08a; padding:10px; border-radius:8px;">
-            <div style="font-weight:800; font-size:12px; color:#854d0e;">📍 Highlights</div>
-            <div style="font-size:11px; color:#713f12; margin-top:2px;">TCL Chinese Theatre • Walk of Fame • Dolby Theatre • El Capitan</div>
-          </div>
-          <button type="button" class="import-preset-btn add-preset-btn" data-preset="hollywood" style="padding:10px; font-weight:800;">
-            ➕ Add Hollywood Route to Trip
-          </button>
+          <button type="button" class="import-preset-btn add-preset-btn" data-preset="hollywood" style="padding:10px; font-weight:800;">➕ Add Hollywood Route to Trip</button>
         </div>
       `;
     } else if (this.activeTab === 'private') {
       cardTitle = '🥾 Hike to Griffith Observatory';
       cardContent = `
-        <div style="padding: 12px; display:flex; flex-direction:column; gap:10px;">
-          <div style="font-size:12px; color:#334155; line-height:1.5;">
-            Guided private scenic hike leading directly up to the Griffith Observatory with panoramic sunset views over the Hollywood Sign and LA basin.
+        <div class="route-view-content">
+          <div class="route-view-desc">Guided private scenic hike leading directly up to the Griffith Observatory with panoramic sunset views over the Hollywood Sign and LA basin.</div>
+          <div class="route-highlight-box theme-green">
+            <div class="route-highlight-title">📍 Highlights</div>
+            <div class="route-highlight-list">Ferndell Trail • Observatory Viewpoint • Greek Theatre</div>
           </div>
-          <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:10px; border-radius:8px;">
-            <div style="font-weight:800; font-size:12px; color:#166534;">📍 Highlights</div>
-            <div style="font-size:11px; color:#14532d; margin-top:2px;">Ferndell Trail • Observatory Viewpoint • Greek Theatre</div>
-          </div>
-          <button type="button" class="import-preset-btn" style="padding:10px; font-weight:800;">
-            ✉️ Request Private Hike
-          </button>
+          <button type="button" class="import-preset-btn" style="padding:10px; font-weight:800;">✉️ Request Private Hike</button>
         </div>
       `;
     } else if (this.activeTab === 'explore') {
       cardTitle = '🚲 Santa Monica & Venice Coastal Bike Trail';
       cardContent = `
-        <div style="padding: 12px; display:flex; flex-direction:column; gap:10px;">
-          <div style="font-size:12px; color:#334155; line-height:1.5;">
-            Cruise the famous Marvin Braude bike path along the Pacific Coast from Santa Monica Pier to the Venice Canals.
+        <div class="route-view-content">
+          <div class="route-view-desc">Cruise the famous Marvin Braude bike path along the Pacific Coast from Santa Monica Pier to the Venice Canals.</div>
+          <div class="route-highlight-box theme-purple">
+            <div class="route-highlight-title">📍 Highlights</div>
+            <div class="route-highlight-list">Santa Monica Pier • Muscle Beach • Venice Skatepark • Venice Canals</div>
           </div>
-          <div style="background:#faf5ff; border:1px solid #e9d5ff; padding:10px; border-radius:8px;">
-            <div style="font-weight:800; font-size:12px; color:#6b21a8;">📍 Highlights</div>
-            <div style="font-size:11px; color:#581c87; margin-top:2px;">Santa Monica Pier • Muscle Beach • Venice Skatepark • Venice Canals</div>
-          </div>
-          <button type="button" class="import-preset-btn add-preset-btn" data-preset="coastal" style="padding:10px; font-weight:800;">
-            ➕ Add Coastal Bike Route to Trip
-          </button>
+          <button type="button" class="import-preset-btn add-preset-btn" data-preset="coastal" style="padding:10px; font-weight:800;">➕ Add Coastal Bike Route to Trip</button>
         </div>
       `;
     }
@@ -121,21 +104,21 @@ window.MarlonRoutesView = {
     masterWrap.appendChild(contentArea);
     container.appendChild(masterWrap);
 
-    // Event Listeners
-    tabNav.querySelectorAll('.day-pill').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+    // Event Delegation for Nav and Interactions
+    masterWrap.addEventListener('click', (e) => {
+      const tabBtn = e.target.closest('.day-pill');
+      if (tabBtn) {
         e.preventDefault();
-        this.activeTab = btn.dataset.tab;
+        this.activeTab = tabBtn.dataset.tab;
         this.render(container, presets, callbacks);
-      });
-    });
+        return;
+      }
 
-    container.querySelectorAll('.add-preset-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      const presetBtn = e.target.closest('.add-preset-btn');
+      if (presetBtn) {
         e.preventDefault();
-        const presetKey = btn.dataset.preset;
-        if (callbacks.onImportPreset) callbacks.onImportPreset(presetKey);
-      });
+        if (callbacks.onImportPreset) callbacks.onImportPreset(presetBtn.dataset.preset);
+      }
     });
   }
 };
