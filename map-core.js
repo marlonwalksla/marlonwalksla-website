@@ -20,7 +20,6 @@ window.initMapEngine = async function() {
   const geolocate = new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true, showUserHeading: true });
   map.addControl(geolocate, 'top-right');
 
-  // Removed old padding logic - relying exclusively on Mapbox Bounds now
   window.addEventListener('resize', () => { map.resize(); });
 
   /* =========================================================
@@ -131,8 +130,8 @@ window.initMapEngine = async function() {
   }
 
   /* =========================================================
-   * 7. VIEW SWITCHING LOGIC
-   * Controls which tab is currently active and visible.
+   * 7. VIEW SWITCHING LOGIC (With Canvas Resize Fix)
+   * Controls which tab is currently active and resizes canvas.
    * ========================================================= */
   function updateMarkerStates() {
     const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
@@ -157,6 +156,9 @@ window.initMapEngine = async function() {
       if (v) { v.classList.remove('view-is-active'); v.classList.add('view-is-hidden'); }
     });
 
+    // Resize canvas BEFORE performing fitBounds math
+    if (map) map.resize();
+
     if (targetTab === 'search' && searchView) {
       searchView.classList.remove('view-is-hidden');
       searchView.classList.add('view-is-active');
@@ -165,8 +167,11 @@ window.initMapEngine = async function() {
           searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
           () => window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter)
         );
-        // FORCE MAP SYNC ON LOAD
-        window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter);
+        // Delay filter calculation slightly to allow DOM flex layout to stabilize
+        setTimeout(() => {
+          if (map) map.resize();
+          window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter);
+        }, 50);
       }
     } else if (targetTab === 'trip' && tripView) {
       tripView.classList.remove('view-is-hidden');
@@ -184,7 +189,6 @@ window.initMapEngine = async function() {
         window.MarlonRoutesView.render(routesView, allPresets, callbacks);
       }
     }
-    if (map) map.resize();
   }
 
   function initDefaultTab() {
@@ -238,7 +242,6 @@ window.initMapEngine = async function() {
     
     const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
     
-    // Removed old artificial padding from flyTo
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
       map.flyTo({ center: [lng, lat], zoom: 13.5 });
