@@ -1,5 +1,5 @@
 /* ==============================================================================
- * FILE: ui-itinerary-view.js
+ * FILE: ui-trip-view.js
  * CATEGORY: MarlonWalksLA Website - Trip Itinerary Module
  * ============================================================================== */
 
@@ -88,11 +88,11 @@ window.MarlonItineraryView = {
     blocksContainer.style.flexDirection = 'column';
     blocksContainer.style.overflow = 'hidden';
 
-    // Build Search Bar Element for Bottom of Shell
+    // Upward-popping search wrapper for the Trip tab
     const searchWrapper = document.createElement('div');
-    searchWrapper.className = 'map-search-wrapper';
+    searchWrapper.className = 'manual-search-wrap';
     searchWrapper.innerHTML = `
-      <input type="text" class="empty-slot-input manual-spot-search" data-day="${activeDay}" placeholder="Search 102 spots or Google Maps..." style="width:100%;">
+      <input type="text" class="manual-spot-search" data-day="${activeDay}" placeholder="Search 102 spots or Google Maps..." style="width:100%;">
       <div class="search-results-dropdown" style="display:none;"></div>
     `;
 
@@ -250,7 +250,7 @@ window.MarlonItineraryView = {
         ).slice(0, 4);
 
         let dropdownHtml = matches.map(m => `
-          <div class="search-result-item" data-id="${m.id}" style="padding:6px 10px; cursor:pointer; font-size:11px; display:flex; justify-content:space-between; align-items:center;">
+          <div class="search-result-item" data-id="${m.id}">
             <span>📍 ${m.title}</span>
             <span style="color:#2563eb; font-weight:800;">+ Add</span>
           </div>
