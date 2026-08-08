@@ -285,9 +285,59 @@
 .empty-slot-input:focus { border-color: #3898ec; background: #ffffff; }
 
 /* FIX: CONSTRAIN DESKTOP SIDE PANEL HEIGHT */
+/* =========================================================
+   FRAME HEIGHT & FLEXBOX CONTAINER FIXES
+   ========================================================= */
 .filter-bar, 
 .map-master-polaroid .filter-bar {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 520px !important;
   max-height: 520px !important;
+}
+
+#search-view, 
+#itinerary-view, 
+#passport-view, 
+#routes-view {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.search-view-wrapper, 
+.itinerary-view-wrapper, 
+.passport-view-wrapper, 
+.routes-view-wrapper {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.reusable-shell-card {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  margin-bottom: 0 !important;
+  overflow: hidden !important;
+}
+
+.reusable-shell-card .route-block-body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.shell-items-feed,
+.popular-spot-feed-list {
+  flex: 1 !important;
+  max-height: none !important;
   overflow-y: auto !important;
 }
 
