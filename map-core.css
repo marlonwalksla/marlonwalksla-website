@@ -50,7 +50,7 @@
 }
 
 /* =========================================================
-   3. CONNECTIVE TISSUE (View Wrappers & Full-Height Layouts)
+   3. CONNECTIVE TISSUE (Strict Full-Height Flex Chain)
    ========================================================= */
 #search-view, 
 #trip-view, 
@@ -62,7 +62,7 @@
 .passport-view-wrapper, 
 .routes-view-wrapper,
 .itinerary-section {
-  flex: 1 !important;
+  flex: 1 1 0% !important;
   display: flex !important;
   flex-direction: column !important;
   min-height: 0 !important;
@@ -73,46 +73,63 @@
   overflow: hidden !important;
 }
 
+/* Master container inside views */
 .itinerary-blocks-container {
-  flex: 1 !important;
+  flex: 1 1 0% !important;
   display: flex !important;
   flex-direction: column !important;
   min-height: 0 !important;
   height: 100% !important;
-  max-height: none !important; 
-  overflow-y: auto !important; 
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
+  max-height: 100% !important; 
+  overflow: hidden !important; 
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
+/* The White Shell Card */
 .reusable-shell-card {
-  flex: 1 !important; 
+  flex: 1 1 0% !important; 
   display: flex !important;
   flex-direction: column !important;
   min-height: 0 !important;
   height: 100% !important; 
-  margin-bottom: 0 !important;
+  max-height: 100% !important;
+  margin: 0 !important;
   overflow: hidden !important;
 }
 
+/* Fixed Shell Header */
+.reusable-shell-card .route-block-header {
+  flex: 0 0 auto !important;
+}
+
+/* Shell Body Container */
 .reusable-shell-card .route-block-body {
-  flex: 1 !important;
+  flex: 1 1 0% !important;
   display: flex !important;
   flex-direction: column !important;
   min-height: 0 !important;
   height: 100% !important;
   overflow: hidden !important;
-  padding: 8px 8px 4px 8px !important; 
-  justify-content: space-between !important;
+  padding: 6px !important;
 }
 
+/* ONLY the list items feed is allowed to scroll */
 .shell-items-feed,
 .popular-spot-feed-list {
-  flex: 1 !important;
+  flex: 1 1 0% !important;
   min-height: 0 !important;
-  max-height: none !important;
+  height: 100% !important;
   overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
   margin-bottom: 4px !important;
+}
+
+/* Fixed Bottom Search Wrapper */
+.manual-search-wrap,
+.map-search-wrapper {
+  flex: 0 0 auto !important;
+  width: 100% !important;
 }
 
 /* =========================================================
