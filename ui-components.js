@@ -5,9 +5,6 @@
 
 window.MarlonComponents = {
   
-  // ---------------------------------------------------------------------------
-  // 1. CENTRALIZED SEARCH BRAIN
-  // ---------------------------------------------------------------------------
   getSearchMatches: function(query, allMarkers, limit = 4) {
     if (!query || query.length < 2) return [];
     const lowerQuery = query.toLowerCase().trim();
@@ -17,9 +14,6 @@ window.MarlonComponents = {
     ).slice(0, limit);
   },
 
-  // ---------------------------------------------------------------------------
-  // 2. REUSABLE SPOT ITEM ROW
-  // ---------------------------------------------------------------------------
   renderSpotItemHTML: function(spot, options = {}) {
     const savedSpotIds = window.MarlonStorage.getSavedSpotIds();
     const visitedIds = window.MarlonStorage.getVisitedSpots();
@@ -32,7 +26,7 @@ window.MarlonComponents = {
       <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${spot.id}">
         <div class="itinerary-item-info spot-info-click" data-id="${spot.id}" style="flex: 1; padding-right: 4px; cursor: pointer;">
           <div class="itinerary-item-name" style="margin-bottom: 2px;">📍 ${spot.title}</div>
-          ${spot.neighborhood ? `<div class="spot-feed-meta">${spot.neighborhood}</div>` : ''}
+          <!-- Neighborhood removed per request -->
         </div>
         <div class="itinerary-item-actions" style="gap: 4px; display: flex; align-items: center;">
           ${options.showDaySelect ? `
@@ -53,9 +47,6 @@ window.MarlonComponents = {
     `;
   },
 
-  // ---------------------------------------------------------------------------
-  // 3. REUSABLE SHELL CONTAINER
-  // ---------------------------------------------------------------------------
   createShellCard: function(options = {}) {
     const card = document.createElement('div');
     card.className = 'route-block-card reusable-shell-card';
@@ -88,7 +79,7 @@ window.MarlonComponents = {
     listFeed.style.display = 'flex';
     listFeed.style.flexDirection = 'column';
     listFeed.style.gap = '6px';
-    listFeed.style.maxHeight = '280px';
+    // Removed max-height here so the flexbox layout controls the height dynamically
     listFeed.style.overflowY = 'auto';
     listFeed.innerHTML = options.itemsHTML || '';
 
