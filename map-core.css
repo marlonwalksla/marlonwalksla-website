@@ -59,8 +59,7 @@
 .itinerary-view-wrapper, 
 .passport-view-wrapper, 
 .routes-view-wrapper,
-.itinerary-section,
-.itinerary-blocks-container {
+.itinerary-section {
   flex: 1 !important;
   display: flex !important;
   flex-direction: column !important;
@@ -69,14 +68,31 @@
   overflow: hidden !important;
 }
 
-.reusable-shell-card {
+/* THE FIX: Removes the 280px ceiling and allows scrolling for multiple cards */
+.itinerary-blocks-container {
   flex: 1 !important;
   display: flex !important;
   flex-direction: column !important;
   min-height: 0 !important;
   height: 100% !important;
-  margin-bottom: 0 !important;
+  max-height: none !important; 
+  overflow-y: auto !important; 
+  padding-bottom: 0 !important;
+}
+
+/* Lets flexbox handle the stretching naturally */
+.reusable-shell-card {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: auto !important; 
+  margin-bottom: 8px !important;
   overflow: hidden !important;
+}
+
+.reusable-shell-card:last-child {
+  margin-bottom: 0 !important;
 }
 
 .reusable-shell-card .route-block-body {
@@ -84,7 +100,7 @@
   display: flex !important;
   flex-direction: column !important;
   min-height: 0 !important;
-  height: 100% !important;
+  height: auto !important;
   overflow: hidden !important;
   padding: 8px !important;
   justify-content: space-between !important;
