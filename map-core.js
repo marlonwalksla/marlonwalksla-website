@@ -143,7 +143,6 @@ window.initMapEngine = async function() {
     });
   }
 
-  // EXPOSE FOR LIVE SYNC FROM ALL TABS
   window.updateMarlonMarkerStates = updateMarkerStates;
 
   function switchTab(targetTab) {
@@ -215,7 +214,7 @@ window.initMapEngine = async function() {
   }
 
   /* =========================================================
-   * 8. MARKER GENERATION
+   * 8. MARKER GENERATION (MOBILE POPUP OFFSET ADDED)
    * Loops through GeoJSON to plot physical map pins.
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
@@ -249,7 +248,15 @@ window.initMapEngine = async function() {
     
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
-      map.flyTo({ center: [lng, lat], zoom: 13.5 });
+      const isMobile = window.innerWidth <= 820;
+      
+      // Pushes the pin lower on mobile so the popup bubble opens with full headroom
+      map.flyTo({ 
+        center: [lng, lat], 
+        zoom: 13.5,
+        padding: { top: isMobile ? 130 : 20, bottom: 10, left: 10, right: 10 }
+      });
+
       if (activePopup) activePopup.remove();
       if (window.MarlonSpotCard) {
         const popupContainer = document.createElement('div');
@@ -258,6 +265,7 @@ window.initMapEngine = async function() {
           onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderTrip(); },
           onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderTrip(); }
         }, categoryMap, defaultPinSvg);
+        
         activePopup = new mapboxgl.Popup({ offset: 25, closeOnClick: true, focusAfterOpen: false })
           .setLngLat([lng, lat])
           .setDOMContent(popupContainer)
