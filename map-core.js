@@ -143,6 +143,9 @@ window.initMapEngine = async function() {
     });
   }
 
+  // EXPOSE FOR LIVE SYNC FROM ALL TABS
+  window.updateMarlonMarkerStates = updateMarkerStates;
+
   function switchTab(targetTab) {
     activeTab = targetTab;
     
@@ -156,7 +159,6 @@ window.initMapEngine = async function() {
       if (v) { v.classList.remove('view-is-active'); v.classList.add('view-is-hidden'); }
     });
 
-    // Resize canvas BEFORE performing fitBounds math
     if (map) map.resize();
 
     if (targetTab === 'search' && searchView) {
@@ -167,20 +169,22 @@ window.initMapEngine = async function() {
           searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
           () => window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter)
         );
-        // Delay filter calculation slightly to allow DOM flex layout to stabilize
         setTimeout(() => {
           if (map) map.resize();
           window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter);
+          updateMarkerStates();
         }, 50);
       }
     } else if (targetTab === 'trip' && tripView) {
       tripView.classList.remove('view-is-hidden');
       tripView.classList.add('view-is-active');
       renderTrip();
+      updateMarkerStates();
     } else if (targetTab === 'passport' && passportView) {
       passportView.classList.remove('view-is-hidden');
       passportView.classList.add('view-is-active');
       if (window.MarlonPassportView) window.MarlonPassportView.render(passportView, allMarkers, callbacks);
+      updateMarkerStates();
     } else if (targetTab === 'routes' && routesView) {
       routesView.classList.remove('view-is-hidden');
       routesView.classList.add('view-is-active');
@@ -188,6 +192,7 @@ window.initMapEngine = async function() {
         const allPresets = window.MARLON_ROUTES_PRESETS || [];
         window.MarlonRoutesView.render(routesView, allPresets, callbacks);
       }
+      updateMarkerStates();
     }
   }
 
