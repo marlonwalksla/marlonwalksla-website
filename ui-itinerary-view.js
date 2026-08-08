@@ -1,10 +1,10 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Trip Itinerary
+ * CATEGORY: MarlonWalksLA Website - Trip Itinerary Module
  * ============================================================================== */
 
 window.MarlonItineraryView = {
-  activeDay: 'All', // 'All', 'Day 1', 'Day 2', 'Day 3', 'Day 4'
+  activeDay: 'All',
 
   getSpotsCountForDay: function(dayName, allMarkers, itinMap, savedRoutesMap, allPresets) {
     if (dayName === 'All') return Object.keys(itinMap).filter(id => !itinMap[id] || itinMap[id] === 'All').length;
@@ -23,46 +23,14 @@ window.MarlonItineraryView = {
     return count;
   },
 
-  showConfirmModal: function(title, message, skipKey, onConfirm) {
-    if (localStorage.getItem(skipKey) === 'true') {
-      onConfirm();
-      return;
-    }
-    
-    const overlay = document.createElement('div');
-    overlay.className = 'marlon-modal-overlay';
-    overlay.innerHTML = `
-      <div class="marlon-modal-box">
-        <div class="marlon-modal-title">${title}</div>
-        <div class="marlon-modal-text">${message}</div>
-        <label class="marlon-modal-checkbox">
-          <input type="checkbox" id="marlon-skip-cb"> Don't ask me again
-        </label>
-        <div class="marlon-modal-actions">
-          <button class="marlon-btn-cancel">Cancel</button>
-          <button class="marlon-btn-confirm">Yes, Delete</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-    
-    overlay.querySelector('.marlon-btn-cancel').onclick = () => overlay.remove();
-    overlay.querySelector('.marlon-btn-confirm').onclick = () => {
-      if (overlay.querySelector('#marlon-skip-cb').checked) {
-        localStorage.setItem(skipKey, 'true');
-      }
-      overlay.remove();
-      onConfirm();
-    };
-  },
-
-  renderItinerary: function(container, allMarkers, callbacks) {
+  renderItinerary: function(container, allMarkers = [], callbacks = {}) {
     if (!container) return;
-    const itinMap = window.MarlonStorage.getItineraryMap();
-    const savedRoutesMap = window.MarlonStorage.getSavedRoutesMap();
-    const visitedIds = window.MarlonStorage.getVisitedSpots();
+    container.innerHTML = '';
+
+    const itinMap = window.MarlonStorage ? window.MarlonStorage.getItineraryMap() : {};
+    const savedRoutesMap = window.MarlonStorage ? window.MarlonStorage.getSavedRoutesMap() : {};
     const allPresets = window.MARLON_ROUTES_PRESETS || [];
-    const extSpotsMap = window.MarlonStorage.getExternalSpots ? window.MarlonStorage.getExternalSpots() : {};
+    const extSpotsMap = (window.MarlonStorage && window.MarlonStorage.getExternalSpots) ? window.MarlonStorage.getExternalSpots() : {};
     const activeDay = this.activeDay;
 
     const daysList = ['All', 'Day 1', 'Day 2', 'Day 3', 'Day 4'];
@@ -95,19 +63,39 @@ window.MarlonItineraryView = {
       });
     }
 
-    let html = `
-      <div class="itinerary-view-wrapper">
-        <div class="day-filter-bar" style="margin-top: 4px; margin-bottom: 8px;">
-          ${daysList.map(d => `<button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''} ${dayCounts[d] > 0 ? 'has-items' : ''}" data-day="${d}">${d === 'All' ? '📌 Unassigned' : d} ${dayCounts[d] > 0 ? `(${dayCounts[d]})` : ''}</button>`).join('')}
-        </div>
-        <div class="itinerary-section" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
-          <div class="itinerary-blocks-container" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+    const masterWrap = document.createElement('div');
+    masterWrap.className = 'itinerary-view-wrapper';
+    masterWrap.style.display = 'flex';
+    masterWrap.style.flexDirection = 'column';
+    masterWrap.style.height = '100%';
+
+    const dayBar = document.createElement('div');
+    dayBar.className = 'day-filter-bar';
+    dayBar.style.marginTop = '4px';
+    dayBar.style.marginBottom = '8px';
+    dayBar.innerHTML = daysList.map(d => `
+      <button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''} ${dayCounts[d] > 0 ? 'has-items' : ''}" data-day="${d}">
+        ${d === 'All' ? '📌 Unassigned' : d} ${dayCounts[d] > 0 ? `(${dayCounts[d]})` : ''}
+      </button>
+    `).join('');
+
+    masterWrap.appendChild(dayBar);
+
+    const blocksContainer = document.createElement('div');
+    blocksContainer.className = 'itinerary-blocks-container';
+    blocksContainer.style.flex = '1';
+    blocksContainer.style.display = 'flex';
+    blocksContainer.style.flexDirection = 'column';
+    blocksContainer.style.overflow = 'hidden';
+
+    // Build Search Bar Element for Bottom of Shell
+    const searchWrapper = document.createElement('div');
+    searchWrapper.className = 'map-search-wrapper';
+    searchWrapper.innerHTML = `
+      <input type="text" class="empty-slot-input manual-spot-search" data-day="${activeDay}" placeholder="Search 102 spots or Google Maps..." style="width:100%;">
+      <div class="search-results-dropdown" style="display:none;"></div>
     `;
 
-    container.innerHTML = html;
-    const blocksContainer = container.querySelector('.itinerary-blocks-container');
-
-    // UNASSIGNED (ALL) TAB
     if (activeDay === 'All') {
       let itemsHTML = '';
       if (activeCustomSpotIds.length === 0) {
@@ -115,28 +103,28 @@ window.MarlonItineraryView = {
           <div style="text-align: center; padding: 24px 8px; color: #64748b; font-size: 12px; line-height: 1.5;">
             <div style="font-size: 24px; margin-bottom: 6px;">📌</div>
             <strong>No unassigned spots yet!</strong><br>
-            Search in <strong>🔍 Search</strong> or <strong>🛣️ Routes</strong> to add spots to your map.
+            Search below or explore in <strong>🔍 Search</strong> or <strong>🛣️ Routes</strong>.
           </div>
         `;
       } else {
         itemsHTML = activeCustomSpotIds.map(sId => {
           let m = allMarkers.find(item => item.id === sId) || extSpotsMap[sId];
-          return m ? window.MarlonComponents.renderSpotItemHTML(m, { showDaySelect: true, showRemoveBtn: true, currentDay: itinMap[sId] }) : '';
+          return (m && window.MarlonComponents) ? window.MarlonComponents.renderSpotItemHTML(m, { showDaySelect: true, showRemoveBtn: true, currentDay: itinMap[sId] }) : '';
         }).join('');
       }
 
-      const shellCard = window.MarlonComponents.createShellCard({
-        title: `📌 Unassigned Spots (${activeCustomSpotIds.length})`,
-        headerActionsHTML: activeCustomSpotIds.length > 0 ? `
-          <button type="button" class="icon-btn share-day-btn" data-day="All" title="Share">📤</button>
-          <button type="button" class="icon-btn clear-day-btn" data-day="All" title="Clear">🗑️</button>
-        ` : '',
-        itemsHTML: itemsHTML
-      });
+      if (window.MarlonComponents) {
+        const shellCard = window.MarlonComponents.createShellCard({
+          title: `📌 Unassigned Spots (${activeCustomSpotIds.length})`,
+          headerActionsHTML: activeCustomSpotIds.length > 0 ? `
+            <button type="button" class="icon-btn clear-day-btn" data-day="All" title="Clear All">🗑️</button>
+          ` : '',
+          itemsHTML: itemsHTML,
+          searchWrapper: searchWrapper
+        });
+        blocksContainer.appendChild(shellCard);
+      }
 
-      blocksContainer.appendChild(shellCard);
-
-    // DAY 1..4 TABS
     } else {
       activeRouteIds.forEach(routeId => {
         const preset = allPresets.find(p => p.id === routeId);
@@ -148,13 +136,14 @@ window.MarlonItineraryView = {
           return window.MarlonComponents.renderSpotItemHTML(match);
         }).join('');
 
-        const routeCard = window.MarlonComponents.createShellCard({
-          title: `✨ ${preset.title}`,
-          headerActionsHTML: `<button type="button" class="icon-btn remove-route-block-btn" data-route="${preset.id}">✕</button>`,
-          itemsHTML: routeItemsHTML
-        });
-
-        blocksContainer.appendChild(routeCard);
+        if (window.MarlonComponents) {
+          const routeCard = window.MarlonComponents.createShellCard({
+            title: `✨ ${preset.title}`,
+            headerActionsHTML: `<button type="button" class="icon-btn remove-route-block-btn" data-route="${preset.id}">✕</button>`,
+            itemsHTML: routeItemsHTML
+          });
+          blocksContainer.appendChild(routeCard);
+        }
       });
 
       let customItemsHTML = '';
@@ -163,30 +152,32 @@ window.MarlonItineraryView = {
           <div style="text-align: center; padding: 24px 8px; color: #64748b; font-size: 12px; line-height: 1.5;">
             <div style="font-size: 24px; margin-bottom: 6px;">🗺️</div>
             <strong>No plans for ${activeDay} yet!</strong><br>
-            Search in <strong>🔍 Search</strong> or <strong>🛣️ Routes</strong> to add spots.
+            Search below or explore <strong>🔍 Search</strong> or <strong>🛣️ Routes</strong>.
           </div>
         `;
       } else if (activeCustomSpotIds.length > 0) {
         customItemsHTML = activeCustomSpotIds.map(sId => {
           let m = allMarkers.find(item => item.id === sId) || extSpotsMap[sId];
-          return m ? window.MarlonComponents.renderSpotItemHTML(m, { showDaySelect: true, showRemoveBtn: true, currentDay: itinMap[sId] }) : '';
+          return (m && window.MarlonComponents) ? window.MarlonComponents.renderSpotItemHTML(m, { showDaySelect: true, showRemoveBtn: true, currentDay: itinMap[sId] }) : '';
         }).join('');
       }
 
       const customTitle = localStorage.getItem(`marlon_day_title_${activeDay}`) || activeDay;
-      const dayShell = window.MarlonComponents.createShellCard({
-        title: `📅 ${customTitle}`,
-        headerActionsHTML: `
-          <button type="button" class="icon-btn share-day-btn" data-day="${activeDay}">📤</button>
-          <button type="button" class="icon-btn clear-day-btn" data-day="${activeDay}">🗑️</button>
-        `,
-        itemsHTML: customItemsHTML
-      });
-
-      blocksContainer.appendChild(dayShell);
+      if (window.MarlonComponents) {
+        const dayShell = window.MarlonComponents.createShellCard({
+          title: `📅 ${customTitle}`,
+          headerActionsHTML: `<button type="button" class="icon-btn clear-day-btn" data-day="${activeDay}" title="Clear Day">🗑️</button>`,
+          itemsHTML: customItemsHTML,
+          searchWrapper: searchWrapper
+        });
+        blocksContainer.appendChild(dayShell);
+      }
     }
 
-    // MAP PINS SYNC
+    masterWrap.appendChild(blocksContainer);
+    container.appendChild(masterWrap);
+
+    // Map Pin Visibility Sync
     const map = window.marlonMapInstance;
     if (map && allMarkers && allMarkers.length > 0) {
       const bounds = new mapboxgl.LngLatBounds();
@@ -202,37 +193,81 @@ window.MarlonItineraryView = {
         }
       });
 
-      if (visibleCount >= 1) map.fitBounds(bounds, { padding: 60, maxZoom: 13.5 });
+      if (visibleCount >= 1) map.fitBounds(bounds, { padding: 50, maxZoom: 13.5 });
       else map.flyTo({ center: [-118.2437, 34.0522], zoom: 10.2 });
     }
 
-    // EVENT LISTENERS
-    container.querySelectorAll('.day-pill').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); this.activeDay = btn.dataset.day; this.renderItinerary(container, allMarkers, callbacks); }));
+    // Attach Event Listeners
+    dayBar.querySelectorAll('.day-pill').forEach(btn => btn.addEventListener('click', (e) => { 
+      e.preventDefault(); 
+      this.activeDay = btn.dataset.day; 
+      this.renderItinerary(container, allMarkers, callbacks); 
+    }));
     
     container.querySelectorAll('.pin-toggle').forEach(btn => btn.addEventListener('click', (e) => { 
-      e.preventDefault(); e.stopPropagation(); 
-      window.MarlonStorage.toggleSavedSpot(btn.dataset.id, activeDay !== 'All' ? activeDay : 'All'); 
+      e.preventDefault(); 
+      e.stopPropagation(); 
+      if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(btn.dataset.id, activeDay !== 'All' ? activeDay : 'All'); 
       this.renderItinerary(container, allMarkers, callbacks); 
     }));
 
     container.querySelectorAll('.visited-toggle').forEach(btn => btn.addEventListener('click', (e) => { 
-      e.preventDefault(); e.stopPropagation(); 
+      e.preventDefault(); 
+      e.stopPropagation(); 
       if (callbacks.onToggleVisited) callbacks.onToggleVisited(btn.dataset.id); 
       this.renderItinerary(container, allMarkers, callbacks); 
     }));
 
     container.querySelectorAll('.remove-toggle').forEach(btn => btn.addEventListener('click', (e) => { 
-      e.preventDefault(); e.stopPropagation(); 
-      this.showConfirmModal("Remove Spot?", "Remove this location from your trip?", "marlon_skip_remove", () => {
-        if (callbacks.onRemoveSpot) callbacks.onRemoveSpot(btn.dataset.id);
-        this.renderItinerary(container, allMarkers, callbacks);
-      });
+      e.preventDefault(); 
+      e.stopPropagation(); 
+      if (callbacks.onRemoveSpot) callbacks.onRemoveSpot(btn.dataset.id);
+      this.renderItinerary(container, allMarkers, callbacks);
     }));
 
     container.querySelectorAll('.day-assign-select').forEach(sel => sel.addEventListener('change', (e) => { 
       e.stopPropagation(); 
-      window.MarlonStorage.setSpotDay(sel.dataset.id, sel.value); 
+      if (window.MarlonStorage) window.MarlonStorage.setSpotDay(sel.dataset.id, sel.value); 
       this.renderItinerary(container, allMarkers, callbacks); 
     }));
+
+    container.querySelectorAll('.clear-day-btn').forEach(btn => btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (callbacks.onClearDay) callbacks.onClearDay(btn.dataset.day);
+      this.renderItinerary(container, allMarkers, callbacks);
+    }));
+
+    // Inner Search Bar Autocomplete Dropdown
+    const input = searchWrapper.querySelector('.manual-spot-search');
+    const dropdown = searchWrapper.querySelector('.search-results-dropdown');
+    if (input && dropdown) {
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
+        if (query.length < 2) { dropdown.style.display = 'none'; return; }
+
+        const matches = allMarkers.filter(m => 
+          m.title.toLowerCase().includes(query) || (m.neighborhood && m.neighborhood.toLowerCase().includes(query))
+        ).slice(0, 4);
+
+        let dropdownHtml = matches.map(m => `
+          <div class="search-result-item" data-id="${m.id}" style="padding:6px 10px; cursor:pointer; font-size:11px; display:flex; justify-content:space-between; align-items:center;">
+            <span>📍 ${m.title}</span>
+            <span style="color:#2563eb; font-weight:800;">+ Add</span>
+          </div>
+        `).join('');
+
+        dropdown.innerHTML = dropdownHtml;
+        dropdown.style.display = 'block';
+
+        dropdown.querySelectorAll('.search-result-item').forEach(item => {
+          item.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(item.dataset.id, activeDay);
+            this.renderItinerary(container, allMarkers, callbacks);
+          });
+        });
+      });
+    }
   }
 };
