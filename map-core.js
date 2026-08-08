@@ -91,7 +91,7 @@ window.initMapEngine = async function() {
     form.innerHTML = '';
 
     searchWrapper = document.createElement('div'); searchWrapper.className = 'map-search-wrapper';
-    searchWrapper.innerHTML = `<input type="text" class="map-search-input" placeholder="剥 Search 102 spots, hotels, locations..." /><div class="search-results-dropdown"></div>`;
+    searchWrapper.innerHTML = `<input type="text" class="map-search-input" placeholder="Search 102 spots, hotels, locations..." /><div class="search-results-dropdown"></div>`;
 
     topHeaderView = document.createElement('div'); topHeaderView.id = 'top-header-view';
     searchView = document.createElement('div'); searchView.id = 'search-view'; searchView.className = 'view-is-hidden';
@@ -137,6 +137,7 @@ window.initMapEngine = async function() {
           searchView, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, 
           () => window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter)
         );
+        // FORCE MAP SYNC ON LOAD
         window.MarlonSearchView.applyFilters(allMarkers, map, dtlaCenter);
       }
     } else if (targetTab === 'trip' && tripView) {
@@ -232,10 +233,10 @@ window.initMapEngine = async function() {
         
     const scopeToggleWrap = document.createElement('div'); scopeToggleWrap.className = 'scope-toggle-wrap tri-tab';
     
-    scopeSearchBtn = document.createElement('button'); scopeSearchBtn.type = 'button'; scopeSearchBtn.className = 'scope-toggle-btn'; scopeSearchBtn.innerText = `剥 Search`;
-    scopeTripBtn = document.createElement('button'); scopeTripBtn.type = 'button'; scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn'; scopeTripBtn.innerText = `搭 Trip`;
-    scopePassportBtn = document.createElement('button'); scopePassportBtn.type = 'button'; scopePassportBtn.className = 'scope-toggle-btn'; scopePassportBtn.innerText = `側 Passport`;
-    scopeRoutesBtn = document.createElement('button'); scopeRoutesBtn.type = 'button'; scopeRoutesBtn.className = 'scope-toggle-btn'; scopeRoutesBtn.innerText = `屮ｸRoutes`;
+    scopeSearchBtn = document.createElement('button'); scopeSearchBtn.type = 'button'; scopeSearchBtn.className = 'scope-toggle-btn'; scopeSearchBtn.innerText = `Search`;
+    scopeTripBtn = document.createElement('button'); scopeTripBtn.type = 'button'; scopeTripBtn.className = 'scope-toggle-btn trip-tab-btn'; scopeTripBtn.innerText = `Trip`;
+    scopePassportBtn = document.createElement('button'); scopePassportBtn.type = 'button'; scopePassportBtn.className = 'scope-toggle-btn'; scopePassportBtn.innerText = `Passport`;
+    scopeRoutesBtn = document.createElement('button'); scopeRoutesBtn.type = 'button'; scopeRoutesBtn.className = 'scope-toggle-btn'; scopeRoutesBtn.innerText = `Routes`;
     
     scopeSearchBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('search'); });
     scopeTripBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('trip'); });
