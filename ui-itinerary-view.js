@@ -1,13 +1,12 @@
 /* ==============================================================================
  * FILE: ui-itinerary-view.js
- * CATEGORY: MarlonWalksLA Website - Trip Itinerary using Central Components
+ * CATEGORY: MarlonWalksLA Website - Trip Itinerary
  * ============================================================================== */
 
 window.MarlonItineraryView = {
-  activeDay: 'All', // 'All', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Visited'
+  activeDay: 'All', // 'All', 'Day 1', 'Day 2', 'Day 3', 'Day 4'
 
-  getSpotsCountForDay: function(dayName, allMarkers, itinMap, savedRoutesMap, allPresets, visitedIds) {
-    if (dayName === 'Visited') return visitedIds.length;
+  getSpotsCountForDay: function(dayName, allMarkers, itinMap, savedRoutesMap, allPresets) {
     if (dayName === 'All') return Object.keys(itinMap).filter(id => !itinMap[id] || itinMap[id] === 'All').length;
     
     let count = Object.keys(itinMap).filter(sId => itinMap[sId] === dayName).length;
@@ -66,18 +65,15 @@ window.MarlonItineraryView = {
     const extSpotsMap = window.MarlonStorage.getExternalSpots ? window.MarlonStorage.getExternalSpots() : {};
     const activeDay = this.activeDay;
 
-    const daysList = ['All', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Visited'];
+    const daysList = ['All', 'Day 1', 'Day 2', 'Day 3', 'Day 4'];
     const dayCounts = {};
-    daysList.forEach(d => dayCounts[d] = this.getSpotsCountForDay(d, allMarkers, itinMap, savedRoutesMap, allPresets, visitedIds));
+    daysList.forEach(d => dayCounts[d] = this.getSpotsCountForDay(d, allMarkers, itinMap, savedRoutesMap, allPresets));
 
     let activeRouteIds = [];
     let activeCustomSpotIds = [];
     let activeDaySpotIds = [];
 
-    if (activeDay === 'Visited') {
-      activeCustomSpotIds = [...visitedIds];
-      activeDaySpotIds = [...visitedIds];
-    } else if (activeDay === 'All') {
+    if (activeDay === 'All') {
       activeCustomSpotIds = Object.keys(itinMap).filter(id => !itinMap[id] || itinMap[id] === 'All');
       activeDaySpotIds = [...activeCustomSpotIds];
     } else {
@@ -101,49 +97,25 @@ window.MarlonItineraryView = {
 
     let html = `
       <div class="itinerary-view-wrapper">
-        <div class="day-filter-bar" style="margin-top: 4px;">
-          ${daysList.map(d => `<button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''} ${dayCounts[d] > 0 ? 'has-items' : ''}" data-day="${d}">${d === 'Visited' ? '✅ Visited' : d} ${dayCounts[d] > 0 ? `(${dayCounts[d]})` : ''}</button>`).join('')}
+        <div class="day-filter-bar" style="margin-top: 4px; margin-bottom: 8px;">
+          ${daysList.map(d => `<button type="button" class="day-pill ${activeDay === d ? 'is-active' : ''} ${dayCounts[d] > 0 ? 'has-items' : ''}" data-day="${d}">${d === 'All' ? '📌 Unassigned' : d} ${dayCounts[d] > 0 ? `(${dayCounts[d]})` : ''}</button>`).join('')}
         </div>
-        <div class="itinerary-section">
-          <div class="itinerary-blocks-container">
+        <div class="itinerary-section" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+          <div class="itinerary-blocks-container" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
     `;
 
-    // 1. VISITED TAB
-    if (activeDay === 'Visited') {
-      let itemsHTML = '';
-      if (visitedIds.length === 0) {
-        itemsHTML = `
-          <div style="text-align: center; padding: 16px 8px; color: #64748b; font-size: 12px; line-height: 1.5;">
-            <div style="font-size: 24px; margin-bottom: 6px;">📍</div>
-            <strong>No visited spots yet!</strong><br>
-            Check off places as you explore LA or search in <strong>🔍 Search</strong> or <strong>🛣️ Routes</strong>.
-          </div>
-        `;
-      } else {
-        itemsHTML = visitedIds.map(sId => {
-          let m = allMarkers.find(item => item.id === sId) || extSpotsMap[sId];
-          return m ? window.MarlonComponents.renderSpotItemHTML(m) : '';
-        }).join('');
-      }
+    container.innerHTML = html;
+    const blocksContainer = container.querySelector('.itinerary-blocks-container');
 
-      const shellCard = window.MarlonComponents.createShellCard({
-        title: `✅ Visited Passport (${visitedIds.length})`,
-        headerActionsHTML: visitedIds.length > 0 ? `<button type="button" class="icon-btn share-day-btn" data-day="Visited" title="Share visited places">📤</button>` : '',
-        itemsHTML: itemsHTML
-      });
-
-      container.innerHTML = html;
-      container.querySelector('.itinerary-blocks-container').appendChild(shellCard);
-
-    // 2. UNASSIGNED (ALL) TAB
-    } else if (activeDay === 'All') {
+    // UNASSIGNED (ALL) TAB
+    if (activeDay === 'All') {
       let itemsHTML = '';
       if (activeCustomSpotIds.length === 0) {
         itemsHTML = `
-          <div style="text-align: center; padding: 12px 8px; color: #64748b; font-size: 12px; line-height: 1.5;">
-            <div style="font-size: 20px; margin-bottom: 4px;">📌</div>
+          <div style="text-align: center; padding: 24px 8px; color: #64748b; font-size: 12px; line-height: 1.5;">
+            <div style="font-size: 24px; margin-bottom: 6px;">📌</div>
             <strong>No unassigned spots yet!</strong><br>
-            Search in <strong>🔍 Search</strong> or <strong>🛣️ Routes</strong> to add spots.
+            Search in <strong>🔍 Search</strong> or <strong>🛣️ Routes</strong> to add spots to your map.
           </div>
         `;
       } else {
@@ -162,15 +134,10 @@ window.MarlonItineraryView = {
         itemsHTML: itemsHTML
       });
 
-      container.innerHTML = html;
-      container.querySelector('.itinerary-blocks-container').appendChild(shellCard);
+      blocksContainer.appendChild(shellCard);
 
-    // 3. DAY 1..4 TABS
+    // DAY 1..4 TABS
     } else {
-      container.innerHTML = html;
-      const blocksContainer = container.querySelector('.itinerary-blocks-container');
-
-      // Render Imported Route Blocks
       activeRouteIds.forEach(routeId => {
         const preset = allPresets.find(p => p.id === routeId);
         if (!preset) return;
@@ -190,12 +157,11 @@ window.MarlonItineraryView = {
         blocksContainer.appendChild(routeCard);
       });
 
-      // Render Custom Day Spots
       let customItemsHTML = '';
       if (activeCustomSpotIds.length === 0 && activeRouteIds.length === 0) {
         customItemsHTML = `
-          <div style="text-align: center; padding: 12px 8px; color: #64748b; font-size: 12px; line-height: 1.5;">
-            <div style="font-size: 20px; margin-bottom: 4px;">🗺️</div>
+          <div style="text-align: center; padding: 24px 8px; color: #64748b; font-size: 12px; line-height: 1.5;">
+            <div style="font-size: 24px; margin-bottom: 6px;">🗺️</div>
             <strong>No plans for ${activeDay} yet!</strong><br>
             Search in <strong>🔍 Search</strong> or <strong>🛣️ Routes</strong> to add spots.
           </div>
@@ -245,7 +211,7 @@ window.MarlonItineraryView = {
     
     container.querySelectorAll('.pin-toggle').forEach(btn => btn.addEventListener('click', (e) => { 
       e.preventDefault(); e.stopPropagation(); 
-      window.MarlonStorage.toggleSavedSpot(btn.dataset.id, activeDay !== 'All' && activeDay !== 'Visited' ? activeDay : 'All'); 
+      window.MarlonStorage.toggleSavedSpot(btn.dataset.id, activeDay !== 'All' ? activeDay : 'All'); 
       this.renderItinerary(container, allMarkers, callbacks); 
     }));
 
