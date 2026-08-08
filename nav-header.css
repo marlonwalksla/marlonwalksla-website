@@ -1,13 +1,15 @@
 /* ==============================================================================
  * FILE: nav-header.css
- * CATEGORY: MarlonWalksLA Website - Global Navigation Header & Mobile Menu Styling
+ * CATEGORY: MarlonWalksLA Website - Global Navigation Header Styling
  * ============================================================================== */
 
-/* Base Header Styles */
+/* =========================================================
+   1. DESKTOP HEADER BASE
+   ========================================================= */
 .custom-header {
   background-color: #222222;
   color: #ffffff;
-  padding: 1rem 0;
+  padding: 0.75rem 0;
   width: 100%;
 }
 
@@ -17,7 +19,6 @@
   padding: 0 20px;
 }
 
-/* Desktop Grid Layout */
 .grid-3-col {
   display: flex;
   justify-content: space-between;
@@ -26,7 +27,6 @@
   flex-wrap: wrap;
 }
 
-/* Logo Setup - Set to flex: 1 to balance the right side */
 .grid-3-col > .grid-item-manual:first-child {
   flex: 1;
   display: flex;
@@ -42,33 +42,31 @@
 }
 
 .nav-logo-icon .logo-img {
-  width: 40px !important;
-  height: 40px !important;
+  width: 36px !important;
+  height: 36px !important;
   border-radius: 50%;
   object-fit: contain;
 }
 
 .paragraph-xlarge {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-/* Nav Links & Social Icons Setup */
 .nav-collapse-area {
   display: flex;
   align-items: center;
-  flex: 2; /* Gives the middle navigation area dominant flex space */
+  flex: 2;
   width: 100%;
 }
 
 .nav-links-container {
   flex: 1;
   display: flex;
-  justify-content: center; /* Perfectly centers the links in the bar */
+  justify-content: center;
 }
 
-/* Social Icons - Set to flex: 1 to match the logo column width */
 .social-icons-container {
   flex: 1;
   display: flex;
@@ -100,7 +98,6 @@
   height: 20px;
 }
 
-/* Mobile Toggle Button (Hidden on Desktop) */
 .mobile-toggle {
   display: none;
   background: none;
@@ -111,21 +108,36 @@
 
 .hamburger-line {
   display: block;
-  width: 25px;
-  height: 3px;
-  margin: 5px 0;
+  width: 22px;
+  height: 2.5px;
+  margin: 4px 0;
   background-color: #ffffff;
   transition: 0.3s ease;
 }
 
-/* --- Switching to Mobile --- */
-@media (max-width: 768px) {
+/* =========================================================
+   2. MOBILE SLIM HEADER ADJUSTMENTS
+   ========================================================= */
+@media (max-width: 820px) {
+  .custom-header {
+    padding: 0.4rem 0 !important; /* Compact top header height */
+  }
+
+  .nav-logo-icon .logo-img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .paragraph-xlarge {
+    font-size: 1rem !important;
+  }
+
   .mobile-toggle {
     display: block; 
   }
 
   .grid-3-col > .grid-item-manual:first-child {
-    flex: none; /* Reset equal flex spacing on mobile */
+    flex: none;
   }
 
   .nav-collapse-area {
@@ -133,18 +145,13 @@
     flex-direction: column;
     flex-basis: 100%;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     padding-left: 0;
-    gap: 20px;
+    gap: 15px;
   }
 
   .nav-collapse-area.active {
     display: flex;
-  }
-
-  .nav-links-container {
-    width: 100%;
-    flex: none;
   }
 
   .button-group {
@@ -153,8 +160,8 @@
     flex-wrap: wrap;
     width: 100%;
     border-bottom: 1px solid #444;
-    padding-bottom: 20px;
-    gap: 25px;
+    padding-bottom: 15px;
+    gap: 20px;
   }
 
   .social-icons-container {
@@ -167,6 +174,6 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    gap: 30px; 
+    gap: 20px; 
   }
 }
