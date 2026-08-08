@@ -4,6 +4,10 @@
  * ============================================================================== */
 
 window.MarlonSearchView = {
+  /* =========================================================
+   * 1. CONFIGURATION & STATE
+   * Default filter settings and top popular landmarks list.
+   * ========================================================= */
   activeTabMode: 'popular',
   activeArea: 'All',
   activeCategories: new Set(),
@@ -15,6 +19,10 @@ window.MarlonSearchView = {
     'Lake Hollywood Park', 'LACMA'
   ],
 
+  /* =========================================================
+   * 2. MAIN RENDER ENGINE
+   * Builds the interactive search interface and sub-filter pills.
+   * ========================================================= */
   render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback) {
     if (!container) return;
     container.innerHTML = '';
@@ -27,6 +35,10 @@ window.MarlonSearchView = {
     masterWrap.style.gap = '8px';
     masterWrap.style.width = '100%';
 
+    /* =========================================================
+     * 3. MODE SWITCHER BAR
+     * Creates top mode pills: Popular, Categories, Vibes, Neighborhoods.
+     * ========================================================= */
     const filterModeBar = document.createElement('div');
     filterModeBar.className = 'day-filter-bar';
     filterModeBar.style.marginTop = '2px';
@@ -46,6 +58,10 @@ window.MarlonSearchView = {
 
     masterWrap.appendChild(filterModeBar);
 
+    /* =========================================================
+     * 4. SUB-FILTER PILLS & SPOTS FILTERING
+     * Generates active sub-pills and compiles matching locations.
+     * ========================================================= */
     const filterPillsRow = document.createElement('div');
     filterPillsRow.className = 'category-pills-bar';
     filterPillsRow.style.display = 'flex';
@@ -91,6 +107,10 @@ window.MarlonSearchView = {
       ? `<div style="text-align:center; padding:12px; color:#94a3b8; font-size:12px; font-style:italic;">No locations match this filter.</div>`
       : spotsToDisplay.map(m => window.MarlonComponents.renderSpotItemHTML(m)).join('');
 
+    /* =========================================================
+     * 5. SHELL CARD CONSTRUCTION
+     * Assembles card UI container via MarlonComponents.
+     * ========================================================= */
     const shellCard = window.MarlonComponents.createShellCard({
       title: '🔍 Search LA',
       headerActionsHTML: `
@@ -109,7 +129,10 @@ window.MarlonSearchView = {
     masterWrap.appendChild(shellCard);
     container.appendChild(masterWrap);
 
-    // Event Delegation for ALL buttons
+    /* =========================================================
+     * 6. EVENT DELEGATION & ACTIONS
+     * Centralized event listener for tab switches, toggles, and resets.
+     * ========================================================= */
     masterWrap.addEventListener('click', (e) => {
       const modeBtn = e.target.closest('.day-pill');
       if (modeBtn) {
@@ -191,6 +214,10 @@ window.MarlonSearchView = {
     });
   },
 
+  /* =========================================================
+   * 7. MAP MARKER FILTER ENGINE
+   * Syncs Mapbox map markers and bounds with the current search view.
+   * ========================================================= */
   applyFilters: function(allMarkers, map, dtlaCenter) {
     if (!allMarkers || !map) return;
     const bounds = new mapboxgl.LngLatBounds();
