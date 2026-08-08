@@ -1,9 +1,9 @@
 /* ==============================================================================
  * FILE: ui-view-trip.js
- * CATEGORY: MarlonWalksLA Website - Trip Itinerary Module
+ * CATEGORY: MarlonWalksLA Website - Trip View Module
  * ============================================================================== */
 
-window.MarlonItineraryView = {
+window.MarlonTripView = {
   activeDay: 'All',
 
   getSpotsCountForDay: function(dayName, allMarkers, itinMap, savedRoutesMap, allPresets) {
@@ -23,7 +23,7 @@ window.MarlonItineraryView = {
     return count;
   },
 
-  renderItinerary: function(container, allMarkers = [], callbacks = {}) {
+  renderTrip: function(container, allMarkers = [], callbacks = {}) {
     if (!container) return;
     container.innerHTML = '';
 
@@ -201,40 +201,40 @@ window.MarlonItineraryView = {
     dayBar.querySelectorAll('.day-pill').forEach(btn => btn.addEventListener('click', (e) => { 
       e.preventDefault(); 
       this.activeDay = btn.dataset.day; 
-      this.renderItinerary(container, allMarkers, callbacks); 
+      this.renderTrip(container, allMarkers, callbacks); 
     }));
     
     container.querySelectorAll('.pin-toggle').forEach(btn => btn.addEventListener('click', (e) => { 
       e.preventDefault(); 
       e.stopPropagation(); 
       if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(btn.dataset.id, activeDay !== 'All' ? activeDay : 'All'); 
-      this.renderItinerary(container, allMarkers, callbacks); 
+      this.renderTrip(container, allMarkers, callbacks); 
     }));
 
     container.querySelectorAll('.visited-toggle').forEach(btn => btn.addEventListener('click', (e) => { 
       e.preventDefault(); 
       e.stopPropagation(); 
       if (callbacks.onToggleVisited) callbacks.onToggleVisited(btn.dataset.id); 
-      this.renderItinerary(container, allMarkers, callbacks); 
+      this.renderTrip(container, allMarkers, callbacks); 
     }));
 
     container.querySelectorAll('.remove-toggle').forEach(btn => btn.addEventListener('click', (e) => { 
       e.preventDefault(); 
       e.stopPropagation(); 
       if (callbacks.onRemoveSpot) callbacks.onRemoveSpot(btn.dataset.id);
-      this.renderItinerary(container, allMarkers, callbacks);
+      this.renderTrip(container, allMarkers, callbacks);
     }));
 
     container.querySelectorAll('.day-assign-select').forEach(sel => sel.addEventListener('change', (e) => { 
       e.stopPropagation(); 
       if (window.MarlonStorage) window.MarlonStorage.setSpotDay(sel.dataset.id, sel.value); 
-      this.renderItinerary(container, allMarkers, callbacks); 
+      this.renderTrip(container, allMarkers, callbacks); 
     }));
 
     container.querySelectorAll('.clear-day-btn').forEach(btn => btn.addEventListener('click', (e) => {
       e.preventDefault();
       if (callbacks.onClearDay) callbacks.onClearDay(btn.dataset.day);
-      this.renderItinerary(container, allMarkers, callbacks);
+      this.renderTrip(container, allMarkers, callbacks);
     }));
 
     // Inner Search Bar Autocomplete Dropdown
@@ -264,10 +264,13 @@ window.MarlonItineraryView = {
             ev.preventDefault();
             ev.stopPropagation();
             if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(item.dataset.id, activeDay);
-            this.renderItinerary(container, allMarkers, callbacks);
+            this.renderTrip(container, allMarkers, callbacks);
           });
         });
       });
     }
   }
 };
+
+// Backward compatibility bridge
+window.MarlonItineraryView = window.MarlonTripView;
