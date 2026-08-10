@@ -36,12 +36,12 @@
 .polaroid-caption-card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   background-color: #fafafa;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   animation: fadeInCaption 0.25s ease-out forwards;
 }
 
@@ -63,27 +63,25 @@
   background: #1a202c;
   border: 1px solid #1a202c;
   color: #ffffff;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 20px;
+  padding: 4px 12px;
+  border-radius: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
 .back-to-filters-btn:hover {
   background-color: #3898ec;
   border-color: #3898ec;
-  transform: translateX(-2px);
 }
 
 .polaroid-cat-badge {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   color: #ffffff;
-  padding: 5px 12px;
-  border-radius: 12px;
+  padding: 4px 10px;
+  border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -93,7 +91,7 @@
    ========================================================= */
 .polaroid-spot-img-wrap {
   width: 100%;
-  height: 160px;
+  height: 120px;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid #e2e8f0;
@@ -109,77 +107,40 @@
 .polaroid-caption-body {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .polaroid-caption-title {
-  font-size: 21px;
+  font-size: 16px;
   font-weight: 800;
   color: #1a202c;
   margin: 0;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .polaroid-caption-meta {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: #718096;
 }
 
 .polaroid-caption-desc {
-  font-size: 13px;
+  font-size: 12px;
   color: #4a5568;
-  line-height: 1.5;
-  margin: 4px 0 0 0;
+  line-height: 1.4;
+  margin: 2px 0 0 0;
 }
 
 .polaroid-marlon-note {
   background-color: #fffbe3;
-  border-left: 3.5px solid #f59e0b;
+  border-left: 3px solid #f59e0b;
   color: #78350f;
-  font-size: 12px;
-  line-height: 1.4;
-  padding: 8px 12px;
-  margin: 6px 0;
+  font-size: 11px;
+  line-height: 1.35;
+  padding: 6px 8px;
+  margin: 4px 0;
   border-radius: 0 6px 6px 0;
   font-style: italic;
-}
-
-.polaroid-social-row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin: 4px 0;
-}
-
-.social-btn {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 5px 10px;
-  border-radius: 14px;
-  text-decoration: none !important;
-  transition: all 0.2s ease;
-}
-
-.social-btn.instagram {
-  background-color: #fdf2f8;
-  color: #db2777 !important;
-  border: 1px solid #fbcfe8;
-}
-
-.social-btn.instagram:hover {
-  background-color: #fbcfe8;
-}
-
-.social-btn.tiktok {
-  background-color: #f1f5f9;
-  color: #0f172a !important;
-  border: 1px solid #cbd5e0;
-}
-
-.social-btn.tiktok:hover {
-  background-color: #e2e8f0;
 }
 
 /* Permanent Tag Removal */
@@ -190,97 +151,80 @@
 }
 
 /* =========================================================
-   5. ACTION BUTTONS & FOOTER
+   5. SINGLE ROW ACTION STRIP & BOOK TOUR CTA
    ========================================================= */
-.polaroid-caption-user-actions {
+.polaroid-card-action-strip {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 4px;
   width: 100%;
   margin-top: 2px;
 }
 
-.toggle-save-btn, .toggle-visited-btn {
+.card-pill-btn {
   flex: 1;
-  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 4px;
+  font-size: 10px;
+  font-weight: 800;
+  border-radius: 12px;
   border: 1.5px solid #e2e8f0;
+  background: #ffffff;
   color: #4a5568;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 8px 10px;
-  border-radius: 20px;
+  text-decoration: none !important;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
   text-align: center;
+  white-space: nowrap;
 }
 
-.toggle-save-btn:hover, .toggle-visited-btn:hover {
+.card-pill-btn:hover {
   border-color: #3898ec;
   color: #3898ec;
-  transform: translateY(-1px);
 }
 
-.toggle-save-btn.is-active {
-  background-color: #3898ec;
-  color: #ffffff;
-  border-color: #3898ec;
-  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
+.card-pill-btn.toggle-save-btn.is-active {
+  background-color: #3898ec !important;
+  color: #ffffff !important;
+  border-color: #3898ec !important;
 }
 
-.toggle-visited-btn.is-active {
-  background-color: #10b981;
-  color: #ffffff;
-  border-color: #10b981;
-  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
+.card-pill-btn.toggle-visited-btn.is-active {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+  border-color: #10b981 !important;
 }
 
 .polaroid-caption-footer {
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  margin-top: 2px;
   width: 100%;
 }
 
-.polaroid-directions-btn {
+.polaroid-directions-btn.book-tour-cta {
   display: block;
   width: 100%;
   box-sizing: border-box;
   text-decoration: none !important;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 16px;
-  border-radius: 20px;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.polaroid-directions-btn.primary-cta {
-  background-color: #3898ec;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 12px;
+  border-radius: 16px;
+  background-color: #2563eb;
   color: #ffffff !important;
-  box-shadow: 0 3px 8px rgba(56, 152, 236, 0.25);
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.3);
+  transition: all 0.2s ease;
 }
 
-.polaroid-directions-btn.primary-cta:hover {
-  background-color: #2b7bc4;
-  transform: translateY(-1px);
-}
-
-.polaroid-directions-btn.secondary-cta {
-  background-color: #ffffff;
-  color: #2d3748 !important;
-  border: 1px solid #cbd5e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
-.polaroid-directions-btn.secondary-cta:hover {
-  background-color: #edf2f7;
-  border-color: #a0aec0;
+.polaroid-directions-btn.book-tour-cta:hover {
+  background-color: #1d4ed8;
   transform: translateY(-1px);
 }
 
 /* =========================================================
-   6. MOBILE COMPACT OVERRIDES (MAP POPUP OPTIMIZATION)
+   6. MOBILE COMPACT OVERRIDES
    ========================================================= */
 @media (max-width: 820px) {
   .mapboxgl-popup {
@@ -289,8 +233,8 @@
 
   .mapboxgl-popup-content {
     width: 80vw !important;
-    max-width: 280px !important;
-    max-height: 32dvh !important;
+    max-width: 270px !important;
+    max-height: 30dvh !important;
     padding: 0 !important;
     overflow: hidden !important;
     border-radius: 12px !important;
@@ -298,20 +242,20 @@
 
   .polaroid-caption-card {
     padding: 8px 10px !important;
-    gap: 6px !important;
-    max-height: 32dvh !important;
+    gap: 5px !important;
+    max-height: 30dvh !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     box-sizing: border-box !important;
   }
 
   .polaroid-spot-img-wrap {
-    height: 85px !important;
+    height: 80px !important;
     margin-bottom: 2px !important;
   }
 
   .polaroid-caption-title {
-    font-size: 14px !important;
+    font-size: 13px !important;
     line-height: 1.2 !important;
   }
 
@@ -320,28 +264,19 @@
   }
 
   .polaroid-caption-desc {
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+  }
+
+  .card-pill-btn {
+    padding: 5px 2px !important;
+    font-size: 9px !important;
+    border-radius: 10px !important;
+  }
+
+  .polaroid-directions-btn.book-tour-cta {
+    padding: 6px 10px !important;
     font-size: 11px !important;
-    line-height: 1.35 !important;
-    margin-top: 2px !important;
-  }
-
-  .polaroid-marlon-note {
-    padding: 6px 8px !important;
-    font-size: 10px !important;
-    margin: 4px 0 !important;
-  }
-
-  .polaroid-caption-footer,
-  .polaroid-caption-user-actions {
-    gap: 4px !important;
-    margin-top: 2px !important;
-  }
-
-  .polaroid-directions-btn,
-  .toggle-save-btn,
-  .toggle-visited-btn {
-    padding: 5px 8px !important;
-    font-size: 10px !important;
     border-radius: 12px !important;
   }
 }
