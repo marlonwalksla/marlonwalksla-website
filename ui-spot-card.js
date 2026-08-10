@@ -36,7 +36,6 @@ window.MarlonSpotCard = {
       ? spotData.gmapsUrl 
       : `https://www.google.com/maps/dir/?api=1&destination=${spotData.lat},${spotData.lng}`;
 
-    // Mailto draft pre-filling Marlon's email with the location name
     const bookTourSubject = encodeURIComponent(`Walking Tour Inquiry - ${spotData.title}`);
     const bookTourBody = encodeURIComponent(`Hi Marlon,\n\nI'm interested in booking a tour that includes ${spotData.title}!\n\nPreferred Date:\nParty Size:\n\nThanks!`);
     const bookTourMailto = `mailto:marlonwalksla@gmail.com?subject=${bookTourSubject}&body=${bookTourBody}`;
@@ -45,7 +44,6 @@ window.MarlonSpotCard = {
       <div class="polaroid-caption-card" data-id="${spotData.id}">
         <div class="polaroid-caption-header">
           <button type="button" class="back-to-filters-btn">‹ Back</button>
-          <span class="polaroid-cat-badge" style="background-color: ${catDetails.color};">${catDetails.name}</span>
         </div>
 
         ${spotData.imageUrl ? `
@@ -56,12 +54,18 @@ window.MarlonSpotCard = {
 
         <div class="polaroid-caption-body">
           <h3 class="polaroid-caption-title">${spotData.title}</h3>
-          <div class="polaroid-caption-meta">📍 ${spotData.neighborhood || 'Downtown LA'}</div>
+          
+          <!-- INLINE CATEGORY & CITY ROW -->
+          <div class="polaroid-caption-meta-row">
+            <span class="polaroid-cat-badge" style="background-color: ${catDetails.color};">${catDetails.name}</span>
+            <span class="polaroid-caption-meta">📍 ${spotData.neighborhood || 'Downtown LA'}</span>
+          </div>
+
           ${spotData.desc ? `<p class="polaroid-caption-desc">${spotData.desc}</p>` : ''}
           ${spotData.marlonNote ? `<div class="polaroid-marlon-note">💡 ${spotData.marlonNote}</div>` : ''}
         </div>
 
-        <!-- SINGLE ROW PILL ACTION STRIP -->
+        <!-- ACTION STRIP PILLS -->
         <div class="polaroid-card-action-strip">
           <a href="${directionsUrl}" target="_blank" rel="noopener noreferrer" class="card-pill-btn directions-pill">
             🚗 Maps
