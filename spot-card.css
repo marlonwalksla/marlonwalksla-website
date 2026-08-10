@@ -43,12 +43,13 @@
 }
 
 /* =========================================================
-   3. CARD HEADER
+   3. CARD HEADER (BACK BUTTON LEFT / CATEGORY BADGE RIGHT)
    ========================================================= */
 .polaroid-caption-header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .back-to-filters-btn {
@@ -66,6 +67,16 @@
 .back-to-filters-btn:hover {
   background-color: #3898ec;
   border-color: #3898ec;
+}
+
+.polaroid-cat-badge {
+  font-size: 9px;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 /* =========================================================
@@ -89,7 +100,7 @@
 .polaroid-caption-body {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .polaroid-caption-title {
@@ -98,25 +109,6 @@
   color: #1a202c;
   margin: 0;
   line-height: 1.2;
-}
-
-/* INLINE META ROW: CATEGORY (LEFT) / CITY (RIGHT) */
-.polaroid-caption-meta-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 2px;
-}
-
-.polaroid-cat-badge {
-  font-size: 9px;
-  font-weight: 800;
-  color: #ffffff;
-  padding: 3px 8px;
-  border-radius: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
 }
 
 .polaroid-caption-meta {
