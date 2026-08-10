@@ -956,3 +956,49 @@
   border-color: #dc2626 !important;
   transform: scale(1.05);
 }
+
+/* ==============================================================================
+ * MOBILE FLEXBOX HEIGHT CLAMPING (PREVENTS OVERFLOW PAST SCREEN BOTTOM)
+ * ============================================================================== */
+
+/* Force all form & tab view containers to respect bounded height */
+.filter-bar form,
+#search-view,
+#trip-view,
+#passport-view,
+#routes-view,
+.search-view-wrapper,
+.trip-view-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Force shell cards to lock inside remaining vertical space */
+.reusable-shell-card {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Force inner card body to clamp height */
+.route-block-body {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Enable internal scrolling for spot items list feed */
+.shell-items-feed {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
