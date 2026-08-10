@@ -908,3 +908,23 @@
   .scroll-arrow-btn { display: none; }
   .category-pills-bar::-webkit-scrollbar { display: none; }
 }
+
+
+/* =========================================================
+   SEARCH & LIST ITEM ROW HIGHLIGHTS
+   ========================================================= */
+.nested-spot-item.is-pinned-item {
+  background-color: #eff6ff !important; /* Soft blue tint */
+  border-color: #bfdbfe !important;
+}
+
+.nested-spot-item.is-visited-item {
+  background-color: #ecfdf5 !important; /* Soft green tint */
+  border-color: #a7f3d0 !important;
+}
+
+/* If an item is BOTH pinned AND visited, prioritize green or blend soft green-blue */
+.nested-spot-item.is-pinned-item.is-visited-item {
+  background-color: #e0f2fe !important;
+  border-color: #7dd3fc !important;
+}
