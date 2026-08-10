@@ -53,7 +53,7 @@ window.MarlonTripView = {
     const shellCard = window.MarlonComponents.createShellCard({
       title: titleText,
       headerActionsHTML: `
-        <button type="button" class="top-trash-btn clear-day-btn" data-day="${this.activeDay}" title="Clear all spots in ${this.activeDay}">
+        <button type="button" class="top-trash-btn clear-day-btn" data-day="${this.activeDay}" title="Unpin all spots in ${this.activeDay}">
           🗑️
         </button>
       `,
@@ -74,15 +74,24 @@ window.MarlonTripView = {
         return;
       }
 
-      /* 2. Top Red Trash Button (Clear Day) */
+      /* 2. Top Red Trash Button (Unpins all spots in active day) */
       const clearBtn = e.target.closest('.clear-day-btn');
       if (clearBtn) {
         e.stopPropagation();
         const dayToClear = clearBtn.dataset.day;
-        if (confirm(`Clear all spots in ${dayToClear === 'All' ? 'Unassigned' : dayToClear}?`)) {
+        const targetLabel = dayToClear === 'All' ? 'Unassigned' : dayToClear;
+        
+        if (spotsToDisplay.length > 0 && confirm(`Unpin all spots in ${targetLabel}?`)) {
+          spotsToDisplay.forEach(spot => {
+            if (window.MarlonStorage && window.MarlonStorage.removeSavedSpot) {
+              window.MarlonStorage.removeSavedSpot(spot.id);
+            }
+          });
           if (callbacks && callbacks.onClearDay) {
             callbacks.onClearDay(dayToClear);
           }
+          if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+          this.renderTrip(container, allMarkers, callbacks);
         }
         return;
       }
