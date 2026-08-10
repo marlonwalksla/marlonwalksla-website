@@ -65,6 +65,7 @@ window.initMapEngine = async function() {
   let scopeSearchBtn = null, scopeTripBtn = null, scopePassportBtn = null, scopeRoutesBtn = null;
   let activeTab = 'search';
   let activePopup = null; 
+  let activePopupSpotId = null; // Tracks currently open spot popup
 
   /* =========================================================
    * 5. GLOBAL CALLBACKS & STATE MANAGEMENT
@@ -207,7 +208,7 @@ window.initMapEngine = async function() {
   }
 
   /* =========================================================
-   * 8. MARKER GENERATION (MOBILE ANCHOR & TOP OFFSET FIX)
+   * 8. MARKER GENERATION (TOGGLE ON 2ND CLICK INCLUDED)
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -240,9 +241,17 @@ window.initMapEngine = async function() {
     
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
+
+      // SECOND CLICK TOGGLE: If popup is already open for this exact pin, close it!
+      if (activePopup && activePopupSpotId === spotId) {
+        activePopup.remove();
+        activePopup = null;
+        activePopupSpotId = null;
+        return;
+      }
+
       const isMobile = window.innerWidth <= 820;
       
-      // Shifts pin lower in the map box so popup has full clearance above it
       map.flyTo({ 
         center: [lng, lat], 
         zoom: 13.5,
@@ -250,15 +259,19 @@ window.initMapEngine = async function() {
       });
 
       if (activePopup) activePopup.remove();
+
       if (window.MarlonSpotCard) {
         const popupContainer = document.createElement('div');
         window.MarlonSpotCard.render(spotData, popupContainer, {
-          onBack: () => { if(activePopup) activePopup.remove(); },
+          onBack: () => { 
+            if (activePopup) activePopup.remove(); 
+            activePopup = null;
+            activePopupSpotId = null;
+          },
           onToggleSave: (id) => { window.MarlonStorage.toggleSavedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderTrip(); },
           onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderTrip(); }
         }, categoryMap, defaultPinSvg);
         
-        // Explicitly set anchor to 'bottom' so popup ALWAYS floats above pin
         activePopup = new mapboxgl.Popup({ 
           offset: 25, 
           closeOnClick: true, 
@@ -268,6 +281,14 @@ window.initMapEngine = async function() {
           .setLngLat([lng, lat])
           .setDOMContent(popupContainer)
           .addTo(map);
+
+        activePopupSpotId = spotId;
+
+        // Reset state whenever the popup is closed (by map tap or back button)
+        activePopup.on('close', () => {
+          activePopup = null;
+          activePopupSpotId = null;
+        });
       }
     });
     allMarkers.push(spotData);
