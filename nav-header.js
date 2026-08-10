@@ -1,26 +1,271 @@
 /* ==============================================================================
- * FILE: nav-header.js
- * CATEGORY: MarlonWalksLA Website - Mobile Navigation Menu Toggle
+ * FILE: nav-header.css
+ * CATEGORY: MarlonWalksLA Website - Global Navigation Header Styling
  * ============================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  const mobileToggle = document.querySelector('.mobile-toggle');
-  const navCollapse = document.querySelector('.nav-collapse-area');
+/* =========================================================
+   1. DESKTOP HEADER BASE (UNTOUCHED)
+   ========================================================= */
+.custom-header {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 0.75rem 0;
+  width: 100%;
+  position: relative;
+  z-index: 9999;
+}
 
-  if (mobileToggle && navCollapse) {
-    mobileToggle.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      navCollapse.classList.toggle('active');
-      mobileToggle.classList.toggle('active');
-    });
+.container {
+  max-width: 1136px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-    // Close menu when tapping outside
-    document.addEventListener('click', (e) => {
-      if (!mobileToggle.contains(e.target) && !navCollapse.contains(e.target)) {
-        navCollapse.classList.remove('active');
-        mobileToggle.classList.remove('active');
-      }
-    });
+.grid-3-col {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.grid-3-col > .grid-item-manual:first-child {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  gap: 10px;
+}
+
+.nav-logo-icon .logo-img {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.paragraph-xlarge {
+  font-size: 1.15rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-collapse-area {
+  display: flex;
+  align-items: center;
+  flex: 2;
+  width: 100%;
+}
+
+.nav-links-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.social-icons-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-group, .header-icon-group {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+  align-items: center;
+}
+
+.header-link, .header-icon-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.header-link:hover, .header-icon-link:hover {
+  opacity: 0.7;
+}
+
+.header-icon-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  margin: 4px 0;
+  background-color: #ffffff;
+  transition: 0.3s ease;
+}
+
+/* =========================================================
+   2. MOBILE 2-ROW HEADER (BALANCED PADDING)
+   ========================================================= */
+@media (max-width: 820px) {
+  .custom-header {
+    padding: 0.4rem 0 0.35rem 0 !important; /* Balanced container padding */
+    position: relative !important;
+    z-index: 99999 !important;
   }
-});
+
+  .container {
+    padding: 0 12px !important;
+    position: relative !important;
+  }
+
+  .grid-3-col {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    position: relative !important;
+    gap: 4px !important; /* 4px row spacing */
+  }
+
+  /* ROW 1 (LEFT): Logo & Brand Name */
+  .grid-3-col > .grid-item-manual:first-child,
+  .grid-3-col > div:first-child {
+    align-self: flex-start !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 26px !important;
+  }
+
+  .nav-logo-icon .logo-img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .paragraph-xlarge {
+    font-size: 0.95rem !important;
+    line-height: 26px !important;
+  }
+
+  /* ROW 1 (RIGHT): Vertically Centered Social Icons */
+  .social-icons-container {
+    position: absolute !important;
+    top: 4px !important; /* Aligned with logo/title horizontal center */
+    right: 0 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    height: 26px !important;
+    margin: 0 !important;
+    z-index: 100000 !important;
+  }
+
+  .header-icon-group {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+    align-items: center !important;
+  }
+
+  .header-icon-link {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .header-icon-link svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* Hide Hamburger Icon */
+  .mobile-toggle {
+    display: none !important;
+  }
+
+  /* ROW 2 (FULL WIDTH): Centered Links with Comfortable Spacing */
+  .nav-collapse-area {
+    display: flex !important;
+    position: static !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    z-index: 1000 !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    margin-top: 2px !important; /* Soft 2px top gap */
+  }
+
+  .nav-collapse-area::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .nav-links-container {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  /* Centered Horizontal Link Group */
+  .button-group {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    border: none !important;
+    padding: 2px 0 !important;
+    gap: 14px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .button-group::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Underlined Link Styling */
+  .header-link {
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    padding: 2px 0 !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border: none !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px !important;
+    transition: all 0.2s ease !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+  }
+
+  .header-link:hover,
+  .header-link:active,
+  .header-link.w--current {
+    background-color: transparent !important;
+    color: #3898ec !important;
+    text-decoration: underline !important;
+  }
+}
