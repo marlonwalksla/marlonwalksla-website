@@ -19,6 +19,7 @@ window.MarlonSearchView = {
     if (!container) return;
     container.innerHTML = '';
     const allMarkers = window.MARLON_ALL_MARKERS || [];
+    const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
 
     const masterWrap = document.createElement('div');
     masterWrap.className = 'search-view-wrapper';
@@ -87,6 +88,13 @@ window.MarlonSearchView = {
       spotsToDisplay = allMarkers.filter(m => (this.activeArea === 'All') || (m.neighborhood === this.activeArea));
     }
 
+    /* SORTING: Pinned items float to top of list */
+    spotsToDisplay.sort((a, b) => {
+      const aSaved = savedSpotIds.includes(a.id) ? 1 : 0;
+      const bSaved = savedSpotIds.includes(b.id) ? 1 : 0;
+      return bSaved - aSaved;
+    });
+
     let itemsHTML = spotsToDisplay.length === 0 
       ? `<div style="text-align:center; padding:12px; color:#94a3b8; font-size:12px; font-style:italic;">No locations match this filter.</div>`
       : spotsToDisplay.map(m => window.MarlonComponents.renderSpotItemHTML(m)).join('');
@@ -109,9 +117,7 @@ window.MarlonSearchView = {
     masterWrap.appendChild(shellCard);
     container.appendChild(masterWrap);
 
-    /* =========================================================
-     * EVENT LISTENERS (PREVENTS ZOOM/CAMERA RESET ON VISITED/PIN)
-     * ========================================================= */
+    /* EVENT LISTENERS */
     masterWrap.addEventListener('click', (e) => {
       const modeBtn = e.target.closest('.day-pill');
       if (modeBtn) {
@@ -157,7 +163,7 @@ window.MarlonSearchView = {
           }
         });
         if (addedCount > 0) alert(`📌 Added ${addedCount} spot(s) to your Trip!`);
-        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
+        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, null);
         if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
@@ -167,14 +173,7 @@ window.MarlonSearchView = {
         e.stopPropagation();
         const spotId = visitedToggle.dataset.id;
         window.MarlonStorage.toggleVisitedSpot(spotId);
-        
-        // Update button active UI locally without re-running fitBounds zoom reset
-        const isVisitedNow = window.MarlonStorage.getVisitedSpots().includes(spotId);
-        visitedToggle.classList.toggle('is-active', isVisitedNow);
-        
-        const parentRow = visitedToggle.closest('.nested-spot-item');
-        if (parentRow) parentRow.classList.toggle('is-visited-item', isVisitedNow);
-
+        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, null);
         if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
@@ -184,11 +183,7 @@ window.MarlonSearchView = {
         e.stopPropagation();
         const spotId = pinToggle.dataset.id;
         window.MarlonStorage.toggleSavedSpot(spotId, 'All');
-        
-        // Update button active UI locally without re-running fitBounds zoom reset
-        const isSavedNow = window.MarlonStorage.getSavedSpotIds().includes(spotId);
-        pinToggle.classList.toggle('is-active', isSavedNow);
-
+        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, null);
         if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
