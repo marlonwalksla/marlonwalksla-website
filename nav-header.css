@@ -4,7 +4,7 @@
  * ============================================================================== */
 
 /* =========================================================
-   1. DESKTOP HEADER BASE
+   1. DESKTOP HEADER BASE (UNTOUCHED)
    ========================================================= */
 .custom-header {
   background-color: #222222;
@@ -122,33 +122,31 @@
    ========================================================= */
 @media (max-width: 820px) {
   .custom-header {
-    padding: 0.4rem 0 !important;
+    padding: 0.5rem 0 0.4rem 0 !important;
     position: relative !important;
     z-index: 99999 !important;
   }
 
   .container {
     padding: 0 12px !important;
+    position: relative !important;
   }
 
-  /* Main header container using flex wrap to force 2 distinct rows */
   .grid-3-col {
     display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: space-between !important;
+    flex-direction: column !important;
     align-items: center !important;
     width: 100% !important;
-    row-gap: 4px !important;
+    position: relative !important;
+    gap: 6px !important;
   }
 
   /* ROW 1 (LEFT): Logo & Brand Name */
   .grid-3-col > .grid-item-manual:first-child,
   .grid-3-col > div:first-child {
-    order: 1 !important;
-    flex: 0 0 auto !important;
+    align-self: flex-start !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-start !important;
   }
 
   .nav-logo-icon .logo-img {
@@ -162,12 +160,14 @@
 
   /* ROW 1 (RIGHT): Social Icons Locked to Top-Right Corner */
   .social-icons-container {
-    order: 2 !important;
-    flex: 0 0 auto !important;
+    position: absolute !important;
+    top: 2px !important;
+    right: 0 !important;
     display: flex !important;
     justify-content: flex-end !important;
     align-items: center !important;
     margin: 0 !important;
+    z-index: 100000 !important;
   }
 
   .header-icon-group {
@@ -182,16 +182,13 @@
     height: 18px !important;
   }
 
-  /* Hide Hamburger Menu */
+  /* Hide Hamburger Icon */
   .mobile-toggle {
     display: none !important;
   }
 
   /* ROW 2 (FULL WIDTH): Centered Navigation Links */
   .nav-collapse-area {
-    order: 3 !important;
-    flex: 0 0 100% !important;
-    width: 100% !important;
     display: flex !important;
     position: static !important;
     background-color: transparent !important;
@@ -202,6 +199,7 @@
     flex-direction: row !important;
     justify-content: center !important;
     align-items: center !important;
+    width: 100% !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
@@ -212,17 +210,23 @@
     display: none !important;
   }
 
-  /* Centered Horizontal Group */
+  .nav-links-container {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  /* Centered Horizontal Link Group */
   .button-group {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    justify-content: center !important; /* Centered horizontally */
+    justify-content: center !important;
     align-items: center !important;
     width: 100% !important;
     border: none !important;
     padding: 2px 0 !important;
-    gap: 12px !important;
+    gap: 14px !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
