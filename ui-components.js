@@ -14,6 +14,7 @@ window.MarlonComponents = {
     ).slice(0, limit);
   },
 
+  /* Renders clean item rows (removed individual 'X' button) */
   renderSpotItemHTML: function(spot, options = {}) {
     const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
     const visitedIds = window.MarlonStorage ? window.MarlonStorage.getVisitedSpots() : [];
@@ -40,7 +41,6 @@ window.MarlonComponents = {
           <a href="${gmapsLink}" target="_blank" class="icon-btn" title="Open Map" style="text-decoration:none;">🚗</a>
           <button type="button" class="icon-btn pin-toggle ${isSaved ? 'is-active' : ''}" data-id="${spot.id}" title="Pin to Trip">📌</button>
           <button type="button" class="icon-btn visited-toggle ${isVisited ? 'is-active' : ''}" data-id="${spot.id}" title="Visited">✓</button>
-          ${options.showRemoveBtn ? `<button type="button" class="icon-btn remove-toggle" data-id="${spot.id}">✕</button>` : ''}
         </div>
       </div>
     `;
