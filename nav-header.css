@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: nav-header.css
- * CATEGORY: MarlonWalksLA Website - Global Navigation Header & Mobile Pill Row
+ * CATEGORY: MarlonWalksLA Website - Global Navigation Header Styling
  * ============================================================================== */
 
 /* =========================================================
@@ -118,11 +118,11 @@
 }
 
 /* =========================================================
-   2. MOBILE 2-ROW HEADER (TOP: LOGO & SOCIALS / BOTTOM: PILLS)
+   2. MOBILE 2-ROW HEADER (ROW 1: LOGO + SOCIALS / ROW 2: PILLS)
    ========================================================= */
 @media (max-width: 820px) {
   .custom-header {
-    padding: 0.4rem 0 !important;
+    padding: 0.5rem 0 0.4rem 0 !important;
     position: relative !important;
     z-index: 99999 !important;
   }
@@ -131,17 +131,17 @@
     padding: 0 12px !important;
   }
 
-  /* Multi-row layout container */
+  /* Master grid converted into a flex-wrap 2-row layout */
   .grid-3-col {
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: space-between !important;
     align-items: center !important;
     width: 100% !important;
-    gap: 6px 0 !important;
+    row-gap: 6px !important;
   }
 
-  /* Row 1 (Left): Title & Logo */
+  /* ROW 1 LEFT: Logo & Brand Name */
   .grid-3-col > .grid-item-manual:first-child {
     order: 1 !important;
     flex: 0 0 auto !important;
@@ -157,18 +157,18 @@
     font-size: 0.95rem !important;
   }
 
-  /* Row 1 (Right Corner): Social Icons */
+  /* ROW 1 RIGHT: Social Icons in the Top Corner */
   .social-icons-container {
     order: 2 !important;
-    display: flex !important;
     flex: 0 0 auto !important;
+    display: flex !important;
     justify-content: flex-end !important;
   }
 
   .header-icon-group {
     display: flex !important;
     flex-direction: row !important;
-    gap: 12px !important;
+    gap: 14px !important;
     align-items: center !important;
   }
 
@@ -177,14 +177,16 @@
     height: 18px !important;
   }
 
-  /* Hide Hamburger Icon completely */
+  /* Hide hamburger icon completely */
   .mobile-toggle {
     display: none !important;
   }
 
-  /* Row 2 (Full Width): Navigation Pills Bar */
+  /* ROW 2 FULL-WIDTH: Page Links Bar */
   .nav-collapse-area {
     order: 3 !important;
+    flex: 0 0 100% !important;
+    width: 100% !important;
     display: flex !important;
     position: static !important;
     background-color: transparent !important;
@@ -193,9 +195,8 @@
     border: none !important;
     z-index: 1000 !important;
     flex-direction: row !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    width: 100% !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
@@ -206,12 +207,12 @@
     display: none !important;
   }
 
-  /* Horizontal Pill Row */
+  /* Horizontal Pill Container */
   .button-group {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
     width: 100% !important;
     border: none !important;
@@ -226,7 +227,7 @@
     display: none !important;
   }
 
-  /* Compact Pill Buttons */
+  /* Pill Buttons Styling */
   .header-link {
     font-size: 0.75rem !important;
     font-weight: 800 !important;
@@ -239,6 +240,7 @@
     transition: all 0.2s ease !important;
     text-decoration: none !important;
     display: inline-block !important;
+    flex-shrink: 0 !important;
   }
 
   .header-link:hover,
