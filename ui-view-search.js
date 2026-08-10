@@ -4,10 +4,6 @@
  * ============================================================================== */
 
 window.MarlonSearchView = {
-  /* =========================================================
-   * 1. CONFIGURATION & STATE
-   * Default filter settings and top popular landmarks list.
-   * ========================================================= */
   activeTabMode: 'popular',
   activeArea: 'All',
   activeCategories: new Set(),
@@ -19,10 +15,6 @@ window.MarlonSearchView = {
     'Lake Hollywood Park', 'LACMA'
   ],
 
-  /* =========================================================
-   * 2. MAIN RENDER ENGINE
-   * Builds the interactive search interface and sub-filter pills.
-   * ========================================================= */
   render: function(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback) {
     if (!container) return;
     container.innerHTML = '';
@@ -35,10 +27,6 @@ window.MarlonSearchView = {
     masterWrap.style.gap = '8px';
     masterWrap.style.width = '100%';
 
-    /* =========================================================
-     * 3. MODE SWITCHER BAR
-     * Creates top mode pills: Popular, Categories, Vibes, Neighborhoods.
-     * ========================================================= */
     const filterModeBar = document.createElement('div');
     filterModeBar.className = 'day-filter-bar';
     filterModeBar.style.marginTop = '2px';
@@ -58,10 +46,6 @@ window.MarlonSearchView = {
 
     masterWrap.appendChild(filterModeBar);
 
-    /* =========================================================
-     * 4. SUB-FILTER PILLS & SPOTS FILTERING
-     * Generates active sub-pills and compiles matching locations.
-     * ========================================================= */
     const filterPillsRow = document.createElement('div');
     filterPillsRow.className = 'category-pills-bar';
     filterPillsRow.style.display = 'flex';
@@ -107,10 +91,6 @@ window.MarlonSearchView = {
       ? `<div style="text-align:center; padding:12px; color:#94a3b8; font-size:12px; font-style:italic;">No locations match this filter.</div>`
       : spotsToDisplay.map(m => window.MarlonComponents.renderSpotItemHTML(m)).join('');
 
-    /* =========================================================
-     * 5. SHELL CARD CONSTRUCTION
-     * Assembles card UI container via MarlonComponents.
-     * ========================================================= */
     const shellCard = window.MarlonComponents.createShellCard({
       title: '🔍 Search LA',
       headerActionsHTML: `
@@ -130,8 +110,7 @@ window.MarlonSearchView = {
     container.appendChild(masterWrap);
 
     /* =========================================================
-     * 6. EVENT DELEGATION & ACTIONS (LIVE MAP SYNC INCLUDED)
-     * Centralized event listener for tab switches, toggles, and resets.
+     * EVENT LISTENERS (PREVENTS ZOOM/CAMERA RESET ON VISITED/PIN)
      * ========================================================= */
     masterWrap.addEventListener('click', (e) => {
       const modeBtn = e.target.closest('.day-pill');
@@ -179,7 +158,6 @@ window.MarlonSearchView = {
         });
         if (addedCount > 0) alert(`📌 Added ${addedCount} spot(s) to your Trip!`);
         this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
-        if (applyFiltersCallback) applyFiltersCallback();
         if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
@@ -187,9 +165,16 @@ window.MarlonSearchView = {
       const visitedToggle = e.target.closest('.visited-toggle');
       if (visitedToggle) {
         e.stopPropagation();
-        window.MarlonStorage.toggleVisitedSpot(visitedToggle.dataset.id);
-        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
-        if (applyFiltersCallback) applyFiltersCallback();
+        const spotId = visitedToggle.dataset.id;
+        window.MarlonStorage.toggleVisitedSpot(spotId);
+        
+        // Update button active UI locally without re-running fitBounds zoom reset
+        const isVisitedNow = window.MarlonStorage.getVisitedSpots().includes(spotId);
+        visitedToggle.classList.toggle('is-active', isVisitedNow);
+        
+        const parentRow = visitedToggle.closest('.nested-spot-item');
+        if (parentRow) parentRow.classList.toggle('is-visited-item', isVisitedNow);
+
         if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
@@ -197,9 +182,13 @@ window.MarlonSearchView = {
       const pinToggle = e.target.closest('.pin-toggle');
       if (pinToggle) {
         e.stopPropagation();
-        window.MarlonStorage.toggleSavedSpot(pinToggle.dataset.id, 'All');
-        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
-        if (applyFiltersCallback) applyFiltersCallback();
+        const spotId = pinToggle.dataset.id;
+        window.MarlonStorage.toggleSavedSpot(spotId, 'All');
+        
+        // Update button active UI locally without re-running fitBounds zoom reset
+        const isSavedNow = window.MarlonStorage.getSavedSpotIds().includes(spotId);
+        pinToggle.classList.toggle('is-active', isSavedNow);
+
         if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
@@ -218,10 +207,6 @@ window.MarlonSearchView = {
     });
   },
 
-  /* =========================================================
-   * 7. MAP MARKER FILTER ENGINE
-   * Syncs Mapbox map markers and bounds with the current search view.
-   * ========================================================= */
   applyFilters: function(allMarkers, map, dtlaCenter) {
     if (!allMarkers || !map) return;
     const bounds = new mapboxgl.LngLatBounds();
