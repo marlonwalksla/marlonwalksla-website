@@ -255,7 +255,7 @@ window.initMapEngine = async function() {
       map.flyTo({ 
         center: [lng, lat], 
         zoom: 13.5,
-        padding: { top: isMobile ? 160 : 30, bottom: 10, left: 10, right: 10 }
+        padding: { top: isMobile ? 200 : 30, bottom: 10, left: 10, right: 10 }
       });
 
       if (activePopup) activePopup.remove();
