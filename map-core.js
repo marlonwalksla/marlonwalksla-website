@@ -6,7 +6,6 @@
 window.initMapEngine = async function() {
   /* =========================================================
    * 1. MAPBOX INITIALIZATION & SETUP
-   * Sets up the core map canvas, API token, and camera controls.
    * ========================================================= */
   const mapContainer = document.getElementById('map');
   if (!mapContainer) return;
@@ -24,7 +23,6 @@ window.initMapEngine = async function() {
 
   /* =========================================================
    * 2. ICONS & CATEGORY DICTIONARY
-   * Defines the visual theme (colors and SVGs) for map pins.
    * ========================================================= */
   const defaultPinSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
@@ -42,7 +40,6 @@ window.initMapEngine = async function() {
 
   /* =========================================================
    * 3. DATA FETCHING
-   * Pulls the raw spot data from your external GeoJSON file.
    * ========================================================= */
   let geojsonData = null;
   try {
@@ -55,7 +52,6 @@ window.initMapEngine = async function() {
 
   /* =========================================================
    * 4. STATE VARIABLES & DOM ELEMENTS
-   * Sets up empty arrays/containers to hold generated data.
    * ========================================================= */
   const allMarkers = [];
   window.MARLON_ALL_MARKERS = allMarkers;
@@ -72,7 +68,6 @@ window.initMapEngine = async function() {
 
   /* =========================================================
    * 5. GLOBAL CALLBACKS & STATE MANAGEMENT
-   * Functions that handle user interactions (saving, clearing).
    * ========================================================= */
   const callbacks = {
     onSelectSpot: function (spotId) {
@@ -107,7 +102,6 @@ window.initMapEngine = async function() {
 
   /* =========================================================
    * 6. BUILD UI CONTAINERS
-   * Constructs the physical HTML structure for the tab views.
    * ========================================================= */
   if (form) {
     form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); return false; });
@@ -130,8 +124,7 @@ window.initMapEngine = async function() {
   }
 
   /* =========================================================
-   * 7. VIEW SWITCHING LOGIC (With Canvas Resize Fix)
-   * Controls which tab is currently active and resizes canvas.
+   * 7. VIEW SWITCHING LOGIC
    * ========================================================= */
   function updateMarkerStates() {
     const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
@@ -214,8 +207,7 @@ window.initMapEngine = async function() {
   }
 
   /* =========================================================
-   * 8. MARKER GENERATION (MOBILE POPUP OFFSET ADDED)
-   * Loops through GeoJSON to plot physical map pins.
+   * 8. MARKER GENERATION (MOBILE ANCHOR & TOP OFFSET FIX)
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -250,11 +242,11 @@ window.initMapEngine = async function() {
       e.stopPropagation();
       const isMobile = window.innerWidth <= 820;
       
-      // Pushes the pin lower on mobile so the popup bubble opens with full headroom
+      // Shifts pin lower in the map box so popup has full clearance above it
       map.flyTo({ 
         center: [lng, lat], 
         zoom: 13.5,
-        padding: { top: isMobile ? 130 : 20, bottom: 10, left: 10, right: 10 }
+        padding: { top: isMobile ? 160 : 30, bottom: 10, left: 10, right: 10 }
       });
 
       if (activePopup) activePopup.remove();
@@ -266,7 +258,13 @@ window.initMapEngine = async function() {
           onToggleVisited: (id) => { window.MarlonStorage.toggleVisitedSpot(id); updateMarkerStates(); if(activeTab === 'trip') renderTrip(); }
         }, categoryMap, defaultPinSvg);
         
-        activePopup = new mapboxgl.Popup({ offset: 25, closeOnClick: true, focusAfterOpen: false })
+        // Explicitly set anchor to 'bottom' so popup ALWAYS floats above pin
+        activePopup = new mapboxgl.Popup({ 
+          offset: 25, 
+          closeOnClick: true, 
+          focusAfterOpen: false,
+          anchor: 'bottom'
+        })
           .setLngLat([lng, lat])
           .setDOMContent(popupContainer)
           .addTo(map);
@@ -277,7 +275,6 @@ window.initMapEngine = async function() {
 
   /* =========================================================
    * 9. MASTER NAVIGATION HEADER
-   * Builds the main tab bar (Search, Trip, Passport, Routes).
    * ========================================================= */
   if (topHeaderView) {
     const mainTitleHeader = document.createElement('div'); mainTitleHeader.className = 'map-hero-cta-box';
@@ -306,7 +303,6 @@ window.initMapEngine = async function() {
 
   /* =========================================================
    * 10. FINAL LAUNCH
-   * Initializes master search and finalizes map loading state.
    * ========================================================= */
   if (window.MarlonSearch) {
     window.MarlonSearch.init(searchWrapper, map, allMarkers, dtlaCenter, callbacks);
