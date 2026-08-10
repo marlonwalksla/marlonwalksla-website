@@ -23,7 +23,7 @@ window.MarlonComponents = {
     const gmapsLink = spot.isExternal ? spot.gmapsUrl : `https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}`;
 
     return `
-      <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''}" data-id="${spot.id}">
+      <div class="itinerary-item nested-spot-item ${isVisited ? 'is-visited-item' : ''} ${isSaved ? 'is-pinned-item' : ''}" data-id="${spot.id}">
         <div class="itinerary-item-info spot-info-click" data-id="${spot.id}" style="flex: 1; padding-right: 4px; cursor: pointer;">
           <div class="itinerary-item-name" style="margin-bottom: 2px;">📍 ${spot.title}</div>
         </div>
@@ -50,7 +50,6 @@ window.MarlonComponents = {
     const card = document.createElement('div');
     card.className = 'route-block-card reusable-shell-card';
     
-    // Strict flex column with NO overflow:visible
     card.style.display = 'flex';
     card.style.flexDirection = 'column';
     card.style.flex = '1 1 0%';
@@ -61,7 +60,7 @@ window.MarlonComponents = {
     header.className = 'route-block-header';
     header.style.backgroundColor = '#f0f7ff';
     header.style.justifyContent = 'space-between';
-    header.style.flex = '0 0 auto'; // Fixed header height
+    header.style.flex = '0 0 auto';
     header.innerHTML = `
       <span class="route-block-title" style="font-size: 13px;">${options.title || 'Locations'}</span>
       <div style="display:flex; gap: 6px; align-items:center;">
@@ -86,7 +85,7 @@ window.MarlonComponents = {
     listFeed.style.gap = '6px';
     listFeed.style.flex = '1 1 0%';
     listFeed.style.minHeight = '0';
-    listFeed.style.overflowY = 'auto'; // Only the internal list scrolls
+    listFeed.style.overflowY = 'auto';
     listFeed.style.webkitOverflowScrolling = 'touch';
     listFeed.innerHTML = options.itemsHTML || '';
 
@@ -97,7 +96,7 @@ window.MarlonComponents = {
       searchWrapContainer.className = 'manual-search-wrap';
       searchWrapContainer.style.position = 'relative';
       searchWrapContainer.style.marginTop = '6px';
-      searchWrapContainer.style.flex = '0 0 auto'; // Fixed search bar height at bottom
+      searchWrapContainer.style.flex = '0 0 auto';
       searchWrapContainer.appendChild(options.searchWrapper);
       body.appendChild(searchWrapContainer);
     }
