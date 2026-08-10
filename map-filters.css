@@ -928,3 +928,31 @@
   background-color: #e0f2fe !important;
   border-color: #7dd3fc !important;
 }
+
+/* =========================================================
+   SHELL CARD HEADER RED TRASH BUTTON
+   ========================================================= */
+.top-trash-btn,
+.clear-day-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  background-color: #fee2e2 !important; /* Soft red background */
+  border: 1px solid #fca5a5 !important;  /* Light red border */
+  color: #dc2626 !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.top-trash-btn:hover,
+.clear-day-btn:hover {
+  background-color: #ef4444 !important; /* Darker red on hover */
+  border-color: #dc2626 !important;
+  transform: scale(1.05);
+}
