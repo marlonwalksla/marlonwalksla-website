@@ -293,10 +293,9 @@
 }
 
 /* =========================================================
-   8. MOBILE STRICT STACKED LAYOUT (SCOPED ONLY TO MAP)
+   8. MOBILE STRICT STACKED LAYOUT (50/50 EQUAL SPLIT)
    ========================================================= */
 @media (max-width: 820px) {
-  /* SCOPED FIX: Only lock scroll if the page actually contains #map */
   html:has(#map), 
   body:has(#map) {
     overflow: hidden !important;
@@ -317,10 +316,9 @@
     background: transparent !important;
   }
 
-  /* Fixed 2-Part Container below header */
   .map-master-polaroid {
     position: fixed !important; 
-    top: 48px !important; /* Sits flush under compact header */
+    top: 48px !important;
     bottom: 0 !important; 
     left: 0 !important;
     right: 0 !important;
@@ -338,7 +336,7 @@
     background: #ffffff !important;
   }
 
-  /* TOP 40%: Map Box */
+  /* TOP 50%: Map Box (+10% Height Increase) */
   .map-master-polaroid #map,
   .map-master-polaroid .map-container {
     position: relative !important; 
@@ -347,9 +345,9 @@
     left: auto !important;
     right: auto !important;
     width: 100vw !important;
-    height: 40% !important; 
-    min-height: 40% !important;
-    max-height: 40% !important;
+    height: 50% !important; 
+    min-height: 50% !important;
+    max-height: 50% !important;
     flex: none !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -358,7 +356,7 @@
     z-index: 1 !important;
   }
 
-  /* BOTTOM 60%: UI Container */
+  /* BOTTOM 50%: UI Container */
   .filter-bar,
   .map-master-polaroid .filter-bar {
     position: relative !important; 
@@ -367,9 +365,9 @@
     left: auto !important;
     right: auto !important;
     width: 100vw !important;
-    height: 60% !important; 
-    min-height: 60% !important;
-    max-height: 60% !important;
+    height: 50% !important; 
+    min-height: 50% !important;
+    max-height: 50% !important;
     flex: 1 !important;
     margin: 0 !important;
     padding: 6px 10px 6px 10px !important; 
