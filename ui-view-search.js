@@ -171,11 +171,16 @@ window.MarlonSearchView = {
       const clearSearchBtn = e.target.closest('.clear-search-spots-btn');
       if (clearSearchBtn) {
         e.stopPropagation();
-        const pinnedInView = spotsToDisplay.filter(m => window.MarlonStorage.getSavedSpotIds().includes(m.id));
+        const currentSaved = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
+        const pinnedInView = spotsToDisplay.filter(m => currentSaved.includes(m.id));
         if (pinnedInView.length > 0 && confirm(`Unpin ${pinnedInView.length} spot(s) currently shown?`)) {
           pinnedInView.forEach(m => {
-            if (window.MarlonStorage && window.MarlonStorage.removeSavedSpot) {
-              window.MarlonStorage.removeSavedSpot(m.id);
+            if (window.MarlonStorage) {
+              if (window.MarlonStorage.removeSavedSpot) {
+                window.MarlonStorage.removeSavedSpot(m.id);
+              } else if (window.MarlonStorage.toggleSavedSpot) {
+                window.MarlonStorage.toggleSavedSpot(m.id);
+              }
             }
           });
           if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
@@ -223,7 +228,7 @@ window.MarlonSearchView = {
       let isVisible = false;
       if (this.activeTabMode === 'popular') isVisible = popularMatches.includes(item.id);
       else if (this.activeTabMode === 'categories') isVisible = (this.activeCategories.size === 0) || this.activeCategories.has(item.category);
-      else if (this.activeTabMode === 'vibes') isVisible = (this.activeTag === 'All') || (item.tags && item.tags.includes(item.activeTag));
+      else if (this.activeTabMode === 'vibes') isVisible = (this.activeTag === 'All') || (item.tags && item.tags.includes(this.activeTag));
       else if (this.activeTabMode === 'neighborhoods') isVisible = (this.activeArea === 'All') || (item.neighborhood === this.activeArea);
 
       if (isVisible) { 
