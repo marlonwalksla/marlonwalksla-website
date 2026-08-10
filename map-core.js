@@ -65,7 +65,7 @@ window.initMapEngine = async function() {
   let scopeSearchBtn = null, scopeTripBtn = null, scopePassportBtn = null, scopeRoutesBtn = null;
   let activeTab = 'search';
   let activePopup = null; 
-  let activePopupSpotId = null; // Tracks currently open spot popup
+  let activePopupSpotId = null;
 
   /* =========================================================
    * 5. GLOBAL CALLBACKS & STATE MANAGEMENT
@@ -208,7 +208,7 @@ window.initMapEngine = async function() {
   }
 
   /* =========================================================
-   * 8. MARKER GENERATION (TOGGLE ON 2ND CLICK INCLUDED)
+   * 8. MARKER GENERATION (SINGLE-SPOT TAGGING CONFIGURED)
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -228,21 +228,45 @@ window.initMapEngine = async function() {
 
     if (neighborhood) neighborhoods.add(neighborhood);
     if (rawCategory) categories.add(rawCategory);
-    if (rawTagsStr) rawTagsStr.split(/[,;]/).forEach(t => { const cleanTag = t.replace(/^#/, '').trim(); if (cleanTag) tagsSet.add(cleanTag); });
 
-    const wrapper = document.createElement('div'); wrapper.className = 'marker-wrapper';
-    const inner = document.createElement('div'); inner.className = 'custom-emoji-marker';
-    inner.style.backgroundColor = catDetails.color; inner.innerHTML = catDetails.icon;
+    const spotTags = [];
+    if (rawTagsStr) {
+      rawTagsStr.split(/[,;]/).forEach(t => {
+        const cleanTag = t.replace(/^#/, '').trim().toLowerCase();
+        if (cleanTag) {
+          tagsSet.add(cleanTag);
+          spotTags.push(cleanTag);
+        }
+      });
+    }
+
+    const wrapper = document.createElement('div'); 
+    wrapper.className = 'marker-wrapper';
+    const inner = document.createElement('div'); 
+    inner.className = 'custom-emoji-marker';
+    inner.style.backgroundColor = catDetails.color; 
+    inner.innerHTML = catDetails.icon;
     wrapper.appendChild(inner);
 
     const marker = new mapboxgl.Marker({ element: wrapper }).setLngLat([lng, lat]).addTo(map);
     
-    const spotData = { id: spotId, title: title, desc: cleanText(props.Description || ''), category: rawCategory, neighborhood: neighborhood, wrapper: wrapper, marker: marker, lng: lng, lat: lat, customColor: customColor, tags: Array.from(tagsSet) };
-    
+    const spotData = { 
+      id: spotId, 
+      title: title, 
+      desc: cleanText(props.Description || ''), 
+      category: rawCategory, 
+      neighborhood: neighborhood, 
+      wrapper: wrapper, 
+      marker: marker, 
+      lng: lng, 
+      lat: lat, 
+      customColor: customColor, 
+      tags: spotTags 
+    };
+
     wrapper.addEventListener('click', (e) => {
       e.stopPropagation();
 
-      // SECOND CLICK TOGGLE: If popup is already open for this exact pin, close it!
       if (activePopup && activePopupSpotId === spotId) {
         activePopup.remove();
         activePopup = null;
@@ -284,7 +308,6 @@ window.initMapEngine = async function() {
 
         activePopupSpotId = spotId;
 
-        // Reset state whenever the popup is closed (by map tap or back button)
         activePopup.on('close', () => {
           activePopup = null;
           activePopupSpotId = null;
