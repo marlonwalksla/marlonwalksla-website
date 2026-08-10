@@ -88,7 +88,7 @@ window.MarlonSearchView = {
       spotsToDisplay = allMarkers.filter(m => (this.activeArea === 'All') || (m.neighborhood === this.activeArea));
     }
 
-    /* SORTING: Pinned items float to top of list */
+    /* SORTING: Pinned items float to top */
     spotsToDisplay.sort((a, b) => {
       const aSaved = savedSpotIds.includes(a.id) ? 1 : 0;
       const bSaved = savedSpotIds.includes(b.id) ? 1 : 0;
@@ -103,7 +103,7 @@ window.MarlonSearchView = {
       title: '🔍 Search LA',
       headerActionsHTML: `
         <button type="button" class="import-preset-btn pin-all-btn" style="font-size:10px; padding:4px 8px;">📌 Pin All</button>
-        <button type="button" class="icon-btn remove-toggle mini-reset-btn" title="Clear Filters">✕</button>
+        <button type="button" class="top-trash-btn clear-search-spots-btn" title="Unpin visible spots">🗑️</button>
       `,
       itemsHTML: itemsHTML,
       searchWrapper: searchWrapper
@@ -168,6 +168,22 @@ window.MarlonSearchView = {
         return;
       }
 
+      const clearSearchBtn = e.target.closest('.clear-search-spots-btn');
+      if (clearSearchBtn) {
+        e.stopPropagation();
+        const pinnedInView = spotsToDisplay.filter(m => window.MarlonStorage.getSavedSpotIds().includes(m.id));
+        if (pinnedInView.length > 0 && confirm(`Unpin ${pinnedInView.length} spot(s) currently shown?`)) {
+          pinnedInView.forEach(m => {
+            if (window.MarlonStorage && window.MarlonStorage.removeSavedSpot) {
+              window.MarlonStorage.removeSavedSpot(m.id);
+            }
+          });
+          if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+          this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, null);
+        }
+        return;
+      }
+
       const visitedToggle = e.target.closest('.visited-toggle');
       if (visitedToggle) {
         e.stopPropagation();
@@ -184,18 +200,6 @@ window.MarlonSearchView = {
         const spotId = pinToggle.dataset.id;
         window.MarlonStorage.toggleSavedSpot(spotId, 'All');
         this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, null);
-        if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
-        return;
-      }
-
-      const resetBtn = e.target.closest('.mini-reset-btn');
-      if (resetBtn) {
-        e.stopPropagation();
-        this.activeCategories.clear();
-        this.activeTag = 'All';
-        this.activeArea = 'All';
-        this.render(container, categories, tagsSet, neighborhoods, categoryMap, defaultPinSvg, searchWrapper, applyFiltersCallback);
-        if (applyFiltersCallback) applyFiltersCallback();
         if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
         return;
       }
@@ -219,7 +223,7 @@ window.MarlonSearchView = {
       let isVisible = false;
       if (this.activeTabMode === 'popular') isVisible = popularMatches.includes(item.id);
       else if (this.activeTabMode === 'categories') isVisible = (this.activeCategories.size === 0) || this.activeCategories.has(item.category);
-      else if (this.activeTabMode === 'vibes') isVisible = (this.activeTag === 'All') || (item.tags && item.tags.includes(this.activeTag));
+      else if (this.activeTabMode === 'vibes') isVisible = (this.activeTag === 'All') || (item.tags && item.tags.includes(item.activeTag));
       else if (this.activeTabMode === 'neighborhoods') isVisible = (this.activeArea === 'All') || (item.neighborhood === this.activeArea);
 
       if (isVisible) { 
