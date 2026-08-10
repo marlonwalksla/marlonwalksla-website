@@ -118,11 +118,11 @@
 }
 
 /* =========================================================
-   2. MOBILE 2-ROW HEADER (BALANCED PADDING)
+   2. MOBILE COMPACT 2-ROW HEADER (CENTERED SOCIALS & TIGHT GAP)
    ========================================================= */
 @media (max-width: 820px) {
   .custom-header {
-    padding: 0.4rem 0 0.35rem 0 !important; /* Balanced container padding */
+    padding: 0.35rem 0 0.2rem 0 !important; /* Reduced bottom padding */
     position: relative !important;
     z-index: 99999 !important;
   }
@@ -138,7 +138,7 @@
     align-items: center !important;
     width: 100% !important;
     position: relative !important;
-    gap: 4px !important; /* 4px row spacing */
+    gap: 0px !important; /* REDUCED: Removed vertical row gap */
   }
 
   /* ROW 1 (LEFT): Logo & Brand Name */
@@ -147,7 +147,7 @@
     align-self: flex-start !important;
     display: flex !important;
     align-items: center !important;
-    height: 26px !important;
+    height: 26px !important; /* Fixed Row 1 height */
   }
 
   .nav-logo-icon .logo-img {
@@ -163,7 +163,7 @@
   /* ROW 1 (RIGHT): Vertically Centered Social Icons */
   .social-icons-container {
     position: absolute !important;
-    top: 4px !important; /* Aligned with logo/title horizontal center */
+    top: 4px !important; /* ADJUSTED: Centers icons vertically with text */
     right: 0 !important;
     display: flex !important;
     justify-content: flex-end !important;
@@ -195,7 +195,7 @@
     display: none !important;
   }
 
-  /* ROW 2 (FULL WIDTH): Centered Links with Comfortable Spacing */
+  /* ROW 2 (FULL WIDTH): Links Pulled Tight Under Row 1 */
   .nav-collapse-area {
     display: flex !important;
     position: static !important;
@@ -211,7 +211,7 @@
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    margin-top: 2px !important; /* Soft 2px top gap */
+    margin-top: 0px !important; /* REDUCED: Pulled up flush against Row 1 */
   }
 
   .nav-collapse-area::-webkit-scrollbar {
@@ -233,7 +233,7 @@
     align-items: center !important;
     width: 100% !important;
     border: none !important;
-    padding: 2px 0 !important;
+    padding: 0 !important;
     gap: 14px !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
@@ -249,7 +249,7 @@
     font-size: 0.8rem !important;
     font-weight: 700 !important;
     white-space: nowrap !important;
-    padding: 2px 0 !important;
+    padding: 1px 0 !important;
     border-radius: 0 !important;
     background-color: transparent !important;
     color: #ffffff !important;
