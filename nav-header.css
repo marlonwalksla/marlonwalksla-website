@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: nav-header.css
- * CATEGORY: MarlonWalksLA Website - Global Navigation Header Styling
+ * CATEGORY: MarlonWalksLA Website - Global Navigation Header & Underlined Menu
  * ============================================================================== */
 
 /* =========================================================
@@ -118,11 +118,11 @@
 }
 
 /* =========================================================
-   2. MOBILE 2-ROW HEADER (ROW 1: LOGO + SOCIALS / ROW 2: PILLS)
+   2. MOBILE 2-ROW HEADER (TOP: LOGO + SOCIALS / BOTTOM: UNDERLINED LINKS)
    ========================================================= */
 @media (max-width: 820px) {
   .custom-header {
-    padding: 0.5rem 0 0.4rem 0 !important;
+    padding: 0.4rem 0 !important;
     position: relative !important;
     z-index: 99999 !important;
   }
@@ -131,7 +131,6 @@
     padding: 0 12px !important;
   }
 
-  /* Master grid converted into a flex-wrap 2-row layout */
   .grid-3-col {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -145,6 +144,8 @@
   .grid-3-col > .grid-item-manual:first-child {
     order: 1 !important;
     flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
     justify-content: flex-start !important;
   }
 
@@ -157,18 +158,19 @@
     font-size: 0.95rem !important;
   }
 
-  /* ROW 1 RIGHT: Social Icons in the Top Corner */
+  /* ROW 1 RIGHT: Social Icons Lined Up Top Right */
   .social-icons-container {
     order: 2 !important;
     flex: 0 0 auto !important;
     display: flex !important;
     justify-content: flex-end !important;
+    align-items: center !important;
   }
 
   .header-icon-group {
     display: flex !important;
     flex-direction: row !important;
-    gap: 14px !important;
+    gap: 12px !important;
     align-items: center !important;
   }
 
@@ -177,12 +179,12 @@
     height: 18px !important;
   }
 
-  /* Hide hamburger icon completely */
+  /* Hide Hamburger Icon */
   .mobile-toggle {
     display: none !important;
   }
 
-  /* ROW 2 FULL-WIDTH: Page Links Bar */
+  /* ROW 2: Horizontal Scrollable Underlined Links Row */
   .nav-collapse-area {
     order: 3 !important;
     flex: 0 0 100% !important;
@@ -207,7 +209,6 @@
     display: none !important;
   }
 
-  /* Horizontal Pill Container */
   .button-group {
     display: flex !important;
     flex-direction: row !important;
@@ -217,7 +218,7 @@
     width: 100% !important;
     border: none !important;
     padding: 2px 0 !important;
-    gap: 6px !important;
+    gap: 14px !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
@@ -227,18 +228,19 @@
     display: none !important;
   }
 
-  /* Pill Buttons Styling */
+  /* Underlined Text Links Styling */
   .header-link {
-    font-size: 0.75rem !important;
-    font-weight: 800 !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
     white-space: nowrap !important;
-    padding: 5px 12px !important;
-    border-radius: 20px !important;
-    background-color: #333333 !important;
+    padding: 2px 0 !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
     color: #ffffff !important;
-    border: 1px solid #444444 !important;
+    border: none !important;
+    text-decoration: underline !important;
+    text-underline-offset: 4px !important;
     transition: all 0.2s ease !important;
-    text-decoration: none !important;
     display: inline-block !important;
     flex-shrink: 0 !important;
   }
@@ -246,8 +248,8 @@
   .header-link:hover,
   .header-link:active,
   .header-link.w--current {
-    background-color: #3898ec !important;
-    border-color: #3898ec !important;
-    color: #ffffff !important;
+    background-color: transparent !important;
+    color: #3898ec !important;
+    text-decoration: underline !important;
   }
 }
