@@ -10,6 +10,7 @@ window.MarlonTripView = {
     if (!container) return;
     container.innerHTML = '';
 
+    const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
     const savedMap = window.MarlonStorage ? window.MarlonStorage.getSavedRoutesMap() : {};
     const days = ['All', 'Day 1', 'Day 2', 'Day 3', 'Day 4'];
 
@@ -26,15 +27,21 @@ window.MarlonTripView = {
     dayFilterBar.style.marginTop = '2px';
 
     dayFilterBar.innerHTML = days.map(d => {
-      const count = (savedMap[d] || []).length;
+      const count = d === 'All' ? savedSpotIds.length : (savedMap[d] || []).length;
       const label = d === 'All' ? `📌 Unassigned (${count})` : `${d} (${count})`;
       return `<button type="button" class="day-pill ${this.activeDay === d ? 'is-active' : ''}" data-day="${d}">${label}</button>`;
     }).join('');
 
     masterWrap.appendChild(dayFilterBar);
 
-    /* ACTIVE DAY SPOTS LIST */
-    const activeSpotIds = savedMap[this.activeDay] || [];
+    /* FETCH SPOTS FOR ACTIVE DAY */
+    let activeSpotIds = [];
+    if (this.activeDay === 'All') {
+      activeSpotIds = savedSpotIds;
+    } else {
+      activeSpotIds = savedMap[this.activeDay] || [];
+    }
+
     const spotsToDisplay = activeSpotIds.map(id => allMarkers.find(m => m.id === id)).filter(Boolean);
 
     let itemsHTML = spotsToDisplay.length === 0
