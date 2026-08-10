@@ -4,9 +4,6 @@
  * ============================================================================== */
 
 window.MarlonSpotCard = {
-  /* =========================================================
-   * 1. CATEGORY DETAILS HELPER
-   * ========================================================= */
   getCategoryDetails: function(catName, customColor, categoryMap, defaultPinSvg) {
     const cleanCat = (catName || '').toLowerCase().trim();
     if (categoryMap && categoryMap[cleanCat]) {
@@ -19,9 +16,6 @@ window.MarlonSpotCard = {
     };
   },
 
-  /* =========================================================
-   * 2. MAIN CARD POPUP RENDERER
-   * ========================================================= */
   render: function(spotData, container, callbacks, categoryMap, defaultPinSvg) {
     if (!container || !spotData) return;
 
@@ -42,8 +36,10 @@ window.MarlonSpotCard = {
 
     container.innerHTML = `
       <div class="polaroid-caption-card" data-id="${spotData.id}">
+        <!-- ROW 1: BACK BUTTON (LEFT) & CATEGORY BADGE (RIGHT) -->
         <div class="polaroid-caption-header">
           <button type="button" class="back-to-filters-btn">‹ Back</button>
+          <span class="polaroid-cat-badge" style="background-color: ${catDetails.color};">${catDetails.name}</span>
         </div>
 
         ${spotData.imageUrl ? `
@@ -53,13 +49,11 @@ window.MarlonSpotCard = {
         ` : ''}
 
         <div class="polaroid-caption-body">
+          <!-- ROW 2: LOCATION TITLE -->
           <h3 class="polaroid-caption-title">${spotData.title}</h3>
           
-          <!-- INLINE CATEGORY & CITY ROW -->
-          <div class="polaroid-caption-meta-row">
-            <span class="polaroid-cat-badge" style="background-color: ${catDetails.color};">${catDetails.name}</span>
-            <span class="polaroid-caption-meta">📍 ${spotData.neighborhood || 'Downtown LA'}</span>
-          </div>
+          <!-- ROW 3: CITY / NEIGHBORHOOD BELOW TITLE -->
+          <div class="polaroid-caption-meta">📍 ${spotData.neighborhood || 'Downtown LA'}</div>
 
           ${spotData.desc ? `<p class="polaroid-caption-desc">${spotData.desc}</p>` : ''}
           ${spotData.marlonNote ? `<div class="polaroid-marlon-note">💡 ${spotData.marlonNote}</div>` : ''}
@@ -87,9 +81,6 @@ window.MarlonSpotCard = {
       </div>
     `;
 
-    /* =========================================================
-     * 3. EVENT LISTENERS
-     * ========================================================= */
     const backBtn = container.querySelector('.back-to-filters-btn');
     if (backBtn && callbacks.onBack) {
       backBtn.addEventListener('click', (e) => {
