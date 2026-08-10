@@ -83,10 +83,20 @@ window.MarlonTripView = {
         
         if (spotsToDisplay.length > 0 && confirm(`Unpin all spots in ${targetLabel}?`)) {
           spotsToDisplay.forEach(spot => {
-            if (window.MarlonStorage && window.MarlonStorage.removeSavedSpot) {
-              window.MarlonStorage.removeSavedSpot(spot.id);
+            if (window.MarlonStorage) {
+              const currentSaved = window.MarlonStorage.getSavedSpotIds ? window.MarlonStorage.getSavedSpotIds() : [];
+              if (window.MarlonStorage.removeSavedSpot) {
+                window.MarlonStorage.removeSavedSpot(spot.id);
+              } else if (currentSaved.includes(spot.id) && window.MarlonStorage.toggleSavedSpot) {
+                window.MarlonStorage.toggleSavedSpot(spot.id);
+              }
             }
           });
+
+          if (window.MarlonStorage && window.MarlonStorage.clearDay) {
+            window.MarlonStorage.clearDay(dayToClear);
+          }
+
           if (callbacks && callbacks.onClearDay) {
             callbacks.onClearDay(dayToClear);
           }
@@ -105,17 +115,27 @@ window.MarlonTripView = {
 
       /* 4. Pin Toggle (Unpin Spot) */
       const pinToggle = e.target.closest('.pin-toggle');
-      if (pinToggle && callbacks && callbacks.onRemoveSpot) {
+      if (pinToggle) {
         e.stopPropagation();
-        callbacks.onRemoveSpot(pinToggle.dataset.id);
+        const spotId = pinToggle.dataset.id;
+        if (window.MarlonStorage && window.MarlonStorage.toggleSavedSpot) {
+          window.MarlonStorage.toggleSavedSpot(spotId);
+        }
+        if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+        this.renderTrip(container, allMarkers, callbacks);
         return;
       }
 
       /* 5. Visited Toggle */
       const visitedToggle = e.target.closest('.visited-toggle');
-      if (visitedToggle && callbacks && callbacks.onToggleVisited) {
+      if (visitedToggle) {
         e.stopPropagation();
-        callbacks.onToggleVisited(visitedToggle.dataset.id);
+        const spotId = visitedToggle.dataset.id;
+        if (window.MarlonStorage && window.MarlonStorage.toggleVisitedSpot) {
+          window.MarlonStorage.toggleVisitedSpot(spotId);
+        }
+        if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+        this.renderTrip(container, allMarkers, callbacks);
         return;
       }
     });
