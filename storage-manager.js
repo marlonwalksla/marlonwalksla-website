@@ -4,7 +4,41 @@
  * ============================================================================== */
 
 window.MarlonStorage = {
-  // HOTEL & BASECAMP STORAGE
+  // --- UNIFIED TRIP DATA (Bridging My Trip Views) ---
+  getSavedTripData: function() {
+    const itineraryMap = this.getItineraryMap();
+    const profile = this.getUserProfile();
+    const visited = this.getVisitedSpots();
+
+    return {
+      pinned: Object.keys(itineraryMap),
+      days: itineraryMap,
+      visited: visited,
+      mascot: profile.mascot,
+      name: profile.name,
+      email: profile.email,
+      instagram: profile.ig,
+      phone: profile.wa
+    };
+  },
+
+  saveTripData: function(data) {
+    if (!data) return;
+
+    if (data.days) {
+      localStorage.setItem('marlon_saved_itinerary_map', JSON.stringify(data.days));
+    }
+    if (data.visited) {
+      localStorage.setItem('marlon_visited_spots', JSON.stringify(data.visited));
+    }
+    if (data.mascot !== undefined) this.setUserField('marlon_mascot', data.mascot);
+    if (data.name !== undefined) this.setUserField('marlon_user_name', data.name);
+    if (data.email !== undefined) this.setUserField('marlon_user_email', data.email);
+    if (data.instagram !== undefined) this.setUserField('marlon_user_ig', data.instagram);
+    if (data.phone !== undefined) this.setUserField('marlon_user_wa', data.phone);
+  },
+
+  // --- HOTEL & BASECAMP STORAGE ---
   getHotel: function() { 
     return JSON.parse(localStorage.getItem('marlon_hotel_anchor') || 'null'); 
   },
@@ -26,7 +60,7 @@ window.MarlonStorage = {
     this.setHotel({ ...current, name: addressStr, address: addressStr });
   },
 
-  // USER PROFILE STORAGE
+  // --- USER PROFILE & PASSPORT STORAGE ---
   getUserProfile: function() {
     return {
       mascot: localStorage.getItem('marlon_mascot') || '🦙',
@@ -40,34 +74,55 @@ window.MarlonStorage = {
     localStorage.setItem(key, val);
   },
 
-  // ITINERARY & ROUTES MAPS
-  getItineraryMap: function() { return JSON.parse(localStorage.getItem('marlon_saved_itinerary_map') || '{}'); },
-  getSavedRoutesMap: function() { return JSON.parse(localStorage.getItem('marlon_saved_routes_map') || '{}'); },
-  getVisitedSpots: function() { return JSON.parse(localStorage.getItem('marlon_visited_spots') || '[]'); },
-  getExcludedRouteSpots: function() { return JSON.parse(localStorage.getItem('marlon_excluded_route_spots') || '[]'); },
+  // --- DAYS & ITINERARY MAPS ---
+  getItineraryMap: function() { 
+    return JSON.parse(localStorage.getItem('marlon_saved_itinerary_map') || '{}'); 
+  },
+  getSavedRoutesMap: function() { 
+    return JSON.parse(localStorage.getItem('marlon_saved_routes_map') || '{}'); 
+  },
+  getVisitedSpots: function() { 
+    return JSON.parse(localStorage.getItem('marlon_visited_spots') || '[]'); 
+  },
+  getExcludedRouteSpots: function() { 
+    return JSON.parse(localStorage.getItem('marlon_excluded_route_spots') || '[]'); 
+  },
 
-  isSpotExcludedFromRoute: function(routeId, spotId) { return this.getExcludedRouteSpots().includes(`${routeId}::${spotId}`); },
+  isSpotExcludedFromRoute: function(routeId, spotId) { 
+    return this.getExcludedRouteSpots().includes(`${routeId}::${spotId}`); 
+  },
   excludeSpotFromRoute: function(routeId, spotId) {
-    let excluded = this.getExcludedRouteSpots(); const key = `${routeId}::${spotId}`;
-    if (!excluded.includes(key)) { excluded.push(key); localStorage.setItem('marlon_excluded_route_spots', JSON.stringify(excluded)); }
+    let excluded = this.getExcludedRouteSpots(); 
+    const key = `${routeId}::${spotId}`;
+    if (!excluded.includes(key)) { 
+      excluded.push(key); 
+      localStorage.setItem('marlon_excluded_route_spots', JSON.stringify(excluded)); 
+    }
   },
 
   getSavedSpotIds: function() {
-    const spotMap = this.getItineraryMap(); const routeMap = this.getSavedRoutesMap(); const presets = window.MARLON_ROUTES_PRESETS || [];
+    const spotMap = this.getItineraryMap(); 
+    const routeMap = this.getSavedRoutesMap(); 
+    const presets = window.MARLON_ROUTES_PRESETS || [];
     let spotIds = Object.keys(spotMap);
+
     Object.keys(routeMap).forEach(routeId => {
       const preset = presets.find(p => p.id === routeId);
       if (preset && window.MARLON_ALL_MARKERS) {
         preset.spotTitles.forEach(targetTitle => {
-          const match = window.MARLON_ALL_MARKERS.find(m => m.title.toLowerCase().trim().includes(targetTitle.toLowerCase().trim()));
-          if (match && !spotIds.includes(match.id) && !this.isSpotExcludedFromRoute(routeId, match.id)) spotIds.push(match.id);
+          const match = window.MARLON_ALL_MARKERS.find(m => 
+            m.title.toLowerCase().trim().includes(targetTitle.toLowerCase().trim())
+          );
+          if (match && !spotIds.includes(match.id) && !this.isSpotExcludedFromRoute(routeId, match.id)) {
+            spotIds.push(match.id);
+          }
         });
       }
     });
     return spotIds;
   },
 
-  toggleSavedSpot: function(id, defaultDay = 'All') {
+  toggleSavedSpot: function(id, defaultDay = 'Unassigned') {
     let map = this.getItineraryMap();
     if (map[id]) delete map[id];
     else map[id] = defaultDay;
@@ -76,7 +131,10 @@ window.MarlonStorage = {
 
   setSpotDay: function(id, day) {
     let map = this.getItineraryMap();
-    if (map[id]) { map[id] = day; localStorage.setItem('marlon_saved_itinerary_map', JSON.stringify(map)); }
+    if (map[id] !== undefined) { 
+      map[id] = day; 
+      localStorage.setItem('marlon_saved_itinerary_map', JSON.stringify(map)); 
+    }
   },
 
   toggleRouteBlock: function(routeId, day = 'Day 1') {
@@ -88,7 +146,10 @@ window.MarlonStorage = {
 
   setRouteDay: function(routeId, day) {
     let routes = this.getSavedRoutesMap();
-    if (routes[routeId]) { routes[routeId] = day; localStorage.setItem('marlon_saved_routes_map', JSON.stringify(routes)); }
+    if (routes[routeId]) { 
+      routes[routeId] = day; 
+      localStorage.setItem('marlon_saved_routes_map', JSON.stringify(routes)); 
+    }
   },
 
   toggleVisitedSpot: function(id) {
@@ -119,3 +180,7 @@ window.MarlonStorage = {
     localStorage.setItem('marlon_external_spots_data', '{}');
   }
 };
+
+// Named exports for ES modules compatibility in ui-view-mytrip.js
+export const getSavedTripData = () => window.MarlonStorage.getSavedTripData();
+export const saveTripData = (data) => window.MarlonStorage.saveTripData(data);
