@@ -31,8 +31,11 @@ window.initMapEngine = async function() {
   });
   map.addControl(geolocate, 'top-right');
 
+  // Trigger container resizes at key layout intervals
   window.addEventListener('resize', () => { map.resize(); });
-  setTimeout(() => { map.resize(); }, 300);
+  setTimeout(() => { map.resize(); }, 100);
+  setTimeout(() => { map.resize(); }, 500);
+  setTimeout(() => { map.resize(); }, 1200);
 
   /* =========================================================
    * 2. ICONS & CATEGORY DICTIONARY
@@ -145,6 +148,8 @@ window.initMapEngine = async function() {
 
     const wrapper = document.createElement('div'); 
     wrapper.className = 'marker-wrapper';
+    wrapper.style.cursor = 'pointer';
+
     const inner = document.createElement('div'); 
     inner.className = 'custom-emoji-marker';
     inner.style.backgroundColor = catDetails.color; 
