@@ -1,12 +1,16 @@
-// ui-view-explore.js
+/* ==============================================================================
+ * FILE: ui-view-explore.js
+ * CATEGORY: MarlonWalksLA Website - Explore LA View Controller
+ * ============================================================================== */
 
-let allSpots = [];
+let allExploreSpots = [];
 
-export function initExploreView(geoJsonData) {
-  allSpots = geoJsonData.features;
-  populateDropdownFilters(allSpots);
+window.initExploreView = function(geoJsonData) {
+  if (!geoJsonData || !geoJsonData.features) return;
+  allExploreSpots = geoJsonData.features;
+  populateDropdownFilters(allExploreSpots);
   setupFilterListeners();
-}
+};
 
 function populateDropdownFilters(spots) {
   const categories = new Set();
@@ -16,7 +20,13 @@ function populateDropdownFilters(spots) {
   spots.forEach(spot => {
     const props = spot.properties;
     if (props.category) categories.add(props.category);
-    if (props.vibe) props.vibe.forEach(v => vibes.add(v));
+    if (props.vibe) {
+      if (Array.isArray(props.vibe)) {
+        props.vibe.forEach(v => vibes.add(v));
+      } else {
+        vibes.add(props.vibe);
+      }
+    }
     if (props.neighborhood) neighborhoods.add(props.neighborhood);
   });
 
@@ -50,18 +60,19 @@ function setupFilterListeners() {
     const neighVal = neighborhoodSelect?.value || '';
     const query = searchInput?.value.toLowerCase().trim() || '';
 
-    const filtered = allSpots.filter(spot => {
-      const p = spot.properties;
+    const filtered = allExploreSpots.filter(spot => {
+      const p = spot.properties || {};
       const matchesCat = !catVal || p.category === catVal;
-      const matchesVibe = !vibeVal || (p.vibe && p.vibe.includes(vibeVal));
+      const matchesVibe = !vibeVal || (Array.isArray(p.vibe) ? p.vibe.includes(vibeVal) : p.vibe === vibeVal);
       const matchesNeigh = !neighVal || p.neighborhood === neighVal;
-      const matchesQuery = !query || p.name.toLowerCase().includes(query);
+      const matchesQuery = !query || (p.name && p.name.toLowerCase().includes(query));
 
       return matchesCat && matchesVibe && matchesNeigh && matchesQuery;
     });
 
-    // Update map pins and spot card list
-    window.updateMapMarkers(filtered);
+    if (window.updateMapMarkers) {
+      window.updateMapMarkers(filtered);
+    }
     renderSpotCards(filtered);
   };
 
@@ -82,9 +93,9 @@ function renderSpotCards(spots) {
   }
 
   container.innerHTML = spots.map(spot => `
-    <div class="spot-card" data-id="${spot.properties.id}">
-      <h4>${spot.properties.name}</h4>
-      <p>${spot.properties.neighborhood} • ${spot.properties.category}</p>
+    <div class="spot-card" data-id="${spot.properties.id || ''}">
+      <h4>${spot.properties.name || 'Unnamed Location'}</h4>
+      <p>${spot.properties.neighborhood || ''} • ${spot.properties.category || ''}</p>
     </div>
   `).join('');
 }
