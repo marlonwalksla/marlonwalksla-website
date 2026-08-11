@@ -257,3 +257,65 @@
     line-height: 1.25 !important;
   }
 }
+
+/* =========================================================
+   PRESET ROUTES IMPORT & TOGGLES (Moved from map-filters.css)
+   ========================================================= */
+.preset-import-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.preset-title { font-size: 11px; font-weight: 800; color: #475569; }
+.preset-list { display: flex; flex-direction: column; gap: 6px; }
+
+.preset-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.preset-item-name { font-size: 12px; font-weight: 800; color: #1e293b; }
+.preset-item-meta { font-size: 10px; color: #64748b; }
+
+.import-preset-btn {
+  background: #3898ec;
+  border: none;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.import-preset-btn:hover { background: #2b7bc4; }
+
+.clear-itinerary-btn {
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-itinerary-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
