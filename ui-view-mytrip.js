@@ -1,18 +1,16 @@
-// ui-view-mytrip.js
-import { getSavedTripData, saveTripData } from './storage-manager.js';[cite: 1]
+/* ==============================================================================
+ * FILE: ui-view-mytrip.js
+ * CATEGORY: MarlonWalksLA Website - My Trip View Controller
+ * ============================================================================== */
 
-export function initMyTripView(allSpots) {
+window.initMyTripView = function(allSpots) {
   initSubTabSwitcher();
   setupPassportListeners();
   renderDaysView(allSpots);
   renderPassportView(allSpots);
   renderLogisticsView();
-}
+};
 
-/**
- * 1. Sub-Tab Navigation Switcher
- * Controls toggles between Days, Passport, and Logistics within "My Trip"
- */
 function initSubTabSwitcher() {
   const tabs = document.querySelectorAll('[data-mytrip-tab]');
   const views = {
@@ -24,12 +22,9 @@ function initSubTabSwitcher() {
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const target = tab.getAttribute('data-mytrip-tab');
-
-      // Update active tab styles
       tabs.forEach(t => t.classList.remove('is-active'));
       tab.classList.add('is-active');
 
-      // Toggle panel views
       Object.keys(views).forEach(key => {
         if (views[key]) {
           views[key].style.display = key === target ? 'block' : 'none';
@@ -39,16 +34,12 @@ function initSubTabSwitcher() {
   });
 }
 
-/**
- * 2. Days & Itinerary View
- * Handles pinned spots, unassigned items, and Day 1–4 assignments
- */
-export function renderDaysView(allSpots) {
+function renderDaysView(allSpots) {
   const container = document.getElementById('view-days');
   if (!container) return;
 
-  const tripData = getSavedTripData() || { pinned: [], days: {} };[cite: 1]
-  const pinnedSpots = allSpots.filter(spot => tripData.pinned.includes(spot.properties.id));
+  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : { pinned: [], days: {} };
+  const pinnedSpots = (allSpots || []).filter(spot => tripData.pinned.includes(spot.properties.id));
 
   if (pinnedSpots.length === 0) {
     container.innerHTML = `
@@ -60,7 +51,6 @@ export function renderDaysView(allSpots) {
     return;
   }
 
-  // Render list of pinned spots with day assignment selectors
   container.innerHTML = `
     <div class="trip-spots-header">
       <h4>📌 Saved Spots (${pinnedSpots.length})</h4>
@@ -84,29 +74,25 @@ export function renderDaysView(allSpots) {
     </div>
   `;
 
-  // Attach listener for day selector changes
   container.querySelectorAll('.day-assign-select').forEach(select => {
     select.addEventListener('change', (e) => {
       const spotId = e.target.getAttribute('data-spot-id');
       const selectedDay = e.target.value;
-      
-      const updatedData = getSavedTripData() || { pinned: [], days: {} };[cite: 1]
-      updatedData.days[spotId] = selectedDay;
-      saveTripData(updatedData);[cite: 1]
+      if (window.MarlonStorage) {
+        const updatedData = window.MarlonStorage.getSavedTripData() || { pinned: [], days: {} };
+        updatedData.days[spotId] = selectedDay;
+        window.MarlonStorage.saveTripData(updatedData);
+      }
     });
   });
 }
 
-/**
- * 3. Passport View
- * Manages Mascot selection, contact card info, and Visited spots counter
- */
 function renderPassportView(allSpots) {
   const container = document.getElementById('view-passport');
   if (!container) return;
 
-  const userData = getSavedTripData() || { mascot: '🐼', name: '', instagram: '', visited: [] };[cite: 1]
-  const visitedSpots = allSpots.filter(s => userData.visited.includes(s.properties.id));
+  const userData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : { mascot: '🐼', name: '', instagram: '', visited: [] };
+  const visitedSpots = (allSpots || []).filter(s => (userData.visited || []).includes(s.properties.id));
 
   container.innerHTML = `
     <div class="passport-card">
@@ -147,7 +133,6 @@ function setupPassportListeners() {
   const container = document.getElementById('view-passport');
   if (!container) return;
 
-  // Mascot selection
   container.addEventListener('click', (e) => {
     if (e.target.classList.contains('mascot-btn')) {
       const selectedMascot = e.target.getAttribute('data-mascot');
@@ -155,28 +140,27 @@ function setupPassportListeners() {
       container.querySelectorAll('.mascot-btn').forEach(b => b.classList.remove('selected'));
       e.target.classList.add('selected');
 
-      const data = getSavedTripData() || {};[cite: 1]
-      data.mascot = selectedMascot;
-      saveTripData(data);[cite: 1]
+      if (window.MarlonStorage) {
+        const data = window.MarlonStorage.getSavedTripData() || {};
+        data.mascot = selectedMascot;
+        window.MarlonStorage.saveTripData(data);
+      }
     }
   });
 
-  // Contact Inputs
   container.addEventListener('input', (e) => {
     if (['user-name', 'user-ig', 'user-phone'].includes(e.target.id)) {
-      const data = getSavedTripData() || {};[cite: 1]
-      data.name = document.getElementById('user-name')?.value || '';
-      data.instagram = document.getElementById('user-ig')?.value || '';
-      data.phone = document.getElementById('user-phone')?.value || '';
-      saveTripData(data);[cite: 1]
+      if (window.MarlonStorage) {
+        const data = window.MarlonStorage.getSavedTripData() || {};
+        data.name = document.getElementById('user-name')?.value || '';
+        data.instagram = document.getElementById('user-ig')?.value || '';
+        data.phone = document.getElementById('user-phone')?.value || '';
+        window.MarlonStorage.saveTripData(data);
+      }
     }
   });
 }
 
-/**
- * 4. Logistics View
- * Holds hotel accommodations and transit guidance
- */
 function renderLogisticsView() {
   const container = document.getElementById('view-logistics');
   if (!container) return;
