@@ -5,16 +5,17 @@
 
 window.MarlonPassportView = {
   activeTab: 'you',
-  selectedMascot: localStorage.getItem('marlon_mascot') || '🦙',
-  userName: localStorage.getItem('marlon_user_name') || '',
-  userEmail: localStorage.getItem('marlon_user_email') || '',
-  userIg: localStorage.getItem('marlon_user_ig') || '',
-  userWa: localStorage.getItem('marlon_user_wa') || '',
   mascots: ['🦙', '🦁', '🐻', '🦩', '🐯', '🦊', '🐼', '🐨'],
 
   render: function(container, allMarkers = [], callbacks = {}) {
     if (!container) return;
     container.innerHTML = '';
+
+    const profile = window.MarlonStorage ? window.MarlonStorage.getUserProfile() : {};
+    const selectedMascot = profile.mascot || '🦙';
+    const userName = profile.name || '';
+    const userIg = profile.ig || '';
+    const userWa = profile.wa || '';
 
     const visitedIds = window.MarlonStorage ? window.MarlonStorage.getVisitedSpots() : [];
     const extSpotsMap = (window.MarlonStorage && window.MarlonStorage.getExternalSpots) ? window.MarlonStorage.getExternalSpots() : {};
@@ -59,7 +60,7 @@ window.MarlonPassportView = {
             <label style="font-size:10px; font-weight:800; color:#64748b; display:block; margin-bottom:4px;">YOUR MASCOT</label>
             <div class="mascot-picker-wrap" style="display:flex; gap:6px; overflow-x:auto; padding-bottom: 2px;">
               ${this.mascots.map(m => `
-                <button type="button" class="mascot-btn ${this.selectedMascot === m ? 'is-active' : ''}" data-mascot="${m}" style="font-size:18px; border:1.5px solid ${this.selectedMascot === m ? '#2563eb' : '#cbd5e1'}; background:${this.selectedMascot === m ? '#eff6ff' : '#fff'}; border-radius:50%; width:34px; height:34px; cursor:pointer; flex-shrink:0;">
+                <button type="button" class="mascot-btn ${selectedMascot === m ? 'is-active' : ''}" data-mascot="${m}" style="font-size:18px; border:1.5px solid ${selectedMascot === m ? '#2563eb' : '#cbd5e1'}; background:${selectedMascot === m ? '#eff6ff' : '#fff'}; border-radius:50%; width:34px; height:34px; cursor:pointer; flex-shrink:0;">
                   ${m}
                 </button>
               `).join('')}
@@ -68,16 +69,16 @@ window.MarlonPassportView = {
           <div style="display:flex; flex-direction:column; gap:8px;">
             <div>
               <label style="font-size:10px; font-weight:800; color:#64748b; display:block; margin-bottom:2px;">NAME</label>
-              <input type="text" class="profile-input" data-key="marlon_user_name" value="${this.userName}" placeholder="Your Name or Nickname" style="width:100%; padding:8px 10px; font-size:12px; border:1px solid #cbd5e1; border-radius:6px; font-weight:700; box-sizing:border-box;">
+              <input type="text" class="profile-input" data-key="marlon_user_name" value="${userName}" placeholder="Your Name or Nickname" style="width:100%; padding:8px 10px; font-size:12px; border:1px solid #cbd5e1; border-radius:6px; font-weight:700; box-sizing:border-box;">
             </div>
             <div style="display:flex; gap:6px;">
               <div style="flex:1;">
                 <label style="font-size:10px; font-weight:800; color:#64748b; display:block; margin-bottom:2px;">INSTAGRAM</label>
-                <input type="text" class="profile-input" data-key="marlon_user_ig" value="${this.userIg}" placeholder="@username" style="width:100%; padding:8px 10px; font-size:12px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+                <input type="text" class="profile-input" data-key="marlon_user_ig" value="${userIg}" placeholder="@username" style="width:100%; padding:8px 10px; font-size:12px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
               </div>
               <div style="flex:1;">
                 <label style="font-size:10px; font-weight:800; color:#64748b; display:block; margin-bottom:2px;">WHATSAPP / PHONE</label>
-                <input type="text" class="profile-input" data-key="marlon_user_wa" value="${this.userWa}" placeholder="+1 555-0199" style="width:100%; padding:8px 10px; font-size:12px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+                <input type="text" class="profile-input" data-key="marlon_user_wa" value="${userWa}" placeholder="+1 555-0199" style="width:100%; padding:8px 10px; font-size:12px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
               </div>
             </div>
           </div>
@@ -113,7 +114,6 @@ window.MarlonPassportView = {
         }).join('');
       }
 
-      // ADD SEARCH WRAPPER
       const searchWrapper = document.createElement('div');
       searchWrapper.className = 'manual-search-wrap';
       searchWrapper.innerHTML = `
@@ -133,7 +133,6 @@ window.MarlonPassportView = {
         contentArea.appendChild(shellCard);
       }
 
-      // SEARCH LISTENER
       const input = searchWrapper.querySelector('.manual-spot-search');
       const dropdown = searchWrapper.querySelector('.search-results-dropdown');
       if (input && dropdown) {
@@ -166,7 +165,7 @@ window.MarlonPassportView = {
     } 
     // 3. SUB-TAB: HOTEL
     else if (this.activeTab === 'hotel') {
-      const savedHotel = localStorage.getItem('marlon_hotel_address') || '';
+      const savedHotel = window.MarlonStorage ? window.MarlonStorage.getHotelAddress() : '';
       const hotelContent = `
         <div style="padding: 12px; display:flex; flex-direction:column; gap:10px;">
           <div style="font-size:12px; color:#334155; font-weight:700;">📍 Set Your Hotel or Stay Location:</div>
@@ -200,35 +199,6 @@ window.MarlonPassportView = {
     masterWrap.appendChild(contentArea);
     container.appendChild(masterWrap);
 
-    // MAP PIN VISIBILITY SYNC
-    const map = window.marlonMapInstance;
-    if (map && allMarkers && allMarkers.length > 0) {
-      const bounds = new mapboxgl.LngLatBounds();
-      let visibleCount = 0;
-
-      allMarkers.forEach(m => {
-        let isVisible = true; 
-        if (this.activeTab === 'visited') {
-          isVisible = visitedIds.includes(m.id);
-        }
-
-        if (isVisible) {
-          m.marker.addTo(map);
-          bounds.extend([m.lng, m.lat]);
-          visibleCount++;
-        } else {
-          m.marker.remove();
-        }
-      });
-
-      if (this.activeTab === 'visited') {
-        if (visibleCount >= 1) map.fitBounds(bounds, { padding: 50, maxZoom: 13.5 });
-        else map.flyTo({ center: [-118.2437, 34.0522], zoom: 10.2 });
-      } else {
-        if (visibleCount >= 1) map.fitBounds(bounds, { padding: 50, maxZoom: 11.5 });
-      }
-    }
-
     // EVENT LISTENERS
     tabNav.querySelectorAll('.day-pill').forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -242,8 +212,7 @@ window.MarlonPassportView = {
       container.querySelectorAll('.mascot-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
-          this.selectedMascot = btn.dataset.mascot;
-          localStorage.setItem('marlon_mascot', this.selectedMascot);
+          if (window.MarlonStorage) window.MarlonStorage.setUserField('marlon_mascot', btn.dataset.mascot);
           this.render(container, allMarkers, callbacks);
         });
       });
@@ -251,28 +220,7 @@ window.MarlonPassportView = {
         input.addEventListener('input', (e) => {
           const key = input.dataset.key;
           const val = e.target.value.trim();
-          localStorage.setItem(key, val);
-          if (key === 'marlon_user_name') this.userName = val;
-          if (key === 'marlon_user_email') this.userEmail = val;
-          if (key === 'marlon_user_ig') this.userIg = val;
-          if (key === 'marlon_user_wa') this.userWa = val;
-        });
-      });
-    }
-
-    if (this.activeTab === 'visited') {
-      container.querySelectorAll('.pin-toggle').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault(); e.stopPropagation();
-          if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(btn.dataset.id, 'All');
-          this.render(container, allMarkers, callbacks);
-        });
-      });
-      container.querySelectorAll('.visited-toggle').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault(); e.stopPropagation();
-          if (callbacks.onToggleVisited) callbacks.onToggleVisited(btn.dataset.id);
-          this.render(container, allMarkers, callbacks);
+          if (window.MarlonStorage) window.MarlonStorage.setUserField(key, val);
         });
       });
     }
@@ -283,7 +231,7 @@ window.MarlonPassportView = {
       if (saveHotelBtn && hotelInput) {
         saveHotelBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          localStorage.setItem('marlon_hotel_address', hotelInput.value);
+          if (window.MarlonStorage) window.MarlonStorage.setHotelAddress(hotelInput.value.trim());
           alert('Saved Hotel address!');
         });
       }
