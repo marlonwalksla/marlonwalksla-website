@@ -1,0 +1,226 @@
+/* ==============================================================================
+ * FILE: nav-explore-mytrip.css
+ * CATEGORY: MarlonWalksLA - 2-Mode Architecture & Filter Styling
+ * ============================================================================== */
+
+/* ------------------------------------------------------------------------------
+ * 1. TOP MODE SWITCHER (Explore LA vs. My Trip)
+ * ------------------------------------------------------------------------------ */
+.mode-navigation {
+  display: flex;
+  gap: 10px;
+  background-color: #f0f4f8;
+  padding: 6px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #556080;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+}
+
+.mode-btn:hover {
+  color: #1a202c;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.mode-btn.is-active {
+  background-color: #ffffff;
+  color: #2b6cb0;
+  border-color: #2b6cb0;
+  box-shadow: 0 4px 12px rgba(43, 108, 176, 0.15);
+}
+
+/* ------------------------------------------------------------------------------
+ * 2. SEARCH & FILTER DROPDOWNS
+ * ------------------------------------------------------------------------------ */
+.search-filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 14px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+#search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.dropdown-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* Custom styled selects */
+.dropdown-row select {
+  flex: 1;
+  padding: 9px 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+  background-color: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  /* Custom Arrow SVG */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23475569%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 10px auto;
+  padding-right: 28px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-row select:hover {
+  border-color: #94a3b8;
+  background-color: #f8fafc;
+}
+
+.dropdown-row select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ------------------------------------------------------------------------------
+ * 3. SUB-NAVIGATION PILLS (Places/Tours & Days/Passport/Logistics)
+ * ------------------------------------------------------------------------------ */
+.sub-navigation {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.sub-btn {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.sub-btn:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.sub-btn.is-active {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+}
+
+/* ------------------------------------------------------------------------------
+ * 4. SPOT & TOUR CARDS
+ * ------------------------------------------------------------------------------ */
+.spot-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.spot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.spot-card h4 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+.spot-card p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Promoted Tour Card */
+.tour-card.hero-tour {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1.5px solid #bfdbfe;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.tour-card.hero-tour h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.15rem;
+  color: #1e40af;
+}
+
+.tour-card.hero-tour p {
+  margin: 0 0 14px 0;
+  font-size: 0.875rem;
+  color: #1e3a8a;
+  line-height: 1.4;
+}
+
+.cta-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cta-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* ------------------------------------------------------------------------------
+ * 5. MOBILE RESPONSIVENESS
+ * ------------------------------------------------------------------------------ */
+@media (max-width: 480px) {
+  .dropdown-row {
+    flex-direction: column;
+  }
+  
+  .mode-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
