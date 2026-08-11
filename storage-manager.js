@@ -4,7 +4,7 @@
  * ============================================================================== */
 
 window.MarlonStorage = {
-  // --- UNIFIED TRIP DATA (Bridging My Trip Views) ---
+  // --- UNIFIED TRIP DATA ---
   getSavedTripData: function() {
     const itineraryMap = this.getItineraryMap();
     const profile = this.getUserProfile();
@@ -181,6 +181,6 @@ window.MarlonStorage = {
   }
 };
 
-// Named exports for ES modules compatibility in ui-view-mytrip.js
-export const getSavedTripData = () => window.MarlonStorage.getSavedTripData();
-export const saveTripData = (data) => window.MarlonStorage.saveTripData(data);
+// Global helper accessors
+window.getSavedTripData = function() { return window.MarlonStorage.getSavedTripData(); };
+window.saveTripData = function(data) { return window.MarlonStorage.saveTripData(data); };
