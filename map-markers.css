@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-markers.css
- * CATEGORY: MarlonWalksLA Website - Compact Desktop & Search UI
+ * CATEGORY: MarlonWalksLA Website - Hotel Anchor & Proximity Upsell UI
  * ============================================================================== */
 
 /* =========================================================
@@ -22,85 +22,7 @@
 }
 
 /* =========================================================
-   2. DESKTOP SEARCH INPUT & DROPDOWN
-   ========================================================= */
-.map-search-wrapper {
-  position: relative;
-  width: 100%;
-  margin-bottom: 6px;
-}
-
-.map-search-input {
-  width: 100%;
-  padding: 8px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  border: 1.5px solid #cbd5e0;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-  outline: none;
-  box-sizing: border-box;
-}
-
-.map-search-input:focus {
-  border-color: #3898ec;
-  box-shadow: 0 0 0 2px rgba(56, 152, 236, 0.2);
-}
-
-.search-results-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: #ffffff;
-  border: 1px solid #cbd5e0;
-  border-radius: 8px;
-  max-height: 200px;
-  overflow-y: auto;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-  z-index: 9999;
-  display: none;
-  margin-top: 2px;
-}
-
-.search-result-item {
-  padding: 6px 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.search-result-item:hover {
-  background: #eff6ff;
-}
-
-.search-result-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-.search-result-meta {
-  font-size: 9px;
-  color: #64748b;
-}
-
-.search-badge {
-  font-size: 8px;
-  font-weight: 800;
-  padding: 2px 5px;
-  border-radius: 6px;
-  text-transform: uppercase;
-}
-
-.search-badge.curated { background: #dbeafe; color: #1e40af; }
-.search-badge.address { background: #fef3c7; color: #92400e; }
-
-/* =========================================================
-   3. HOTEL ANCHOR UI BOX
+   2. HOTEL ANCHOR UI BOX
    ========================================================= */
 .hotel-anchor-box {
   background: #f8fafc;
@@ -113,20 +35,11 @@
   margin-bottom: 6px;
 }
 
-.hotel-anchor-title {
-  font-size: 11px;
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.1;
-}
-
-.hotel-anchor-sub {
-  font-size: 9px;
-  color: #64748b;
-}
+.hotel-anchor-title { font-size: 11px; font-weight: 800; color: #0f172a; line-height: 1.1; }
+.hotel-anchor-sub { font-size: 9px; color: #64748b; }
 
 /* =========================================================
-   4. RECOMMENDED TOUR PROXIMITY UPSELL CARD
+   3. RECOMMENDED TOUR PROXIMITY UPSELL CARD
    ========================================================= */
 .proximity-upsell-card {
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
@@ -139,30 +52,10 @@
   gap: 4px;
 }
 
-.proximity-upsell-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.proximity-badge {
-  font-size: 9px;
-  font-weight: 800;
-  color: #1e40af;
-  text-transform: uppercase;
-}
-
-.proximity-title {
-  font-size: 12px;
-  font-weight: 800;
-  color: #0f172a;
-}
-
-.proximity-desc {
-  font-size: 10px;
-  color: #334155;
-  line-height: 1.3;
-}
+.proximity-upsell-header { display: flex; align-items: center; justify-content: space-between; }
+.proximity-badge { font-size: 9px; font-weight: 800; color: #1e40af; text-transform: uppercase; }
+.proximity-title { font-size: 12px; font-weight: 800; color: #0f172a; }
+.proximity-desc { font-size: 10px; color: #334155; line-height: 1.3; }
 
 .proximity-cta-btn {
   background: #2563eb;
@@ -177,10 +70,5 @@
   transition: all 0.2s ease;
 }
 
-.proximity-cta-btn:hover {
-  background: #1d4ed8;
-}
-
-.mobile-drag-handle {
-  display: none !important;
-}
+.proximity-cta-btn:hover { background: #1d4ed8; }
+.mobile-drag-handle { display: none !important; }
