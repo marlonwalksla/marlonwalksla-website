@@ -4,9 +4,43 @@
  * ============================================================================== */
 
 window.MarlonStorage = {
-  getHotel: function() { return JSON.parse(localStorage.getItem('marlon_hotel_anchor') || 'null'); },
-  setHotel: function(hotelObj) { localStorage.setItem('marlon_hotel_anchor', JSON.stringify(hotelObj)); },
-  clearHotel: function() { localStorage.removeItem('marlon_hotel_anchor'); },
+  // HOTEL & BASECAMP STORAGE
+  getHotel: function() { 
+    return JSON.parse(localStorage.getItem('marlon_hotel_anchor') || 'null'); 
+  },
+  setHotel: function(hotelObj) { 
+    localStorage.setItem('marlon_hotel_anchor', JSON.stringify(hotelObj)); 
+  },
+  clearHotel: function() { 
+    localStorage.removeItem('marlon_hotel_anchor'); 
+    localStorage.removeItem('marlon_hotel_address');
+  },
+  getHotelAddress: function() {
+    const hotel = this.getHotel();
+    if (hotel && hotel.name) return hotel.name;
+    return localStorage.getItem('marlon_hotel_address') || '';
+  },
+  setHotelAddress: function(addressStr) {
+    localStorage.setItem('marlon_hotel_address', addressStr);
+    const current = this.getHotel() || {};
+    this.setHotel({ ...current, name: addressStr, address: addressStr });
+  },
+
+  // USER PROFILE STORAGE
+  getUserProfile: function() {
+    return {
+      mascot: localStorage.getItem('marlon_mascot') || '🦙',
+      name: localStorage.getItem('marlon_user_name') || '',
+      email: localStorage.getItem('marlon_user_email') || '',
+      ig: localStorage.getItem('marlon_user_ig') || '',
+      wa: localStorage.getItem('marlon_user_wa') || ''
+    };
+  },
+  setUserField: function(key, val) {
+    localStorage.setItem(key, val);
+  },
+
+  // ITINERARY & ROUTES MAPS
   getItineraryMap: function() { return JSON.parse(localStorage.getItem('marlon_saved_itinerary_map') || '{}'); },
   getSavedRoutesMap: function() { return JSON.parse(localStorage.getItem('marlon_saved_routes_map') || '{}'); },
   getVisitedSpots: function() { return JSON.parse(localStorage.getItem('marlon_visited_spots') || '[]'); },
@@ -76,16 +110,6 @@ window.MarlonStorage = {
 
   getExternalSpots: function() {
     return JSON.parse(localStorage.getItem('marlon_external_spots_data') || '{}');
-  },
-
-  // NEW: PASSPORT & PROFILE DATA
-  getProfile: function() {
-    return JSON.parse(localStorage.getItem('marlon_user_profile') || '{"avatar": "default", "flightNotes": "", "carNotes": ""}');
-  },
-  updateProfile: function(key, value) {
-    let profile = this.getProfile();
-    profile[key] = value;
-    localStorage.setItem('marlon_user_profile', JSON.stringify(profile));
   },
 
   clearItinerary: function() {
