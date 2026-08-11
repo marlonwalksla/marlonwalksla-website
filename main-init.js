@@ -1,12 +1,16 @@
 /* ==============================================================================
  * FILE: main-init.js
- * CATEGORY: MarlonWalksLA Website - Master Initialization & Data Bootstrap
+ * CATEGORY: MarlonWalksLA Website - Master Initialization & 2-Mode Bootstrapper
  * ============================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   initModeSwitcher();
   initExploreSubToggles();
-  bootstrapDataFeed();
+
+  // Trigger Mapbox Engine
+  if (typeof window.initMapEngine === 'function') {
+    window.initMapEngine();
+  }
 });
 
 function initModeSwitcher() {
@@ -24,6 +28,10 @@ function initModeSwitcher() {
 
     if (panelExplore) panelExplore.style.display = 'block';
     if (panelMyTrip) panelMyTrip.style.display = 'none';
+
+    if (window.marlonMapInstance) {
+      setTimeout(() => window.marlonMapInstance.resize(), 50);
+    }
   });
 
   modeMyTripBtn.addEventListener('click', () => {
@@ -33,9 +41,12 @@ function initModeSwitcher() {
     if (panelMyTrip) panelMyTrip.style.display = 'block';
     if (panelExplore) panelExplore.style.display = 'none';
 
-    // Refresh My Trip views when switching tabs
     if (window.initMyTripView && window.marlonGeoData) {
       window.initMyTripView(window.marlonGeoData.features);
+    }
+
+    if (window.marlonMapInstance) {
+      setTimeout(() => window.marlonMapInstance.resize(), 50);
     }
   });
 }
@@ -62,23 +73,4 @@ function initExploreSubToggles() {
     if (viewTours) viewTours.style.display = 'block';
     if (viewPlaces) viewPlaces.style.display = 'none';
   });
-}
-
-function bootstrapDataFeed() {
-  fetch('https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/spots.geojson')
-    .then(res => res.json())
-    .then(data => {
-      window.marlonGeoData = data;
-
-      // Populate Explore LA view (Dropdowns + Spot Cards)
-      if (window.initExploreView) {
-        window.initExploreView(data);
-      }
-
-      // Populate My Trip view
-      if (window.initMyTripView && data.features) {
-        window.initMyTripView(data.features);
-      }
-    })
-    .catch(err => console.error("Error loading spots.geojson:", err));
 }
