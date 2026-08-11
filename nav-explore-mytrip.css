@@ -224,3 +224,26 @@
     font-size: 0.9rem;
   }
 }
+
+/* ------------------------------------------------------------------------------
+ * MAP CANVAS STRETCH FIX
+ * ------------------------------------------------------------------------------ */
+#map, 
+.map-container {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 520px !important;
+}
+
+.mapboxgl-map, 
+.mapboxgl-canvas-container, 
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.marker-wrapper {
+  cursor: pointer;
+  z-index: 10;
+}
