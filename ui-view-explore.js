@@ -5,11 +5,37 @@
 
 let allExploreSpots = [];
 
+// Helper to normalize GeoJSON properties (handles Capitalized & Lowercase keys)
+function parseSpotProps(spot) {
+  const p = spot.properties || {};
+  const tagsRaw = p.Tags || p.tags || p.vibe || '';
+  let tagList = [];
+  if (Array.isArray(tagsRaw)) {
+    tagList = tagsRaw;
+  } else if (typeof tagsRaw === 'string') {
+    tagList = tagsRaw.split(/[,;]/).map(t => t.trim().toLowerCase()).filter(Boolean);
+  }
+
+  return {
+    id: (p.Slug || p.Item_ID || p.Name || p.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    name: p.Name || p.title || p.name || 'Unnamed Location',
+    category: p.Category || p.category || 'Landmarks',
+    neighborhood: p.City || p.city || p.neighborhood || 'Downtown LA',
+    description: p.Description || p.description || '',
+    tags: tagList,
+    rawSpot: spot
+  };
+}
+
 window.initExploreView = function(geoJsonData) {
   if (!geoJsonData || !geoJsonData.features) return;
   allExploreSpots = geoJsonData.features;
+
   populateDropdownFilters(allExploreSpots);
   setupFilterListeners();
+  
+  // Render initial spot cards list immediately
+  renderSpotCards(allExploreSpots);
 };
 
 function populateDropdownFilters(spots) {
@@ -18,16 +44,10 @@ function populateDropdownFilters(spots) {
   const neighborhoods = new Set();
 
   spots.forEach(spot => {
-    const props = spot.properties;
-    if (props.category) categories.add(props.category);
-    if (props.vibe) {
-      if (Array.isArray(props.vibe)) {
-        props.vibe.forEach(v => vibes.add(v));
-      } else {
-        vibes.add(props.vibe);
-      }
-    }
-    if (props.neighborhood) neighborhoods.add(props.neighborhood);
+    const item = parseSpotProps(spot);
+    if (item.category) categories.add(item.category);
+    if (item.neighborhood) neighborhoods.add(item.neighborhood);
+    item.tags.forEach(v => vibes.add(v));
   });
 
   fillSelectElement('#filter-category', Array.from(categories).sort(), 'All Categories');
@@ -43,7 +63,8 @@ function fillSelectElement(selector, items, placeholder) {
   items.forEach(item => {
     const opt = document.createElement('option');
     opt.value = item;
-    opt.textContent = item;
+    // Format slugified tags (e.g. "beach-vibes" -> "Beach Vibes")
+    opt.textContent = item.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     selectEl.appendChild(opt);
   });
 }
@@ -61,11 +82,11 @@ function setupFilterListeners() {
     const query = searchInput?.value.toLowerCase().trim() || '';
 
     const filtered = allExploreSpots.filter(spot => {
-      const p = spot.properties || {};
-      const matchesCat = !catVal || p.category === catVal;
-      const matchesVibe = !vibeVal || (Array.isArray(p.vibe) ? p.vibe.includes(vibeVal) : p.vibe === vibeVal);
-      const matchesNeigh = !neighVal || p.neighborhood === neighVal;
-      const matchesQuery = !query || (p.name && p.name.toLowerCase().includes(query));
+      const item = parseSpotProps(spot);
+      const matchesCat = !catVal || item.category === catVal;
+      const matchesVibe = !vibeVal || item.tags.includes(vibeVal.toLowerCase());
+      const matchesNeigh = !neighVal || item.neighborhood === neighVal;
+      const matchesQuery = !query || item.name.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
 
       return matchesCat && matchesVibe && matchesNeigh && matchesQuery;
     });
@@ -88,14 +109,30 @@ function renderSpotCards(spots) {
   if (!container) return;
 
   if (spots.length === 0) {
-    container.innerHTML = `<p class="no-results">No places match your search.</p>`;
+    container.innerHTML = `<p class="no-results" style="padding: 12px; color: #64748b;">No places match your search.</p>`;
     return;
   }
 
-  container.innerHTML = spots.map(spot => `
-    <div class="spot-card" data-id="${spot.properties.id || ''}">
-      <h4>${spot.properties.name || 'Unnamed Location'}</h4>
-      <p>${spot.properties.neighborhood || ''} • ${spot.properties.category || ''}</p>
-    </div>
-  `).join('');
+  container.innerHTML = spots.map(spot => {
+    const item = parseSpotProps(spot);
+    return `
+      <div class="spot-card" data-id="${item.id}" style="cursor: pointer;">
+        <h4>${item.name}</h4>
+        <p>${item.neighborhood} • ${item.category}</p>
+      </div>
+    `;
+  }).join('');
+
+  // Click listener on spot cards to fly map to spot
+  container.querySelectorAll('.spot-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const spotId = card.getAttribute('data-id');
+      if (window.MARLON_ALL_MARKERS) {
+        const match = window.MARLON_ALL_MARKERS.find(m => m.id === spotId);
+        if (match && match.wrapper) {
+          match.wrapper.click();
+        }
+      }
+    });
+  });
 }
