@@ -3675,3 +3675,329 @@
     }
   ]
 }
+[
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2477, 34.0447] },
+    "properties": {
+      "Name": "The Varnish",
+      "Slug": "the-varnish",
+      "City": "DTLA",
+      "Category": "Nightlife",
+      "Tags": "speakeasy; craft-cocktails; historic; late-night; walkable",
+      "Description": "A moody, low-lit Prohibition speakeasy hidden behind an unmarked door inside Cole's, pouring world-class bespoke cocktails."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2513, 34.0488] },
+    "properties": {
+      "Name": "Perch LA",
+      "Slug": "perch-la",
+      "City": "DTLA",
+      "Category": "Nightlife",
+      "Tags": "skyline-views; rooftop-patio; romantic; craft-cocktails; late-night",
+      "Description": "An energetic French-inspired rooftop lounge with fire pits, live jazz, and 15th-floor views over Pershing Square."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2526, 34.0463] },
+    "properties": {
+      "Name": "La Cita Bar",
+      "Slug": "la-cita-bar",
+      "City": "DTLA",
+      "Category": "Nightlife",
+      "Tags": "latin-vibes; dance-floor; historic; patio; late-night",
+      "Description": "A rowdy, neon-lit DTLA institution famous for salsa nights, ska beats, and high-energy back-patio dance parties."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2361, 34.0454] },
+    "properties": {
+      "Name": "Death & Co LA",
+      "Slug": "death-and-co-la",
+      "City": "Arts District",
+      "Category": "Nightlife",
+      "Tags": "craft-cocktails; moody; local-favorite; late-night",
+      "Description": "A sleek, subterranean cocktail temple in the Arts District serving meticulously crafted mixology in an intimate setting."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2310, 34.0350] },
+    "properties": {
+      "Name": "Everson Royce Bar",
+      "Slug": "everson-royce-bar",
+      "City": "Arts District",
+      "Category": "Nightlife",
+      "Tags": "outdoor-patio; craft-cocktails; iconic-eats; local-favorite",
+      "Description": "A spacious Arts District hot spot featuring a massive string-lit outdoor patio, craft cocktails, and famous double cheeseburgers."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3248, 34.0999] },
+    "properties": {
+      "Name": "Good Times at Davey Wayne's",
+      "Slug": "good-times-at-davey-waynes",
+      "City": "Hollywood",
+      "Category": "Nightlife",
+      "Tags": "speakeasy; 70s-vibes; live-music; patio; unique",
+      "Description": "A groovy 1970s house party speakeasy accessed through a garage-sale refrigerator door into a retro backyard bash."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3308, 34.1023] },
+    "properties": {
+      "Name": "No Vacancy",
+      "Slug": "no-vacancy",
+      "City": "Hollywood",
+      "Category": "Nightlife",
+      "Tags": "speakeasy; historic; live-performances; craft-cocktails; romantic",
+      "Description": "A restored Victorian mansion speakeasy featuring secret entryways, courtyard tightrope walkers, and classic Hollywood glam."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3312, 34.0999] },
+    "properties": {
+      "Name": "Mama Shelter Rooftop",
+      "Slug": "mama-shelter-rooftop",
+      "City": "Hollywood",
+      "Category": "Nightlife",
+      "Tags": "skyline-views; rooftop-patio; dj-sets; casual; photo-spot",
+      "Description": "A colorful, bohemian rooftop lounge with daybeds, signature punches, and 360-degree views from the Hollywood sign to Downtown."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3361, 34.1006] },
+    "properties": {
+      "Name": "Sound Nightclub",
+      "Slug": "sound-nightclub",
+      "City": "Hollywood",
+      "Category": "Nightlife",
+      "Tags": "electronic-music; dance-floor; late-night; dj-sets",
+      "Description": "LA’s premier intimate electronic music haven equipped with a pioneer sound system and cutting-edge visual projection mapping."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3040, 34.1017] },
+    "properties": {
+      "Name": "Harvard & Stone",
+      "Slug": "harvard-and-stone",
+      "City": "East Hollywood",
+      "Category": "Nightlife",
+      "Tags": "craft-cocktails; live-music; industrial; late-night; burlesque",
+      "Description": "An industrial-chic cocktail parlor featuring American spirits, live rock bands, and secret back-room mixology labs."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3129, 34.0908] },
+    "properties": {
+      "Name": "Gold-Diggers",
+      "Slug": "gold-diggers",
+      "City": "East Hollywood",
+      "Category": "Nightlife",
+      "Tags": "live-music; boutique-hotel; craft-cocktails; local-favorite",
+      "Description": "A stylish music venue, recording studio, and velvet-draped cocktail lounge showcasing indie artists and soul DJs."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3023, 34.1017] },
+    "properties": {
+      "Name": "Tabula Rasa Bar",
+      "Slug": "tabula-rasa-bar",
+      "City": "East Hollywood",
+      "Category": "Nightlife",
+      "Tags": "wine-bar; outdoor-patio; casual; local-favorite",
+      "Description": "A friendly East Hollywood neighborhood wine bar pouring natural wines alongside craft beers and patio bites."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3838, 34.0850] },
+    "properties": {
+      "Name": "The Abbey",
+      "Slug": "the-abbey",
+      "City": "West Hollywood",
+      "Category": "Nightlife",
+      "Tags": "lgbtq-icon; dance-floor; outdoor-patio; iconic; late-night",
+      "Description": "World-famous WeHo LGBTQ+ nightlife epicenter featuring open-air courtyards, go-go dancers, and legendary strong cocktails."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3764, 34.0821] },
+    "properties": {
+      "Name": "E.P. & L.P. Rooftop",
+      "Slug": "ep-and-lp-rooftop",
+      "City": "West Hollywood",
+      "Category": "Nightlife",
+      "Tags": "skyline-views; rooftop-patio; craft-cocktails; late-night; trendy",
+      "Description": "A sprawling West Hollywood rooftop hub serving boba cocktails and Asian snacks against sunset views of the Hills."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3725, 34.0948] },
+    "properties": {
+      "Name": "The Tower Bar at Sunset Tower Hotel",
+      "Slug": "the-tower-bar",
+      "City": "West Hollywood",
+      "Category": "Nightlife",
+      "Tags": "celebrity-spot; historic; romantic; jazz; piano-bar",
+      "Description": "An ultra-exclusive Bugsy Siegel-era piano lounge bathed in dim candlelight and timeless Hollywood elegance."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3846, 34.0907] },
+    "properties": {
+      "Name": "The Viper Room",
+      "Slug": "the-viper-room",
+      "City": "West Hollywood",
+      "Category": "Nightlife",
+      "Tags": "historic; rock-n-roll; live-music; late-night",
+      "Description": "A gritty Sunset Strip rock landmark that has hosted music royalty and alternative bands since 1993."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2982, 34.0617] },
+    "properties": {
+      "Name": "Break Room 86",
+      "Slug": "break-room-86",
+      "City": "Koreatown",
+      "Category": "Nightlife",
+      "Tags": "speakeasy; 80s-vibes; karaoke; dance-floor; local-favorite",
+      "Description": "An energetic 1980s retro speakeasy hidden inside the Line Hotel with private karaoke rooms, cassette wall art, and breakdancers."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.3001, 34.0635] },
+    "properties": {
+      "Name": "The Normandy Club",
+      "Slug": "the-normandy-club",
+      "City": "Koreatown",
+      "Category": "Nightlife",
+      "Tags": "craft-cocktails; moody; late-night; local-favorite",
+      "Description": "A moody, dimly lit cocktail sanctuary inside the historic Hotel Normandy, perfecting classic drink spins."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2559, 34.0722] },
+    "properties": {
+      "Name": "The Short Stop",
+      "Slug": "the-short-stop",
+      "City": "Echo Park",
+      "Category": "Nightlife",
+      "Tags": "local-favorite; dive-bar; dance-floor; late-night; casual",
+      "Description": "A beloved Echo Park dive bar famous for post-Dodger game beer specials, photo booths, and packed weekend dance floors."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2576, 34.0734] },
+    "properties": {
+      "Name": "Bar Flores",
+      "Slug": "bar-flores",
+      "City": "Echo Park",
+      "Category": "Nightlife",
+      "Tags": "craft-cocktails; outdoor-patio; romantic; local-favorite",
+      "Description": "A colorful, plant-filled cocktail haven perched on Sunset Boulevard with mezcal drinks and a breezy back patio."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2604, 34.0778] },
+    "properties": {
+      "Name": "The Echo",
+      "Slug": "the-echo",
+      "City": "Echo Park",
+      "Category": "Nightlife",
+      "Tags": "live-music; indie-rock; dance-floor; late-night",
+      "Description": "An iconic Eastside music venue hosting legendary indie band debuts, hip-hop nights, and energetic dance parties."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2915, 34.1033] },
+    "properties": {
+      "Name": "The Dresden",
+      "Slug": "the-dresden",
+      "City": "Los Feliz",
+      "Category": "Nightlife",
+      "Tags": "historic; live-jazz; leather-booths; retro; classic",
+      "Description": "A nostalgic 1954 Los Feliz lounge featuring retro curved leather booths, classic martinis, and nightly live jazz entertainment."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2828, 34.1013] },
+    "properties": {
+      "Name": "Tiki-Ti",
+      "Slug": "tiki-ti",
+      "City": "Los Feliz",
+      "Category": "Nightlife",
+      "Tags": "tiki-bar; historic; tropical-drinks; iconic; local-favorite",
+      "Description": "A tiny, family-owned 1961 tiki legend serving up over 90 strong tropical rum concoctions under license plates and wood carvings."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.2872, 34.1065] },
+    "properties": {
+      "Name": "Big Bar",
+      "Slug": "big-bar",
+      "City": "Los Feliz",
+      "Category": "Nightlife",
+      "Tags": "craft-cocktails; outdoor-patio; neighborhood-gem; casual",
+      "Description": "A cozy Los Feliz craft cocktail pioneer tucked inside Alcove Cafe with a garden patio and inventive seasonal menus."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.4716, 33.9877] },
+    "properties": {
+      "Name": "Townhouse & The Del Monte Speakeasy",
+      "Slug": "townhouse-and-del-monte-speakeasy",
+      "City": "Venice",
+      "Category": "Nightlife",
+      "Tags": "historic; speakeasy; live-music; craft-beer; beach-vibes",
+      "Description": "Venice’s oldest bar, operating a historic 1915 underground Prohibition speakeasy host to comedy, DJs, and live soul."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.4719, 33.9882] },
+    "properties": {
+      "Name": "High Rooftop Lounge (Hotel Erwin)",
+      "Slug": "high-rooftop-lounge",
+      "City": "Venice",
+      "Category": "Nightlife",
+      "Tags": "beach-vibes; skyline-views; rooftop-patio; sunset-spot",
+      "Description": "The only open-air rooftop bar along Venice Beach, serving craft brews and cocktails over panoramic Pacific Ocean sunsets."
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-118.5011, 34.0175] },
+    "properties": {
+      "Name": "The Bungalow",
+      "Slug": "the-bungalow",
+      "City": "Santa Monica",
+      "Category": "Nightlife",
+      "Tags": "beach-vibes; ocean-views; patio; outdoor-lounge; casual",
+      "Description": "A sprawling Baja-style beach cottage lounge complete with fire pits, ping-pong tables, and ocean breezes."
+    }
+  }
+]
