@@ -32,6 +32,7 @@ window.initMapEngine = async function() {
   map.addControl(geolocate, 'top-right');
 
   window.addEventListener('resize', () => { map.resize(); });
+  setTimeout(() => { map.resize(); }, 300);
 
   /* =========================================================
    * 2. ICONS & CATEGORY DICTIONARY
@@ -40,11 +41,15 @@ window.initMapEngine = async function() {
 
   const categoryMap = {
     food: { color: '#ef4444', name: 'Food & Dining', icon: defaultPinSvg },
+    dining: { color: '#ef4444', name: 'Food & Dining', icon: defaultPinSvg },
     drinks: { color: '#8b5cf6', name: 'Bars & Cocktails', icon: defaultPinSvg },
+    nightlife: { color: '#8b5cf6', name: 'Nightlife', icon: defaultPinSvg },
+    arts: { color: '#3b82f6', name: 'Arts & Culture', icon: defaultPinSvg },
     culture: { color: '#3b82f6', name: 'Arts & Culture', icon: defaultPinSvg },
     landmarks: { color: '#f59e0b', name: 'Landmarks', icon: defaultPinSvg },
     shopping: { color: '#ec4899', name: 'Shopping', icon: defaultPinSvg },
-    nature: { color: '#10b981', name: 'Parks & Nature', icon: defaultPinSvg }
+    nature: { color: '#10b981', name: 'Parks & Nature', icon: defaultPinSvg },
+    entertainment: { color: '#6366f1', name: 'Entertainment', icon: defaultPinSvg }
   };
 
   function cleanText(str) { 
@@ -102,7 +107,10 @@ window.initMapEngine = async function() {
    * ========================================================= */
   window.updateMapMarkers = function(filteredSpots) {
     if (!allMarkers) return;
-    const activeIds = new Set(filteredSpots.map(s => s.id || (s.properties && s.properties.id)));
+    const activeIds = new Set(filteredSpots.map(s => {
+      const p = s.properties || {};
+      return (p.Slug || p.Item_ID || p.Name || s.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    }));
 
     allMarkers.forEach(markerObj => {
       if (markerObj.wrapper) {
@@ -230,6 +238,7 @@ window.initMapEngine = async function() {
   }
 
   map.on('load', () => { 
+    map.resize();
     if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
     updateMarkerStates(); 
   });
