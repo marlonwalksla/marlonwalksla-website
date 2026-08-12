@@ -106,12 +106,19 @@ window.initMapEngine = async function() {
   window.updateMarlonMarkerStates = updateMarkerStates;
 
   /* =========================================================
-   * 6. CLUSTER SYNCHRONIZATION (< 10 SHOWS ALL PINS)
+   * 6. CLUSTER DE-GROUPING & SYNCHRONIZATION
    * ========================================================= */
   function updateClusterVisibility() {
     if (!map.getSource('spots')) return;
 
-    if (currentActiveCount < 10) {
+    const isMyTripMode = document.querySelector('[data-mode="mytrip"]')?.classList.contains('is-active');
+    const currentZoom = map.getZoom();
+
+    // Force individual pins when:
+    // 1. In "My Trip" mode
+    // 2. Active spot count is under 15
+    // 3. Zoomed in to neighborhood level (zoom >= 11.0)
+    if (isMyTripMode || currentActiveCount < 15 || currentZoom >= 11.0) {
       if (map.getLayer('clusters')) {
         map.setLayoutProperty('clusters', 'visibility', 'none');
         map.setLayoutProperty('cluster-count', 'visibility', 'none');
@@ -171,7 +178,7 @@ window.initMapEngine = async function() {
 
       const isMobile = window.innerWidth <= 820;
       map.fitBounds(bounds, {
-        padding: isMobile ? { top: 120, bottom: 30, left: 20, right: 20 } : { top: 160, bottom: 50, left: 40, right: 40 },
+        padding: isMobile ? { top: 120, bottom: 20, left: 20, right: 20 } : { top: 120, bottom: 40, left: 40, right: 40 },
         maxZoom: 13.5,
         duration: 750
       });
@@ -183,7 +190,7 @@ window.initMapEngine = async function() {
   };
 
   /* =========================================================
-   * 7. MARKER GENERATION & OFFSET PIN POSITION FOR HEADROOM
+   * 7. MARKER GENERATION & PIN CLICK HEADROOM
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -241,13 +248,13 @@ window.initMapEngine = async function() {
 
       const isMobile = window.innerWidth <= 820;
 
-      // Generous top padding shifts the pin down so the popup card fits comfortably above it
+      // 250px top padding shifts the pin down so the popup card fits comfortably
       map.flyTo({ 
         center: [lng, lat], 
         zoom: 14.0,
         padding: isMobile 
-          ? { top: 140, bottom: 20, left: 10, right: 10 } 
-          : { top: 180, bottom: 30, left: 30, right: 30 },
+          ? { top: 250, bottom: 15, left: 10, right: 10 } 
+          : { top: 200, bottom: 30, left: 30, right: 30 },
         duration: 750
       });
 
@@ -272,7 +279,7 @@ window.initMapEngine = async function() {
         }, categoryMap, defaultPinSvg);
         
         activePopup = new mapboxgl.Popup({ 
-          offset: 25, 
+          offset: 15, 
           closeOnClick: true, 
           focusAfterOpen: false,
           anchor: 'bottom'
@@ -303,8 +310,9 @@ window.initMapEngine = async function() {
       type: 'geojson',
       data: geojsonData,
       cluster: true,
-      clusterMaxZoom: 14,
-      clusterRadius: 45
+      clusterMaxZoom: 11,
+      clusterMinPoints: 5, // Requires at least 5 spots to form a cluster bubble
+      clusterRadius: 28
     });
 
     map.addLayer({
@@ -317,7 +325,7 @@ window.initMapEngine = async function() {
         'circle-radius': [
           'step',
           ['get', 'point_count'],
-          16, 5,
+          16, 8,
           20, 15,
           26
         ],
@@ -360,7 +368,7 @@ window.initMapEngine = async function() {
         if (err) return;
         map.easeTo({
           center: features[0].geometry.coordinates,
-          zoom: zoom + 0.5,
+          zoom: zoom + 0.8,
           duration: 600
         });
       });
