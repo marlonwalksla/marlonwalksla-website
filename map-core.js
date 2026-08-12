@@ -79,7 +79,7 @@ window.initMapEngine = async function() {
   let activePopupSpotId = null;
 
   /* =========================================================
-   * 5. MARKER STATE MANAGEMENT
+   * 5. MARKER STATE MANAGEMENT (AUTO-UPDATES TAB COUNTS)
    * ========================================================= */
   function updateMarkerStates() {
     const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
@@ -96,12 +96,16 @@ window.initMapEngine = async function() {
         m.wrapper.classList.remove('is-pinned-ring'); 
       }
     });
+
+    if (window.updateNavTabCounts) {
+      window.updateNavTabCounts();
+    }
   }
 
   window.updateMarlonMarkerStates = updateMarkerStates;
 
   /* =========================================================
-   * 6. FILTER MARKERS ON MAP & FIT BOUNDS
+   * 6. FILTER MARKERS ON MAP & CLAMP CAMERA ZOOM
    * ========================================================= */
   window.updateMapMarkers = function(filteredSpots) {
     if (!allMarkers || !map) return;
@@ -129,13 +133,18 @@ window.initMapEngine = async function() {
 
     if (visibleCount > 0 && activeIds.size > 0 && activeIds.size < allMarkers.length) {
       const isMobile = window.innerWidth <= 820;
-      map.fitBounds(bounds, {
-        padding: isMobile 
-          ? { top: 50, bottom: 50, left: 30, right: 30 } 
-          : { top: 60, bottom: 60, left: 50, right: 50 },
-        maxZoom: 14.0,
-        duration: 750
-      });
+      const paddingOptions = isMobile 
+        ? { top: 50, bottom: 50, left: 30, right: 30 } 
+        : { top: 60, bottom: 60, left: 50, right: 50 };
+
+      const camera = map.cameraForBounds(bounds, { padding: paddingOptions });
+      if (camera) {
+        // Clamp camera zoom so map never zooms out wider than level 11.2
+        if (camera.zoom < 11.2) camera.zoom = 11.2;
+        if (camera.zoom > 14.0) camera.zoom = 14.0;
+        camera.duration = 750;
+        map.flyTo(camera);
+      }
     } else if (activeIds.size === 0 || activeIds.size === allMarkers.length) {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 750 });
     }
@@ -199,10 +208,15 @@ window.initMapEngine = async function() {
 
       const isMobile = window.innerWidth <= 820;
       
+      // Keep close zoom if already zoomed in on a location
+      const currentZoom = map.getZoom();
+      const targetZoom = Math.max(currentZoom, 13.5);
+
       map.flyTo({ 
         center: [lng, lat], 
-        zoom: 13.5,
-        padding: { top: isMobile ? 240 : 30, bottom: 10, left: 10, right: 10 }
+        zoom: targetZoom,
+        padding: { top: isMobile ? 240 : 30, bottom: 10, left: 10, right: 10 },
+        duration: 750
       });
 
       if (activePopup) activePopup.remove();
