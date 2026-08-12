@@ -41,27 +41,6 @@ function focusMapOnPinnedSpots(allSpots) {
   if (window.updateMapMarkers) {
     window.updateMapMarkers(pinnedSpots);
   }
-
-  if (window.marlonMapInstance && pinnedSpots.length > 0) {
-    const map = window.marlonMapInstance;
-    const bounds = new mapboxgl.LngLatBounds();
-    
-    pinnedSpots.forEach(spot => {
-      const coords = spot.geometry ? spot.geometry.coordinates : (spot.lng && spot.lat ? [spot.lng, spot.lat] : null);
-      if (coords && coords.length >= 2) {
-        bounds.extend([parseFloat(coords[0]), parseFloat(coords[1])]);
-      }
-    });
-
-    const isMobile = window.innerWidth <= 820;
-    map.fitBounds(bounds, {
-      padding: isMobile 
-        ? { top: 50, bottom: 50, left: 30, right: 30 } 
-        : { top: 60, bottom: 60, left: 50, right: 50 },
-      maxZoom: 14.0,
-      duration: 750
-    });
-  }
 }
 
 function initSubTabSwitcher(allSpots) {
@@ -172,7 +151,6 @@ function renderDaysView(allSpots) {
       
       renderDaysView(allSpots);
       focusMapOnPinnedSpots(allSpots);
-      if (window.updateNavTabCounts) window.updateNavTabCounts();
     });
   });
 
