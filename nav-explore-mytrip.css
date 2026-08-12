@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: nav-explore-mytrip.css
- * CATEGORY: MarlonWalksLA - Clean Responsive Architecture (No !important overrides)
+ * CATEGORY: MarlonWalksLA - Fully Standardized Responsive Architecture
  * ============================================================================== */
 
 /* ------------------------------------------------------------------------------
@@ -304,7 +304,7 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 7. DESKTOP STRETCH LAYOUT (MIN-WIDTH: 821px) - NO !IMPORTANT DISPLAY OVERRIDES
+ * 7. DESKTOP STRETCH LAYOUT (MIN-WIDTH: 821px)
  * ------------------------------------------------------------------------------ */
 @media (min-width: 821px) {
   .tab-panel {
@@ -312,7 +312,6 @@
     box-sizing: border-box;
   }
 
-  /* Flex layout applies ONLY when JS has NOT set display: none */
   .tab-panel:not([style*="display: none"]) {
     display: flex;
     flex-direction: column;
@@ -343,10 +342,9 @@
  * ------------------------------------------------------------------------------ */
 @media (max-width: 820px) {
   #map, .map-container {
-    min-height: 30vh !important; /* Reduced map height on mobile */
+    min-height: 28vh !important;
   }
 
-  /* Tighten spacing between bottom of map and top mode tabs */
   .mode-navigation {
     margin-top: 4px !important;
     margin-bottom: 6px !important;
@@ -363,14 +361,15 @@
     height: auto;
   }
 
+  /* Compact maximum height ensures bottom edge remains above mobile toolbar */
   #spot-cards-list,
   .trip-grouped-list,
   #view-tours,
   #view-passport,
   #view-logistics {
-    max-height: 52vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 90px;
+    max-height: 35vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 40px !important;
   }
 }
