@@ -104,7 +104,6 @@ function setupFilterListeners() {
     renderSpotCards(filtered);
   };
 
-  // Expose function globally for mode switches
   window.reapplyExploreFilters = applyFilters;
 
   [categorySelect, vibeSelect, neighborhoodSelect].forEach(el => {
@@ -112,6 +111,15 @@ function setupFilterListeners() {
   });
 
   searchInput?.addEventListener('input', applyFilters);
+
+  // Smooth scroll search bar into view when focused on mobile keyboard opening
+  searchInput?.addEventListener('focus', () => {
+    if (window.innerWidth <= 820) {
+      setTimeout(() => {
+        document.querySelector('.search-filter-bar')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  });
 
   clearBtn?.addEventListener('click', () => {
     if (searchInput) searchInput.value = '';
