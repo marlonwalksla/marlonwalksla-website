@@ -114,10 +114,6 @@ window.initMapEngine = async function() {
     const isMyTripMode = document.querySelector('[data-mode="mytrip"]')?.classList.contains('is-active');
     const currentZoom = map.getZoom();
 
-    // Force individual pins when:
-    // 1. In "My Trip" mode
-    // 2. Active spot count is under 15
-    // 3. Zoomed in to neighborhood level (zoom >= 11.0)
     if (isMyTripMode || currentActiveCount < 15 || currentZoom >= 11.0) {
       if (map.getLayer('clusters')) {
         map.setLayoutProperty('clusters', 'visibility', 'none');
@@ -178,7 +174,7 @@ window.initMapEngine = async function() {
 
       const isMobile = window.innerWidth <= 820;
       map.fitBounds(bounds, {
-        padding: isMobile ? { top: 120, bottom: 20, left: 20, right: 20 } : { top: 120, bottom: 40, left: 40, right: 40 },
+        padding: isMobile ? { top: 100, bottom: 20, left: 20, right: 20 } : { top: 120, bottom: 40, left: 40, right: 40 },
         maxZoom: 13.5,
         duration: 750
       });
@@ -190,7 +186,7 @@ window.initMapEngine = async function() {
   };
 
   /* =========================================================
-   * 7. MARKER GENERATION & PIN CLICK HEADROOM
+   * 7. MARKER GENERATION & DYNAMIC POPUP FIT
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -247,14 +243,13 @@ window.initMapEngine = async function() {
       }
 
       const isMobile = window.innerWidth <= 820;
+      const containerHeight = mapContainer.clientHeight || 300;
+      const topOffset = isMobile ? Math.floor(containerHeight * 0.55) : 180;
 
-      // 250px top padding shifts the pin down so the popup card fits comfortably
       map.flyTo({ 
         center: [lng, lat], 
         zoom: 14.0,
-        padding: isMobile 
-          ? { top: 250, bottom: 15, left: 10, right: 10 } 
-          : { top: 200, bottom: 30, left: 30, right: 30 },
+        padding: { top: topOffset, bottom: 15, left: 10, right: 10 },
         duration: 750
       });
 
@@ -278,11 +273,12 @@ window.initMapEngine = async function() {
           }
         }, categoryMap, defaultPinSvg);
         
+        // Auto-position anchor on mobile so popup re-anchors cleanly if top space is tight
         activePopup = new mapboxgl.Popup({ 
-          offset: 15, 
+          offset: 12, 
           closeOnClick: true, 
           focusAfterOpen: false,
-          anchor: 'bottom'
+          anchor: isMobile ? undefined : 'bottom'
         })
           .setLngLat([lng, lat])
           .setDOMContent(popupContainer)
@@ -311,7 +307,7 @@ window.initMapEngine = async function() {
       data: geojsonData,
       cluster: true,
       clusterMaxZoom: 11,
-      clusterMinPoints: 5, // Requires at least 5 spots to form a cluster bubble
+      clusterMinPoints: 5,
       clusterRadius: 28
     });
 
