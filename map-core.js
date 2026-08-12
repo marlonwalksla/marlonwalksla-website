@@ -26,7 +26,7 @@ window.initMapEngine = async function() {
     trackUserLocation: true, 
     showUserHeading: true 
   });
-  map.addControl(geolocate, 'top-right');
+  map.addControl(geolocate, 'bottom-right');
 
   window.addEventListener('resize', () => { map.resize(); });
   setTimeout(() => { map.resize(); }, 100);
