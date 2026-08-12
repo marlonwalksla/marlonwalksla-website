@@ -100,8 +100,8 @@ window.initMapEngine = async function() {
 
   window.updateMarlonMarkerStates = updateMarkerStates;
 
-/* =========================================================
-   * 6. FILTER MARKERS ON MAP & AUTO-FIT BOUNDS (EDGE CLEARANCE)
+  /* =========================================================
+   * 6. FILTER MARKERS ON MAP & FIT BOUNDS
    * ========================================================= */
   window.updateMapMarkers = function(filteredSpots) {
     if (!allMarkers || !map) return;
@@ -129,8 +129,6 @@ window.initMapEngine = async function() {
 
     if (visibleCount > 0 && activeIds.size > 0 && activeIds.size < allMarkers.length) {
       const isMobile = window.innerWidth <= 820;
-      
-      // Increased top & side padding prevents top-right pins (e.g. Hollywood/Griffith) from clipping
       map.fitBounds(bounds, {
         padding: isMobile 
           ? { top: 50, bottom: 50, left: 30, right: 30 } 
@@ -249,24 +247,15 @@ window.initMapEngine = async function() {
     allMarkers.push(spotData);
   });
 
-/* =========================================================
-   * 8. BOOTSTRAP UI VIEWS & SMART TAB STARTUP
+  /* =========================================================
+   * 8. BOOTSTRAP UI VIEWS
    * ========================================================= */
   if (window.initExploreView) window.initExploreView(geojsonData);
   if (window.initMyTripView) window.initMyTripView(geojsonData.features);
-
-  // Set initial tab mode (My Trip if items saved, Explore LA if 0 items saved)
-  if (window.checkInitialTabState) {
-    window.checkInitialTabState();
-  }
 
   map.on('load', () => { 
     map.resize();
     if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
     updateMarkerStates(); 
-    
-    // Re-verify tab state once Mapbox tiles finish mounting
-    if (window.checkInitialTabState) {
-      window.checkInitialTabState();
-    }
   });
+};
