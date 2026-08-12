@@ -1,13 +1,12 @@
 /* ==============================================================================
  * FILE: main-init.js
- * CATEGORY: MarlonWalksLA Website - Master Initialization & Safe Mode Switcher
+ * CATEGORY: MarlonWalksLA Website - Master Initialization & Tab Synchronizer
  * ============================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   initModeSwitcher();
   initExploreSubToggles();
 
-  // Initialize Mapbox Engine safely
   if (typeof window.initMapEngine === 'function') {
     window.initMapEngine();
   }
@@ -29,7 +28,6 @@ function initModeSwitcher() {
     if (panelExplore) panelExplore.style.display = 'block';
     if (panelMyTrip) panelMyTrip.style.display = 'none';
 
-    // Re-apply Explore filters and show all markers
     if (window.reapplyExploreFilters) {
       window.reapplyExploreFilters();
     }
@@ -46,7 +44,6 @@ function initModeSwitcher() {
     if (panelMyTrip) panelMyTrip.style.display = 'block';
     if (panelExplore) panelExplore.style.display = 'none';
 
-    // Render My Trip views with safety check
     if (window.initMyTripView) {
       const spotFeatures = (window.marlonGeoData && window.marlonGeoData.features) ? window.marlonGeoData.features : [];
       window.initMyTripView(spotFeatures);
@@ -57,6 +54,22 @@ function initModeSwitcher() {
     }
   });
 }
+
+// Synchronizes active tab and map pins on startup based on local storage
+window.applyInitialTabState = function() {
+  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : null;
+  const savedMap = tripData ? (tripData.days || {}) : {};
+  const hasSavedSpots = Object.keys(savedMap).length > 0;
+
+  const modeExploreBtn = document.querySelector('[data-mode="explore"]');
+  const modeMyTripBtn = document.querySelector('[data-mode="mytrip"]');
+
+  if (hasSavedSpots && modeMyTripBtn) {
+    modeMyTripBtn.click();
+  } else if (modeExploreBtn) {
+    modeExploreBtn.click();
+  }
+};
 
 function initExploreSubToggles() {
   const subPlacesBtn = document.querySelector('[data-explore-tab="places"]');
