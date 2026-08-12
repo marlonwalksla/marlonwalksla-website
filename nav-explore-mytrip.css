@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: nav-explore-mytrip.css
- * CATEGORY: MarlonWalksLA - 2-Mode Architecture & Complete UI Styling
+ * CATEGORY: MarlonWalksLA - 2-Mode Architecture & Mobile Viewport Styling
  * ============================================================================== */
 
 /* ------------------------------------------------------------------------------
@@ -48,6 +48,7 @@
   padding: 10px;
   border-radius: 12px;
   margin-bottom: 10px;
+  scroll-margin-top: 10px;
 }
 
 .search-top-row {
@@ -87,10 +88,6 @@
   padding: 2px 4px;
 }
 
-#search-clear-btn:hover {
-  color: #0f172a;
-}
-
 #reset-all-filters-btn {
   display: inline-flex;
   align-items: center;
@@ -106,11 +103,6 @@
   white-space: nowrap;
   transition: all 0.15s ease-in-out;
   flex-shrink: 0;
-}
-
-#reset-all-filters-btn:hover {
-  background-color: #fee2e2;
-  border-color: #f87171;
 }
 
 .dropdown-row {
@@ -171,9 +163,10 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 4. SPOT CARDS & QUICK ACTION BUTTONS
+ * 4. SPOT CARDS & SCROLL CONTAINERS
  * ------------------------------------------------------------------------------ */
-#spot-cards-list {
+#spot-cards-list,
+.trip-grouped-list {
   max-height: 280px;
   overflow-y: auto;
   padding-right: 4px;
@@ -228,10 +221,6 @@
   transition: all 0.15s ease;
 }
 
-.card-action-btn:hover, .btn-mytrip-action:hover {
-  opacity: 1;
-}
-
 .card-action-btn.is-active, .btn-mytrip-action.is-active {
   opacity: 1;
   background: #dbeafe;
@@ -239,7 +228,7 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 5. TOUR CARD & DUAL LANGUAGE BUTTONS
+ * 5. TOUR CARD STYLES
  * ------------------------------------------------------------------------------ */
 .hero-tour {
   background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
@@ -307,15 +296,8 @@
   box-sizing: border-box;
 }
 
-.btn-eng {
-  background-color: #2563eb;
-  color: #ffffff !important;
-}
-
-.btn-esp {
-  background-color: #059669;
-  color: #ffffff !important;
-}
+.btn-eng { background-color: #2563eb; color: #ffffff !important; }
+.btn-esp { background-color: #059669; color: #ffffff !important; }
 
 /* ------------------------------------------------------------------------------
  * 6. MAP CANVAS STRETCH FIX
@@ -332,8 +314,17 @@
   height: 100% !important;
 }
 
+/* ------------------------------------------------------------------------------
+ * 7. MOBILE OVERRIDES & BOTTOM CLEARANCE (< 820px)
+ * ------------------------------------------------------------------------------ */
 @media (max-width: 820px) {
-  #spot-cards-list {
-    max-height: 220px;
+  #spot-cards-list,
+  .trip-grouped-list {
+    max-height: 240px;
+    padding-bottom: 60px !important; /* Generous bottom spacing for last card accessibility */
+  }
+
+  .filter-bar {
+    padding-bottom: 40px !important;
   }
 }
