@@ -19,7 +19,6 @@ window.initMyTripView = function(allSpots) {
   renderPassportView(allSpots);
   renderLogisticsView();
   
-  // Only isolate map pins if My Trip panel is currently visible
   const panelMyTrip = document.getElementById('panel-mytrip');
   if (panelMyTrip && panelMyTrip.style.display !== 'none') {
     focusMapOnPinnedSpots(allSpots);
@@ -122,7 +121,7 @@ function renderDaysView(allSpots) {
 
   let htmlContent = `<div class="trip-spots-header" style="margin-bottom: 8px;">
     <h4 style="margin: 0; font-size: 0.85rem; color: #1e293b; font-weight: 800;">📌 Saved Spots (${savedSpotIds.length})</h4>
-  </div><div class="trip-grouped-list" style="max-height: 280px; overflow-y: auto;">`;
+  </div><div class="trip-grouped-list" style="max-height: 260px; overflow-y: auto; padding-right: 4px;">`;
 
   Object.keys(dayGroups).forEach(dayName => {
     const spots = dayGroups[dayName];
@@ -151,7 +150,8 @@ function renderDaysView(allSpots) {
     `;
   });
 
-  htmlContent += `</div>`;
+  // Dedicated bottom spacer prevents last item cut-off on mobile viewport
+  htmlContent += `<div class="bottom-scroll-spacer" style="height: 60px; width: 100%; flex-shrink: 0;"></div></div>`;
   container.innerHTML = htmlContent;
 
   container.querySelectorAll('.day-assign-select').forEach(select => {
