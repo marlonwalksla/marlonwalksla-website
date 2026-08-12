@@ -71,6 +71,7 @@ function setupFilterListeners() {
   const neighborhoodSelect = document.querySelector('#filter-neighborhood');
   const searchInput = document.querySelector('#search-input');
   const clearBtn = document.querySelector('#search-clear-btn');
+  const resetAllBtn = document.querySelector('#reset-all-filters-btn');
 
   const applyFilters = () => {
     const catVal = categorySelect?.value || '';
@@ -78,8 +79,15 @@ function setupFilterListeners() {
     const neighVal = neighborhoodSelect?.value || '';
     const query = searchInput?.value.toLowerCase().trim() || '';
 
+    // Toggle individual text clear 'X' button
     if (clearBtn) {
       clearBtn.style.display = query ? 'block' : 'none';
+    }
+
+    // Toggle global 'Reset All' button if ANY filter or text is active
+    const isAnyFilterActive = Boolean(query || catVal || vibeVal || neighVal);
+    if (resetAllBtn) {
+      resetAllBtn.style.display = isAnyFilterActive ? 'inline-flex' : 'none';
     }
 
     const filtered = allExploreSpots.filter(spot => {
@@ -104,8 +112,18 @@ function setupFilterListeners() {
 
   searchInput?.addEventListener('input', applyFilters);
 
+  // Clear text only
   clearBtn?.addEventListener('click', () => {
     if (searchInput) searchInput.value = '';
+    applyFilters();
+  });
+
+  // Reset ALL filters (Text + 3 Dropdowns)
+  resetAllBtn?.addEventListener('click', () => {
+    if (searchInput) searchInput.value = '';
+    if (categorySelect) categorySelect.selectedIndex = 0;
+    if (vibeSelect) vibeSelect.selectedIndex = 0;
+    if (neighborhoodSelect) neighborhoodSelect.selectedIndex = 0;
     applyFilters();
   });
 }
