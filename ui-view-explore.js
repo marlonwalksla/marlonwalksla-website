@@ -5,7 +5,6 @@
 
 let allExploreSpots = [];
 
-// Helper to normalize GeoJSON properties (handles Capitalized & Lowercase keys)
 function parseSpotProps(spot) {
   const p = spot.properties || {};
   const tagsRaw = p.Tags || p.tags || p.vibe || '';
@@ -33,8 +32,6 @@ window.initExploreView = function(geoJsonData) {
 
   populateDropdownFilters(allExploreSpots);
   setupFilterListeners();
-  
-  // Render initial spot cards list immediately
   renderSpotCards(allExploreSpots);
 };
 
@@ -63,7 +60,6 @@ function fillSelectElement(selector, items, placeholder) {
   items.forEach(item => {
     const opt = document.createElement('option');
     opt.value = item;
-    // Format slugified tags (e.g. "beach-vibes" -> "Beach Vibes")
     opt.textContent = item.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     selectEl.appendChild(opt);
   });
@@ -74,12 +70,17 @@ function setupFilterListeners() {
   const vibeSelect = document.querySelector('#filter-vibe');
   const neighborhoodSelect = document.querySelector('#filter-neighborhood');
   const searchInput = document.querySelector('#search-input');
+  const clearBtn = document.querySelector('#search-clear-btn');
 
   const applyFilters = () => {
     const catVal = categorySelect?.value || '';
     const vibeVal = vibeSelect?.value || '';
     const neighVal = neighborhoodSelect?.value || '';
     const query = searchInput?.value.toLowerCase().trim() || '';
+
+    if (clearBtn) {
+      clearBtn.style.display = query ? 'block' : 'none';
+    }
 
     const filtered = allExploreSpots.filter(spot => {
       const item = parseSpotProps(spot);
@@ -102,6 +103,11 @@ function setupFilterListeners() {
   });
 
   searchInput?.addEventListener('input', applyFilters);
+
+  clearBtn?.addEventListener('click', () => {
+    if (searchInput) searchInput.value = '';
+    applyFilters();
+  });
 }
 
 function renderSpotCards(spots) {
@@ -109,29 +115,58 @@ function renderSpotCards(spots) {
   if (!container) return;
 
   if (spots.length === 0) {
-    container.innerHTML = `<p class="no-results" style="padding: 12px; color: #64748b;">No places match your search.</p>`;
+    container.innerHTML = `<p class="no-results" style="padding: 12px; color: #64748b; font-size: 0.8rem;">No places match your search.</p>`;
     return;
   }
 
+  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : { pinned: [], visited: [] };
+  const pinnedSet = new Set(tripData.pinned || []);
+  const visitedSet = new Set(tripData.visited || []);
+
   container.innerHTML = spots.map(spot => {
     const item = parseSpotProps(spot);
+    const isPinned = pinnedSet.has(item.id);
+    const isVisited = visitedSet.has(item.id);
+
     return `
-      <div class="spot-card" data-id="${item.id}" style="cursor: pointer;">
-        <h4>${item.name}</h4>
-        <p>${item.neighborhood} • ${item.category}</p>
+      <div class="spot-card" data-id="${item.id}">
+        <div class="spot-card-info">
+          <h4>${item.name}</h4>
+          <p>${item.neighborhood} • ${item.category}</p>
+        </div>
+        <div class="spot-card-actions">
+          <button type="button" class="card-action-btn btn-quick-pin ${isPinned ? 'is-active' : ''}" data-action="pin" data-id="${item.id}" title="Pin">📌</button>
+          <button type="button" class="card-action-btn btn-quick-visit ${isVisited ? 'is-active' : ''}" data-action="visit" data-id="${item.id}" title="Visited">✅</button>
+        </div>
       </div>
     `;
   }).join('');
 
-  // Click listener on spot cards to fly map to spot
+  // Event Listeners for Spot Cards and Quick Actions
   container.querySelectorAll('.spot-card').forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      const targetBtn = e.target.closest('.card-action-btn');
       const spotId = card.getAttribute('data-id');
+
+      if (targetBtn) {
+        e.stopPropagation();
+        const action = targetBtn.getAttribute('data-action');
+
+        if (action === 'pin' && window.MarlonStorage) {
+          window.MarlonStorage.toggleSavedSpot(spotId);
+        } else if (action === 'visit' && window.MarlonStorage) {
+          window.MarlonStorage.toggleVisitedSpot(spotId);
+        }
+
+        if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+        renderSpotCards(spots);
+        return;
+      }
+
+      // Fly map to spot pin when card body is clicked
       if (window.MARLON_ALL_MARKERS) {
         const match = window.MARLON_ALL_MARKERS.find(m => m.id === spotId);
-        if (match && match.wrapper) {
-          match.wrapper.click();
-        }
+        if (match && match.wrapper) match.wrapper.click();
       }
     });
   });
