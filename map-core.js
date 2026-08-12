@@ -8,10 +8,7 @@ window.initMapEngine = async function() {
    * 1. MAPBOX INITIALIZATION & SETUP
    * ========================================================= */
   const mapContainer = document.getElementById('map');
-  if (!mapContainer) {
-    console.error("Map container #map not found in DOM");
-    return;
-  }
+  if (!mapContainer) return;
 
   mapboxgl.accessToken = 'pk.eyJ1IjoibWFybG9ud2Fsa3NsYSIsImEiOiJjbXM5YWhuOGIwbGVjMzRwbTZ0b2I2emZlIn0.UgW7MpYibACH6Axk1WgoSA';
   const dtlaCenter = [-118.2437, 34.0522];
@@ -31,11 +28,9 @@ window.initMapEngine = async function() {
   });
   map.addControl(geolocate, 'top-right');
 
-  // Trigger container resizes at key layout intervals
   window.addEventListener('resize', () => { map.resize(); });
   setTimeout(() => { map.resize(); }, 100);
   setTimeout(() => { map.resize(); }, 500);
-  setTimeout(() => { map.resize(); }, 1200);
 
   /* =========================================================
    * 2. ICONS & CATEGORY DICTIONARY
@@ -105,13 +100,12 @@ window.initMapEngine = async function() {
 
   window.updateMarlonMarkerStates = updateMarkerStates;
 
-/* =========================================================
-   * 6. FILTER MARKERS ON MAP & AUTO-FIT BOUNDS
+  /* =========================================================
+   * 6. FILTER MARKERS ON MAP & FIT BOUNDS (BALANCED Y-AXIS)
    * ========================================================= */
   window.updateMapMarkers = function(filteredSpots) {
     if (!allMarkers || !map) return;
 
-    // Collect active spot IDs
     const activeIds = new Set(filteredSpots.map(s => {
       const p = s.properties || {};
       return (p.Slug || p.Item_ID || p.Name || s.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -122,7 +116,6 @@ window.initMapEngine = async function() {
 
     allMarkers.forEach(markerObj => {
       if (markerObj.wrapper) {
-        // Show pin if matches filter or if no filter is active
         const isMatch = activeIds.has(markerObj.id);
         if (isMatch) {
           markerObj.wrapper.style.display = 'block';
@@ -134,19 +127,18 @@ window.initMapEngine = async function() {
       }
     });
 
-    // Auto-fit map camera to filtered pins
     if (visibleCount > 0 && activeIds.size > 0 && activeIds.size < allMarkers.length) {
       const isMobile = window.innerWidth <= 820;
+      // Adjusted padding: reduced top padding shifts Y-axis down to eliminate top whitespace gap
       map.fitBounds(bounds, {
         padding: isMobile 
-          ? { top: 30, bottom: 30, left: 20, right: 20 } 
-          : { top: 50, bottom: 50, left: 50, right: 50 },
-        maxZoom: 14.5,
-        duration: 800
+          ? { top: 15, bottom: 40, left: 15, right: 15 } 
+          : { top: 25, bottom: 40, left: 35, right: 35 },
+        maxZoom: 14.2,
+        duration: 750
       });
     } else if (activeIds.size === 0 || activeIds.size === allMarkers.length) {
-      // Reset camera to default DTLA view when filters are cleared
-      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 800 });
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 750 });
     }
   };
 
@@ -257,14 +249,10 @@ window.initMapEngine = async function() {
   });
 
   /* =========================================================
-   * 8. BOOTSTRAP UI VIEWS (EXPLORE LA & MY TRIP)
+   * 8. BOOTSTRAP UI VIEWS
    * ========================================================= */
-  if (window.initExploreView) {
-    window.initExploreView(geojsonData);
-  }
-  if (window.initMyTripView) {
-    window.initMyTripView(geojsonData.features);
-  }
+  if (window.initExploreView) window.initExploreView(geojsonData);
+  if (window.initMyTripView) window.initMyTripView(geojsonData.features);
 
   map.on('load', () => { 
     map.resize();
