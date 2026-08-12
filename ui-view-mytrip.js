@@ -9,18 +9,56 @@ function parseSpotInfo(spot) {
   const rawId = spot.id || p.id || p.Slug || p.Item_ID || p.Name || p.name || '';
   const cleanId = String(rawId).toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const cleanName = spot.title || p.Name || p.name || p.title || cleanId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Location';
-  return { id: cleanId, name: cleanName };
+  return { id: cleanId, name: cleanName, rawSpot: spot };
 }
 
 window.initMyTripView = function(allSpots) {
-  initSubTabSwitcher();
+  initSubTabSwitcher(allSpots);
   setupPassportListeners();
   renderDaysView(allSpots);
   renderPassportView(allSpots);
   renderLogisticsView();
+  
+  // Auto-center map on pinned spots
+  focusMapOnPinnedSpots(allSpots);
 };
 
-function initSubTabSwitcher() {
+function focusMapOnPinnedSpots(allSpots) {
+  if (!window.marlonMapInstance || !window.MarlonStorage) return;
+  const map = window.marlonMapInstance;
+  const tripData = window.MarlonStorage.getSavedTripData() || { days: {} };
+  const savedMap = tripData.days || {};
+  const savedSpotIds = Object.keys(savedMap);
+
+  if (savedSpotIds.length === 0) return;
+
+  const bounds = new mapboxgl.LngLatBounds();
+  let count = 0;
+
+  (allSpots || []).forEach(spot => {
+    const info = parseSpotInfo(spot);
+    if (savedSpotIds.includes(info.id)) {
+      const coords = spot.geometry ? spot.geometry.coordinates : (spot.lng && spot.lat ? [spot.lng, spot.lat] : null);
+      if (coords && coords.length >= 2) {
+        bounds.extend([parseFloat(coords[0]), parseFloat(coords[1])]);
+        count++;
+      }
+    }
+  });
+
+  if (count > 0) {
+    const isMobile = window.innerWidth <= 820;
+    map.fitBounds(bounds, {
+      padding: isMobile 
+        ? { top: 50, bottom: 50, left: 30, right: 30 } 
+        : { top: 60, bottom: 60, left: 50, right: 50 },
+      maxZoom: 14.0,
+      duration: 750
+    });
+  }
+}
+
+function initSubTabSwitcher(allSpots) {
   const tabs = document.querySelectorAll('[data-mytrip-tab]');
   const views = {
     days: document.getElementById('view-days'),
@@ -39,6 +77,10 @@ function initSubTabSwitcher() {
           views[key].style.display = key === target ? 'block' : 'none';
         }
       });
+
+      if (target === 'days') {
+        focusMapOnPinnedSpots(allSpots);
+      }
     });
   });
 }
@@ -62,7 +104,7 @@ function renderDaysView(allSpots) {
     return;
   }
 
-  // Bucket spots by Day
+  // Group spots by Day
   const dayGroups = { 'Day 1': [], 'Day 2': [], 'Day 3': [], 'Day 4': [], 'Unassigned': [] };
   
   savedSpotIds.forEach(spotId => {
@@ -88,7 +130,7 @@ function renderDaysView(allSpots) {
       </div>
       ${spots.map(s => `
         <div class="trip-spot-item" data-id="${s.id}" style="display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 4px;">
-          <span class="spot-title" style="font-size: 0.8rem; font-weight: 700; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; margin-right: 6px;">📍 ${s.name}</span>
+          <span class="spot-title" style="font-size: 0.8rem; font-weight: 700; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; margin-right: 6px; cursor: pointer;">📍 ${s.name}</span>
           <div style="display: flex; align-items: center; gap: 4px;">
             <select class="day-assign-select" data-spot-id="${s.id}" style="font-size: 0.72rem; font-weight: 600; padding: 2px 4px; border-radius: 4px; border: 1px solid #cbd5e1; background: #f8fafc; color: #334155; outline: none;">
               <option value="Day 1" ${dayName === 'Day 1' ? 'selected' : ''}>Day 1</option>
@@ -97,8 +139,8 @@ function renderDaysView(allSpots) {
               <option value="Day 4" ${dayName === 'Day 4' ? 'selected' : ''}>Day 4</option>
               <option value="Unassigned" ${dayName === 'Unassigned' ? 'selected' : ''}>Unassigned</option>
             </select>
+            <button type="button" class="btn-mytrip-action btn-pin-toggle is-active" data-id="${s.id}" title="Unpin Spot">📌</button>
             <button type="button" class="btn-mytrip-action btn-visit-toggle ${s.isVisited ? 'is-active' : ''}" data-id="${s.id}" title="Toggle Visited">✅</button>
-            <button type="button" class="btn-mytrip-action btn-unpin" data-id="${s.id}" title="Remove Pin">🗑️</button>
           </div>
         </div>
       `).join('')}
@@ -108,7 +150,7 @@ function renderDaysView(allSpots) {
   htmlContent += `</div>`;
   container.innerHTML = htmlContent;
 
-  // Listeners for Day Select, Visited Toggle, and Unpin
+  // Day Assignment Change
   container.querySelectorAll('.day-assign-select').forEach(select => {
     select.addEventListener('change', (e) => {
       const spotId = e.target.getAttribute('data-spot-id');
@@ -118,21 +160,49 @@ function renderDaysView(allSpots) {
     });
   });
 
+  // Pin Toggle (Unpin action)
+  container.querySelectorAll('.btn-pin-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const spotId = btn.getAttribute('data-id');
+      if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(spotId);
+      if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+      
+      // Re-render Days View & auto-recenter map
+      renderDaysView(allSpots);
+      focusMapOnPinnedSpots(allSpots);
+
+      // Refresh Explore View cards to unhighlight pinned state
+      const searchInput = document.querySelector('#search-input');
+      if (searchInput) {
+        searchInput.dispatchEvent(new Event('input'));
+      }
+    });
+  });
+
+  // Visited Toggle
   container.querySelectorAll('.btn-visit-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const spotId = btn.getAttribute('data-id');
       if (window.MarlonStorage) window.MarlonStorage.toggleVisitedSpot(spotId);
       if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
       renderDaysView(allSpots);
+
+      const searchInput = document.querySelector('#search-input');
+      if (searchInput) {
+        searchInput.dispatchEvent(new Event('input'));
+      }
     });
   });
 
-  container.querySelectorAll('.btn-unpin').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const spotId = btn.getAttribute('data-id');
-      if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(spotId);
-      if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
-      renderDaysView(allSpots);
+  // Fly to spot on map when clicking title
+  container.querySelectorAll('.spot-title').forEach(titleEl => {
+    titleEl.addEventListener('click', () => {
+      const itemEl = titleEl.closest('.trip-spot-item');
+      const spotId = itemEl?.getAttribute('data-id');
+      if (spotId && window.MARLON_ALL_MARKERS) {
+        const match = window.MARLON_ALL_MARKERS.find(m => m.id === spotId);
+        if (match && match.wrapper) match.wrapper.click();
+      }
     });
   });
 }
