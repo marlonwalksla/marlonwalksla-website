@@ -37,17 +37,7 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 2. STANDARDIZED PANEL FLEX CONTAINERS (DESKTOP FULL-HEIGHT STRETCH)
- * ------------------------------------------------------------------------------ */
-.tab-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 480px;
-}
-
-/* ------------------------------------------------------------------------------
- * 3. SEARCH BAR & FILTERS
+ * 2. SEARCH BAR & FILTERS
  * ------------------------------------------------------------------------------ */
 .search-filter-bar {
   display: flex;
@@ -142,7 +132,7 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 4. SUB-NAVIGATION PILLS
+ * 3. SUB-NAVIGATION PILLS
  * ------------------------------------------------------------------------------ */
 .sub-navigation {
   display: flex;
@@ -170,20 +160,8 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 5. UNIFIED SCROLLABLE AREA (ALL 5 SUB VIEWS STRETCH TO FIT CONTAINER)
+ * 4. ITEM COMPONENT BASE STYLES
  * ------------------------------------------------------------------------------ */
-#spot-cards-list,
-.trip-grouped-list,
-#view-tours,
-#view-passport,
-#view-logistics {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-/* Item Component Base Styles */
 .spot-card {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
@@ -239,7 +217,7 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 6. TOUR CARD STYLES
+ * 5. TOUR CARD STYLES
  * ------------------------------------------------------------------------------ */
 .hero-tour {
   background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
@@ -311,7 +289,7 @@
 .btn-esp { background-color: #059669; color: #ffffff !important; }
 
 /* ------------------------------------------------------------------------------
- * 7. MAP CANVAS STRETCH FIX
+ * 6. MAP CANVAS STRETCH FIX
  * ------------------------------------------------------------------------------ */
 #map, .map-container {
   position: relative !important;
@@ -326,20 +304,52 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 8. STANDARDIZED MOBILE OVERRIDES (< 820px)
+ * 7. DESKTOP STRETCH LAYOUT (MIN-WIDTH: 821px)
  * ------------------------------------------------------------------------------ */
-@media (max-width: 820px) {
+@media (min-width: 821px) {
   .tab-panel {
-    min-height: auto;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 520px !important;
+    box-sizing: border-box !important;
   }
 
-  /* Dynamically size scroll area based on mobile screen height */
+  #view-places, #view-days {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+  }
+
   #spot-cards-list,
   .trip-grouped-list,
   #view-tours,
   #view-passport,
   #view-logistics {
-    max-height: 45vh;
-    padding-bottom: 80px !important; /* Uniform bottom clearance for last item */
+    flex: 1 !important;
+    height: 100% !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    padding-right: 4px !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ------------------------------------------------------------------------------
+ * 8. STANDARDIZED MOBILE OVERRIDES (MAX-WIDTH: 820px)
+ * ------------------------------------------------------------------------------ */
+@media (max-width: 820px) {
+  .tab-panel {
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  #spot-cards-list,
+  .trip-grouped-list,
+  #view-tours,
+  #view-passport,
+  #view-logistics {
+    max-height: 45vh !important;
+    padding-bottom: 80px !important;
   }
 }
