@@ -131,8 +131,7 @@ function renderDaysView(allSpots) {
     `;
   });
 
-  // Re-added mobile bottom scroll spacer
-  htmlContent += `<div class="bottom-scroll-spacer" style="height: 80px; width: 100%; flex-shrink: 0;"></div></div>`;
+  htmlContent += `<div class="bottom-scroll-spacer" style="height: 50px; width: 100%; flex-shrink: 0;"></div></div>`;
   container.innerHTML = htmlContent;
 
   container.querySelectorAll('.day-assign-select').forEach(select => {
@@ -227,7 +226,7 @@ function renderPassportView(allSpots) {
         </div>
       ` : `<p style="margin: 0; font-size: 0.78rem; color: #64748b;">Tap ✅ on any spot card to check off places you've visited!</p>`}
     </div>
-    <div class="bottom-scroll-spacer" style="height: 80px; width: 100%; flex-shrink: 0;"></div>
+    <div class="bottom-scroll-spacer" style="height: 50px; width: 100%; flex-shrink: 0;"></div>
   `;
 }
 
@@ -298,7 +297,7 @@ function renderLogisticsView() {
       <h4 style="margin: 0 0 4px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">🚆 LA Metro & Transit</h4>
       <p style="margin: 0; font-size: 0.78rem; color: #475569; line-height: 1.35;">Tap card or Apple/Google Pay works on all Metro buses and subways ($1.75 flat fare with free 2-hour transfers).</p>
     </div>
-    <div class="bottom-scroll-spacer" style="height: 80px; width: 100%; flex-shrink: 0;"></div>
+    <div class="bottom-scroll-spacer" style="height: 50px; width: 100%; flex-shrink: 0;"></div>
   `;
 
   document.getElementById('save-hotel-btn')?.addEventListener('click', () => {
