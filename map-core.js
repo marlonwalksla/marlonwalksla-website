@@ -105,25 +105,49 @@ window.initMapEngine = async function() {
 
   window.updateMarlonMarkerStates = updateMarkerStates;
 
-  /* =========================================================
-   * 6. FILTER MARKERS ON MAP
+/* =========================================================
+   * 6. FILTER MARKERS ON MAP & AUTO-FIT BOUNDS
    * ========================================================= */
   window.updateMapMarkers = function(filteredSpots) {
-    if (!allMarkers) return;
+    if (!allMarkers || !map) return;
+
+    // Collect active spot IDs
     const activeIds = new Set(filteredSpots.map(s => {
       const p = s.properties || {};
       return (p.Slug || p.Item_ID || p.Name || s.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
     }));
 
+    const bounds = new mapboxgl.LngLatBounds();
+    let visibleCount = 0;
+
     allMarkers.forEach(markerObj => {
       if (markerObj.wrapper) {
-        if (activeIds.size === 0 || activeIds.has(markerObj.id)) {
+        // Show pin if matches filter or if no filter is active
+        const isMatch = activeIds.has(markerObj.id);
+        if (isMatch) {
           markerObj.wrapper.style.display = 'block';
+          bounds.extend([markerObj.lng, markerObj.lat]);
+          visibleCount++;
         } else {
           markerObj.wrapper.style.display = 'none';
         }
       }
     });
+
+    // Auto-fit map camera to filtered pins
+    if (visibleCount > 0 && activeIds.size > 0 && activeIds.size < allMarkers.length) {
+      const isMobile = window.innerWidth <= 820;
+      map.fitBounds(bounds, {
+        padding: isMobile 
+          ? { top: 30, bottom: 30, left: 20, right: 20 } 
+          : { top: 50, bottom: 50, left: 50, right: 50 },
+        maxZoom: 14.5,
+        duration: 800
+      });
+    } else if (activeIds.size === 0 || activeIds.size === allMarkers.length) {
+      // Reset camera to default DTLA view when filters are cleared
+      map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 800 });
+    }
   };
 
   /* =========================================================
