@@ -1,13 +1,13 @@
 /* ==============================================================================
  * FILE: main-init.js
- * CATEGORY: MarlonWalksLA Website - Master Initialization & Smart Tab Bootstrapper
+ * CATEGORY: MarlonWalksLA Website - Master Initialization & Safe Mode Switcher
  * ============================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   initModeSwitcher();
   initExploreSubToggles();
 
-  // Trigger Mapbox Engine
+  // Initialize Mapbox Engine safely
   if (typeof window.initMapEngine === 'function') {
     window.initMapEngine();
   }
@@ -29,7 +29,7 @@ function initModeSwitcher() {
     if (panelExplore) panelExplore.style.display = 'block';
     if (panelMyTrip) panelMyTrip.style.display = 'none';
 
-    // Restore all Explore LA map markers and filters
+    // Re-apply Explore filters and show all markers
     if (window.reapplyExploreFilters) {
       window.reapplyExploreFilters();
     }
@@ -46,9 +46,9 @@ function initModeSwitcher() {
     if (panelMyTrip) panelMyTrip.style.display = 'block';
     if (panelExplore) panelExplore.style.display = 'none';
 
-    // Render My Trip and restrict map markers to pinned spots
+    // Render My Trip views with safety check
     if (window.initMyTripView) {
-      const spotFeatures = window.marlonGeoData ? window.marlonGeoData.features : [];
+      const spotFeatures = (window.marlonGeoData && window.marlonGeoData.features) ? window.marlonGeoData.features : [];
       window.initMyTripView(spotFeatures);
     }
 
@@ -57,22 +57,6 @@ function initModeSwitcher() {
     }
   });
 }
-
-// Determines starting tab based on whether user has pinned spots
-window.checkInitialTabState = function() {
-  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : null;
-  const savedMap = tripData ? (tripData.days || {}) : {};
-  const hasSavedSpots = Object.keys(savedMap).length > 0;
-
-  const modeExploreBtn = document.querySelector('[data-mode="explore"]');
-  const modeMyTripBtn = document.querySelector('[data-mode="mytrip"]');
-
-  if (hasSavedSpots && modeMyTripBtn) {
-    modeMyTripBtn.click();
-  } else if (modeExploreBtn) {
-    modeExploreBtn.click();
-  }
-};
 
 function initExploreSubToggles() {
   const subPlacesBtn = document.querySelector('[data-explore-tab="places"]');
