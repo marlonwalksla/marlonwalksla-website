@@ -33,6 +33,7 @@ window.initExploreView = function(geoJsonData) {
   populateDropdownFilters(allExploreSpots);
   setupFilterListeners();
   renderSpotCards(allExploreSpots);
+  if (window.updateNavTabCounts) window.updateNavTabCounts();
 };
 
 function populateDropdownFilters(spots) {
@@ -112,7 +113,6 @@ function setupFilterListeners() {
 
   searchInput?.addEventListener('input', applyFilters);
 
-  // Smooth scroll search bar into view when focused on mobile keyboard opening
   searchInput?.addEventListener('focus', () => {
     if (window.innerWidth <= 820) {
       setTimeout(() => {
@@ -183,6 +183,7 @@ function renderSpotCards(spots) {
         }
 
         if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+        if (window.updateNavTabCounts) window.updateNavTabCounts();
         renderSpotCards(spots);
         return;
       }
