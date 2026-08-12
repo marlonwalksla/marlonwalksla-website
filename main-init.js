@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: main-init.js
- * CATEGORY: MarlonWalksLA Website - Master Initialization & 2-Mode Bootstrapper
+ * CATEGORY: MarlonWalksLA Website - Master Initialization & Smart Tab Bootstrapper
  * ============================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -29,7 +29,7 @@ function initModeSwitcher() {
     if (panelExplore) panelExplore.style.display = 'block';
     if (panelMyTrip) panelMyTrip.style.display = 'none';
 
-    // Restore Explore LA markers and filters
+    // Restore all Explore LA map markers and filters
     if (window.reapplyExploreFilters) {
       window.reapplyExploreFilters();
     }
@@ -46,7 +46,7 @@ function initModeSwitcher() {
     if (panelMyTrip) panelMyTrip.style.display = 'block';
     if (panelExplore) panelExplore.style.display = 'none';
 
-    // Render My Trip and isolate map markers to pinned spots
+    // Render My Trip and restrict map markers to pinned spots
     if (window.initMyTripView) {
       const spotFeatures = window.marlonGeoData ? window.marlonGeoData.features : [];
       window.initMyTripView(spotFeatures);
@@ -57,6 +57,22 @@ function initModeSwitcher() {
     }
   });
 }
+
+// Determines starting tab based on whether user has pinned spots
+window.checkInitialTabState = function() {
+  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : null;
+  const savedMap = tripData ? (tripData.days || {}) : {};
+  const hasSavedSpots = Object.keys(savedMap).length > 0;
+
+  const modeExploreBtn = document.querySelector('[data-mode="explore"]');
+  const modeMyTripBtn = document.querySelector('[data-mode="mytrip"]');
+
+  if (hasSavedSpots && modeMyTripBtn) {
+    modeMyTripBtn.click();
+  } else if (modeExploreBtn) {
+    modeExploreBtn.click();
+  }
+};
 
 function initExploreSubToggles() {
   const subPlacesBtn = document.querySelector('[data-explore-tab="places"]');
