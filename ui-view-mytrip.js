@@ -23,6 +23,8 @@ window.initMyTripView = function(allSpots) {
   if (panelMyTrip && panelMyTrip.style.display !== 'none') {
     focusMapOnPinnedSpots(allSpots);
   }
+
+  if (window.updateNavTabCounts) window.updateNavTabCounts();
 };
 
 function focusMapOnPinnedSpots(allSpots) {
@@ -93,6 +95,8 @@ function renderDaysView(allSpots) {
   const container = document.getElementById('view-days');
   if (!container) return;
 
+  if (window.updateNavTabCounts) window.updateNavTabCounts();
+
   const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : { pinned: [], days: {}, visited: [] };
   const savedMap = tripData.days || {};
   const savedSpotIds = Object.keys(savedMap);
@@ -119,9 +123,7 @@ function renderDaysView(allSpots) {
     dayGroups[assignedDay].push({ id: spotId, name: spotName, isVisited: visitedSet.has(spotId) });
   });
 
-  let htmlContent = `<div class="trip-spots-header" style="margin-bottom: 8px;">
-    <h4 style="margin: 0; font-size: 0.85rem; color: #1e293b; font-weight: 800;">📌 Saved Spots (${savedSpotIds.length})</h4>
-  </div><div class="trip-grouped-list" style="max-height: 260px; overflow-y: auto; padding-right: 4px;">`;
+  let htmlContent = `<div class="trip-grouped-list" style="max-height: 260px; overflow-y: auto; padding-right: 4px;">`;
 
   Object.keys(dayGroups).forEach(dayName => {
     const spots = dayGroups[dayName];
@@ -150,9 +152,8 @@ function renderDaysView(allSpots) {
     `;
   });
 
-  // Dedicated bottom spacer prevents last item cut-off on mobile viewport
-htmlContent += `</div>`;
-container.innerHTML = htmlContent;
+  htmlContent += `</div>`;
+  container.innerHTML = htmlContent;
 
   container.querySelectorAll('.day-assign-select').forEach(select => {
     select.addEventListener('change', (e) => {
@@ -171,6 +172,7 @@ container.innerHTML = htmlContent;
       
       renderDaysView(allSpots);
       focusMapOnPinnedSpots(allSpots);
+      if (window.updateNavTabCounts) window.updateNavTabCounts();
     });
   });
 
