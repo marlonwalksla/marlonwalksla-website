@@ -19,34 +19,38 @@ window.initMyTripView = function(allSpots) {
   renderPassportView(allSpots);
   renderLogisticsView();
   
-  // Auto-center map on pinned spots
   focusMapOnPinnedSpots(allSpots);
 };
 
 function focusMapOnPinnedSpots(allSpots) {
-  if (!window.marlonMapInstance || !window.MarlonStorage) return;
-  const map = window.marlonMapInstance;
+  if (!window.MarlonStorage) return;
   const tripData = window.MarlonStorage.getSavedTripData() || { days: {} };
   const savedMap = tripData.days || {};
   const savedSpotIds = Object.keys(savedMap);
 
-  if (savedSpotIds.length === 0) return;
-
-  const bounds = new mapboxgl.LngLatBounds();
-  let count = 0;
-
-  (allSpots || []).forEach(spot => {
+  // Filter spots to ONLY pinned items
+  const pinnedSpots = (allSpots || []).filter(spot => {
     const info = parseSpotInfo(spot);
-    if (savedSpotIds.includes(info.id)) {
+    return savedSpotIds.includes(info.id);
+  });
+
+  // Hide all unpinned markers on map
+  if (window.updateMapMarkers) {
+    window.updateMapMarkers(pinnedSpots);
+  }
+
+  // Recenter map bounds to pinned spots
+  if (window.marlonMapInstance && pinnedSpots.length > 0) {
+    const map = window.marlonMapInstance;
+    const bounds = new mapboxgl.LngLatBounds();
+    
+    pinnedSpots.forEach(spot => {
       const coords = spot.geometry ? spot.geometry.coordinates : (spot.lng && spot.lat ? [spot.lng, spot.lat] : null);
       if (coords && coords.length >= 2) {
         bounds.extend([parseFloat(coords[0]), parseFloat(coords[1])]);
-        count++;
       }
-    }
-  });
+    });
 
-  if (count > 0) {
     const isMobile = window.innerWidth <= 820;
     map.fitBounds(bounds, {
       padding: isMobile 
@@ -104,7 +108,6 @@ function renderDaysView(allSpots) {
     return;
   }
 
-  // Group spots by Day
   const dayGroups = { 'Day 1': [], 'Day 2': [], 'Day 3': [], 'Day 4': [], 'Unassigned': [] };
   
   savedSpotIds.forEach(spotId => {
@@ -150,7 +153,6 @@ function renderDaysView(allSpots) {
   htmlContent += `</div>`;
   container.innerHTML = htmlContent;
 
-  // Day Assignment Change
   container.querySelectorAll('.day-assign-select').forEach(select => {
     select.addEventListener('change', (e) => {
       const spotId = e.target.getAttribute('data-spot-id');
@@ -160,41 +162,26 @@ function renderDaysView(allSpots) {
     });
   });
 
-  // Pin Toggle (Unpin action)
   container.querySelectorAll('.btn-pin-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const spotId = btn.getAttribute('data-id');
       if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(spotId);
       if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
       
-      // Re-render Days View & auto-recenter map
       renderDaysView(allSpots);
       focusMapOnPinnedSpots(allSpots);
-
-      // Refresh Explore View cards to unhighlight pinned state
-      const searchInput = document.querySelector('#search-input');
-      if (searchInput) {
-        searchInput.dispatchEvent(new Event('input'));
-      }
     });
   });
 
-  // Visited Toggle
   container.querySelectorAll('.btn-visit-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const spotId = btn.getAttribute('data-id');
       if (window.MarlonStorage) window.MarlonStorage.toggleVisitedSpot(spotId);
       if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
       renderDaysView(allSpots);
-
-      const searchInput = document.querySelector('#search-input');
-      if (searchInput) {
-        searchInput.dispatchEvent(new Event('input'));
-      }
     });
   });
 
-  // Fly to spot on map when clicking title
   container.querySelectorAll('.spot-title').forEach(titleEl => {
     titleEl.addEventListener('click', () => {
       const itemEl = titleEl.closest('.trip-spot-item');
