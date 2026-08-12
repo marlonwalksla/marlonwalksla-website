@@ -79,12 +79,10 @@ function setupFilterListeners() {
     const neighVal = neighborhoodSelect?.value || '';
     const query = searchInput?.value.toLowerCase().trim() || '';
 
-    // Toggle individual text clear 'X' button
     if (clearBtn) {
       clearBtn.style.display = query ? 'block' : 'none';
     }
 
-    // Toggle global 'Reset All' button if ANY filter or text is active
     const isAnyFilterActive = Boolean(query || catVal || vibeVal || neighVal);
     if (resetAllBtn) {
       resetAllBtn.style.display = isAnyFilterActive ? 'inline-flex' : 'none';
@@ -106,19 +104,20 @@ function setupFilterListeners() {
     renderSpotCards(filtered);
   };
 
+  // Expose function globally for mode switches
+  window.reapplyExploreFilters = applyFilters;
+
   [categorySelect, vibeSelect, neighborhoodSelect].forEach(el => {
     el?.addEventListener('change', applyFilters);
   });
 
   searchInput?.addEventListener('input', applyFilters);
 
-  // Clear text only
   clearBtn?.addEventListener('click', () => {
     if (searchInput) searchInput.value = '';
     applyFilters();
   });
 
-  // Reset ALL filters (Text + 3 Dropdowns)
   resetAllBtn?.addEventListener('click', () => {
     if (searchInput) searchInput.value = '';
     if (categorySelect) categorySelect.selectedIndex = 0;
@@ -153,14 +152,13 @@ function renderSpotCards(spots) {
           <p>${item.neighborhood} • ${item.category}</p>
         </div>
         <div class="spot-card-actions">
-          <button type="button" class="card-action-btn btn-quick-pin ${isPinned ? 'is-active' : ''}" data-action="pin" data-id="${item.id}" title="Pin">📌</button>
-          <button type="button" class="card-action-btn btn-quick-visit ${isVisited ? 'is-active' : ''}" data-action="visit" data-id="${item.id}" title="Visited">✅</button>
+          <button type="button" class="card-action-btn btn-quick-pin ${isPinned ? 'is-active' : ''}" data-action="pin" data-id="${item.id}" title="Pin to My Trip">📌</button>
+          <button type="button" class="card-action-btn btn-quick-visit ${isVisited ? 'is-active' : ''}" data-action="visit" data-id="${item.id}" title="Mark Visited">✅</button>
         </div>
       </div>
     `;
   }).join('');
 
-  // Event Listeners for Spot Cards and Quick Actions
   container.querySelectorAll('.spot-card').forEach(card => {
     card.addEventListener('click', (e) => {
       const targetBtn = e.target.closest('.card-action-btn');
@@ -181,7 +179,6 @@ function renderSpotCards(spots) {
         return;
       }
 
-      // Fly map to spot pin when card body is clicked
       if (window.MARLON_ALL_MARKERS) {
         const match = window.MARLON_ALL_MARKERS.find(m => m.id === spotId);
         if (match && match.wrapper) match.wrapper.click();
