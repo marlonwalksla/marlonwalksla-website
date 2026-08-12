@@ -148,7 +148,7 @@ function renderSpotCards(spots) {
   const pinnedSet = new Set(tripData.pinned || []);
   const visitedSet = new Set(tripData.visited || []);
 
-  container.innerHTML = spots.map(spot => {
+  const cardsHtml = spots.map(spot => {
     const item = parseSpotProps(spot);
     const isPinned = pinnedSet.has(item.id);
     const isVisited = visitedSet.has(item.id);
@@ -166,6 +166,9 @@ function renderSpotCards(spots) {
       </div>
     `;
   }).join('');
+
+  // Re-added mobile bottom scroll spacer
+  container.innerHTML = cardsHtml + `<div class="bottom-scroll-spacer" style="height: 80px; width: 100%; flex-shrink: 0;"></div>`;
 
   container.querySelectorAll('.spot-card').forEach(card => {
     card.addEventListener('click', (e) => {
