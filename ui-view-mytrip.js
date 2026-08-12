@@ -151,8 +151,8 @@ function renderDaysView(allSpots) {
   });
 
   // Dedicated bottom spacer prevents last item cut-off on mobile viewport
-  htmlContent += `<div class="bottom-scroll-spacer" style="height: 60px; width: 100%; flex-shrink: 0;"></div></div>`;
-  container.innerHTML = htmlContent;
+htmlContent += `</div>`;
+container.innerHTML = htmlContent;
 
   container.querySelectorAll('.day-assign-select').forEach(select => {
     select.addEventListener('change', (e) => {
