@@ -100,8 +100,8 @@ window.initMapEngine = async function() {
 
   window.updateMarlonMarkerStates = updateMarkerStates;
 
-  /* =========================================================
-   * 6. FILTER MARKERS ON MAP & FIT BOUNDS (BALANCED Y-AXIS)
+/* =========================================================
+   * 6. FILTER MARKERS ON MAP & AUTO-FIT BOUNDS (EDGE CLEARANCE)
    * ========================================================= */
   window.updateMapMarkers = function(filteredSpots) {
     if (!allMarkers || !map) return;
@@ -129,12 +129,13 @@ window.initMapEngine = async function() {
 
     if (visibleCount > 0 && activeIds.size > 0 && activeIds.size < allMarkers.length) {
       const isMobile = window.innerWidth <= 820;
-      // Adjusted padding: reduced top padding shifts Y-axis down to eliminate top whitespace gap
+      
+      // Increased top & side padding prevents top-right pins (e.g. Hollywood/Griffith) from clipping
       map.fitBounds(bounds, {
         padding: isMobile 
-          ? { top: 15, bottom: 40, left: 15, right: 15 } 
-          : { top: 25, bottom: 40, left: 35, right: 35 },
-        maxZoom: 14.2,
+          ? { top: 50, bottom: 50, left: 30, right: 30 } 
+          : { top: 60, bottom: 60, left: 50, right: 50 },
+        maxZoom: 14.0,
         duration: 750
       });
     } else if (activeIds.size === 0 || activeIds.size === allMarkers.length) {
