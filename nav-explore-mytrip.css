@@ -342,7 +342,7 @@
  * ------------------------------------------------------------------------------ */
 @media (max-width: 820px) {
   #map, .map-container {
-    min-height: 28vh !important;
+    min-height: 36vh !important;
   }
 
   .mode-navigation {
@@ -361,7 +361,6 @@
     height: auto;
   }
 
-  /* Compact maximum height ensures bottom edge remains above mobile toolbar */
   #spot-cards-list,
   .trip-grouped-list,
   #view-tours,
@@ -372,19 +371,54 @@
     -webkit-overflow-scrolling: touch !important;
     padding-bottom: 40px !important;
   }
+
+  /* Compact Mapbox Popup Card for Mobile screens */
+  .mapboxgl-popup {
+    max-width: 86vw !important;
+  }
+
+  .mapboxgl-popup-content {
+    padding: 8px 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .spot-popup-card {
+    gap: 4px !important;
+    padding: 2px !important;
+  }
+
+  .spot-popup-card h3 {
+    font-size: 0.82rem !important;
+    margin-bottom: 2px !important;
+    line-height: 1.15 !important;
+  }
+
+  .spot-popup-card p {
+    font-size: 0.7rem !important;
+    line-height: 1.25 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    margin-bottom: 4px !important;
+  }
+
+  .spot-popup-card .action-btn,
+  .spot-popup-card .book-tour-btn,
+  .spot-popup-card button {
+    padding: 4px 6px !important;
+    font-size: 0.72rem !important;
+  }
 }
 
-/* ==============================================================================
- * 9. MAP PIN HIGHLIGHT RINGS (PRESERVES ORIGINAL CATEGORY COLOR INSIDE)
- * ============================================================================== */
-
-/* Pinned State: Blue outer highlight ring & glow */
+/* ------------------------------------------------------------------------------
+ * 9. MAP PIN HIGHLIGHT RINGS
+ * ------------------------------------------------------------------------------ */
 .marker-wrapper.is-pinned-ring .custom-emoji-marker {
   box-shadow: 0 0 0 4px #2563eb, 0 2px 10px rgba(37, 99, 235, 0.5) !important;
   border: 2px solid #ffffff !important;
 }
 
-/* Visited / Checked State: Green outer highlight ring & glow */
 .marker-wrapper.is-visited-pin .custom-emoji-marker {
   box-shadow: 0 0 0 4px #10b981, 0 2px 10px rgba(16, 185, 129, 0.5) !important;
   border: 2px solid #ffffff !important;
