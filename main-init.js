@@ -41,8 +41,10 @@ function initModeSwitcher() {
     if (panelMyTrip) panelMyTrip.style.display = 'block';
     if (panelExplore) panelExplore.style.display = 'none';
 
-    if (window.initMyTripView && window.marlonGeoData) {
-      window.initMyTripView(window.marlonGeoData.features);
+    // Force render My Trip views when tab is clicked
+    if (window.initMyTripView) {
+      const spotFeatures = window.marlonGeoData ? window.marlonGeoData.features : [];
+      window.initMyTripView(spotFeatures);
     }
 
     if (window.marlonMapInstance) {
