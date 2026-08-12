@@ -247,15 +247,19 @@ window.initMapEngine = async function() {
     allMarkers.push(spotData);
   });
 
-  /* =========================================================
-   * 8. BOOTSTRAP UI VIEWS
+/* =========================================================
+   * 8. BOOTSTRAP UI VIEWS & SYNCHRONIZE INITIAL TAB
    * ========================================================= */
   if (window.initExploreView) window.initExploreView(geojsonData);
   if (window.initMyTripView) window.initMyTripView(geojsonData.features);
+
+  // Trigger tab synchronization after view generation
+  if (window.applyInitialTabState) {
+    window.applyInitialTabState();
+  }
 
   map.on('load', () => { 
     map.resize();
     if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
     updateMarkerStates(); 
   });
-};
