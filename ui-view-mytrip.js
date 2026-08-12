@@ -3,17 +3,12 @@
  * CATEGORY: MarlonWalksLA Website - My Trip View Controller
  * ============================================================================== */
 
-// Helper to reliably extract spot ID and Name across GeoJSON and Marker objects
 function parseSpotInfo(spot) {
   if (!spot) return { id: '', name: 'Location' };
-  
   const p = spot.properties || spot;
   const rawId = spot.id || p.id || p.Slug || p.Item_ID || p.Name || p.name || '';
   const cleanId = String(rawId).toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  
-  const cleanName = spot.title || p.Name || p.name || p.title || 
-    cleanId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Location';
-
+  const cleanName = spot.title || p.Name || p.name || p.title || cleanId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Location';
   return { id: cleanId, name: cleanName };
 }
 
@@ -52,9 +47,10 @@ function renderDaysView(allSpots) {
   const container = document.getElementById('view-days');
   if (!container) return;
 
-  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : { pinned: [], days: {} };
+  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : { pinned: [], days: {}, visited: [] };
   const savedMap = tripData.days || {};
   const savedSpotIds = Object.keys(savedMap);
+  const visitedSet = new Set(tripData.visited || []);
 
   if (savedSpotIds.length === 0) {
     container.innerHTML = `
@@ -66,43 +62,77 @@ function renderDaysView(allSpots) {
     return;
   }
 
-  // Look up each saved ID in allSpots array
-  const spotItemsHtml = savedSpotIds.map(spotId => {
+  // Bucket spots by Day
+  const dayGroups = { 'Day 1': [], 'Day 2': [], 'Day 3': [], 'Day 4': [], 'Unassigned': [] };
+  
+  savedSpotIds.forEach(spotId => {
     const match = (allSpots || []).find(s => parseSpotInfo(s).id === spotId);
     const spotName = match ? parseSpotInfo(match).name : spotId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    const currentDay = savedMap[spotId] || 'Unassigned';
+    const assignedDay = savedMap[spotId] || 'Unassigned';
+    
+    if (!dayGroups[assignedDay]) dayGroups[assignedDay] = [];
+    dayGroups[assignedDay].push({ id: spotId, name: spotName, isVisited: visitedSet.has(spotId) });
+  });
 
-    return `
-      <div class="trip-spot-item" data-id="${spotId}" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 6px;">
-        <span class="spot-title" style="font-size: 0.82rem; font-weight: 700; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 65%;">📍 ${spotName}</span>
-        <select class="day-assign-select" data-spot-id="${spotId}" style="font-size: 0.75rem; font-weight: 600; padding: 4px 6px; border-radius: 6px; border: 1px solid #cbd5e1; background: #f8fafc; color: #334155; outline: none; cursor: pointer;">
-          <option value="Unassigned" ${currentDay === 'Unassigned' ? 'selected' : ''}>Unassigned</option>
-          <option value="Day 1" ${currentDay === 'Day 1' ? 'selected' : ''}>Day 1</option>
-          <option value="Day 2" ${currentDay === 'Day 2' ? 'selected' : ''}>Day 2</option>
-          <option value="Day 3" ${currentDay === 'Day 3' ? 'selected' : ''}>Day 3</option>
-          <option value="Day 4" ${currentDay === 'Day 4' ? 'selected' : ''}>Day 4</option>
-        </select>
+  let htmlContent = `<div class="trip-spots-header" style="margin-bottom: 8px;">
+    <h4 style="margin: 0; font-size: 0.85rem; color: #1e293b; font-weight: 800;">📌 Saved Spots (${savedSpotIds.length})</h4>
+  </div><div class="trip-grouped-list" style="max-height: 280px; overflow-y: auto;">`;
+
+  Object.keys(dayGroups).forEach(dayName => {
+    const spots = dayGroups[dayName];
+    if (spots.length === 0) return;
+
+    htmlContent += `
+      <div class="day-group-header" style="font-size: 0.78rem; font-weight: 800; color: #2563eb; background: #eff6ff; padding: 4px 8px; border-radius: 6px; margin: 8px 0 4px 0;">
+        📅 ${dayName} (${spots.length})
       </div>
+      ${spots.map(s => `
+        <div class="trip-spot-item" data-id="${s.id}" style="display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 4px;">
+          <span class="spot-title" style="font-size: 0.8rem; font-weight: 700; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; margin-right: 6px;">📍 ${s.name}</span>
+          <div style="display: flex; align-items: center; gap: 4px;">
+            <select class="day-assign-select" data-spot-id="${s.id}" style="font-size: 0.72rem; font-weight: 600; padding: 2px 4px; border-radius: 4px; border: 1px solid #cbd5e1; background: #f8fafc; color: #334155; outline: none;">
+              <option value="Day 1" ${dayName === 'Day 1' ? 'selected' : ''}>Day 1</option>
+              <option value="Day 2" ${dayName === 'Day 2' ? 'selected' : ''}>Day 2</option>
+              <option value="Day 3" ${dayName === 'Day 3' ? 'selected' : ''}>Day 3</option>
+              <option value="Day 4" ${dayName === 'Day 4' ? 'selected' : ''}>Day 4</option>
+              <option value="Unassigned" ${dayName === 'Unassigned' ? 'selected' : ''}>Unassigned</option>
+            </select>
+            <button type="button" class="btn-mytrip-action btn-visit-toggle ${s.isVisited ? 'is-active' : ''}" data-id="${s.id}" title="Toggle Visited">✅</button>
+            <button type="button" class="btn-mytrip-action btn-unpin" data-id="${s.id}" title="Remove Pin">🗑️</button>
+          </div>
+        </div>
+      `).join('')}
     `;
-  }).join('');
+  });
 
-  container.innerHTML = `
-    <div class="trip-spots-header" style="margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
-      <h4 style="margin: 0; font-size: 0.85rem; color: #1e293b; font-weight: 800;">📌 Saved Spots (${savedSpotIds.length})</h4>
-    </div>
-    <div class="trip-spots-list" style="max-height: 260px; overflow-y: auto;">
-      ${spotItemsHtml}
-    </div>
-  `;
+  htmlContent += `</div>`;
+  container.innerHTML = htmlContent;
 
-  // Attach change listeners to sync day assignments with local storage
+  // Listeners for Day Select, Visited Toggle, and Unpin
   container.querySelectorAll('.day-assign-select').forEach(select => {
     select.addEventListener('change', (e) => {
       const spotId = e.target.getAttribute('data-spot-id');
       const selectedDay = e.target.value;
-      if (window.MarlonStorage) {
-        window.MarlonStorage.setSpotDay(spotId, selectedDay);
-      }
+      if (window.MarlonStorage) window.MarlonStorage.setSpotDay(spotId, selectedDay);
+      renderDaysView(allSpots);
+    });
+  });
+
+  container.querySelectorAll('.btn-visit-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const spotId = btn.getAttribute('data-id');
+      if (window.MarlonStorage) window.MarlonStorage.toggleVisitedSpot(spotId);
+      if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+      renderDaysView(allSpots);
+    });
+  });
+
+  container.querySelectorAll('.btn-unpin').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const spotId = btn.getAttribute('data-id');
+      if (window.MarlonStorage) window.MarlonStorage.toggleSavedSpot(spotId);
+      if (window.updateMarlonMarkerStates) window.updateMarlonMarkerStates();
+      renderDaysView(allSpots);
     });
   });
 }
@@ -114,9 +144,17 @@ function renderPassportView(allSpots) {
   const userData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : { mascot: '🐼', name: '', instagram: '', visited: [] };
   const visitedIds = userData.visited || [];
 
+  const visitedNames = visitedIds.map(id => {
+    const match = (allSpots || []).find(s => parseSpotInfo(s).id === id);
+    return match ? parseSpotInfo(match).name : id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  });
+
   container.innerHTML = `
     <div class="passport-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin-bottom: 10px;">
-      <h4 style="margin: 0 0 8px 0; font-size: 0.88rem; color: #0f172a; font-weight: 800;">👤 Traveler Profile Card</h4>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h4 style="margin: 0; font-size: 0.88rem; color: #0f172a; font-weight: 800;">👤 Traveler Profile Card</h4>
+        <button id="share-passport-btn" type="button" style="font-size: 0.7rem; font-weight: 700; color: #2563eb; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 3px 8px; cursor: pointer;">📋 Copy Handle</button>
+      </div>
       
       <label style="font-size: 0.7rem; font-weight: 800; color: #64748b; display: block; margin-bottom: 4px;">YOUR MASCOT</label>
       <div class="mascot-selector" style="display: flex; gap: 4px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 4px;">
@@ -143,8 +181,12 @@ function renderPassportView(allSpots) {
     </div>
 
     <div class="visited-summary" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
-      <h4 style="margin: 0 0 2px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">✅ Visited Spots (${visitedIds.length})</h4>
-      <p style="margin: 0; font-size: 0.78rem; color: #64748b;">You have checked off ${visitedIds.length} LA landmarks!</p>
+      <h4 style="margin: 0 0 6px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">✅ Visited Spots (${visitedNames.length})</h4>
+      ${visitedNames.length > 0 ? `
+        <div class="visited-chips-wrap" style="display: flex; flex-wrap: wrap; gap: 4px; max-height: 120px; overflow-y: auto;">
+          ${visitedNames.map(name => `<span class="visited-chip" style="font-size: 0.72rem; background: #dcfce7; color: #15803d; font-weight: 700; padding: 2px 6px; border-radius: 6px;">✓ ${name}</span>`).join('')}
+        </div>
+      ` : `<p style="margin: 0; font-size: 0.78rem; color: #64748b;">Tap ✅ on any spot card to check off places you've visited!</p>`}
     </div>
   `;
 }
@@ -156,7 +198,6 @@ function setupPassportListeners() {
   container.addEventListener('click', (e) => {
     if (e.target.classList.contains('mascot-btn')) {
       const selectedMascot = e.target.getAttribute('data-mascot');
-      
       container.querySelectorAll('.mascot-btn').forEach(b => {
         b.style.background = '#f1f5f9';
         b.style.borderColor = '#cbd5e1';
@@ -169,6 +210,13 @@ function setupPassportListeners() {
         data.mascot = selectedMascot;
         window.MarlonStorage.saveTripData(data);
       }
+    } else if (e.target.id === 'share-passport-btn') {
+      const name = document.getElementById('user-name')?.value || 'LA Explorer';
+      const ig = document.getElementById('user-ig')?.value || '';
+      const textToCopy = `Hey! I'm ${name} on Marlon's DTLA Walk! ${ig ? 'IG: ' + ig : ''}`;
+      navigator.clipboard.writeText(textToCopy);
+      e.target.innerText = 'Copied! 🎉';
+      setTimeout(() => { e.target.innerText = '📋 Copy Handle'; }, 2000);
     }
   });
 
@@ -189,14 +237,36 @@ function renderLogisticsView() {
   const container = document.getElementById('view-logistics');
   if (!container) return;
 
+  const currentHotel = window.MarlonStorage ? window.MarlonStorage.getHotelAddress() : '';
+
   container.innerHTML = `
     <div class="logistics-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px;">
-      <h4 style="margin: 0 0 4px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">🏨 Downtown LA Accommodations</h4>
-      <p style="margin: 0; font-size: 0.78rem; color: #475569; line-height: 1.35;">Staying in DTLA gives you walking access to historic landmarks, Metro subways, and our walking tour meet-up spots.</p>
+      <h4 style="margin: 0 0 4px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">🏨 Set Hotel Basecamp</h4>
+      <p style="margin: 0 0 6px 0; font-size: 0.75rem; color: #475569;">Enter your DTLA hotel name to save your basecamp location:</p>
+      <div style="display: flex; gap: 6px;">
+        <input type="text" id="hotel-input" placeholder="e.g. Biltmore Hotel DTLA" value="${currentHotel}" style="flex: 1; padding: 6px 8px; font-size: 0.78rem; border: 1px solid #cbd5e1; border-radius: 6px;" />
+        <button id="save-hotel-btn" type="button" style="padding: 6px 10px; font-size: 0.75rem; font-weight: 800; background: #2563eb; color: #ffffff; border: none; border-radius: 6px; cursor: pointer;">Save</button>
+      </div>
     </div>
+
+    <div class="logistics-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px;">
+      <h4 style="margin: 0 0 4px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">🚶 Tour Directions</h4>
+      <a href="https://maps.google.com/?q=Pershing+Square+Los+Angeles" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 8px 0; font-size: 0.78rem; font-weight: 800; text-align: center; color: #ffffff; background: #059669; border-radius: 6px; text-decoration: none;">🗺️ Get Directions to Tour Meetup</a>
+    </div>
+
     <div class="logistics-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
       <h4 style="margin: 0 0 4px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">🚆 LA Metro & Transit</h4>
       <p style="margin: 0; font-size: 0.78rem; color: #475569; line-height: 1.35;">Tap card or Apple/Google Pay works on all Metro buses and subways ($1.75 flat fare with free 2-hour transfers).</p>
     </div>
   `;
+
+  document.getElementById('save-hotel-btn')?.addEventListener('click', () => {
+    const val = document.getElementById('hotel-input')?.value || '';
+    if (window.MarlonStorage) window.MarlonStorage.setHotelAddress(val);
+    const btn = document.getElementById('save-hotel-btn');
+    if (btn) {
+      btn.innerText = 'Saved! 🏨';
+      setTimeout(() => { btn.innerText = 'Save'; }, 2000);
+    }
+  });
 }
