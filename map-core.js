@@ -79,7 +79,7 @@ window.initMapEngine = async function() {
   let activePopupSpotId = null;
 
   /* =========================================================
-   * 5. MARKER STATE MANAGEMENT (AUTO-UPDATES TAB COUNTS)
+   * 5. MARKER STATE MANAGEMENT
    * ========================================================= */
   function updateMarkerStates() {
     const savedSpotIds = window.MarlonStorage ? window.MarlonStorage.getSavedSpotIds() : [];
@@ -105,7 +105,7 @@ window.initMapEngine = async function() {
   window.updateMarlonMarkerStates = updateMarkerStates;
 
   /* =========================================================
-   * 6. FILTER MARKERS ON MAP & CLAMP CAMERA ZOOM
+   * 6. FILTER MARKERS & AUTO-FIT ALL ACTIVE PINS ON MAP
    * ========================================================= */
   window.updateMapMarkers = function(filteredSpots) {
     if (!allMarkers || !map) return;
@@ -134,17 +134,15 @@ window.initMapEngine = async function() {
     if (visibleCount > 0 && activeIds.size > 0 && activeIds.size < allMarkers.length) {
       const isMobile = window.innerWidth <= 820;
       const paddingOptions = isMobile 
-        ? { top: 50, bottom: 50, left: 30, right: 30 } 
-        : { top: 60, bottom: 60, left: 50, right: 50 };
+        ? { top: 35, bottom: 35, left: 25, right: 25 } 
+        : { top: 50, bottom: 50, left: 40, right: 40 };
 
-      const camera = map.cameraForBounds(bounds, { padding: paddingOptions });
-      if (camera) {
-        // Clamp camera zoom so map never zooms out wider than level 11.2
-        if (camera.zoom < 11.2) camera.zoom = 11.2;
-        if (camera.zoom > 14.0) camera.zoom = 14.0;
-        camera.duration = 750;
-        map.flyTo(camera);
-      }
+      // Dynamically fit ALL active pins inside the viewport
+      map.fitBounds(bounds, {
+        padding: paddingOptions,
+        maxZoom: 14.0,
+        duration: 750
+      });
     } else if (activeIds.size === 0 || activeIds.size === allMarkers.length) {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 750 });
     }
@@ -207,8 +205,6 @@ window.initMapEngine = async function() {
       }
 
       const isMobile = window.innerWidth <= 820;
-      
-      // Keep close zoom if already zoomed in on a location
       const currentZoom = map.getZoom();
       const targetZoom = Math.max(currentZoom, 13.5);
 
@@ -262,7 +258,7 @@ window.initMapEngine = async function() {
   });
 
   /* =========================================================
-   * 8. SAFE BOOTSTRAP: EVALUATE TAB AFTER DATA IS GUARANTEED
+   * 8. SAFE BOOTSTRAP
    * ========================================================= */
   const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : null;
   const savedMap = tripData ? (tripData.days || {}) : {};
