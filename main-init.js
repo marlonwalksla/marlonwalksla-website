@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: main-init.js
- * CATEGORY: MarlonWalksLA Website - Master Initialization & Tab Synchronizer
+ * CATEGORY: MarlonWalksLA Website - Master Initialization & Dynamic Tab Counter
  * ============================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,6 +11,25 @@ document.addEventListener('DOMContentLoaded', () => {
     window.initMapEngine();
   }
 });
+
+// Helper to dynamically update counts on the top navigation buttons
+window.updateNavTabCounts = function() {
+  const modeExploreBtn = document.querySelector('[data-mode="explore"]');
+  const modeMyTripBtn = document.querySelector('[data-mode="mytrip"]');
+  
+  const totalExplore = (window.marlonGeoData && window.marlonGeoData.features) ? window.marlonGeoData.features.length : 0;
+  
+  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : null;
+  const savedMap = tripData ? (tripData.days || {}) : {};
+  const totalPinned = Object.keys(savedMap).length;
+
+  if (modeExploreBtn) {
+    modeExploreBtn.textContent = `🧭 Explore LA (${totalExplore})`;
+  }
+  if (modeMyTripBtn) {
+    modeMyTripBtn.textContent = `🧳 My Trip (${totalPinned})`;
+  }
+};
 
 function initModeSwitcher() {
   const modeExploreBtn = document.querySelector('[data-mode="explore"]');
@@ -54,22 +73,6 @@ function initModeSwitcher() {
     }
   });
 }
-
-// Synchronizes active tab and map pins on startup based on local storage
-window.applyInitialTabState = function() {
-  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : null;
-  const savedMap = tripData ? (tripData.days || {}) : {};
-  const hasSavedSpots = Object.keys(savedMap).length > 0;
-
-  const modeExploreBtn = document.querySelector('[data-mode="explore"]');
-  const modeMyTripBtn = document.querySelector('[data-mode="mytrip"]');
-
-  if (hasSavedSpots && modeMyTripBtn) {
-    modeMyTripBtn.click();
-  } else if (modeExploreBtn) {
-    modeExploreBtn.click();
-  }
-};
 
 function initExploreSubToggles() {
   const subPlacesBtn = document.querySelector('[data-explore-tab="places"]');
