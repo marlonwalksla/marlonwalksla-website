@@ -29,6 +29,11 @@ function initModeSwitcher() {
     if (panelExplore) panelExplore.style.display = 'block';
     if (panelMyTrip) panelMyTrip.style.display = 'none';
 
+    // Restore Explore LA markers and filters
+    if (window.reapplyExploreFilters) {
+      window.reapplyExploreFilters();
+    }
+
     if (window.marlonMapInstance) {
       setTimeout(() => window.marlonMapInstance.resize(), 50);
     }
@@ -41,7 +46,7 @@ function initModeSwitcher() {
     if (panelMyTrip) panelMyTrip.style.display = 'block';
     if (panelExplore) panelExplore.style.display = 'none';
 
-    // Force render My Trip views when tab is clicked
+    // Render My Trip and isolate map markers to pinned spots
     if (window.initMyTripView) {
       const spotFeatures = window.marlonGeoData ? window.marlonGeoData.features : [];
       window.initMyTripView(spotFeatures);
