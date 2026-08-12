@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Native Cluster Engine
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Smart Cluster Engine
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -77,6 +77,7 @@ window.initMapEngine = async function() {
   window.MARLON_ALL_MARKERS = allMarkers;
   let activePopup = null; 
   let activePopupSpotId = null;
+  let currentActiveCount = geojsonData.features.length;
 
   /* =========================================================
    * 5. MARKER STATE MANAGEMENT
@@ -105,10 +106,29 @@ window.initMapEngine = async function() {
   window.updateMarlonMarkerStates = updateMarkerStates;
 
   /* =========================================================
-   * 6. CLUSTER SYNCHRONIZATION
+   * 6. CLUSTER SYNCHRONIZATION (< 10 SHOWS ALL PINS)
    * ========================================================= */
   function updateClusterVisibility() {
     if (!map.getSource('spots')) return;
+
+    // Threshold check: If less than 10 pins are active, bypass clusters and render all pins
+    if (currentActiveCount < 10) {
+      if (map.getLayer('clusters')) {
+        map.setLayoutProperty('clusters', 'visibility', 'none');
+        map.setLayoutProperty('cluster-count', 'visibility', 'none');
+      }
+      allMarkers.forEach(m => {
+        m.wrapper.style.display = m.isFilteredActive ? 'block' : 'none';
+      });
+      return;
+    }
+
+    // Re-enable clusters when 10 or more pins are active
+    if (map.getLayer('clusters')) {
+      map.setLayoutProperty('clusters', 'visibility', 'visible');
+      map.setLayoutProperty('cluster-count', 'visibility', 'visible');
+    }
+
     const unclusteredFeatures = map.queryRenderedFeatures({ layers: ['unclustered-helper'] });
     const unclusteredIds = new Set(unclusteredFeatures.map(f => {
       const p = f.properties || {};
@@ -126,6 +146,8 @@ window.initMapEngine = async function() {
 
   window.updateMapMarkers = function(filteredSpots) {
     if (!allMarkers || !map || !map.getSource('spots')) return;
+
+    currentActiveCount = filteredSpots.length;
 
     const activeIds = new Set(filteredSpots.map(s => {
       const p = s.properties || {};
@@ -278,7 +300,6 @@ window.initMapEngine = async function() {
   map.on('load', () => {
     map.resize();
 
-    // Register clustered GeoJSON source
     map.addSource('spots', {
       type: 'geojson',
       data: geojsonData,
@@ -287,7 +308,6 @@ window.initMapEngine = async function() {
       clusterRadius: 45
     });
 
-    // Layer 1: Cluster Circles
     map.addLayer({
       id: 'clusters',
       type: 'circle',
@@ -308,7 +328,6 @@ window.initMapEngine = async function() {
       }
     });
 
-    // Layer 2: Cluster Count Numbers
     map.addLayer({
       id: 'cluster-count',
       type: 'symbol',
@@ -324,7 +343,6 @@ window.initMapEngine = async function() {
       }
     });
 
-    // Layer 3: Invisible Helper for Unclustered Points
     map.addLayer({
       id: 'unclustered-helper',
       type: 'circle',
@@ -336,7 +354,6 @@ window.initMapEngine = async function() {
       }
     });
 
-    // Click cluster to zoom in
     map.on('click', 'clusters', (e) => {
       const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
       const clusterId = features[0].properties.cluster_id;
