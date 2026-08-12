@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: map-core.js
- * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Marker Engine
+ * CATEGORY: MarlonWalksLA Website - Core Mapbox Orchestrator & Native Cluster Engine
  * ============================================================================== */
 
 window.initMapEngine = async function() {
@@ -105,50 +105,65 @@ window.initMapEngine = async function() {
   window.updateMarlonMarkerStates = updateMarkerStates;
 
   /* =========================================================
-   * 6. FILTER MARKERS & AUTO-FIT ALL ACTIVE PINS ON MAP
+   * 6. CLUSTER SYNCHRONIZATION
    * ========================================================= */
+  function updateClusterVisibility() {
+    if (!map.getSource('spots')) return;
+    const unclusteredFeatures = map.queryRenderedFeatures({ layers: ['unclustered-helper'] });
+    const unclusteredIds = new Set(unclusteredFeatures.map(f => {
+      const p = f.properties || {};
+      return (p.Slug || p.Item_ID || p.Name || f.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    }));
+
+    allMarkers.forEach(m => {
+      if (m.isFilteredActive && unclusteredIds.has(m.id)) {
+        m.wrapper.style.display = 'block';
+      } else {
+        m.wrapper.style.display = 'none';
+      }
+    });
+  }
+
   window.updateMapMarkers = function(filteredSpots) {
-    if (!allMarkers || !map) return;
+    if (!allMarkers || !map || !map.getSource('spots')) return;
 
     const activeIds = new Set(filteredSpots.map(s => {
       const p = s.properties || {};
       return (p.Slug || p.Item_ID || p.Name || s.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
     }));
 
-    const bounds = new mapboxgl.LngLatBounds();
-    let visibleCount = 0;
-
     allMarkers.forEach(markerObj => {
-      if (markerObj.wrapper) {
-        const isMatch = activeIds.has(markerObj.id);
-        if (isMatch) {
-          markerObj.wrapper.style.display = 'block';
-          bounds.extend([markerObj.lng, markerObj.lat]);
-          visibleCount++;
-        } else {
-          markerObj.wrapper.style.display = 'none';
-        }
-      }
+      markerObj.isFilteredActive = activeIds.has(markerObj.id);
     });
 
-    if (visibleCount > 0 && activeIds.size > 0 && activeIds.size < allMarkers.length) {
-      const isMobile = window.innerWidth <= 820;
-      const paddingOptions = isMobile 
-        ? { top: 30, bottom: 30, left: 20, right: 20 } 
-        : { top: 50, bottom: 50, left: 40, right: 40 };
+    const filteredGeoJson = {
+      type: 'FeatureCollection',
+      features: filteredSpots
+    };
+    map.getSource('spots').setData(filteredGeoJson);
 
+    if (filteredSpots.length > 0 && activeIds.size < allMarkers.length) {
+      const bounds = new mapboxgl.LngLatBounds();
+      filteredSpots.forEach(s => {
+        const coords = s.geometry ? s.geometry.coordinates : [s.lng, s.lat];
+        if (coords && coords.length >= 2) bounds.extend([parseFloat(coords[0]), parseFloat(coords[1])]);
+      });
+
+      const isMobile = window.innerWidth <= 820;
       map.fitBounds(bounds, {
-        padding: paddingOptions,
+        padding: isMobile ? { top: 30, bottom: 30, left: 20, right: 20 } : { top: 50, bottom: 50, left: 40, right: 40 },
         maxZoom: 13.5,
         duration: 750
       });
     } else if (activeIds.size === 0 || activeIds.size === allMarkers.length) {
       map.flyTo({ center: dtlaCenter, zoom: 10.2, duration: 750 });
     }
+
+    setTimeout(updateClusterVisibility, 150);
   };
 
   /* =========================================================
-   * 7. MARKER GENERATION & CLEAN ZOOM TO PIN
+   * 7. MARKER GENERATION
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -190,6 +205,7 @@ window.initMapEngine = async function() {
       lng: lng, 
       lat: lat, 
       customColor: customColor, 
+      isFilteredActive: true,
       properties: props
     };
 
@@ -205,7 +221,6 @@ window.initMapEngine = async function() {
 
       const isMobile = window.innerWidth <= 820;
 
-      // Clean zoom to pin location without breaking camera bounds
       map.flyTo({ 
         center: [lng, lat], 
         zoom: 14.0,
@@ -258,7 +273,96 @@ window.initMapEngine = async function() {
   });
 
   /* =========================================================
-   * 8. SAFE BOOTSTRAP
+   * 8. MAP CLUSTER SOURCE & LAYER REGISTRATION
+   * ========================================================= */
+  map.on('load', () => {
+    map.resize();
+
+    // Register clustered GeoJSON source
+    map.addSource('spots', {
+      type: 'geojson',
+      data: geojsonData,
+      cluster: true,
+      clusterMaxZoom: 14,
+      clusterRadius: 45
+    });
+
+    // Layer 1: Cluster Circles
+    map.addLayer({
+      id: 'clusters',
+      type: 'circle',
+      source: 'spots',
+      filter: ['has', 'point_count'],
+      paint: {
+        'circle-color': '#2563eb',
+        'circle-radius': [
+          'step',
+          ['get', 'point_count'],
+          16, 5,
+          20, 15,
+          26
+        ],
+        'circle-stroke-width': 3,
+        'circle-stroke-color': '#ffffff',
+        'circle-opacity': 0.92
+      }
+    });
+
+    // Layer 2: Cluster Count Numbers
+    map.addLayer({
+      id: 'cluster-count',
+      type: 'symbol',
+      source: 'spots',
+      filter: ['has', 'point_count'],
+      layout: {
+        'text-field': '{point_count_abbreviated}',
+        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+        'text-size': 13
+      },
+      paint: {
+        'text-color': '#ffffff'
+      }
+    });
+
+    // Layer 3: Invisible Helper for Unclustered Points
+    map.addLayer({
+      id: 'unclustered-helper',
+      type: 'circle',
+      source: 'spots',
+      filter: ['!', ['has', 'point_count']],
+      paint: {
+        'circle-radius': 0,
+        'circle-opacity': 0
+      }
+    });
+
+    // Click cluster to zoom in
+    map.on('click', 'clusters', (e) => {
+      const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+      const clusterId = features[0].properties.cluster_id;
+      map.getSource('spots').getClusterExpansionZoom(clusterId, (err, zoom) => {
+        if (err) return;
+        map.easeTo({
+          center: features[0].geometry.coordinates,
+          zoom: zoom + 0.5,
+          duration: 600
+        });
+      });
+    });
+
+    map.on('mouseenter', 'clusters', () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', 'clusters', () => { map.getCanvas().style.cursor = ''; });
+
+    map.on('move', updateClusterVisibility);
+    map.on('moveend', updateClusterVisibility);
+
+    if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
+    updateMarkerStates();
+    updateClusterVisibility();
+  });
+
+  /* =========================================================
+   * 9. SAFE BOOTSTRAP
    * ========================================================= */
   const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : null;
   const savedMap = tripData ? (tripData.days || {}) : {};
@@ -286,10 +390,4 @@ window.initMapEngine = async function() {
     if (window.initExploreView) window.initExploreView(geojsonData);
     if (window.initMyTripView) window.initMyTripView(geojsonData.features);
   }
-
-  map.on('load', () => { 
-    map.resize();
-    if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
-    updateMarkerStates(); 
-  });
 };
