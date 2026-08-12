@@ -1,8 +1,11 @@
 /* ==============================================================================
  * FILE: ui-view-mytrip.js
- * CATEGORY: MarlonWalksLA Website - My Trip View Controller
+ * CATEGORY: MarlonWalksLA Website - Modular My Trip View Controller
  * ============================================================================== */
 
+/* ==============================================================================
+ * SECTION 1: UTILITIES & DATA PARSING
+ * ============================================================================== */
 function parseSpotInfo(spot) {
   if (!spot) return { id: '', name: 'Location' };
   const p = spot.properties || spot;
@@ -12,6 +15,10 @@ function parseSpotInfo(spot) {
   return { id: cleanId, name: cleanName, rawSpot: spot };
 }
 
+
+/* ==============================================================================
+ * SECTION 2: PRIMARY VIEW INITIALIZER & SUB-TAB SWITCHER
+ * ============================================================================== */
 window.initMyTripView = function(allSpots) {
   initSubTabSwitcher(allSpots);
   setupPassportListeners();
@@ -26,22 +33,6 @@ window.initMyTripView = function(allSpots) {
 
   if (window.updateNavTabCounts) window.updateNavTabCounts();
 };
-
-function focusMapOnPinnedSpots(allSpots) {
-  if (!window.MarlonStorage) return;
-  const tripData = window.MarlonStorage.getSavedTripData() || { days: {} };
-  const savedMap = tripData.days || {};
-  const savedSpotIds = Object.keys(savedMap);
-
-  const pinnedSpots = (allSpots || []).filter(spot => {
-    const info = parseSpotInfo(spot);
-    return savedSpotIds.includes(info.id);
-  });
-
-  if (window.updateMapMarkers) {
-    window.updateMapMarkers(pinnedSpots);
-  }
-}
 
 function initSubTabSwitcher(allSpots) {
   const tabs = document.querySelectorAll('[data-mytrip-tab]');
@@ -70,11 +61,35 @@ function initSubTabSwitcher(allSpots) {
   });
 }
 
+
+/* ==============================================================================
+ * SECTION 3: MAP FOCUS & PIN ISOLATION LOGIC
+ * ============================================================================== */
+function focusMapOnPinnedSpots(allSpots) {
+  if (!window.MarlonStorage) return;
+  const tripData = window.MarlonStorage.getSavedTripData() || { days: {} };
+  const savedMap = tripData.days || {};
+  const savedSpotIds = Object.keys(savedMap);
+
+  const pinnedSpots = (allSpots || []).filter(spot => {
+    const info = parseSpotInfo(spot);
+    return savedSpotIds.includes(info.id);
+  });
+
+  if (window.updateMapMarkers) {
+    window.updateMapMarkers(pinnedSpots);
+  }
+}
+
+
+/* ==============================================================================
+ * SECTION 4: DAYS SUB-VIEW RENDERER & ACTIONS (ITINERARY LIST)
+ * ============================================================================== */
 function renderDaysView(allSpots) {
   const container = document.getElementById('view-days');
   if (!container) return;
 
-  // Preserve scroll position before re-rendering
+  // Preserve scroll position across re-renders
   const scrollContainer = container.querySelector('.trip-grouped-list');
   const savedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
 
@@ -138,7 +153,7 @@ function renderDaysView(allSpots) {
   htmlContent += `<div class="bottom-scroll-spacer" style="height: 50px; width: 100%; flex-shrink: 0;"></div></div>`;
   container.innerHTML = htmlContent;
 
-  // Restore scroll position after HTML update
+  // Restore scroll position
   const newScrollContainer = container.querySelector('.trip-grouped-list');
   if (newScrollContainer) {
     newScrollContainer.scrollTop = savedScrollTop;
@@ -185,6 +200,10 @@ function renderDaysView(allSpots) {
   });
 }
 
+
+/* ==============================================================================
+ * SECTION 5: PASSPORT SUB-VIEW RENDERER & LISTENERS
+ * ============================================================================== */
 function renderPassportView(allSpots) {
   const container = document.getElementById('view-passport');
   if (!container) return;
@@ -282,6 +301,10 @@ function setupPassportListeners() {
   });
 }
 
+
+/* ==============================================================================
+ * SECTION 6: LOGISTICS SUB-VIEW RENDERER & LISTENERS
+ * ============================================================================== */
 function renderLogisticsView() {
   const container = document.getElementById('view-logistics');
   if (!container) return;
