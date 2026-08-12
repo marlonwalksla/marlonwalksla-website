@@ -4,7 +4,7 @@
  * ============================================================================== */
 
 /* ------------------------------------------------------------------------------
- * 1. TOP MODE SWITCHER (Explore LA vs. My Trip)
+ * 1. TOP MODE SWITCHER
  * ------------------------------------------------------------------------------ */
 .mode-navigation {
   display: flex;
@@ -29,11 +29,6 @@
   text-align: center;
 }
 
-.mode-btn:hover {
-  color: #1a202c;
-  background-color: rgba(255, 255, 255, 0.6);
-}
-
 .mode-btn.is-active {
   background-color: #ffffff;
   color: #2b6cb0;
@@ -42,7 +37,7 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 2. SEARCH BAR & DROPDOWNS
+ * 2. SEARCH BAR & RESET BUTTON
  * ------------------------------------------------------------------------------ */
 .search-filter-bar {
   display: flex;
@@ -55,9 +50,14 @@
   margin-bottom: 10px;
 }
 
+.search-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
 #search-input {
   width: 100%;
-  padding: 8px 10px;
+  padding: 8px 30px 8px 10px;
   font-size: 0.85rem;
   border: 1.5px solid #cbd5e1;
   border-radius: 8px;
@@ -67,9 +67,21 @@
   box-sizing: border-box;
 }
 
-#search-input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+#search-clear-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 0.85rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+#search-clear-btn:hover {
+  color: #0f172a;
 }
 
 .dropdown-row {
@@ -130,7 +142,7 @@
 }
 
 /* ------------------------------------------------------------------------------
- * 4. SPOT CARDS & SCROLL CONTAINER
+ * 4. SPOT CARDS & QUICK ACTION BUTTONS
  * ------------------------------------------------------------------------------ */
 #spot-cards-list {
   max-height: 280px;
@@ -142,27 +154,59 @@
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
-  padding: 8px 12px;
+  padding: 8px 10px;
   margin-bottom: 6px;
   cursor: pointer;
-  transition: all 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.spot-card:hover {
-  border-color: #3b82f6;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.12);
+.spot-card-info {
+  flex: 1;
+  overflow: hidden;
+  margin-right: 6px;
 }
 
 .spot-card h4 {
   margin: 0 0 2px 0;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .spot-card p {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #64748b;
+}
+
+.spot-card-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.card-action-btn, .btn-mytrip-action {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  padding: 3px 6px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.15s ease;
+}
+
+.card-action-btn:hover, .btn-mytrip-action:hover {
+  opacity: 1;
+}
+
+.card-action-btn.is-active, .btn-mytrip-action.is-active {
+  opacity: 1;
+  background: #dbeafe;
+  border-color: #3b82f6;
 }
 
 /* ------------------------------------------------------------------------------
@@ -172,11 +216,10 @@
   background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
   border: 1.5px solid #bfdbfe;
   border-radius: 12px;
-  padding: 14px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+  gap: 6px;
 }
 
 .tour-badges {
@@ -186,65 +229,63 @@
 }
 
 .tour-badge {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   color: #1e40af;
   background-color: #dbeafe;
-  padding: 3px 8px;
-  border-radius: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
 }
 
 .hero-tour h3 {
-  margin: 2px 0 0 0;
-  font-size: 0.95rem;
+  margin: 0;
+  font-size: 0.92rem;
   font-weight: 800;
   color: #0f172a;
 }
 
 .hero-tour p {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: #475569;
-  line-height: 1.4;
+  line-height: 1.35;
+}
+
+.tour-meetup-note {
+  font-size: 0.72rem;
+  color: #1e293b;
+  background: #f8fafc;
+  border-left: 3px solid #2563eb;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 .tour-btn-group {
   display: flex;
-  gap: 8px;
-  margin-top: 4px;
+  gap: 6px;
+  margin-top: 2px;
 }
 
 .tour-booking-btn {
   flex: 1;
-  padding: 8px 6px;
-  font-size: 0.75rem;
+  padding: 7px 4px;
+  font-size: 0.72rem;
   font-weight: 800;
   text-align: center;
   text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.2s ease-in-out;
-  box-sizing: border-box;
+  border-radius: 6px;
   display: inline-block;
+  box-sizing: border-box;
 }
 
 .btn-eng {
   background-color: #2563eb;
   color: #ffffff !important;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.22);
-}
-
-.btn-eng:hover {
-  background-color: #1d4ed8;
 }
 
 .btn-esp {
   background-color: #059669;
   color: #ffffff !important;
-  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.22);
-}
-
-.btn-esp:hover {
-  background-color: #047857;
 }
 
 /* ------------------------------------------------------------------------------
@@ -262,47 +303,8 @@
   height: 100% !important;
 }
 
-/* ------------------------------------------------------------------------------
- * 7. MOBILE COMPACT OVERRIDES (< 820px)
- * ------------------------------------------------------------------------------ */
 @media (max-width: 820px) {
-  .mode-navigation {
-    padding: 3px;
-    margin-bottom: 6px;
-  }
-
-  .mode-btn {
-    padding: 6px 8px;
-    font-size: 0.82rem;
-  }
-
-  .search-filter-bar {
-    padding: 8px;
-    gap: 6px;
-    margin-bottom: 8px;
-  }
-
-  #search-input {
-    padding: 6px 8px;
-    font-size: 0.8rem;
-  }
-
-  .dropdown-row select {
-    padding: 5px 14px 5px 6px;
-    font-size: 0.72rem;
-  }
-
-  .sub-btn {
-    padding: 5px 8px;
-    font-size: 0.75rem;
-  }
-
   #spot-cards-list {
     max-height: 220px;
-  }
-
-  .tour-btn-group {
-    flex-direction: column;
-    gap: 6px;
   }
 }
