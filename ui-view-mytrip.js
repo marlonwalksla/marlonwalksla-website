@@ -74,6 +74,10 @@ function renderDaysView(allSpots) {
   const container = document.getElementById('view-days');
   if (!container) return;
 
+  // Preserve scroll position before re-rendering
+  const scrollContainer = container.querySelector('.trip-grouped-list');
+  const savedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+
   if (window.updateNavTabCounts) window.updateNavTabCounts();
 
   const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : { pinned: [], days: {}, visited: [] };
@@ -133,6 +137,12 @@ function renderDaysView(allSpots) {
 
   htmlContent += `<div class="bottom-scroll-spacer" style="height: 50px; width: 100%; flex-shrink: 0;"></div></div>`;
   container.innerHTML = htmlContent;
+
+  // Restore scroll position after HTML update
+  const newScrollContainer = container.querySelector('.trip-grouped-list');
+  if (newScrollContainer) {
+    newScrollContainer.scrollTop = savedScrollTop;
+  }
 
   container.querySelectorAll('.day-assign-select').forEach(select => {
     select.addEventListener('change', (e) => {
