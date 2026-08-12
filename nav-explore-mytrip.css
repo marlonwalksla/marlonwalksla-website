@@ -328,3 +328,17 @@
     padding-bottom: 40px !important;
   }
 }
+
+/* ------------------------------------------------------------------------------
+ * GLOBAL MOBILE BOTTOM CLEARANCE (APPLIES TO ALL SUBPAGES AT ONCE)
+ * ------------------------------------------------------------------------------ */
+#spot-cards-list > *:last-child,
+.trip-grouped-list > *:last-child,
+#view-tours > *:last-child,
+#view-passport > *:last-child,
+#view-logistics > *:last-child,
+.spot-card:last-child,
+.trip-spot-item:last-child,
+.logistics-card:last-child {
+  margin-bottom: 80px !important;
+}
