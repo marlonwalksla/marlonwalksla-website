@@ -134,13 +134,12 @@ window.initMapEngine = async function() {
     if (visibleCount > 0 && activeIds.size > 0 && activeIds.size < allMarkers.length) {
       const isMobile = window.innerWidth <= 820;
       const paddingOptions = isMobile 
-        ? { top: 35, bottom: 35, left: 25, right: 25 } 
+        ? { top: 30, bottom: 30, left: 20, right: 20 } 
         : { top: 50, bottom: 50, left: 40, right: 40 };
 
-      // Dynamically fit ALL active pins inside the viewport
       map.fitBounds(bounds, {
         padding: paddingOptions,
-        maxZoom: 14.0,
+        maxZoom: 13.5,
         duration: 750
       });
     } else if (activeIds.size === 0 || activeIds.size === allMarkers.length) {
@@ -149,7 +148,7 @@ window.initMapEngine = async function() {
   };
 
   /* =========================================================
-   * 7. MARKER GENERATION
+   * 7. MARKER GENERATION & CLEAN ZOOM TO PIN
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -205,13 +204,14 @@ window.initMapEngine = async function() {
       }
 
       const isMobile = window.innerWidth <= 820;
-      const currentZoom = map.getZoom();
-      const targetZoom = Math.max(currentZoom, 13.5);
 
+      // Clean zoom to pin location without breaking camera bounds
       map.flyTo({ 
         center: [lng, lat], 
-        zoom: targetZoom,
-        padding: { top: isMobile ? 240 : 30, bottom: 10, left: 10, right: 10 },
+        zoom: 14.0,
+        padding: isMobile 
+          ? { top: 40, bottom: 10, left: 10, right: 10 } 
+          : { top: 30, bottom: 30, left: 30, right: 30 },
         duration: 750
       });
 
