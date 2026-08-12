@@ -111,7 +111,6 @@ window.initMapEngine = async function() {
   function updateClusterVisibility() {
     if (!map.getSource('spots')) return;
 
-    // Threshold check: If less than 10 pins are active, bypass clusters and render all pins
     if (currentActiveCount < 10) {
       if (map.getLayer('clusters')) {
         map.setLayoutProperty('clusters', 'visibility', 'none');
@@ -123,7 +122,6 @@ window.initMapEngine = async function() {
       return;
     }
 
-    // Re-enable clusters when 10 or more pins are active
     if (map.getLayer('clusters')) {
       map.setLayoutProperty('clusters', 'visibility', 'visible');
       map.setLayoutProperty('cluster-count', 'visibility', 'visible');
@@ -173,7 +171,7 @@ window.initMapEngine = async function() {
 
       const isMobile = window.innerWidth <= 820;
       map.fitBounds(bounds, {
-        padding: isMobile ? { top: 30, bottom: 30, left: 20, right: 20 } : { top: 50, bottom: 50, left: 40, right: 40 },
+        padding: isMobile ? { top: 120, bottom: 30, left: 20, right: 20 } : { top: 160, bottom: 50, left: 40, right: 40 },
         maxZoom: 13.5,
         duration: 750
       });
@@ -185,7 +183,7 @@ window.initMapEngine = async function() {
   };
 
   /* =========================================================
-   * 7. MARKER GENERATION
+   * 7. MARKER GENERATION & OFFSET PIN POSITION FOR HEADROOM
    * ========================================================= */
   geojsonData.features.forEach((feature, index) => {
     const props = feature.properties || {};
@@ -243,12 +241,13 @@ window.initMapEngine = async function() {
 
       const isMobile = window.innerWidth <= 820;
 
+      // Generous top padding shifts the pin down so the popup card fits comfortably above it
       map.flyTo({ 
         center: [lng, lat], 
         zoom: 14.0,
         padding: isMobile 
-          ? { top: 40, bottom: 10, left: 10, right: 10 } 
-          : { top: 30, bottom: 30, left: 30, right: 30 },
+          ? { top: 140, bottom: 20, left: 10, right: 10 } 
+          : { top: 180, bottom: 30, left: 30, right: 30 },
         duration: 750
       });
 
