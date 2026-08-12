@@ -123,7 +123,7 @@ function renderDaysView(allSpots) {
     dayGroups[assignedDay].push({ id: spotId, name: spotName, isVisited: visitedSet.has(spotId) });
   });
 
-  let htmlContent = `<div class="trip-grouped-list" style="max-height: 260px; overflow-y: auto; padding-right: 4px;">`;
+  let htmlContent = `<div class="trip-grouped-list">`;
 
   Object.keys(dayGroups).forEach(dayName => {
     const spots = dayGroups[dayName];
