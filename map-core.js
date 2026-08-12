@@ -249,15 +249,24 @@ window.initMapEngine = async function() {
     allMarkers.push(spotData);
   });
 
-  /* =========================================================
-   * 8. BOOTSTRAP UI VIEWS
+/* =========================================================
+   * 8. BOOTSTRAP UI VIEWS & SMART TAB STARTUP
    * ========================================================= */
   if (window.initExploreView) window.initExploreView(geojsonData);
   if (window.initMyTripView) window.initMyTripView(geojsonData.features);
+
+  // Set initial tab mode (My Trip if items saved, Explore LA if 0 items saved)
+  if (window.checkInitialTabState) {
+    window.checkInitialTabState();
+  }
 
   map.on('load', () => { 
     map.resize();
     if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
     updateMarkerStates(); 
+    
+    // Re-verify tab state once Mapbox tiles finish mounting
+    if (window.checkInitialTabState) {
+      window.checkInitialTabState();
+    }
   });
-};
