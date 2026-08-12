@@ -55,7 +55,7 @@ window.initMapEngine = async function() {
   }
 
   /* =========================================================
-   * 3. DATA FETCHING
+   * 3. DATA FETCHING (ASYNC)
    * ========================================================= */
   let geojsonData = null;
   try {
@@ -247,15 +247,34 @@ window.initMapEngine = async function() {
     allMarkers.push(spotData);
   });
 
-/* =========================================================
-   * 8. BOOTSTRAP UI VIEWS & SYNCHRONIZE INITIAL TAB
+  /* =========================================================
+   * 8. SAFE BOOTSTRAP: EVALUATE TAB AFTER DATA IS GUARANTEED
    * ========================================================= */
-  if (window.initExploreView) window.initExploreView(geojsonData);
-  if (window.initMyTripView) window.initMyTripView(geojsonData.features);
+  const tripData = window.MarlonStorage ? window.MarlonStorage.getSavedTripData() : null;
+  const savedMap = tripData ? (tripData.days || {}) : {};
+  const hasSavedSpots = Object.keys(savedMap).length > 0;
 
-  // Trigger tab synchronization after view generation
-  if (window.applyInitialTabState) {
-    window.applyInitialTabState();
+  const modeExploreBtn = document.querySelector('[data-mode="explore"]');
+  const modeMyTripBtn = document.querySelector('[data-mode="mytrip"]');
+  const panelExplore = document.getElementById('panel-explore');
+  const panelMyTrip = document.getElementById('panel-mytrip');
+
+  if (hasSavedSpots) {
+    if (modeMyTripBtn) modeMyTripBtn.classList.add('is-active');
+    if (modeExploreBtn) modeExploreBtn.classList.remove('is-active');
+    if (panelMyTrip) panelMyTrip.style.display = 'block';
+    if (panelExplore) panelExplore.style.display = 'none';
+
+    if (window.initExploreView) window.initExploreView(geojsonData);
+    if (window.initMyTripView) window.initMyTripView(geojsonData.features);
+  } else {
+    if (modeExploreBtn) modeExploreBtn.classList.add('is-active');
+    if (modeMyTripBtn) modeMyTripBtn.classList.remove('is-active');
+    if (panelExplore) panelExplore.style.display = 'block';
+    if (panelMyTrip) panelMyTrip.style.display = 'none';
+
+    if (window.initExploreView) window.initExploreView(geojsonData);
+    if (window.initMyTripView) window.initMyTripView(geojsonData.features);
   }
 
   map.on('load', () => { 
@@ -263,3 +282,4 @@ window.initMapEngine = async function() {
     if (window.MarlonHotel) window.MarlonHotel.renderMarker(map);
     updateMarkerStates(); 
   });
+};
