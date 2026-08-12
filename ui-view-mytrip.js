@@ -19,7 +19,11 @@ window.initMyTripView = function(allSpots) {
   renderPassportView(allSpots);
   renderLogisticsView();
   
-  focusMapOnPinnedSpots(allSpots);
+  // Only isolate map pins if My Trip panel is currently visible
+  const panelMyTrip = document.getElementById('panel-mytrip');
+  if (panelMyTrip && panelMyTrip.style.display !== 'none') {
+    focusMapOnPinnedSpots(allSpots);
+  }
 };
 
 function focusMapOnPinnedSpots(allSpots) {
@@ -28,18 +32,15 @@ function focusMapOnPinnedSpots(allSpots) {
   const savedMap = tripData.days || {};
   const savedSpotIds = Object.keys(savedMap);
 
-  // Filter spots to ONLY pinned items
   const pinnedSpots = (allSpots || []).filter(spot => {
     const info = parseSpotInfo(spot);
     return savedSpotIds.includes(info.id);
   });
 
-  // Hide all unpinned markers on map
   if (window.updateMapMarkers) {
     window.updateMapMarkers(pinnedSpots);
   }
 
-  // Recenter map bounds to pinned spots
   if (window.marlonMapInstance && pinnedSpots.length > 0) {
     const map = window.marlonMapInstance;
     const bounds = new mapboxgl.LngLatBounds();
