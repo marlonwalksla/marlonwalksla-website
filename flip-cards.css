@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.css
- * CATEGORY: MarlonWalksLA Website - Polaroid Review Cards & White Inset Plate
+ * CATEGORY: MarlonWalksLA Website - Polaroid Review Cards Styling
  * ============================================================================== */
 
 .pc-root {
@@ -12,21 +12,23 @@
 }
 
 .pc-root .swiper-slide {
-  width: 275px !important;
+  width: 280px !important;
   flex-shrink: 0;
   box-sizing: border-box;
 }
 
-/* Polaroid Container */
+/* Classic Polaroid Self-Centering Grid */
 .pc-card {
   position: relative;
-  display: flex !important;
-  flex-direction: column !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto auto 1fr !important;
+  grid-template-rows: auto 1fr auto !important;
+  column-gap: 0px !important;
+  row-gap: 8px !important;
   align-items: center !important;
-  justify-content: flex-start !important;
   width: 100%;
-  height: 440px;
-  padding: 12px 12px 14px;
+  height: 425px;
+  padding: 14px 14px 16px;
   box-sizing: border-box;
   background: #ffffff;
   border-radius: 12px;
@@ -40,80 +42,64 @@
   cursor: grabbing;
 }
 
-/* Guest Photo */
+/* Row 1: Guest Photo (Full Width) */
 .pc-image {
+  grid-column: 1 / 5 !important;
+  grid-row: 1 !important;
   width: 100%;
-  height: 200px;
+  height: 205px;
   object-fit: cover;
   border-radius: 8px;
-  margin: 0 0 10px 0;
-  flex-shrink: 0;
+  margin: 0;
 }
 
-/* Clean White Inset Plate for Reviews */
-.pc-review-plate {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  flex: 1;
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 10px 12px;
-  box-sizing: border-box;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* Review Quote Body */
+/* Row 2: Review Quote (Full Width Left-to-Right) */
 .pc-description-back {
+  grid-column: 1 / 5 !important;
+  grid-row: 2 !important;
   display: block !important;
-  font-size: 0.8rem;
-  line-height: 1.4;
+  font-size: 0.82rem;
+  line-height: 1.45;
   font-weight: 500;
   color: #334155;
   text-align: center;
   font-style: italic;
-  margin: 0;
+  margin: 4px 0;
+  padding: 0 6px;
+  align-self: center;
   overflow: hidden;
   display: -webkit-box !important;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 
-/* Footer Row: Ernesto (Left) + Name & Stars (Right) */
-.pc-footer-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  border-top: 1px solid #f1f5f9;
-  padding-top: 8px;
-  margin-top: 6px;
-  flex-shrink: 0;
-}
-
-/* Ernesto Mascot */
+/* Row 3 - Left: Ernesto Mascot (Auto-Centered with Column 3) */
 .pc-image-back {
+  grid-column: 2 !important;
+  grid-row: 3 !important;
   display: block !important;
   position: static !important;
-  height: 62px !important;
+  height: 68px !important;
   width: auto !important;
-  max-height: 62px !important;
-  object-fit: contain !important;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.18)) !important;
-  pointer-events: none !important;
-  margin: 0 !important;
-  flex-shrink: 0 !important;
+  max-height: 68px !important;
+  object-fit: contain;
+  justify-self: end !important;
+  align-self: center !important;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.18));
+  pointer-events: none;
+  margin: 0 10px 0 0 !important;
 }
 
-/* Reviewer Attribution Stack */
+/* Row 3 - Right: Reviewer Name & Gold Stars */
 .pc-title {
+  grid-column: 3 !important;
+  grid-row: 3 !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
   justify-content: center !important;
+  justify-self: start !important;
+  align-self: center !important;
   text-align: left !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -129,45 +115,43 @@
 }
 
 .pc-reviewer-stars {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: #f59e0b !important;
   letter-spacing: 1.5px;
   line-height: 1;
-  margin-top: 2px;
+  margin-top: 3px;
   display: block !important;
 }
 
-/* Hide unused Webflow elements & legacy flip hints */
+/* Hide unused CMS fields & legacy containers */
 .pc-description,
 .pc-button,
 .pc-front-hint,
 .pc-back-hint,
+.pc-review-plate,
 .pc-footer-group {
   display: none !important;
 }
 
-/* Mobile Adjustments */
+/* Mobile Viewport */
 @media (max-width: 600px) {
   .pc-root .swiper-slide {
     width: 250px !important;
   }
   
   .pc-card {
-    height: 415px;
-    padding: 10px 10px 12px;
+    height: 405px;
+    padding: 12px 12px 14px;
   }
 
   .pc-image {
-    height: 180px;
-  }
-
-  .pc-review-plate {
-    padding: 8px 10px;
+    height: 185px;
   }
 
   .pc-image-back {
-    height: 54px !important;
-    max-height: 54px !important;
+    height: 60px !important;
+    max-height: 60px !important;
+    margin-right: 8px !important;
   }
 
   .pc-reviewer-name {
