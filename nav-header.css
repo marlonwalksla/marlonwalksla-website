@@ -1,11 +1,9 @@
 /* ==============================================================================
  * FILE: nav-header.css
- * CATEGORY: MarlonWalksLA Website - Global Navigation Header & Paired Language Links
+ * CATEGORY: MarlonWalksLA Website - Global Navigation Header (Horizontal Pairs)
  * ============================================================================== */
 
-/* =========================================================
-   1. DESKTOP HEADER BASE
-   ========================================================= */
+/* Header Base */
 .custom-header {
   background-color: #222222;
   color: #ffffff;
@@ -30,7 +28,7 @@
   gap: 16px;
 }
 
-/* Column 1: Logo & Brand Wordmark */
+/* Column 1: Logo */
 .grid-3-col > .grid-item-manual:first-child {
   flex: 0 0 auto;
   display: flex;
@@ -75,7 +73,7 @@
   width: 100%;
 }
 
-/* Column 2: Navigation Links */
+/* Column 2: Navigation Links (Strict Horizontal Flex) */
 .nav-links-container {
   flex: 1 1 auto;
   display: flex;
@@ -83,73 +81,79 @@
 }
 
 .button-group {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: nowrap;
-  white-space: nowrap;
+  display: flex !important;
+  flex-direction: row !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 22px !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
 }
 
 .header-link {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 700;
-  white-space: nowrap;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
   transition: color 0.2s ease;
 }
 
 .header-link:hover {
-  color: #3898ec;
+  color: #3898ec !important;
 }
 
-/* Paired Language Items (Label + EN / ES Badge) */
+/* Strictly Horizontal Language Pairs */
 .nav-pair-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 6px !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
 }
 
 .nav-pair-label {
-  color: #e2e8f0;
-  font-weight: 700;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
   letter-spacing: 0.2px;
+  white-space: nowrap !important;
 }
 
 .lang-pill-group {
-  display: inline-flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 20px;
-  padding: 2px 6px;
-  gap: 3px;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 20px !important;
+  padding: 2px 8px !important;
+  gap: 4px !important;
+  white-space: nowrap !important;
 }
 
 .lang-pill {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 0.76rem;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 12px;
-  transition: all 0.2s ease;
-  line-height: 1.2;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  padding: 2px 4px !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  line-height: 1.2 !important;
 }
 
 .lang-pill:hover {
-  background-color: #3898ec;
-  color: #ffffff;
+  color: #3898ec !important;
 }
 
 .lang-divider {
-  color: rgba(255, 255, 255, 0.35);
-  font-size: 0.72rem;
-  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-size: 0.75rem !important;
+  font-weight: 400 !important;
   user-select: none;
 }
 
@@ -161,18 +165,19 @@
 }
 
 .header-icon-group {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 16px;
-  align-items: center;
-  flex-wrap: nowrap;
+  display: flex !important;
+  flex-direction: row !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 16px !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
 }
 
 .header-icon-link {
-  color: #ffffff;
-  text-decoration: none;
+  color: #ffffff !important;
+  text-decoration: none !important;
   display: flex;
   align-items: center;
   transition: opacity 0.2s ease;
@@ -195,18 +200,7 @@
   padding: 5px;
 }
 
-.hamburger-line {
-  display: block;
-  width: 22px;
-  height: 2.5px;
-  margin: 4px 0;
-  background-color: #ffffff;
-  transition: 0.3s ease;
-}
-
-/* =========================================================
-   2. MOBILE COMPACT 2-ROW HEADER
-   ========================================================= */
+/* Mobile Adjustments */
 @media (max-width: 820px) {
   .custom-header {
     padding: 0.35rem 0 0.25rem 0 !important;
@@ -216,7 +210,6 @@
 
   .container {
     padding: 0 12px !important;
-    position: relative !important;
   }
 
   .grid-3-col {
@@ -224,13 +217,10 @@
     flex-direction: column !important;
     align-items: center !important;
     width: 100% !important;
-    position: relative !important;
     gap: 4px !important;
   }
 
-  /* ROW 1 (LEFT): Logo & Brand Name */
-  .grid-3-col > .grid-item-manual:first-child,
-  .grid-3-col > div:first-child {
+  .grid-3-col > .grid-item-manual:first-child {
     align-self: flex-start !important;
     display: flex !important;
     align-items: center !important;
@@ -247,24 +237,17 @@
     line-height: 24px !important;
   }
 
-  /* ROW 1 (RIGHT): Social Icons */
   .social-icons-container {
     position: absolute !important;
     top: 5px !important;
     right: 0 !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
     height: 24px !important;
     margin: 0 !important;
     z-index: 100000 !important;
   }
 
   .header-icon-group {
-    display: flex !important;
-    flex-direction: row !important;
     gap: 10px !important;
-    align-items: center !important;
   }
 
   .header-icon-link svg {
@@ -272,25 +255,13 @@
     height: 17px !important;
   }
 
-  .mobile-toggle {
-    display: none !important;
-  }
-
-  /* ROW 2 (FULL WIDTH): Centered Link Badges */
   .nav-collapse-area {
     display: flex !important;
     position: static !important;
-    background-color: transparent !important;
     padding: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
-    z-index: 1000 !important;
-    flex-direction: row !important;
     justify-content: center !important;
-    align-items: center !important;
     width: 100% !important;
     overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     margin-top: 2px !important;
   }
@@ -299,40 +270,22 @@
     display: none !important;
   }
 
-  .nav-links-container {
-    display: flex !important;
-    justify-content: center !important;
-    width: 100% !important;
-  }
-
   .button-group {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    border: none !important;
-    padding: 1px 0 !important;
     gap: 12px !important;
   }
 
-  .header-link {
+  .header-link,
+  .nav-pair-label {
     font-size: 0.78rem !important;
-  }
-
-  .nav-pair-item {
-    font-size: 0.78rem !important;
-    gap: 4px !important;
   }
 
   .lang-pill-group {
-    padding: 1px 4px !important;
+    padding: 1px 5px !important;
     gap: 2px !important;
   }
 
   .lang-pill {
-    font-size: 0.7rem !important;
-    padding: 1px 4px !important;
+    font-size: 0.72rem !important;
+    padding: 1px 3px !important;
   }
 }
