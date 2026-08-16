@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.css
- * CATEGORY: MarlonWalksLA Website - Polaroid Review Cards Styling
+ * CATEGORY: MarlonWalksLA Website - Polaroid Review Cards (Divider Climber)
  * ============================================================================== */
 
 .pc-root {
@@ -25,8 +25,8 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: 420px;
-  padding: 14px 14px 18px;
+  height: 430px;
+  padding: 14px 14px 16px;
   box-sizing: border-box;
   background: #ffffff;
   border-radius: 12px;
@@ -40,32 +40,17 @@
   cursor: grabbing;
 }
 
-/* Taller Polaroid Photo */
+/* Guest Photo */
 .pc-image {
   width: 100%;
-  height: 220px;
+  height: 205px;
   object-fit: cover;
   border-radius: 8px;
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   flex-shrink: 0;
 }
 
-/* Ernesto Corner Sticker Stamp */
-.pc-image-back {
-  position: absolute !important;
-  top: 180px;
-  right: 18px;
-  width: 52px !important;
-  height: 52px !important;
-  max-height: 52px !important;
-  object-fit: contain;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
-  transform: rotate(7deg);
-  z-index: 3;
-  pointer-events: none;
-}
-
-/* Review Quote */
+/* Review Quote Text */
 .pc-description-back {
   display: block !important;
   font-size: 0.82rem;
@@ -74,7 +59,7 @@
   color: #334155;
   text-align: center;
   font-style: italic;
-  margin: 0;
+  margin: 0 0 2px 0;
   flex: 1;
   overflow: hidden;
   display: -webkit-box !important;
@@ -82,21 +67,37 @@
   -webkit-box-orient: vertical;
 }
 
-/* Reviewer Name & Star Rating (Anchored at the Bottom) */
+/* Ernesto Divider Climber */
+.pc-image-back {
+  display: block !important;
+  position: relative !important;
+  height: 44px !important;
+  width: auto !important;
+  max-height: 44px !important;
+  object-fit: contain;
+  margin: 0 auto -16px auto !important; /* Pulls the divider line across Ernesto's waist */
+  z-index: 2;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.18));
+  pointer-events: none;
+}
+
+/* Reviewer Name & Star Rating (With Divider Line Passing Behind Ernesto) */
 .pc-title {
   display: block !important;
+  position: relative;
+  z-index: 1;
   font-size: 0.82rem;
   font-weight: 800;
   color: #0f172a;
   text-align: center;
-  margin: 8px 0 0 0;
-  padding-top: 8px;
-  border-top: 1px solid #f1f5f9;
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1.5px solid #e2e8f0;
   width: 100%;
   flex-shrink: 0;
 }
 
-/* Hide unused Webflow CMS elements and legacy hints */
+/* Unused elements & legacy flip hints */
 .pc-description,
 .pc-button,
 .pc-front-hint,
