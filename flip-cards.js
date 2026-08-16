@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.js
- * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Star Splitter
+ * CATEGORY: MarlonWalksLA Website - Polaroid Reviews Carousel
  * ============================================================================== */
 
 window.initFlipCards = function() {
@@ -29,8 +29,8 @@ window.initFlipCards = function() {
       }
     });
 
-    // 2. Natural organic Polaroid scatter rotation angles
-    const rotationPatterns = [-2.5, 1.8, -1.2, 2.2, -1.8, 1.5];
+    // 2. Natural organic Polaroid scatter rotation angles for idle cards
+    const rotationPatterns = [-2.8, 2.2, -1.8, 2.5, -2.2, 1.8];
     const items = Array.from(wrapper.children);
     
     items.forEach((item, index) => {
@@ -41,12 +41,12 @@ window.initFlipCards = function() {
       }
     });
 
-    // 3. Swiper Drag Scroll Physics
+    // 3. Swiper Drag Scroll Physics with Wider Spacing
     let touchStartX = 0;
 
     new Swiper(swiperContainer, {
       slidesPerView: 'auto',
-      spaceBetween: 20,
+      spaceBetween: 32, // Increased spacing between cards
       grabCursor: true,
       freeMode: {
         enabled: true,
@@ -57,8 +57,8 @@ window.initFlipCards = function() {
       observeParents: true,
 
       breakpoints: {
-        0: { spaceBetween: 14 },
-        768: { spaceBetween: 20 }
+        0: { spaceBetween: 20 },
+        768: { spaceBetween: 32 }
       },
 
       on: {
