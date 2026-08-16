@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.js
- * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & White Plate Engine
+ * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Star Splitter
  * ============================================================================== */
 
 window.initFlipCards = function() {
@@ -15,40 +15,17 @@ window.initFlipCards = function() {
     const swiperContainer = root.querySelector('.swiper');
     if (!wrapper || !swiperContainer) return;
 
-    // 1. Process Review Cards Only (Leaves Landmark Guides untouched)
-    const cards = root.querySelectorAll('.pc-card');
-    cards.forEach(card => {
-      const descBack = card.querySelector('.pc-description-back');
-      const mascot = card.querySelector('.pc-image-back');
-      const title = card.querySelector('.pc-title');
-
-      const isReviewCard = descBack && descBack.innerHTML.trim() !== '';
-
-      if (isReviewCard && !card.querySelector('.pc-review-plate')) {
-        // Only format stars if they actually exist in the CMS field
-        if (title) {
-          const rawTitle = title.innerText || title.textContent || '';
-          const starMatch = rawTitle.match(/[⭐★\u2605\u2B50]+/g);
-          if (starMatch) {
-            const stars = starMatch.join(' ');
-            const nameOnly = rawTitle.replace(/[⭐★\u2605\u2B50]/g, '').trim();
-            title.innerHTML = `<span class="pc-reviewer-name">${nameOnly}</span><span class="pc-reviewer-stars">${stars}</span>`;
-          }
+    // 1. Split Reviewer Name on line 1 and Gold Stars on line 2 (Only if stars exist in text)
+    const titles = root.querySelectorAll('.pc-title');
+    titles.forEach(titleEl => {
+      if (!titleEl.querySelector('.pc-reviewer-stars')) {
+        const rawText = titleEl.innerText || titleEl.textContent || '';
+        const starMatch = rawText.match(/[⭐★\u2605\u2B50]+/g);
+        if (starMatch) {
+          const stars = starMatch.join(' ');
+          const nameOnly = rawText.replace(/[⭐★\u2605\u2B50]/g, '').trim();
+          titleEl.innerHTML = `<span class="pc-reviewer-name">${nameOnly}</span><span class="pc-reviewer-stars">${stars}</span>`;
         }
-
-        // Build white framed inset plate below the photo
-        const plate = document.createElement('div');
-        plate.className = 'pc-review-plate';
-
-        const footerRow = document.createElement('div');
-        footerRow.className = 'pc-footer-row';
-
-        card.insertBefore(plate, descBack);
-        plate.appendChild(descBack);
-
-        if (mascot) footerRow.appendChild(mascot);
-        if (title) footerRow.appendChild(title);
-        plate.appendChild(footerRow);
       }
     });
 
