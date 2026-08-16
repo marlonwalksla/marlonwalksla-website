@@ -1,54 +1,20 @@
 /* ==============================================================================
  * FILE: flip-cards.css
  * CATEGORY: MarlonWalksLA Website - 3D Flip Cards & Swiper Styles
- * 
- * OVERVIEW:
- * Handles the visual styling and 3D flip animations for the interactive tour stop 
- * cards. It controls the Swiper.js carousel layout, ensuring the items look like 
- * scattered polaroids and flip smoothly to reveal details about the walking tour spots.
- * 
- * WHAT'S INSIDE:
- * - `.pc-root` & `.swiper-slide`: Structural layout constraints for the card carousel.
- * - `.pc-card`: The main card container with 3D rotation variables and grab cursors.
- * - `.pc-flip-area`, `.pc-face-front`, `.pc-face-back`: The core mechanics for the 
- *   180-degree 3D flip effect and backface visibility hiding.
- * - Typography and media styling for the front and back of the cards (titles, 
- *   descriptions, hints, and mascot images).
- * 
- * WHEN TO FEED THIS FILE TO GEMINI / AI:
- * - Feed this file if you want to: Adjust the 3D flip animation speed or perspective.
- * - Feed this file if you want to: Change the size, padding, borders, or shadows of the polaroid cards.
- * - Feed this file if you want to: Fix responsive layout issues for the cards on mobile screens.
  * ============================================================================== */
 
-/* =========================================
-   MARLONWALKS LA - 3D FLIP CARDS & SWIPER INTEGRATION
-   ========================================= */
 .pc-root {
   position: relative;
   width: 100%;
-  padding: 16px 0;
+  padding: 10px 0;
   box-sizing: border-box;
   overflow: hidden;
-  isolation: isolate;
-}
-
-.pc-root .w-dyn-items {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: flex-start;
 }
 
 .pc-root .swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 280px !important;
+  width: 250px !important;
   flex-shrink: 0;
   box-sizing: border-box;
-  overflow: visible;
 }
 
 .pc-card {
@@ -57,29 +23,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 256px;
-  height: 395px;
-  padding: 24px 18px 20px;
+  width: 100%;
+  height: 380px;
+  padding: 16px 14px 14px;
   box-sizing: border-box;
   background: #ffffff;
-  color: #4a4a4a;
-  text-decoration: none;
-  cursor: grab;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  will-change: transform;
+  color: #1e293b;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
   transform: rotate(calc(var(--card-rot, 0deg) + var(--drag-rot, 0deg)));
-  transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.4s ease;
+  transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s ease;
+  cursor: grab;
 }
 
-.pc-card > .pc-description-back,
-.pc-card > .pc-image-back { display: none; }
+.pc-card:active {
+  cursor: grabbing;
+}
 
 .pc-flip-area {
   width: 100%;
-  flex: 1;
-  margin-bottom: 10px;
+  height: 100%;
   perspective: 1000px;
   cursor: pointer;
 }
@@ -89,10 +52,12 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-.pc-flip-area.is-flipped .pc-flip-inner { transform: rotateY(180deg); }
+.pc-flip-area.is-flipped .pc-flip-inner {
+  transform: rotateY(180deg);
+}
 
 .pc-face-front,
 .pc-face-back {
@@ -101,97 +66,68 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  -webkit-backface-visibility: hidden;
+  justify-content: space-between;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.pc-face-front { justify-content: space-between; }
-
 .pc-face-back {
-  justify-content: space-between;
-  padding: 14px 10px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 16px 12px;
   box-sizing: border-box;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px dashed rgba(0, 0, 0, 0.15);
-  border-radius: 6px;
   transform: rotateY(180deg);
+  text-align: center;
 }
 
 .pc-image {
-  display: block;
   width: 100%;
-  height: 205px;
-  margin: 0 0 8px 0;
+  height: 200px;
   object-fit: cover;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  border-radius: 6px;
-  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 .pc-title {
-  display: block;
-  width: 100%;
-  margin: 2px 0 0 0;
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.25;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
   text-align: center;
-  text-decoration: none;
-  word-break: break-word;
-  white-space: normal;
+  margin: 0;
+}
+
+.pc-description {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.pc-description-back {
+  display: block !important;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.pc-image-back {
+  display: block !important;
+  max-height: 110px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 6px;
 }
 
 .pc-front-hint,
 .pc-back-hint {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   margin-top: auto;
-  font-size: 11px;
-  font-style: italic;
-  color: #555555;
-  text-align: center;
-  opacity: 0.6;
   user-select: none;
-}
-
-.pc-description-back {
-  display: block;
-  width: 100%;
-  font-size: 13px;
-  line-height: 1.45;
-  color: #4a4a4a;
-  word-break: break-word;
-}
-
-.pc-image-back {
-  display: block;
-  width: auto;
-  max-height: 125px;
-  margin: 4px 0;
-  object-fit: contain;
-}
-
-.pc-button {
-  position: relative;
-  z-index: 5;
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  font-size: 14px;
-  font-weight: 600;
-  color: #ffffff;
-  text-align: center;
-  text-decoration: none;
-  background-color: var(--brand-blue);
-  border-radius: 6px;
-}
-
-.swiper-slide-active .pc-card {
-  --card-rot: 0deg !important;
-  z-index: 10;
-}
-
-@media (max-width: 600px) {
-  .pc-root .swiper-slide { width: 230px !important; }
 }
