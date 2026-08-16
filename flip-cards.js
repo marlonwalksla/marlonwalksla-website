@@ -15,24 +15,22 @@ window.initFlipCards = function() {
     const swiperContainer = root.querySelector('.swiper');
     if (!wrapper || !swiperContainer) return;
 
-    // 1. Bundle Ernesto + Reviewer Name/Stars into a single centered group
+    // 1. Guarantee clean Name on top and 5 Gold Stars on the line below
+    const titles = root.querySelectorAll('.pc-title');
+    titles.forEach(titleEl => {
+      if (!titleEl.querySelector('.pc-reviewer-stars')) {
+        const rawText = titleEl.innerText || titleEl.textContent || '';
+        const nameOnly = rawText.replace(/[⭐★\u2605\u2B50]/g, '').trim();
+        titleEl.innerHTML = `<span class="pc-reviewer-name">${nameOnly}</span><span class="pc-reviewer-stars">⭐⭐⭐⭐⭐</span>`;
+      }
+    });
+
+    // 2. Bundle Ernesto + Reviewer Name/Stars into a single centered group
     const cards = root.querySelectorAll('.pc-card');
     cards.forEach(card => {
       const mascot = card.querySelector('.pc-image-back');
       const title = card.querySelector('.pc-title');
 
-      // Break stars onto their own clean line
-      if (title && !title.querySelector('.pc-reviewer-stars')) {
-        const rawText = title.innerText || title.textContent;
-        if (rawText.includes('⭐') || rawText.includes('★')) {
-          const starMatch = rawText.match(/[⭐★\s]+/);
-          const stars = starMatch ? starMatch[0].trim() : '⭐⭐⭐⭐⭐';
-          const nameOnly = rawText.replace(/[⭐★]/g, '').trim();
-          title.innerHTML = `<span class="pc-reviewer-name">${nameOnly}</span><span class="pc-reviewer-stars">${stars}</span>`;
-        }
-      }
-
-      // Group mascot + title together
       if (mascot && title && !card.querySelector('.pc-footer-group')) {
         const footerGroup = document.createElement('div');
         footerGroup.className = 'pc-footer-group';
@@ -42,7 +40,7 @@ window.initFlipCards = function() {
       }
     });
 
-    // 2. Natural organic Polaroid scatter rotation angles
+    // 3. Natural organic Polaroid scatter rotation angles
     const rotationPatterns = [-2.5, 1.8, -1.2, 2.2, -1.8, 1.5];
     const items = Array.from(wrapper.children);
     
@@ -54,7 +52,7 @@ window.initFlipCards = function() {
       }
     });
 
-    // 3. Swiper Drag Scroll Physics
+    // 4. Swiper Drag Scroll Physics
     let touchStartX = 0;
 
     new Swiper(swiperContainer, {
