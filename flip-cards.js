@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.js
- * CATEGORY: MarlonWalksLA Website - 3D Flip Cards & Swiper Logic
+ * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Scatter Engine
  * ============================================================================== */
 
 window.initFlipCards = function() {
@@ -15,7 +15,7 @@ window.initFlipCards = function() {
     const swiperContainer = root.querySelector('.swiper');
     if (!wrapper || !swiperContainer) return;
 
-    // Apply natural organic scatter angles to the Polaroid cards
+    // Apply natural Polaroid scatter tilt angles
     const rotationPatterns = [-2.5, 1.8, -1.2, 2.2, -1.8, 1.5];
     const items = Array.from(wrapper.children);
     
@@ -27,81 +27,7 @@ window.initFlipCards = function() {
       }
     });
 
-    // Build 3D front & back faces for each Polaroid
-    const cards = root.querySelectorAll('.pc-card');
-    cards.forEach(card => {
-      if (!card.querySelector('.pc-flip-area')) {
-        const cmsText = card.querySelector('.pc-description-back');
-        const cmsMascot = card.querySelector('.pc-image-back');
-        const cardButton = card.querySelector('.pc-button');
-
-        const frontElements = Array.from(card.children).filter(
-          child => child !== cmsText && child !== cmsMascot && child !== cardButton
-        );
-        
-        const flipArea = document.createElement('div');
-        flipArea.className = 'pc-flip-area';
-        
-        const flipInner = document.createElement('div');
-        flipInner.className = 'pc-flip-inner';
-        
-        const faceFront = document.createElement('div');
-        faceFront.className = 'pc-face-front';
-        
-        const faceBack = document.createElement('div');
-        faceBack.className = 'pc-face-back';
-
-        // Populate Front Face
-        frontElements.forEach(child => faceFront.appendChild(child));
-        const frontHint = document.createElement('div');
-        frontHint.className = 'pc-front-hint';
-        frontHint.innerText = 'Tap to read review ↺';
-        faceFront.appendChild(frontHint);
-
-        // Populate Back Face (Customer Review & Mascot)
-        if (cmsMascot && (cmsMascot.getAttribute('src') || cmsMascot.dataset.src)) {
-          const mascotImg = document.createElement('img');
-          mascotImg.className = 'pc-image-back';
-          mascotImg.src = cmsMascot.getAttribute('src') || cmsMascot.dataset.src;
-          mascotImg.alt = 'Mascot Review';
-          faceBack.appendChild(mascotImg);
-        }
-
-        if (cmsText && cmsText.innerHTML.trim() !== '') {
-          const backTextContainer = document.createElement('div');
-          backTextContainer.className = 'pc-description-back';
-          backTextContainer.innerHTML = cmsText.innerHTML;
-          faceBack.appendChild(backTextContainer);
-        }
-
-        const backHint = document.createElement('div');
-        backHint.className = 'pc-back-hint';
-        backHint.innerText = 'Tap to flip back ↺';
-        faceBack.appendChild(backHint);
-
-        flipInner.appendChild(faceFront);
-        flipInner.appendChild(faceBack);
-        flipArea.appendChild(flipInner);
-
-        if (cardButton) {
-          card.insertBefore(flipArea, cardButton);
-        } else {
-          card.appendChild(flipArea);
-        }
-      }
-    });
-
-    // Flip Trigger on Card Tap/Click
-    root.addEventListener('click', (e) => {
-      const flipArea = e.target.closest('.pc-flip-area');
-      if (!flipArea) return;
-      const card = flipArea.closest('.pc-card');
-      if (card && !card.classList.contains('is-swiping')) {
-        flipArea.classList.toggle('is-flipped');
-      }
-    });
-
-    // Initialize Swiper Drag physics
+    // Swiper drag scroll configuration
     let touchStartX = 0;
 
     new Swiper(swiperContainer, {
