@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.js
- * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Unified Footer Group
+ * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Star Formatter
  * ============================================================================== */
 
 window.initFlipCards = function() {
@@ -15,7 +15,7 @@ window.initFlipCards = function() {
     const swiperContainer = root.querySelector('.swiper');
     if (!wrapper || !swiperContainer) return;
 
-    // 1. Guarantee clean Name on top and 5 Gold Stars on the line below
+    // 1. Format reviewer name on line 1 and 5 gold stars on line 2
     const titles = root.querySelectorAll('.pc-title');
     titles.forEach(titleEl => {
       if (!titleEl.querySelector('.pc-reviewer-stars')) {
@@ -25,22 +25,7 @@ window.initFlipCards = function() {
       }
     });
 
-    // 2. Bundle Ernesto + Reviewer Name/Stars into a single centered group
-    const cards = root.querySelectorAll('.pc-card');
-    cards.forEach(card => {
-      const mascot = card.querySelector('.pc-image-back');
-      const title = card.querySelector('.pc-title');
-
-      if (mascot && title && !card.querySelector('.pc-footer-group')) {
-        const footerGroup = document.createElement('div');
-        footerGroup.className = 'pc-footer-group';
-        card.insertBefore(footerGroup, mascot);
-        footerGroup.appendChild(mascot);
-        footerGroup.appendChild(title);
-      }
-    });
-
-    // 3. Natural organic Polaroid scatter rotation angles
+    // 2. Natural organic Polaroid scatter rotation angles
     const rotationPatterns = [-2.5, 1.8, -1.2, 2.2, -1.8, 1.5];
     const items = Array.from(wrapper.children);
     
@@ -52,7 +37,7 @@ window.initFlipCards = function() {
       }
     });
 
-    // 4. Swiper Drag Scroll Physics
+    // 3. Swiper Drag Scroll Physics
     let touchStartX = 0;
 
     new Swiper(swiperContainer, {
