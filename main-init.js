@@ -7,12 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
   initModeSwitcher();
   initExploreSubToggles();
 
+  // 1. Initialize Interactive Tour & Review Polaroid Slider
+  if (typeof window.initFlipCards === 'function') {
+    window.initFlipCards();
+  }
+
+  // 2. Initialize Interactive Mapbox Engine
   if (typeof window.initMapEngine === 'function') {
     window.initMapEngine();
   }
 });
 
-// Helper to dynamically update counts on the top navigation buttons
+// Dynamic counter for Explore and My Trip tabs
 window.updateNavTabCounts = function() {
   const modeExploreBtn = document.querySelector('[data-mode="explore"]');
   const modeMyTripBtn = document.querySelector('[data-mode="mytrip"]');
