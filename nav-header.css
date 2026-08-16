@@ -1,10 +1,10 @@
 /* ==============================================================================
  * FILE: nav-header.css
- * CATEGORY: MarlonWalksLA Website - Global Navigation Header Styling
+ * CATEGORY: MarlonWalksLA Website - Global Navigation Header & Paired Language Links
  * ============================================================================== */
 
 /* =========================================================
-   1. DESKTOP HEADER BASE (WIDE LAYOUT & EXPANDED BRANDING)
+   1. DESKTOP HEADER BASE
    ========================================================= */
 .custom-header {
   background-color: #222222;
@@ -66,7 +66,7 @@
   color: #ffffff;
 }
 
-/* Nav Area (Expands across available center width) */
+/* Nav Area */
 .nav-collapse-area {
   display: flex;
   align-items: center;
@@ -87,7 +87,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 16px;
+  gap: 20px;
   align-items: center;
   flex-wrap: nowrap;
   white-space: nowrap;
@@ -97,13 +97,60 @@
   color: #ffffff;
   text-decoration: none;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
-  transition: opacity 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .header-link:hover {
-  opacity: 0.7;
+  color: #3898ec;
+}
+
+/* Paired Language Items (Label + EN / ES Badge) */
+.nav-pair-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.nav-pair-label {
+  color: #e2e8f0;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.lang-pill-group {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 20px;
+  padding: 2px 6px;
+  gap: 3px;
+}
+
+.lang-pill {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+}
+
+.lang-pill:hover {
+  background-color: #3898ec;
+  color: #ffffff;
+}
+
+.lang-divider {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.72rem;
+  font-weight: 400;
+  user-select: none;
 }
 
 /* Column 3: Social Icons */
@@ -162,7 +209,7 @@
    ========================================================= */
 @media (max-width: 820px) {
   .custom-header {
-    padding: 0.25rem 0 0.15rem 0 !important;
+    padding: 0.35rem 0 0.25rem 0 !important;
     position: relative !important;
     z-index: 99999 !important;
   }
@@ -178,7 +225,7 @@
     align-items: center !important;
     width: 100% !important;
     position: relative !important;
-    gap: 2px !important;
+    gap: 4px !important;
   }
 
   /* ROW 1 (LEFT): Logo & Brand Name */
@@ -200,10 +247,10 @@
     line-height: 24px !important;
   }
 
-  /* ROW 1 (RIGHT): Social Icons Centered with Title */
+  /* ROW 1 (RIGHT): Social Icons */
   .social-icons-container {
     position: absolute !important;
-    top: 7px !important;
+    top: 5px !important;
     right: 0 !important;
     display: flex !important;
     justify-content: flex-end !important;
@@ -220,22 +267,16 @@
     align-items: center !important;
   }
 
-  .header-icon-link {
-    display: flex !important;
-    align-items: center !important;
-  }
-
   .header-icon-link svg {
     width: 17px !important;
     height: 17px !important;
   }
 
-  /* Hide Hamburger Icon */
   .mobile-toggle {
     display: none !important;
   }
 
-  /* ROW 2 (FULL WIDTH): Centered Links */
+  /* ROW 2 (FULL WIDTH): Centered Link Badges */
   .nav-collapse-area {
     display: flex !important;
     position: static !important;
@@ -251,7 +292,7 @@
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    margin-top: 1px !important;
+    margin-top: 2px !important;
   }
 
   .nav-collapse-area::-webkit-scrollbar {
@@ -274,36 +315,24 @@
     border: none !important;
     padding: 1px 0 !important;
     gap: 12px !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-  }
-
-  .button-group::-webkit-scrollbar {
-    display: none !important;
   }
 
   .header-link {
     font-size: 0.78rem !important;
-    font-weight: 700 !important;
-    white-space: nowrap !important;
-    padding: 1px 0 !important;
-    border-radius: 0 !important;
-    background-color: transparent !important;
-    color: #ffffff !important;
-    border: none !important;
-    text-decoration: underline !important;
-    text-underline-offset: 3px !important;
-    transition: all 0.2s ease !important;
-    display: inline-block !important;
-    flex-shrink: 0 !important;
   }
 
-  .header-link:hover,
-  .header-link:active,
-  .header-link.w--current {
-    background-color: transparent !important;
-    color: #3898ec !important;
-    text-decoration: underline !important;
+  .nav-pair-item {
+    font-size: 0.78rem !important;
+    gap: 4px !important;
+  }
+
+  .lang-pill-group {
+    padding: 1px 4px !important;
+    gap: 2px !important;
+  }
+
+  .lang-pill {
+    font-size: 0.7rem !important;
+    padding: 1px 4px !important;
   }
 }
