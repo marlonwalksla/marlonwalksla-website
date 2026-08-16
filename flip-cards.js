@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.js
- * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Dynamic Formatter
+ * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Unified Footer Group
  * ============================================================================== */
 
 window.initFlipCards = function() {
@@ -15,15 +15,30 @@ window.initFlipCards = function() {
     const swiperContainer = root.querySelector('.swiper');
     if (!wrapper || !swiperContainer) return;
 
-    // 1. Cleanly split Reviewer Name and 5 Stars onto separate lines
-    const titles = root.querySelectorAll('.pc-title');
-    titles.forEach(titleEl => {
-      const rawText = titleEl.innerText || titleEl.textContent;
-      if (rawText.includes('⭐') || rawText.includes('★')) {
-        const starMatch = rawText.match(/[⭐★\s]+/);
-        const stars = starMatch ? starMatch[0].trim() : '⭐⭐⭐⭐⭐';
-        const nameOnly = rawText.replace(/[⭐★]/g, '').trim();
-        titleEl.innerHTML = `<span class="pc-reviewer-name">${nameOnly}</span><span class="pc-reviewer-stars">${stars}</span>`;
+    // 1. Bundle Ernesto + Reviewer Name/Stars into a single centered group
+    const cards = root.querySelectorAll('.pc-card');
+    cards.forEach(card => {
+      const mascot = card.querySelector('.pc-image-back');
+      const title = card.querySelector('.pc-title');
+
+      // Break stars onto their own clean line
+      if (title && !title.querySelector('.pc-reviewer-stars')) {
+        const rawText = title.innerText || title.textContent;
+        if (rawText.includes('⭐') || rawText.includes('★')) {
+          const starMatch = rawText.match(/[⭐★\s]+/);
+          const stars = starMatch ? starMatch[0].trim() : '⭐⭐⭐⭐⭐';
+          const nameOnly = rawText.replace(/[⭐★]/g, '').trim();
+          title.innerHTML = `<span class="pc-reviewer-name">${nameOnly}</span><span class="pc-reviewer-stars">${stars}</span>`;
+        }
+      }
+
+      // Group mascot + title together
+      if (mascot && title && !card.querySelector('.pc-footer-group')) {
+        const footerGroup = document.createElement('div');
+        footerGroup.className = 'pc-footer-group';
+        card.insertBefore(footerGroup, mascot);
+        footerGroup.appendChild(mascot);
+        footerGroup.appendChild(title);
       }
     });
 
@@ -39,7 +54,7 @@ window.initFlipCards = function() {
       }
     });
 
-    // 3. Swiper Drag Physics Engine
+    // 3. Swiper Drag Scroll Physics
     let touchStartX = 0;
 
     new Swiper(swiperContainer, {
