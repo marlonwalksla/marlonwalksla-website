@@ -6,7 +6,7 @@
 .pc-root {
   position: relative;
   width: 100%;
-  padding: 12px 0;
+  padding: 16px 0;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -34,12 +34,20 @@
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
   transform: rotate(calc(var(--card-rot, 0deg) + var(--drag-rot, 0deg)));
-  transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s ease;
   cursor: grab;
 }
 
 .pc-card:active {
   cursor: grabbing;
+}
+
+/* Active & Focused Slide Straightens Out (0° Rotation) */
+.pc-root .swiper-slide-active .pc-card,
+.pc-root .swiper-slide:hover .pc-card {
+  --card-rot: 0deg !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  z-index: 5;
 }
 
 /* Row 1: Locked Taller Guest Photo (235px) */
