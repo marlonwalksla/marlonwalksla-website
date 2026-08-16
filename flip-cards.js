@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.js
- * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Scatter Engine
+ * CATEGORY: MarlonWalksLA Website - Review Cards Swiper & Dynamic Formatter
  * ============================================================================== */
 
 window.initFlipCards = function() {
@@ -15,7 +15,19 @@ window.initFlipCards = function() {
     const swiperContainer = root.querySelector('.swiper');
     if (!wrapper || !swiperContainer) return;
 
-    // Apply natural Polaroid scatter tilt angles
+    // 1. Cleanly split Reviewer Name and 5 Stars onto separate lines
+    const titles = root.querySelectorAll('.pc-title');
+    titles.forEach(titleEl => {
+      const rawText = titleEl.innerText || titleEl.textContent;
+      if (rawText.includes('⭐') || rawText.includes('★')) {
+        const starMatch = rawText.match(/[⭐★\s]+/);
+        const stars = starMatch ? starMatch[0].trim() : '⭐⭐⭐⭐⭐';
+        const nameOnly = rawText.replace(/[⭐★]/g, '').trim();
+        titleEl.innerHTML = `<span class="pc-reviewer-name">${nameOnly}</span><span class="pc-reviewer-stars">${stars}</span>`;
+      }
+    });
+
+    // 2. Natural organic Polaroid scatter rotation angles
     const rotationPatterns = [-2.5, 1.8, -1.2, 2.2, -1.8, 1.5];
     const items = Array.from(wrapper.children);
     
@@ -27,7 +39,7 @@ window.initFlipCards = function() {
       }
     });
 
-    // Swiper drag scroll configuration
+    // 3. Swiper Drag Physics Engine
     let touchStartX = 0;
 
     new Swiper(swiperContainer, {
