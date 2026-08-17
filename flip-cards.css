@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.css
- * CATEGORY: MarlonWalksLA Website - Polaroid Review Cards Styling
+ * CATEGORY: MarlonWalksLA Website - Polaroid Review Cards (Enlarged Mascot & Text)
  * ============================================================================== */
 
 .pc-root {
@@ -12,7 +12,7 @@
 }
 
 .pc-root .swiper-slide {
-  width: 285px !important;
+  width: 290px !important;
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -27,9 +27,8 @@
   row-gap: 10px !important;
   align-items: center !important;
   width: 100%;
-  height: 455px;
-  /* Top padding moves photo down; Bottom padding lifts Ernesto & text higher */
-  padding: 18px 14px 26px !important;
+  height: 470px;
+  padding: 18px 14px 24px !important;
   box-sizing: border-box;
   background: #ffffff;
   border-radius: 12px;
@@ -51,7 +50,7 @@
   z-index: 5;
 }
 
-/* Row 1: Taller Guest Photo (Shifted Downward) */
+/* Row 1: Guest Photo */
 .pc-image {
   grid-column: 1 / 5 !important;
   grid-row: 1 !important;
@@ -62,19 +61,19 @@
   margin: 0;
 }
 
-/* Row 2: Review Quote (Centered Full Width) */
+/* Row 2: Larger Review Quote Text */
 .pc-description-back {
   grid-column: 1 / 5 !important;
   grid-row: 2 !important;
   display: block !important;
-  font-size: 0.82rem;
-  line-height: 1.45;
+  font-size: 0.88rem !important;
+  line-height: 1.48;
   font-weight: 500;
   color: #334155;
   text-align: center;
   font-style: italic;
   margin: 2px 0 0 0;
-  padding: 0 6px;
+  padding: 0 8px;
   align-self: center;
   overflow: hidden;
   display: -webkit-box !important;
@@ -82,24 +81,24 @@
   -webkit-box-orient: vertical;
 }
 
-/* Row 3 - Left: Ernesto Mascot (Elevated Higher) */
+/* Row 3 - Left: Enlarged Ernesto Mascot (84px) */
 .pc-image-back {
   grid-column: 2 !important;
   grid-row: 3 !important;
   display: block !important;
   position: static !important;
-  height: 72px !important;
+  height: 84px !important;
   width: auto !important;
-  max-height: 72px !important;
+  max-height: 84px !important;
   object-fit: contain;
   justify-self: end !important;
   align-self: center !important;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
   pointer-events: none;
-  margin: 0 10px 0 0 !important;
+  margin: 0 12px 0 0 !important;
 }
 
-/* Row 3 - Right: Reviewer Name & Gold Stars (Elevated Higher) */
+/* Row 3 - Right: Reviewer Name & Gold Stars */
 .pc-title {
   grid-column: 3 !important;
   grid-row: 3 !important;
@@ -116,7 +115,7 @@
 }
 
 .pc-reviewer-name {
-  font-size: 0.82rem;
+  font-size: 0.88rem !important;
   font-weight: 800;
   color: #0f172a;
   line-height: 1.25;
@@ -124,11 +123,11 @@
 }
 
 .pc-reviewer-stars {
-  font-size: 0.85rem;
+  font-size: 0.92rem !important;
   color: #f59e0b !important;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
   line-height: 1;
-  margin-top: 3px;
+  margin-top: 4px;
   display: block !important;
 }
 
@@ -142,15 +141,15 @@
   display: none !important;
 }
 
-/* Mobile Viewport */
+/* Mobile Viewport Adjustments */
 @media (max-width: 600px) {
   .pc-root .swiper-slide {
-    width: 255px !important;
+    width: 260px !important;
   }
   
   .pc-card {
-    height: 425px;
-    padding: 16px 12px 22px !important;
+    height: 440px;
+    padding: 16px 12px 20px !important;
   }
 
   .pc-image {
@@ -158,16 +157,21 @@
   }
 
   .pc-image-back {
-    height: 64px !important;
-    max-height: 64px !important;
-    margin-right: 8px !important;
+    height: 72px !important;
+    max-height: 72px !important;
+    margin-right: 10px !important;
+  }
+
+  .pc-description-back {
+    font-size: 0.82rem !important;
   }
 
   .pc-reviewer-name {
-    font-size: 0.78rem;
+    font-size: 0.82rem !important;
   }
 
   .pc-reviewer-stars {
-    font-size: 0.78rem;
+    font-size: 0.84rem !important;
+    letter-spacing: 1.2px;
   }
 }
