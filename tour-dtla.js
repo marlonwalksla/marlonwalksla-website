@@ -63,10 +63,11 @@ const tourData = {
           { y: "2009", t: "Maestro Gustavo Dudamel becomes Music & Artistic Director of the Los Angeles Philharmonic." }
         ],
         people: [
-          { name: "Lillian Disney", role: "Philanthropist & Benefactor", bio: "Widow of Walt Disney whose $50 million seed donation in 1987 honored Walt’s devotion to the arts and created a permanent home for the LA Phil." },
-          { name: "Frank Gehry", role: "Master Architect", bio: "Pritzker Prize winner who grew up in LA, served in the US Army, and drove a delivery truck while studying architecture at USC before revolutionizing global design." },
-          { name: "Dorothy Buffum Chandler", role: "Civic Leader & Patron", bio: "Spearheaded the Blue Ribbon Committee and raised private millions to transform Bunker Hill from leveled terrain into the city's cultural acropolis." },
-          { name: "Gustavo Dudamel", role: "Music & Artistic Director", bio: "World-renowned Venezuelan conductor who transformed the LA Philharmonic into one of the most innovative and celebrated orchestras on the planet." }
+          { name: "Lillian Disney", role: "Philanthropist & Benefactor", bio: "Widow of Walt Disney whose $50 million seed donation in 1987 honored Walt’s devotion to music and funded the creation of this iconic auditorium." },
+          { name: "Frank Gehry", role: "Master Architect", bio: "Pritzker Prize winner who grew up in LA, served in the US Army, and drove a delivery truck while taking architecture courses at USC before transforming global architecture." },
+          { name: "Dorothy Buffum Chandler", role: "Civic Leader & Cultural Patron", bio: "Spearheaded the Blue Ribbon Committee and mobilized private capital to transform Bunker Hill from leveled terrain into the city's performing arts acropolis." },
+          { name: "Yasuhisa Toyota", role: "Chief Acoustician", bio: "Renowned acoustical master who designed the vineyard seating and hardwood interior curvature to deliver flawless sound reflection without electronic amplification." },
+          { name: "Gustavo Dudamel", role: "Music & Artistic Director", bio: "World-renowned Venezuelan conductor who transformed the LA Phil into one of the most innovative and celebrated modern orchestras on earth." }
         ],
         stories: [
           { 
@@ -74,17 +75,25 @@ const tourData = {
             p: "Look around Grand Avenue today—it is one of the densest corridors of performing arts institutions in the world. But 70 years ago, this hill was an entirely different universe: packed with Victorian mansions and boarding houses. In the 1960s, the city flattened the terrain in a massive urban renewal project. The cultural transformation of this ridge was spearheaded by the <strong>Blue Ribbon Committee</strong>, founded by civic titan Dorothy Buffum Chandler, who raised private capital to build the Music Center across the street." 
           },
           { 
-            h: "Lillian Disney's Gift & Frank Gehry's Vision", 
-            p: "In 1987, <strong>Lillian Disney</strong> donated $50 million to create a permanent, acoustically pure home for the Los Angeles Philharmonic in honor of Walt’s passion for music. The committee selected <strong>Frank Gehry</strong>. Gehry had grown up in Los Angeles, served in the US Army, and drove a delivery truck while taking night classes in architecture at USC. After his revolutionary design of the Guggenheim Museum in Bilbao, Spain, Gehry applied his signature deconstructivist style here." 
+            h: "Lillian Disney's Vision & The Philanthropic Tribute", 
+            p: "In 1987, <strong>Lillian Disney</strong> (Walt Disney’s widow) donated $50 million to create a permanent, acoustically pure home for the Los Angeles Philharmonic in honor of Walt’s lifelong passion for the performing arts. Rather than designing a traditional civic monument, Lillian insisted on an open, democratic concert hall that belonged to all citizens of Los Angeles." 
           },
           { 
-            h: "Architecture of Movement & Acoustic Purity", 
-            p: "The exterior is clad in over <strong>12,500 custom-curved stainless steel panels</strong>, designed to emulate billowing sails caught in the wind—visually mirroring the tempo and flow of music. The 2,265-seat interior is lined entirely with warm Douglas fir wood shaped like the curved hull of an ancient sailing ship. Master acoustician Yasuhisa Toyota designed vineyard-style seating, placing the audience directly around the orchestra for acoustic clarity without electronic amplification." 
+            h: "Frank Gehry's Deconstructivist Masterwork", 
+            p: "The committee selected <strong>Frank Gehry</strong>. Gehry had grown up in Los Angeles, served in the US Army, and drove a delivery truck while taking night classes in architecture at USC. After his revolutionary design of the Guggenheim Museum in Bilbao, Spain, Gehry applied his signature deconstructivist style here. The exterior is wrapped in over <strong>12,500 custom-curved stainless steel panels</strong> designed to emulate billowing sails caught in the wind—visually mirroring the movement, rhythm, and tempo of orchestral music." 
+          },
+          { 
+            h: "Acoustic Physics & The Douglas Fir Hull", 
+            p: "Inside, the 2,265-seat auditorium is lined entirely with warm Douglas fir wood shaped like the curved hull of an ancient sailing vessel. Master acoustician <strong>Yasuhisa Toyota</strong> configured vineyard-style seating, placing the audience directly around the orchestra. The walls and convex ceiling panels reflect acoustic soundwaves evenly across every seat, producing pristine clarity without electronic microphones or speakers." 
+          },
+          { 
+            h: "A Living Instrument: The Pipe Organ & The LA Phil", 
+            p: "Dominating the rear of the stage is the massive 6,134-pipe organ nicknamed 'the French fries' for its curved, forward-leaning wooden exterior pipes. Under the baton of Venezuelan maestro <strong>Gustavo Dudamel</strong>, the hall has served as an international testing ground for modern orchestral premieres, Latin symphonic masterworks, and world-class broadcasts." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Hidden Rooftop Garden", d: "Climb the outdoor stairs on the Hope Street side to find the Blue Ribbon Garden, featuring a mosaic rose fountain built from broken blue-and-white Delft china in honor of Lillian Disney." },
-          { cls: "box-lore", t: "The 'French Fries' Pipe Organ", d: "Inside sits the famous 6,134-pipe organ nicknamed 'the French fries' for its curved wooden exterior pipes, played under the direction of Venezuelan maestro Gustavo Dudamel." }
+          { cls: "box-tip", t: "Hidden Rooftop Garden", d: "Climb the outdoor stairs on the Hope Street side to find the elevated Blue Ribbon Garden, featuring a mosaic rose fountain built from broken blue-and-white Delft china in honor of Lillian Disney." },
+          { cls: "box-lore", t: "The Glare Modification", d: "Shortly after opening, select exterior panels were so reflective that they heated nearby sidewalks and condos; Gehry had the high-gloss panels lightly sanded down to a soft matte finish." }
         ]
       },
       es: {
@@ -102,6 +111,7 @@ const tourData = {
           { name: "Lillian Disney", role: "Filántropa y Benefactora", bio: "Viuda de Walt Disney cuya donación de $50 millones en 1987 honró el amor de Walt por la música y creó la sede definitiva de la Filarmónica." },
           { name: "Frank Gehry", role: "Arquitecto Principal", bio: "Ganador del Premio Pritzker que creció en LA, sirvió en el ejército y manejó camiones mientras estudiaba arquitectura de noche en USC." },
           { name: "Dorothy Buffum Chandler", role: "Líder Cívica y Promotora", bio: "Lideró el Comité Blue Ribbon y recaudó millones para transformar Bunker Hill de un cerro aplanado al corazón cultural de la metrópoli." },
+          { name: "Yasuhisa Toyota", role: "Maestro de Acústica", bio: "Ingeniero japonés que diseñó el interior curvado y los asientos estilo viñedo para lograr un sonido perfecto sin amplificación electrónica." },
           { name: "Gustavo Dudamel", role: "Director Musical", bio: "Famoso director venezolano que convirtió a la Filarmónica de Los Ángeles en una de las orquestas más aclamadas e innovadoras del mundo." }
         ],
         stories: [
@@ -110,17 +120,25 @@ const tourData = {
             p: "Miren a su alrededor en Grand Avenue: hoy es uno de los corredores de artes escénicas más densos del planeta. Pero hace décadas, esta colina estaba repleta de mansiones victorianas antes de ser completamente aplanada en los años 60 durante un polémico proyecto de renovación urbana. La transformación cultural fue impulsada por el <strong>Comité Blue Ribbon</strong> y la filántropa Dorothy Buffum Chandler." 
           },
           { 
-            h: "El Tributo de Lillian Disney y Frank Gehry", 
-            p: "En 1987, <strong>Lillian Disney</strong> donó $50 millones para construir una sede acústica perfecta para la Filarmónica de Los Ángeles. Contrataron a <strong>Frank Gehry</strong>, quien creció en Los Ángeles, sirvió en el ejército estadounidense y manejó camiones de reparto mientras estudiaba arquitectura en cursos nocturnos de USC." 
+            h: "El Tributo de Lillian Disney a Walt Disney", 
+            p: "En 1987, <strong>Lillian Disney</strong> donó $50 millones para construir una sede acústica perfecta para la Filarmónica de Los Ángeles. Quería un espacio democrático y abierto que honrara la pasión de Walt por la música orquestal y perteneciera a todos los habitantes de la ciudad." 
           },
           { 
-            h: "Arquitectura de Movimiento y Acústica Pura", 
-            p: "El exterior cuenta con más de <strong>12,500 paneles curvos de acero inoxidable</strong> que simulan velas de barco infladas por el viento, reflejando el movimiento de la música. Por dentro, el auditorio de abeto Douglas evoca el casco de un barco, con asientos estilo viñedo diseñados por el acústico Yasuhisa Toyota que rodean a los músicos para brindar una acústica perfecta sin amplificadores." 
+            h: "La Arquitectura Desconstructivista de Frank Gehry", 
+            p: "Contrataron a <strong>Frank Gehry</strong>, quien creció en Los Ángeles, sirvió en el ejército estadounidense y manejó camiones de reparto mientras estudiaba arquitectura en cursos nocturnos de USC. El exterior cuenta con más de <strong>12,500 paneles curvos de acero inoxidable</strong> que simulan velas de barco infladas por el viento, reflejando visualmente el movimiento y la energía de la música." 
+          },
+          { 
+            h: "Física Acústica y el Casco de Abeto Douglas", 
+            p: "Por dentro, el auditorio para 2,265 espectadores evoca el casco de un navío de madera de abeto Douglas. Diseñado por el acústico <strong>Yasuhisa Toyota</strong> con asientos estilo viñedo, el público rodea el escenario central, permitiendo que las ondas sonoras reboten con total pureza sin micrófonos." 
+          },
+          { 
+            h: "Un Instrumento Vivo: El Órgano y la Filarmónica", 
+            p: "Presidiendo el escenario se encuentra el colosal órgano de 6,134 tubos apodado 'las papas fritas' por sus tubos curvados hacia el frente. Bajo la batuta del maestro venezolano <strong>Gustavo Dudamel</strong>, la sala es el epicentro de la música contemporánea en América." 
           }
         ],
         callouts: [
           { cls: "box-tip", t: "Jardín Secreto en la Azotea", d: "Sube las escaleras de Hope St hacia el jardín elevado para ver la fuente de rosas hecha con porcelana azul rota de Delft en honor a Lillian Disney." },
-          { cls: "box-lore", t: "El Órgano de 'Papas Fritas'", d: "Alberga un monumental órgano de 6,134 tubos apodado 'las papas fritas' por sus tubos curvos de madera, dirigido por el maestro venezolano Gustavo Dudamel." }
+          { cls: "box-lore", t: "El Ajuste del Brillo Exterior", d: "Al inaugurarse, algunos paneles reflejaban tanta luz solar que calentaban la banqueta; Gehry mandó lijar suavemente el acero para darle un acabado mate." }
         ]
       }
     },
@@ -143,7 +161,8 @@ const tourData = {
           { name: "Eli & Edythe Broad", role: "Founders & Billionaire Patrons", bio: "Self-made business leader who built two Fortune 500 empires (KB Home & SunAmerica) and dedicated his billions to funding contemporary art and civic institutions in LA." },
           { name: "Andy Warhol", role: "Pop Art Pioneer", bio: "Leading figure of the visual art movement who screenprinted consumer products and celebrities while exposing the underlying social tensions of mid-century America." },
           { name: "Jeff Koons", role: "Neo-Pop Sculptor", bio: "Contemporary artist renowned for casting everyday celebratory items into monumental, high-gloss stainless steel sculptures that challenge consumer culture." },
-          { name: "Elizabeth Diller", role: "Lead Architect (DS+R)", bio: "Visionary designer who conceptualized 'The Veil and the Vault' to solve the dual challenge of public display and secure archival art storage." }
+          { name: "Elizabeth Diller", role: "Lead Architect (DS+R)", bio: "Visionary designer who conceptualized 'The Veil and the Vault' to solve the dual challenge of public gallery display and secure archival art storage." },
+          { name: "Yayoi Kusama", role: "Contemporary Master", bio: "Celebrated Japanese artist whose iconic Infinity Mirror Rooms create kaleidoscopic, boundless light installations that draw worldwide crowds." }
         ],
         stories: [
           { 
@@ -155,16 +174,20 @@ const tourData = {
             p: "Designed by renowned architecture firm <strong>Diller Scofidio + Renfro</strong> for $140 million. The building concept is built around two contrasting structural ideas:<br><br>• <strong>The Vault:</strong> The heavy, opaque concrete core in the center of the building that securely stores thousands of artworks not currently hung in galleries.<br>• <strong>The Veil:</strong> The porous, honeycomb-like exterior skeleton made of 2,000 fiberglass-reinforced concrete panels that wrap around the vault, filtering soft natural daylight into the top-floor exhibition deck without harming sensitive pigments." 
           },
           { 
-            h: "Pop Art Revolution: Andy Warhol", 
+            h: "Pop Art Revolution: Andy Warhol's Double Vision", 
             p: "The Broad holds one of the world's most significant archives of <strong>Pop Art</strong>. In the 1960s, <strong>Andy Warhol</strong> transformed commercial mass-production into high art. By screen-printing everyday consumer items like <em>Campbell’s Soup Cans</em> and celebrities like <em>Single Elvis</em>, Warhol held up a mirror to American consumerism. But Warhol went deeper: works like <em>1964 Alabama Race Riot</em> and his <em>American Nightmare / Death and Disaster</em> series confronted the grim realities of civil rights violence, electric chairs, and drug epidemics hidden behind shiny mid-century consumer culture." 
           },
           { 
-            h: "Neo-Pop & Consumer Desire: Jeff Koons", 
+            h: "Neo-Pop & Monumental Kitsch: Jeff Koons", 
             p: "Moving into the 1980s and 90s, <strong>Jeff Koons</strong> pioneered Neo-Pop. His famous mirror-polished stainless steel sculpture <strong>Balloon Dog (Blue)</strong> and hyper-chromatic <strong>Tulips</strong> take cheap, temporary party decorations and cast them into heavy, indestructible monuments of high gloss. Koons forces viewers to look directly into their own reflections on the gleaming surface, questioning consumer desire, kitsch, and how everyday objects are elevated into multi-million-dollar art." 
+          },
+          { 
+            h: "Contemporary Giants: Basquiat & Kusama", 
+            p: "The museum’s upper floors showcase raw, expressive masterpieces from <strong>Jean-Michel Basquiat</strong>, addressing race, police brutality, and urban poetry. Alongside Basquiat sit the mesmerizing <em>Infinity Mirror Rooms</em> by <strong>Yayoi Kusama</strong>, where mirrored chambers lit with hundreds of flickering LEDs create the sensation of floating through an infinite galaxy." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Yayoi Kusama & Contemporary Masters", d: "Home to Yayoi Kusama’s famous Infinity Mirror Rooms, Jean-Michel Basquiat’s raw street canvases, and Takashi Murakami’s Superflat pop murals." },
+          { cls: "box-lore", t: "Yayoi Kusama Infinity Rooms", d: "Requires a separate free timed reservation at the kiosk inside the lobby due to high international visitor demand." },
           { cls: "box-tip", t: "Free Admission Secret", d: "General admission is 100% free. Reserving a free timed-entry ticket online in advance lets you bypass the outdoor general standby line." }
         ]
       },
@@ -182,7 +205,8 @@ const tourData = {
           { name: "Eli y Edythe Broad", role: "Fundadores y Filántropos", bio: "Empresario que construyó dos imperios Fortune 500 (KB Home y SunAmerica) y destinó sus miles de millones a financiar el arte y la vida cívica de Los Ángeles." },
           { name: "Andy Warhol", role: "Pionero del Pop Art", bio: "Figura cumbre del arte pop que serigrafió productos de consumo y celebridades mientras denunciaba las grietas y tensiones sociales de la época." },
           { name: "Jeff Koons", role: "Escultor Neo-Pop", bio: "Artista célebre por convertir objetos festivos cotidianos en esculturas gigantescas de acero inoxidable pulido que retan la cultura del consumo." },
-          { name: "Elizabeth Diller", role: "Arquitecta Principal (DS+R)", bio: "Diseñadora vanguardista que concibió 'El Velo y la Bóveda' para unificar el resguardo de obras con galerías públicas inundadas de luz." }
+          { name: "Elizabeth Diller", role: "Arquitecta Principal (DS+R)", bio: "Diseñadora vanguardista que concibió 'El Velo y la Bóveda' para unificar el resguardo de obras con galerías públicas inundadas de luz." },
+          { name: "Yayoi Kusama", role: "Maestra Contemporánea", bio: "Aclamada artista japonesa cuyas salas de espejos infinitos crean experiencias inmersivas de luz cósmica admiradas en todo el mundo." }
         ],
         stories: [
           { 
@@ -200,10 +224,14 @@ const tourData = {
           { 
             h: "Neo-Pop y la Obsesión del Consumo: Jeff Koons", 
             p: "En los años 80 y 90, <strong>Jeff Koons</strong> llevó el pop a la monumentalidad. Su icónica escultura de acero inoxidable <strong>Balloon Dog (Blue)</strong> y sus gigantescos <strong>Tulipanes</strong> convierten figuras inflables de fiesta en monumentos cromados de millones de dólares. Koons hace que el espectador se vea reflejado en el brillo de la pieza, reflexionando sobre la vanidad y la cultura del consumo." 
+          },
+          { 
+            h: "Gigantes Contemporáneos: Basquiat y Kusama", 
+            p: "El museo alberga además lienzos desgarradores de <strong>Jean-Michel Basquiat</strong> sobre identidad y poesía callejera, junto a las famosas <em>Infinity Mirror Rooms</em> de <strong>Yayoi Kusama</strong>, donde espejos y luces LED crean una ilusión óptica de espacio infinito." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Yayoi Kusama y Basquiat", d: "Alberga las legendarias salas de espejos infinitos de Yayoi Kusama, los lienzos expresionistas de Jean-Michel Basquiat y murales de Takashi Murakami." },
+          { cls: "box-lore", t: "Salas de Espejos de Kusama", d: "Requiere un registro gratuito adicional en las pantallas táctiles del vestíbulo debido a su alta demanda." },
           { cls: "box-tip", t: "Entrada Gratuita", d: "La entrada es gratis. Reservar turno con anticipación en su sitio web permite saltarse la fila general en la banqueta." }
         ]
       }
@@ -227,12 +255,17 @@ const tourData = {
         people: [
           { name: "Henry E. Huntington", role: "Rail & Real Estate Baron", bio: "Mastermind behind the 1,100-mile Pacific Electric 'Red Car' transit empire, which he operated as a loss leader to sell vast suburban real estate developments." },
           { name: "Isaias W. Hellman", role: "Pioneer Financier & Banker", bio: "President of Farmers and Merchants Bank and partner of Huntington who provided the crucial banking capital that built modern Southern California." },
-          { name: "Harry & Esther Snyder", role: "In-N-Out Founders", bio: "Opened California's first drive-thru burger stand in Baldwin Park in 1948, pioneering the two-way speaker box and fresh-to-order car culture dining." }
+          { name: "Harry & Esther Snyder", role: "In-N-Out Founders", bio: "Opened California's first drive-thru burger stand in Baldwin Park in 1948, pioneering the two-way speaker box and fresh-to-order car culture dining." },
+          { name: "Dorothy Buffum Chandler", role: "Civic Matriarch", bio: "Championed the corporate redevelopment of California Plaza as a modern financial and urban arts district." }
         ],
         stories: [
           { 
             h: "Henry Huntington & The Red Car Real Estate Scheme", 
-            p: "When Collis Huntington died, his nephew <strong>Henry Huntington</strong> was passed over for leadership of the Southern Pacific Railroad in San Francisco. Huntington took his inheritance south, partnered with banker Isaias W. Hellman, and built the <strong>Pacific Electric Railway (the famous 'Red Cars')</strong> into the largest electric interurban transit network on earth (over 1,100 miles of track).<br><br>Here is the genius secret: <strong>the streetcars were intentionally operated as a loss leader</strong>. Huntington lost money on passenger fares because the tracks were laid straight into empty orange groves and ranchlands owned by his private land syndicates. The trains existed purely to sell suburban real estate, causing LA's population to explode from <strong>102,000 in 1900 to 1.2 million by 1930</strong>." 
+            p: "When Collis Huntington died, his nephew <strong>Henry Huntington</strong> was passed over for leadership of the Southern Pacific Railroad in San Francisco. Huntington took his inheritance south, partnered with banker Isaias W. Hellman, and built the <strong>Pacific Electric Railway (the famous 'Red Cars')</strong> into the largest electric interurban transit network on earth (over 1,100 miles of track)." 
+          },
+          { 
+            h: "The Train as a Loss Leader", 
+            p: "Here is the genius secret: <strong>the streetcars were intentionally operated as a loss leader</strong>. Huntington lost money on passenger fares because the tracks were laid straight into empty orange groves and ranchlands owned by his private land syndicates. The trains existed purely to sell suburban real estate, causing LA's population to explode from <strong>102,000 in 1900 to 1.2 million by 1930</strong>." 
           },
           { 
             h: "The GM Antitrust Monopoly & The Automotive Shift", 
@@ -261,12 +294,17 @@ const tourData = {
         people: [
           { name: "Henry E. Huntington", role: "Magnate de Tranvías y Bienes Raíces", bio: "Creador del imperio de tranvías 'Red Cars' de más de 1,100 millas, operados a pérdida para vender terrenos agrícolas convertidos en suburbios." },
           { name: "Isaias W. Hellman", role: "Banquero Pionero de California", bio: "Presidente de Farmers and Merchants Bank y socio de Huntington que financió el crecimiento de los servicios públicos e industrias de LA." },
-          { name: "Harry y Esther Snyder", role: "Fundadores de In-N-Out", bio: "Abrieron el primer autoservicio de California en Baldwin Park en 1948, inventando el sistema de pedidos por altavoz bidireccional." }
+          { name: "Harry y Esther Snyder", role: "Fundadores de In-N-Out", bio: "Abrieron el primer autoservicio de California en Baldwin Park en 1948, inventando el sistema de pedidos por altavoz bidireccional." },
+          { name: "Dorothy Buffum Chandler", role: "Matriarca Cívica", bio: "Impulsó la reurbanización corporativa de California Plaza como un centro moderno de finanzas y cultura." }
         ],
         stories: [
           { 
             h: "Henry Huntington y el Gran Negocio Inmobiliario", 
-            p: "Al fallecer su tío Collis Huntington, <strong>Henry Huntington</strong> no obtuvo la presidencia del ferrocarril en San Francisco. Se mudó al sur con su capital, se asoció con el banquero Isaias W. Hellman y fundó los tranvías <strong>Pacific Electric ('Red Cars')</strong>, alcanzando más de 1,100 millas de vías electrificadas.<br><br>El secreto fue brillante: <strong>los tranvías operaban con pérdidas a propósito</strong>. A Huntington no le importaba el costo del pasaje porque tendía las vías directamente hacia enormes campos de naranjos y terrenos agrícolas que sus sindicatos habían comprado a bajo precio. Los tranvías servían para vender casas suburbanas, disparando la población de <strong>102,000 en 1900 a 1.2 millones en 1930</strong>." 
+            p: "Al fallecer su tío Collis Huntington, <strong>Henry Huntington</strong> no obtuvo la presidencia del ferrocarril en San Francisco. Se mudó al sur con su capital, se asoció con el banquero Isaias W. Hellman y fundó los tranvías <strong>Pacific Electric ('Red Cars')</strong>, alcanzando más de 1,100 millas de vías electrificadas." 
+          },
+          { 
+            h: "El Tranvía como Gancho Comercial", 
+            p: "El secreto fue brillante: <strong>los tranvías operaban con pérdidas a propósito</strong>. A Huntington no le importaba el costo del pasaje porque tendía las vías directamente hacia enormes campos de naranjos y terrenos agrícolas que sus sindicatos habían comprado a bajo precio. Los tranvías servían para vender casas suburbanas, disparando la población de <strong>102,000 en 1900 a 1.2 millones en 1930</strong>." 
           },
           { 
             h: "El Juicio Antimonopolio de General Motors", 
@@ -300,7 +338,8 @@ const tourData = {
         ],
         people: [
           { name: "Henry N. Cobb (Pei Cobb Freed)", role: "Lead Architect", bio: "Master designer behind the tower's cylindrical stepped granite profile and crown, engineered to maximize light on narrow downtown street angles." },
-          { name: "Charles Richter & Beno Gutenberg", role: "Caltech Seismologists", bio: "Pasadena scientists who formulated the logarithmic Richter scale in 1935, defining how modern earthquake engineering protects skyscrapers like this one." }
+          { name: "Charles Richter & Beno Gutenberg", role: "Caltech Seismologists", bio: "Pasadena scientists who formulated the logarithmic Richter scale in 1935, defining how modern earthquake engineering protects skyscrapers like this one." },
+          { name: "Roland Emmerich", role: "Film Director", bio: "Director of Independence Day (1996) who chose the tower's glowing circular crown as the primary target for the iconic alien destruction sequence." }
         ],
         stories: [
           { 
@@ -308,16 +347,24 @@ const tourData = {
             p: "California Plaza (One & Two Cal Plaza) used to be the pulsating corporate heart of DTLA, packed with thousands of lawyers, bankers, crowded food trucks, and busy lunch restaurants. The permanent rise of remote and hybrid work reduced corporate weekday foot traffic by over 40–50%, forcing legacy lunch spots to limit hours and creating an unusually open urban space during traditional business hours." 
           },
           { 
-            h: "The Great Skyscraper Spire Rivalry", 
+            h: "The Great Skyscraper Spire Controversy", 
             p: "The 73-story <strong>U.S. Bank Tower (1,018 ft)</strong> stood as the tallest skyscraper west of the Mississippi River for nearly 30 years. In 2017, the Wilshire Grand Center claimed the official tallest title at 1,100 feet. However, it only wins because of its 294-foot decorative open-air architectural spire. The U.S. Bank Tower’s actual highest occupied roofline and top observation floor remain higher than the Wilshire Grand’s roof." 
           },
           { 
-            h: "Earthquake Engineering & Logarithmic Physics", 
-            p: "The tower was engineered to withstand an <strong>8.3-magnitude earthquake</strong> on the nearby San Andreas Fault using a central core braced with high-ductility steel outriggers. Earthquake magnitude is <strong>logarithmic</strong>:<br><br>• Every 1.0 increase on the scale represents a <strong>10x increase in ground shaking amplitude</strong> and approximately <strong>32x more energy released</strong>.<br>• Moving from a local 5.1 shaker to an 8.1 monster is a jump of 3 whole points (10 × 10 × 10), making the ground shaking <strong>1,000 times stronger</strong> and releasing roughly <strong>32,000 times more destructive seismic energy</strong>.<br>• <em>Earthquake Safety:</em> Angelenos are trained to <em>Drop, Cover, and Hold On</em> beneath sturdy desks to protect against falling lighting fixtures, ceilings, and broken glass." 
+            h: "Advanced Seismic Engineering & Ductile Steel", 
+            p: "The tower was engineered to withstand an <strong>8.3-magnitude earthquake</strong> on the nearby San Andreas Fault using a central core braced with high-ductility steel outriggers. These massive diagonal braces flex and dissipate kinetic energy during severe ground motion, allowing the structure to sway safely without fracturing the structural columns." 
+          },
+          { 
+            h: "The Physics of the Logarithmic Earthquake Scale", 
+            p: "Earthquake magnitude is <strong>logarithmic</strong>:<br><br>• Every 1.0 increase on the scale represents a <strong>10x increase in ground shaking amplitude</strong> and approximately <strong>32x more energy released</strong>.<br>• Moving from a local 5.1 shaker to an 8.1 monster is a jump of 3 whole points (10 × 10 × 10), making the ground shaking <strong>1,000 times stronger</strong> and releasing roughly <strong>32,000 times more destructive seismic energy</strong>.<br>• <em>Earthquake Safety:</em> Angelenos are trained to <em>Drop, Cover, and Hold On</em> beneath sturdy desks to protect against falling lighting fixtures, ceilings, and broken glass." 
+          },
+          { 
+            h: "Hollywood Blockbusters, Video Games & Pop Lore", 
+            p: "The tower is cemented in global pop culture: it was the primary target incinerated in <em>Independence Day</em> (1996), shook violently during the 9.0 quake in <em>San Andreas</em> (2015), and is universally recognized by millions of gamers as the <strong>'Maze Bank Tower'</strong> in <em>Grand Theft Auto V</em>." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Cinema & Pop Culture Lore", d: "Blown up in <em>Independence Day</em> (1996), shaken in <em>San Andreas</em> (2015), and featured as the Maze Bank Tower in <em>GTA V</em>. From 2016–2020, it hosted the 'Skyslide'—a glass slide cantilevered 1,000 feet in the air." }
+          { cls: "box-lore", t: "The OUE Skyslide (2016–2020)", d: "The building previously featured a 45-foot outdoor glass slide cantilevered 1,000 feet in the air off the 70th floor exterior before closing in 2020." }
         ]
       },
       es: {
@@ -333,7 +380,8 @@ const tourData = {
         ],
         people: [
           { name: "Henry N. Cobb", role: "Arquitecto Principal", bio: "Arquitecto de Pei Cobb Freed que diseñó el perfil cilíndrico escalonado y la corona iluminada del rascacielos." },
-          { name: "Charles Richter y Beno Gutenberg", role: "Sismólogos de Caltech", bio: "Científicos de Pasadena que crearon la escala Richter logarítmica en 1935, sentando las bases del diseño antisísmico moderno." }
+          { name: "Charles Richter y Beno Gutenberg", role: "Sismólogos de Caltech", bio: "Científicos de Pasadena que crearon la escala Richter logarítmica en 1935, sentando las bases del diseño antisísmico moderno." },
+          { name: "Roland Emmerich", role: "Director de Cine", bio: "Director de Día de la Independencia (1996) que eligió la corona de la torre como blanco principal del rayo extraterrestre." }
         ],
         stories: [
           { 
@@ -345,12 +393,20 @@ const tourData = {
             p: "La <strong>Torre U.S. Bank (1,018 pies, 73 pisos)</strong> fue el rascacielos más alto al oeste del Misisipi durante tres décadas. En 2017, el Wilshire Grand la superó con 1,100 pies únicamente gracias a su aguja decorativa de 294 pies. Sin embargo, el piso habitable y el techo de la Torre U.S. Bank siguen estando a mayor altura real." 
           },
           { 
-            h: "Resistencia Sísmica y la Escala Logarítmica", 
-            p: "Fue diseñada para resistir un sismo de <strong>magnitud 8.3</strong> en la Falla de San Andrés mediante un núcleo central con refuerzos de acero dúctil. La escala es <strong>logarítmica</strong>:<br><br>• Cada punto entero representa <strong>10 veces más amplitud de movimiento</strong> y unas <strong>32 veces más energía liberada</strong>.<br>• Pasar de un temblor moderado de 5.1 a uno de 8.1 (10 × 10 × 10) significa que el suelo se sacude <strong>1,000 veces más fuerte</strong> y libera <strong>32,000 veces más energía sísmica</strong>.<br>• <em>Regla de Oro Sísmica:</em> La indicación oficial es <em>Agacharse, Cubrirse y Sujetarse</em> bajo un escritorio pesado para protegerse de lámparas, techos falsos y cristales rotos." 
+            h: "Ingeniería Antisísmica y Acero Dúctil", 
+            p: "Fue construida para resistir un sismo de <strong>magnitud 8.3</strong> en la Falla de San Andrés mediante un núcleo central con refuerzos de acero dúctil que absorben y disipan la energía sísmica, permitiendo que la torre oscile con seguridad sin fracturarse." 
+          },
+          { 
+            h: "Física de la Escala Logarítmica de Terremotos", 
+            p: "La escala sísmica es <strong>logarítmica</strong>:<br><br>• Cada punto entero representa <strong>10 veces más amplitud de movimiento</strong> y unas <strong>32 veces más energía liberada</strong>.<br>• Pasar de un temblor moderado de 5.1 a uno de 8.1 (10 × 10 × 10) significa que el suelo se sacude <strong>1,000 veces más fuerte</strong> y libera <strong>32,000 veces más energía sísmica</strong>.<br>• <em>Regla de Oro Sísmica:</em> La indicación oficial es <em>Agacharse, Cubrirse y Sujetarse</em> bajo un escritorio pesado para protegerse de lámparas, techos falsos y cristales rotos." 
+          },
+          { 
+            h: "En el Cine, Videojuegos y Cultura Pop", 
+            p: "La torre forma parte de la memoria colectiva: fue destruida en <em>Día de la Independencia</em> (1996), resistió el terremoto en <em>San Andrés</em> (2015) y es la sede más famosa en <em>Grand Theft Auto V</em> como la 'Torre Maze Bank'." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "En el Cine y Videojuegos", d: "Destruida en <em>Día de la Independencia</em> (1996), sacudida en <em>San Andrés</em> (2015) y sede en <em>GTA V</em>. De 2016 a 2020 tuvo el 'Skyslide', un tobogán de cristal a 1,000 pies de altura." }
+          { cls: "box-lore", t: "El Tobogán Skyslide (2016–2020)", d: "Durante años tuvo un tobogán de cristal suspendido a 1,000 pies de altura en la fachada del piso 70 antes de su cierre definitivo." }
         ]
       }
     },
@@ -373,7 +429,8 @@ const tourData = {
         people: [
           { name: "Colonel J.W. Eddy", role: "Engineer & Founder", bio: "Civil War veteran and lawyer who engineered and built the funicular railway in 1901 to solve the steep climb up Bunker Hill." },
           { name: "Prudent Beaudry", role: "13th Mayor of Los Angeles", bio: "French-Canadian developer who originally purchased and graded Bunker Hill in the 1870s, turning it into LA's most prestigious Victorian mansion district." },
-          { name: "Emma Stone & Ryan Gosling", role: "Actors (La La Land)", bio: "Stars of the 2016 musical whose on-screen kiss inside the closed funicular created viral public demand that prompted city safety upgrades and a full reopening in 2017." }
+          { name: "Emma Stone & Ryan Gosling", role: "Actors (La La Land)", bio: "Stars of the 2016 musical whose on-screen kiss inside the closed funicular created viral public demand that prompted city safety upgrades and a full reopening in 2017." },
+          { name: "Raymond Chandler", role: "Film Noir Novelist", bio: "Legendary author whose gritty detective novels (including The High Window) immortalized Angels Flight as a central fixture of old Los Angeles crime fiction." }
         ],
         stories: [
           { 
@@ -387,11 +444,15 @@ const tourData = {
           { 
             h: "27 Years in Warehouse Crates", 
             p: "During the massive 1960s Bunker Hill Urban Renewal Project, the Victorian mansions were leveled and the hill was physically graded down. Angels Flight was dismantled and packed into wooden storage boxes in 1969. It sat in storage for 27 years until citizen preservationists forced the city to reassemble and reopen it in <strong>1996</strong>." 
+          },
+          { 
+            h: "Film Noir to Hollywood Romance", 
+            p: "Angels Flight is the quintessential cinematic icon of Los Angeles: it appeared in classic 1950s film noirs like <em>Kiss Me Deadly</em> (1955) and <em>Cry Danger</em> (1951), as well as Amazon's <em>Bosch</em>. In 2016, director Damien Chazelle filmed Sebastian and Mia sharing an iconic romantic kiss inside the car in <em>La La Land</em>." 
           }
         ],
         callouts: [
           { cls: "box-tip", t: "Fare & Operating Hours", d: "$1.00 each way (only 50¢ if you tap a Metro TAP card). Open 365 days a year from 6:45 AM to 10:00 PM." },
-          { cls: "box-lore", t: "La La Land & Film Noir", d: "Ryan Gosling and Emma Stone shared their famous kiss here in <em>La La Land</em> (2016). It also starred in classic 1950s noirs like <em>Kiss Me Deadly</em> (1955) and <em>Cry Danger</em> (1951)." }
+          { cls: "box-lore", t: "The La La Land Permit", d: "When La La Land was filmed, the railway had been shut down for years; the movie's international success created the political momentum to fund safety upgrades and reopen the ride in 2017." }
         ]
       },
       es: {
@@ -408,7 +469,8 @@ const tourData = {
         people: [
           { name: "Coronel J.W. Eddy", role: "Ingeniero y Fundador", bio: "Veterano de la Guerra Civil que construyó el funicular en 1901 para conectar la colina residencial con el centro comercial." },
           { name: "Prudent Beaudry", role: "13.º Alcalde de Los Ángeles", bio: "Inversionista francocanadiense que fraccionó Bunker Hill en la década de 1870 para convertirlo en el barrio más aristocrático de la ciudad." },
-          { name: "Ryan Gosling y Emma Stone", role: "Actores (La La Land)", bio: "Protagonistas de la película cuyo beso viral dentro del vagón impulsó al Ayuntamiento a reparar las vías y reabrir el servicio al público en 2017." }
+          { name: "Ryan Gosling y Emma Stone", role: "Actores (La La Land)", bio: "Protagonistas de la película cuyo beso viral dentro del vagón impulsó al Ayuntamiento a reparar las vías y reabrir el servicio al público en 2017." },
+          { name: "Raymond Chandler", role: "Escritor de Novela Negra", bio: "Célebre autor angelino cuyas novelas policíacas inmortalizaron el funicular en la literatura noir del siglo XX." }
         ],
         stories: [
           { 
@@ -422,11 +484,15 @@ const tourData = {
           { 
             h: "27 Años Guardado en Cajas de Madera", 
             p: "Durante la remodelación de los años 60, las mansiones fueron demolidas y el cerro fue rebajado. Angels Flight fue desmantelado y empacado en cajas en 1969. Permaneció almacenado durante 27 años hasta que los comités de preservación histórica lograron su reconstrucción en <strong>1996</strong>." 
+          },
+          { 
+            h: "Del Cine Negro al Romance de Hollywood", 
+            p: "Angels Flight es un ícono cinematográfico fundamental: apareció en joyas del cine negro como <em>Kiss Me Deadly</em> (1955) y la serie <em>Bosch</em>. En 2016, el director Damien Chazelle filmó el romántico beso entre Mia y Sebastian en <em>La La Land</em>." 
           }
         ],
         callouts: [
           { cls: "box-tip", t: "Tarifa y Horarios", d: "$1.00 por trayecto (50¢ con tarjeta TAP de Metro). Abierto los 365 días del año de 6:45 AM a 10:00 PM." },
-          { cls: "box-lore", t: "Cine Negro y La La Land", d: "Escenario del beso entre Ryan Gosling y Emma Stone en <em>La La Land</em> (2016), además de clásicos del cine negro como <em>Kiss Me Deadly</em> (1955) y la serie <em>Bosch</em>." }
+          { cls: "box-lore", t: "El Permiso de La La Land", d: "Cuando se filmó la película el funicular estaba cerrado; la atención mundial motivó a la ciudad a financiar las obras de seguridad para reabrirlo en 2017." }
         ]
       }
     },
@@ -449,12 +515,17 @@ const tourData = {
         people: [
           { name: "Homer Laughlin", role: "Pottery Tycoon & Builder", bio: "Ohio chinaware magnate who constructed Los Angeles's first fireproof, steel-reinforced building in 1897, which later became the home of the market." },
           { name: "Ira & Adele Yellin", role: "Preservationists & Visionaries", bio: "Developer couple who championed the preservation of historic Broadway landmarks and curated the 2012 artisanal revival of Grand Central Market." },
-          { name: "Fernando Lopez", role: "Founder of Roast To Go", bio: "Opened his historic carnitas counter in 1952, establishing a 70+ year culinary legacy that anchors the market's immigrant Mexican roots." }
+          { name: "Fernando Lopez", role: "Founder of Roast To Go", bio: "Opened his historic carnitas counter in 1952, establishing a 70+ year culinary legacy that anchors the market's immigrant Mexican roots." },
+          { name: "Alvin Cailan", role: "Founder of Eggslut", bio: "Chef who started a gourmet brioche egg sandwich food truck that became the anchor modern tenant of the 2012 market renaissance." }
         ],
         stories: [
           { 
-            h: "The 1917 'Wonder Market' & The Angels Flight Link", 
-            p: "Opened on <strong>October 27, 1917</strong> inside the Homer Laughlin Building—Los Angeles’s very first fireproof, steel-reinforced building (built 1897). The market operated in direct harmony with Angels Flight: Victorian shoppers rode the funicular down with wicker baskets to buy poultry, cuts from German butchers, dairy, and farm-fresh produce from Italian and Japanese vendors." 
+            h: "The 1897 Fireproof Structure & The 1917 Wonder Market", 
+            p: "Opened on <strong>October 27, 1917</strong> inside the Homer Laughlin Building—Los Angeles’s very first fireproof, steel-reinforced building (built 1897). Established as the largest and most modern public food market on the Pacific Coast, it served as the bustling culinary pantry of downtown." 
+          },
+          { 
+            h: "The Symbiotic Link with Angels Flight", 
+            p: "The market operated in direct harmony with Angels Flight: Victorian shoppers rode the funicular down with wicker baskets to buy poultry, cuts from German butchers, dairy, and farm-fresh produce from Italian and Japanese vendors, riding back up to avoid hauling groceries up the steep hill." 
           },
           { 
             h: "An Immigrant Hub & Legacy Stalls", 
@@ -484,7 +555,8 @@ const tourData = {
         people: [
           { name: "Homer Laughlin", role: "Industrial y Constructor", bio: "Magnate de la cerámica de Ohio que levantó el primer edificio resistente al fuego de LA en 1897, sede actual del mercado." },
           { name: "Ira y Adele Yellin", role: "Preservacionistas y Promotores", bio: "Pareja que rescató el patrimonio histórico de Broadway e impulsó el renacimiento gastronómico artesanal del mercado en 2012." },
-          { name: "Fernando López", role: "Fundador de Roast To Go", bio: "Abrió su puesto de carnitas en 1952, cimentando más de 70 años de herencia mexicana en el mercado." }
+          { name: "Fernando López", role: "Fundador de Roast To Go", bio: "Abrió su puesto de carnitas en 1952, cimentando más de 70 años de herencia mexicana en el mercado." },
+          { name: "Alvin Cailan", role: "Chef Fundador de Eggslut", bio: "Pionero gastronómico que convirtió su concepto de sándwiches gourmet en el catalizador moderno del mercado en 2012." }
         ],
         stories: [
           { 
@@ -525,11 +597,12 @@ const tourData = {
           { name: "Lewis L. Bradbury", role: "Mining Magnate & Visionary", bio: "Millionaire who made his fortune in the Minas del Tajo gold mines in Sinaloa, Mexico, and financed this architectural landmark to immortalize his family name." },
           { name: "George H. Wyman", role: "Architectural Draftsman", bio: "32-year-old junior draftsman who took the commission after consulting a Ouija board with his wife, designing one of the world's most famous Victorian atriums." },
           { name: "Edward Bellamy", role: "Utopian Sci-Fi Author", bio: "Author of the 1888 novel Looking Backward, whose descriptions of 21st-century buildings illuminated by vast glass domes directly inspired Wyman's atrium." },
-          { name: "Ridley Scott", role: "Film Director", bio: "Visionary filmmaker who chose the building as J.F. Sebastian's apartment in Blade Runner (1982), cementing its place in science-fiction cinema history." }
+          { name: "Ridley Scott", role: "Film Director", bio: "Visionary filmmaker who chose the building as J.F. Sebastian's apartment in Blade Runner (1982), cementing its place in science-fiction cinema history." },
+          { name: "Sumner Hunt", role: "Original Commissioned Architect", bio: "Prominent LA architect whose conventional initial blueprints were rejected by Bradbury in favor of Wyman's radical glass skylit concept." }
         ],
         stories: [
           { 
-            h: "Lewis Bradbury's Fortune & The Asthma Move", 
+            h: "Lewis Bradbury's Mexican Mining Fortune & Asthma Move", 
             p: "Mining tycoon <strong>Lewis Bradbury</strong> made a massive fortune in gold and silver from the Minas del Tajo in Sinaloa, Mexico. Suffering from chronic asthma in Oakland, he moved to Southern California for its dry climate and built a grand mansion on Court Hill. Determined to leave an architectural monument bearing his family name, he purchased the corner of 3rd and Broadway." 
           },
           { 
@@ -537,12 +610,20 @@ const tourData = {
             p: "Bradbury initially hired Sumner Hunt, a respected architect, but rejected his designs as conventional. Bradbury then approached Hunt’s 32-year-old junior draftsman, <strong>George Wyman</strong>, who had no formal architectural degree. Hesitant to betray his boss, Wyman and his wife Jennie consulted a planchette (Ouija board). A message supposedly spelled out from his deceased brother Mark: <em>'Take Bradbury Building. It will make you famous.'</em> Wyman accepted the commission the next morning." 
           },
           { 
+            h: "Underground Springs & Ballooning Budget", 
+            p: "Estimated at $175,000, the cost surged past <strong>$500,000</strong> (~$18M today) when excavators struck an underground sulfur spring water table, requiring heavy pumping systems and iron foundation piles. Lewis Bradbury tragically died in July 1892, roughly 14 months before the building opened in 1893." 
+          },
+          { 
             h: "Victorian Sci-Fi Architecture & Edward Bellamy", 
-            p: "Estimated at $175,000, the cost surged past <strong>$500,000</strong> (~$18M today) when excavators struck an underground sulfur spring water table. Bradbury tragically died in 1892, 14 months before opening.<br><br>Wyman drew inspiration from Edward Bellamy’s 1888 utopian novel <em>Looking Backward</em>, which described future buildings with vast, skylit central halls. He designed a <strong>50-foot glass atrium</strong> that floods the interior with natural light and cool cross-breezes, complemented by French wrought-iron railings (exhibited at the <strong>1893 Chicago World's Fair</strong>), Italian marble stairs, Mexican terracotta tile, open-cage hydraulic elevators, and brass Cutler gravity mail chutes." 
+            p: "Wyman drew inspiration from Edward Bellamy’s 1888 utopian novel <em>Looking Backward</em>, which described future 2000 AD buildings with vast, skylit central halls. He designed a <strong>50-foot glass atrium</strong> that floods the interior with natural light and cool cross-breezes, complemented by French wrought-iron railings (exhibited at the <strong>1893 Chicago World's Fair</strong>), Italian marble stairs, Mexican terracotta tile, open-cage hydraulic elevators, and brass Cutler gravity mail chutes." 
+          },
+          { 
+            h: "Blade Runner & The Cinema Hall of Fame", 
+            p: "The building’s crowning cinematic moment came in Ridley Scott’s <em>Blade Runner</em> (1982) as J.F. Sebastian’s dystopian home where Deckard battles Roy Batty. It also served as the lobby meeting place in <em>(500) Days of Summer</em> (2009) and the silent crossing sequence in <em>The Artist</em> (2011)." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "The Ultimate Cinema Set", d: "• <em>Blade Runner (1982):</em> J.F. Sebastian's apartment where Deckard battles Roy Batty.<br>• <em>(500) Days of Summer (2009):</em> The architecture interview lobby.<br>• <em>The Artist (2011):</em> The famous staircase crossing scene." }
+          { cls: "box-lore", t: "The French Ironwork", d: "The intricate wrought-iron elevator cages and railings were fabricated in France and displayed at the 1893 Chicago World's Fair before being shipped to LA." }
         ]
       },
       es: {
@@ -559,7 +640,8 @@ const tourData = {
           { name: "Lewis L. Bradbury", role: "Magnate Minero", bio: "Millonario de las minas de plata y oro de Minas del Tajo en Sinaloa, México, que mandó construir este edificio para inmortalizar su apellido." },
           { name: "George H. Wyman", role: "Dibujante y Diseñador", bio: "Joven dibujante de 32 años que aceptó el proyecto tras consultar la tabla Ouija con su esposa, creando uno de los atrios más icónicos de la arquitectura." },
           { name: "Edward Bellamy", role: "Escritor de Ciencia Ficción", bio: "Autor de la novela utópica de 1888 'Mirando Atrás', cuyas descripciones de edificios futuristas con domos de luz inspiraron el atrio de cristal." },
-          { name: "Ridley Scott", role: "Director de Cine", bio: "Director de Blade Runner (1982) que eligió el interior del Bradbury como el departamento de Sebastian, consagrándolo en la historia del cine." }
+          { name: "Ridley Scott", role: "Director de Cine", bio: "Director de Blade Runner (1982) que eligió el interior del Bradbury como el departamento de Sebastian, consagrándolo en la historia del cine." },
+          { name: "Sumner Hunt", role: "Arquitecto Original", bio: "Prestigioso arquitecto cuyos planos tradicionales fueron rechazados por Bradbury para dar paso a la visión vanguardista de Wyman." }
         ],
         stories: [
           { 
@@ -571,12 +653,20 @@ const tourData = {
             p: "Bradbury rechazó los planos del arquitecto Sumner Hunt por considerarlos aburridos y le ofreció el proyecto a su joven dibujante de 32 años, <strong>George Wyman</strong>, quien ganaba $5 a la semana y no tenía título. Temiendo traicionar a su jefe, Wyman y su esposa consultaron la Ouija; un mensaje de su difunto hermano Mark dictó: <em>'Acepta el Edificio Bradbury. Te hará famoso'</em>. Wyman aceptó el encargo a la mañana siguiente." 
           },
           { 
+            h: "Mantos Freáticos y Presupuesto Disparado", 
+            p: "El costo inicial de $175,000 superó los <strong>$500,000</strong> (unos $18 millones actuales) al topar con un manantial subterráneo de azufre durante las excavaciones. Bradbury falleció en julio de 1892, 14 meses antes de ver abierta su gran obra." 
+          },
+          { 
             h: "Arquitectura Futurista Victoriana", 
-            p: "El presupuesto de $175,000 se disparó a <strong>$500,000</strong> (unos $18 millones actuales) al encontrar un manto freático subterráneo. Bradbury murió en 1892, 14 meses antes de ver su obra terminada.<br><br>Inspirado en la novela de ciencia ficción de 1888 <em>Mirando Atrás</em> de Edward Bellamy, Wyman diseñó un <strong>atrio acristalado de 50 pies</strong> que inunda el interior de luz natural. Incorporó hierro forjado francés exhibido en la <strong>Feria Mundial de Chicago de 1893</strong>, mármol italiano, piso de loseta mexicana, elevadores de jaula de pájaro y buzones de gravedad de bronce." 
+            p: "Inspirado en la novela de ciencia ficción de 1888 <em>Mirando Atrás</em> de Edward Bellamy, Wyman diseñó un <strong>atrio acristalado de 50 pies</strong> que inunda el interior de luz natural. Incorporó hierro forjado francés exhibido en la <strong>Feria Mundial de Chicago de 1893</strong>, mármol italiano, piso de loseta mexicana, elevadores de jaula de pájaro y buzones de gravedad de bronce." 
+          },
+          { 
+            h: "Blade Runner y el Olimpo del Cine", 
+            p: "El edificio alcanzó la fama mundial en <em>Blade Runner</em> (1982) de Ridley Scott como el refugio de Sebastian. También protagonizó el desenlace de <em>(500) Días con Ella</em> (2009) y el cruce en las escaleras de la oscarizada <em>El Artista</em> (2011)." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Escenario Cinematográfico", d: "• <em>Blade Runner (1982):</em> Departamento de Sebastian y clímax de la película.<br>• <em>(500) Días con Ella (2009):</em> La sala de espera de arquitectura.<br>• <em>El Artista (2011):</em> Encuentro en las escaleras." }
+          { cls: "box-lore", t: "Herrería de la Feria de Chicago", d: "Las rejas de hierro forjado y las jaulas de los elevadores fueron forjadas en Francia y exhibidas en la Feria Mundial de Chicago de 1893." }
         ]
       }
     },
@@ -598,7 +688,8 @@ const tourData = {
         people: [
           { name: "Sid Grauman", role: "Master Showman & Impresario", bio: "Theatrical pioneer who opened his very first opulent palace here in DTLA before migrating west to Hollywood to build the Egyptian and Chinese Theatres." },
           { name: "Joseph Mora", role: "Sculptor & Artist", bio: "Sculpted the dramatic Spanish Churrigueresque facade, embedding Western longhorn skulls, bison heads, and early movie cameras into the terra-cotta." },
-          { name: "Frank Fouce & Frank L. Fouce", role: "Entertainment Moguls & Univision Co-Founders", bio: "Father and son who transformed the theater into the premier US stage for Latin legends (Cantinflas, Pedro Infante) and co-founded KMEX Channel 34." }
+          { name: "Frank Fouce & Frank L. Fouce", role: "Entertainment Moguls & Univision Co-Founders", bio: "Father and son who transformed the theater into the premier US stage for Latin legends (Cantinflas, Pedro Infante) and co-founded KMEX Channel 34." },
+          { name: "Antonio Aguilar", role: "Mexican Cinema & Rodeo Legend", bio: "Iconic charro actor who pioneered staging live equestrian rodeo shows on the indoor theater stage, creating the arena tours that filled stadiums across the continent." }
         ],
         stories: [
           { 
@@ -606,8 +697,12 @@ const tourData = {
             p: "Opened on <strong>February 1, 1918</strong> as showman <strong>Sid Grauman’s</strong> very first entertainment palace in Los Angeles, costing a reported $1 million. Designed by architect Albert C. Martin Sr. with a hyper-ornate <strong>Spanish Churrigueresque</strong> facade sculpted by Joseph Mora. Look closely at the exterior to spot carved American bison heads, Texas longhorn steer skulls, allegorical maidens of comedy and tragedy, and early movie cameras embedded in the plasterwork." 
           },
           { 
-            h: "The Shift to Hollywood & The Fouce Golden Era", 
-            p: "The wild success of this theater gave Grauman the capital to expand west, building the Egyptian (1922) and Chinese (1927) Theatres on Hollywood Boulevard and triggering the migration of cinema from Broadway to Hollywood.<br><br>In 1949, impresario <strong>Frank Fouce</strong> took over the theater (<em>Empresa Fouce</em>), transforming it into the premier Spanish-language performance palace in the United States. It headlined Latin cinema and music icons including <strong>Cantinflas, María Félix, Pedro Infante, Dolores del Río, Celia Cruz, Juan Gabriel, and Vicente Fernández</strong>. Mexican cinema idol Antonio Aguilar even brought his live equestrian rodeo onto the indoor stage." 
+            h: "The Shift to Hollywood Boulevard", 
+            p: "The wild success of this theater gave Grauman the capital and prestige to expand west, building the Egyptian (1922) and Chinese (1927) Theatres on Hollywood Boulevard. This shift triggered the gradual migration of major movie premieres and entertainment money away from Broadway toward Hollywood." 
+          },
+          { 
+            h: "The Empresa Fouce Era & Spanish-Language Golden Age", 
+            p: "In 1949, impresario <strong>Frank Fouce</strong> took over the theater (<em>Empresa Fouce</em>), transforming it into the premier Spanish-language performance palace in the United States. It headlined Latin cinema and music icons including <strong>Cantinflas, María Félix, Pedro Infante, Dolores del Río, Celia Cruz, Juan Gabriel, and Vicente Fernández</strong>. Mexican cinema idol Antonio Aguilar even brought his live equestrian rodeo onto the indoor stage." 
           },
           { 
             h: "The Birth of Univision", 
@@ -631,7 +726,8 @@ const tourData = {
         people: [
           { name: "Sid Grauman", role: "Empresario y Productor Teatral", bio: "Pionero del entretenimiento que inauguró aquí su primer palacio en LA antes de trasladarse a Hollywood para construir el Teatro Chino." },
           { name: "Joseph Mora", role: "Escultor Principal", bio: "Escultor que diseñó la recargada fachada churrigueresca de terracota, integrando cuernos texanos, bisontes y cámaras de cine antiguas." },
-          { name: "Frank Fouce y Frank L. Fouce", role: "Pioneros de los Medios en Español", bio: "Padre e hijo que convirtieron el teatro en el templo hispano de EE. UU. (Cantinflas, Vicente Fernández) y fundaron KMEX Canal 34 (Univision)." }
+          { name: "Frank Fouce y Frank L. Fouce", role: "Pioneros de los Medios en Español", bio: "Padre e hijo que convirtieron el teatro en el templo hispano de EE. UU. (Cantinflas, Vicente Fernández) y fundaron KMEX Canal 34 (Univision)." },
+          { name: "Antonio Aguilar", role: "Ídolo de la Charrería y Cine Mexicano", bio: "Actor y cantante que montó espectáculos ecuestres en el escenario interior del teatro, inspirando las grandes giras de jaripeo en Norteamérica." }
         ],
         stories: [
           { 
@@ -639,8 +735,12 @@ const tourData = {
             p: "Inaugurado el <strong>1 de febrero de 1918</strong> como el primer gran teatro de <strong>Sid Grauman</strong> en LA con un costo de $1 millón. Diseñado por Albert C. Martin Sr. con una fachada de estilo <strong>Churrigueresco español</strong> esculpida por Joseph Mora. Si observan con atención, verán cabezas de bisonte talladas, cuernos texanos, figuras alegóricas de comedia/tragedia y cámaras de cine primitivas." 
           },
           { 
-            h: "La Mudanza a Hollywood y la Era Dorada en Español", 
-            p: "El éxito de este teatro le dio a Grauman el capital para construir los Teatros Egipcio y Chino en Hollywood, trasladando la industria del entretenimiento hacia el oeste.<br><br>En 1949, el empresario <strong>Frank Fouce</strong> tomó el teatro (<em>Empresa Fouce</em>), convirtiéndolo en el escenario hispano más prestigioso de EE. UU. Aquí se presentaron leyendas como <strong>Cantinflas, María Félix, Pedro Infante, Celia Cruz, Juan Gabriel y Vicente Fernández</strong>. Antonio Aguilar incluso presentó su espectáculo ecuestre dentro del teatro." 
+            h: "La Gran Migración hacia Hollywood", 
+            p: "El éxito de este teatro le dio a Grauman el capital para construir los Teatros Egipcio y Chino en Hollywood Boulevard, iniciando el traslado de los grandes estrenos cinematográficos desde Broadway hacia el oeste de la ciudad." 
+          },
+          { 
+            h: "La Era Dorada en Español con la Empresa Fouce", 
+            p: "En 1949, el empresario <strong>Frank Fouce</strong> tomó el teatro (<em>Empresa Fouce</em>), convirtiéndolo en el escenario hispano más prestigioso de EE. UU. Aquí se presentaron leyendas como <strong>Cantinflas, María Félix, Pedro Infante, Celia Cruz, Juan Gabriel y Vicente Fernández</strong>. Antonio Aguilar incluso presentó su espectáculo ecuestre dentro del teatro." 
           },
           { 
             h: "El Nacimiento de la Cadena Univision", 
@@ -679,11 +779,11 @@ const tourData = {
             p: "Painted in <strong>1985</strong> by the <strong>East Los Streetscapers</strong> (Wayne Alaniz Healy, David Botello, George Yepes). In ancient Mesoamerican culture, every 52 years, all fires across the empire were extinguished, and priests lit a single 'New Fire' (<em>Xiuhmolpilli</em>) from a sacred mountaintop to symbolize cosmic rebirth.<br><br>Los Angeles hosted the Summer Olympic Games in <strong>1932</strong> and again in <strong>1984</strong>—a gap of <strong>exactly 52 years</strong>. The mural connects ancient Aztec ceremony with the return of the Olympic flame to Los Angeles." 
           },
           { 
-            h: "Local Champions Featured", 
+            h: "Local Champions from East LA & South LA", 
             p: "The mural honors homegrown champions who grew up in local neighborhoods: East LA boxer <strong>Paul Gonzales</strong> (who won Gold in 1984 and took home the Val Barker Trophy for best boxer) and South LA sprinter <strong>Valerie Briscoe-Hooks</strong> (the first athlete in Olympic history to win gold in both the 200m and 400m at the same Olympic Games)." 
           },
           { 
-            h: "The Victor Clothing Art Corridor", 
+            h: "The Victor Clothing Chicano Art Corridor", 
             p: "The Victor Clothing Company was an iconic retailer on Broadway that supported the community by commissioning Chicano masterworks on its walls. Look directly next door at <strong>The Pope of Broadway (1984)</strong> by Eloy Torrez, portraying Mexican-American Oscar-winner <strong>Anthony Quinn</strong> dancing with open arms in his famous <em>Zorba the Greek</em> pose." 
           }
         ],
@@ -713,7 +813,7 @@ const tourData = {
             p: "Pintado en <strong>1985</strong> por los artistas de <strong>East Los Streetscapers</strong> (Healy, Botello y Yepes). En el México prehispánico, cada 52 años se apagaban todos los fuegos del imperio y los sacerdotes encendían un único 'Fuego Nuevo' (<em>Xiuhmolpilli</em>) en la cima sagrada para simbolizar la renovación cósmica.<br><br>Los Ángeles fue sede olímpica en <strong>1932</strong> y en <strong>1984</strong>: un intervalo de <strong>exactamente 52 años</strong>. El mural fusiona la mitología azteca con el regreso de la antorcha olímpica a la ciudad." 
           },
           { 
-            h: "Campeones Locales Retratados", 
+            h: "Campeones Locales del Este y Sur de LA", 
             p: "Rinde homenaje a atletas locales: el boxeador del Este de LA <strong>Paul Gonzales</strong> (Oro en 1984 y Trofeo Val Barker) y la velocista del Sur de LA <strong>Valerie Briscoe-Hooks</strong> (primera mujer en ganar oro en 200m y 400m en los mismos Juegos Olímpicos)." 
           },
           { 
@@ -746,15 +846,34 @@ const tourData = {
           { name: "Tony Sheets", role: "Master Sculptor & Artist", bio: "Renowned California artist who created this 66x35-foot cast concrete relief, capturing 200+ years of growth across five cultural eras." },
           { name: "Edward L. Doheny", role: "Oil Wildcatter & Tycoon", bio: "Struck oil near downtown LA in 1892 with a sharpened tree trunk, launching an energy boom that made LA the world's oil capital by 1923." },
           { name: "Thomas Edison", role: "Inventor & Monopoly Head", bio: "Created the Motion Picture Patents Company in NY, inadvertently driving independent directors to flee across the country to sunny Hollywood." },
-          { name: "William Mulholland", role: "Chief Water Engineer", bio: "Self-taught engineer who built the 233-mile gravity-fed Los Angeles Aqueduct from Owens Valley, enabling the desert town to become a metropolis." }
+          { name: "William Mulholland", role: "Chief Water Engineer", bio: "Self-taught engineer who built the 233-mile gravity-fed Los Angeles Aqueduct from Owens Valley, enabling the desert town to become a metropolis." },
+          { name: "Eliza Tibbets", role: "Citrus Pioneer", bio: "Planted the first Bahia navel orange trees in Riverside in 1873, sparking the agricultural explosion that created Southern California's citrus empire." }
         ],
         stories: [
           { 
-            h: "The 5 Growth Waves That Built Modern LA", 
-            p: "Created in 1988–1989 by California artist <strong>Tony Sheets</strong>, this massive 66 ft × 35 ft cast-concrete relief chronicles the five historical forces that transformed Los Angeles from an isolated desert pueblo into a global metropolis:<br><br><strong>1. Spanish Missions & Saints (1771):</strong> Spanish friars named California coastal sites after the Catholic feast calendar of the day they made landfall (San Diego, San Francisco, Santa Monica). Mission San Gabriel (1771) paved the way for 44 settlers (*Los Pobladores*) to establish the original Pueblo in 1781.<br><br><strong>2. Citrus & The $1 Train Fare War (1887):</strong> The Santa Fe and Southern Pacific railroads fought a cutthroat 1887 price war, slashing tickets from Chicago to LA from $125 to <strong>$1 for a single day</strong>. 100,000 settlers arrived, blanketing the valleys in orange groves (Orange County broke off in 1889). Today, California produces over 70% of US fruits/nuts and 1/3 of all US vegetables.<br><br><strong>3. 1892 Black Gold Strike:</strong> Edward Doheny and Charles Canfield struck petroleum near downtown LA. By 1923, the Los Angeles basin produced nearly <strong>25% of the entire world’s petroleum</strong> (connected directly to the natural asphalt seeps at the La Brea Tar Pits).<br><br><strong>4. Cinema Flight & The Edison Trust (1908):</strong> Independent filmmakers fled Thomas Edison’s patent monopoly in New York, seeking 300+ days of natural sunlight, diverse film terrains, and a 2-hour escape drive across the Mexican border.<br><br><strong>5. The 1913 LA Aqueduct:</strong> William Mulholland engineered a 233-mile aqueduct from Owens Valley that transported water relying 100% on gravity without a single motorized pump (<em>'There it is. Take it.'</em>)." 
+            h: "Wave 1: Spanish Missions, El Camino Real & Saints", 
+            p: "Spanish friars named California coastal sites after the Catholic feast calendar of the day they made landfall (San Diego, San Francisco, Santa Monica). Mission San Gabriel (1771) paved the way for 44 settlers (*Los Pobladores*) to march west and establish the original Pueblo in 1781." 
+          },
+          { 
+            h: "Wave 2: The Citrus Boom & The $1 Railroad Fare War", 
+            p: "The Santa Fe and Southern Pacific railroads fought a cutthroat 1887 price war, slashing tickets from Chicago to LA from $125 down to <strong>$1 for a single day</strong>. Over 100,000 settlers arrived in months, blanketing the valleys in orange groves. Orange County broke off in 1889, naming itself after the fruit. Today, California produces over 70% of US fruits/nuts and 1/3 of all US vegetables." 
+          },
+          { 
+            h: "Wave 3: The 1892 Black Gold Strike & World Oil Capital", 
+            p: "Edward Doheny and Charles Canfield struck petroleum near downtown LA. By 1923, the Los Angeles basin produced nearly <strong>25% of the entire world’s petroleum</strong>. The natural surface asphalt seeps at the La Brea Tar Pits were thousands of years of geological proof of the vast oil reserves resting under the city." 
+          },
+          { 
+            h: "Wave 4: Cinema Flight & The Edison Trust Monopoly", 
+            p: "In 1908, Thomas Edison created the Motion Picture Patents Company (Edison Trust) in New York, suing independent filmmakers and sending enforcers to seize cameras. Directors fled to Southern California for 300+ days of sunlight, diverse landscapes, and a 2-hour escape drive across the Mexican border." 
+          },
+          { 
+            h: "Wave 5: The 1913 LA Aqueduct & California Water Wars", 
+            p: "Realizing a semi-arid basin could never grow without water, Chief Engineer <strong>William Mulholland</strong> and former Mayor Fred Eaton secured water rights in the Owens Valley 233 miles away. Mulholland engineered an aqueduct that transported water relying <strong>100% on gravity—without a single pump</strong> (*'There it is. Take it.'*)." 
           }
         ],
-        callouts: []
+        callouts: [
+          { cls: "box-lore", t: "The Sister Sculpture", d: "On the opposite side of this parking structure facing Spring Street, Tony Sheets sculpted a companion relief titled <em>The Evolution of Printing</em>." }
+        ]
       },
       es: {
         title: "Escultura Evolución de Los Ángeles",
@@ -771,15 +890,34 @@ const tourData = {
           { name: "Tony Sheets", role: "Escultor y Artista", bio: "Artista californiano que esculpió este relieve monumental de concreto de 66x35 pies resumiendo más de dos siglos de historia." },
           { name: "Edward L. Doheny", role: "Pionero Petrolero", bio: "Descubrió petróleo en 1892 usando un tronco afilado de eucalipto, detonando el auge que convirtió a LA en la capital del crudo." },
           { name: "Thomas Edison", role: "Inventor y Monopolista", bio: "Creó el 'Trust' de patentes de cámaras en Nueva York, provocando involuntariamente que los directores huyeran a fundar Hollywood." },
-          { name: "William Mulholland", role: "Ingeniero del Agua", bio: "Ingeniero autodidacta que construyó el acueducto de 233 millas desde Owens Valley abasteciendo a la ciudad por gravedad." }
+          { name: "William Mulholland", role: "Ingeniero del Agua", bio: "Ingeniero autodidacta que construyó el acueducto de 233 millas desde Owens Valley abasteciendo a la ciudad por gravedad." },
+          { name: "Eliza Tibbets", role: "Pionera de los Cítricos", bio: "Sembró los primeros naranjos navel en Riverside en 1873, iniciando el imperio agrícola del sur de California." }
         ],
         stories: [
           { 
-            h: "Las 5 Grandes Olas que Forjaron LA", 
-            p: "Relieve monumental de concreto de 66x35 pies por el artista californiano <strong>Tony Sheets</strong>. Resume las 5 fuerzas históricas de la ciudad:<br><br><strong>1. Misiones y el Santoral Católico (1771):</strong> Nombres según el santo del día de desembarco español (San Diego, San Francisco, Santa Mónica). La Misión San Gabriel dio paso a la fundación del Pueblo en 1781.<br><br><strong>2. Cítricos y Guerra de Trenes a $1 (1887):</strong> Ferrocarriles compitieron bajando el boleto de Chicago a LA a <strong>$1 por un día</strong>, trayendo a 100,000 colonos. Los valles se cubrieron de naranjales (Orange County se independizó en 1889). Hoy California produce más del 70% de frutas/nueces de EE. UU.<br><br><strong>3. El Oro Negro de 1892:</strong> Edward Doheny descubrió petróleo cerca de DTLA; para 1923, la cuenca de LA producía el <strong>25% del petróleo mundial</strong> (ligado a los pozos de asfalto de La Brea Tar Pits).<br><br><strong>4. Huida a Hollywood (1908):</strong> Cineastas escaparon del monopolio de patentes de Thomas Edison en Nueva York buscando 300 días de sol y la frontera mexicana a 2 horas.<br><br><strong>5. El Acueducto de 1913:</strong> William Mulholland construyó un canal de 233 millas que transportaba agua 100% por gravedad desde Owens Valley (<em>'Ahí está. Tómenla'</em>)." 
+            h: "Ola 1: Misiones Españolas y el Santoral Católico", 
+            p: "Los exploradores españoles nombraron costas y valles según el santo del día de desembarco (San Diego, San Francisco, Santa Mónica). La Misión San Gabriel (1771) permitió que 44 pobladores marcharan hacia el oeste para fundar el Pueblo de Los Ángeles en 1781." 
+          },
+          { 
+            h: "Ola 2: El Auge de los Cítricos y la Guerra de Trenes a $1", 
+            p: "Las compañías de tren libraron una guerra de precios en 1887, bajando el boleto de Chicago a LA a <strong>$1 por un día</strong>. Llegaron 100,000 colonos que cubrieron los valles de naranjales (Orange County se independizó en 1889). Hoy California produce más del 70% de frutas y nueces del país." 
+          },
+          { 
+            h: "Ola 3: El Descubrimiento de Petróleo de 1892", 
+            p: "Edward Doheny descubrió petróleo cerca de DTLA con un tronco de árbol afilado. Para 1923, la cuenca de Los Ángeles producía el <strong>25% del petróleo mundial</strong>, un potencial geológico anunciado durante siglos por el asfalto natural de La Brea Tar Pits." 
+          },
+          { 
+            h: "Ola 4: La Huida a Hollywood contra Thomas Edison", 
+            p: "En 1908, Thomas Edison creó un monopolio de patentes en Nueva York que decomisaba cámaras a cineastas independientes. Los directores huyeron a California buscando 300 días de sol, paisajes diversos y la frontera mexicana a dos horas para escapar de citatorios judiciales." 
+          },
+          { 
+            h: "Ola 5: El Acueducto de 1913 y las Guerras del Agua", 
+            p: "El ingeniero <strong>William Mulholland</strong> y el exalcalde Fred Eaton compraron derechos de agua en Owens Valley a 233 millas de distancia. Mulholland construyó un acueducto monumental que transportaba agua <strong>100% por gravedad sin usar una sola bomba</strong> (*'Ahí está. Tómenla'*)." 
           }
         ],
-        callouts: []
+        callouts: [
+          { cls: "box-lore", t: "La Escultura Gemela", d: "Del otro lado de este estacionamiento sobre Spring Street, Tony Sheets esculpió el relieve complementario <em>La Evolución de la Imprenta</em>." }
+        ]
       }
     },
 
@@ -805,8 +943,12 @@ const tourData = {
         ],
         stories: [
           { 
-            h: "The 40-Year Height Exemption & Mission Foundation", 
-            p: "Dedicated in <strong>1928</strong> (454 feet, 28 stories). From 1904 to 1957, Los Angeles banned any building taller than 150 feet (~13 stories) to protect against earthquakes and prevent dark street canyons. Voters passed a special charter exemption specifically for City Hall so it would stand as the sole dominant tower on the skyline for 40 years.<br><br>To symbolize statewide unity, the foundation concrete was mixed with <strong>soil from all 58 California counties</strong> and <strong>water from all 21 historic Spanish missions</strong>." 
+            h: "The 150-Foot Charter Limit & The 40-Year Exemption", 
+            p: "Dedicated in <strong>1928</strong> (454 feet, 28 stories). From 1904 to 1957, Los Angeles banned any building taller than 150 feet (~13 stories) to protect against earthquakes and prevent dark street canyons. Voters passed a special charter exemption specifically for City Hall so it would stand as the sole dominant tower on the skyline for 40 years." 
+          },
+          { 
+            h: "Uniting California: Soils from 58 Counties & 21 Missions", 
+            p: "To symbolize statewide unity, the foundation concrete was mixed with <strong>soil from all 58 California counties</strong> and <strong>water from all 21 historic Spanish missions</strong>, embedding the entire geographic and cultural identity of the state into the tower base." 
           },
           { 
             h: "Mayor Tom Bradley's 20-Year Legacy", 
@@ -840,15 +982,19 @@ const tourData = {
         ],
         stories: [
           { 
-            h: "40 Años Reinando en el Horizonte y Simbolismo Estatal", 
-            p: "Inaugurado en <strong>1928</strong> (454 pies, 28 pisos). Durante más de 50 años estuvo prohibido construir a más de 150 pies (~13 pisos) por seguridad sísmica y para preservar la luz del sol. City Hall tuvo un permiso especial aprobado por votación para ser el único rascacielos en el cielo angelino durante 40 años.<br><br>Su mezcla de concreto utilizó <strong>tierra recolectada de los 58 condados de California</strong> y <strong>agua de las 21 misiones virreinales</strong> para simbolizar la unión del estado." 
+            h: "El Límite de 150 Pies y los 40 Años de Soledad en el Cielo", 
+            p: "Inaugurado en <strong>1928</strong> (454 pies, 28 pisos). Durante más de 50 años estuvo prohibido construir a más de 150 pies (~13 pisos) por seguridad sísmica y para preservar la luz del sol. City Hall tuvo un permiso especial aprobado por votación para ser el único rascacielos en el cielo angelino durante 40 años." 
+          },
+          { 
+            h: "Tierra de 58 Condados y Agua de 21 Misiones", 
+            p: "Para representar la unidad de California, la mezcla de concreto de los cimientos incorporó <strong>tierra recolectada de los 58 condados</strong> y <strong>agua de las 21 misiones virreinales</strong>, sellando el simbolismo del estado en la base del edificio." 
           },
           { 
             h: "El Legado de 20 Años del Alcalde Tom Bradley", 
             p: "Primer alcalde afroamericano de LA y el que más tiempo ha servido (5 mandatos). Lideró los <strong>Juegos Olímpicos de 1984</strong> (los primeros financiados con fondos privados), generando un superávit de <strong>$223 millones</strong> que aún apoya el deporte juvenil. Construyó la Terminal Internacional en LAX y financió la red moderna de Metro con la Línea A en 1990." 
           },
           { 
-            h: "La Bandera Negra POW/MIA", 
+            h: "La Bandera Negra POW/MIA y Memoria Cívica", 
             p: "Bajo la bandera estatal ondea la bandera negra en memoria de los prisioneros y desaparecidos de guerra. Recuerda el costo humano de la Guerra de Vietnam (1955–1975) a lo largo de 5 presidencias y el compromiso de no olvidar a quienes sirvieron." 
           }
         ],
@@ -878,24 +1024,33 @@ const tourData = {
           { name: "Clara Shortridge Foltz", role: "Legal Pioneer & Public Defender Originator", bio: "California's first female attorney who created the concept of the public defender to guarantee free legal defense for indigent individuals in American courts." },
           { name: "Dr. Thomas Noguchi", role: "Chief Medical Examiner ('Coroner to the Stars')", bio: "Renowned forensic coroner who performed high-profile autopsies in the basement morgue, including Marilyn Monroe (1962) and Senator Robert F. Kennedy (1968)." },
           { name: "Sylvia Mendez & Judge Paul McCormick", role: "Civil Rights Champions", bio: "Key figures in Mendez v. Westminster (1946), where Judge McCormick ruled that Mexican-American school segregation violated the 14th Amendment, setting the precedent for Brown v. Board." },
-          { name: "Charles Manson", role: "Infamous Inmate", bio: "Cult leader held on the top-floor jail tier during his 1970–71 trial; his preserved jail cell remains inside the restored Hall of Justice today." }
+          { name: "Charles Manson", role: "Infamous Inmate", bio: "Cult leader held on the top-floor jail tier during his 1970–71 trial; his preserved jail cell remains inside the restored Hall of Justice today." },
+          { name: "Bugsy Siegel", role: "Mobster & Vegas Casino Pioneer", bio: "Famous gangster detained in the Hall of Justice cells who arranged private limousines to take him to dinners during his stay." }
         ],
         stories: [
           { 
-            h: "Hall of Justice: The Vertical All-in-One Justice Tower", 
-            p: "Opened in 1925, it was the first building in America to consolidate an entire justice system under one roof: basement morgue and coroner, lower-floor criminal courts, middle sheriff headquarters, and a 750-cell maximum-security jail on the top floors.<br><br><strong>Charles Manson</strong> was incarcerated in the 13th-floor jail during his 1970–1971 trial while his followers held vigil outside on the sidewalk. Chief Medical Examiner Dr. Thomas Noguchi conducted the autopsies for both <strong>Marilyn Monroe</strong> (1962) and <strong>Robert F. Kennedy</strong> (1968) in basement Room 100. Mobster Bugsy Siegel and daredevil Evel Knievel also served time here." 
+            h: "Hall of Justice: America's First Vertical Justice Complex", 
+            p: "Opened in 1925, it was the first building in America to consolidate an entire justice system under one roof: basement morgue and coroner, lower-floor criminal courts, middle sheriff headquarters, and a 750-cell maximum-security jail on the top floors." 
+          },
+          { 
+            h: "The 13th-Floor Jail & Charles Manson's Trial", 
+            p: "<strong>Charles Manson</strong> was incarcerated in the 13th-floor jail during his 1970–1971 trial while his followers held vigil outside on the sidewalk, carving X's into their foreheads. Mobster Bugsy Siegel and daredevil Evel Knievel also served time in these upper cell blocks." 
+          },
+          { 
+            h: "Room 100: Marilyn Monroe & Robert F. Kennedy Autopsies", 
+            p: "In the basement morgue (Room 100), Chief Medical Examiner <strong>Dr. Thomas Noguchi</strong> performed the autopsy on <strong>Marilyn Monroe</strong> on August 5, 1962. Six years later in 1968, Dr. Noguchi performed the autopsy on assassinated Senator <strong>Robert F. Kennedy</strong> in the exact same room." 
           },
           { 
             h: "Landmark Civil Rights: Mendez v. Westminster", 
             p: "The adjacent 1940 Spring Street Courthouse hosted <em>Mendez v. Westminster</em> (1946–1947), where five Mexican-American families successfully challenged public school segregation in Orange County. Federal Judge Paul J. McCormick ruled that separating children was unconstitutional—creating the direct legal precedent used 8 years later in <em>Brown v. Board of Education</em>.<br><br>The courthouse also hosted the 1973 federal prosecution of Daniel Ellsberg for leaking the <strong>Pentagon Papers</strong>." 
           },
           { 
-            h: "High-Profile Trials at Clara Shortridge Foltz Center", 
+            h: "Clara Shortridge Foltz & High-Profile Trials of the 1990s", 
             p: "Across the street stands the criminal justice center named after <strong>Clara Shortridge Foltz</strong>—California’s first female lawyer, who pioneered the concept of the public defender. This building hosted the sensational televised trials of the <strong>Menendez Brothers</strong> (1993–1996), the <strong>O.J. Simpson</strong> murder trial (1995), and serial killer <strong>Richard Ramirez</strong> (The Night Stalker)." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "The 1994 Retrofit", d: "The heavy jail cells on top caused the Hall of Justice to twist in the 1994 Northridge quake; it sat red-tagged for 20 years before a $231M retrofit reopened it as sheriff/DA headquarters." }
+          { cls: "box-lore", t: "The 1994 Earthquake Retrofit", d: "The heavy top-floor jail cells made the building twist during the 1994 Northridge quake; it was red-tagged for 20 years before a $231M seismic retrofit reopened it as sheriff/DA headquarters." }
         ]
       },
       es: {
@@ -913,19 +1068,28 @@ const tourData = {
           { name: "Clara Shortridge Foltz", role: "Pionera del Derecho y Defensor Público", bio: "Primera abogada mujer de California e inventora del sistema de defensoría pública para asegurar representación legal gratuita a personas sin recursos." },
           { name: "Dr. Thomas Noguchi", role: "Forense en Jefe ('Forense de las Estrellas')", bio: "Médico forense que practicó las célebres autopsias de Marilyn Monroe (1962) y del senador Robert F. Kennedy (1968) en el sótano del edificio." },
           { name: "Sylvia Méndez y Juez Paul McCormick", role: "Héroes de los Derechos Civiles", bio: "Protagonistas del caso Méndez v. Westminster (1946), donde el juez McCormick dictaminó que segregar a niños hispanos violaba la Constitución de EE. UU." },
-          { name: "Charles Manson", role: "Recluso Célebre", bio: "Líder de la secta homicida recluido en las celdas del piso 13 durante su juicio de 1970; su celda original sigue preservada hoy en día." }
+          { name: "Charles Manson", role: "Recluso Célebre", bio: "Líder de la secta homicida recluido en las celdas del piso 13 durante su juicio de 1970; su celda original sigue preservada hoy en día." },
+          { name: "Bugsy Siegel", role: "Mafioso y Pionero de Las Vegas", bio: "Famoso gánster encarcelado aquí que contrataba limusinas para salir a cenar durante su custodia." }
         ],
         stories: [
           { 
             h: "Hall of Justice: El Sistema Judicial Vertical", 
-            p: "Inaugurado en 1925, fue el primer edificio en EE. UU. en integrar morgue, juzgados, oficinas policiales y 750 celdas carcelarias bajo un solo techo.<br><br>Aquí estuvo preso <strong>Charles Manson</strong> en el piso 13 durante su juicio de 1970 mientras sus seguidoras acampaban en la acera. El médico forense Thomas Noguchi practicó las autopsias de <strong>Marilyn Monroe</strong> (1962) y <strong>Robert F. Kennedy</strong> (1968) en el sótano. El mafioso Bugsy Siegel y el acróbata Evel Knievel también cumplieron condena aquí." 
+            p: "Inaugurado en 1925, fue el primer edificio en EE. UU. en integrar morgue, juzgados, oficinas policiales y 750 celdas carcelarias bajo un solo techo." 
+          },
+          { 
+            h: "La Cárcel del Piso 13 y el Juicio de Charles Manson", 
+            p: "Aquí estuvo preso <strong>Charles Manson</strong> en el piso 13 durante su juicio de 1970 mientras sus seguidoras acampaban en la banqueta con cruces en la frente. El mafioso Bugsy Siegel y el acróbata Evel Knievel también cumplieron condena en estas celdas." 
+          },
+          { 
+            h: "Habitación 100: Las Autopsias de Marilyn Monroe y RFK", 
+            p: "En la morgue del sótano, el forense en jefe <strong>Dr. Thomas Noguchi</strong> practicó la autopsia a <strong>Marilyn Monroe</strong> el 5 de agosto de 1962. Seis años más tarde, en 1968, examinó en esa misma mesa el cuerpo del senador asesinado <strong>Robert F. Kennedy</strong>." 
           },
           { 
             h: "Hito en Derechos Civiles: Caso Méndez v. Westminster", 
             p: "El tribunal de Spring Street albergó el histórico caso <em>Méndez v. Westminster</em> (1946–1947), donde cinco familias mexicoamericanas lograron que se declarara inconstitucional segregar a niños hispanos en escuelas públicas de California, sentando las bases legales para <em>Brown v. Board of Education</em>.<br><br>También albergó el juicio de los <strong>Papeles del Pentágono</strong> en 1973." 
           },
           { 
-            h: "Juicios Televisados en el Centro Clara Shortridge Foltz", 
+            h: "Clara Shortridge Foltz y los Juicios de los Años 90", 
             p: "El tribunal de enfrente lleva el nombre de la primera abogada mujer de California y creadora del concepto del defensor público. Fue sede de los sonados juicios de los <strong>Hermanos Menéndez</strong> (1993–1996), <strong>O.J. Simpson</strong> (1995) y el asesino serial <strong>Richard Ramirez (The Night Stalker)</strong>." 
           }
         ],
@@ -953,11 +1117,12 @@ const tourData = {
         people: [
           { name: "Don Pío Pico", role: "Last Mexican Governor of Alta California", bio: "Afro-Mexican ranchero and political leader who sold off his estates to build the luxury Pico House in 1870 to keep the civic and commercial center around the historic Plaza." },
           { name: "Christine Sterling", role: "Preservationist & 'Mother of Olvera Street'", bio: "Civic crusader who campaigned to rescue the dilapidated alley from demolition in 1930, partnering with the LA Times and using inmate labor to pave the street with red brick." },
-          { name: "David Alfaro Siqueiros", role: "Mexican Muralist & Revolutionary", bio: "One of Mexico's 'Big Three' muralists who painted the anti-imperialist masterpiece América Tropical in 1932, which was whitewashed for its political controversy." }
+          { name: "David Alfaro Siqueiros", role: "Mexican Muralist & Revolutionary", bio: "One of Mexico's 'Big Three' muralists who painted the anti-imperialist masterpiece América Tropical in 1932, which was whitewashed for its political controversy." },
+          { name: "Francisco Ávila", role: "Rancher & Mayor of Los Angeles", bio: "Wealthy Californio cattle rancher who constructed the Avila Adobe in 1818, which served as US military headquarters during the Mexican-American War." }
         ],
         stories: [
           { 
-            h: "The Birthplace of Los Angeles & 1st/Spring Hub", 
+            h: "The 1781 Founding of El Pueblo & The 1st/Spring Hub", 
             p: "In 1781, 44 settlers (*Los Pobladores*) founded <em>El Pueblo de la Reina de los Ángeles</em>. Three blocks south at 1st and Spring sat the crowded commercial center of early 1900s Los Angeles before retail and skyscrapers migrated south and west." 
           },
           { 
@@ -965,8 +1130,16 @@ const tourData = {
             p: "<strong>Don Pío Pico</strong>, the last Mexican Governor of Alta California, sold off his extensive ranchos to invest $82,000 into constructing <strong>Pico House</strong>—LA's very first 3-story luxury Italianate hotel. It featured gas chandeliers, bathtubs, French dining, and a courtyard fountain. Pico built it to anchor the city's future around the Plaza, but commercial investment shifted south to 1st and Spring, bankrupting him in his final years." 
           },
           { 
-            h: "Christine Sterling's Rescue & Siqueiros' Censored Mural", 
-            p: "By the late 1920s, Olvera Street was a dilapidated alley marked for demolition. Preservationist <strong>Christine Sterling</strong> led a public campaign, partnered with the <em>LA Times</em>, and used county inmate labor to lay red paving stones, reopening the alley on Easter Sunday 1930 as a vibrant Mexican marketplace.<br><br>Above the plaza on the Italian Hall stands David Alfaro Siqueiros’ famous 1932 mural <strong><em>América Tropical</em></strong>. Commissioned to paint a picturesque scene, Siqueiros instead painted an indigenous peasant crucified beneath an American eagle with revolutionary snipers on the roof. Deemed too radical, it was whitewashed with lead paint within two years and was recently restored under a protective glass canopy." 
+            h: "Avila Adobe & The Core Plaza Landmarks", 
+            p: "Around the plaza stand LA’s oldest surviving structures: the <strong>Old Plaza Church (1822)</strong> and the <strong>Avila Adobe (1818)</strong>, built by rancher Francisco Ávila with 3-foot-thick adobe walls and packed dirt floors, serving briefly as military headquarters for Commodore Stockton during the Mexican-American War." 
+          },
+          { 
+            h: "Christine Sterling's 1930 Rescue of Olvera Street", 
+            p: "By the late 1920s, Olvera Street was a dilapidated alley marked for demolition. Preservationist <strong>Christine Sterling</strong> led a public campaign, partnered with the <em>LA Times</em>, and used county inmate labor to lay red paving stones, reopening the alley on Easter Sunday 1930 as a vibrant Mexican marketplace." 
+          },
+          { 
+            h: "David Alfaro Siqueiros & América Tropical", 
+            p: "Above the plaza on the Italian Hall stands David Alfaro Siqueiros’ famous 1932 mural <strong><em>América Tropical</em></strong>. Commissioned to paint a picturesque scene, Siqueiros instead painted an indigenous peasant crucified beneath an American eagle with revolutionary snipers on the roof. Deemed too radical, it was whitewashed with lead paint within two years and was recently restored under a protective glass canopy." 
           }
         ],
         callouts: [
@@ -988,7 +1161,8 @@ const tourData = {
         people: [
           { name: "Don Pío Pico", role: "Último Gobernador Mexicano de Alta California", bio: "Líder afromexicano y gran ranchero que vendió sus tierras para construir Casa Pico en 1870 buscando retener el centro de la ciudad en la Plaza." },
           { name: "Christine Sterling", role: "Preservacionista y 'Madre de la Calle Olvera'", bio: "Defensora cívica que rescató el callejón de la demolición en 1930, utilizando mano de obra comunitaria para colocar los adoquines rojos." },
-          { name: "David Alfaro Siqueiros", role: "Gran Muralista Mexicano", bio: "Uno de los 'Tres Grandes' del muralismo mexicano que pintó América Tropical en 1932 denunciando el imperialismo, obra que fue censurada y blanqueada." }
+          { name: "David Alfaro Siqueiros", role: "Gran Muralista Mexicano", bio: "Uno de los 'Tres Grandes' del muralismo mexicano que pintó América Tropical en 1932 denunciando el imperialismo, obra que fue censurada y blanqueada." },
+          { name: "Francisco Ávila", role: "Ranchero y Alcalde de LA", bio: "Propietario de tierras que construyó el Ávila Adobe en 1818, residencia que sirvió de cuartel militar durante la guerra con EE. UU." }
         ],
         stories: [
           { 
@@ -1000,8 +1174,16 @@ const tourData = {
             p: "<strong>Don Pío Pico</strong>, el último gobernador mexicano de Alta California, vendió sus ranchos e invirtió $82,000 en construir <strong>Casa Pico</strong>, el primer hotel de lujo de tres plantas de Los Ángeles. Tenía iluminación a gas, tinas de baño, comida francesa y fuentes de patio. Pico intentó retener el centro de la ciudad en la Plaza, pero el crecimiento comercial se movió hacia el sur, dejándolo en la ruina en sus últimos años." 
           },
           { 
-            h: "El Rescate de Olvera y el Mural Censurado de Siqueiros", 
-            p: "En los años 20, la calle Olvera era un callejón en ruinas a punto de ser demolido. <strong>Christine Sterling</strong> lideró una campaña cívica, utilizó presos del condado para colocar los ladrillos rojos y reinauguró el callejón el Domingo de Resurrección de 1930 como mercado mexicano tradicional.<br><br>En el Italian Hall se ubica <strong><em>América Tropical (1932)</em></strong> de David Alfaro Siqueiros. Al pedirle una escena tropical decorativa, Siqueiros pintó a un indígena crucificado bajo un águila estadounidense con guerrilleros armados en el tejado. El mural fue blanqueado con cal por su fuerte crítica al imperialismo; hoy está restaurado bajo una cubierta de vidrio del Instituto Getty." 
+            h: "El Ávila Adobe y los Monumentos de la Plaza", 
+            p: "Alrededor de la plaza se encuentran la <strong>Iglesia de Nuestra Señora Reina de los Ángeles (1822)</strong> y el <strong>Ávila Adobe (1818)</strong>, la casa más antigua en pie de la ciudad, con muros de adobe de tres pies de espesor y pisos de tierra apisonada." 
+          },
+          { 
+            h: "El Rescate de la Calle Olvera en 1930", 
+            p: "En los años 20, la calle Olvera era un callejón en ruinas a punto de ser demolido. <strong>Christine Sterling</strong> lideró una campaña cívica, utilizó presos del condado para colocar los ladrillos rojos y reinauguró el callejón el Domingo de Resurrección de 1930 como mercado tradicional." 
+          },
+          { 
+            h: "David Alfaro Siqueiros y América Tropical", 
+            p: "En el Italian Hall se ubica <strong><em>América Tropical (1932)</em></strong> de David Alfaro Siqueiros. Al pedirle una escena tropical decorativa, Siqueiros pintó a un indígena crucificado bajo un águila estadounidense con guerrilleros armados en el tejado. El mural fue blanqueado con cal por su fuerte crítica al imperialismo; hoy está restaurado bajo una cubierta de vidrio del Instituto Getty." 
           }
         ],
         callouts: [
