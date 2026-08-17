@@ -5,7 +5,7 @@
 
 let currentLang = 'en';
 let currentStop = 1;
-const totalStops = 12;
+const totalStops = 13;
 
 const tourData = {
   ui: {
@@ -47,14 +47,84 @@ const tourData = {
     }
   },
   stops: [
-    // STOP 1: Dolby Theatre
+    // STOP 1: Hollywood Sign (NEW)
     {
       id: 1,
+      mapUrl: "https://maps.google.com/?q=Lake+Hollywood+Park",
+      en: {
+        title: "The Hollywood Sign & Lake Hollywood Park",
+        address: "3160 Canyon Lake Dr (Look up toward Mount Lee)",
+        short: "1. Hollywood Sign",
+        timeline: [
+          { y: "1923", t: "Erected as a temporary 18-month billboard reading 'HOLLYWOODLAND'." },
+          { y: "1949", t: "The Hollywood Chamber of Commerce removes 'LAND' to represent the entire district." },
+          { y: "1978", t: "Hugh Hefner and Alice Cooper host a fundraiser to completely rebuild the decaying sign." }
+        ],
+        people: [
+          { name: "Harry Chandler", role: "Real Estate Developer", bio: "Los Angeles Times publisher who spent $21,000 to build the original sign to promote his upscale 'Hollywoodland' housing tract." },
+          { name: "Peg Entwistle", role: "Tragic Actress", bio: "A 24-year-old struggling actress who tragically jumped to her death from the letter 'H' in 1932, cementing the sign's dark lore." },
+          { name: "Hugh Hefner", role: "Playboy Founder", bio: "Hosted a gala at the Playboy Mansion in 1978 where celebrities 'sponsored' individual letters for $27,700 each to save the rusting landmark from demolition." }
+        ],
+        stories: [
+          { 
+            h: "A Temporary Real Estate Billboard", 
+            p: "Welcome to Hollywood. Before we head down to the boulevard, look up at Mount Lee. The most famous monument in the entertainment world was never meant to be permanent. In 1923, real estate developers erected a massive billboard reading 'HOLLYWOODLAND' to advertise a new upscale housing tract. It was built of cheap sheet metal and telephone poles, intended to be torn down after 18 months." 
+          },
+          { 
+            h: "The Tragedy of Peg Entwistle", 
+            p: "The sign carries a dark history reflecting the brutal reality of the studio system. In 1932, a 24-year-old stage actress named Peg Entwistle, devastated after a studio failed to renew her contract, climbed the maintenance ladder behind the 50-foot letter 'H' and jumped to her death. She became known tragically as 'The Hollywood Sign Girl'." 
+          },
+          { 
+            h: "The 1978 Rescue Mission", 
+            p: "By the 1970s, the sign was a rusting, collapsing hazard; the third 'O' had tumbled down the mountain. The city planned to demolish it until Hugh Hefner hosted a fundraiser at the Playboy Mansion. Nine donors—including rocker Alice Cooper and country star Gene Autry—each paid $27,700 to sponsor a replacement letter, rebuilding the sign in durable steel." 
+          }
+        ],
+        callouts: [
+          { cls: "box-tip", t: "Best Photo Angle", d: "Lake Hollywood Park offers one of the best, unobstructed, and legal grassy areas to photograph the sign before driving down to the Boulevard." }
+        ]
+      },
+      es: {
+        title: "El Letrero de Hollywood y Parque Lake Hollywood",
+        address: "3160 Canyon Lake Dr (Mira hacia el Monte Lee)",
+        short: "1. Letrero de Hollywood",
+        timeline: [
+          { y: "1923", t: "Instalado como un anuncio temporal de 18 meses que leía 'HOLLYWOODLAND'." },
+          { y: "1949", t: "La Cámara de Comercio retira 'LAND' para representar a todo el distrito." },
+          { y: "1978", t: "Hugh Hefner y Alice Cooper recaudan fondos para reconstruir el letrero en ruinas." }
+        ],
+        people: [
+          { name: "Harry Chandler", role: "Desarrollador Inmobiliario", bio: "Editor del LA Times que gastó $21,000 en el letrero original para promocionar su lujosa urbanización 'Hollywoodland'." },
+          { name: "Peg Entwistle", role: "Actriz Trágica", bio: "Actriz de 24 años que saltó al vacío desde la letra 'H' en 1932 al perder su contrato, sellando la leyenda oscura del letrero." },
+          { name: "Hugh Hefner", role: "Fundador de Playboy", bio: "Organizó una gala en 1978 donde celebridades 'apadrinaron' cada letra por $27,700 para salvar el monumento de la demolición." }
+        ],
+        stories: [
+          { 
+            h: "Un Anuncio de Bienes Raíces Temporal", 
+            p: "Bienvenidos a Hollywood. Antes de bajar al bulevar, mira hacia el Monte Lee. El monumento más famoso del mundo del entretenimiento nunca debió ser permanente. En 1923, se instaló un letrero que leía 'HOLLYWOODLAND' para anunciar una zona residencial. Hecho de lámina y postes de teléfono, estaba planeado para ser desmantelado en 18 meses." 
+          },
+          { 
+            h: "La Tragedia de Peg Entwistle", 
+            p: "El letrero esconde el lado oscuro de la industria. En 1932, una actriz de 24 años llamada Peg Entwistle, devastada al perder su contrato con el estudio, escaló la letra 'H' de 15 metros y saltó al vacío. La prensa la bautizó trágicamente como 'La Chica del Letrero de Hollywood'." 
+          },
+          { 
+            h: "El Rescate de 1978", 
+            p: "Para los años 70, el letrero estaba podrido; la tercera 'O' había caído por la montaña. Iba a ser demolido hasta que Hugh Hefner organizó una gala. Nueve donantes (incluyendo al rockero Alice Cooper) pagaron $27,700 cada uno para apadrinar una letra, reconstruyéndolo con acero duradero." 
+          }
+        ],
+        callouts: [
+          { cls: "box-tip", t: "El Mejor Ángulo para Fotos", d: "El Parque Lake Hollywood ofrece una de las mejores áreas verdes, legales y sin obstrucciones para fotografiar el letrero antes de bajar a la ciudad." }
+        ]
+      }
+    },
+
+    // STOP 2: Dolby Theatre
+    {
+      id: 2,
       mapUrl: "https://maps.google.com/?q=Dolby+Theatre+Hollywood",
       en: {
         title: "Dolby Theatre & Ovation Hollywood",
-        address: "6801 Hollywood Blvd, Los Angeles, CA 90028",
-        short: "1. Dolby Theatre",
+        address: "6801 Hollywood Blvd",
+        short: "2. Dolby Theatre",
         timeline: [
           { y: "2001", t: "The complex opens as the Kodak Theatre, designed specifically for the Academy Awards." },
           { y: "2002", t: "The Oscars are hosted here for the first time, establishing a permanent home for the ceremony." },
@@ -67,7 +137,7 @@ const tourData = {
         stories: [
           { 
             h: "The Permanent Home of the Oscars", 
-            p: "Welcome to Hollywood Boulevard. Stand beneath the towering multi-story Babylon archway inside the central courtyard of Ovation Hollywood. Since 2002, this 3,400-seat theater has served as the permanent, custom-engineered home of the Academy Awards. Before this, the Oscars bounced between hotels and various theaters across Los Angeles." 
+            p: "Head down to Hollywood Boulevard and stand beneath the towering multi-story Babylon archway inside the courtyard of Ovation Hollywood. Since 2002, this 3,400-seat theater has served as the permanent, custom-engineered home of the Academy Awards. Before this, the Oscars bounced between hotels and various theaters across Los Angeles." 
           },
           { 
             h: "Engineering for the Broadcast", 
@@ -83,13 +153,13 @@ const tourData = {
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "📸 The Hollywood Sign View", d: "Take the outdoor escalator up to the 3rd-floor pedestrian bridge. Look straight through the open archway to capture a framed postcard shot of the Hollywood Sign up on Mount Lee." }
+          { cls: "box-tip", t: "The Archway Photo", d: "Take the outdoor escalator up to the 3rd-floor pedestrian bridge. Look straight through the open archway to capture a framed postcard shot of the Hollywood Sign up on Mount Lee." }
         ]
       },
       es: {
         title: "Teatro Dolby y Ovation Hollywood",
-        address: "6801 Hollywood Blvd, Los Angeles, CA 90028",
-        short: "1. Teatro Dolby",
+        address: "6801 Hollywood Blvd",
+        short: "2. Teatro Dolby",
         timeline: [
           { y: "2001", t: "El complejo se inaugura como el Teatro Kodak, diseñado para los Premios de la Academia." },
           { y: "2002", t: "Los Óscar se celebran aquí por primera vez, estableciendo su sede permanente." },
@@ -102,7 +172,7 @@ const tourData = {
         stories: [
           { 
             h: "El Hogar Definitivo de los Óscar", 
-            p: "Bienvenidos a Hollywood Boulevard. Párate bajo el imponente arco de estilo babilónico en el patio central de Ovation Hollywood. Desde 2002, este teatro de 3,400 butacas ha sido la sede permanente de los Premios de la Academia. Antes de su construcción, la ceremonia rebotaba entre hoteles y auditorios por toda la ciudad." 
+            p: "Baja hacia Hollywood Boulevard y párate bajo el imponente arco babilónico en Ovation Hollywood. Desde 2002, este teatro de 3,400 butacas ha sido la sede permanente de los Premios de la Academia. Antes de su construcción, la ceremonia rebotaba entre hoteles y auditorios por toda la ciudad." 
           },
           { 
             h: "Diseñado para la Televisión", 
@@ -110,27 +180,27 @@ const tourData = {
           },
           { 
             h: "El Paseo de los Ganadores", 
-            p: "Al caminar hacia las puertas del teatro, observa las columnas de vidrio iluminadas en la gran escalera. Cada columna lleva grabado el título de la película ganadora a Mejor Película desde <em>Wings</em> en 1927 hasta la actualidad. Si miras con atención, verás espacios en blanco reservados para los futuros ganadores de las próximas décadas." 
+            p: "Al caminar hacia las puertas del teatro, observa las columnas de vidrio en la gran escalera. Cada columna lleva grabado el título de la película ganadora a Mejor Película desde <em>Wings</em> en 1927 hasta la actualidad. Si miras con atención, verás espacios en blanco reservados para los ganadores de las próximas décadas." 
           },
           { 
             h: "La Transformación de la Alfombra Roja", 
-            p: "Cada primavera, durante los Óscar, este bulevar se cierra por completo. La acera de concreto se cubre con cientos de metros de alfombra roja, se levanta una enorme carpa protectora para evitar que la lluvia arruine los vestidos de diseñador, y la prensa internacional toma el control de la zona." 
+            p: "Cada primavera, durante los Óscar, este bulevar se cierra por completo. La acera se cubre con cientos de metros de alfombra roja, se levanta una enorme carpa protectora para evitar que la lluvia arruine los vestidos, y la prensa internacional toma el control de la zona." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "📸 El Mirador del Hollywood Sign", d: "Sube por las escaleras mecánicas hasta el puente peatonal del tercer piso. Desde allí tendrás una vista enmarcada perfecta del famoso letrero de Hollywood en la montaña." }
+          { cls: "box-tip", t: "El Mirador del Arco", d: "Sube por las escaleras mecánicas hasta el puente peatonal del tercer piso. Desde allí tendrás una vista enmarcada perfecta del letrero de Hollywood." }
         ]
       }
     },
 
-    // STOP 2: TCL Chinese Theatre
+    // STOP 3: TCL Chinese Theatre
     {
-      id: 2,
+      id: 3,
       mapUrl: "https://maps.google.com/?q=TCL+Chinese+Theatre",
       en: {
         title: "TCL Chinese Theatre & Forecourt",
         address: "6925 Hollywood Blvd",
-        short: "2. Chinese Theatre",
+        short: "3. Chinese Theatre",
         timeline: [
           { y: "1927", t: "Showman Sid Grauman opens the theater with the premiere of Cecil B. DeMille's The King of Kings." },
           { y: "1944", t: "Hosts the Academy Awards for the first time, continuing until 1946." },
@@ -161,13 +231,13 @@ const tourData = {
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Forecourt Scavenger Hunt", d: "• <strong>Marilyn Monroe:</strong> Look closely at the dot over the letter 'i'—she pressed a real rhinestone into the concrete.<br>• <strong>Groucho Marx:</strong> Find where he pressed his iconic cigar into the cement.<br>• <strong>Harry Potter:</strong> Find the footprints and wand imprints of the trio (Radcliffe, Watson, Grint)." }
+          { cls: "box-lore", t: "Forecourt Scavenger Hunt", d: "<ul><li><strong>Marilyn Monroe:</strong> Look closely at the dot over the letter 'i'—she pressed a real rhinestone into the concrete.</li><li><strong>Groucho Marx:</strong> Find where he pressed his iconic cigar into the cement.</li><li><strong>Harry Potter:</strong> Find the footprints and wand imprints of the trio (Radcliffe, Watson, Grint).</li></ul>" }
         ]
       },
       es: {
         title: "TCL Chinese Theatre",
         address: "6925 Hollywood Blvd",
-        short: "2. Teatro Chino",
+        short: "3. Teatro Chino",
         timeline: [
           { y: "1927", t: "Sid Grauman inaugura el teatro con el estreno de El Rey de Reyes de Cecil B. DeMille." },
           { y: "1944", t: "Sede de los Premios Óscar por primera vez, albergándolos hasta 1946." },
@@ -198,19 +268,19 @@ const tourData = {
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Búsqueda del Tesoro", d: "• <strong>Marilyn Monroe:</strong> Mira el punto sobre la letra 'i', allí incrustó un diamante de imitación.<br>• <strong>Groucho Marx:</strong> Busca la marca donde hundió su famoso puro.<br>• <strong>Harry Potter:</strong> Encuentra las huellas y varitas mágicas del trío protagonista." }
+          { cls: "box-lore", t: "Búsqueda del Tesoro", d: "<ul><li><strong>Marilyn Monroe:</strong> Mira el punto sobre la letra 'i', allí incrustó un diamante de imitación.</li><li><strong>Groucho Marx:</strong> Busca la marca donde hundió su famoso puro.</li><li><strong>Harry Potter:</strong> Encuentra las huellas y varitas mágicas del trío protagonista.</li></ul>" }
         ]
       }
     },
 
-    // STOP 3: Hollywood Roosevelt
+    // STOP 4: Hollywood Roosevelt
     {
-      id: 3,
+      id: 4,
       mapUrl: "https://maps.google.com/?q=Hollywood+Roosevelt+Hotel",
       en: {
         title: "The Hollywood Roosevelt Hotel",
         address: "7000 Hollywood Blvd (Cross the street)",
-        short: "3. The Roosevelt",
+        short: "4. The Roosevelt",
         timeline: [
           { y: "1927", t: "Opens its doors, financed by a syndicate of Hollywood royalty." },
           { y: "1929", t: "Hosts the very first Academy Awards in the Blossom Room." },
@@ -246,7 +316,7 @@ const tourData = {
       es: {
         title: "Hotel Hollywood Roosevelt",
         address: "7000 Hollywood Blvd (Cruza la calle)",
-        short: "3. The Roosevelt",
+        short: "4. The Roosevelt",
         timeline: [
           { y: "1927", t: "Abre sus puertas, financiado por un grupo de superestrellas de Hollywood." },
           { y: "1929", t: "Sede de la primera entrega de los Premios Óscar en el Blossom Room." },
@@ -268,7 +338,7 @@ const tourData = {
           },
           { 
             h: "El Despegue de Marilyn Monroe", 
-            p: "El Roosevelt está ligado al legado de Marilyn. Antes de ser un ícono global, Norma Jeane Mortenson vivió aquí en una cabaña junto a la piscina durante dos años. Su primera sesión de fotos comercial (para un anuncio de bronceador) se realizó posando en el trampolín del hotel." 
+            p: "El Roosevelt está ligado al legado de Marilyn. Antes de ser un ícono global, Norma Jeane Mortenson lived here in a second-floor cabana room for two years. Su primera sesión de fotos comercial (para un anuncio de bronceador) se realizó posando en el trampolín del hotel." 
           },
           { 
             h: "Pasillos Embrujados", 
@@ -281,14 +351,14 @@ const tourData = {
       }
     },
 
-    // STOP 4: Egyptian Theatre
+    // STOP 5: Egyptian Theatre
     {
-      id: 4,
+      id: 5,
       mapUrl: "https://maps.google.com/?q=Egyptian+Theatre+Hollywood",
       en: {
         title: "The Egyptian Theatre",
         address: "6712 Hollywood Blvd",
-        short: "4. Egyptian Theatre",
+        short: "5. Egyptian Theatre",
         timeline: [
           { y: "1922", t: "Opens its doors, capitalizing on global Egyptomania." },
           { y: "1922", t: "Hosts the premiere of Robin Hood, inventing the Hollywood red carpet." },
@@ -325,7 +395,7 @@ const tourData = {
       es: {
         title: "Teatro Egipcio (Egyptian Theatre)",
         address: "6712 Hollywood Blvd",
-        short: "4. Teatro Egipcio",
+        short: "5. Teatro Egipcio",
         timeline: [
           { y: "1922", t: "Abre sus puertas aprovechando la 'Egiptomanía' mundial." },
           { y: "1922", t: "Estreno de Robin Hood, donde se inventa la alfombra roja." },
@@ -361,14 +431,14 @@ const tourData = {
       }
     },
 
-    // STOP 5: Musso & Frank
+    // STOP 6: Musso & Frank
     {
-      id: 5,
+      id: 6,
       mapUrl: "https://maps.google.com/?q=Musso+and+Frank+Grill",
       en: {
         title: "The Musso & Frank Grill",
         address: "6667 Hollywood Blvd",
-        short: "5. Musso & Frank",
+        short: "6. Musso & Frank",
         timeline: [
           { y: "1919", t: "Restaurant opens its doors, predating the Hollywood sign." },
           { y: "1930s", t: "Becomes the literary clubhouse for famous American novelists." },
@@ -404,7 +474,7 @@ const tourData = {
       es: {
         title: "The Musso & Frank Grill",
         address: "6667 Hollywood Blvd",
-        short: "5. Musso & Frank",
+        short: "6. Musso & Frank",
         timeline: [
           { y: "1919", t: "Abre sus puertas, cuatro años antes de que se instalara el letrero de Hollywood." },
           { y: "Años 30", t: "Se convierte en el punto de reunión de los grandes novelistas americanos." },
@@ -439,14 +509,14 @@ const tourData = {
       }
     },
 
-    // STOP 6: You Are the Star Mural
+    // STOP 7: You Are the Star Mural
     {
-      id: 6,
+      id: 7,
       mapUrl: "https://maps.google.com/?q=You+Are+The+Star+Mural",
       en: {
         title: "You Are the Star Mural",
-        address: "1648 Wilcox Ave (Corner of Hollywood & Wilcox)",
-        short: "6. You Are the Star",
+        address: "1648 Wilcox Ave",
+        short: "7. You Are the Star",
         timeline: [
           { y: "1992", t: "Artist Thomas Suriya completes the massive street-level mural." },
           { y: "2016", t: "Featured prominently in the opening sequences of La La Land." }
@@ -480,8 +550,8 @@ const tourData = {
       },
       es: {
         title: "Mural 'You Are the Star'",
-        address: "1648 Wilcox Ave (Esquina de Hollywood y Wilcox)",
-        short: "6. You Are the Star",
+        address: "1648 Wilcox Ave",
+        short: "7. You Are the Star",
         timeline: [
           { y: "1992", t: "El artista Thomas Suriya completa este enorme mural a pie de calle." },
           { y: "2016", t: "Aparece de forma destacada en la película La La Land." }
@@ -515,14 +585,14 @@ const tourData = {
       }
     },
 
-    // STOP 7: El Capitan Theatre
+    // STOP 8: El Capitan Theatre
     {
-      id: 7,
+      id: 8,
       mapUrl: "https://maps.google.com/?q=El+Capitan+Theatre",
       en: {
         title: "The El Capitan Theatre",
         address: "6838 Hollywood Blvd",
-        short: "7. El Capitan",
+        short: "8. El Capitan",
         timeline: [
           { y: "1926", t: "Opens as a live stage venue, dubbed 'Hollywood's First Home of the Spoken Drama'." },
           { y: "1941", t: "Hosts the defiant world premiere of Orson Welles' masterpiece Citizen Kane." },
@@ -558,7 +628,7 @@ const tourData = {
       es: {
         title: "Teatro El Capitán",
         address: "6838 Hollywood Blvd",
-        short: "7. El Capitán",
+        short: "8. El Capitán",
         timeline: [
           { y: "1926", t: "Abre como teatro en vivo, llamado 'El Primer Hogar del Drama Hablado'." },
           { y: "1941", t: "Sede del desafiante estreno mundial de El Ciudadano Kane de Orson Welles." },
@@ -593,14 +663,14 @@ const tourData = {
       }
     },
 
-    // STOP 8: The Pantages Theatre
+    // STOP 9: The Pantages Theatre
     {
-      id: 8,
+      id: 9,
       mapUrl: "https://maps.google.com/?q=Pantages+Theatre+Hollywood",
       en: {
         title: "The Pantages Theatre",
-        address: "6233 Hollywood Blvd (Near Hollywood & Vine)",
-        short: "8. The Pantages",
+        address: "6233 Hollywood Blvd",
+        short: "9. The Pantages",
         timeline: [
           { y: "1930", t: "Opens as the last great movie palace built in Hollywood." },
           { y: "1949", t: "Eccentric billionaire Howard Hughes purchases the theater." },
@@ -635,8 +705,8 @@ const tourData = {
       },
       es: {
         title: "Teatro Pantages",
-        address: "6233 Hollywood Blvd (Cerca de Hollywood y Vine)",
-        short: "8. El Pantages",
+        address: "6233 Hollywood Blvd",
+        short: "9. El Pantages",
         timeline: [
           { y: "1930", t: "Se inaugura como el último gran palacio de cine de Hollywood." },
           { y: "1949", t: "El excéntrico multimillonario Howard Hughes compra el teatro." },
@@ -671,14 +741,14 @@ const tourData = {
       }
     },
 
-    // STOP 9: Capitol Records
+    // STOP 10: Capitol Records
     {
-      id: 9,
+      id: 10,
       mapUrl: "https://maps.google.com/?q=Capitol+Records+Building",
       en: {
         title: "The Capitol Records Tower",
-        address: "1750 Vine St (Walk one block north of Hollywood Blvd)",
-        short: "9. Capitol Records",
+        address: "1750 Vine St",
+        short: "10. Capitol Records",
         timeline: [
           { y: "1956", t: "Completed as the world's first circular office building." },
           { y: "1990s", t: "The subterranean echo chambers are restored by Les Paul." },
@@ -713,8 +783,8 @@ const tourData = {
       },
       es: {
         title: "Torre de Capitol Records",
-        address: "1750 Vine St (Camina una cuadra al norte)",
-        short: "9. Capitol Records",
+        address: "1750 Vine St",
+        short: "10. Capitol Records",
         timeline: [
           { y: "1956", t: "Se inaugura como el primer edificio de oficinas circular del mundo." },
           { y: "Años 90", t: "Se restauran las cámaras de eco subterráneas diseñadas por Les Paul." },
@@ -749,14 +819,14 @@ const tourData = {
       }
     },
 
-    // STOP 10: Knickerbocker Hotel
+    // STOP 11: Knickerbocker Hotel
     {
-      id: 10,
+      id: 11,
       mapUrl: "https://maps.google.com/?q=Hollywood+Knickerbocker+Apartments",
       en: {
         title: "The Hollywood Knickerbocker Hotel",
         address: "1714 Ivar Ave",
-        short: "10. Knickerbocker Hotel",
+        short: "11. Knickerbocker",
         timeline: [
           { y: "1926", t: "Opens as a luxury apartment hotel for the silent film elite." },
           { y: "1936", t: "Bess Houdini holds the final séance to contact Harry Houdini on the roof." },
@@ -792,7 +862,7 @@ const tourData = {
       es: {
         title: "Hotel Hollywood Knickerbocker",
         address: "1714 Ivar Ave",
-        short: "10. Knickerbocker Hotel",
+        short: "11. Knickerbocker",
         timeline: [
           { y: "1926", t: "Abre como hotel de apartamentos de lujo para la élite del cine." },
           { y: "1936", t: "Bess Houdini realiza su última sesión espiritista en la azotea." },
@@ -827,14 +897,14 @@ const tourData = {
       }
     },
 
-    // STOP 11: Charlie Chaplin Studios
+    // STOP 12: Charlie Chaplin Studios
     {
-      id: 11,
+      id: 12,
       mapUrl: "https://maps.google.com/?q=Jim+Henson+Company+Lot",
       en: {
         title: "Charlie Chaplin Studios / Jim Henson Co.",
         address: "1416 N La Brea Ave",
-        short: "11. Chaplin Studios",
+        short: "12. Chaplin Studios",
         timeline: [
           { y: "1917", t: "Chaplin builds his mock-English Tudor studio in an orange grove." },
           { y: "1919", t: "Chaplin co-founds United Artists to combat studio monopolies." },
@@ -871,7 +941,7 @@ const tourData = {
       es: {
         title: "Estudios Charlie Chaplin / Jim Henson Co.",
         address: "1416 N La Brea Ave",
-        short: "11. Chaplin Studios",
+        short: "12. Chaplin Studios",
         timeline: [
           { y: "1917", t: "Chaplin construye su estudio estilo inglés sobre un campo de naranjos." },
           { y: "1919", t: "Cofunda United Artists para combatir el monopolio de los estudios." },
@@ -907,14 +977,14 @@ const tourData = {
       }
     },
 
-    // STOP 12: Crossroads of the World
+    // STOP 13: Crossroads of the World
     {
-      id: 12,
+      id: 13,
       mapUrl: "https://maps.google.com/?q=Crossroads+of+the+World+Los+Angeles",
       en: {
         title: "Crossroads of the World (Tour Finale)",
         address: "6671 Sunset Blvd",
-        short: "12. Crossroads",
+        short: "13. Crossroads",
         timeline: [
           { y: "1931", t: "Mobster Charles Crawford is murdered in his office on this site." },
           { y: "1936", t: "Crawford's widow builds America's first modern outdoor shopping mall." },
@@ -950,7 +1020,7 @@ const tourData = {
       es: {
         title: "Crossroads of the World (Fin del Tour)",
         address: "6671 Sunset Blvd",
-        short: "12. Crossroads",
+        short: "13. Crossroads",
         timeline: [
           { y: "1931", t: "El mafioso Charles Crawford es asesinado en su oficina en este terreno." },
           { y: "1936", t: "Su viuda construye el primer centro comercial al aire libre de EE. UU." },
