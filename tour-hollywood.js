@@ -55,30 +55,35 @@ const tourData = {
         short: "1. Hollywood Sign",
         timeline: [
           { y: "1923", t: "Erected as a temporary 18-month billboard reading 'HOLLYWOODLAND'." },
-          { y: "1949", t: "The Hollywood Chamber of Commerce removes 'LAND' to represent the entire district." },
-          { y: "1978", t: "Hugh Hefner and Alice Cooper host a fundraiser to completely rebuild the decaying sign." }
+          { y: "1932", t: "Broadway actress Peg Entwistle tragically leaps from the letter 'H'." },
+          { y: "1949", t: "The Hollywood Chamber of Commerce strips 'LAND' to represent the district." },
+          { y: "1978", t: "Hugh Hefner and rock star Alice Cooper lead a fundraiser to rebuild the sign in steel." }
         ],
         people: [
-          { name: "Harry Chandler", role: "Real Estate Developer", bio: "Los Angeles Times publisher who spent $21,000 to build the original sign to promote his upscale 'Hollywoodland' housing tract." },
-          { name: "Peg Entwistle", role: "Tragic Actress", bio: "A 24-year-old struggling actress who tragically jumped to her death from the letter 'H' in 1932, cementing the sign's dark lore." },
-          { name: "Hugh Hefner", role: "Playboy Founder", bio: "Hosted a gala at the Playboy Mansion in 1978 where celebrities 'sponsored' individual letters for $27,700 each to save the rusting landmark from demolition." }
+          { name: "Harry Chandler", role: "Real Estate Developer & Publisher", bio: "Los Angeles Times publisher who spent $21,000 to construct the original sign to promote his upscale suburban housing tract in Beachwood Canyon." },
+          { name: "Peg Entwistle", role: "Broadway Actress", bio: "Talented 24-year-old stage performer whose tragic suicide from the 50-foot letter 'H' in 1932 cemented the landmark's dark cinematic lore." },
+          { name: "Hugh Hefner", role: "Playboy Founder & Benefactor", bio: "Hosted a legendary 1978 gala at the Playboy Mansion where celebrities sponsored replacement letters for $27,700 each to prevent demolition." }
         ],
         stories: [
           { 
             h: "A Temporary Real Estate Billboard", 
-            p: "Welcome to Hollywood. Before we head down to the boulevard, look up at Mount Lee. The most famous monument in the entertainment world was never meant to be permanent. In 1923, real estate developers erected a massive billboard reading 'HOLLYWOODLAND' to advertise a new upscale housing tract. It was built of cheap sheet metal and telephone poles, intended to be torn down after 18 months." 
+            p: "Welcome to Hollywood. Before heading down to the boulevard, look up at Mount Lee to take in the most recognized monument in the entertainment world. In 1923, real estate syndicate partners led by <em>Los Angeles Times</em> publisher Harry Chandler erected a massive outdoor advertisement reading 'HOLLYWOODLAND'. Built from rough sheet metal panels, telephone poles, and scaffolding, the sign was never meant to be permanent. It was originally wired with 4,000 light bulbs and scheduled to be torn down after an 18-month housing sales campaign in Beachwood Canyon." 
           },
           { 
             h: "The Tragedy of Peg Entwistle", 
-            p: "The sign carries a dark history reflecting the brutal reality of the studio system. In 1932, a 24-year-old stage actress named Peg Entwistle, devastated after a studio failed to renew her contract, climbed the maintenance ladder behind the 50-foot letter 'H' and jumped to her death. She became known tragically as 'The Hollywood Sign Girl'." 
+            p: "The sign carries a haunting history that reflects the harsh realities of the early studio system. In September 1932, a 24-year-old British stage actress named Peg Entwistle found herself struggling to break into motion pictures after RKO Pictures declined to renew her contract. Devastated and out of work, she hiked up the rugged trail of Mount Lee in the dark. She climbed an electrician's maintenance ladder behind the 50-foot letter 'H' and leaped into the ravine below, becoming known to history as 'The Hollywood Sign Girl'." 
           },
           { 
-            h: "The 1978 Rescue Mission", 
-            p: "By the 1970s, the sign was a rusting, collapsing hazard; the third 'O' had tumbled down the mountain. The city planned to demolish it until Hugh Hefner hosted a fundraiser at the Playboy Mansion. Nine donors—including rocker Alice Cooper and country star Gene Autry—each paid $27,700 to sponsor a replacement letter, rebuilding the sign in durable steel." 
+            h: "The 1978 Playboy Mansion Rescue", 
+            p: "By the late 1970s, the neglected wooden and sheet-metal billboard had deteriorated into a collapsing, termite-ridden safety hazard. The top of the letter 'D' had completely crumbled, arsonists had torched the bottom of the second 'L', and the third 'O' had tumbled down the hillside. The city considered tearing the monument down entirely until Hugh Hefner hosted a celebrity gala at the Playboy Mansion. Nine donors—including shock-rocker Alice Cooper, country legend Gene Autry, and Warner Bros. Records—each contributed $27,700 to sponsor individual letters, rebuilding the sign in durable corrugated steel." 
+          },
+          { 
+            h: "Preservation & Cultural Iconography", 
+            p: "In 1949, the Hollywood Chamber of Commerce took over maintenance of the sign and removed the final four letters ('LAND') so it would represent the entire creative district rather than a private real estate tract. Today, the sign is protected within Griffith Park and monitored 24/7 by motion sensors, high-definition cameras, and park rangers. It stands 45 feet tall and 350 feet across, acting as the universal beacon of cinematic ambition and reinvention." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Best Photo Angle", d: "Lake Hollywood Park offers one of the best, unobstructed, and legal grassy areas to photograph the sign before driving down to the Boulevard." }
+          { cls: "box-tip", t: "Best Photo Angle", d: "Lake Hollywood Park offers one of the best, unobstructed, and legal grassy areas to photograph the sign before driving down to Hollywood Boulevard." }
         ]
       },
       es: {
@@ -87,30 +92,35 @@ const tourData = {
         short: "1. Letrero de Hollywood",
         timeline: [
           { y: "1923", t: "Instalado como un anuncio temporal de 18 meses que leía 'HOLLYWOODLAND'." },
+          { y: "1932", t: "La actriz de Broadway Peg Entwistle salta trágicamente desde la letra 'H'." },
           { y: "1949", t: "La Cámara de Comercio retira 'LAND' para representar a todo el distrito." },
-          { y: "1978", t: "Hugh Hefner y Alice Cooper recaudan fondos para reconstruir el letrero en ruinas." }
+          { y: "1978", t: "Hugh Hefner y Alice Cooper recaudan fondos para reconstruir el letrero en acero." }
         ],
         people: [
-          { name: "Harry Chandler", role: "Desarrollador Inmobiliario", bio: "Editor del LA Times que gastó $21,000 en el letrero original para promocionar su lujosa urbanización 'Hollywoodland'." },
-          { name: "Peg Entwistle", role: "Actriz Trágica", bio: "Actriz de 24 años que saltó al vacío desde la letra 'H' en 1932 al perder su contrato, sellando la leyenda oscura del letrero." },
-          { name: "Hugh Hefner", role: "Fundador de Playboy", bio: "Organizó una gala en 1978 donde celebridades 'apadrinaron' cada letra por $27,700 para salvar el monumento de la demolición." }
+          { name: "Harry Chandler", role: "Desarrollador Inmobiliario y Editor", bio: "Editor del LA Times que invirtió $21,000 en el letrero original para promocionar su lujosa urbanización en Beachwood Canyon." },
+          { name: "Peg Entwistle", role: "Actriz de Broadway", bio: "Talentosa actriz de 24 años cuyo trágico suicidio desde la letra 'H' en 1932 selló la leyenda oscura de la industria cinematográfica." },
+          { name: "Hugh Hefner", role: "Fundador de Playboy y Benefactor", bio: "Organizó una histórica gala en 1978 donde celebridades apadrinaron cada letra por $27,700 dólares para evitar la demolición." }
         ],
         stories: [
           { 
             h: "Un Anuncio de Bienes Raíces Temporal", 
-            p: "Bienvenidos a Hollywood. Antes de bajar al bulevar, mira hacia el Monte Lee. El monumento más famoso del mundo del entretenimiento nunca debió ser permanente. En 1923, se instaló un letrero que leía 'HOLLYWOODLAND' para anunciar una zona residencial. Hecho de lámina y postes de teléfono, estaba planeado para ser desmantelado en 18 meses." 
+            p: "Bienvenidos a Hollywood. Antes de bajar al bulevar, miren hacia el Monte Lee para admirar el monumento más famoso del entretenimiento mundial. En 1923, un grupo de inversionistas liderado por el editor del <em>Los Angeles Times</em>, Harry Chandler, levantó este anuncio que leía 'HOLLYWOODLAND'. Construido con láminas de metal, postes telefónicos y andamios, nunca fue pensado como una estructura permanente. Contaba con 4,000 focos incandescentes y estaba programado para ser demolido tras 18 meses de ventas de casas en Beachwood Canyon." 
           },
           { 
             h: "La Tragedia de Peg Entwistle", 
-            p: "El letrero esconde el lado oscuro de la industria. En 1932, una actriz de 24 años llamada Peg Entwistle, devastada al perder su contrato con el estudio, escaló la letra 'H' de 15 metros y saltó al vacío. La prensa la bautizó trágicamente como 'La Chica del Letrero de Hollywood'." 
+            p: "El letrero resguarda una historia dolorosa que refleja la crudeza del sistema de estudios de la época dorada. En septiembre de 1932, una actriz británica de 24 años llamada Peg Entwistle cayó en una profunda depresión tras perder su contrato con el estudio RKO Pictures. Sin empleo y desilusionada, subió por los senderos oscuros del Monte Lee durante la noche. Trepó por la escalera de mantenimiento detrás de la letra 'H' de 15 metros de altura y saltó al vacío, siendo recordada por la prensa como 'La Chica del Letrero de Hollywood'." 
           },
           { 
-            h: "El Rescate de 1978", 
-            p: "Para los años 70, el letrero estaba podrido; la tercera 'O' había caído por la montaña. Iba a ser demolido hasta que Hugh Hefner organizó una gala. Nueve donantes (incluyendo al rockero Alice Cooper) pagaron $27,700 cada uno para apadrinar una letra, reconstruyéndolo con acero duradero." 
+            h: "El Rescate de 1978 en la Mansión Playboy", 
+            p: "Para finales de los años 70, la falta de mantenimiento convirtió el letrero en una ruina peligrosa carcomida por las termitas. La parte superior de la letra 'D' se había derrumbado, vándalos incendiaron la segunda 'L' y la tercera 'O' rodó colina abajo. La ciudad planeaba demolerlo por completo hasta que Hugh Hefner organizó una gala benéfica en la Mansión Playboy. Nueve donantes (entre ellos el rockero Alice Cooper, la leyenda Gene Autry y Warner Bros. Records) pagaron $27,700 cada uno para apadrinar una letra, reconstruyéndolo con vigas y acero galvanizado." 
+          },
+          { 
+            h: "Preservación e Ícono Cultural", 
+            p: "En 1949, la Cámara de Comercio de Hollywood asumió el cuidado del letrero y retiró las últimas cuatro letras ('LAND') para que representara a todo el distrito cultural en lugar de un fraccionamiento privado. Hoy en día, la estructura está protegida dentro del Parque Griffith y vigilada las 24 horas por sensores térmicos, cámaras de alta definición y guardaparques. Con sus 14 metros de altura y 106 metros de largo, sigue siendo el faro universal de la ambición artística y el cine." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "El Mejor Ángulo para Fotos", d: "El Parque Lake Hollywood ofrece una de las mejores áreas verdes, legales y sin obstrucciones para fotografiar el letrero antes de bajar a la ciudad." }
+          { cls: "box-tip", t: "El Mejor Ángulo para Fotos", d: "El Parque Lake Hollywood ofrece una de las mejores áreas verdes, legales y sin obstáculos para fotografiar el letrero antes de bajar a Hollywood Boulevard." }
         ]
       }
     },
@@ -124,34 +134,35 @@ const tourData = {
         address: "6801 Hollywood Blvd",
         short: "2. Dolby Theatre",
         timeline: [
-          { y: "2001", t: "The complex opens as the Kodak Theatre, designed specifically for the Academy Awards." },
-          { y: "2002", t: "The Oscars are hosted here for the first time, establishing a permanent home for the ceremony." },
-          { y: "2012", t: "Kodak files for bankruptcy; Dolby Laboratories acquires the naming rights." }
+          { y: "2001", t: "Opens as the Kodak Theatre, custom-built for the Academy Awards." },
+          { y: "2002", t: "Hosts the Oscars for the first time, ending decades of nomadic ceremonies." },
+          { y: "2012", t: "Dolby Laboratories acquires naming rights following Kodak's bankruptcy." },
+          { y: "Present", t: "Broadcasts live to an international audience exceeding several hundred million viewers." }
         ],
         people: [
-          { name: "David Rockwell", role: "Lead Architect", bio: "Theatrical architect who designed the venue to look beautiful on television broadcasts while ensuring optimal camera angles and acoustics." },
-          { name: "Sid Ganis", role: "Former Academy President", bio: "Instrumental in cementing the theater as the permanent home of the Oscars, ending decades of the ceremony bouncing between different venues." }
+          { name: "David Rockwell", role: "Lead Theatrical Architect", bio: "Acclaimed designer who engineered the auditorium with specialized raking, lighting fixtures, and camera pathways specifically for live international television." },
+          { name: "Sid Ganis", role: "Former Academy President", bio: "Key film executive who championed building a permanent, technologically advanced auditorium in Hollywood for the Oscars." }
         ],
         stories: [
           { 
             h: "The Permanent Home of the Oscars", 
-            p: "Head down to Hollywood Boulevard and stand beneath the towering multi-story Babylon archway inside the courtyard of Ovation Hollywood. Since 2002, this 3,400-seat theater has served as the permanent, custom-engineered home of the Academy Awards. Before this, the Oscars bounced between hotels and various theaters across Los Angeles." 
+            p: "Stand beneath the towering Babylon archway inside the grand open-air courtyard of Ovation Hollywood. Since March 2002, this 3,400-seat theater has served as the permanent, custom-engineered home of the Academy Awards. Prior to its construction, the Oscars were nomadic, bouncing for over seven decades between hotel ballrooms, the Dorothy Chandler Pavilion in DTLA, and the Shrine Auditorium. Civic leaders realized Hollywood Boulevard needed an anchor institution to pull the film industry's biggest night back to its birthplace." 
           },
           { 
-            h: "Engineering for the Broadcast", 
-            p: "Unlike traditional theaters, the Dolby Theatre was designed specifically for live television. Architect David Rockwell ensured that the orchestra seating has an unusually steep rake so cameras can clearly see the faces of the nominees without obstruction. The theater also features a massive hidden cable network built directly into the walls to support hundreds of international broadcasting crews." 
+            h: "Engineering for the Live Broadcast", 
+            p: "Unlike historic venues built strictly for theatrical acoustics, the Dolby Theatre was designed from the ground up for live television broadcasting. Architect David Rockwell designed the orchestra seating with a steep rake so cameras can capture clean reaction shots of nominees without heads blocking the view. The venue features an extensive subterranean cable network built directly into the floor and walls, allowing dozens of international television networks to plug directly into broadcast feeds. The private greenroom suites are soundproofed and strategically connected to backstage tunnels to manage celebrity traffic." 
           },
           { 
             h: "The Walk of Winners", 
-            p: "As you walk into the main entrance lobby leading to the theater doors, look at the illuminated art-glass columns lining the grand staircase. Each column is etched with the name of every single film that has won Best Picture, from <em>Wings</em> in 1927 to the present day. If you look closely, you will see blank spaces left intentionally open for future winners decades down the road." 
+            p: "As you walk through the multi-tiered grand lobby leading toward the theater doors, look at the illuminated art-glass columns flanking the central staircase. Each column is etched with the name of every single film that has won Best Picture, from <em>Wings</em> in 1927 to the present day. If you inspect the higher tiers of the glass pillars, you will notice large blank spaces intentionally left open. These empty bands are reserved for the future Best Picture winners of the next several decades." 
           },
           { 
-            h: "The Red Carpet Transformation", 
-            p: "When the Oscars take place each spring, this entire boulevard is shut down. The mundane concrete sidewalk is draped in hundreds of feet of red carpet, a massive protective tent is erected over the street to prevent rain from ruining designer gowns, and international media networks take over the adjacent storefronts." 
+            h: "The Multi-Block Red Carpet Transformation", 
+            p: "Each spring, the city shuts down Hollywood Boulevard for nearly an entire week to construct the Oscars arrival compound. Workers install heavy steel scaffolding and an extensive transparent weather tent over the street to protect designer gowns from sudden rain. Hundreds of feet of vibrant red carpet are rolled out across the raw asphalt, transforming the public roadway into an exclusive, highly secured corridor lined with dozens of international media stages." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "The Archway Photo", d: "Take the outdoor escalator up to the 3rd-floor pedestrian bridge. Look straight through the open archway to capture a framed postcard shot of the Hollywood Sign up on Mount Lee." }
+          { cls: "box-tip", t: "The Archway Photo", d: "Take the outdoor escalator up to the 3rd-floor pedestrian bridge. Look straight through the open Babylon archway to capture a framed postcard shot of the Hollywood Sign." }
         ]
       },
       es: {
@@ -159,34 +170,35 @@ const tourData = {
         address: "6801 Hollywood Blvd",
         short: "2. Teatro Dolby",
         timeline: [
-          { y: "2001", t: "El complejo se inaugura como el Teatro Kodak, diseñado para los Premios de la Academia." },
-          { y: "2002", t: "Los Óscar se celebran aquí por primera vez, estableciendo su sede permanente." },
-          { y: "2012", t: "Kodak se declara en bancarrota; Dolby Laboratories adquiere los derechos del nombre." }
+          { y: "2001", t: "Abre sus puertas como el Teatro Kodak, diseñado para los Premios de la Academia." },
+          { y: "2002", t: "Alberga los Óscar por primera vez, terminando con décadas de sedes provisionales." },
+          { y: "2012", t: "Dolby Laboratories adquiere los derechos del nombre tras la quiebra de Kodak." },
+          { y: "Presente", t: "Transmite la ceremonia en vivo a cientos de millones de televidentes." }
         ],
         people: [
-          { name: "David Rockwell", role: "Arquitecto Principal", bio: "Arquitecto teatral que diseñó el recinto para lucir espectacular en televisión y garantizar ángulos de cámara perfectos." },
-          { name: "Sid Ganis", role: "Expresidente de la Academia", bio: "Figura clave para establecer este teatro como la sede definitiva de los Óscar, terminando con décadas de mudanzas." }
+          { name: "David Rockwell", role: "Arquitecto Teatral Principal", bio: "Diseñador que estructuró el auditorio con una inclinación especial e iluminación técnica para transmisiones televisivas globales." },
+          { name: "Sid Ganis", role: "Expresidente de la Academia", bio: "Ejecutivo cinematográfico que impulsó la construcción de una sede tecnológica definitiva para los Premios Óscar en Hollywood." }
         ],
         stories: [
           { 
             h: "El Hogar Definitivo de los Óscar", 
-            p: "Baja hacia Hollywood Boulevard y párate bajo el imponente arco babilónico en Ovation Hollywood. Desde 2002, este teatro de 3,400 butacas ha sido la sede permanente de los Premios de la Academia. Antes de su construcción, la ceremonia rebotaba entre hoteles y auditorios por toda la ciudad." 
+            p: "Párense bajo el imponente arco de estilo babilónico en el patio central de Ovation Hollywood. Desde marzo de 2002, este auditorio de 3,400 butacas ha sido la sede definitiva construida a la medida de los Premios Óscar. Durante más de siete décadas, la gala no tuvo un recinto propio y deambuló entre salones de hoteles, el Dorothy Chandler Pavilion en el centro y el Shrine Auditorium. Los líderes de la ciudad comprendieron que Hollywood necesitaba un templo moderno para regresar su noche más importante al lugar donde todo comenzó." 
           },
           { 
-            h: "Diseñado para la Televisión", 
-            p: "A diferencia de un teatro tradicional, el Teatro Dolby fue construido específicamente para transmisiones en vivo. El arquitecto David Rockwell le dio a la platea una inclinación inusual para que las cámaras puedan captar las reacciones de los nominados sin obstrucciones. Además, cuenta con una red subterránea de cables para conectar a las televisoras globales." 
+            h: "Ingeniería para la Televisión en Vivo", 
+            p: "A diferencia de los teatros convencionales diseñados solo para la voz, el Teatro Dolby fue concebido desde sus cimientos para transmisiones televisivas complejas. El arquitecto David Rockwell diseñó la platea con una inclinación pronunciada para que las cámaras graben las reacciones de los nominados sin que las cabezas de enfrente tapen la toma. Las paredes y suelos contienen una inmensa red oculta de fibra óptica para que las televisoras del mundo se conecten al instante. Además, cuenta con camerinos insonorizados y túneles subterráneos para el flujo seguro de las celebridades." 
           },
           { 
             h: "El Paseo de los Ganadores", 
-            p: "Al caminar hacia las puertas del teatro, observa las columnas de vidrio en la gran escalera. Cada columna lleva grabado el título de la película ganadora a Mejor Película desde <em>Wings</em> en 1927 hasta la actualidad. Si miras con atención, verás espacios en blanco reservados para los ganadores de las próximas décadas." 
+            p: "Al recorrer el vestíbulo principal hacia las puertas del auditorio, observen las columnas de vidrio translúcido que decoran la gran escalera. Cada columna lleva grabado el título de cada largometraje ganador a Mejor Película desde <em>Wings</em> en 1927 hasta la actualidad. Si miran con atención los niveles superiores de los pilares, verán amplias secciones de vidrio completamente vacías. Esos paneles están reservados para las películas que ganarán el premio en las próximas décadas." 
           },
           { 
             h: "La Transformación de la Alfombra Roja", 
-            p: "Cada primavera, durante los Óscar, este bulevar se cierra por completo. La acera se cubre con cientos de metros de alfombra roja, se levanta una enorme carpa protectora para evitar que la lluvia arruine los vestidos, y la prensa internacional toma el control de la zona." 
+            p: "Cada primavera, el Ayuntamiento cierra el bulevar durante casi una semana completa para montar el impresionante complejo de la alfombra roja. Se instalan cientos de toneladas de estructuras de acero y una carpa protectora transparente para evitar que la lluvia dañe los vestidos de alta costura. Kilómetros de tela roja cubren el asfalto público, convirtiendo la calle en un set de máxima seguridad rodeado de reflectores y estudios de televisión internacionales." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "El Mirador del Arco", d: "Sube por las escaleras mecánicas hasta el puente peatonal del tercer piso. Desde allí tendrás una vista enmarcada perfecta del letrero de Hollywood." }
+          { cls: "box-tip", t: "El Mirador del Arco", d: "Suban por las escaleras mecánicas hasta el puente peatonal del tercer piso para obtener una vista enmarcada perfecta del letrero de Hollywood a través del arco." }
         ]
       }
     },
@@ -200,36 +212,36 @@ const tourData = {
         address: "6925 Hollywood Blvd",
         short: "3. Chinese Theatre",
         timeline: [
-          { y: "1927", t: "Showman Sid Grauman opens the theater with the premiere of Cecil B. DeMille's The King of Kings." },
-          { y: "1944", t: "Hosts the Academy Awards for the first time, continuing until 1946." },
-          { y: "1968", t: "Designated a historic-cultural monument." },
-          { y: "2013", t: "Undergoes a massive renovation to install one of the largest IMAX screens in the world." }
+          { y: "1927", t: "Showman Sid Grauman opens the palace with Cecil B. DeMille's The King of Kings." },
+          { y: "1944", t: "Hosts the Academy Awards for three consecutive years (1944–1946)." },
+          { y: "1977", t: "Hosts the historic opening day lines for the original Star Wars." },
+          { y: "2013", t: "Undergoes a multi-million-dollar renovation into a premier custom IMAX auditorium." }
         ],
         people: [
-          { name: "Sid Grauman", role: "Master Showman", bio: "Legendary theater impresario who moved from DTLA to Hollywood to build exotic, immersive movie palaces." },
-          { name: "Norma Talmadge", role: "Silent Film Star", bio: "Hollywood legend whose accidental step into wet cement during construction allegedly inspired the famous footprint tradition." },
-          { name: "Raymond M. Kennedy", role: "Lead Architect", bio: "Designed the dramatic 90-foot pagoda roof and the exotic imported stone masonry of the forecourt." }
+          { name: "Sid Grauman", role: "Master Showman & Impresario", bio: "Theatrical mastermind who moved from Downtown LA to Hollywood to construct extravagant, fantasy-themed motion picture palaces." },
+          { name: "Norma Talmadge", role: "Silent Screen Legend", bio: "Top-billed silent star whose accidental stumble into fresh concrete during the 1927 construction sparked the iconic forecourt tradition." },
+          { name: "Raymond M. Kennedy", role: "Lead Architect", bio: "Architect of Meyer & Holler who designed the dramatic 90-foot bronze pagoda roof and imported authentic stone artifacts from China." }
         ],
         stories: [
           { 
-            h: "The Golden Age Vault", 
-            p: "Step down into the concrete forecourt of the most famous cinema palace in history. Following his massive success with the Million Dollar Theater in DTLA, showman Sid Grauman moved west to Hollywood. In 1927, he opened this spectacular venue to transport moviegoers into an exotic fantasy before the film even began." 
+            h: "The Golden Age Cinema Palace", 
+            p: "Step into the concrete forecourt of the most famous movie theater on Earth. Following his success building the Million Dollar Theater in Downtown LA, showman Sid Grauman moved west to Hollywood in the 1920s. On May 18, 1927, he opened this opulent movie palace with the premiere of Cecil B. DeMille’s <em>The King of Kings</em>. Grauman believed that moviegoing should be an all-encompassing theatrical experience, immersing audiences in exotic architectural escapism before the projector even began rolling." 
           },
           { 
-            h: "Pagodas & Heaven Dogs", 
-            p: "Look up at the dramatic 90-foot bronze pagoda roof. The architecture was designed by Raymond M. Kennedy, who secured permission from the US government to import authentic temple bells, pagodas, and stone artifacts directly from China. Flanking the main entrance are two authentic 15th-century stone Heaven Dogs, brought over to ward off evil spirits." 
+            h: "Pagodas, Artifacts & Heaven Dogs", 
+            p: "Look up at the dramatic 90-foot bronze pagoda roof resting between two soaring coral-red columns. Architect Raymond M. Kennedy secured special federal clearance to import authentic 15th-century Ming Dynasty stone temple artifacts, temple bells, and pagodas directly from China. Standing guard before the copper front doors are two authentic stone Heaven Dogs (Foo Dogs), positioned to ward off evil spirits from the premises. The facade was hand-carved by expert artisans who incorporated intricate lotus blossoms, dragons, and theatrical motifs into the stone." 
           },
           { 
-            h: "The Accidental Footprint Tradition", 
-            p: "Look down at the concrete under your feet. The tradition of celebrity handprints didn't start in a boardroom—it started by accident. During construction in 1927, silent screen star Norma Talmadge accidentally stepped into a patch of wet cement. Grauman saw the crowd's fascinated reaction and immediately realized he could turn the mishap into cinema's permanent autograph book." 
+            h: "The Accidental Footprint Lore", 
+            p: "Look down at the slabs of cement under your feet. This world-famous Hollywood ritual was born entirely by accident during construction in the spring of 1927. Silent film star Norma Talmadge was visiting the active job site with Grauman when she inadvertently stepped into a patch of wet, curing concrete. Seeing the fascinated crowd gathered around her boot print, Grauman instantly realized he had stumbled upon the ultimate publicity mechanism: a permanent, concrete autograph book for cinema royalty." 
           },
           { 
-            h: "Rules of the Forecourt", 
-            p: "Unlike the Walk of Fame stars on the sidewalk, getting your hands in the cement here is strictly by invitation only. There are fewer than 300 imprints in the entire forecourt. When space runs out, the theater occasionally removes older, less famous blocks and places them in storage to make room for modern blockbusters." 
+            h: "Forecourt Secrets & Slab Rotations", 
+            p: "Unlike Walk of Fame sidewalk stars, which can be purchased through nomination campaigns, cement handprints in this courtyard are strictly by invitation from a theater committee. There are fewer than 300 historic stone slabs in the entire courtyard. Marilyn Monroe famously embedded a real glass rhinestone into the dot of the 'i' in her signature, Groucho Marx pressed his burning cigar into the mud, and the <em>Harry Potter</em> trio imprinted their wands in 2007. When ground space fills up, older and lesser-known historical slabs are occasionally removed and placed into secure museum storage." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Forecourt Scavenger Hunt", d: "<ul><li><strong>Marilyn Monroe:</strong> Look closely at the dot over the letter 'i'—she pressed a real rhinestone into the concrete.</li><li><strong>Groucho Marx:</strong> Find where he pressed his iconic cigar into the cement.</li><li><strong>Harry Potter:</strong> Find the footprints and wand imprints of the trio (Radcliffe, Watson, Grint).</li></ul>" }
+          { cls: "box-lore", t: "Forecourt Scavenger Hunt", d: "<ul><li><strong>Marilyn Monroe:</strong> Look closely at the dot over the letter 'i' to spot where she pressed a rhinestone.</li><li><strong>Groucho Marx:</strong> Find where he pressed his iconic cigar into the wet cement.</li><li><strong>Star Wars (1977):</strong> Spot the droid wheel marks of R2-D2 and foot imprints of C-3PO and Darth Vader.</li></ul>" }
         ]
       },
       es: {
@@ -237,36 +249,36 @@ const tourData = {
         address: "6925 Hollywood Blvd",
         short: "3. Teatro Chino",
         timeline: [
-          { y: "1927", t: "Sid Grauman inaugura el teatro con el estreno de El Rey de Reyes de Cecil B. DeMille." },
-          { y: "1944", t: "Sede de los Premios Óscar por primera vez, albergándolos hasta 1946." },
-          { y: "1968", t: "Declarado monumento histórico-cultural." },
-          { y: "2013", t: "Remodelación masiva para instalar una de las pantallas IMAX más grandes del mundo." }
+          { y: "1927", t: "Sid Grauman inaugura el palacio con El Rey de Reyes de Cecil B. DeMille." },
+          { y: "1944", t: "Sede de los Premios Óscar durante tres años consecutivos (1944–1946)." },
+          { y: "1977", t: "Filas históricas de estreno para la primera entrega de Star Wars." },
+          { y: "2013", t: "Remodelación integral para albergar una de las salas IMAX más modernas del mundo." }
         ],
         people: [
-          { name: "Sid Grauman", role: "Empresario Teatral", bio: "Legendario productor que se mudó del centro de LA a Hollywood para construir palacios de cine exóticos e inmersivos." },
-          { name: "Norma Talmadge", role: "Estrella del Cine Mudo", bio: "Actriz cuya pisada accidental en cemento fresco inspiró la famosa tradición de las huellas de Hollywood." },
-          { name: "Raymond M. Kennedy", role: "Arquitecto", bio: "Diseñó el espectacular techo de pagoda de 90 pies y gestionó la importación de piezas históricas chinas." }
+          { name: "Sid Grauman", role: "Empresario y Productor Teatral", bio: "Visionario del entretenimiento que transformó Hollywood construyendo palacios de cine con ambientaciones exóticas e inmersivas." },
+          { name: "Norma Talmadge", role: "Estrella del Cine Mudo", bio: "Actriz consagrada cuya pisada accidental en cemento fresco durante las obras de 1927 originó la tradición del patio." },
+          { name: "Raymond M. Kennedy", role: "Arquitecto Principal", bio: "Diseñador que concibió el techo de pagoda de 27 metros e importó reliquias de piedra de la Dinastía Ming desde China." }
         ],
         stories: [
           { 
-            h: "La Bóveda de la Edad de Oro", 
-            p: "Entra al patio de concreto del palacio de cine más famoso de la historia. Tras su éxito con el Teatro Million Dollar en DTLA, el empresario Sid Grauman se trasladó a Hollywood. En 1927, inauguró este espectacular recinto diseñado para transportar a los espectadores a una fantasía exótica antes de que la película comenzara." 
+            h: "El Palacio del Cine de la Edad de Oro", 
+            p: "Entren al patio de concreto del cine más emblemático del mundo. Tras triunfar en el centro de Los Ángeles con el Teatro Million Dollar, el productor Sid Grauman trasladó sus operaciones a Hollywood en los años 20. El 18 de mayo de 1927 inauguró este fastuoso palacio con el estreno de <em>El Rey de Reyes</em> de Cecil B. DeMille. Grauman defendía que ir al cine debía ser una experiencia artística total, transportando a la audiencia a mundos lejanos antes de que comenzara la película." 
           },
           { 
-            h: "Pagodas y Perros del Cielo", 
-            p: "Mira hacia arriba al dramático techo de pagoda de bronce de 90 pies. El arquitecto Raymond M. Kennedy obtuvo permisos del gobierno para importar campanas de templos y artefactos de piedra directamente de China. En la entrada principal montan guardia dos Perros del Cielo (Leones de Fu) auténticos del siglo XV, traídos para alejar a los malos espíritus." 
+            h: "Pagodas, Reliquias y Leones Celestiales", 
+            p: "Miren hacia arriba al impresionante techo de pagoda de bronce de 27 metros sostenido por dos columnas de color rojo coral. El arquitecto Raymond M. Kennedy obtuvo permisos del gobierno estadounidense para importar campanas de templos y piezas de piedra del siglo XV directamente desde China. Custodiando la entrada de cobre se alzan dos auténticos Perros del Cielo (Leones de Fu), colocados estratégicamente para alejar a los malos espíritus. Cada detalle de la fachada fue tallado a mano con dragones y flores de loto por artesanos especializados." 
           },
           { 
             h: "La Tradición Accidental de las Huellas", 
-            p: "Mira el suelo bajo tus pies. La tradición de imprimir las manos no fue planeada. Durante la construcción en 1927, la estrella del cine mudo Norma Talmadge pisó accidentalmente cemento fresco. Grauman notó la fascinación del público y decidió convertir ese error en el álbum de autógrafos más duradero del cine." 
+            p: "Miren las losas de concreto bajo sus pies. Este famoso ritual cinematográfico nació por un tropiezo accidental en la primavera de 1927. La estrella del cine mudo Norma Talmadge visitaba las obras junto a Grauman cuando pisó sin querer una sección de cemento fresco. Al notar la fascinación de los transeúntes que se arremolinaron a ver la marca de su zapato, Grauman comprendió de inmediato el enorme valor comercial de crear un álbum de firmas eterno grabado en piedra." 
           },
           { 
-            h: "Las Reglas del Patio", 
-            p: "A diferencia de las estrellas en las aceras, poner tus manos en este cemento es estrictamente por invitación. Hay menos de 300 bloques en todo el patio. Cuando el espacio se agota, el teatro retira los bloques más antiguos y los guarda en bodegas para hacer espacio a las nuevas estrellas." 
+            h: "Secretos del Patio y Rotación de Losas", 
+            p: "A diferencia de las estrellas del Paseo de la Fama en la banqueta, poner las manos en este patio es un honor exclusivo otorgado por un comité especial. Hay menos de 300 bloques en todo el suelo. Marilyn Monroe incrustó un diamante de fantasía en el punto de la letra 'i' de su nombre, Groucho Marx hundió su puro encendido y el trío de <em>Harry Potter</em> grabó sus varitas mágicas en 2007. Cuando el espacio se agota, las losas de actores antiguos menos recordados son retiradas y protegidas en bóvedas de archivo." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Búsqueda del Tesoro", d: "<ul><li><strong>Marilyn Monroe:</strong> Mira el punto sobre la letra 'i', allí incrustó un diamante de imitación.</li><li><strong>Groucho Marx:</strong> Busca la marca donde hundió su famoso puro.</li><li><strong>Harry Potter:</strong> Encuentra las huellas y varitas mágicas del trío protagonista.</li></ul>" }
+          { cls: "box-lore", t: "Búsqueda del Tesoro en el Patio", d: "<ul><li><strong>Marilyn Monroe:</strong> Miren de cerca el punto sobre la letra 'i' para ver el diamante incrustado.</li><li><strong>Groucho Marx:</strong> Busquen la marca redonda donde hundió su famoso puro.</li><li><strong>Star Wars (1977):</strong> Encuentren las huellas de las ruedas de R2-D2 y los pies de C-3PO y Darth Vader.</li></ul>" }
         ]
       }
     },
@@ -280,35 +292,36 @@ const tourData = {
         address: "7000 Hollywood Blvd (Cross the street)",
         short: "4. The Roosevelt",
         timeline: [
-          { y: "1927", t: "Opens its doors, financed by a syndicate of Hollywood royalty." },
-          { y: "1929", t: "Hosts the very first Academy Awards in the Blossom Room." },
-          { y: "1988", t: "David Hockney paints his million-dollar mural on the bottom of the Tropicana Pool." }
+          { y: "1927", t: "Opens its doors, funded by a syndicate of Hollywood's founding royalty." },
+          { y: "1929", t: "Hosts the very first Academy Awards banquet in the Blossom Room." },
+          { y: "1952", t: "Marilyn Monroe resides in a poolside cabana suite during her early rise." },
+          { y: "1988", t: "British artist David Hockney paints his million-dollar mural on the pool floor." }
         ],
         people: [
-          { name: "Douglas Fairbanks & Mary Pickford", role: "Founders & Investors", bio: "Silent film royalty who pooled their massive wealth with Louis B. Mayer to build a luxury hotel fit for their celebrity peers." },
-          { name: "Marilyn Monroe", role: "Iconic Resident", bio: "Lived in a 2nd-floor cabana room for two years at the start of her modeling career, shooting her very first commercial print ads on the pool diving board." },
-          { name: "David Hockney", role: "Contemporary Artist", bio: "Legendary British painter who spent an afternoon painting a sweeping blue mural directly onto the bottom of the hotel's empty swimming pool." }
+          { name: "Douglas Fairbanks & Mary Pickford", role: "Founders & Investors", bio: "Silent screen legends who pooled their fortunes with studio boss Louis B. Mayer to create an exclusive luxury hotel for the motion picture elite." },
+          { name: "Marilyn Monroe", role: "Iconic Resident", bio: "Lived in cabana suite #229 for two formative years, shooting her very first commercial print ads on the hotel's diving board." },
+          { name: "David Hockney", role: "Contemporary Master", bio: "Renowned British painter who spent an afternoon painting a sweeping blue crescent mural on the bottom of the drained Tropicana Pool." }
         ],
         stories: [
           { 
-            h: "The Celebrity Syndicate", 
-            p: "Step inside the grand Spanish Colonial lobby of the Hollywood Roosevelt Hotel. Opened in 1927, this luxury hotel wasn't built by a traditional real estate firm. It was financed by a syndicate of Hollywood royalty: Douglas Fairbanks, Mary Pickford, and studio boss Louis B. Mayer. They wanted a glamorous playground exclusively for the film industry." 
+            h: "The Celebrity Investment Syndicate", 
+            p: "Step across the street into the grand Spanish Colonial lobby of the Hollywood Roosevelt Hotel. Opened in May 1927, this luxury landmark was not constructed by ordinary commercial developers. It was financed by a private syndicate of Hollywood royalty: Douglas Fairbanks, Mary Pickford, Sid Grauman, and MGM studio boss Louis B. Mayer. They invested $2.5 million to create an opulent retreat where industry executives and movie stars could dine, drink, and conduct business away from prying press cameras." 
           },
           { 
-            h: "The 15-Minute Oscars", 
-            p: "Walk up the mezzanine stairs toward the Blossom Room. On May 16, 1929, the very first Academy Awards ceremony was held right here as a private industry banquet. The atmosphere was radically different from today: there were only 270 guests, tickets cost just $5, and the winners had already been announced in the newspapers three months earlier. The entire awards presentation lasted a mere 15 minutes." 
+            h: "The 15-Minute Academy Awards (1929)", 
+            p: "Walk up the mezzanine staircase to the historic Blossom Room. On May 16, 1929, the very first Academy Awards ceremony was held right here as an intimate industry dinner for just 270 guests. Tickets cost five dollars, and there was zero broadcast suspense because the winners had already been printed in local newspapers three months earlier. The entire awards presentation was hosted by Douglas Fairbanks and lasted a mere 15 minutes, serving as a brief toast before a private late-night party." 
           },
           { 
             h: "Marilyn Monroe's Launchpad", 
-            p: "The Roosevelt is deeply tied to Marilyn Monroe's legacy. Before she was a global icon, Norma Jeane Mortenson lived here in a second-floor cabana room for two years. She shot her very first commercial magazine ad—an ad for suntan lotion—posing on the diving board of the hotel's Tropicana Pool." 
+            p: "The Roosevelt played a pivotal role in the early life of Norma Jeane Mortenson before she became Marilyn Monroe. In the late 1940s and early 1950s, she lived in a second-floor poolside cabana room for two years while modeling for the Blue Book Agency and signing her first studio contracts. She posed for her very first commercial magazine advertisement—a print feature for suntan lotion—standing directly on the diving board of the hotel's Tropicana Pool. The property became her personal sanctuary throughout her rise to international stardom." 
           },
           { 
-            h: "The Haunted Corridors", 
-            p: "With so much history, the Roosevelt is famous for its paranormal lore. Guests and staff have reported seeing the ghost of Montgomery Clift pacing the 9th floor, and many claim to have seen Marilyn Monroe's reflection in a full-length vintage mirror that once stood in her suite." 
+            h: "David Hockney's Pool & Ghost Lore", 
+            p: "Walk out back into the lush courtyard to view the famous Tropicana Pool. In 1988, celebrated British artist David Hockney drained the water and spent an afternoon painting a series of blue curved brushstrokes directly onto the plaster floor, creating a celebrated work of modern art. The hotel is also famous for its ghost stories. Staff and guests have reported hearing actor Montgomery Clift practicing his brass trumpet on the ninth floor, while others have reported seeing Marilyn Monroe's reflection in a full-length vintage mirror that once furnished her poolside suite." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "The Million-Dollar Pool", d: "Walk out back to the Tropicana Pool courtyard. Look down into the water to see the sweeping blue crescent mural painted directly on the pool floor by legendary artist David Hockney in 1988." }
+          { cls: "box-tip", t: "The Million-Dollar Pool", d: "Step into the Tropicana courtyard and peer down through the pool water to admire the million-dollar curved blue mural painted by artist David Hockney in 1988." }
         ]
       },
       es: {
@@ -316,35 +329,36 @@ const tourData = {
         address: "7000 Hollywood Blvd (Cruza la calle)",
         short: "4. The Roosevelt",
         timeline: [
-          { y: "1927", t: "Abre sus puertas, financiado por un grupo de superestrellas de Hollywood." },
-          { y: "1929", t: "Sede de la primera entrega de los Premios Óscar en el Blossom Room." },
-          { y: "1988", t: "David Hockney pinta su mural de un millón de dólares en el fondo de la piscina." }
+          { y: "1927", t: "Abre sus puertas, financiado por los fundadores de la industria del cine." },
+          { y: "1929", t: "Sede de la primera ceremonia de los Premios Óscar en el Blossom Room." },
+          { y: "1952", t: "Marilyn Monroe vive en una de las cabañas junto a la piscina del hotel." },
+          { y: "1988", t: "El artista David Hockney pinta su famoso mural en el fondo de la piscina." }
         ],
         people: [
-          { name: "Douglas Fairbanks y Mary Pickford", role: "Fundadores e Inversores", bio: "Realeza del cine mudo que unió su fortuna con Louis B. Mayer para construir un hotel de lujo digno de la élite de Hollywood." },
-          { name: "Marilyn Monroe", role: "Residente Histórica", bio: "Vivió en una cabaña del segundo piso durante dos años al inicio de su carrera, realizando su primera sesión de fotos en el trampolín de la piscina." },
-          { name: "David Hockney", role: "Artista Contemporáneo", bio: "Pintor británico que decoró el fondo de la piscina vacía con un icónico diseño de medialunas azules valuado en millones." }
+          { name: "Douglas Fairbanks y Mary Pickford", role: "Fundadores e Inversores", bio: "Monarcas del cine mudo que unieron sus fortunas con Louis B. Mayer para levantar un hotel de lujo exclusivo para la élite de Hollywood." },
+          { name: "Marilyn Monroe", role: "Residente Emblemática", bio: "Vivió en la cabaña #229 durante dos años cruciales, realizando su primera sesión publicitaria en el trampolín del hotel." },
+          { name: "David Hockney", role: "Artista Contemporáneo", bio: "Pintor británico que decoró el fondo de la piscina con un mural de trazos azules curvados valuado en millones de dólares." }
         ],
         stories: [
           { 
-            h: "El Sindicato de las Estrellas", 
-            p: "Entra al majestuoso vestíbulo de estilo colonial español. Inaugurado en 1927, este hotel no fue construido por una inmobiliaria tradicional, sino financiado por la realeza de Hollywood: Douglas Fairbanks, Mary Pickford y el jefe de estudio Louis B. Mayer. Querían un patio de juegos glamuroso exclusivamente para la élite del cine." 
+            h: "El Sindicato de las Superestrellas", 
+            p: "Crucen la calle y entren al majestuoso vestíbulo colonial español del Hotel Hollywood Roosevelt. Inaugurado en mayo de 1927, este inmueble histórico no fue levantado por inversionistas inmobiliarios comunes. Fue financiado por las máximas estrellas del cine: Douglas Fairbanks, Mary Pickford, Sid Grauman y el jefe de MGM, Louis B. Mayer. Invirtieron $2.5 millones de dólares para crear un refugio de lujo donde directores y actores pudieran cenar, festejar y cerrar contratos lejos de los periodistas." 
           },
           { 
-            h: "Los Óscar de 15 Minutos", 
-            p: "Sube las escaleras hacia el Blossom Room. El 16 de mayo de 1929, la primera ceremonia de los Premios de la Academia se celebró aquí como un banquete privado. El ambiente era muy distinto al actual: solo asistieron 270 invitados, el boleto costaba $5 dólares, y los ganadores ya habían sido publicados en los periódicos meses antes. La entrega de premios duró apenas 15 minutos." 
+            h: "Los Premios Óscar de 15 Minutos (1929)", 
+            p: "Suban las escaleras hacia el salón Blossom Room en el entrepiso. El 16 de mayo de 1929 se celebró aquí la primera entrega de los Premios de la Academia como un banquete íntimo para solo 270 personas. La entrada costaba cinco dólares y no existía tensión mediática porque los ganadores ya habían sido publicados en los periódicos tres meses antes. Douglas Fairbanks entregó los galardones en apenas 15 minutos, convirtiendo la noche en una cena relajada entre colegas." 
           },
           { 
             h: "El Despegue de Marilyn Monroe", 
-            p: "El Roosevelt está ligado al legado de Marilyn. Antes de ser un ícono global, Norma Jeane Mortenson vivió aquí en una cabaña junto a la piscina durante dos años. Su primera sesión de fotos comercial (para un anuncio de bronceador) se realizó posando en el trampolín del hotel." 
+            p: "El Roosevelt fue fundamental en los inicios de Norma Jeane Mortenson antes de ser Marilyn Monroe. A finales de los años 40 vivió durante dos años en una cabaña del segundo piso junto a la piscina mientras trabajaba como modelo y firmaba sus primeros contratos con los estudios. Su primera sesión publicitaria comercial—un anuncio de bronceador—se tomó sobre el trampolín de la piscina Tropicana. El hotel fue su hogar seguro en los momentos en que despegaba su carrera mundial." 
           },
           { 
-            h: "Pasillos Embrujados", 
-            p: "Con tanta historia, el Roosevelt es famoso por sus leyendas paranormales. Huéspedes y empleados afirman haber visto el fantasma del actor Montgomery Clift en el noveno piso, y muchos aseguran haber visto el reflejo de Marilyn Monroe en un espejo antiguo que pertenecía a su suite." 
+            h: "La Piscina de David Hockney y Leyendas", 
+            p: "Salgan al patio trasero para contemplar la emblemática piscina Tropicana. En 1988, el pintor británico David Hockney vació el agua y pasó una tarde entera pintando medialunas azules sobre el concreto, creando una obra de arte moderna de valor incalculable. Además, el hotel es famoso por sus relatos paranormales. Huéspedes y empleados afirman escuchar al actor Montgomery Clift practicando la trompeta en el noveno piso, y muchos aseguran haber visto el reflejo de Marilyn Monroe en un espejo antiguo de su antigua suite." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "La Piscina del Millón de Dólares", d: "Camina hacia el patio trasero de la piscina Tropicana. Mira el fondo del agua para ver el mural de medialunas pintado directamente sobre el concreto por el famoso artista David Hockney en 1988." }
+          { cls: "box-tip", t: "La Piscina del Millón de Dólares", d: "Asómense a la piscina del patio Tropicana para ver a través del agua los trazos curvos azules pintados por el famoso artista David Hockney en 1988." }
         ]
       }
     },
@@ -359,35 +373,35 @@ const tourData = {
         short: "5. Egyptian Theatre",
         timeline: [
           { y: "1922", t: "Opens its doors, capitalizing on global Egyptomania." },
-          { y: "1922", t: "Hosts the premiere of Robin Hood, inventing the Hollywood red carpet." },
-          { y: "1998", t: "Purchased and restored by the American Cinematheque." },
-          { y: "2023", t: "Netflix completes a multi-million dollar architectural restoration." }
+          { y: "1922", t: "Hosts the premiere of Robin Hood, inventing the modern red carpet." },
+          { y: "1998", t: "Purchased and stabilized by the American Cinematheque." },
+          { y: "2023", t: "Netflix and American Cinematheque complete a historic restoration." }
         ],
         people: [
-          { name: "Sid Grauman", role: "Master Showman", bio: "The pioneer who conceptualized the theater's exotic design and invented the modern movie premiere." },
-          { name: "Douglas Fairbanks", role: "Actor & Producer", bio: "Swashbuckling star of Robin Hood (1922), whose massive premiere here set the template for Hollywood arrivals." },
-          { name: "Howard Carter", role: "Archaeologist", bio: "His historic 1922 discovery of King Tutankhamun's tomb in Egypt perfectly coincided with the theater's opening, driving massive ticket sales." }
+          { name: "Sid Grauman", role: "Master Showman & Impresario", bio: "The promotional pioneer who conceived the courtyard theater format and created the template for modern movie premieres." },
+          { name: "Douglas Fairbanks", role: "Actor & Film Producer", bio: "Silent screen swashbuckler whose blockbuster Robin Hood launched the theater and set the gold standard for celebrity arrivals." },
+          { name: "Howard Carter", role: "British Archaeologist", bio: "His historic 1922 discovery of King Tutankhamun's tomb in Egypt fueled worldwide public fascination that Grauman leveraged to sell tickets." }
         ],
         stories: [
           { 
-            h: "The Birth of Egyptomania", 
-            p: "Five years before he built the Chinese Theatre, Sid Grauman opened the Egyptian Theatre in 1922. The timing was a stroke of marketing genius. That same year, archaeologist Howard Carter discovered the intact tomb of King Tutankhamun in the Valley of the Kings. The world was gripped by 'Egyptomania,' and Grauman capitalized on it by designing a massive open-air forecourt styled like a Pharaoh's temple." 
+            h: "The Birth of Egyptomania (1922)", 
+            p: "Five years before he constructed the Chinese Theatre, Sid Grauman opened the Egyptian Theatre on October 18, 1922. His timing was a masterstroke of marketing intuition. Earlier that same year, British archaeologist Howard Carter discovered the untouched tomb of King Tutankhamun in Egypt's Valley of the Kings. The entire Western world was gripped by 'Egyptomania,' and Grauman capitalized on the craze by styling his new theater as an open-air pharaonic palace adorned with scarabs, sphinxes, and hieroglyphic murals." 
           },
           { 
-            h: "Inventing the Red Carpet", 
-            p: "On October 18, 1922, Grauman staged the world’s very first Hollywood movie premiere here for Douglas Fairbanks’ blockbuster <em>Robin Hood</em>. This single event invented the modern cinematic premiere: Grauman utilized sweeping searchlights in the night sky, velvet ropes, screaming fans, and rolled out a massive red carpet for stars to walk down as they exited their luxury roadsters." 
+            h: "Inventing the Hollywood Red Carpet", 
+            p: "The Egyptian Theatre holds a monumental place in cinema history as the birthplace of the modern movie premiere. On opening night in 1922, Grauman staged the world premiere of Douglas Fairbanks’ million-dollar epic <em>Robin Hood</em>. This single evening established the promotional formula still used worldwide today: Grauman set up military searchlights sweeping the sky, assembled velvet crowd ropes, and rolled out a long red carpet across the courtyard for Fairbanks and Mary Pickford to walk down as screaming fans looked on." 
           },
           { 
             h: "The Forecourt Experience", 
-            p: "The theater's long, grand courtyard was designed not just for aesthetics, but for crowd control and spectacle. Grauman hired actors dressed as Egyptian guards to pace the roof parapets with spears, and real monkeys and peacocks were kept in the courtyard to entertain guests waiting for the show." 
+            p: "The deep, open-air courtyard in front of the theater was engineered for spectacle and crowd management. Before the feature presentation began, Grauman hired costumed actors dressed as Egyptian temple guards to pace the upper roof parapets with bronze spears, announcing showtimes with ceremonial horns. Grauman even kept live monkeys, tropical birds, and exotic desert artifacts in the courtyard to entertain waiting ticket holders as they queued up for the show." 
           },
           { 
-            h: "The Netflix Restoration", 
-            p: "After decades of neglect, the theater was recently purchased by Netflix in partnership with the American Cinematheque. They completed a staggering multi-million-dollar historical restoration, stripping away 1960s alterations to return the theater to its exact 1922 silent-era glory, complete with intricate hieroglyphic murals and a blazing sunburst ceiling." 
+            h: "The Netflix Architectural Restoration", 
+            p: "After falling into disrepair during the late 20th century, the Egyptian Theatre was purchased through a public-private partnership involving Netflix and the nonprofit American Cinematheque. Over three years, preservation experts stripped away clumsy 1960s drywall additions, seismic-retrofitted the masonry walls, and restored the original 1922 silent-era color palette. Today, the theater operates as one of the finest classic film revival houses in the world, equipped to project vintage nitrate, 35mm, 70mm, and digital cinema." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "A Real Hollywood Time Machine", d: "Walk all the way down the courtyard to the glass doors. The lobby and auditorium have been perfectly restored to how they looked 100 years ago, operating today as one of the finest classic film revival houses in America." }
+          { cls: "box-lore", t: "A 1922 Time Machine", d: "Walk down the courtyard to the main entrance doors. The lobby and auditorium have been restored to their exact 1922 silent-era appearance, complete with a gilded sunburst ceiling." }
         ]
       },
       es: {
@@ -395,36 +409,36 @@ const tourData = {
         address: "6712 Hollywood Blvd",
         short: "5. Teatro Egipcio",
         timeline: [
-          { y: "1922", t: "Abre sus puertas aprovechando la 'Egiptomanía' mundial." },
-          { y: "1922", t: "Estreno de Robin Hood, donde se inventa la alfombra roja." },
-          { y: "1998", t: "Comprado y salvado por la American Cinematheque." },
+          { y: "1922", t: "Abre sus puertas aprovechando la 'Egiptomanía' internacional." },
+          { y: "1922", t: "Estreno de Robin Hood, donde se inventa la alfombra roja moderna." },
+          { y: "1998", t: "Adquirido y rescatado por la American Cinematheque." },
           { y: "2023", t: "Netflix finaliza una restauración arquitectónica de millones de dólares." }
         ],
         people: [
-          { name: "Sid Grauman", role: "Productor", bio: "El genio publicitario que diseñó el teatro y creó el formato moderno de las premieres de Hollywood." },
-          { name: "Douglas Fairbanks", role: "Actor", bio: "Estrella de Robin Hood (1922), cuyo espectacular estreno aquí marcó un antes y un después en la industria." },
-          { name: "Howard Carter", role: "Arqueólogo", bio: "Su descubrimiento de la tumba de Tutankamón coincidió con la apertura del teatro, disparando la fiebre por la cultura egipcia." }
+          { name: "Sid Grauman", role: "Empresario y Productor", bio: "Pionero de la publicidad cinematográfica que ideó los teatros con patio y creó el formato moderno de los estrenos de cine." },
+          { name: "Douglas Fairbanks", role: "Actor y Productor", bio: "Aclamado héroe de acción de Robin Hood (1922), cuyo estreno consagró el protocolo de la llegada de estrellas." },
+          { name: "Howard Carter", role: "Arqueólogo Británico", bio: "Su hallazgo de la tumba de Tutankamón en 1922 desató una fascinación global que Grauman aprovechó para vender entradas." }
         ],
         stories: [
           { 
-            h: "La Fiebre por Egipto", 
-            p: "Cinco años antes de construir el Teatro Chino, Sid Grauman inauguró el Teatro Egipcio en 1922. Fue una jugada de marketing maestra: ese mismo año se descubrió la tumba de Tutankamón. El mundo entero sufría de 'Egiptomanía', y Grauman lo aprovechó diseñando un enorme patio al aire libre con el aspecto del templo de un faraón." 
+            h: "La Fiebre por Egipto (1922)", 
+            p: "Cinco años antes de construir el Teatro Chino, Sid Grauman inauguró el Teatro Egipcio el 18 de octubre de 1922. Fue una jugada publicitaria maestra. Ese mismo año, el arqueólogo Howard Carter descubrió la tumba intacta de Tutankamón en el Valle de los Reyes. El mundo entero sucumbió a la 'Egiptomanía', y Grauman aprovechó la euforia diseñando un teatro con la apariencia del templo de un faraón, lleno de escarabajos sagrados, esfinges y murales jeroglíficos." 
           },
           { 
             h: "La Invención de la Alfombra Roja", 
-            p: "El 18 de octubre de 1922, Grauman organizó aquí la primera gran premiere de Hollywood para la película <em>Robin Hood</em> de Douglas Fairbanks. Este evento inventó el formato moderno de los estrenos: Grauman usó reflectores antiaéreos en el cielo, cuerdas de terciopelo y desplegó una enorme alfombra roja para que las estrellas caminaran al bajar de sus autos." 
+            p: "El Teatro Egipcio es el lugar de nacimiento de las premieres cinematográficas modernas. En la noche inaugural de 1922, Grauman organizó el estreno mundial de la superproducción <em>Robin Hood</em> de Douglas Fairbanks. Esa velada definió la fórmula que se sigue usando en todo el mundo: Grauman colocó reflectores antiaéreos en el cielo, cuerdas de terciopelo y desplegó una enorme alfombra roja para que Fairbanks y Mary Pickford caminaran entre los vítores de miles de fanáticos." 
           },
           { 
-            h: "El Espectáculo del Patio", 
-            p: "El largo patio no solo era estético, era un escenario en sí mismo. Grauman contrató actores vestidos como guardias egipcios para patrullar los techos con lanzas, y colocó monos y pavorreales reales para entretener al público mientras esperaba su función." 
+            h: "El Espectáculo del Patio al Aire Libre", 
+            p: "El profundo patio frontal fue concebido como un escenario de entretenimiento y control de multitudes. Antes de cada función, Grauman contrataba actores vestidos como guardias del faraón para patrullar las terrazas superiores portando lanzas de bronce y tocando trompetas ceremoniales. Además, colocaba monos, aves tropicales y vasijas antiguas en el patio para entretener al público mientras esperaba su turno de entrar." 
           },
           { 
-            h: "La Restauración de Netflix", 
-            p: "Tras décadas de abandono, el teatro fue comprado por Netflix y la American Cinematheque. Realizaron una restauración histórica impecable, eliminando las modificaciones de los años 60 para devolverle su gloria exacta de 1922, restaurando los jeroglíficos y el impresionante techo solar del auditorio." 
+            h: "La Gran Restauración de Netflix", 
+            p: "Tras sufrir décadas de abandono a finales del siglo XX, el inmueble fue adquirido en una alianza entre Netflix y la organización American Cinematheque. Durante tres años, restauradores retiraron divisiones añadidas en los años 60, reforzaron la estructura contra terremotos y recuperaron los colores originales de 1922. Hoy en día funciona como una de las salas de cine clásico más avanzadas del mundo, capaz de proyectar películas en nitrato, 35mm, 70mm y digital." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Una Máquina del Tiempo", d: "Camina hasta las puertas de cristal del fondo. El vestíbulo ha sido restaurado para verse exactamente igual que hace un siglo, funcionando hoy como uno de los mejores cines de clásicos del país." }
+          { cls: "box-lore", t: "Una Máquina del Tiempo de 1922", d: "Caminen por el patio hasta las puertas de cristal. El vestíbulo y la sala principal fueron restaurados a su estado exacto de 1922, incluyendo su impresionante techo con un sol dorado." }
         ]
       }
     },
@@ -438,35 +452,36 @@ const tourData = {
         address: "6667 Hollywood Blvd",
         short: "6. Musso & Frank",
         timeline: [
-          { y: "1919", t: "Restaurant opens its doors, predating the Hollywood sign." },
-          { y: "1930s", t: "Becomes the literary clubhouse for famous American novelists." },
-          { y: "2019", t: "Featured heavily in Quentin Tarantino's Once Upon a Time in Hollywood." }
+          { y: "1919", t: "Opens as 'Frank's Cafe', predating the Hollywood Sign." },
+          { y: "1930s", t: "Becomes the literary hub for America's greatest novelists." },
+          { y: "1955", t: "Longtime bartender Manny Aguirre perfects the stirred martini." },
+          { y: "2019", t: "Celebrates its centennial and appears in Tarantino's Once Upon a Time in Hollywood." }
         ],
         people: [
-          { name: "Charlie Chaplin", role: "Cinema Legend", bio: "A daily regular who challenged Douglas Fairbanks to horse races down Hollywood Boulevard and always requested window Booth #1." },
-          { name: "F. Scott Fitzgerald & Ernest Hemingway", role: "Literary Giants", bio: "American novelists who were lured to Hollywood to write screenplays and spent their afternoons drinking and editing scripts in the back booths." },
-          { name: "Raymond Chandler", role: "Noir Author", bio: "Legendary detective novelist who famously drank gimlets at the mahogany bar while outlining his hardboiled LA crime stories." }
+          { name: "Charlie Chaplin", role: "Cinema Legend & Regular", bio: "Dined here daily during the silent era, famously challenging Douglas Fairbanks to horse races down Hollywood Boulevard outside." },
+          { name: "F. Scott Fitzgerald & Ernest Hemingway", role: "Literary Giants", bio: "Acclaimed novelists who drank, argued, and punched up studio screenplays in the restaurant's private back booths." },
+          { name: "Raymond Chandler", role: "Detective Noir Author", bio: "Legendary crime writer who drank gimlets at the mahogany counter while drafting his iconic Philip Marlowe detective mysteries." }
         ],
         stories: [
           { 
-            h: "Hollywood's Oldest Living Room", 
-            p: "Look across at the red awnings of Musso & Frank Grill. Opened in 1919, this is the oldest restaurant on Hollywood Boulevard. It opened four years before the Hollywood Sign was even built. Walking inside is like stepping onto a 1930s film set, complete with dark mahogany wood, red leather booths, and dim lighting." 
+            h: "Hollywood's Oldest Living Room (1919)", 
+            p: "Look across the boulevard at the red awnings of Musso & Frank Grill. Opened in 1919 by Joseph Musso and Frank Toulet, this is the oldest continually operating restaurant in Hollywood, predating the Hollywood Sign by four years. Stepping through the heavy front doors is like stepping onto a 1930s film set, featuring dark mahogany woodwork, red leather booths, and warm amber lighting. For over a century, the restaurant has served as the social living room for the film industry." 
           },
           { 
             h: "The Literary Clubhouse", 
-            p: "During the Golden Age of cinema, the major movie studios brought America's greatest novelists to Hollywood to write screenplays. Musso & Frank became their unofficial clubhouse. Legends like F. Scott Fitzgerald, Ernest Hemingway, William Faulkner, and Raymond Chandler drank, ate, and edited manuscripts in the back booths." 
+            p: "During the Golden Age, major movie studios recruited America's greatest novelists to Hollywood with lucrative screenplay contracts. Unaccustomed to studio interference, writers made Musso & Frank their unofficial daily headquarters. F. Scott Fitzgerald, Ernest Hemingway, William Faulkner, and John Steinbeck spent their afternoons drinking in the back booths while editing manuscripts. Film noir pioneer Raymond Chandler famously sat at the bar drinking gimlets while crafting dialogue for detective Philip Marlowe." 
           },
           { 
-            h: "Chaplin’s Window Booth", 
-            p: "Charlie Chaplin was a daily fixture here. He had his own permanent reserved table by the window (Booth #1). Hollywood Boulevard was still a dirt road at the time, and Chaplin demanded the window booth so he could keep an eye on his horse tied to the hitching post outside." 
+            h: "Chaplin's Window Booth #1", 
+            p: "Charlie Chaplin was a daily fixture during the 1920s and had his own permanently reserved table: Booth #1 by the front window. At the time, Hollywood Boulevard was still a dusty unpaved roadway with wooden hitching posts. Chaplin insisted on the window booth so he could keep a watchful eye on his horse tied up outside while dining with fellow screen star Douglas Fairbanks. The table remains one of the most requested dining booths in Los Angeles." 
           },
           { 
-            h: "The Classic Uniforms", 
-            p: "The restaurant refuses to modernize its aesthetic. The servers and bartenders still wear traditional red tuxedo coats and bowties. Several waiters have worked here for over 40 years, serving generations of Hollywood royalty from Humphrey Bogart to Brad Pitt." 
+            h: "The Martini Ritual & The Red Coats", 
+            p: "Musso & Frank is world-famous for preserving classic culinary hospitality. The servers and bartenders wear formal red tuxedo coats and black bowties, with several waiters having worked at the restaurant for over 40 years. The restaurant is renowned for its classic dry gin martini: stirred precisely for thirty seconds, poured into a chilled glass, and served alongside a small sidecar decanter resting in crushed ice so the refill stays ice-cold." 
           }
         ],
         callouts: [
-          { cls: "box-food", t: "The Perfect Martini", d: "They are world-famous for their classic dry gin martinis. The drink is stirred, not shaken, and is always served with a chilled miniature sidecar decanter resting on crushed ice so your refill stays freezing cold." }
+          { cls: "box-food", t: "The Classic Sidecar Martini", d: "Order a classic martini at the bar to experience the historic service: your drink is served with an iced miniature glass sidecar decanter to keep your second pour freezing cold." }
         ]
       },
       es: {
@@ -474,35 +489,36 @@ const tourData = {
         address: "6667 Hollywood Blvd",
         short: "6. Musso & Frank",
         timeline: [
-          { y: "1919", t: "Abre sus puertas, cuatro años antes de que se instalara el letrero de Hollywood." },
-          { y: "Años 30", t: "Se convierte en el punto de reunión de los grandes novelistas americanos." },
-          { y: "2019", t: "Es un escenario principal en Había una vez en Hollywood de Tarantino." }
+          { y: "1919", t: "Abre como 'Frank's Cafe', cuatro años antes de que existiera el letrero de Hollywood." },
+          { y: "Años 1930", t: "Se convierte en el punto de encuentro de los grandes escritores estadounidenses." },
+          { y: "1955", t: "El cantinero Manny Aguirre perfecciona la receta clásica del Martini revuelto." },
+          { y: "2019", t: "Celebra su centenario y aparece en Había una vez en Hollywood de Tarantino." }
         ],
         people: [
-          { name: "Charlie Chaplin", role: "Leyenda del Cine", bio: "Cliente diario que exigía la mesa número 1 junto a la ventana para vigilar a su caballo amarrado afuera." },
-          { name: "F. Scott Fitzgerald y Ernest Hemingway", role: "Gigantes Literarios", bio: "Escritores contratados por los estudios que pasaban sus tardes bebiendo y editando guiones en las mesas del fondo." },
-          { name: "Raymond Chandler", role: "Autor de Novela Negra", bio: "Novelista que escribía sus famosas historias de detectives mientras bebía en la barra de caoba." }
+          { name: "Charlie Chaplin", role: "Leyenda del Cine", bio: "Cliente diario durante la época muda que competía en carreras de caballos contra Douglas Fairbanks a lo largo del bulevar." },
+          { name: "F. Scott Fitzgerald y Ernest Hemingway", role: "Gigantes de la Literatura", bio: "Novelistas consagrados que bebían, discutían y pulían guiones de cine en las mesas privadas del fondo." },
+          { name: "Raymond Chandler", role: "Maestro de Novela Negra", bio: "Escritor policíaco que bebía en la barra de caoba mientras redactaba las aventuras del detective Philip Marlowe." }
         ],
         stories: [
           { 
-            h: "La Sala de Estar de Hollywood", 
-            p: "Observa los toldos rojos del Musso & Frank Grill. Inaugurado en 1919, es el restaurante más antiguo del bulevar. Entrar allí es como pisar un set de los años 30: madera de caoba oscura, asientos de cuero rojo y luz tenue." 
+            h: "La Sala de Estar de Hollywood (1919)", 
+            p: "Observen los toldos rojos del restaurante Musso & Frank Grill. Inaugurado en 1919 por Joseph Musso y Frank Toulet, es el restaurante más antiguo en operación continua de Hollywood, abriendo cuatro años antes de que se construyera el letrero de Hollywood. Cruzar sus puertas es entrar a un set cinematográfico de los años 30, con acabados en caoba oscura, asientos de cuero rojo y luz cálida. Durante más de un siglo, ha sido el comedor de confianza para la industria cinematográfica." 
           },
           { 
-            h: "El Club de los Escritores", 
-            p: "En la Edad de Oro, los estudios trajeron a los mejores novelistas del país para escribir guiones. Musso & Frank se volvió su club privado. Leyendas como F. Scott Fitzgerald, Ernest Hemingway y William Faulkner bebían y editaban sus manuscritos en las mesas del fondo." 
+            h: "El Club de los Grandes Escritores", 
+            p: "Durante la época dorada, los grandes estudios contrataron a los novelistas más respetados del país para escribir guiones. Incómodos con la burocracia de las oficinas, los autores convirtieron este restaurante en su oficina de trabajo. Figuras como F. Scott Fitzgerald, Ernest Hemingway, William Faulkner y John Steinbeck pasaban las tardes bebiendo y corrigiendo textos en las mesas traseras. Raymond Chandler escribió parte de sus novelas de detectives mientras disfrutaba de sus cócteles en la barra." 
           },
           { 
-            h: "La Mesa de Chaplin", 
-            p: "Charlie Chaplin comía aquí a diario. Tenía reservada permanentemente la mesa junto a la ventana (Mesa #1). En ese entonces, el bulevar era un camino de tierra y Chaplin quería la ventana para vigilar a su caballo amarrado en la calle." 
+            h: "La Mesa #1 de Charlie Chaplin", 
+            p: "Charlie Chaplin era un comensal habitual en los años 20 y tenía su propia mesa reservada: la Mesa #1 junto a la ventana. En aquella época, Hollywood Boulevard era un camino de terracería con postes de madera para amarrar animales. Chaplin exigía esa mesa específica para vigilar a su caballo amarrado afuera mientras almorzaba con su amigo Douglas Fairbanks. Hoy en día, esa misma mesa sigue siendo una de las más solicitadas de la ciudad." 
           },
           { 
-            h: "Uniformes Clásicos", 
-            p: "El restaurante se niega a modernizarse. Los meseros siguen vistiendo sus icónicas chaquetas rojas de esmoquin. Varios empleados llevan más de 40 años trabajando ahí, sirviendo desde Humphrey Bogart hasta Brad Pitt." 
+            h: "El Ritual del Martini y las Chaquetas Rojas", 
+            p: "Musso & Frank destaca por mantener intacto el servicio clásico de la vieja escuela. Los meseros y cantineros visten chaquetas rojas de esmoquin y corbatines negros, y muchos de ellos llevan más de cuatro décadas trabajando en el lugar. Su bebida más famosa es el Martini clásico de ginebra: revuelto durante 30 segundos, servido en copa helada y acompañado por una pequeña jarrita de cristal sobre hielo triturado para que el segundo trago permanezca helado." 
           }
         ],
         callouts: [
-          { cls: "box-food", t: "El Martini Perfecto", d: "Son mundialmente famosos por su clásico Martini seco. Se sirve revuelto, no agitado, y acompañado de una jarrita de cristal sobre hielo triturado para mantener tu bebida helada." }
+          { cls: "box-food", t: "El Secreto del Martini Clásico", d: "Si entran a la barra, pidan su clásico Martini: se sirve acompañado de una pequeña jarra sobre hielo para mantener la bebida completamente helada." }
         ]
       }
     },
@@ -518,33 +534,34 @@ const tourData = {
         timeline: [
           { y: "1926", t: "Opens as a live stage venue, dubbed 'Hollywood's First Home of the Spoken Drama'." },
           { y: "1941", t: "Hosts the defiant world premiere of Orson Welles' masterpiece Citizen Kane." },
-          { y: "1989", t: "Disney purchases the theater and begins a massive historical restoration." }
+          { y: "1989", t: "Disney purchases the theater and initiates a museum-grade historical restoration." },
+          { y: "Present", t: "Serves as Disney's flagship cinematic premiere palace in Hollywood." }
         ],
         people: [
-          { name: "Orson Welles", role: "Director & Actor", bio: "Boy genius who directed, co-wrote, and starred in Citizen Kane at age 25, taking on the most powerful media tycoon in America." },
-          { name: "William Randolph Hearst", role: "Media Tycoon", bio: "Billionaire newspaper publisher who realized Citizen Kane was an unflattering parody of his life and tried to destroy the film." },
-          { name: "Charles Toberman", role: "Real Estate Developer", bio: "Known as the 'Father of Hollywood', he developed El Capitan alongside the Chinese and Egyptian theaters." }
+          { name: "Orson Welles", role: "Director, Actor & Visionary", bio: "Genius filmmaker who co-wrote, directed, and starred in Citizen Kane at age 25, taking on the most powerful media tycoon in the country." },
+          { name: "William Randolph Hearst", role: "Billionaire Newspaper Publisher", bio: "Media baron who attempted to suppress Citizen Kane across major theater chains after recognizing it as a parody of his private life." },
+          { name: "Charles Toberman", role: "The 'Father of Hollywood'", bio: "Pioneering real estate developer who built El Capitan, the Roosevelt Hotel, and the Chinese Theatre along Hollywood Boulevard." }
         ],
         stories: [
           { 
-            h: "Home of the Spoken Drama", 
-            p: "Opened in 1926, El Capitan features an ornate Spanish Colonial exterior designed by G. Albert Lansburgh. Unlike the Egyptian or Chinese theaters down the street, El Capitan was built exclusively for live theater and stage plays, dubbed 'Hollywood’s First Home of the Spoken Drama.'" 
+            h: "Home of the Spoken Drama (1926)", 
+            p: "Opened on May 3, 1926, El Capitan features an elaborate Spanish Colonial Revival exterior designed by architect G. Albert Lansburgh. Unlike the Egyptian and Chinese Theatres, El Capitan was not constructed for motion pictures. Real estate developer Charles Toberman built it as a legitimate playhouse for Broadway stage productions, earning it the title 'Hollywood’s First Home of the Spoken Drama'. Legendary actors including Clark Gable, Buster Keaton, and Joan Fontaine performed live theatrical dramas on its stage." 
           },
           { 
-            h: "The Citizen Kane Rebellion", 
-            p: "In 1941, a 25-year-old director named <strong>Orson Welles</strong> made a movie called <em>Citizen Kane</em>. The film was a thinly veiled, highly unflattering parody of the life of billionaire newspaper titan <strong>William Randolph Hearst</strong>. When Hearst found out, he was furious." 
+            h: "The Citizen Kane Rebellion (1941)", 
+            p: "In 1941, a 25-year-old theatrical prodigy named Orson Welles directed, co-wrote, and starred in his debut film, <em>Citizen Kane</em>. The film told the story of an egomaniacal newspaper magnate, serving as a thinly veiled and unflattering parody of billionaire publisher William Randolph Hearst. When Hearst caught wind of the film's contents through private Hollywood preview screenings, he flew into a rage and vowed to destroy the picture before the public could see it." 
           },
           { 
-            h: "Hearst's Blackmail & The Defiant Premiere", 
-            p: "Hearst used his massive media empire to threaten major theater chains: if they showed <em>Citizen Kane</em>, he would ban advertisements for all their other movies in his newspapers. Terrified, the major chains refused to screen the film. Defying the ban, the independent El Capitan stepped up and hosted the world premiere on May 1, 1941, securing its place in cinematic rebellion history." 
+            h: "Hearst's Media Blackout & The Defiant Premiere", 
+            p: "Hearst utilized his vast nationwide newspaper syndicate to intimidate Hollywood studio heads and major theater chains. He banned all mentions of <em>Citizen Kane</em> in his papers and threatened major theater executives with permanent advertising blackouts if they screened the film. Terrified of losing press coverage, major theater chains across America dropped the movie. Defying the industry-wide ban, the independent El Capitan stepped up and hosted the world premiere on May 1, 1941, cementing its status as an icon of cinematic freedom." 
           },
           { 
-            h: "The Disney Era & The Wurlitzer Organ", 
-            p: "Today, El Capitan is owned and operated by Disney, which restored the theater to its 1920s glory. Before film screenings, an organist rises from beneath the stage to play a massive, fully restored 2,500-pipe Wurlitzer theater organ." 
+            h: "The Disney Restoration & The Wurlitzer Organ", 
+            p: "In 1989, The Walt Disney Company acquired the lease and embarked on a multi-million-dollar restoration to return the theater to its 1920s glory. Preservationists restored the original hand-carved gilded ceiling boxes, rich velvet drapes, and ornate plaster details. Before every movie screening today, an organist rises on an elevator platform from beneath the stage playing a massive, fully restored 1929 Wurlitzer theater pipe organ equipped with 2,500 pipes and authentic percussion sound effects." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "The Secret Entrance", d: "Jimmy Kimmel Live! films directly next door in the Masonic Temple building; Kimmel frequently uses the alley between the two buildings for comedy sketches." }
+          { cls: "box-lore", t: "Late Night Neighbor", d: "Jimmy Kimmel Live! films directly next door in the Masonic Temple building; Kimmel frequently uses the sidewalk and alleyway between the two buildings for comedy sketches." }
         ]
       },
       es: {
@@ -552,35 +569,36 @@ const tourData = {
         address: "6838 Hollywood Blvd",
         short: "7. El Capitán",
         timeline: [
-          { y: "1926", t: "Abre como teatro en vivo, llamado 'El Primer Hogar del Drama Hablado'." },
-          { y: "1941", t: "Sede del desafiante estreno mundial de El Ciudadano Kane de Orson Welles." },
-          { y: "1989", t: "Disney adquiere el teatro e inicia su meticulosa restauración." }
+          { y: "1926", t: "Abre como foro teatral, apodado 'El Primer Hogar del Drama Hablado'." },
+          { y: "1941", t: "Celebra el histórico estreno mundial de El Ciudadano Kane de Orson Welles." },
+          { y: "1989", t: "Disney adquiere el teatro y realiza una restauración arquitectónica profunda." },
+          { y: "Presente", t: "Funciona como el palacio insignia de estrenos cinematográficos de Disney." }
         ],
         people: [
-          { name: "Orson Welles", role: "Director y Actor", bio: "Genio que a los 25 años dirigió, escribió y protagonizó El Ciudadano Kane, desafiando al magnate más poderoso de EE. UU." },
-          { name: "William Randolph Hearst", role: "Magnate de los Medios", bio: "Multimillonario dueño de periódicos que intentó destruir la película al ver que era una dura burla a su propia vida." },
-          { name: "Charles Toberman", role: "Desarrollador Urbano", bio: "Conocido como el 'Padre de Hollywood', construyó este teatro junto al Chino y al Egipcio." }
+          { name: "Orson Welles", role: "Director, Actor y Visionario", bio: "Joven cineasta de 25 años que dirigió, escribió y protagonizó El Ciudadano Kane, desafiando al hombre más poderoso del país." },
+          { name: "William Randolph Hearst", role: "Magnate de los Periódicos", bio: "Multimillonario de la prensa que intentó destruir El Ciudadano Kane al ver que retrataba de forma cruda su vida privada." },
+          { name: "Charles Toberman", role: "El 'Padre de Hollywood'", bio: "Visionario desarrollador inmobiliario que construyó El Capitán, el Hotel Roosevelt y el Teatro Chino en el bulevar." }
         ],
         stories: [
           { 
-            h: "El Hogar del Teatro en Vivo", 
-            p: "Inaugurado en 1926, El Capitán destaca por su exterior colonial español. A diferencia de sus teatros hermanos en la misma calle, este recinto no fue hecho para proyectar películas, sino para obras de teatro y espectáculos en vivo, ganando el apodo del 'Primer Hogar del Drama Hablado' en Hollywood." 
+            h: "El Hogar del Teatro en Vivo (1926)", 
+            p: "Inaugurado el 3 de mayo de 1926, El Capitán destaca por su exterior de estilo colonial español diseñado por el arquitecto G. Albert Lansburgh. A diferencia de sus vecinos, este recinto no fue construido para proyectar películas. El promotor Charles Toberman lo concibió como un teatro para obras dramáticas de Broadway, ganando el título del 'Primer Hogar del Drama Hablado de Hollywood'. Grandes estrellas como Clark Gable, Buster Keaton y Joan Fontaine actuaron en su escenario." 
           },
           { 
-            h: "La Rebelión del Ciudadano Kane", 
-            p: "En 1941, un joven director de 25 años llamado <strong>Orson Welles</strong> hizo <em>El Ciudadano Kane</em>. La película era una dura y apenas disimulada burla a la vida del magnate de los periódicos <strong>William Randolph Hearst</strong>. Cuando Hearst se enteró, enfureció." 
+            h: "La Rebelión del Ciudadano Kane (1941)", 
+            p: "En 1941, un joven prodigio de 25 años llamado Orson Welles dirigió, escribió y protagonizó su primera película: <em>El Ciudadano Kane</em>. La historia narraba el ascenso y caída de un magnate de la prensa, siendo una parodia directa de la vida de William Randolph Hearst. Cuando Hearst se enteró del argumento a través de proyecciones privadas, montó en cólera y juró destruir la película antes de que llegara al público." 
           },
           { 
-            h: "El Boicot y la Resistencia", 
-            p: "Hearst amenazó a las grandes cadenas de cines: si proyectaban la película, prohibiría los anuncios de todos sus otros estrenos en sus periódicos. Aterrorizados, los cines se negaron a pasarla. Desafiando el boicot, El Capitán dio un paso al frente y celebró aquí el estreno mundial el 1 de mayo de 1941." 
+            h: "El Boicot de Prensa y el Estreno Desafiante", 
+            p: "Hearst utilizó su enorme cadena de periódicos para presionar a los dueños de los cines. Prohibió cualquier mención a la cinta y amenazó a los circuitos de exhibición con vetar sus anuncios publicitarios si pasaban la película. Aterrorizadas, las grandes cadenas retiraron el filme de sus carteleras. Desafiando el boicot corporativo, el independiente Teatro El Capitán alzó la mano y celebró el estreno mundial el 1 de mayo de 1941, consagrándose en la historia del cine." 
           },
           { 
             h: "La Era Disney y el Órgano Wurlitzer", 
-            p: "Hoy en día, el teatro es propiedad de Disney. Antes de cada película, un músico emerge desde debajo del escenario tocando un majestuoso órgano Wurlitzer de 2,500 tubos, rescatado y restaurado a su perfección de los años 20." 
+            p: "En 1989, The Walt Disney Company tomó la operación del recinto y comenzó una restauración profunda para devolverle su esplendor de los años 20. Se recuperaron los balcones dorados tallados a mano, las cortinas de terciopelo y los ornamentos de yeso. Antes de cada función, un músico emerge desde el sótano sobre una plataforma tocando un órgano Wurlitzer de 1929 con 2,500 tubos e instrumentos de percusión integrados." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Grabaciones al Lado", d: "El famoso programa nocturno <em>Jimmy Kimmel Live!</em> se graba en el edificio masónico justo al lado, utilizando frecuentemente este cruce para sus bromas." }
+          { cls: "box-lore", t: "Grabaciones en la Puerta", d: "El programa <em>Jimmy Kimmel Live!</em> se graba en el templo masónico de al lado, utilizando frecuentemente este cruce peatonal para sus entrevistas de comedia." }
         ]
       }
     },
@@ -594,35 +612,36 @@ const tourData = {
         address: "6233 Hollywood Blvd (Near Hollywood & Vine)",
         short: "8. The Pantages",
         timeline: [
-          { y: "1930", t: "Opens as the last great movie palace built in Hollywood." },
-          { y: "1949", t: "Eccentric billionaire Howard Hughes purchases the theater." },
-          { y: "1953", t: "Hosts the first-ever televised Academy Awards broadcast." }
+          { y: "1930", t: "Opens as the last great movie palace erected in Hollywood during the Golden Age." },
+          { y: "1949", t: "Billionaire Howard Hughes purchases the building and sets up private offices." },
+          { y: "1953", t: "Hosts the very first televised Academy Awards ceremony in broadcast history." },
+          { y: "Present", t: "Serves as Los Angeles' premier home for major touring Broadway theatricals." }
         ],
         people: [
-          { name: "Alexander Pantages", role: "Vaudeville Mogul", bio: "Greek immigrant who built a massive theater empire across America, opening this flagship venue at the height of his power." },
-          { name: "Howard Hughes", role: "Aviation & Film Billionaire", bio: "Eccentric tycoon who bought the theater, set up his personal apartment and offices on the second floor, and managed his movie empire from here." },
-          { name: "B. Marcus Priteca", role: "Master Architect", bio: "Designed the stunning Zigzag Art Deco interior, utilizing geometric frosted glass, gold leaf, and dramatic sunburst chandeliers." }
+          { name: "Alexander Pantages", role: "Vaudeville & Theater Mogul", bio: "Greek immigrant who built an empire of dozens of theaters across North America, building this flagship palace at the height of his career." },
+          { name: "Howard Hughes", role: "Aviation & Film Tycoon", bio: "Eccentric billionaire who bought the building in 1949, running his RKO film empire from a private suite on the second floor." },
+          { name: "B. Marcus Priteca", role: "Master Theater Architect", bio: "Architect who designed the sensational Zigzag Art Deco interior, utilizing geometric frosted glass, gold leaf, and dramatic sunburst chandeliers." }
         ],
         stories: [
           { 
-            h: "The Last Grand Movie Palace", 
-            p: "As you approach the famous intersection of Hollywood and Vine, you'll find the Pantages Theatre. Built in 1930 by vaudeville magnate Alexander Pantages, it holds the distinction of being the absolute last grand movie palace erected in Hollywood during the Golden Age." 
+            h: "The Last Grand Movie Palace (1930)", 
+            p: "As you approach the famous intersection of Hollywood and Vine, you will find the Pantages Theatre. Opened on June 4, 1930, by Greek-American theater magnate Alexander Pantages, it cost $1.25 million and held 2,800 seats. It holds the historical distinction of being the absolute last grand movie palace constructed in Hollywood during the Golden Age. Just as it opened, the Great Depression deepened, bringing an end to the era of palatial movie palace construction." 
           },
           { 
-            h: "Art Deco Perfection", 
-            p: "The interior is a breathtaking Zigzag Art Deco masterpiece designed by architect B. Marcus Priteca. The lobby features vaulted ceilings, geometric frosted glass, and dramatic gold-leaf sunburst chandeliers that define the excess of 1930s architectural design." 
+            h: "Zigzag Art Deco Masterwork", 
+            p: "The auditorium and grand lobby represent the pinnacle of Zigzag Art Deco architectural design. Architect B. Marcus Priteca rejected traditional European classical motifs in favor of geometric, futuristic shapes that captured the technological energy of the 1930s. The lobby features soaring vaulted ceilings, backlit frosted glass pillars, and massive hammered gold-leaf starbursts. The ceiling resembles a celestial galaxy illuminated by custom chandeliers and hidden neon fixtures." 
           },
           { 
-            h: "Howard Hughes' Secret Headquarters", 
-            p: "In 1949, the eccentric aviation billionaire and film producer <strong>Howard Hughes</strong> purchased the theater. He was notoriously reclusive, moving his personal executive offices and a private apartment into the second floor of the building so he could control his film empire away from the public eye." 
+            h: "Howard Hughes' Secret Penthouse Headquarters", 
+            p: "In 1949, the eccentric aviation billionaire and film producer Howard Hughes purchased the theater to expand his control over the RKO movie studio. Hughes was notoriously reclusive and distrustful of the public eye. He converted the theater's entire second floor into his personal executive headquarters and living quarters, holding late-night movie screenings and directing corporate strategy without having to step outside into the streets." 
           },
           { 
-            h: "The First Televised Oscars", 
-            p: "The Pantages hosted the Academy Awards ceremonies from 1950 to 1960. On March 19, 1953, the theater made broadcast history as the venue for the <strong>very first televised Oscar ceremony</strong>. An estimated 40 million Americans tuned in on their black-and-white television sets to watch the glamour of Hollywood beamed live into their living rooms." 
+            h: "The First Televised Oscars (1953)", 
+            p: "The Pantages hosted the Academy Awards ceremonies from 1950 to 1960. On March 19, 1953, the venue made television history as the site of the first-ever televised Oscar ceremony. Hosted by Bob Hope, over 40 million Americans tuned in on their living room black-and-white sets to watch Hollywood glamour in real time. Today, the theater is the premier destination in Southern California for blockbuster Broadway musicals like <em>Hamilton</em> and <em>The Lion King</em>." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Broadway in LA", d: "Today, the Pantages is Los Angeles's premier venue for live Broadway musicals, hosting the massive touring productions of <em>Hamilton</em>, <em>Wicked</em>, and <em>The Lion King</em>." }
+          { cls: "box-tip", t: "Broadway in LA", d: "Today, the Pantages operates as the city's premier Broadway venue, hosting multi-month runs of massive musical productions like <em>Hamilton</em> and <em>Wicked</em>." }
         ]
       },
       es: {
@@ -630,35 +649,36 @@ const tourData = {
         address: "6233 Hollywood Blvd (Cerca de Hollywood y Vine)",
         short: "8. El Pantages",
         timeline: [
-          { y: "1930", t: "Se inaugura como el último gran palacio de cine de Hollywood." },
-          { y: "1949", t: "El excéntrico multimillonario Howard Hughes compra el teatro." },
-          { y: "1953", t: "Alberga la primera transmisión televisada de los Premios Óscar." }
+          { y: "1930", t: "Se inaugura como el último gran palacio de cine de la época dorada." },
+          { y: "1949", t: "El multimillonario Howard Hughes adquiere el edificio y monta sus oficinas." },
+          { y: "1953", t: "Sede de la primera transmisión televisada de los Premios Óscar." },
+          { y: "Presente", t: "Es la sede principal de los grandes musicales de Broadway en gira por LA." }
         ],
         people: [
-          { name: "Alexander Pantages", role: "Magnate del Vodevil", bio: "Inmigrante griego que construyó un imperio de teatros por todo EE. UU., siendo este su corona." },
-          { name: "Howard Hughes", role: "Multimillonario y Aviador", bio: "Excéntrico productor que compró el edificio e instaló su departamento privado y oficinas en el segundo piso." },
-          { name: "B. Marcus Priteca", role: "Arquitecto Principal", bio: "Diseñó el impresionante interior Art Déco, lleno de geometría, pan de oro y espectaculares candelabros." }
+          { name: "Alexander Pantages", role: "Magnate del Vodevil y Teatros", bio: "Inmigrante griego que forjó un imperio de teatros por todo el país, construyendo este palacio en la cumbre de su carrera." },
+          { name: "Howard Hughes", role: "Magnate de Aviación y Cine", bio: "Excéntrico multimillonario que compró el teatro en 1949 y dirigió su estudio de cine RKO desde un departamento en el piso superior." },
+          { name: "B. Marcus Priteca", role: "Arquitecto Teatral", bio: "Diseñador que concibió el interior Art Déco Zigzag con figuras geométricas, pan de oro y candelabros en forma de sol." }
         ],
         stories: [
           { 
-            h: "El Último Palacio del Cine", 
-            p: "Cerca de la intersección de Hollywood y Vine se alza el Pantages. Construido en 1930, tiene el honor de ser el último gran palacio de cine levantado en Hollywood durante la Edad de Oro." 
+            h: "El Último Palacio del Cine (1930)", 
+            p: "Al acercarse a la intersección de Hollywood y Vine se encuentra el Teatro Pantages. Inaugurado el 4 de junio de 1930 por el empresario Alexander Pantages, tuvo un costo de $1.25 millones de dólares y capacidad para 2,800 personas. Ostenta la distinción histórica de ser el último gran palacio de cine construido en Hollywood durante la época dorada. Su apertura coincidió con el inicio de la Gran Depresión, poniendo fin a la construcción de estos recintos monumentales." 
           },
           { 
-            h: "Perfección Art Déco", 
-            p: "Su interior es una joya absoluta del estilo Art Déco Zigzag. El vestíbulo cuenta con techos abovedados, vidrio esmerilado geométrico y deslumbrantes candelabros dorados que capturan la extravagancia visual de los años 30." 
+            h: "Una Obra Maestra del Art Déco Zigzag", 
+            p: "El vestíbulo y la sala principal representan la cúspide del estilo Art Déco en su vertiente geométrica o 'Zigzag'. El arquitecto B. Marcus Priteca evitó los estilos clásicos europeos y optó por figuras abstractas que reflejaban la velocidad de la era de las máquinas. El vestíbulo luce techos abovedados de doble altura, columnas de vidrio esmerilado con iluminación trasera y enormes soles bañados en pan de oro. El techo simula una galaxia geométrica iluminada por luces ocultas." 
           },
           { 
-            h: "La Guarida de Howard Hughes", 
-            p: "En 1949, el excéntrico multimillonario <strong>Howard Hughes</strong> compró el teatro. Buscando privacidad, instaló sus oficinas ejecutivas y un departamento secreto en el segundo piso, manejando sus negocios cinematográficos lejos de los reflectores." 
+            h: "El Refugio Secreto de Howard Hughes", 
+            p: "En 1949, el excéntrico multimillonario de la aviación Howard Hughes compró el edificio para fortalecer su control sobre la productora RKO Pictures. Hughes, conocido por su carácter ermitaño, adaptó todo el segundo piso como su residencia particular y centro de operaciones. Desde allí organizaba proyecciones privadas a altas horas de la madrugada y administraba sus empresas sin ser visto por los fanáticos en la calle." 
           },
           { 
-            h: "Los Primeros Óscar por Televisión", 
-            p: "El Pantages fue sede de los Óscar de 1950 a 1960. El 19 de marzo de 1953, hizo historia al albergar la <strong>primera transmisión televisada</strong> de los premios. Cuarenta millones de estadounidenses encendieron sus televisores en blanco y negro para ver el glamour de Hollywood en vivo." 
+            h: "Los Primeros Óscar por Televisión (1953)", 
+            p: "El Pantages albergó la ceremonia de los Premios Óscar de 1950 a 1960. El 19 de marzo de 1953 hizo historia al ser el escenario de la primera transmisión televisada de los galardones. Conducida por Bob Hope, más de 40 millones de personas vieron la gala en vivo en sus pantallas en blanco y negro. Hoy en día, el teatro es el principal foro de Los Ángeles para grandes musicales de Broadway como <em>Hamilton</em> y <em>El Rey León</em>." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "El Broadway de Los Ángeles", d: "Hoy en día, el Pantages es la casa de los grandes musicales de Broadway en gira, como <em>El Rey León</em>, <em>Wicked</em> y <em>Hamilton</em>." }
+          { cls: "box-tip", t: "Broadway en Los Ángeles", d: "Actualmente el Pantages es el epicentro del teatro musical en la costa oeste, presentando giras de producciones como <em>Wicked</em> y <em>Hamilton</em>." }
         ]
       }
     },
@@ -673,34 +693,35 @@ const tourData = {
         short: "9. Capitol Records",
         timeline: [
           { y: "1956", t: "Completed as the world's first circular office building." },
-          { y: "1990s", t: "The subterranean echo chambers are restored by Les Paul." },
-          { y: "2006", t: "Declared a Los Angeles Historic-Cultural Monument." }
+          { y: "1956", t: "The rooftop spire begins blinking out 'H-O-L-L-Y-W-O-O-D' in Morse code." },
+          { y: "1990s", t: "Guitar pioneer Les Paul assists in preserving the underground echo chambers." },
+          { y: "2006", t: "Designated a Los Angeles Historic-Cultural Monument." }
         ],
         people: [
-          { name: "Welton Becket", role: "Architect", bio: "Master of mid-century Googie architecture who designed the building to resemble a stack of vinyl records." },
-          { name: "Frank Sinatra & Nat King Cole", role: "Music Icons", bio: "Legendary crooners who recorded their greatest hits in the subterranean studios beneath the tower." },
-          { name: "Les Paul", role: "Guitarist & Audio Engineer", bio: "Audio pioneer who helped design the acoustic echo chambers buried 30 feet underground to create natural reverb." }
+          { name: "Welton Becket", role: "Mid-Century Architect", bio: "Modernist architect who designed the 13-story circular concrete tower, revolutionizing office floorplans and Googie aesthetics." },
+          { name: "Frank Sinatra & Nat King Cole", role: "Legendary Recording Artists", bio: "Vocal titans whose hit singles built the financial empire of Capitol Records, recording masterpieces in Studio A." },
+          { name: "Les Paul", role: "Guitarist & Audio Innovator", bio: "Multitrack pioneer who engineered the custom trapezoidal acoustic echo chambers buried 30 feet below the building." }
         ],
         stories: [
           { 
-            h: "The Turntable Architecture", 
-            p: "Look north up Vine Street at the world’s first circular office building. Designed in 1956 by architect Welton Becket, the 13-story tower is a masterpiece of mid-century 'Googie' architecture. It was deliberately designed to look like a stack of 45-RPM vinyl records resting on a turntable, topped with a 90-foot aluminum stylus." 
+            h: "The World's First Circular Office Tower (1956)", 
+            p: "Look north up Vine Street at one of the world's most distinct modernist landmarks. Designed in 1956 by architect Welton Becket, the 13-story Capitol Records Tower was the first circular office building ever constructed. Becket realized that a circular floor plan required 18% less perimeter wall area, provided better natural interior light, and lowered cooling costs. Topped with a 90-foot spire, the building resembles a stack of 45-RPM vinyl records resting on a turntable." 
           },
           { 
-            h: "The Blinking Beacon", 
-            p: "Look closely at the red beacon light blinking at the very top of the spire. Since opening day in 1956, that light has continuously blinked out the word <strong>H-O-L-L-Y-W-O-O-D</strong> in Morse code, day and night." 
+            h: "The 90-Foot Morse Code Beacon", 
+            p: "Look closely at the bright red beacon blinking at the very tip of the rooftop aluminum spire. Since opening day in April 1956, that beacon has continuously blinked out a message in Morse code: <strong>H-O-L-L-Y-W-O-O-D</strong>. The message was first switched on by Leila Morse, the granddaughter of telegraph inventor Samuel Morse. It has blinked uninterrupted for seven decades, with the sole exception of 1992 when it briefly spelled out 'Capitol 50' for the label's golden anniversary." 
           },
           { 
-            h: "Subterranean Echo Chambers", 
-            p: "The true magic happens 30 feet below the parking lot. Guitar pioneer Les Paul designed eight trapezoidal acoustic echo chambers buried underground. Sound engineers pump music down into these concrete bunkers, record the natural reverberation, and mix it back into the track to create Capitol's signature rich sound." 
+            h: "Les Paul's Subterranean Echo Chambers", 
+            p: "The true sonic genius of the building lies 30 feet beneath the asphalt parking lot. Guitar pioneer and audio engineer Les Paul collaborated with sound designers to construct eight trapezoidal concrete echo chambers buried deep underground. Sound engineers pump recorded vocal and instrument tracks through underground speakers, capture the natural concrete reverberation with microphones, and blend it back into recordings to create Capitol's signature rich tone." 
           },
           { 
-            h: "The Hit Factory", 
-            p: "The studios inside this building are legendary. Frank Sinatra, Nat King Cole, Dean Martin, The Beach Boys, and Paul McCartney all recorded monumental tracks here. The Beatles famously utilized the studios during their American tours." 
+            h: "The Hit Factory of the 20th Century", 
+            p: "The studios inside this tower shaped the sound of modern popular music. Frank Sinatra and Nat King Cole recorded their career-defining albums in Studio A, while The Beach Boys, Dean Martin, Paul McCartney, and Beastie Boys utilized the facility for seminal albums. When The Beatles conquered America in 1964, their records were mastered and distributed across North America directly from this tower." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "The John Lennon Star", d: "Right outside the building on the sidewalk, you'll find the Hollywood Walk of Fame stars for all four members of The Beatles." }
+          { cls: "box-lore", t: "The Walk of Fame Stars", d: "Right on the sidewalk directly in front of the building, you will find the Hollywood Walk of Fame stars for all four members of The Beatles." }
         ]
       },
       es: {
@@ -709,34 +730,35 @@ const tourData = {
         short: "9. Capitol Records",
         timeline: [
           { y: "1956", t: "Se inaugura como el primer edificio de oficinas circular del mundo." },
-          { y: "Años 90", t: "Se restauran las cámaras de eco subterráneas diseñadas por Les Paul." },
-          { y: "2006", t: "Declarado Monumento Histórico-Cultural de Los Ángeles." }
+          { y: "1956", t: "La luz de la aguja comienza a emitir 'H-O-L-L-Y-W-O-O-D' en código Morse." },
+          { y: "Años 1990", t: "El músico Les Paul asesora la restauración de las cámaras de eco subterráneas." },
+          { y: "2006", t: "Declarado Monumento Histórico-Cultural de la Ciudad de Los Ángeles." }
         ],
         people: [
-          { name: "Welton Becket", role: "Arquitecto", bio: "Maestro de la arquitectura 'Googie' que diseñó la torre para parecer una pila de discos de vinilo." },
-          { name: "Frank Sinatra y Nat King Cole", role: "Íconos de la Música", bio: "Leyendas que grabaron sus mayores éxitos en los estudios subterráneos de esta torre." },
-          { name: "Les Paul", role: "Ingeniero y Guitarrista", bio: "Pionero del audio que diseñó las cámaras de eco a 9 metros bajo tierra para crear reverberación natural." }
+          { name: "Welton Becket", role: "Arquitecto Modernista", bio: "Diseñador que proyectó la torre cilíndrica de 13 pisos, transformando la arquitectura corporativa de la época espacial." },
+          { name: "Frank Sinatra y Nat King Cole", role: "Íconos de la Música", bio: "Vocalistas cumbre cuyos éxitos financiaron el crecimiento de Capitol Records, grabando en el legendario Estudio A." },
+          { name: "Les Paul", role: "Guitarrista e Inventor", bio: "Pionero del sonido que diseñó las ocho cámaras de eco de concreto construidas a 9 metros bajo el suelo." }
         ],
         stories: [
           { 
-            h: "Arquitectura de Tocadiscos", 
-            p: "Mira hacia el norte por Vine Street hacia el primer edificio de oficinas circular del mundo. Diseñada en 1956, esta torre de 13 pisos es una joya de la arquitectura retro-futurista. Fue diseñada para parecer una pila de discos de vinilo de 45 RPM en un tocadiscos, coronada por una aguja de aluminio de 90 pies." 
+            h: "La Primera Torre Circular del Mundo (1956)", 
+            p: "Miren hacia el norte por Vine Street para admirar un monumento clave de la arquitectura de posguerra. Diseñada en 1956 por el arquitecto Welton Becket, la torre de 13 pisos de Capitol Records fue el primer edificio de oficinas cilíndrico del mundo. Becket demostró que una estructura circular reducía en 18% el área de paredes exteriores, mejoraba la iluminación natural y ahorraba aire acondicionado. Coronada por una aguja de 27 metros, evoca una pila de discos de vinilo colocados sobre un tocadiscos." 
           },
           { 
-            h: "El Faro de Código Morse", 
-            p: "Fíjate en la luz roja parpadeando en la punta de la aguja. Desde su inauguración en 1956, esa luz parpadea la palabra <strong>H-O-L-L-Y-W-O-O-D</strong> en código Morse de manera ininterrumpida." 
+            h: "El Faro en Código Morse", 
+            p: "Observen la luz roja parpadeando en la punta de la aguja de aluminio. Desde el día de su apertura en abril de 1956, esa luz emite un mensaje constante en código Morse: <strong>H-O-L-L-Y-W-O-O-D</strong>. El interruptor original fue accionado por Leila Morse, nieta de Samuel Morse (el inventor del telégrafo). La señal ha parpadeado sin parar durante siete décadas, salvo en 1992 cuando deletreó 'Capitol 50' para conmemorar el aniversario de la disquera." 
           },
           { 
-            h: "Las Cámaras de Eco Subterráneas", 
-            p: "La verdadera magia ocurre a 9 metros bajo el estacionamiento. El pionero de la guitarra Les Paul diseñó ocho cámaras de eco de concreto bajo tierra. Los ingenieros envían la música a estos búnkeres para capturar el eco natural y mezclarlo en las canciones, creando el sonido característico de Capitol." 
+            h: "Las Cámaras de Eco Subterráneas de Les Paul", 
+            p: "El secreto del sonido de Capitol se encuentra 9 metros bajo el estacionamiento. El virtuoso de la guitarra Les Paul ayudó a diseñar ocho cámaras acústicas trapezoidales de concreto reforzado enterradas en el subsuelo. Los ingenieros envían el sonido de voces e instrumentos por altavoces hacia estas cámaras, recogen el eco natural con micrófonos y lo mezclan con la pista para lograr la inconfundible calidad sonora de la disquera." 
           },
           { 
-            h: "La Fábrica de Éxitos", 
-            p: "Los estudios de este edificio son legendarios. Frank Sinatra, Nat King Cole, Dean Martin y los Beach Boys grabaron aquí. Incluso The Beatles utilizaron estas instalaciones durante sus giras estadounidenses." 
+            h: "La Fábrica de Éxitos del Siglo XX", 
+            p: "Los estudios dentro de este edificio transformaron la historia de la música popular. Frank Sinatra y Nat King Cole grabaron sus discos más famosos en el Estudio A, mientras que The Beach Boys, Dean Martin, Paul McCartney y los Beastie Boys produjeron álbumes memorables aquí. Cuando The Beatles llegaron a Estados Unidos en 1964, sus sencillos y discos para el mercado americano salieron de esta torre." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Las Estrellas de The Beatles", d: "Justo en la acera frente al edificio encontrarás las estrellas del Paseo de la Fama de los cuatro miembros de The Beatles." }
+          { cls: "box-lore", t: "Las Estrellas de The Beatles", d: "En la acera frente al edificio encontrarán las estrellas del Paseo de la Fama dedicadas a los cuatro miembros de The Beatles." }
         ]
       }
     },
@@ -750,35 +772,36 @@ const tourData = {
         address: "1714 Ivar Ave",
         short: "10. Knickerbocker",
         timeline: [
-          { y: "1926", t: "Opens as a luxury apartment hotel for the silent film elite." },
-          { y: "1936", t: "Bess Houdini holds the final séance to contact Harry Houdini on the roof." },
-          { y: "1966", t: "Beloved 'I Love Lucy' actor William Frawley collapses and dies outside." }
+          { y: "1926", t: "Opens as a luxury residential hotel for the silent film community." },
+          { y: "1936", t: "Bess Houdini holds the historic 10th and final séance on the rooftop." },
+          { y: "1948", t: "Pioneering silent film director D.W. Griffith collapses in the lobby." },
+          { y: "1966", t: "Beloved 'I Love Lucy' actor William Frawley collapses outside the entrance." }
         ],
         people: [
-          { name: "Bess Houdini", role: "Magician's Widow", bio: "Held 10 annual séances on Halloween night to contact her late husband Harry, culminating in the famous final attempt on this roof." },
-          { name: "William Frawley", role: "Actor (Fred Mertz)", bio: "Iconic television star of 'I Love Lucy' who tragically collapsed from a heart attack on the sidewalk outside the hotel." },
-          { name: "D.W. Griffith", role: "Silent Film Director", bio: "Pioneering (and controversial) director who lived his final years here and died of a hemorrhage in the lobby." }
+          { name: "Bess Houdini", role: "Magician's Widow & Performer", bio: "Conducted ten annual Halloween séances to contact her late husband Harry, ending with her famous rooftop declaration on this building." },
+          { name: "William Frawley", role: "Actor (Fred Mertz)", bio: "Beloved television actor on I Love Lucy who resided here for years and suffered a fatal heart attack on the sidewalk out front." },
+          { name: "D.W. Griffith", role: "Silent Film Director", bio: "Pioneering director of early cinema who spent his impoverished final years living in isolation here until his death in the lobby." }
         ],
         stories: [
           { 
-            h: "A Silent Film Sanctuary", 
-            p: "Opened in 1926 as a luxury apartment hotel, the Knickerbocker was the residential hideaway for Hollywood’s earliest elite. Silent-screen icons like Rudolph Valentino, Gloria Swanson, and Mae Murray treated the Renaissance Revival building as a glamorous escape from studio pressures." 
+            h: "A Silent Era Sanctuary (1926)", 
+            p: "Turn onto Ivar Avenue to view the Renaissance Revival facade of the Knickerbocker Hotel. Opened in 1926 as a luxury residential apartment hotel, it was designed as a private, elegant retreat for the early royalty of cinema. Silent screen stars like Rudolph Valentino, Gloria Swanson, and Mae Murray lived in its multi-room suites to escape the aggressive studio press. The property featured a lavish ground-floor dining room, private subterranean speakeasy rooms, and high ceilings that offered quiet sanctuary." 
           },
           { 
-            h: "The 10th Houdini Séance", 
-            p: "This building holds Hollywood's most famous paranormal legend. Escape artist Harry Houdini promised his wife Bess that if there was life after death, he would contact her. For 9 years after his death, Bess held a séance on Halloween night without success." 
+            h: "The 10th & Final Houdini Séance (1936)", 
+            p: "This building is famous for one of the most celebrated paranormal events in American history. Before his death in 1926, legendary escape artist Harry Houdini gave his wife Bess a secret ten-word code phrase, promising that if communication from beyond the grave was possible, he would contact her. For nine consecutive years on Halloween night, Bess held solemn séances across the country without success. On October 31, 1936, she held the tenth and final attempt on the open rooftop of the Knickerbocker amid a sudden rainstorm." 
           },
           { 
-            h: "The Final Attempt", 
-            p: "On Halloween night in 1936, Bess held the 10th and final séance on the roof of the Knickerbocker Hotel, accompanied by a heavy storm. When the clock struck midnight and Houdini failed to appear, Bess turned off the spotlight and famously announced: <em>'Houdini did not come through. My last hope is gone. The play is over.'</em>" 
+            h: "The Séance Conclusion: 'The Play Is Over'", 
+            p: "Over 300 journalists, scientists, and spiritualists crowded onto the Knickerbocker roof as Bess pleaded for a sign from Houdini. When the clock struck midnight and no signal occurred, Bess turned off the spotlight illuminating Houdini's portrait. She famously announced to the assembled media: <em>'Houdini did not come through. My last hope is gone. I do not believe that Houdini can come back to me, or to anyone. The play is over. Good night, Harry.'</em>" 
           },
           { 
-            h: "Hollywood Tragedies", 
-            p: "The hotel is steeped in dark Hollywood history. D.W. Griffith, the pioneering silent film director, dropped dead of a cerebral hemorrhage in the lobby in 1948. In 1966, beloved actor William Frawley (who played Fred Mertz on <em>I Love Lucy</em>) suffered a fatal heart attack and collapsed on the sidewalk right outside the front doors." 
+            h: "Golden Age Tragedies & Elvis Lore", 
+            p: "The hotel carries a dark history beneath its glamour. In 1948, pioneering film director D.W. Griffith, living in forgotten isolation, suffered a fatal cerebral hemorrhage in the main lobby. In March 1966, beloved actor William Frawley (famous as landlord Fred Mertz on <em>I Love Lucy</em>) suffered a fatal heart attack and collapsed on the sidewalk directly outside the front doors. In 1956, Elvis Presley stayed in Room 1016 while filming <em>Love Me Tender</em>, resulting in screaming crowds of teenage fans surrounding the block." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Elvis's Secret Stay", d: "Elvis Presley stayed in Room 1016 during the filming of 'Love Me Tender' in 1956, turning the hotel into a mob scene of screaming teenage fans." }
+          { cls: "box-lore", t: "Elvis's Secret Stay", d: "Elvis Presley stayed in Room 1016 in 1956 while making 'Love Me Tender'; police had to sneak him through the service alley to escape hundreds of fans." }
         ]
       },
       es: {
@@ -786,35 +809,36 @@ const tourData = {
         address: "1714 Ivar Ave",
         short: "10. Knickerbocker",
         timeline: [
-          { y: "1926", t: "Abre como hotel de apartamentos de lujo para la élite del cine." },
-          { y: "1936", t: "Bess Houdini realiza su última sesión espiritista en la azotea." },
-          { y: "1966", t: "El actor William Frawley (I Love Lucy) muere en la acera frontal." }
+          { y: "1926", t: "Abre como hotel residencial de lujo para la comunidad del cine mudo." },
+          { y: "1936", t: "Bess Houdini celebra su décima y última sesión espiritista en la azotea." },
+          { y: "1948", t: "El pionero del cine D.W. Griffith fallece en el vestíbulo principal." },
+          { y: "1966", t: "El actor William Frawley (I Love Lucy) se desploma en la acera exterior." }
         ],
         people: [
-          { name: "Bess Houdini", role: "Viuda del Ilusionista", bio: "Realizó sesiones espiritistas en Halloween durante 10 años para contactar a su esposo Harry, concluyendo en esta azotea." },
-          { name: "William Frawley", role: "Actor de TV", bio: "Famoso por su papel de Fred Mertz en 'I Love Lucy', sufrió un infarto fulminante frente a las puertas del hotel." },
-          { name: "D.W. Griffith", role: "Director de Cine Mudo", bio: "Pionero director que vivió sus últimos años aquí y falleció por una hemorragia en el vestíbulo." }
+          { name: "Bess Houdini", role: "Viuda del Ilusionista", bio: "Realizó sesiones espiritistas en Halloween durante diez años para contactar a Harry, concluyendo en esta azotea." },
+          { name: "William Frawley", role: "Actor de TV (Fred Mertz)", bio: "Inolvidable coprotagonista de I Love Lucy que residió aquí y sufrió un infarto fulminante frente al hotel." },
+          { name: "D.W. Griffith", role: "Director de Cine Mudo", bio: "Pionero cinematográfico que pasó sus últimos años recluido en este inmueble hasta su fallecimiento en el vestíbulo." }
         ],
         stories: [
           { 
-            h: "El Refugio del Cine Mudo", 
-            p: "Inaugurado en 1926, el Knickerbocker fue el escondite residencial de las primeras estrellas de Hollywood. Íconos del cine mudo como Rudolph Valentino y Gloria Swanson utilizaban este lujoso hotel como escape de la presión de los estudios." 
+            h: "Un Refugio del Cine Mudo (1926)", 
+            p: "Caminen por Ivar Avenue para admirar la fachada neorrenacentista del Hotel Knickerbocker. Inaugurado en 1926 como hotel de apartamentos de lujo, fue diseñado como un retiro exclusivo para las estrellas de la época muda. Figuras como Rudolph Valentino, Gloria Swanson y Mae Murray vivieron en sus suites para alejarse del acoso de la prensa. Contaba con comedores privados, túneles para burlar la ley seca y un ambiente elegante que ofrecía total privacidad a la industria." 
           },
           { 
-            h: "La Promesa de Houdini", 
-            p: "Este edificio alberga la leyenda paranormal más famosa de Hollywood. El escapista Harry Houdini prometió a su esposa Bess que, si había vida después de la muerte, la contactaría. Durante 9 años tras su muerte, Bess realizó sesiones espiritistas en Halloween sin éxito." 
+            h: "La Décima Sesión de Houdini (1936)", 
+            p: "Este edificio resguarda el suceso paranormal más célebre de la historia de Los Ángeles. Antes de morir en 1926, el legendario ilusionista Harry Houdini le dio a su esposa Bess un código secreto de diez palabras, prometiendo que si el contacto con el más allá era real, se comunicaría con ella. Durante nueve años consecutivos en la noche de Halloween, Bess realizó sesiones espiritistas sin éxito. El 31 de octubre de 1936 organizó el décimo y último intento en la azotea del Knickerbocker en medio de una tormenta." 
           },
           { 
-            h: "La Sesión Final en la Azotea", 
-            p: "En Halloween de 1936, Bess organizó la décima y última sesión en la azotea del Knickerbocker. A la medianoche, al no recibir señal de Houdini, Bess apagó la luz y declaró: <em>'Houdini no apareció. Mi última esperanza se ha ido. La obra ha terminado.'</em>" 
+            h: "El Fin de la Promesa: 'La Obra ha Terminado'", 
+            p: "Más de 300 reporteros, científicos e invitados llenaron la azotea mientras Bess esperaba una señal de su esposo. Al sonar las doce campanadas de la medianoche sin ninguna manifestación, Bess apagó la vela que alumbraba el retrato de Houdini. Dirigiéndose a la prensa, pronunció sus recordadas palabras: <em>'Houdini no se comunicó. Mi última esperanza se ha ido. No creo que pueda regresar. La obra ha terminado. Buenas noches, Harry.'</em>" 
           },
           { 
-            h: "Tragedias de Hollywood", 
-            p: "El hotel tiene un historial oscuro. El pionero del cine D.W. Griffith murió de una hemorragia en el vestíbulo en 1948. En 1966, el querido actor William Frawley (Fred Mertz en <em>I Love Lucy</em>) sufrió un ataque cardíaco y colapsó en la banqueta frente a la entrada." 
+            h: "Tragedias de Hollywood y el Paso de Elvis", 
+            p: "El inmueble resguarda memorias dramáticas. En 1948, el influyente cineasta D.W. Griffith, viviendo en el olvido, sufrió una hemorragia cerebral fatal en el vestíbulo. En marzo de 1966, el actor William Frawley (el entrañable Fred Mertz en <em>I Love Lucy</em>) sufrió un paro cardíaco y murió en la acera frente a la entrada. En 1956, Elvis Presley se hospedó en la suite 1016 mientras filmaba <em>Love Me Tender</em>, provocando que la policía cerrara la calle ante miles de admiradoras." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "El Escape de Elvis", d: "Elvis Presley se hospedó en la Habitación 1016 en 1956, atrayendo a cientos de fanáticas que bloquearon las calles aledañas." }
+          { cls: "box-lore", t: "La Habitación de Elvis", d: "Elvis Presley se hospedó en la suite 1016 en 1956 durante el rodaje de 'Love Me Tender'; la policía tuvo que sacarlo por los callejones de servicio ante las multitudes." }
         ]
       }
     },
@@ -828,36 +852,36 @@ const tourData = {
         address: "1416 N La Brea Ave",
         short: "11. Chaplin Studios",
         timeline: [
-          { y: "1917", t: "Chaplin builds his mock-English Tudor studio in an orange grove." },
-          { y: "1919", t: "Chaplin co-founds United Artists to combat studio monopolies." },
-          { y: "1985", t: "The historic charity single 'We Are the World' is recorded here." },
-          { y: "2000", t: "The Jim Henson Company purchases the lot as its headquarters." }
+          { y: "1917", t: "Chaplin builds his English Tudor studio lot amidst rural orange groves." },
+          { y: "1919", t: "Chaplin co-founds United Artists with Pickford, Fairbanks, and Griffith." },
+          { y: "1985", t: "The historic charity anthem 'We Are the World' is recorded in Soundstage A." },
+          { y: "2000", t: "The Jim Henson Company purchases the historic lot as its creative home." }
         ],
         people: [
-          { name: "Charlie Chaplin", role: "Actor, Director & Studio Head", bio: "Cinematic genius who built this studio to gain total creative control, shooting masterpieces like The Kid and Modern Times here." },
-          { name: "Jim Henson", role: "Creator of the Muppets", bio: "His company bought the historic lot in 2000, honoring Chaplin by placing a statue of Kermit the Frog in Chaplin's Tramp outfit." },
-          { name: "Michael Jackson & Quincy Jones", role: "Music Icons", bio: "Gathered 45 of America's biggest music stars in this studio in 1985 to record the charity anthem 'We Are the World'." }
+          { name: "Charlie Chaplin", role: "Actor, Director & Studio Founder", bio: "Cinematic genius who built this lot to secure complete artistic independence, shooting masterpieces like The Kid, Modern Times, and The Great Dictator." },
+          { name: "Jim Henson", role: "Puppeteer & Creator of The Muppets", bio: "His family company purchased the lot in 2000, honoring Chaplin's legacy by placing a statue of Kermit the Frog dressed as the Little Tramp over the gate." },
+          { name: "Quincy Jones & Michael Jackson", role: "Music Icons & Producers", bio: "Organized 45 of America's biggest recording stars to record 'We Are the World' inside these soundstages in January 1985." }
         ],
         stories: [
           { 
-            h: "The Tudor Village in the Orange Groves", 
-            p: "In 1917, Charlie Chaplin bought five acres of open orange groves on La Brea Avenue to build his own personal film studio. He designed the lot to look like a quaint English Tudor village so it would blend into the residential neighborhood." 
+            h: "The Tudor Village in the Orange Groves (1917)", 
+            p: "In 1917, Charlie Chaplin purchased five acres of rural orange orchards on La Brea Avenue to construct his own movie studio. Because the property sat in a quiet residential neighborhood, Chaplin designed the studio facade to look like a picturesque English country village with half-timbered Tudor cottages. This allowed his private creative facilities to blend into the surrounding homes. Here, Chaplin wrote, directed, edited, and scored his most celebrated masterpieces, including <em>The Kid</em> (1921), <em>The Gold Rush</em> (1925), and <em>Modern Times</em> (1936)." 
           },
           { 
-            h: "The United Artists Rebellion", 
-            p: "Tired of meddling studio executives and salary caps, Chaplin co-founded <strong>United Artists in 1919</strong> alongside Mary Pickford, Douglas Fairbanks, and D.W. Griffith. This gave the artists complete financial and creative ownership of their films for the first time in history." 
+            h: "The United Artists Rebellion (1919)", 
+            p: "Frustrated by the financial constraints and creative meddling of early studio executives, Chaplin took a bold stand for artistic independence. In 1919, he co-founded <strong>United Artists</strong> alongside screen icons Mary Pickford, Douglas Fairbanks, and director D.W. Griffith. This groundbreaking partnership marked the first time in cinematic history that actors and directors maintained total ownership of their films and profits, breaking the monopoly of early studio distributors." 
           },
           { 
-            h: "We Are the World", 
-            p: "In 1985, the studio (then A&M Studios) made music history. Following the American Music Awards, icons including Michael Jackson, Bruce Springsteen, Bob Dylan, Ray Charles, and Stevie Wonder gathered secretly inside these soundstages to record the historic charity single <em>'We Are the World'</em>." 
+            h: "We Are the World (1985)", 
+            p: "In the 1960s, the lot was purchased by A&M Records, founded by Herb Alpert and Jerry Moss, turning the soundstages into recording facilities. On the night of January 28, 1985, following the American Music Awards, music history was made inside Soundstage A. Producer Quincy Jones brought together 45 music legends—including Michael Jackson, Bruce Springsteen, Ray Charles, Bob Dylan, and Stevie Wonder—to record the charity single <em>'We Are the World'</em>, raising tens of millions of dollars for African famine relief." 
           },
           { 
-            h: "The Muppet Era", 
-            p: "Today, it serves as the headquarters of The Jim Henson Company. To honor the lot's founder, Henson placed an 8-foot statue of <strong>Kermit the Frog</strong> dressed in Chaplin’s iconic 'Little Tramp' suit standing guard atop the main gate." 
+            h: "The Muppet Era & Kermit the Tramp", 
+            p: "In 2000, the historic lot was acquired by The Jim Henson Company to serve as its world headquarters. To honor the studio's founding visionary, the Henson family erected a custom eight-foot bronze statue of <strong>Kermit the Frog dressed in Chaplin’s iconic Little Tramp costume</strong>, complete with bowler hat and cane, standing atop the main gate. The lot remains an active creative studio where puppetry, visual effects, and films are produced." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "The Giant Footprints", d: "Chaplin allegedly poured the concrete for the studio's pathways himself, supposedly leaving his own footprints scattered across the lot." }
+          { cls: "box-tip", t: "Kermit on the Gate", d: "Stand on the sidewalk across La Brea Avenue to look up at the main gate, where an 8-foot statue of Kermit the Frog poses in Charlie Chaplin's bowler hat and cane." }
         ]
       },
       es: {
@@ -865,36 +889,36 @@ const tourData = {
         address: "1416 N La Brea Ave",
         short: "11. Chaplin Studios",
         timeline: [
-          { y: "1917", t: "Chaplin construye su estudio estilo inglés sobre un campo de naranjos." },
-          { y: "1919", t: "Cofunda United Artists para combatir el monopolio de los estudios." },
-          { y: "1985", t: "Se graba aquí la histórica canción 'We Are the World'." },
-          { y: "2000", t: "La Jim Henson Company compra el terreno como su sede principal." }
+          { y: "1917", t: "Chaplin construye sus estudios estilo Tudor sobre campos de naranjos." },
+          { y: "1919", t: "Cofunda United Artists junto a Pickford, Fairbanks y Griffith." },
+          { y: "1985", t: "Se graba el himno 'We Are the World' en el Foro A." },
+          { y: "2000", t: "The Jim Henson Company compra las instalaciones como su sede mundial." }
         ],
         people: [
-          { name: "Charlie Chaplin", role: "Actor y Director", bio: "Genio cinematográfico que construyó este estudio para tener control creativo total, filmando joyas como El Chico y Tiempos Modernos." },
-          { name: "Jim Henson", role: "Creador de los Muppets", bio: "Su empresa compró el terreno en 2000, honrando a Chaplin al colocar una estatua de la Rana René (Kermit) vestida como el Vagabundo." },
-          { name: "Michael Jackson y Lionel Richie", role: "Íconos de la Música", bio: "Reunieron a 45 superestrellas en este estudio en 1985 para grabar el himno benéfico 'We Are the World'." }
+          { name: "Charlie Chaplin", role: "Actor, Director y Productor", bio: "Genio del cine que construyó este estudio para ser dueño de su obra, filmando clásicos como El Chico, Tiempos Modernos y El Gran Dictador." },
+          { name: "Jim Henson", role: "Creador de The Muppets", bio: "Su empresa familiar adquirió el predio en 2000, honrando a Chaplin con una estatua de la Rana René vestida como el Vagabundo sobre la reja." },
+          { name: "Quincy Jones y Michael Jackson", role: "Íconos de la Música", bio: "Reunieron a 45 superestrellas de la música para grabar 'We Are the World' en estos estudios en enero de 1985." }
         ],
         stories: [
           { 
-            h: "La Villa Inglesa entre Naranjos", 
-            p: "En 1917, Charlie Chaplin compró cinco acres de campos de naranjos para construir su propio estudio de cine. Lo diseñó para que pareciera una pintoresca villa inglesa estilo Tudor, mezclándose con las casas del vecindario residencial." 
+            h: "La Villa Inglesa entre Naranjos (1917)", 
+            p: "En 1917, Charlie Chaplin compró cinco acres de huertos de naranjos en La Brea Avenue para edificar su propio estudio cinematográfico. Como el terreno estaba en una zona residencial campestre, Chaplin diseñó la fachada para que pareciera una pintoresca villa inglesa estilo Tudor con techos de dos aguas. Esto le permitió integrar sus foros de filmación con las residencias vecinas. En estas instalaciones escribió, dirigió y musicalizó joyas como <em>El Chico</em> (1921), <em>La Quimera del Oro</em> (1925) y <em>Tiempos Modernos</em> (1936)." 
           },
           { 
-            h: "La Rebelión de United Artists", 
-            p: "Cansado de que los ejecutivos dictaran su trabajo, Chaplin cofundó <strong>United Artists en 1919</strong> junto a Mary Pickford y Douglas Fairbanks. Esto les dio a los artistas control financiero y creativo total sobre sus películas por primera vez." 
+            h: "La Rebelión de United Artists (1919)", 
+            p: "Cansado del control financiero y las exigencias de los primeros ejecutivos de la industria, Chaplin decidió luchar por su libertad creativa. En 1919 cofundó <strong>United Artists</strong> junto a Mary Pickford, Douglas Fairbanks y el director D.W. Griffith. Esta alianza fue un hito en la historia de Hollywood, pues por primera vez los creadores fueron dueños absolutos de sus películas y de las ganancias generadas en taquilla." 
           },
           { 
-            h: "La Noche de 'We Are the World'", 
-            p: "En 1985, el estudio hizo historia en la música. Tras una entrega de premios, íconos como Michael Jackson, Bruce Springsteen, Ray Charles y Bob Dylan se reunieron en secreto en estos foros para grabar el himno benéfico <em>'We Are the World'</em>." 
+            h: "La Grabación de 'We Are the World' (1985)", 
+            p: "En los años 60, la compañía disquera A&M Records adquirió el predio y transformó los foros en modernos estudios de grabación. En la noche del 28 de enero de 1985 se escribió una página dorada en la historia de la música. El productor Quincy Jones reunió en el Foro A a 45 figuras legendarias—incluyendo a Michael Jackson, Bruce Springsteen, Ray Charles, Bob Dylan y Stevie Wonder—para grabar el tema benéfico <em>'We Are the World'</em>, recaudando millones de dólares para combatir el hambre en África." 
           },
           { 
-            h: "La Era de los Muppets", 
-            p: "Hoy en día, es la sede de The Jim Henson Company (creadores de los Muppets). Para honrar a Chaplin, colocaron una estatua de la <strong>Rana René (Kermit)</strong> vistiendo el traje del 'Vagabundo' en lo alto de la puerta principal." 
+            h: "La Era de los Muppets y la Rana René", 
+            p: "En el año 2000, la empresa de Jim Henson adquirió las históricas instalaciones para fijar su sede internacional. Para rendir homenaje al fundador del predio, colocaron sobre la puerta principal una escultura de dos metros y medio de la <strong>Rana René (Kermit) vestida con el traje del 'Vagabundo' de Chaplin</strong>, luciendo su clásico bombín y bastón. El lugar sigue activo hoy como estudio de filmación, títeres y animación." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Un Vistazo por la Puerta", d: "Aunque está cerrado al público, desde la acera de La Brea puedes ver perfectamente la cabina de vigilancia original y los estudios de madera." }
+          { cls: "box-tip", t: "La Rana René en la Entrada", d: "Párense en la acera de enfrente de La Brea para ver la estatua de bronce de la Rana René caracterizada con el traje y bastón de Charlie Chaplin sobre el portón." }
         ]
       }
     },
@@ -904,75 +928,77 @@ const tourData = {
       id: 12,
       mapUrl: "https://maps.google.com/?q=Crossroads+of+the+World+Los+Angeles",
       en: {
-        title: "Crossroads of the World (Tour Finale)",
+        title: "Crossroads of the World",
         address: "6671 Sunset Blvd",
         short: "12. Crossroads",
         timeline: [
-          { y: "1931", t: "Mobster Charles Crawford is murdered in his office on this site." },
-          { y: "1936", t: "Crawford's widow builds America's first modern outdoor shopping mall." },
-          { y: "1997", t: "Featured as a key backdrop in the neo-noir film L.A. Confidential." }
+          { y: "1931", t: "Underworld political boss Charles Crawford is shot dead in his office here." },
+          { y: "1936", t: "Crawford's widow opens America's first modern open-air pedestrian shopping mall." },
+          { y: "1950s", t: "Alfred Hitchcock establishes his private creative production offices on the property." },
+          { y: "1997", t: "Featured prominently as an iconic vintage setting in the film L.A. Confidential." }
         ],
         people: [
-          { name: "Robert V. Derrah", role: "Architect", bio: "Designed the complex with a central Streamline Moderne ship surrounded by a village of diverse European architectural styles." },
-          { name: "Charles Crawford", role: "Crime Boss & Politician", bio: "The 'Wolf of Spring Street' who ran LA's underground vice syndicate before being shot dead in his office right where the mall now stands." },
-          { name: "Alfred Hitchcock", role: "Film Director", bio: "Maintained private production offices inside the ship-shaped building during the 1940s and 50s." }
+          { name: "Robert V. Derrah", role: "Master Architect", bio: "Talented architect who designed the central Streamline Moderne ocean liner building surrounded by European-style cottage villages." },
+          { name: "Charles Crawford", role: "Underworld Crime Boss", bio: "Notorious political fixer and speakeasy kingpin known as the 'Wolf of Spring Street', whose assassination on this plot led to the mall's construction." },
+          { name: "Alfred Hitchcock", role: "Master of Suspense", bio: "Legendary film director who maintained his independent screenwriting and pre-production offices within the central ship building." }
         ],
         stories: [
           { 
-            h: "America's First Outdoor Mall", 
-            p: "You have reached the final stop of our tour. Built in 1936 by architect Robert V. Derrah, Crossroads of the World is recognized as America’s very first modern open-air shopping mall, designed to let pedestrians wander safely away from traffic." 
+            h: "America's First Outdoor Shopping Mall (1936)", 
+            p: "You have arrived at the concluding stop of our tour. Built in 1936 by architect Robert V. Derrah, Crossroads of the World is recognized as America's very first modern open-air shopping pedestrian mall. Derrah designed the property as an architectural fantasy to allow shoppers to stroll safely along garden pathways away from automobile traffic. The complex features a central courtyard flanked by whimsical storefronts designed to resemble French, Spanish, Moorish, and English country cottages." 
           },
           { 
-            h: "The Art Deco Ocean Liner", 
-            p: "The centerpiece building is designed like a 58-foot Streamline Moderne ocean liner sailing toward Sunset Boulevard, topped with an 8-foot revolving blue neon globe. It is surrounded by European-style cottage boutiques styled after Spanish, French, and English villages." 
+            h: "The Streamline Moderne Ocean Liner", 
+            p: "The crowning centerpiece of the complex is a 58-foot building designed to resemble a Streamline Moderne ocean liner sailing directly onto Sunset Boulevard. The building features porthole windows, brass ship railings, life preservers, and an authentic pilot bridge. Towering above the ship's mast is an eight-foot revolving neon globe that glows bright blue at night, serving as a beacon for Hollywood motorists for nearly ninety years." 
           },
           { 
-            h: "Mob Lore & Murder", 
-            p: "The real estate has a dark past. It was built by the widow of <strong>Charles Crawford</strong>, a notorious speakeasy kingpin and corrupt political boss known as the 'Wolf of Spring Street.' Crawford was shot dead in his office in 1931 during a massive political scandal right on this exact plot of land." 
+            h: "Mob Lore & The Murder of Charles Crawford", 
+            p: "The real estate carries a dark history rooted in the corruption of 1930s Los Angeles. The complex was built by the widow of Charles Crawford, a notorious speakeasy operator and political fixer known as the 'Wolf of Spring Street'. On May 20, 1931, Crawford was shot dead inside his private office on this exact plot of land during a political extortion scandal. To clear her family's name and create a legitimate revenue stream, his widow demolished the crime scene and financed this world-themed shopping village." 
           },
           { 
-            h: "Hitchcock & L.A. Confidential", 
-            p: "The mall later transitioned into private creative offices. Master of suspense <strong>Alfred Hitchcock</strong> maintained his production offices here. Its perfectly preserved vintage aesthetic made it the ideal backdrop for modern film noir classics, appearing prominently in <em>L.A. Confidential</em> (1997)." 
+            h: "Alfred Hitchcock & Film Noir Cinema", 
+            p: "As retail shifted to modern department stores, Crossroads transitioned into creative offices for writers, casting agents, and independent producers. Master of suspense Alfred Hitchcock kept his private production offices inside the ship building during the 1940s and 1950s. The property's preserved vintage aesthetic made it the premier backdrop for neo-noir motion pictures, appearing prominently in the Academy Award-winning film <em>L.A. Confidential</em> (1997) as Pierce Patchett's headquarters." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Sunset Boulevard Wrap-Up", d: "Tour concludes! You are on Sunset Boulevard surrounded by cafes and record shops. Use your map to explore or walk up to Hollywood & Vine for the Metro." }
+          { cls: "box-tip", t: "Sunset Boulevard Wrap-Up", d: "The tour is complete! You are located on vibrant Sunset Boulevard surrounded by cafes and record shops, just a short walk from the Hollywood & Vine Metro station." }
         ]
       },
       es: {
-        title: "Crossroads of the World (Fin del Tour)",
+        title: "Crossroads of the World",
         address: "6671 Sunset Blvd",
         short: "12. Crossroads",
         timeline: [
-          { y: "1931", t: "El mafioso Charles Crawford es asesinado en su oficina en este terreno." },
-          { y: "1936", t: "Su viuda construye el primer centro comercial al aire libre de EE. UU." },
-          { y: "1997", t: "Aparece como escenario clave en la película L.A. Confidential." }
+          { y: "1931", t: "El jefe de la mafia política Charles Crawford es asesinado a tiros en este lugar." },
+          { y: "1936", t: "Su viuda inaugura el primer centro comercial peatonal al aire libre de EE. UU." },
+          { y: "Años 1950", t: "Alfred Hitchcock establece sus oficinas de producción dentro del barco central." },
+          { y: "1997", t: "Aparece como escenario principal en la película de cine negro L.A. Confidential." }
         ],
         people: [
-          { name: "Robert V. Derrah", role: "Arquitecto", bio: "Diseñó el complejo con un barco central rodeado de una pintoresca villa de diversos estilos arquitectónicos europeos." },
-          { name: "Charles Crawford", role: "Jefe Criminal y Político", bio: "Conocido como 'El Lobo de Spring Street', controló el bajo mundo de LA hasta ser asesinado a tiros en este mismo lugar." },
-          { name: "Alfred Hitchcock", role: "Director de Cine", bio: "Mantuvo sus oficinas de producción privadas dentro del edificio con forma de barco durante los años 40." }
+          { name: "Robert V. Derrah", role: "Arquitecto Principal", bio: "Arquitecto que concibió el transatlántico central de estilo Streamline Moderne rodeado de cabañas europeas." },
+          { name: "Charles Crawford", role: "Jefe del Crimen y Político", bio: "Poderoso operador clandestino conocido como el 'Lobo de Spring Street', cuyo asesinato propició la construcción del centro." },
+          { name: "Alfred Hitchcock", role: "Maestro del Suspenso", bio: "Célebre director de cine que mantuvo sus oficinas privadas de guion y producción dentro del edificio con forma de barco." }
         ],
         stories: [
           { 
-            h: "El Primer Centro Comercial al Aire Libre", 
-            p: "Has llegado a la última parada del tour. Construido en 1936, Crossroads of the World es reconocido como el primer centro comercial moderno al aire libre de Estados Unidos, diseñado para que los peatones pasearan lejos del tráfico." 
+            h: "El Primer Centro Comercial al Aire Libre (1936)", 
+            p: "Han llegado a la última parada de nuestro recorrido. Construido en 1936 por el arquitecto Robert V. Derrah, Crossroads of the World es reconocido como el primer centro comercial peatonal al aire libre de Estados Unidos. Derrah diseñó el complejo como una fantasía arquitectónica donde los transeúntes pudieran pasear entre jardines lejos del tráfico vehicular. El patio central está rodeado de tiendas construidas con estilos que imitan villas españolas, francesas, moriscas e inglesas." 
           },
           { 
             h: "Un Transatlántico en Sunset Boulevard", 
-            p: "El edificio central tiene forma de un transatlántico de estilo Streamline Moderne navegando hacia Sunset Boulevard, coronado por un globo giratorio de neón azul. Está rodeado por tiendas estilo cabaña que imitan villas españolas, francesas e inglesas." 
+            p: "El edificio principal del complejo tiene la forma de un transatlántico de estilo Streamline Moderne que parece navegar hacia Sunset Boulevard. La estructura cuenta con ojos de buey, barandillas náuticas de latón, salvavidas y un puente de mando auténtico. Sobre el mástil del barco se alza un globo terráqueo giratorio de neón de dos metros y medio de diámetro que brilla con luz azul por las noches, siendo un ícono visual para los conductores desde hace casi un siglo." 
           },
           { 
-            h: "Mafia y Asesinato", 
-            p: "El terreno tiene un pasado oscuro. Fue construido por la viuda de <strong>Charles Crawford</strong>, un poderoso jefe de la mafia y líder político corrupto. Crawford fue asesinado a tiros en su oficina en 1931 durante un escándalo político justo en este mismo lote." 
+            h: "Historias de Mafia y el Asesinato de Charles Crawford", 
+            p: "El terreno tiene un pasado oscuro ligado a la corrupción del bajo mundo angelino. El centro fue construido por la viuda de Charles Crawford, un poderoso operador de bares clandestinos conocido como el 'Lobo de Spring Street'. El 20 de mayo de 1931, Crawford fue asesinado a tiros dentro de su oficina privada en este mismo lote durante un escándalo político. Para limpiar el nombre familiar y generar ingresos legítimos, su viuda demolió el lugar y financió este centro comercial." 
           },
           { 
-            h: "Hitchcock y el Cine Negro", 
-            p: "Con el tiempo se convirtió en oficinas creativas. El maestro del suspenso <strong>Alfred Hitchcock</strong> tuvo aquí sus oficinas de producción. Su estética vintage perfectamente conservada lo hizo el escenario ideal para clásicos modernos del cine negro como <em>L.A. Confidential</em> (1997)." 
+            h: "Alfred Hitchcock y el Cine Negro", 
+            p: "Con el tiempo, el complejo se convirtió en oficinas de producción para escritores, agencias de actores y productores independientes. El maestro del suspenso Alfred Hitchcock mantuvo sus oficinas dentro del edificio del barco durante los años 40 y 50. Su estética clásica intacta lo convirtió en el escenario perfecto para películas de cine negro, destacando en la premiada película <em>L.A. Confidential</em> (1997) como la sede del personaje Pierce Patchett." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Fin del Recorrido", d: "¡Felicidades! Estás en Sunset Blvd rodeado de cafés y tiendas. Usa tu mapa para seguir explorando o camina hacia Hollywood y Vine para tomar el Metro." }
+          { cls: "box-tip", t: "Fin del Recorrido", d: "¡El recorrido ha finalizado! Se encuentran sobre Sunset Boulevard rodeados de cafés y restaurantes, a pocos pasos de la estación del Metro en Hollywood y Vine." }
         ]
       }
     }
