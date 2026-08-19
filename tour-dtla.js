@@ -324,7 +324,7 @@ const tourData = {
       en: {
         title: "California Plaza Overlook & U.S. Bank Tower",
         address: "Upper Terrace overlooking Grand Steps & 4th/Hope",
-        short: "4. Torre U.S. Bank",
+        short: "4. U.S. Bank Tower",
         timeline: [
           { y: "1989", t: "The 73-story Library Tower (now U.S. Bank Tower) is completed at 1,018 feet." },
           { y: "1996", t: "Incinerated by the alien mothership beam in Independence Day." },
