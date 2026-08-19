@@ -1032,7 +1032,7 @@ const tourData = {
       }
     },
 
-    // 12. Placita Olvera (Tour Finale)
+    // 12. Placita Olvera
     {
       id: 12,
       coords: [-118.2389, 34.0573],
@@ -1129,87 +1129,99 @@ const tourData = {
   ]
 };
 
-// Initialize Embedded Mapbox Map
+// Safe Mapbox Map Initialization
 function initTourMap() {
   const mapContainer = document.getElementById('tour-map');
   if (!mapContainer || map) return;
 
-  map = new mapboxgl.Map({
-    container: 'tour-map',
-    style: 'mapbox://styles/mapbox/light-v11',
-    center: tourData.stops[0].coords,
-    zoom: 15.5,
-    pitch: 25,
-    attributionControl: false
-  });
+  try {
+    if (typeof mapboxgl === 'undefined' || !mapboxgl.accessToken) {
+      console.warn('Mapbox GL JS or Access Token not set in Webflow.');
+      return;
+    }
 
-  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+    map = new mapboxgl.Map({
+      container: 'tour-map',
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: tourData.stops[0].coords,
+      zoom: 15.5,
+      pitch: 25,
+      attributionControl: false
+    });
 
-  map.on('load', () => {
-    // Add Route Polyline
-    const routeCoords = tourData.stops.map(st => st.coords);
-    map.addSource('tour-route', {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: routeCoords
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+
+    map.on('load', () => {
+      map.resize();
+
+      const routeCoords = tourData.stops.map(st => st.coords);
+      map.addSource('tour-route', {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            coordinates: routeCoords
+          }
         }
-      }
+      });
+
+      map.addLayer({
+        id: 'tour-route-line',
+        type: 'line',
+        source: 'tour-route',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#2563eb',
+          'line-width': 3.5,
+          'line-dasharray': [1.5, 1.5]
+        }
+      });
+
+      tourData.stops.forEach((st, idx) => {
+        const el = document.createElement('div');
+        el.className = `map-pin ${idx + 1 === currentStop ? 'active' : ''}`;
+        el.id = `map-pin-${idx + 1}`;
+        el.innerText = idx + 1;
+        el.addEventListener('click', () => goToStop(idx + 1));
+
+        const marker = new mapboxgl.Marker(el)
+          .setLngLat(st.coords)
+          .addTo(map);
+
+        mapMarkers.push(marker);
+      });
     });
-
-    map.addLayer({
-      id: 'tour-route-line',
-      type: 'line',
-      source: 'tour-route',
-      layout: {
-        'line-join': 'round',
-        'line-cap': 'round'
-      },
-      paint: {
-        'line-color': '#2563eb',
-        'line-width': 3.5,
-        'line-dasharray': [1.5, 1.5]
-      }
-    });
-
-    // Create Numbered Pins for All Stops
-    tourData.stops.forEach((st, idx) => {
-      const el = document.createElement('div');
-      el.className = `map-pin ${idx + 1 === currentStop ? 'active' : ''}`;
-      el.id = `map-pin-${idx + 1}`;
-      el.innerText = idx + 1;
-      el.addEventListener('click', () => goToStop(idx + 1));
-
-      const marker = new mapboxgl.Marker(el)
-        .setLngLat(st.coords)
-        .addTo(map);
-
-      mapMarkers.push(marker);
-    });
-  });
+  } catch (err) {
+    console.warn('Mapbox initialization deferred:', err);
+  }
 }
 
 function updateMapPosition() {
   const targetStop = tourData.stops[currentStop - 1];
   if (!targetStop || !map) return;
 
-  map.flyTo({
-    center: targetStop.coords,
-    zoom: 16,
-    speed: 1.2,
-    curve: 1.1,
-    essential: true
-  });
+  try {
+    map.flyTo({
+      center: targetStop.coords,
+      zoom: 16,
+      speed: 1.2,
+      curve: 1.1,
+      essential: true
+    });
 
-  // Update Pin Highlights
-  tourData.stops.forEach((_, idx) => {
-    const pinEl = document.getElementById(`map-pin-${idx + 1}`);
-    if (pinEl) {
-      pinEl.classList.toggle('active', idx + 1 === currentStop);
-    }
-  });
+    tourData.stops.forEach((_, idx) => {
+      const pinEl = document.getElementById(`map-pin-${idx + 1}`);
+      if (pinEl) {
+        pinEl.classList.toggle('active', idx + 1 === currentStop);
+      }
+    });
+  } catch (e) {
+    // Map was not ready yet
+  }
 }
 
 function renderView(shouldScroll = true) {
@@ -1252,7 +1264,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // People Cards
+  // Notable Figures
   const peopleSection = document.getElementById('people-section');
   const peopleGrid = document.getElementById('people-grid');
   if (peopleSection && peopleGrid) {
@@ -1270,7 +1282,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
-  // Story Deep Dives
+  // Story Content
   const storyContainer = document.getElementById('story-content');
   if (storyContainer) {
     storyContainer.innerHTML = d.stories.map(story => `
@@ -1279,7 +1291,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Callouts Grid
+  // Callouts
   const calloutContainer = document.getElementById('callouts-container');
   if (calloutContainer) {
     calloutContainer.innerHTML = d.callouts.map(c => `
@@ -1290,7 +1302,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Stepper Nav
+  // Stepper Buttons
   const btnPrev = document.getElementById('nav-prev');
   const btnNext = document.getElementById('nav-next');
   if (btnPrev) {
@@ -1307,7 +1319,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
-  // Pill Carousel
+  // Pill Scroller
   const pillNav = document.getElementById('pill-nav');
   if (pillNav) {
     pillNav.innerHTML = tourData.stops.map((st, idx) => `
@@ -1334,7 +1346,6 @@ function renderView(shouldScroll = true) {
     promoBtn.textContent = u.promoBtnText;
   }
 
-  // Update Map Position
   updateMapPosition();
 
   if (shouldScroll) {
@@ -1388,12 +1399,14 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    initTourMap();
-    renderView(false);
-  });
-} else {
-  initTourMap();
+// App Startup Sequence (Content loads first, map initializes second)
+function startApp() {
   renderView(false);
+  initTourMap();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
 }
