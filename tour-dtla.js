@@ -5,7 +5,7 @@
 
 let currentLang = 'en';
 let currentStop = 1;
-const totalStops = 14;
+const totalStops = 12;
 
 const tourData = {
   ui: {
@@ -324,7 +324,7 @@ const tourData = {
       en: {
         title: "California Plaza Overlook & U.S. Bank Tower",
         address: "Upper Terrace overlooking Grand Steps & 4th/Hope",
-        short: "4. U.S. Bank Tower",
+        short: "4. Torre U.S. Bank",
         timeline: [
           { y: "1989", t: "The 73-story Library Tower (now U.S. Bank Tower) is completed at 1,018 feet." },
           { y: "1996", t: "Incinerated by the alien mothership beam in Independence Day." },
@@ -757,7 +757,7 @@ const tourData = {
       }
     },
 
-    // 9. Evolution Sculpture (Expanded + Clean Bolding + Fixed Stats)
+    // 9. Evolution Sculpture
     {
       id: 9,
       mapUrl: "https://maps.google.com/?q=200+S+Broadway+Los+Angeles",
@@ -851,7 +851,7 @@ const tourData = {
       }
     },
 
-    // 10. Los Angeles City Hall (Expanded + Movie Section)
+    // 10. Los Angeles City Hall
     {
       id: 10,
       mapUrl: "https://maps.google.com/?q=Los+Angeles+City+Hall",
@@ -941,7 +941,7 @@ const tourData = {
       }
     },
 
-    // 11. Courthouses (Grouped cleanly into 3 Courthouses)
+    // 11. Courthouses
     {
       id: 11,
       mapUrl: "https://maps.google.com/?q=Hall+of+Justice+Los+Angeles",
@@ -1019,12 +1019,12 @@ const tourData = {
       }
     },
 
-    // 12. Placita Olvera (Clean Callout Text)
+    // 12. Placita Olvera (Tour Finale)
     {
       id: 12,
       mapUrl: "https://maps.google.com/?q=Olvera+Street+Los+Angeles",
       en: {
-        title: "Placita Olvera & El Pueblo Monument",
+        title: "Placita Olvera & El Pueblo Monument (Tour Finale)",
         address: "845 N Alameda St",
         short: "12. Placita Olvera",
         timeline: [
@@ -1068,7 +1068,7 @@ const tourData = {
         ]
       },
       es: {
-        title: "Placita Olvera y Monumento El Pueblo",
+        title: "Placita Olvera y Monumento El Pueblo (Fin del Tour)",
         address: "845 N Alameda St",
         short: "12. Placita Olvera",
         timeline: [
@@ -1109,162 +1109,6 @@ const tourData = {
         callouts: [
           { cls: "box-food", t: "Taquitos con Aguacate de Cielito Lindo", d: "Prueba los famosos taquitos dorados con salsa verde de aguacate en <em>Cielito Lindo</em> (abierto desde 1934 al final del callejón)." },
           { cls: "box-tip", t: "Estación Unión (Union Station)", d: "Cruza Alameda Street para admirar la hermosa arquitectura de 1939 de <strong>Union Station</strong> y conectar directamente con el Metro." }
-        ]
-      }
-    },
-
-    // 13. El Nuevo Fuego & Broadway Murals
-    {
-      id: 13,
-      mapUrl: "https://maps.google.com/?q=240+S+Broadway+Los+Angeles",
-      en: {
-        title: "El Nuevo Fuego & Broadway Murals",
-        address: "240 S Broadway (Victor Clothing Co. Building)",
-        short: "13. El Nuevo Fuego",
-        timeline: [
-          { y: "1932", t: "Los Angeles hosts the Games of the X Olympiad." },
-          { y: "1984", t: "LA hosts the Games of the XXIII Olympiad (exactly 52 years later)." },
-          { y: "1984", t: "Eloy Torrez paints The Pope of Broadway depicting Anthony Quinn." },
-          { y: "1985", t: "East Los Streetscapers paint the 80x85-foot mural El Nuevo Fuego." }
-        ],
-        people: [
-          { name: "East Los Streetscapers (Healy & Botello)", role: "Chicano Mural Pioneers", bio: "Influential artist collective that bridged Mesoamerican history, public Chicano street art, and Olympic milestones across East Los Angeles and Downtown." },
-          { name: "Paul Gonzales", role: "Olympic Boxing Gold Medalist", bio: "East LA native who fought out of local youth gyms, won Gold in the 1984 Olympic Games, and was awarded the Val Barker Trophy for best pound-for-pound fighter." },
-          { name: "Valerie Briscoe-Hooks", role: "Triple Olympic Gold Medalist", bio: "South LA sprinter who made history at the 1984 Games as the first Olympian to win gold in both the 200m and 400m races at the same Olympics." },
-          { name: "Anthony Quinn", role: "Chihuahua-Born Oscar Winner", bio: "Legendary Mexican-American actor celebrated next door in Eloy Torrez's mural The Pope of Broadway in his famous Zorba the Greek dance pose." }
-        ],
-        stories: [
-          { 
-            h: "The 52-Year Aztec Cycle & The Olympic Flame", 
-            p: "Painted in <strong>1985</strong> by the <strong>East Los Streetscapers</strong> (Wayne Alaniz Healy, David Botello, George Yepes). In ancient Mesoamerican culture, every 52 years, all fires across the empire were extinguished, and priests lit a single 'New Fire' (<em>Xiuhmolpilli</em>) from a sacred mountaintop to symbolize cosmic rebirth.<br><br>Los Angeles hosted the Summer Olympic Games in <strong>1932</strong> and again in <strong>1984</strong>—a gap of <strong>exactly 52 years</strong>. The mural connects ancient Aztec ceremony with the return of the Olympic flame to Los Angeles." 
-          },
-          { 
-            h: "Local Champions from East LA & South LA", 
-            p: "The mural honors homegrown champions who grew up in local neighborhoods: East LA boxer <strong>Paul Gonzales</strong> (who won Gold in 1984 and took home the Val Barker Trophy for best boxer) and South LA sprinter <strong>Valerie Briscoe-Hooks</strong> (the first athlete in Olympic history to win gold in both the 200m and 400m at the same Olympic Games)." 
-          },
-          { 
-            h: "The Victor Clothing Chicano Art Corridor", 
-            p: "The Victor Clothing Company was an iconic retailer on Broadway that supported the community by commissioning Chicano masterworks on its walls. Look directly next door at <strong>The Pope of Broadway (1984)</strong> by Eloy Torrez, portraying Mexican-American Oscar-winner <strong>Anthony Quinn</strong> dancing with open arms in his famous <em>Zorba the Greek</em> pose." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "Photo Spot", d: "Stand across the street on Broadway to capture both <em>El Nuevo Fuego</em> and <em>The Pope of Broadway</em> murals side-by-side in one frame." }
-        ]
-      },
-      es: {
-        title: "Mural El Nuevo Fuego y Arte Urbano",
-        address: "240 S Broadway (Edificio Victor Clothing Co.)",
-        short: "13. El Nuevo Fuego",
-        timeline: [
-          { y: "1932", t: "Los Ángeles es sede de los X Juegos Olímpicos." },
-          { y: "1984", t: "LA recibe los XXIII Juegos Olímpicos (exactamente 52 años después)." },
-          { y: "1984", t: "Eloy Torrez pinta 'The Pope of Broadway' en homenaje a Anthony Quinn." },
-          { y: "1985", t: "East Los Streetscapers crean el mural de 80x85 pies 'El Nuevo Fuego'." }
-        ],
-        people: [
-          { name: "East Los Streetscapers", role: "Pioneros del Muralismo Chicano", bio: "Colectivo artístico fundado por Wayne Healy y David Botello que unió la cosmología azteca con la identidad urbana angelina." },
-          { name: "Paul Gonzales", role: "Boxeador Medallista de Oro", bio: "Pugilista originario del Este de LA que conquistó el Oro olímpico en 1984 y el Trofeo Val Barker al mejor boxeador del torneo." },
-          { name: "Valerie Briscoe-Hooks", role: "Triple Campeona Olímpica", bio: "Atleta del Sur de LA que hizo historia en 1984 al ser la primera mujer en ganar el oro en 200m y 400m en los mismos Juegos." },
-          { name: "Anthony Quinn", role: "Actor Ganador del Óscar", bio: "Leyenda chihuahuense del cine retratado en el mural vecino de Eloy Torrez en su icónico baile de Zorba el Griego." }
-        ],
-        stories: [
-          { 
-            h: "El Fuego Nuevo Azteca y la Llama Olímpica", 
-            p: "Pintado en <strong>1985</strong> por los artistas de <strong>East Los Streetscapers</strong> (Healy, Botello y Yepes). En el México prehispánico, cada 52 años se apagaban todos los fuegos del imperio y los sacerdotes encendían un único 'Fuego Nuevo' (<em>Xiuhmolpilli</em>) en la cima sagrada para simbolizar la renovación cósmica.<br><br>Los Ángeles fue sede olímpica en <strong>1932</strong> y en <strong>1984</strong>: un intervalo de <strong>exactamente 52 años</strong>. El mural fusiona la mitología azteca con el regreso de la antorcha olímpica a la ciudad." 
-          },
-          { 
-            h: "Campeones Locales del Este y Sur de LA", 
-            p: "Rinde homenaje a atletas locales: el boxeador del Este de LA <strong>Paul Gonzales</strong> (Oro en 1984 y Trofeo Val Barker) y la velocista del Sur de LA <strong>Valerie Briscoe-Hooks</strong> (primera mujer en ganar oro en 200m y 400m en los mismos Juegos Olímpicos)." 
-          },
-          { 
-            h: "El Corredor de Arte de Victor Clothing Co.", 
-            p: "La tienda Victor Clothing financió grandes murales chicanos. Justo al lado pueden ver <strong>The Pope of Broadway (1984)</strong> de Eloy Torrez, que retrata al gran actor mexicano <strong>Anthony Quinn</strong> bailando con los brazos abiertos en su papel de <em>Zorba el Griego</em>." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "Foto Panorámica", d: "Párate en la acera de enfrente de Broadway para capturar tanto <em>El Nuevo Fuego</em> como el mural de Anthony Quinn en una sola foto." }
-        ]
-      }
-    },
-
-    // 14. Transportation & Car Culture History
-    {
-      id: 14,
-      mapUrl: "https://maps.google.com/?q=Los+Angeles+Union+Station",
-      en: {
-        title: "Transportation History & Car Culture",
-        address: "Downtown Los Angeles Regional Transit Corridor",
-        short: "14. Transportation",
-        timeline: [
-          { y: "1901", t: "Henry Huntington incorporates the Pacific Electric Railway ('Red Cars')." },
-          { y: "1925", t: "LA becomes the global per-capita car capital (1 car per 3 residents)." },
-          { y: "1940", t: "America's first freeway (Arroyo Seco Parkway / CA-110) connects Pasadena to DTLA." },
-          { y: "1948", t: "In-N-Out Burger opens California's first drive-thru with intercoms in Baldwin Park." },
-          { y: "1949", t: "Federal antitrust conviction of GM, Firestone, and Standard Oil in US v. National City Lines." }
-        ],
-        people: [
-          { name: "Henry E. Huntington", role: "Rail & Real Estate Baron", bio: "Mastermind behind the 1,100-mile Pacific Electric 'Red Car' transit empire, which he operated as a loss leader to sell vast suburban real estate developments." },
-          { name: "Isaias W. Hellman", role: "Pioneer Financier & Banker", bio: "President of Farmers and Merchants Bank and partner of Huntington who provided the crucial banking capital that built modern Southern California." },
-          { name: "Harry & Esther Snyder", role: "In-N-Out Founders", bio: "Opened California's first drive-thru burger stand in Baldwin Park in 1948, pioneering the two-way speaker box and fresh-to-order car culture dining." }
-        ],
-        stories: [
-          { 
-            h: "Henry Huntington & The Red Car Real Estate Scheme", 
-            p: "When Collis Huntington died, his nephew <strong>Henry Huntington</strong> was passed over for leadership of the Southern Pacific Railroad in San Francisco. Huntington took his inheritance south, partnered with banker Isaias W. Hellman, and built the <strong>Pacific Electric Railway (the famous 'Red Cars')</strong> into the largest electric interurban transit network on earth (over 1,100 miles of track)." 
-          },
-          { 
-            h: "The Train as a Loss Leader", 
-            p: "Here is the genius secret: <strong>the streetcars were intentionally operated as a loss leader</strong>. Huntington lost money on passenger fares because the tracks were laid straight into empty orange groves and ranchlands owned by his private land syndicates. The trains existed purely to sell suburban real estate, causing LA's population to explode from <strong>102,000 in 1900 to 1.2 million by 1930</strong>." 
-          },
-          { 
-            h: "The GM Antitrust Monopoly & The Automotive Shift", 
-            p: "As Angelenos bought private cars, rail lines lost revenue. In the landmark federal antitrust case <em>United States v. National City Lines</em>, it was proven that General Motors, Firestone Tire, Standard Oil of California, and Mack Trucks secretly funded a front company that bought up electric streetcar networks across 45+ US cities, tore up the tracks, and motorized the lines with diesel buses to cement car dominance." 
-          },
-          { 
-            h: "The Birth of Car Culture & In-N-Out Burger", 
-            p: "By 1925, Los Angeles was the car capital of the world (1 car for every 3 residents, compared to 1 in 7 nationally). In 1940, the region opened America's first freeway: the <strong>Arroyo Seco Parkway (CA-110)</strong>. With car culture reigning supreme, in 1948 Harry and Esther Snyder opened California's first drive-thru in Baldwin Park featuring a revolutionary two-way speaker box: <strong>In-N-Out Burger</strong>." 
-          }
-        ],
-        callouts: [
-          { cls: "box-food", t: "In-N-Out Secret Menu Guide", d: "<ul><li><strong>Animal Style:</strong> Mustard-seared beef, pickles, caramelized grilled onions, extra spread.</li><li><strong>Protein Style:</strong> Burger wrapped in fresh lettuce leaves (no bun).</li><li><strong>Flying Dutchman:</strong> Two slices of cheese melted between two beef patties (no bun, no veggies).</li></ul>" }
-        ]
-      },
-      es: {
-        title: "Historia del Transporte y Cultura del Auto",
-        address: "Corredor Histórico de Transporte de Los Ángeles",
-        short: "14. Transporte",
-        timeline: [
-          { y: "1901", t: "Henry Huntington funda los tranvías 'Red Cars' de Pacific Electric." },
-          { y: "1925", t: "LA se convierte en la capital mundial del automóvil (1 auto por cada 3 habitantes)." },
-          { y: "1940", t: "Abre la primera autopista de EE. UU. (Arroyo Seco Parkway / CA-110) hacia DTLA." },
-          { y: "1948", t: "In-N-Out Burger abre el primer autoservicio con intercomunicador en Baldwin Park." },
-          { y: "1949", t: "Condena federal antimonopolio a GM, Firestone y Standard Oil por desmantelar tranvías." }
-        ],
-        people: [
-          { name: "Henry E. Huntington", role: "Magnate de Tranvías y Bienes Raíces", bio: "Creador del imperio de tranvías 'Red Cars' de más de 1,100 millas, operados a pérdida para vender terrenos agrícolas convertidos en suburbios." },
-          { name: "Isaias W. Hellman", role: "Banquero Pionero de California", bio: "Presidente de Farmers and Merchants Bank y socio de Huntington que financió el crecimiento de los servicios públicos e industrias de LA." },
-          { name: "Harry y Esther Snyder", role: "Fundadores de In-N-Out", bio: "Abrieron el primer autoservicio de California en Baldwin Park en 1948, inventando el sistema de pedidos por altavoz bidireccional." }
-        ],
-        stories: [
-          { 
-            h: "Henry Huntington y el Gran Negocio Inmobiliario", 
-            p: "Al fallecer su tío Collis Huntington, <strong>Henry Huntington</strong> no obtuvo la presidencia del ferrocarril en San Francisco. Se mudó al sur con su capital, se asoció con el banquero Isaias W. Hellman y fundó los tranvías <strong>Pacific Electric ('Red Cars')</strong>, alcanzando más de 1,100 millas de vías electrificadas." 
-          },
-          { 
-            h: "El Tranvía como Gancho Comercial", 
-            p: "El secreto fue brillante: <strong>los tranvías operaban con pérdidas a propósito</strong>. A Huntington no le importaba el costo del pasaje porque tendía las vías directamente hacia enormes campos de naranjos y terrenos agrícolas que sus sindicatos habían comprado a bajo precio. Los tranvías servían para vender casas suburbanas, disparando la población de <strong>102,000 en 1900 a 1.2 millones en 1930</strong>." 
-          },
-          { 
-            h: "El Juicio Antimonopolio de General Motors", 
-            p: "A medida que la gente compraba autos, los tranvías perdieron pasaje. En el juicio antimonopolio <em>EE. UU. contra National City Lines</em>, se demostró que General Motors, Firestone Tire y Standard Oil financiaron una empresa fantasma para comprar y desmantelar los tranvías en más de 45 ciudades, reemplazándolos por autobuses a diésel." 
-          },
-          { 
-            h: "La Cultura del Auto e In-N-Out Burger", 
-            p: "Para 1925, Los Ángeles era la capital mundial del automóvil (1 auto por cada 3 habitantes). En 1940 abrió la primera autopista de acceso controlado del país: el <strong>Arroyo Seco Parkway (CA-110)</strong>. En pleno auge automotriz, en 1948 Harry y Esther Snyder abrieron el primer autoservicio con intercomunicador en Baldwin Park: <strong>In-N-Out Burger</strong>." 
-          }
-        ],
-        callouts: [
-          { cls: "box-food", t: "Menú Secreto de In-N-Out", d: "<ul><li><strong>Animal Style:</strong> Carne sellada en mostaza, cebolla caramelizada, salsa extra.</li><li><strong>Protein Style:</strong> Envuelto en hojas de lechuga fresca.</li><li><strong>Flying Dutchman:</strong> Dos carnes y dos quesos derretidos (sin pan ni verduras).</li></ul>" }
         ]
       }
     }
