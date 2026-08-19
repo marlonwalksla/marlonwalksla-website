@@ -1026,7 +1026,7 @@ function initTourMap() {
 
   try {
     if (typeof mapboxgl === 'undefined' || !mapboxgl.accessToken) {
-      console.warn('Mapbox GL JS or Access Token not ready.');
+      console.warn('Mapbox GL JS or Access Token not set in Webflow.');
       return;
     }
 
@@ -1086,7 +1086,7 @@ function initTourMap() {
       });
     });
   } catch (err) {
-    console.error('Mapbox initialization failed gracefully:', err);
+    console.warn('Mapbox initialization deferred:', err);
   }
 }
 
@@ -1110,7 +1110,7 @@ function updateMapPosition() {
       }
     });
   } catch (e) {
-    // Graceful catch if map is still rendering
+    // Map was not ready yet
   }
 }
 
@@ -1289,12 +1289,14 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    initTourMap();
-    renderView(false);
-  });
-} else {
-  initTourMap();
+// App Startup Sequence (Content loads first, map initializes second)
+function startApp() {
   renderView(false);
+  initTourMap();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
 }
