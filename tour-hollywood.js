@@ -5,7 +5,7 @@
 
 let currentLang = 'en';
 let currentStop = 1;
-const totalStops = 13;
+const totalStops = 12;
 
 const tourData = {
   ui: {
@@ -15,7 +15,6 @@ const tourData = {
       selectorLabel: "Jump to Any Stop:",
       stopWord: "STOP",
       ofWord: "OF",
-      completeWord: "Complete",
       timelineHead: "Chronological Milestones",
       peopleHead: "Notable Figures & Connections",
       prevBtn: "← Previous Stop",
@@ -33,7 +32,6 @@ const tourData = {
       selectorLabel: "Ir a Cualquier Parada:",
       stopWord: "PARADA",
       ofWord: "DE",
-      completeWord: "Completado",
       timelineHead: "Hitos Cronológicos",
       peopleHead: "Personajes Destacados y Conexiones",
       prevBtn: "← Parada Anterior",
@@ -47,7 +45,7 @@ const tourData = {
     }
   },
   stops: [
-    // STOP 1: Hollywood Sign (NEW)
+    // STOP 1: Hollywood Sign
     {
       id: 1,
       mapUrl: "https://maps.google.com/?q=Lake+Hollywood+Park",
@@ -338,7 +336,7 @@ const tourData = {
           },
           { 
             h: "El Despegue de Marilyn Monroe", 
-            p: "El Roosevelt está ligado al legado de Marilyn. Antes de ser un ícono global, Norma Jeane Mortenson lived here in a second-floor cabana room for two years. Su primera sesión de fotos comercial (para un anuncio de bronceador) se realizó posando en el trampolín del hotel." 
+            p: "El Roosevelt está ligado al legado de Marilyn. Antes de ser un ícono global, Norma Jeane Mortenson vivió aquí en una cabaña junto a la piscina durante dos años. Su primera sesión de fotos comercial (para un anuncio de bronceador) se realizó posando en el trampolín del hotel." 
           },
           { 
             h: "Pasillos Embrujados", 
@@ -509,90 +507,14 @@ const tourData = {
       }
     },
 
-    // STOP 7: You Are the Star Mural
+    // STOP 7: El Capitan Theatre
     {
       id: 7,
-      mapUrl: "https://maps.google.com/?q=You+Are+The+Star+Mural",
-      en: {
-        title: "You Are the Star Mural",
-        address: "1648 Wilcox Ave",
-        short: "7. You Are the Star",
-        timeline: [
-          { y: "1992", t: "Artist Thomas Suriya completes the massive street-level mural." },
-          { y: "2016", t: "Featured prominently in the opening sequences of La La Land." }
-        ],
-        people: [
-          { name: "Thomas Suriya", role: "Muralist", bio: "Local artist who conceived the brilliant visual inversion of putting the pedestrian on the silver screen." },
-          { name: "James Dean & Marilyn Monroe", role: "Depicted Icons", bio: "Tragic legends of 1950s cinema seated in the front row of the painted audience." },
-          { name: "Richard Pryor", role: "Depicted Comedian", bio: "Groundbreaking stand-up comic seated casually among classic Golden Age stars in the mural." }
-        ],
-        stories: [
-          { 
-            h: "The Visual Inversion", 
-            p: "Turn the corner onto Wilcox Avenue and stand on the sidewalk facing this massive 1992 mural painted by artist Thomas Suriya. The concept here is an ingenious visual inversion: instead of you sitting in a dark theater looking up at a movie screen, the roles are reversed. <strong>You are standing on the stage</strong>, and the greatest legends of cinema are sitting in the theater seats looking back at you." 
-          },
-          { 
-            h: "The Audience of Legends", 
-            p: "Look closely at who has come to watch you perform. In the center row, you will find Marilyn Monroe, James Dean, Humphrey Bogart, Charlie Chaplin, and Shirley Temple. Sitting nearby in the audience are comedy legends Richard Pryor and Laurel and Hardy, alongside fictional characters like Frankenstein's monster and R2-D2." 
-          },
-          { 
-            h: "Pop Culture Cameo", 
-            p: "Film fans will instantly recognize this mural from the movie <em>La La Land</em> (2016). In the opening act, Sebastian (Ryan Gosling) walks past this illuminated wall on his way into the jazz club where he plays piano." 
-          },
-          { 
-            h: "The Street Art Culture of LA", 
-            p: "Los Angeles is the mural capital of the world, a tradition heavily influenced by Mexican muralism and Chicano street art. While Hollywood Boulevard is highly commercialized, side streets like Wilcox preserve this raw, public artistic tradition." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "The Best Photo Angle", d: "Stand right in the middle of the sidewalk and frame the shot so the painted curtains perfectly border your photo, placing you directly in the cinematic spotlight." }
-        ]
-      },
-      es: {
-        title: "Mural 'You Are the Star'",
-        address: "1648 Wilcox Ave",
-        short: "7. You Are the Star",
-        timeline: [
-          { y: "1992", t: "El artista Thomas Suriya completa este enorme mural a pie de calle." },
-          { y: "2016", t: "Aparece de forma destacada en la película La La Land." }
-        ],
-        people: [
-          { name: "Thomas Suriya", role: "Muralista", bio: "Artista que ideó la brillante inversión visual de poner al peatón en la pantalla grande." },
-          { name: "James Dean y Marilyn Monroe", role: "Íconos Retratados", bio: "Leyendas trágicas del cine de los 50 sentadas en primera fila de la audiencia pintada." },
-          { name: "Richard Pryor", role: "Comediante Retratado", bio: "Revolucionario del stand-up ubicado casualmente junto a monstruos clásicos en el mural." }
-        ],
-        stories: [
-          { 
-            h: "La Inversión Visual", 
-            p: "Dobla la esquina hacia Wilcox Ave y párate frente a este enorme mural de 1992 pintado por Thomas Suriya. El concepto es una genial inversión de roles: en lugar de estar tú sentado a oscuras mirando una pantalla, <strong>tú estás en el escenario</strong>, y las mayores leyendas del cine están sentadas en las butacas mirándote a ti." 
-          },
-          { 
-            h: "Una Audiencia de Leyenda", 
-            p: "Observa bien quién ha venido a verte. En el centro verás a Marilyn Monroe, James Dean, Humphrey Bogart, Charlie Chaplin y Shirley Temple. A su alrededor están Richard Pryor, El Gordo y el Flaco, y personajes de ficción como el monstruo de Frankenstein y R2-D2." 
-          },
-          { 
-            h: "En la Cultura Pop", 
-            p: "Si viste <em>La La Land</em> (2016), reconocerás este muro al instante. Sebastian (Ryan Gosling) camina de noche frente a este mural iluminado justo antes de entrar al club de jazz donde toca el piano." 
-          },
-          { 
-            h: "La Capital del Muralismo", 
-            p: "Los Ángeles es la capital mundial de los murales, una tradición fuertemente influenciada por el muralismo mexicano. Mientras el bulevar es muy comercial, las calles laterales como Wilcox conservan esta vibrante tradición de arte público." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "El Mejor Ángulo para tu Foto", d: "Párate en medio de la acera y encuadra la toma para que las cortinas rojas pintadas rodeen tu foto, poniéndote a ti en el centro del escenario." }
-        ]
-      }
-    },
-
-    // STOP 8: El Capitan Theatre
-    {
-      id: 8,
       mapUrl: "https://maps.google.com/?q=El+Capitan+Theatre",
       en: {
         title: "The El Capitan Theatre",
         address: "6838 Hollywood Blvd",
-        short: "8. El Capitan",
+        short: "7. El Capitan",
         timeline: [
           { y: "1926", t: "Opens as a live stage venue, dubbed 'Hollywood's First Home of the Spoken Drama'." },
           { y: "1941", t: "Hosts the defiant world premiere of Orson Welles' masterpiece Citizen Kane." },
@@ -628,7 +550,7 @@ const tourData = {
       es: {
         title: "Teatro El Capitán",
         address: "6838 Hollywood Blvd",
-        short: "8. El Capitán",
+        short: "7. El Capitán",
         timeline: [
           { y: "1926", t: "Abre como teatro en vivo, llamado 'El Primer Hogar del Drama Hablado'." },
           { y: "1941", t: "Sede del desafiante estreno mundial de El Ciudadano Kane de Orson Welles." },
@@ -663,14 +585,14 @@ const tourData = {
       }
     },
 
-    // STOP 9: The Pantages Theatre
+    // STOP 8: The Pantages Theatre
     {
-      id: 9,
+      id: 8,
       mapUrl: "https://maps.google.com/?q=Pantages+Theatre+Hollywood",
       en: {
         title: "The Pantages Theatre",
-        address: "6233 Hollywood Blvd",
-        short: "9. The Pantages",
+        address: "6233 Hollywood Blvd (Near Hollywood & Vine)",
+        short: "8. The Pantages",
         timeline: [
           { y: "1930", t: "Opens as the last great movie palace built in Hollywood." },
           { y: "1949", t: "Eccentric billionaire Howard Hughes purchases the theater." },
@@ -705,8 +627,8 @@ const tourData = {
       },
       es: {
         title: "Teatro Pantages",
-        address: "6233 Hollywood Blvd",
-        short: "9. El Pantages",
+        address: "6233 Hollywood Blvd (Cerca de Hollywood y Vine)",
+        short: "8. El Pantages",
         timeline: [
           { y: "1930", t: "Se inaugura como el último gran palacio de cine de Hollywood." },
           { y: "1949", t: "El excéntrico multimillonario Howard Hughes compra el teatro." },
@@ -741,14 +663,14 @@ const tourData = {
       }
     },
 
-    // STOP 10: Capitol Records
+    // STOP 9: Capitol Records
     {
-      id: 10,
+      id: 9,
       mapUrl: "https://maps.google.com/?q=Capitol+Records+Building",
       en: {
         title: "The Capitol Records Tower",
-        address: "1750 Vine St",
-        short: "10. Capitol Records",
+        address: "1750 Vine St (Walk one block north of Hollywood Blvd)",
+        short: "9. Capitol Records",
         timeline: [
           { y: "1956", t: "Completed as the world's first circular office building." },
           { y: "1990s", t: "The subterranean echo chambers are restored by Les Paul." },
@@ -783,8 +705,8 @@ const tourData = {
       },
       es: {
         title: "Torre de Capitol Records",
-        address: "1750 Vine St",
-        short: "10. Capitol Records",
+        address: "1750 Vine St (Camina una cuadra al norte)",
+        short: "9. Capitol Records",
         timeline: [
           { y: "1956", t: "Se inaugura como el primer edificio de oficinas circular del mundo." },
           { y: "Años 90", t: "Se restauran las cámaras de eco subterráneas diseñadas por Les Paul." },
@@ -819,14 +741,14 @@ const tourData = {
       }
     },
 
-    // STOP 11: Knickerbocker Hotel
+    // STOP 10: Knickerbocker Hotel
     {
-      id: 11,
+      id: 10,
       mapUrl: "https://maps.google.com/?q=Hollywood+Knickerbocker+Apartments",
       en: {
         title: "The Hollywood Knickerbocker Hotel",
         address: "1714 Ivar Ave",
-        short: "11. Knickerbocker",
+        short: "10. Knickerbocker",
         timeline: [
           { y: "1926", t: "Opens as a luxury apartment hotel for the silent film elite." },
           { y: "1936", t: "Bess Houdini holds the final séance to contact Harry Houdini on the roof." },
@@ -862,7 +784,7 @@ const tourData = {
       es: {
         title: "Hotel Hollywood Knickerbocker",
         address: "1714 Ivar Ave",
-        short: "11. Knickerbocker",
+        short: "10. Knickerbocker",
         timeline: [
           { y: "1926", t: "Abre como hotel de apartamentos de lujo para la élite del cine." },
           { y: "1936", t: "Bess Houdini realiza su última sesión espiritista en la azotea." },
@@ -897,14 +819,14 @@ const tourData = {
       }
     },
 
-    // STOP 12: Charlie Chaplin Studios
+    // STOP 11: Charlie Chaplin Studios
     {
-      id: 12,
+      id: 11,
       mapUrl: "https://maps.google.com/?q=Jim+Henson+Company+Lot",
       en: {
         title: "Charlie Chaplin Studios / Jim Henson Co.",
         address: "1416 N La Brea Ave",
-        short: "12. Chaplin Studios",
+        short: "11. Chaplin Studios",
         timeline: [
           { y: "1917", t: "Chaplin builds his mock-English Tudor studio in an orange grove." },
           { y: "1919", t: "Chaplin co-founds United Artists to combat studio monopolies." },
@@ -941,7 +863,7 @@ const tourData = {
       es: {
         title: "Estudios Charlie Chaplin / Jim Henson Co.",
         address: "1416 N La Brea Ave",
-        short: "12. Chaplin Studios",
+        short: "11. Chaplin Studios",
         timeline: [
           { y: "1917", t: "Chaplin construye su estudio estilo inglés sobre un campo de naranjos." },
           { y: "1919", t: "Cofunda United Artists para combatir el monopolio de los estudios." },
@@ -977,14 +899,14 @@ const tourData = {
       }
     },
 
-    // STOP 13: Crossroads of the World
+    // STOP 12: Crossroads of the World
     {
-      id: 13,
+      id: 12,
       mapUrl: "https://maps.google.com/?q=Crossroads+of+the+World+Los+Angeles",
       en: {
         title: "Crossroads of the World (Tour Finale)",
         address: "6671 Sunset Blvd",
-        short: "13. Crossroads",
+        short: "12. Crossroads",
         timeline: [
           { y: "1931", t: "Mobster Charles Crawford is murdered in his office on this site." },
           { y: "1936", t: "Crawford's widow builds America's first modern outdoor shopping mall." },
@@ -1020,7 +942,7 @@ const tourData = {
       es: {
         title: "Crossroads of the World (Fin del Tour)",
         address: "6671 Sunset Blvd",
-        short: "13. Crossroads",
+        short: "12. Crossroads",
         timeline: [
           { y: "1931", t: "El mafioso Charles Crawford es asesinado en su oficina en este terreno." },
           { y: "1936", t: "Su viuda construye el primer centro comercial al aire libre de EE. UU." },
@@ -1064,8 +986,6 @@ function renderView(shouldScroll = true) {
 
   const uiTitle = document.getElementById('ui-title');
   const uiDesc = document.getElementById('ui-desc');
-  const selectorLabel = document.getElementById('selector-label');
-  const stopBadge = document.getElementById('stop-badge');
   const stopTitle = document.getElementById('stop-title');
   const stopAddress = document.getElementById('stop-address');
   const stopMapLink = document.getElementById('stop-map-link');
@@ -1074,8 +994,6 @@ function renderView(shouldScroll = true) {
 
   if (uiTitle) uiTitle.textContent = u.title;
   if (uiDesc) uiDesc.textContent = u.desc;
-  if (selectorLabel) selectorLabel.textContent = u.selectorLabel;
-  if (stopBadge) stopBadge.textContent = `${u.stopWord} ${currentStop} ${u.ofWord} ${totalStops}`;
   if (stopTitle) stopTitle.textContent = d.title;
   if (stopAddress) stopAddress.textContent = d.address;
   if (stopMapLink) {
@@ -1085,15 +1003,15 @@ function renderView(shouldScroll = true) {
   if (timelineHeading) timelineHeading.textContent = u.timelineHead;
   if (peopleHeading) peopleHeading.textContent = u.peopleHead;
 
+  // Progress Bar & Tracker
   const pct = Math.round((currentStop / totalStops) * 100);
   const progressFill = document.getElementById('progress-fill');
   const progressText = document.getElementById('progress-text');
-  const progressPercent = document.getElementById('progress-percent');
 
   if (progressFill) progressFill.style.width = pct + '%';
   if (progressText) progressText.textContent = `${u.stopWord} ${currentStop} ${u.ofWord} ${totalStops} • ${d.title}`;
-  if (progressPercent) progressPercent.textContent = `${pct}% ${u.completeWord}`;
 
+  // Timeline List
   const tlContainer = document.getElementById('timeline-list');
   if (tlContainer) {
     tlContainer.innerHTML = d.timeline.map(item => `
@@ -1101,6 +1019,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
+  // Notable Figures Section
   const peopleSection = document.getElementById('people-section');
   const peopleGrid = document.getElementById('people-grid');
   if (peopleSection && peopleGrid) {
@@ -1118,6 +1037,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
+  // Story Content
   const storyContainer = document.getElementById('story-content');
   if (storyContainer) {
     storyContainer.innerHTML = d.stories.map(story => `
@@ -1126,6 +1046,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
+  // Callouts Grid
   const calloutContainer = document.getElementById('callouts-container');
   if (calloutContainer) {
     calloutContainer.innerHTML = d.callouts.map(c => `
@@ -1136,6 +1057,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
+  // Stepper Buttons
   const btnPrev = document.getElementById('nav-prev');
   const btnNext = document.getElementById('nav-next');
   if (btnPrev) {
@@ -1152,10 +1074,11 @@ function renderView(shouldScroll = true) {
     }
   }
 
+  // Render Jump Pills
   const pillNav = document.getElementById('pill-nav');
   if (pillNav) {
     pillNav.innerHTML = tourData.stops.map((st, idx) => `
-      <button class="pill-btn ${idx + 1 === currentStop ? 'active' : ''}" onclick="goToStop(${idx + 1})">
+      <button type="button" class="pill-btn ${idx + 1 === currentStop ? 'active' : ''}" onclick="goToStop(${idx + 1})">
         ${st[currentLang].short}
       </button>
     `).join('');
@@ -1166,6 +1089,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
+  // Bottom Promo
   const promoTitle = document.getElementById('promo-title');
   const promoDesc = document.getElementById('promo-desc');
   const promoBtn = document.getElementById('promo-btn');
