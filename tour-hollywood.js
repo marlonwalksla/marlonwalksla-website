@@ -1035,7 +1035,9 @@ function initTourMap() {
 
   map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
 
-  map.on('load', () => {
+map.on('load', () => {
+    map.resize();
+
     // Add Route Polyline
     const routeCoords = tourData.stops.map(st => st.coords);
     map.addSource('tour-route', {
@@ -1079,7 +1081,6 @@ function initTourMap() {
       mapMarkers.push(marker);
     });
   });
-}
 
 function updateMapPosition() {
   const targetStop = tourData.stops[currentStop - 1];
