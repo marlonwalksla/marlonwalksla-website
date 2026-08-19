@@ -6,6 +6,8 @@
 let currentLang = 'en';
 let currentStop = 1;
 const totalStops = 12;
+let map = null;
+let mapMarkers = [];
 
 const tourData = {
   ui: {
@@ -48,6 +50,7 @@ const tourData = {
     // STOP 1: Hollywood Sign
     {
       id: 1,
+      coords: [-118.3268, 34.1265],
       mapUrl: "https://maps.google.com/?q=Lake+Hollywood+Park",
       en: {
         title: "The Hollywood Sign & Lake Hollywood Park",
@@ -128,6 +131,7 @@ const tourData = {
     // STOP 2: Dolby Theatre
     {
       id: 2,
+      coords: [-118.3404, 34.1021],
       mapUrl: "https://maps.google.com/?q=Dolby+Theatre+Hollywood",
       en: {
         title: "Dolby Theatre & Ovation Hollywood",
@@ -206,6 +210,7 @@ const tourData = {
     // STOP 3: TCL Chinese Theatre
     {
       id: 3,
+      coords: [-118.3410, 34.1020],
       mapUrl: "https://maps.google.com/?q=TCL+Chinese+Theatre",
       en: {
         title: "TCL Chinese Theatre & Forecourt",
@@ -286,6 +291,7 @@ const tourData = {
     // STOP 4: Hollywood Roosevelt
     {
       id: 4,
+      coords: [-118.3418, 34.1012],
       mapUrl: "https://maps.google.com/?q=Hollywood+Roosevelt+Hotel",
       en: {
         title: "The Hollywood Roosevelt Hotel",
@@ -366,6 +372,7 @@ const tourData = {
     // STOP 5: Egyptian Theatre
     {
       id: 5,
+      coords: [-118.3364, 34.1016],
       mapUrl: "https://maps.google.com/?q=Egyptian+Theatre+Hollywood",
       en: {
         title: "The Egyptian Theatre",
@@ -446,6 +453,7 @@ const tourData = {
     // STOP 6: Musso & Frank
     {
       id: 6,
+      coords: [-118.3353, 34.1018],
       mapUrl: "https://maps.google.com/?q=Musso+and+Frank+Grill",
       en: {
         title: "The Musso & Frank Grill",
@@ -526,6 +534,7 @@ const tourData = {
     // STOP 7: El Capitan Theatre
     {
       id: 7,
+      coords: [-118.3392, 34.1015],
       mapUrl: "https://maps.google.com/?q=El+Capitan+Theatre",
       en: {
         title: "The El Capitan Theatre",
@@ -606,6 +615,7 @@ const tourData = {
     // STOP 8: The Pantages Theatre
     {
       id: 8,
+      coords: [-118.3255, 34.1022],
       mapUrl: "https://maps.google.com/?q=Pantages+Theatre+Hollywood",
       en: {
         title: "The Pantages Theatre",
@@ -686,6 +696,7 @@ const tourData = {
     // STOP 9: Capitol Records
     {
       id: 9,
+      coords: [-118.3265, 34.1030],
       mapUrl: "https://maps.google.com/?q=Capitol+Records+Building",
       en: {
         title: "The Capitol Records Tower",
@@ -766,6 +777,7 @@ const tourData = {
     // STOP 10: Knickerbocker Hotel
     {
       id: 10,
+      coords: [-118.3283, 34.1032],
       mapUrl: "https://maps.google.com/?q=Hollywood+Knickerbocker+Apartments",
       en: {
         title: "The Hollywood Knickerbocker Hotel",
@@ -846,6 +858,7 @@ const tourData = {
     // STOP 11: Charlie Chaplin Studios
     {
       id: 11,
+      coords: [-118.3440, 34.0975],
       mapUrl: "https://maps.google.com/?q=Jim+Henson+Company+Lot",
       en: {
         title: "Charlie Chaplin Studios / Jim Henson Co.",
@@ -926,6 +939,7 @@ const tourData = {
     // STOP 12: Crossroads of the World
     {
       id: 12,
+      coords: [-118.3359, 34.0978],
       mapUrl: "https://maps.google.com/?q=Crossroads+of+the+World+Los+Angeles",
       en: {
         title: "Crossroads of the World",
@@ -1005,6 +1019,89 @@ const tourData = {
   ]
 };
 
+// Initialize Embedded Mapbox Map
+function initTourMap() {
+  const mapContainer = document.getElementById('tour-map');
+  if (!mapContainer || map) return;
+
+  map = new mapboxgl.Map({
+    container: 'tour-map',
+    style: 'mapbox://styles/mapbox/light-v11',
+    center: tourData.stops[0].coords,
+    zoom: 14.5,
+    pitch: 25,
+    attributionControl: false
+  });
+
+  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+
+  map.on('load', () => {
+    // Add Route Polyline
+    const routeCoords = tourData.stops.map(st => st.coords);
+    map.addSource('tour-route', {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: routeCoords
+        }
+      }
+    });
+
+    map.addLayer({
+      id: 'tour-route-line',
+      type: 'line',
+      source: 'tour-route',
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      paint: {
+        'line-color': '#2563eb',
+        'line-width': 3.5,
+        'line-dasharray': [1.5, 1.5]
+      }
+    });
+
+    // Create Numbered Pins for All Stops
+    tourData.stops.forEach((st, idx) => {
+      const el = document.createElement('div');
+      el.className = `map-pin ${idx + 1 === currentStop ? 'active' : ''}`;
+      el.id = `map-pin-${idx + 1}`;
+      el.innerText = idx + 1;
+      el.addEventListener('click', () => goToStop(idx + 1));
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat(st.coords)
+        .addTo(map);
+
+      mapMarkers.push(marker);
+    });
+  });
+}
+
+function updateMapPosition() {
+  const targetStop = tourData.stops[currentStop - 1];
+  if (!targetStop || !map) return;
+
+  map.flyTo({
+    center: targetStop.coords,
+    zoom: currentStop === 1 ? 13.5 : 15.5,
+    speed: 1.2,
+    curve: 1.1,
+    essential: true
+  });
+
+  // Update Pin Highlights
+  tourData.stops.forEach((_, idx) => {
+    const pinEl = document.getElementById(`map-pin-${idx + 1}`);
+    if (pinEl) {
+      pinEl.classList.toggle('active', idx + 1 === currentStop);
+    }
+  });
+}
+
 function renderView(shouldScroll = true) {
   const s = tourData.stops[currentStop - 1];
   const d = s[currentLang];
@@ -1029,7 +1126,7 @@ function renderView(shouldScroll = true) {
   if (timelineHeading) timelineHeading.textContent = u.timelineHead;
   if (peopleHeading) peopleHeading.textContent = u.peopleHead;
 
-  // Progress Bar & Tracker
+  // Progress Bar
   const pct = Math.round((currentStop / totalStops) * 100);
   const progressFill = document.getElementById('progress-fill');
   const progressText = document.getElementById('progress-text');
@@ -1037,7 +1134,7 @@ function renderView(shouldScroll = true) {
   if (progressFill) progressFill.style.width = pct + '%';
   if (progressText) progressText.textContent = `${u.stopWord} ${currentStop} ${u.ofWord} ${totalStops} • ${d.title}`;
 
-  // Timeline List
+  // Timeline
   const tlContainer = document.getElementById('timeline-list');
   if (tlContainer) {
     tlContainer.innerHTML = d.timeline.map(item => `
@@ -1045,7 +1142,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Notable Figures Section
+  // Notable Figures
   const peopleSection = document.getElementById('people-section');
   const peopleGrid = document.getElementById('people-grid');
   if (peopleSection && peopleGrid) {
@@ -1072,7 +1169,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Callouts Grid
+  // Callouts
   const calloutContainer = document.getElementById('callouts-container');
   if (calloutContainer) {
     calloutContainer.innerHTML = d.callouts.map(c => `
@@ -1083,7 +1180,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Stepper Buttons
+  // Stepper Nav
   const btnPrev = document.getElementById('nav-prev');
   const btnNext = document.getElementById('nav-next');
   if (btnPrev) {
@@ -1100,7 +1197,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
-  // Render Jump Pills
+  // Pill Scroller
   const pillNav = document.getElementById('pill-nav');
   if (pillNav) {
     pillNav.innerHTML = tourData.stops.map((st, idx) => `
@@ -1115,7 +1212,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
-  // Bottom Promo
+  // Promo Banner
   const promoTitle = document.getElementById('promo-title');
   const promoDesc = document.getElementById('promo-desc');
   const promoBtn = document.getElementById('promo-btn');
@@ -1126,6 +1223,9 @@ function renderView(shouldScroll = true) {
     promoBtn.href = u.promoLink;
     promoBtn.textContent = u.promoBtnText;
   }
+
+  // Update Map Position
+  updateMapPosition();
 
   if (shouldScroll) {
     const tracker = document.getElementById('tracker');
@@ -1179,7 +1279,11 @@ document.addEventListener('keydown', (e) => {
 });
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => renderView(false));
+  document.addEventListener('DOMContentLoaded', () => {
+    initTourMap();
+    renderView(false);
+  });
 } else {
+  initTourMap();
   renderView(false);
 }
