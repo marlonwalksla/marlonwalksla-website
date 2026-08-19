@@ -5,7 +5,7 @@
 
 let currentLang = 'en';
 let currentStop = 1;
-const totalStops = 13;
+const totalStops = 14;
 
 const tourData = {
   ui: {
@@ -15,7 +15,6 @@ const tourData = {
       selectorLabel: "Jump to Any Stop:",
       stopWord: "STOP",
       ofWord: "OF",
-      completeWord: "Complete",
       timelineHead: "Chronological Milestones",
       peopleHead: "Notable Figures & Connections",
       prevBtn: "← Previous Stop",
@@ -33,7 +32,6 @@ const tourData = {
       selectorLabel: "Ir a Cualquier Parada:",
       stopWord: "PARADA",
       ofWord: "DE",
-      completeWord: "Completado",
       timelineHead: "Hitos Cronológicos",
       peopleHead: "Personajes Destacados y Conexiones",
       prevBtn: "← Parada Anterior",
@@ -237,86 +235,84 @@ const tourData = {
       }
     },
 
-    // 3. Financial District Rest Plaza
+    // 3. MOCA Grand Avenue
     {
       id: 3,
-      mapUrl: "https://maps.google.com/?q=California+Plaza+Watercourt+Los+Angeles",
+      mapUrl: "https://maps.google.com/?q=MOCA+Grand+Avenue+Los+Angeles",
       en: {
-        title: "Financial District Rest Plaza",
-        address: "California Plaza Watercourt (Between One & Two Cal Plaza)",
-        short: "3. Cal Plaza",
+        title: "Museum of Contemporary Art (MOCA Grand Avenue)",
+        address: "250 S Grand Ave, Los Angeles, CA 90012",
+        short: "3. MOCA",
         timeline: [
-          { y: "1901", t: "Henry Huntington incorporates the Pacific Electric Railway ('Red Cars')." },
-          { y: "1925", t: "LA becomes the global per-capita car capital (1 car per 3 residents)." },
-          { y: "1940", t: "America's first freeway (Arroyo Seco Parkway / CA-110) connects Pasadena to DTLA." },
-          { y: "1948", t: "In-N-Out Burger opens California's first drive-thru with intercoms in Baldwin Park." },
-          { y: "1949", t: "Federal antitrust conviction of GM, Firestone, and Standard Oil in US v. National City Lines." }
+          { y: "1979", t: "MOCA is founded by an artist-led committee including Sam Francis and Robert Irwin." },
+          { y: "1986", t: "Pritzker-winning architect Arata Isozaki completes the subterranean museum." },
+          { y: "2000", t: "The Panza Collection establishes MOCA as a preeminent postwar American art archive." },
+          { y: "2019", t: "MOCA institutes permanent free general admission for all visitors." }
         ],
         people: [
-          { name: "Henry E. Huntington", role: "Rail & Real Estate Baron", bio: "Mastermind behind the 1,100-mile Pacific Electric 'Red Car' transit empire, which he operated as a loss leader to sell vast suburban real estate developments." },
-          { name: "Isaias W. Hellman", role: "Pioneer Financier & Banker", bio: "President of Farmers and Merchants Bank and partner of Huntington who provided the crucial banking capital that built modern Southern California." },
-          { name: "Harry & Esther Snyder", role: "In-N-Out Founders", bio: "Opened California's first drive-thru burger stand in Baldwin Park in 1948, pioneering the two-way speaker box and fresh-to-order car culture dining." },
-          { name: "Dorothy Buffum Chandler", role: "Civic Matriarch", bio: "Championed the corporate redevelopment of California Plaza as a modern financial and urban arts district." }
+          { name: "Arata Isozaki", role: "Master Architect", bio: "Pritzker Prize-winning Japanese master who solved strict Bunker Hill height limits by sinking the museum galleries underground, cloaked in rough-hewn red Indian sandstone." },
+          { name: "Sam Francis & Robert Irwin", role: "Artist Co-Founders", bio: "Legendary California light-and-space artists who insisted Los Angeles needed an institution dedicated exclusively to living, contemporary art." },
+          { name: "Count Giuseppe Panza", role: "Milanese Art Collector", bio: "Italian collector who sold 80 pivotal postwar abstract expressionist and pop masterworks to MOCA, cementing its global museum reputation." }
         ],
         stories: [
           { 
-            h: "Henry Huntington & The Red Car Real Estate Scheme", 
-            p: "When Collis Huntington died, his nephew <strong>Henry Huntington</strong> was passed over for leadership of the Southern Pacific Railroad in San Francisco. Huntington took his inheritance south, partnered with banker Isaias W. Hellman, and built the <strong>Pacific Electric Railway (the famous 'Red Cars')</strong> into the largest electric interurban transit network on earth (over 1,100 miles of track)." 
+            h: "An Artist-Led Revolution", 
+            p: "Unlike most major museums founded by industrialists and socialites, MOCA was created in 1979 by an <strong>artist-led coalition</strong>. Prominent California artists including Sam Francis, Robert Irwin, and visual arts leaders wanted a museum run without institutional bureaucracy, focused purely on cutting-edge postwar art from 1940 to the present." 
           },
           { 
-            h: "The Train as a Loss Leader", 
-            p: "Here is the genius secret: <strong>the streetcars were intentionally operated as a loss leader</strong>. Huntington lost money on passenger fares because the tracks were laid straight into empty orange groves and ranchlands owned by his private land syndicates. The trains existed purely to sell suburban real estate, causing LA's population to explode from <strong>102,000 in 1900 to 1.2 million by 1930</strong>." 
+            h: "Arata Isozaki's Sunken Architecture", 
+            p: "To design the flagship Grand Avenue building, the committee selected Japanese master <strong>Arata Isozaki</strong>. Faced with rigid city zoning rules that restricted building heights on Bunker Hill, Isozaki engineered a brilliant subterranean solution: the museum is <strong>sunken into the bedrock</strong>, with only the pyramidal skylights and administrative barrel vaults rising above street level.<br><br>The exterior is clad in rough-textured <strong>red sandstone imported from India</strong>, contrasting against the glass towers of the Financial District." 
           },
           { 
-            h: "The GM Antitrust Monopoly & The Automotive Shift", 
-            p: "As Angelenos bought private cars, rail lines lost revenue. In the landmark federal antitrust case <em>United States v. National City Lines</em>, it was proven that General Motors, Firestone Tire, Standard Oil of California, and Mack Trucks secretly funded a front company that bought up electric streetcar networks across 45+ US cities, tore up the tracks, and motorized the lines with diesel buses to cement car dominance." 
+            h: "Postwar Treasures & The Panza Collection", 
+            p: "MOCA holds one of the world's most definitive collections of Abstract Expressionism and Minimalist sculpture. Inside hang masterworks by <strong>Mark Rothko, Jackson Pollock, Willem de Kooning, Robert Rauschenberg, and Claes Oldenburg</strong>. The core of this collection was acquired from Italian Count Giuseppe Panza in the 1980s." 
           },
           { 
-            h: "The Birth of Car Culture & In-N-Out Burger", 
-            p: "By 1925, Los Angeles was the car capital of the world (1 car for every 3 residents, compared to 1 in 7 nationally). In 1940, the region opened America's first freeway: the <strong>Arroyo Seco Parkway (CA-110)</strong>. With car culture reigning supreme, in 1948 Harry and Esther Snyder opened California's first drive-thru in Baldwin Park featuring a revolutionary two-way speaker box: <strong>In-N-Out Burger</strong>." 
+            h: "The Outdoor Sculpture Plaza", 
+            p: "The central sunken courtyard acts as a public sculpture garden. Look for Nancy Rubins’ monumental assemblage sculpture constructed from airplane parts and industrial steel cables, alongside Aiko Miyawaki’s dynamic water and steel wire installations." 
           }
         ],
         callouts: [
-          { cls: "box-food", t: "In-N-Out Secret Menu Guide", d: "• Animal Style: Mustard-seared beef, pickles, caramelized grilled onions, extra spread.<br>• Protein Style: Burger wrapped in fresh lettuce leaves (no bun).<br>• Flying Dutchman: Two slices of cheese melted between two beef patties (no bun, no veggies)." }
+          { cls: "box-tip", t: "Free Admission Everyday", d: "General admission to MOCA Grand Avenue is 100% free. Walk down the sunken stairs to check out the permanent galleries at your leisure." },
+          { cls: "box-lore", t: "The Geffen Contemporary Sister Campus", d: "MOCA also operates a massive converted police warehouse campus in the nearby Little Tokyo / Arts District, renovated by Frank Gehry in 1983." }
         ]
       },
       es: {
-        title: "Plaza del Distrito Financiero (Descanso)",
-        address: "California Plaza Watercourt (Entre One y Two Cal Plaza)",
-        short: "3. Cal Plaza",
+        title: "Museo de Arte Contemporáneo (MOCA Grand Avenue)",
+        address: "250 S Grand Ave, Los Angeles, CA 90012",
+        short: "3. MOCA",
         timeline: [
-          { y: "1901", t: "Henry Huntington funda los tranvías 'Red Cars' de Pacific Electric." },
-          { y: "1925", t: "LA se convierte en la capital mundial del automóvil (1 auto por cada 3 habitantes)." },
-          { y: "1940", t: "Abre la primera autopista de EE. UU. (Arroyo Seco Parkway / CA-110) hacia DTLA." },
-          { y: "1948", t: "In-N-Out Burger abre el primer autoservicio con intercomunicador en Baldwin Park." },
-          { y: "1949", t: "Condena federal antimonopolio a GM, Firestone y Standard Oil por desmantelar tranvías." }
+          { y: "1979", t: "MOCA es fundado por un comité liderado por artistas como Sam Francis y Robert Irwin." },
+          { y: "1986", t: "El arquitecto Arata Isozaki finaliza el museo subterráneo de arenisca roja." },
+          { y: "2000", t: "La Colección Panza consolida al MOCA como un referente mundial del arte de posguerra." },
+          { y: "2019", t: "MOCA declara la entrada general 100% gratuita para todo el público." }
         ],
         people: [
-          { name: "Henry E. Huntington", role: "Magnate de Tranvías y Bienes Raíces", bio: "Creador del imperio de tranvías 'Red Cars' de más de 1,100 millas, operados a pérdida para vender terrenos agrícolas convertidos en suburbios." },
-          { name: "Isaias W. Hellman", role: "Banquero Pionero de California", bio: "Presidente de Farmers and Merchants Bank y socio de Huntington que financió el crecimiento de los servicios públicos e industrias de LA." },
-          { name: "Harry y Esther Snyder", role: "Fundadores de In-N-Out", bio: "Abrieron el primer autoservicio de California en Baldwin Park en 1948, inventando el sistema de pedidos por altavoz bidireccional." },
-          { name: "Dorothy Buffum Chandler", role: "Matriarca Cívica", bio: "Impulsó la reurbanización corporativa de California Plaza como un centro moderno de finanzas y cultura." }
+          { name: "Arata Isozaki", role: "Arquitecto Principal", bio: "Ganador del Premio Pritzker que solucionó los límites de altura de Bunker Hill hundiendo las galerías bajo tierra y cubriéndolas de arenisca roja india." },
+          { name: "Sam Francis y Robert Irwin", role: "Artistas y Cofundadores", bio: "Pioneros del arte de luz y espacio en California que impulsaron la creación de un museo administrado y soñado por artistas." },
+          { name: "Conde Giuseppe Panza", role: "Coleccionista Italiano", bio: "Cedió al museo 80 piezas fundamentales del expresionismo abstracto y arte pop de posguerra, consagrando la reputación del MOCA." }
         ],
         stories: [
           { 
-            h: "Henry Huntington y el Gran Negocio Inmobiliario", 
-            p: "Al fallecer su tío Collis Huntington, <strong>Henry Huntington</strong> no obtuvo la presidencia del ferrocarril en San Francisco. Se mudó al sur con su capital, se asoció con el banquero Isaias W. Hellman y fundó los tranvías <strong>Pacific Electric ('Red Cars')</strong>, alcanzando más de 1,100 millas de vías electrificadas." 
+            h: "Una Revolución Creada por Artistas", 
+            p: "A diferencia de la mayoría de los museos fundados por magnates, MOCA nació en 1979 impulsado por una <strong>coalición de artistas</strong>. Pintores y escultores californianos como Sam Francis y Robert Irwin exigían un espacio sin trabas institucionales, dedicado exclusivamente al arte de vanguardia desde 1940 hasta hoy." 
           },
           { 
-            h: "El Tranvía como Gancho Comercial", 
-            p: "El secreto fue brillante: <strong>los tranvías operaban con pérdidas a propósito</strong>. A Huntington no le importaba el costo del pasaje porque tendía las vías directamente hacia enormes campos de naranjos y terrenos agrícolas que sus sindicatos habían comprado a bajo precio. Los tranvías servían para vender casas suburbanas, disparando la población de <strong>102,000 en 1900 a 1.2 millones en 1930</strong>." 
+            h: "La Arquitectura Subterránea de Arata Isozaki", 
+            p: "El diseño fue encargado al maestro japonés <strong>Arata Isozaki</strong>. Para cumplir con las estrictas normativas de altura de Bunker Hill, Isozaki ideó una solución fascinante: <strong>hundió las salas de exhibición bajo tierra</strong>, dejando en la superficie únicamente las claraboyas piramidales.<br><br>El exterior está revestido de <strong>arenisca roja rugosa traída de la India</strong>, creando un contraste cálido frente al acero y cristal de los rascacielos corporativos." 
           },
           { 
-            h: "El Juicio Antimonopolio de General Motors", 
-            p: "A medida que la gente compraba autos, los tranvías perdieron pasaje. En el juicio antimonopolio <em>EE. UU. contra National City Lines</em>, se demostró que General Motors, Firestone Tire y Standard Oil financiaron una empresa fantasma para comprar y desmantelar los tranvías en más de 45 ciudades, reemplazándolos por autobuses a diésel." 
+            h: "Tesoros de Posguerra y la Colección Panza", 
+            p: "El museo resguarda una de las colecciones de expresionismo abstracto y minimalismo más influyentes del mundo, con lienzos y esculturas de <strong>Mark Rothko, Jackson Pollock, Willem de Kooning y Robert Rauschenberg</strong>." 
           },
           { 
-            h: "La Cultura del Auto e In-N-Out Burger", 
-            p: "Para 1925, Los Ángeles era la capital mundial del automóvil (1 auto por cada 3 habitantes). En 1940 abrió la primera autopista de acceso controlado del país: el <strong>Arroyo Seco Parkway (CA-110)</strong>. En pleno auge automotriz, en 1948 Harry y Esther Snyder abrieron el primer autoservicio con intercomunicador en Baldwin Park: <strong>In-N-Out Burger</strong>." 
+            h: "La Plaza Central de Esculturas", 
+            p: "El patio central escalonado funciona como un jardín cívico de esculturas al aire libre, exhibiendo monumentales ensamblajes de piezas de avión de Nancy Rubins e instalaciones de alambre de acero de Aiko Miyawaki." 
           }
         ],
         callouts: [
-          { cls: "box-food", t: "Menú Secreto de In-N-Out", d: "• Animal Style: Carne sellada en mostaza, cebolla caramelizada, salsa extra.<br>• Protein Style: Envuelto en hojas de lechuga fresca.<br>• Flying Dutchman: Dos carnes y dos quesos derretidos (sin pan ni verduras)." }
+          { cls: "box-tip", t: "Entrada 100% Gratuita", d: "La entrada a las galerías permanentes es gratuita todos los días. Puedes bajar las escaleras del patio y recorrer las salas libremente." },
+          { cls: "box-lore", t: "Sede Gemela en Little Tokyo", d: "MOCA opera también una segunda sede en Little Tokyo (The Geffen Contemporary), diseñada por Frank Gehry en un antiguo almacén policial." }
         ]
       }
     },
@@ -328,7 +324,7 @@ const tourData = {
       en: {
         title: "California Plaza Overlook & U.S. Bank Tower",
         address: "Upper Terrace overlooking Grand Steps & 4th/Hope",
-        short: "4. U.S. Bank Tower",
+        short: "4. Torre U.S. Bank",
         timeline: [
           { y: "1989", t: "The 73-story Library Tower (now U.S. Bank Tower) is completed at 1,018 feet." },
           { y: "1996", t: "Incinerated by the alien mothership beam in Independence Day." },
@@ -502,7 +498,7 @@ const tourData = {
       id: 6,
       mapUrl: "https://maps.google.com/?q=Grand+Central+Market+Los+Angeles",
       en: {
-        title: "Grand Central Market (Mid-Tour Break)",
+        title: "Grand Central Market",
         address: "317 S Broadway",
         short: "6. Grand Central Market",
         timeline: [
@@ -537,12 +533,12 @@ const tourData = {
           }
         ],
         callouts: [
-          { cls: "box-food", t: "What to Eat on Your Break", d: "• <em>Roast To Go (1952):</em> Carnitas tacos in copper pots.<br>• <em>Sarita’s Pupusería:</em> Salvadoran handmade pupusas (featured in <em>La La Land</em>).<br>• <em>China Cafe (1959):</em> Classic wonton soup under neon counters." },
+          { cls: "box-food", t: "What to Eat on Your Visit", d: "<ul><li><strong>Roast To Go (1952):</strong> Carnitas tacos simmered in traditional copper pots.</li><li><strong>Sarita’s Pupusería:</strong> Salvadoran handmade pupusas (featured in <em>La La Land</em>).</li><li><strong>China Cafe (1959):</strong> Classic wonton soup under vintage neon.</li></ul>" },
           { cls: "box-tip", t: "Quick Refreshment Tip", d: "Grab a fresh agua fresca from <em>La Huerta</em> or an iced cold brew from <em>G&B Coffee</em> near the Hill Street entrance." }
         ]
       },
       es: {
-        title: "Mercado Grand Central (Descanso)",
+        title: "Mercado Grand Central",
         address: "317 S Broadway",
         short: "6. Grand Central Market",
         timeline: [
@@ -573,7 +569,7 @@ const tourData = {
           }
         ],
         callouts: [
-          { cls: "box-food", t: "Qué Probar en el Descanso", d: "• <em>Roast To Go (1952):</em> Tacos de carnitas en cazo de cobre.<br>• <em>Sarita's Pupusería:</em> Pupusas salvadoreñas hechas a mano (vistas en <em>La La Land</em>).<br>• <em>China Cafe (1959):</em> Sopa wonton tradicional en la barra." },
+          { cls: "box-food", t: "Qué Probar en el Mercado", d: "<ul><li><strong>Roast To Go (1952):</strong> Tacos de carnitas en cazo de cobre tradicional.</li><li><strong>Sarita's Pupusería:</strong> Pupusas salvadoreñas hechas a mano (vistas en <em>La La Land</em>).</li><li><strong>China Cafe (1959):</strong> Sopa wonton clásica en la barra de madera.</li></ul>" },
           { cls: "box-tip", t: "Bebida Rápida", d: "Pide una fresca agua de frutas en <em>La Huerta</em> o un café frío en <em>G&B Coffee</em> junto a la salida de Hill Street." }
         ]
       }
@@ -687,14 +683,18 @@ const tourData = {
         ],
         people: [
           { name: "Sid Grauman", role: "Master Showman & Impresario", bio: "Theatrical pioneer who opened his very first opulent palace here in DTLA before migrating west to Hollywood to build the Egyptian and Chinese Theatres." },
-          { name: "Joseph Mora", role: "Sculptor & Artist", bio: "Sculpted the dramatic Spanish Churrigueresque facade, embedding Western longhorn skulls, bison heads, and early movie cameras into the terra-cotta." },
-          { name: "Frank Fouce & Frank L. Fouce", role: "Entertainment Moguls & Univision Co-Founders", bio: "Father and son who transformed the theater into the premier US stage for Latin legends (Cantinflas, Pedro Infante) and co-founded KMEX Channel 34." },
-          { name: "Antonio Aguilar", role: "Mexican Cinema & Rodeo Legend", bio: "Iconic charro actor who pioneered staging live equestrian rodeo shows on the indoor theater stage, creating the arena tours that filled stadiums across the continent." }
+          { name: "Joseph Jacinto 'Jo' Mora", role: "Master Sculptor & Artist", bio: "Uruguayan-born renaissance artist who designed the dramatic Spanish Churrigueresque terra-cotta facade, embedding western longhorns, bison, and cinema cameras into the ornamentation." },
+          { name: "Albert C. Martin Sr. & William L. Woollett", role: "Architectural Engineers", bio: "Pioneered a colossal reinforced-concrete arch truss system that supported a 2,345-seat balcony without obstructing sightline pillars." },
+          { name: "Frank Fouce & Frank L. Fouce", role: "Entertainment Moguls & Univision Co-Founders", bio: "Father and son who transformed the theater into the premier US stage for Latin legends (Cantinflas, Pedro Infante) and co-founded KMEX Channel 34." }
         ],
         stories: [
           { 
-            h: "Sid Grauman’s First Palace & The Churrigueresque Facade", 
-            p: "Opened on <strong>February 1, 1918</strong> as showman <strong>Sid Grauman’s</strong> very first entertainment palace in Los Angeles, costing a reported $1 million. Designed by architect Albert C. Martin Sr. with a hyper-ornate <strong>Spanish Churrigueresque</strong> facade sculpted by Joseph Mora. Look closely at the exterior to spot carved American bison heads, Texas longhorn steer skulls, allegorical maidens of comedy and tragedy, and early movie cameras embedded in the plasterwork." 
+            h: "Sid Grauman’s First Palace & Million Dollar Bet", 
+            p: "Opened on <strong>February 1, 1918</strong> as showman <strong>Sid Grauman’s</strong> very first entertainment palace in Los Angeles, costing a reported $1 million. Built with 2,345 seats, it proved that cinema was no longer a cheap nickelodeon novelty, but high theatrical art worthy of palaces." 
+          },
+          { 
+            h: "Joseph Mora's Spanish Churrigueresque Architecture", 
+            p: "Look up at the breathtaking exterior facade designed by master artist <strong>Joseph Jacinto 'Jo' Mora</strong> in the Spanish Churrigueresque (ultra-baroque) style. Rather than copying standard European cathedrals, Mora sculpted a unique California mythology into the cast terra-cotta: look closely to spot <strong>carved American bison heads, Texas longhorn steer skulls, allegorical maidens of comedy and tragedy, Spanish conquistador helmets, and early motion picture cameras</strong> embedded directly into the intricate scrollwork." 
           },
           { 
             h: "The Shift to Hollywood Boulevard", 
@@ -710,7 +710,7 @@ const tourData = {
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Media Lore", d: "Its neon marquee glows across from the Bradbury Building in <em>Blade Runner</em> (1982) and appears as the 'Ten Cent Theater' in <em>Grand Theft Auto V</em>." }
+          { cls: "box-lore", t: "Blade Runner & GTA Lore", d: "Its illuminated neon marquee glows opposite the Bradbury Building in <em>Blade Runner</em> (1982) and appears as the 'Ten Cent Theater' in <em>Grand Theft Auto V</em>." }
         ]
       },
       es: {
@@ -725,14 +725,18 @@ const tourData = {
         ],
         people: [
           { name: "Sid Grauman", role: "Empresario y Productor Teatral", bio: "Pionero del entretenimiento que inauguró aquí su primer palacio en LA antes de trasladarse a Hollywood para construir el Teatro Chino." },
-          { name: "Joseph Mora", role: "Escultor Principal", bio: "Escultor que diseñó la recargada fachada churrigueresca de terracota, integrando cuernos texanos, bisontes y cámaras de cine antiguas." },
-          { name: "Frank Fouce y Frank L. Fouce", role: "Pioneros de los Medios en Español", bio: "Padre e hijo que convirtieron el teatro en el templo hispano de EE. UU. (Cantinflas, Vicente Fernández) y fundaron KMEX Canal 34 (Univision)." },
-          { name: "Antonio Aguilar", role: "Ídolo de la Charrería y Cine Mexicano", bio: "Actor y cantante que montó espectáculos ecuestres en el escenario interior del teatro, inspirando las grandes giras de jaripeo en Norteamérica." }
+          { name: "Joseph Jacinto 'Jo' Mora", role: "Escultor Principal", bio: "Artista uruguayo que diseñó la recargada fachada churrigueresca de terracota, integrando cuernos texanos, bisontes y cámaras de cine antiguas." },
+          { name: "Albert C. Martin Sr.", role: "Ingeniero Arquitectónico", bio: "Pionero del concreto armado que diseñó una armadura monumental para sostener el balcón sin columnas que taparan la vista." },
+          { name: "Frank Fouce y Frank L. Fouce", role: "Pioneros de los Medios en Español", bio: "Padre e hijo que convirtieron el teatro en el templo hispano de EE. UU. (Cantinflas, Vicente Fernández) y fundaron KMEX Canal 34 (Univision)." }
         ],
         stories: [
           { 
-            h: "El Debut de Sid Grauman y la Fachada Churrigueresca", 
-            p: "Inaugurado el <strong>1 de febrero de 1918</strong> como el primer gran teatro de <strong>Sid Grauman</strong> en LA con un costo de $1 millón. Diseñado por Albert C. Martin Sr. con una fachada de estilo <strong>Churrigueresco español</strong> esculpida por Joseph Mora. Si observan con atención, verán cabezas de bisonte talladas, cuernos texanos, figuras alegóricas de comedia/tragedia y cámaras de cine primitivas." 
+            h: "El Debut de Sid Grauman y la Apuesta de $1 Millón", 
+            p: "Inaugurado el <strong>1 de febrero de 1918</strong> como el primer gran teatro de <strong>Sid Grauman</strong> en LA con un costo de $1 millón. Con 2,345 butacas, demostró que el cine ya no era una atracción barata de feria, sino un espectáculo digno de palacios." 
+          },
+          { 
+            h: "La Escultura Churrigueresca de Joseph Mora", 
+            p: "Observen la fachada diseñada por el maestro <strong>Joseph Jacinto 'Jo' Mora</strong> en estilo Churrigueresco español (ultrabarroco). En lugar de copiar catedrales europeas, Mora esculpió una mitología californiana única: verán <strong>cabezas de bisonte americano, cuernos de res texana, figuras de comedia y tragedia, y cámaras de cine primitivas</strong> talladas directamente en la terracota." 
           },
           { 
             h: "La Gran Migración hacia Hollywood", 
@@ -753,88 +757,14 @@ const tourData = {
       }
     },
 
-    // 9. El Nuevo Fuego
+    // 9. Evolution Sculpture (Expanded + Clean Bolding + Fixed Stats)
     {
       id: 9,
-      mapUrl: "https://maps.google.com/?q=240+S+Broadway+Los+Angeles",
-      en: {
-        title: "El Nuevo Fuego & Broadway Murals",
-        address: "240 S Broadway (Victor Clothing Co. Building)",
-        short: "9. El Nuevo Fuego",
-        timeline: [
-          { y: "1932", t: "Los Angeles hosts the Games of the X Olympiad." },
-          { y: "1984", t: "LA hosts the Games of the XXIII Olympiad (exactly 52 years later)." },
-          { y: "1984", t: "Eloy Torrez paints The Pope of Broadway depicting Anthony Quinn." },
-          { y: "1985", t: "East Los Streetscapers paint the 80x85-foot mural El Nuevo Fuego." }
-        ],
-        people: [
-          { name: "East Los Streetscapers (Healy & Botello)", role: "Chicano Mural Pioneers", bio: "Influential artist collective that bridged Mesoamerican history, public Chicano street art, and Olympic milestones across East Los Angeles and Downtown." },
-          { name: "Paul Gonzales", role: "Olympic Boxing Gold Medalist", bio: "East LA native who fought out of local youth gyms, won Gold in the 1984 Olympic Games, and was awarded the Val Barker Trophy for best pound-for-pound fighter." },
-          { name: "Valerie Briscoe-Hooks", role: "Triple Olympic Gold Medalist", bio: "South LA sprinter who made history at the 1984 Games as the first Olympian to win gold in both the 200m and 400m races at the same Olympics." },
-          { name: "Anthony Quinn", role: "Chihuahua-Born Oscar Winner", bio: "Legendary Mexican-American actor celebrated next door in Eloy Torrez's mural The Pope of Broadway in his famous Zorba the Greek dance pose." }
-        ],
-        stories: [
-          { 
-            h: "The 52-Year Aztec Cycle & The Olympic Flame", 
-            p: "Painted in <strong>1985</strong> by the <strong>East Los Streetscapers</strong> (Wayne Alaniz Healy, David Botello, George Yepes). In ancient Mesoamerican culture, every 52 years, all fires across the empire were extinguished, and priests lit a single 'New Fire' (<em>Xiuhmolpilli</em>) from a sacred mountaintop to symbolize cosmic rebirth.<br><br>Los Angeles hosted the Summer Olympic Games in <strong>1932</strong> and again in <strong>1984</strong>—a gap of <strong>exactly 52 years</strong>. The mural connects ancient Aztec ceremony with the return of the Olympic flame to Los Angeles." 
-          },
-          { 
-            h: "Local Champions from East LA & South LA", 
-            p: "The mural honors homegrown champions who grew up in local neighborhoods: East LA boxer <strong>Paul Gonzales</strong> (who won Gold in 1984 and took home the Val Barker Trophy for best boxer) and South LA sprinter <strong>Valerie Briscoe-Hooks</strong> (the first athlete in Olympic history to win gold in both the 200m and 400m at the same Olympic Games)." 
-          },
-          { 
-            h: "The Victor Clothing Chicano Art Corridor", 
-            p: "The Victor Clothing Company was an iconic retailer on Broadway that supported the community by commissioning Chicano masterworks on its walls. Look directly next door at <strong>The Pope of Broadway (1984)</strong> by Eloy Torrez, portraying Mexican-American Oscar-winner <strong>Anthony Quinn</strong> dancing with open arms in his famous <em>Zorba the Greek</em> pose." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "Photo Spot", d: "Stand across the street on Broadway to capture both <em>El Nuevo Fuego</em> and <em>The Pope of Broadway</em> murals side-by-side in one frame." }
-        ]
-      },
-      es: {
-        title: "Mural El Nuevo Fuego y Arte Urbano",
-        address: "240 S Broadway (Edificio Victor Clothing Co.)",
-        short: "9. El Nuevo Fuego",
-        timeline: [
-          { y: "1932", t: "Los Ángeles es sede de los X Juegos Olímpicos." },
-          { y: "1984", t: "LA recibe los XXIII Juegos Olímpicos (exactamente 52 años después)." },
-          { y: "1984", t: "Eloy Torrez pinta 'The Pope of Broadway' en homenaje a Anthony Quinn." },
-          { y: "1985", t: "East Los Streetscapers crean el mural de 80x85 pies 'El Nuevo Fuego'." }
-        ],
-        people: [
-          { name: "East Los Streetscapers", role: "Pioneros del Muralismo Chicano", bio: "Colectivo artístico fundado por Wayne Healy y David Botello que unió la cosmología azteca con la identidad urbana angelina." },
-          { name: "Paul Gonzales", role: "Boxeador Medallista de Oro", bio: "Pugilista originario del Este de LA que conquistó el Oro olímpico en 1984 y el Trofeo Val Barker al mejor boxeador del torneo." },
-          { name: "Valerie Briscoe-Hooks", role: "Triple Campeona Olímpica", bio: "Atleta del Sur de LA que hizo historia en 1984 al ser la primera mujer en ganar el oro en 200m y 400m en los mismos Juegos." },
-          { name: "Anthony Quinn", role: "Actor Ganador del Óscar", bio: "Leyenda chihuahuense del cine retratado en el mural vecino de Eloy Torrez en su icónico baile de Zorba el Griego." }
-        ],
-        stories: [
-          { 
-            h: "El Fuego Nuevo Azteca y la Llama Olímpica", 
-            p: "Pintado en <strong>1985</strong> por los artistas de <strong>East Los Streetscapers</strong> (Healy, Botello y Yepes). En el México prehispánico, cada 52 años se apagaban todos los fuegos del imperio y los sacerdotes encendían un único 'Fuego Nuevo' (<em>Xiuhmolpilli</em>) en la cima sagrada para simbolizar la renovación cósmica.<br><br>Los Ángeles fue sede olímpica en <strong>1932</strong> y en <strong>1984</strong>: un intervalo de <strong>exactamente 52 años</strong>. El mural fusiona la mitología azteca con el regreso de la antorcha olímpica a la ciudad." 
-          },
-          { 
-            h: "Campeones Locales del Este y Sur de LA", 
-            p: "Rinde homenaje a atletas locales: el boxeador del Este de LA <strong>Paul Gonzales</strong> (Oro en 1984 y Trofeo Val Barker) y la velocista del Sur de LA <strong>Valerie Briscoe-Hooks</strong> (primera mujer en ganar oro en 200m y 400m en los mismos Juegos Olímpicos)." 
-          },
-          { 
-            h: "El Corredor de Arte de Victor Clothing Co.", 
-            p: "La tienda Victor Clothing financió grandes murales chicanos. Justo al lado pueden ver <strong>The Pope of Broadway (1984)</strong> de Eloy Torrez, que retrata al gran actor mexicano <strong>Anthony Quinn</strong> bailando con los brazos abiertos en su papel de <em>Zorba el Griego</em>." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "Foto Panorámica", d: "Párate en la acera de enfrente de Broadway para capturar tanto <em>El Nuevo Fuego</em> como el mural de Anthony Quinn en una sola foto." }
-        ]
-      }
-    },
-
-    // 10. Evolution Sculpture
-    {
-      id: 10,
       mapUrl: "https://maps.google.com/?q=200+S+Broadway+Los+Angeles",
       en: {
         title: "The Evolution of Los Angeles Sculpture",
         address: "200 block of S Broadway (Broadway-Spring Center Facade)",
-        short: "10. Evolution Sculpture",
+        short: "9. Evolution Sculpture",
         timeline: [
           { y: "1771", t: "Mission San Gabriel founded along El Camino Real." },
           { y: "1887", t: "Railroad $1 fare war brings 100,000 settlers and sparks the citrus boom." },
@@ -852,23 +782,23 @@ const tourData = {
         stories: [
           { 
             h: "Wave 1: Spanish Missions, El Camino Real & Saints", 
-            p: "Spanish friars named California coastal sites after the Catholic feast calendar of the day they made landfall (San Diego, San Francisco, Santa Monica). Mission San Gabriel (1771) paved the way for 44 settlers (*Los Pobladores*) to march west and establish the original Pueblo in 1781." 
+            p: "Spanish friars named California coastal sites after the Catholic feast calendar of the day they made landfall (San Diego, San Francisco, Santa Monica). The Franciscan friars established a chain of 21 religious outposts connected by the historic El Camino Real trail. Mission San Gabriel (founded in 1771) served as the primary agricultural station in the region, resting near existing Gabrielino-Tongva villages. On September 4, 1781, Spanish Governor Felipe de Neve led a group of 44 settlers (<strong>Los Pobladores</strong>)—a diverse group of 22 adults and 22 children of Indigenous, African, and Spanish descent—nine miles west from the mission to formally establish <em>El Pueblo de la Reina de los Ángeles</em>." 
           },
           { 
             h: "Wave 2: The Citrus Boom & The $1 Railroad Fare War", 
-            p: "The Santa Fe and Southern Pacific railroads fought a cutthroat 1887 price war, slashing tickets from Chicago to LA from $125 down to <strong>$1 for a single day</strong>. Over 100,000 settlers arrived in months, blanketing the valleys in orange groves. Orange County broke off in 1889, naming itself after the fruit. Today, California produces over 70% of US fruits/nuts and 1/3 of all US vegetables." 
+            p: "The Santa Fe and Southern Pacific railroads fought a cutthroat 1887 price war, slashing passenger tickets from Chicago to Los Angeles from $125 down to <strong>$1 for a single day</strong>. Over 100,000 settlers arrived in a matter of months, buying farmland and blanketing the regional valleys in vast fragrant orange groves. The development of ventilated and refrigerated wooden rail cars ('reefers') allowed fresh California fruit to be shipped across the country without spoiling, establishing citrus as California's primary gold rush of the late 19th century. Orange County broke away from Los Angeles County in 1889, naming itself directly after the fruit. Today, California produces <strong>over 70% of all US fruits, 70% of all US tree nuts, and over 33% of all US vegetables</strong>." 
           },
           { 
             h: "Wave 3: The 1892 Black Gold Strike & World Oil Capital", 
-            p: "Edward Doheny and Charles Canfield struck petroleum near downtown LA. By 1923, the Los Angeles basin produced nearly <strong>25% of the entire world’s petroleum</strong>. The natural surface asphalt seeps at the La Brea Tar Pits were thousands of years of geological proof of the vast oil reserves resting under the city." 
+            p: "In 1892, struggling prospector Edward Doheny and his partner Charles Canfield purchased a $400 residential lot near Echo Park and began manually digging into the earth using a sharpened eucalyptus tree trunk. They struck liquid petroleum at a depth of 460 feet, triggering an unprecedented urban oil boom across Southern California. Within five years, over 2,500 active oil derricks stood crowded inside residential backyards, church lawns, and school playgrounds throughout downtown. By 1923, the Los Angeles basin produced nearly <strong>25% of the entire world’s petroleum</strong>, with oil tankers crowding the newly deepened Port of Los Angeles in San Pedro. The ancient bubbling surface asphalt pools at the La Brea Tar Pits had served as thousands of years of geological evidence of the massive petroleum deposits resting beneath the basin." 
           },
           { 
             h: "Wave 4: Cinema Flight & The Edison Trust Monopoly", 
-            p: "In 1908, Thomas Edison created the Motion Picture Patents Company (Edison Trust) in New York, suing independent filmmakers and sending enforcers to seize cameras. Directors fled to Southern California for 300+ days of sunlight, diverse landscapes, and a 2-hour escape drive across the Mexican border." 
+            p: "In 1908, inventor Thomas Edison formed the Motion Picture Patents Company (the Edison Trust) in New York, locking down patents on cameras, projectors, and raw film stock. Trust detectives and enforcers raided independent film sets on the East Coast, serving lawsuits and physically confiscating recording equipment. Independent directors like Carl Laemmle and Jesse Lasky fled 3,000 miles across the continent to Southern California, where the sunny Mediterranean climate provided <strong>over 300 days of reliable natural sunlight</strong> for outdoor filming without expensive electrical lighting stages. The region offered unmatched geographic diversity: mountains, deserts, rolling hills, ocean beaches, and urban streetscapes were all reachable within a 30-mile radius. Crucially, if Edison's federal marshals showed up with court injunctions, filmmakers could pack their gear into a motorcar and cross the Mexican border in less than two hours." 
           },
           { 
             h: "Wave 5: The 1913 LA Aqueduct & California Water Wars", 
-            p: "Realizing a semi-arid basin could never grow without water, Chief Engineer <strong>William Mulholland</strong> and former Mayor Fred Eaton secured water rights in the Owens Valley 233 miles away. Mulholland engineered an aqueduct that transported water relying <strong>100% on gravity—without a single pump</strong> (*'There it is. Take it.'*)." 
+            p: "Recognizing that a semi-arid desert basin with a single seasonal river could never support a metropolis, Chief Water Engineer <strong>William Mulholland</strong> and former Mayor Fred Eaton secured water rights in the remote Owens Valley, 233 miles to the north. Between 1908 and 1913, an army of 4,000 laborers blasted through solid granite mountains and excavated desert trenches to construct the monumental Los Angeles Aqueduct. Mulholland engineered the channel to transport millions of gallons of water relying <strong>100% on gravity—without using a single motorized pump</strong> across the entire 233-mile route. On opening day, November 5, 1913, before a crowd of 40,000 cheering Angelenos at the Cascades in the San Fernando Valley, Mulholland gave his legendary five-word dedication speech: <em>'There it is. Take it.'</em>" 
           }
         ],
         callouts: [
@@ -878,7 +808,7 @@ const tourData = {
       es: {
         title: "Escultura Evolución de Los Ángeles",
         address: "Cuadra 200 de S Broadway (Fachada Broadway-Spring Center)",
-        short: "10. Escultura Evolución",
+        short: "9. Escultura Evolución",
         timeline: [
           { y: "1771", t: "Fundación de la Misión San Gabriel en el camino virreinal." },
           { y: "1887", t: "Guerra de trenes a $1 atrae a 100,000 colonos e inicia el auge de los cítricos." },
@@ -896,23 +826,23 @@ const tourData = {
         stories: [
           { 
             h: "Ola 1: Misiones Españolas y el Santoral Católico", 
-            p: "Los exploradores españoles nombraron costas y valles según el santo del día de desembarco (San Diego, San Francisco, Santa Mónica). La Misión San Gabriel (1771) permitió que 44 pobladores marcharan hacia el oeste para fundar el Pueblo de Los Ángeles en 1781." 
+            p: "Los exploradores españoles nombraron costas y bahías según el santo del día de desembarco (San Diego, San Francisco, Santa Mónica). Los frailes franciscanos establecieron una red de 21 misiones unidas por el histórico Camino Real. La Misión San Gabriel (fundada en 1771) servía como el gran centro agrícola regional cerca de los poblados Gabrielino-Tongva. El 4 de septiembre de 1781, el gobernador Felipe de Neve guio a un grupo de 44 colonos (<strong>Los Pobladores</strong>)—22 adultos y 22 niños de origen indígena, afrodescendiente y español—para fundar oficialmente el <em>Pueblo de la Reina de los Ángeles</em>." 
           },
           { 
             h: "Ola 2: El Auge de los Cítricos y la Guerra de Trenes a $1", 
-            p: "Las compañías de tren libraron una guerra de precios en 1887, bajando el boleto de Chicago a LA a <strong>$1 por un día</strong>. Llegaron 100,000 colonos que cubrieron los valles de naranjales (Orange County se independizó en 1889). Hoy California produce más del 70% de frutas y nueces del país." 
+            p: "Las compañías de ferrocarril libraron una feroz guerra de tarifas en 1887, bajando los boletos de Chicago a Los Ángeles a <strong>$1 por un solo día</strong>. Llegaron más de 100,000 colonos en pocos meses, comprando tierras y cubriendo los valles de extensos campos de naranjos. El invento de vagones de tren con ventilación y refrigeración permitió enviar fruta fresca a Nueva York sin descomponerse, convirtiendo los cítricos en el verdadero oro californiano de finales del siglo XIX. Orange County se independizó de Los Ángeles en 1889 tomando el nombre de la fruta. Hoy en día, California produce <strong>más del 70% de todas las frutas, el 70% de los frutos secos y más del 33% de los vegetales de todo Estados Unidos</strong>." 
           },
           { 
             h: "Ola 3: El Descubrimiento de Petróleo de 1892", 
-            p: "Edward Doheny descubrió petróleo cerca de DTLA con un tronco de árbol afilado. Para 1923, la cuenca de Los Ángeles producía el <strong>25% del petróleo mundial</strong>, un potencial geológico anunciado durante siglos por el asfalto natural de La Brea Tar Pits." 
+            p: "En 1892, Edward Doheny y Charles Canfield compraron un terreno de $400 cerca de Echo Park y cavaron manualmente con un tronco afilado de eucalipto. Al llegar a 460 pies brotó petróleo, desatando una fiebre del oro negro en toda la ciudad. En cinco años, más de 2,500 torres petroleras operaban en patios residenciales, escuelas y jardines de iglesias en el centro de la ciudad. Para 1923, la cuenca de Los Ángeles producía el <strong>25% del petróleo de todo el mundo</strong>, impulsando la expansión del Puerto de San Pedro. Las pozas naturales de asfalto de La Brea Tar Pits fueron durante miles de años la prueba geológica visible de las inmensas reservas que yacían bajo el asfalto angelino." 
           },
           { 
             h: "Ola 4: La Huida a Hollywood contra Thomas Edison", 
-            p: "En 1908, Thomas Edison creó un monopolio de patentes en Nueva York que decomisaba cámaras a cineastas independientes. Los directores huyeron a California buscando 300 días de sol, paisajes diversos y la frontera mexicana a dos horas para escapar de citatorios judiciales." 
+            p: "En 1908, Thomas Edison creó el monopolio de patentes 'Edison Trust' en Nueva York, controlando cámaras, proyectores y rollos de película. Detectives del Trust allanaban foros independientes en la costa este y decomisaban equipos con demandas judiciales. Directores independientes huyeron a California buscando un clima mediterráneo con <strong>más de 300 días de sol al año</strong> para filmar al aire libre sin costosos reflectores. La región ofrecía una variedad geográfica inigualable: playas, montañas nevadas, desiertos y calles urbanas en un radio de 30 millas. Y si un juez federal llegaba con una orden de cateo, los cineastas podían cruzar la frontera mexicana en menos de dos horas." 
           },
           { 
             h: "Ola 5: El Acueducto de 1913 y las Guerras del Agua", 
-            p: "El ingeniero <strong>William Mulholland</strong> y el exalcalde Fred Eaton compraron derechos de agua en Owens Valley a 233 millas de distancia. Mulholland construyó un acueducto monumental que transportaba agua <strong>100% por gravedad sin usar una sola bomba</strong> (*'Ahí está. Tómenla'*)." 
+            p: "Sabiendo que un valle semidesértico con un río estacional nunca podría sostener a millones de habitantes, el ingeniero <strong>William Mulholland</strong> y el exalcalde Fred Eaton compraron derechos de agua en el Valle de Owens, a 233 millas al norte. Entre 1908 y 1913, cuatro mil obreros perforaron túneles en montañas de granito y cavaron canales en el desierto para construir el Acueducto de Los Ángeles. Mulholland diseñó la obra para transportar el agua <strong>100% por gravedad—sin usar una sola bomba eléctrica</strong> en todo el trayecto. El 5 de noviembre de 1913, ante 40,000 personas en Sylmar, Mulholland pronunció su legendaria frase de cinco palabras: <em>'Ahí está. Tómenla.'</em>" 
           }
         ],
         callouts: [
@@ -921,14 +851,14 @@ const tourData = {
       }
     },
 
-    // 11. Los Angeles City Hall
+    // 10. Los Angeles City Hall (Expanded + Movie Section)
     {
-      id: 11,
+      id: 10,
       mapUrl: "https://maps.google.com/?q=Los+Angeles+City+Hall",
       en: {
         title: "Los Angeles City Hall",
         address: "200 N Spring St",
-        short: "11. City Hall",
+        short: "10. City Hall",
         timeline: [
           { y: "1904", t: "LA institutes a strict 150-foot building height limit across the city." },
           { y: "1928", t: "City Hall opens at 454 feet with a special city charter height exemption." },
@@ -944,30 +874,33 @@ const tourData = {
         stories: [
           { 
             h: "The 150-Foot Charter Limit & The 40-Year Exemption", 
-            p: "Dedicated in <strong>1928</strong> (454 feet, 28 stories). From 1904 to 1957, Los Angeles banned any building taller than 150 feet (~13 stories) to protect against earthquakes and prevent dark street canyons. Voters passed a special charter exemption specifically for City Hall so it would stand as the sole dominant tower on the skyline for 40 years." 
+            p: "Dedicated in <strong>1928</strong> (454 feet, 28 stories). From 1904 to 1957, Los Angeles banned any building taller than 150 feet (~13 stories) to protect against earthquake collapse and prevent dark, narrow street canyons. Voters passed a special charter exemption specifically for City Hall so it would stand as the sole dominant tower on the skyline for nearly 40 years. Its dramatic pyramid apex was inspired directly by the ancient Mausoleum at Halicarnassus, symbolizing enduring civic law and democracy. For four decades, this solitary white tower was visible across miles of flat orchards and agricultural plains, orienting visitors from across the region." 
           },
           { 
             h: "Uniting California: Soils from 58 Counties & 21 Missions", 
-            p: "To symbolize statewide unity, the foundation concrete was mixed with <strong>soil from all 58 California counties</strong> and <strong>water from all 21 historic Spanish missions</strong>, embedding the entire geographic and cultural identity of the state into the tower base." 
+            p: "To symbolize statewide unity, the foundation concrete was mixed with <strong>soil collected from all 58 California counties</strong> and <strong>water drawn from all 21 historic Spanish missions</strong>, embedding the entire geographic and cultural identity of the state into the tower base. Inside, the monumental rotunda is clad in French and Italian marble, intricate Byzantine mosaics, and hand-painted ceiling frescoes illustrating the industries that built California. The heavy cornerstone seals a time capsule preserving municipal documents, photographs, and artifacts from the boom years of the 1920s." 
           },
           { 
             h: "Mayor Tom Bradley's 20-Year Legacy", 
-            p: "LA’s first Black mayor and longest-serving leader in city history (5 terms, 20 years). Bradley orchestrated the <strong>1984 Summer Olympics</strong>—the first privately financed Games in history—resulting in a historic <strong>$223 million surplus</strong> that still funds youth sports today via the LA84 Foundation. He built the <strong>Tom Bradley International Terminal (TBIT)</strong> at LAX and passed Proposition A to build the modern Metro rail network (opening the Blue/A Line in 1990)." 
+            p: "LA’s first Black mayor and longest-serving leader in city history (5 terms, 20 years from 1973 to 1993). Bradley orchestrated the <strong>1984 Summer Olympics</strong>—the first privately financed Games in Olympic history—resulting in an unprecedented <strong>$223 million operating surplus</strong> that still funds youth athletic programs today via the LA84 Foundation. He built the <strong>Tom Bradley International Terminal (TBIT)</strong> at LAX, modernized the Port of Los Angeles, and passed Proposition A to fund the modern Metro rail network, opening the Blue/A Line in 1990. Bradley transformed Los Angeles from a sprawling regional metropolis into a premier international financial and cultural capital of the Pacific Rim." 
           },
           { 
             h: "The Black POW/MIA Flag & Civic Memory", 
-            p: "Beneath the California flag flies the black POW/MIA flag commemorating military personnel imprisoned or missing in action. Flying it serves three purposes: remembering returning soldiers who faced stigma, acknowledging the human cost of the Vietnam War (1955–1975 across 5 presidencies), and maintaining a civic commitment to account for all unrecovered personnel." 
+            p: "Beneath the California state flag on the southern mast flies the black POW/MIA flag commemorating military personnel imprisoned or missing in action. Flying it serves three distinct purposes: remembering returning soldiers who faced stigma, acknowledging the human cost of the Vietnam War (1955–1975 across 5 presidencies), and maintaining a civic commitment to account for all unrecovered personnel. The civic mall surrounding the building is populated with commemorative bronze plaques, war memorials, and memorial trees honoring fallen Los Angeles service members across every major global conflict." 
+          },
+          { 
+            h: "Hollywood, Television & Cinema Icon", 
+            p: "Because of its monumental Art Deco profile, City Hall is one of the most recognizable municipal buildings in screen history. In the 1950s television classic <em>Adventures of Superman</em>, this building starred as the <strong>Daily Planet headquarters</strong>, with Superman (George Reeves) famously soaring off its upper balconies. It served as the central LAPD headquarters in the opening title sequences of <em>Dragnet</em> ('This is the city... Los Angeles, California'). The building was famously targeted and incinerated by Martian heat rays in the sci-fi masterwork <em>The War of the Worlds</em> (1953), served as the corrupted municipal offices in Roman Polanski's neo-noir masterpiece <em>Chinatown</em> (1974), and hosted pivotal police department showdowns in <em>L.A. Confidential</em> (1997)." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Free 27th-Floor Observation Deck", d: "The 27th-floor Tom Bradley Room is open free to the public on weekdays, offering 360° views across the entire Los Angeles basin." },
-          { cls: "box-lore", t: "Superman & Dragnet", d: "Appeared as the Daily Planet headquarters in the 1950s <em>Adventures of Superman</em>, in <em>War of the Worlds</em> (1953), and in the opening of <em>Dragnet</em>." }
+          { cls: "box-tip", t: "Free 27th-Floor Observation Deck", d: "The 27th-floor Tom Bradley Room is open free to the public on weekdays, offering 360° panoramic views across the entire Los Angeles basin to the ocean." }
         ]
       },
       es: {
         title: "Ayuntamiento de Los Ángeles (City Hall)",
         address: "200 N Spring St",
-        short: "11. City Hall",
+        short: "10. City Hall",
         timeline: [
           { y: "1904", t: "La ciudad prohíbe edificios de más de 150 pies de altura." },
           { y: "1928", t: "Abre City Hall con 454 pies gracias a un permiso especial electoral." },
@@ -983,36 +916,39 @@ const tourData = {
         stories: [
           { 
             h: "El Límite de 150 Pies y los 40 Años de Soledad en el Cielo", 
-            p: "Inaugurado en <strong>1928</strong> (454 pies, 28 pisos). Durante más de 50 años estuvo prohibido construir a más de 150 pies (~13 pisos) por seguridad sísmica y para preservar la luz del sol. City Hall tuvo un permiso especial aprobado por votación para ser el único rascacielos en el cielo angelino durante 40 años." 
+            p: "Inaugurado en <strong>1928</strong> (454 pies, 28 pisos). Durante más de 50 años estuvo prohibido construir a más de 150 pies (~13 pisos) por seguridad sísmica y para preservar la luz del sol en las calles. City Hall tuvo un permiso especial aprobado por votación para ser el único rascacielos en el cielo angelino durante 40 años. Su pirámide superior se inspiró en el Mausoleo de Halicarnaso, simbolizando la ley y el orden cívico. Durante cuatro décadas, esta solitaria torre blanca era visible desde kilómetros a la redonda entre campos agrícolas y valles abiertos." 
           },
           { 
             h: "Tierra de 58 Condados y Agua de 21 Misiones", 
-            p: "Para representar la unidad de California, la mezcla de concreto de los cimientos incorporó <strong>tierra recolectada de los 58 condados</strong> y <strong>agua de las 21 misiones virreinales</strong>, sellando el simbolismo del estado en la base del edificio." 
+            p: "Para representar la unidad de California, la mezcla de concreto de los cimientos incorporó <strong>tierra recolectada de los 58 condados</strong> y <strong>agua de las 21 misiones virreinales</strong>, sellando el simbolismo del estado en la base del edificio. En su interior, la rotonda cívica está decorada con mármoles italianos, mosaicos bizantinos y frescos pintados a mano que retratan las industrias fundacionales del estado. La piedra angular resguarda una cápsula del tiempo con documentos originales y reliquias de la época dorada de los años 20." 
           },
           { 
             h: "El Legado de 20 Años del Alcalde Tom Bradley", 
-            p: "Primer alcalde afroamericano de LA y el que más tiempo ha servido (5 mandatos). Lideró los <strong>Juegos Olímpicos de 1984</strong> (los primeros financiados con fondos privados), generando un superávit de <strong>$223 millones</strong> que aún apoya el deporte juvenil. Construyó la Terminal Internacional en LAX y financió la red moderna de Metro con la Línea A en 1990." 
+            p: "Primer alcalde afroamericano de LA y el que más tiempo ha servido (5 mandatos de 1973 a 1993). Lideró los <strong>Juegos Olímpicos de 1984</strong> (los primeros financiados con fondos privados), generando un superávit de <strong>$223 millones</strong> que aún apoya el deporte juvenil mediante la Fundación LA84. Construyó la Terminal Internacional en LAX, modernizó el Puerto de Los Ángeles y financió la red moderna de Metro con la Línea A en 1990, transformando la ciudad en la gran capital comercial del Pacífico." 
           },
           { 
             h: "La Bandera Negra POW/MIA y Memoria Cívica", 
-            p: "Bajo la bandera estatal ondea la bandera negra en memoria de los prisioneros y desaparecidos de guerra. Recuerda el costo humano de la Guerra de Vietnam (1955–1975) a lo largo de 5 presidencias y el compromiso de no olvidar a quienes sirvieron." 
+            p: "Bajo la bandera estatal ondea la bandera negra en memoria de los prisioneros y desaparecidos de guerra. Recuerda el costo humano de la Guerra de Vietnam (1955–1975) a lo largo de 5 presidencias y el compromiso de no olvidar a quienes sirvieron. Los jardines exteriores albergan placas conmemorativas y monumentos que rinden homenaje a los veteranos angelinos caídos en los principales conflictos armados." 
+          },
+          { 
+            h: "Ícono del Cine, Televisión y Cultura Pop", 
+            p: "Por su monumental perfil Art Déco, City Hall es uno de los edificios más filmados de la historia. En la serie clásica de televisión <em>Las Aventuras de Superman</em> de los años 50, fue la sede del <strong>diario Daily Planet</strong>, desde donde Superman saltaba al vuelo. Fue la estación de policía en la apertura de la legendaria serie <em>Dragnet</em> ('Esta es la ciudad... Los Ángeles, California'). Además, fue destruido por los rayos marcianos en <em>La Guerra de los Mundos</em> (1953), sirvió como palacio municipal corrupto en la obra maestra de cine negro <em>Chinatown</em> (1974) y apareció en los tiroteos de <em>L.A. Confidential</em> (1997)." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Mirador Gratuito Piso 27", d: "El piso 27 (Sala Tom Bradley) abre gratis entre semana ofreciendo vistas panorámicas de 360° de toda la metrópoli." },
-          { cls: "box-lore", t: "En la Televisión", d: "Fue la sede del diario Daily Planet en la serie <em>Superman</em> de los años 50, en <em>Dragnet</em> y en <em>La Guerra de los Mundos</em> (1953)." }
+          { cls: "box-tip", t: "Mirador Gratuito Piso 27", d: "El piso 27 (Sala Tom Bradley) abre gratis entre semana ofreciendo vistas panorámicas de 360° de toda la metrópoli hasta el océano Pacífico." }
         ]
       }
     },
 
-    // 12. Courthouses
+    // 11. Courthouses (Grouped cleanly into 3 Courthouses)
     {
-      id: 12,
+      id: 11,
       mapUrl: "https://maps.google.com/?q=Hall+of+Justice+Los+Angeles",
       en: {
         title: "Civic Center & Historic Courthouses Row",
         address: "Temple & Spring Street Intersection",
-        short: "12. Courthouses Row",
+        short: "11. Courthouses Row",
         timeline: [
           { y: "1925", t: "Hall of Justice opens, consolidating morgue, courts, and top-floor jail." },
           { y: "1946–1947", t: "Mendez v. Westminster argued at Spring St Courthouse, ending school segregation." },
@@ -1029,24 +965,16 @@ const tourData = {
         ],
         stories: [
           { 
-            h: "Hall of Justice: America's First Vertical Justice Complex", 
-            p: "Opened in 1925, it was the first building in America to consolidate an entire justice system under one roof: basement morgue and coroner, lower-floor criminal courts, middle sheriff headquarters, and a 750-cell maximum-security jail on the top floors." 
+            h: "1. The Hall of Justice (1925): Vertical Justice Fortress", 
+            p: "Opened in 1925, the <strong>Hall of Justice</strong> was the first building in the United States to consolidate an entire criminal justice system under a single roof: a basement coroner's morgue, lower-floor criminal courtrooms, central sheriff administrative headquarters, and a 750-cell maximum-security jail occupying the upper floors.<br><br>Cult leader <strong>Charles Manson</strong> was incarcerated in the 13th-floor cell tier during his 9.5-month 1970–1971 murder trial while his followers held daily vigils on the street below, carving X's into their foreheads. Notorious mobster Bugsy Siegel and daredevil Evel Knievel also served time in these upper cell blocks.<br><br>In basement Room 100, Chief Medical Examiner <strong>Dr. Thomas Noguchi</strong> performed the autopsy on <strong>Marilyn Monroe</strong> on August 5, 1962. Six years later in 1968, Dr. Noguchi examined the body of assassinated Senator <strong>Robert F. Kennedy</strong> in the exact same basement room." 
           },
           { 
-            h: "The 13th-Floor Jail & Charles Manson's Trial", 
-            p: "<strong>Charles Manson</strong> was incarcerated in the 13th-floor jail during his 1970–1971 trial while his followers held vigil outside on the sidewalk, carving X's into their foreheads. Mobster Bugsy Siegel and daredevil Evel Knievel also served time in these upper cell blocks." 
+            h: "2. Spring Street U.S. Courthouse (1940): Civil Rights Landmark", 
+            p: "The adjacent 1940 Streamline Moderne and PWA Moderne federal building hosted <strong><em>Mendez v. Westminster</em> (1946–1947)</strong>, where five Mexican-American families successfully challenged racial segregation in Orange County public schools. Federal District Judge Paul J. McCormick ruled that segregating children based on ancestry violated the 14th Amendment's Equal Protection Clause—creating the direct California legal precedent cited eight years later in the landmark Supreme Court decision <em>Brown v. Board of Education</em>.<br><br>In 1973, this federal courthouse hosted the high-stakes espionage trial of military analyst Daniel Ellsberg for leaking the secret <strong>Pentagon Papers</strong> to the press during the Vietnam War." 
           },
           { 
-            h: "Room 100: Marilyn Monroe & Robert F. Kennedy Autopsies", 
-            p: "In the basement morgue (Room 100), Chief Medical Examiner <strong>Dr. Thomas Noguchi</strong> performed the autopsy on <strong>Marilyn Monroe</strong> on August 5, 1962. Six years later in 1968, Dr. Noguchi performed the autopsy on assassinated Senator <strong>Robert F. Kennedy</strong> in the exact same room." 
-          },
-          { 
-            h: "Landmark Civil Rights: Mendez v. Westminster", 
-            p: "The adjacent 1940 Spring Street Courthouse hosted <em>Mendez v. Westminster</em> (1946–1947), where five Mexican-American families successfully challenged public school segregation in Orange County. Federal Judge Paul J. McCormick ruled that separating children was unconstitutional—creating the direct legal precedent used 8 years later in <em>Brown v. Board of Education</em>.<br><br>The courthouse also hosted the 1973 federal prosecution of Daniel Ellsberg for leaking the <strong>Pentagon Papers</strong>." 
-          },
-          { 
-            h: "Clara Shortridge Foltz & High-Profile Trials of the 1990s", 
-            p: "Across the street stands the criminal justice center named after <strong>Clara Shortridge Foltz</strong>—California’s first female lawyer, who pioneered the concept of the public defender. This building hosted the sensational televised trials of the <strong>Menendez Brothers</strong> (1993–1996), the <strong>O.J. Simpson</strong> murder trial (1995), and serial killer <strong>Richard Ramirez</strong> (The Night Stalker)." 
+            h: "3. Clara Shortridge Foltz Center (1972): High-Profile Trials", 
+            p: "Across the street stands the massive criminal justice tower named in honor of <strong>Clara Shortridge Foltz</strong>—California’s first female attorney, who created the concept of the public defender to ensure that indigent criminal defendants receive free legal representation.<br><br>During the 1980s and 1990s, this courthouse served as the epicenter of televised American justice. It hosted the high-profile trials of the <strong>Menendez Brothers</strong> (1993–1996), the world-famous <strong>O.J. Simpson</strong> murder trial (1995), and the prosecution of serial killer <strong>Richard Ramirez</strong> ('The Night Stalker', 1989)." 
           }
         ],
         callouts: [
@@ -1056,7 +984,7 @@ const tourData = {
       es: {
         title: "Centro Cívico y Tribunales Históricos",
         address: "Calles Temple y Spring",
-        short: "12. Tribunales",
+        short: "11. Tribunales",
         timeline: [
           { y: "1925", t: "Abre el Hall of Justice unificando morgue, cortes y cárcel superior." },
           { y: "1946–1947", t: "Juicio Méndez contra Westminster que acabó con la segregación escolar." },
@@ -1073,24 +1001,16 @@ const tourData = {
         ],
         stories: [
           { 
-            h: "Hall of Justice: El Sistema Judicial Vertical", 
-            p: "Inaugurado en 1925, fue el primer edificio en EE. UU. en integrar morgue, juzgados, oficinas policiales y 750 celdas carcelarias bajo un solo techo." 
+            h: "1. Hall of Justice (1925): El Sistema Judicial Vertical", 
+            p: "Inaugurado en 1925, el <strong>Hall of Justice</strong> fue el primer edificio en EE. UU. en integrar morgue, juzgados penales, oficinas del sheriff y 750 celdas carcelarias bajo un solo techo.<br><br>Aquí estuvo preso <strong>Charles Manson</strong> en las celdas del piso 13 durante su juicio de 1970 mientras sus seguidoras acampaban en la acera con cruces en la frente. El mafioso Bugsy Siegel y el acróbata Evel Knievel también cumplieron condena aquí.<br><br>En la habitación 100 del sótano, el forense en jefe <strong>Dr. Thomas Noguchi</strong> practicó la autopsia a <strong>Marilyn Monroe</strong> el 5 de agosto de 1962. Seis años más tarde, en 1968, examinó en esa misma mesa el cuerpo del senador asesinado <strong>Robert F. Kennedy</strong>." 
           },
           { 
-            h: "La Cárcel del Piso 13 y el Juicio de Charles Manson", 
-            p: "Aquí estuvo preso <strong>Charles Manson</strong> en el piso 13 durante su juicio de 1970 mientras sus seguidoras acampaban en la banqueta con cruces en la frente. El mafioso Bugsy Siegel y el acróbata Evel Knievel también cumplieron condena en estas celdas." 
+            h: "2. Tribunal Federal de Spring Street (1940): Hito en Derechos Civiles", 
+            p: "El tribunal federal de Spring Street albergó el histórico caso <strong><em>Méndez v. Westminster</em> (1946–1947)</strong>, donde cinco familias mexicoamericanas lograron que se declarara inconstitucional segregar a niños hispanos en escuelas públicas de California, sentando las bases legales para la decisión nacional de <em>Brown v. Board of Education</em>.<br><br>También albergó en 1973 el juicio por espionaje de los <strong>Papeles del Pentágono</strong> contra Daniel Ellsberg durante la Guerra de Vietnam." 
           },
           { 
-            h: "Habitación 100: Las Autopsias de Marilyn Monroe y RFK", 
-            p: "En la morgue del sótano, el forense en jefe <strong>Dr. Thomas Noguchi</strong> practicó la autopsia a <strong>Marilyn Monroe</strong> el 5 de agosto de 1962. Seis años más tarde, en 1968, examinó en esa misma mesa el cuerpo del senador asesinado <strong>Robert F. Kennedy</strong>." 
-          },
-          { 
-            h: "Hito en Derechos Civiles: Caso Méndez v. Westminster", 
-            p: "El tribunal de Spring Street albergó el histórico caso <em>Méndez v. Westminster</em> (1946–1947), donde cinco familias mexicoamericanas lograron que se declarara inconstitucional segregar a niños hispanos en escuelas públicas de California, sentando las bases legales para <em>Brown v. Board of Education</em>.<br><br>También albergó el juicio de los <strong>Papeles del Pentágono</strong> en 1973." 
-          },
-          { 
-            h: "Clara Shortridge Foltz y los Juicios de los Años 90", 
-            p: "El tribunal de enfrente lleva el nombre de la primera abogada mujer de California y creadora del concepto del defensor público. Fue sede de los sonados juicios de los <strong>Hermanos Menéndez</strong> (1993–1996), <strong>O.J. Simpson</strong> (1995) y el asesino serial <strong>Richard Ramirez (The Night Stalker)</strong>." 
+            h: "3. Centro Clara Shortridge Foltz (1972): Juicios Televisados", 
+            p: "El tribunal de enfrente lleva el nombre de la primera abogada mujer de California y creadora del concepto del defensor público para garantizar defensa legal gratuita a personas de bajos recursos.<br><br>Fue la sede de los juicios más mediáticos del siglo XX: el caso de los <strong>Hermanos Menéndez</strong> (1993–1996), el juicio penal de <strong>O.J. Simpson</strong> (1995) y el juicio del asesino en serie <strong>Richard Ramirez (The Night Stalker)</strong> en 1989." 
           }
         ],
         callouts: [
@@ -1099,14 +1019,14 @@ const tourData = {
       }
     },
 
-    // 13. Placita Olvera
+    // 12. Placita Olvera (Clean Callout Text)
     {
-      id: 13,
+      id: 12,
       mapUrl: "https://maps.google.com/?q=Olvera+Street+Los+Angeles",
       en: {
-        title: "Placita Olvera & El Pueblo Monument (Tour Finale)",
+        title: "Placita Olvera & El Pueblo Monument",
         address: "845 N Alameda St",
-        short: "13. Placita Olvera",
+        short: "12. Placita Olvera",
         timeline: [
           { y: "1781", t: "44 original settlers (Los Pobladores) establish the Pueblo of Los Angeles." },
           { y: "1818", t: "Avila Adobe is constructed (now the oldest standing residence in LA)." },
@@ -1123,7 +1043,7 @@ const tourData = {
         stories: [
           { 
             h: "The 1781 Founding of El Pueblo & The 1st/Spring Hub", 
-            p: "In 1781, 44 settlers (*Los Pobladores*) founded <em>El Pueblo de la Reina de los Ángeles</em>. Three blocks south at 1st and Spring sat the crowded commercial center of early 1900s Los Angeles before retail and skyscrapers migrated south and west." 
+            p: "In 1781, 44 settlers (<strong>Los Pobladores</strong>) founded <em>El Pueblo de la Reina de los Ángeles</em>. Three blocks south at 1st and Spring sat the crowded commercial center of early 1900s Los Angeles before retail and skyscrapers migrated south and west." 
           },
           { 
             h: "Don Pío Pico & Pico House (1870)", 
@@ -1144,13 +1064,13 @@ const tourData = {
         ],
         callouts: [
           { cls: "box-food", t: "Legendary Avocado Taquitos", d: "Grab crispy fried beef taquitos drenched in green avocado sauce at <em>Cielito Lindo</em> (operating at the top of Olvera Street since 1934)." },
-          { cls: "box-tip", t: "Historic Union Station", d: "Walk across Alameda Street to explore the 1939 Mission Revival architecture of <strong>Union Station</strong> and catch the Metro A, B, or D lines." }
+          { cls: "box-tip", t: "Historic Union Station", d: "Walk across Alameda Street to explore the grand 1939 Mission Revival and Art Deco architecture of <strong>Union Station</strong> and connect directly to the Metro A, B, or D lines." }
         ]
       },
       es: {
-        title: "Placita Olvera y Monumento El Pueblo (Fin del Tour)",
+        title: "Placita Olvera y Monumento El Pueblo",
         address: "845 N Alameda St",
-        short: "13. Placita Olvera",
+        short: "12. Placita Olvera",
         timeline: [
           { y: "1781", t: "44 pobladores fundan el Pueblo de Nuestra Señora la Reina de los Ángeles." },
           { y: "1818", t: "Construcción del Ávila Adobe (residencia más antigua en pie de LA)." },
@@ -1188,7 +1108,163 @@ const tourData = {
         ],
         callouts: [
           { cls: "box-food", t: "Taquitos con Aguacate de Cielito Lindo", d: "Prueba los famosos taquitos dorados con salsa verde de aguacate en <em>Cielito Lindo</em> (abierto desde 1934 al final del callejón)." },
-          { cls: "box-tip", t: "Estación Unión (Union Station)", d: "Cruza Alameda Street para admirar la hermosa arquitectura de 1939 de Union Station y conectar con el Metro." }
+          { cls: "box-tip", t: "Estación Unión (Union Station)", d: "Cruza Alameda Street para admirar la hermosa arquitectura de 1939 de <strong>Union Station</strong> y conectar directamente con el Metro." }
+        ]
+      }
+    },
+
+    // 13. El Nuevo Fuego & Broadway Murals
+    {
+      id: 13,
+      mapUrl: "https://maps.google.com/?q=240+S+Broadway+Los+Angeles",
+      en: {
+        title: "El Nuevo Fuego & Broadway Murals",
+        address: "240 S Broadway (Victor Clothing Co. Building)",
+        short: "13. El Nuevo Fuego",
+        timeline: [
+          { y: "1932", t: "Los Angeles hosts the Games of the X Olympiad." },
+          { y: "1984", t: "LA hosts the Games of the XXIII Olympiad (exactly 52 years later)." },
+          { y: "1984", t: "Eloy Torrez paints The Pope of Broadway depicting Anthony Quinn." },
+          { y: "1985", t: "East Los Streetscapers paint the 80x85-foot mural El Nuevo Fuego." }
+        ],
+        people: [
+          { name: "East Los Streetscapers (Healy & Botello)", role: "Chicano Mural Pioneers", bio: "Influential artist collective that bridged Mesoamerican history, public Chicano street art, and Olympic milestones across East Los Angeles and Downtown." },
+          { name: "Paul Gonzales", role: "Olympic Boxing Gold Medalist", bio: "East LA native who fought out of local youth gyms, won Gold in the 1984 Olympic Games, and was awarded the Val Barker Trophy for best pound-for-pound fighter." },
+          { name: "Valerie Briscoe-Hooks", role: "Triple Olympic Gold Medalist", bio: "South LA sprinter who made history at the 1984 Games as the first Olympian to win gold in both the 200m and 400m races at the same Olympics." },
+          { name: "Anthony Quinn", role: "Chihuahua-Born Oscar Winner", bio: "Legendary Mexican-American actor celebrated next door in Eloy Torrez's mural The Pope of Broadway in his famous Zorba the Greek dance pose." }
+        ],
+        stories: [
+          { 
+            h: "The 52-Year Aztec Cycle & The Olympic Flame", 
+            p: "Painted in <strong>1985</strong> by the <strong>East Los Streetscapers</strong> (Wayne Alaniz Healy, David Botello, George Yepes). In ancient Mesoamerican culture, every 52 years, all fires across the empire were extinguished, and priests lit a single 'New Fire' (<em>Xiuhmolpilli</em>) from a sacred mountaintop to symbolize cosmic rebirth.<br><br>Los Angeles hosted the Summer Olympic Games in <strong>1932</strong> and again in <strong>1984</strong>—a gap of <strong>exactly 52 years</strong>. The mural connects ancient Aztec ceremony with the return of the Olympic flame to Los Angeles." 
+          },
+          { 
+            h: "Local Champions from East LA & South LA", 
+            p: "The mural honors homegrown champions who grew up in local neighborhoods: East LA boxer <strong>Paul Gonzales</strong> (who won Gold in 1984 and took home the Val Barker Trophy for best boxer) and South LA sprinter <strong>Valerie Briscoe-Hooks</strong> (the first athlete in Olympic history to win gold in both the 200m and 400m at the same Olympic Games)." 
+          },
+          { 
+            h: "The Victor Clothing Chicano Art Corridor", 
+            p: "The Victor Clothing Company was an iconic retailer on Broadway that supported the community by commissioning Chicano masterworks on its walls. Look directly next door at <strong>The Pope of Broadway (1984)</strong> by Eloy Torrez, portraying Mexican-American Oscar-winner <strong>Anthony Quinn</strong> dancing with open arms in his famous <em>Zorba the Greek</em> pose." 
+          }
+        ],
+        callouts: [
+          { cls: "box-tip", t: "Photo Spot", d: "Stand across the street on Broadway to capture both <em>El Nuevo Fuego</em> and <em>The Pope of Broadway</em> murals side-by-side in one frame." }
+        ]
+      },
+      es: {
+        title: "Mural El Nuevo Fuego y Arte Urbano",
+        address: "240 S Broadway (Edificio Victor Clothing Co.)",
+        short: "13. El Nuevo Fuego",
+        timeline: [
+          { y: "1932", t: "Los Ángeles es sede de los X Juegos Olímpicos." },
+          { y: "1984", t: "LA recibe los XXIII Juegos Olímpicos (exactamente 52 años después)." },
+          { y: "1984", t: "Eloy Torrez pinta 'The Pope of Broadway' en homenaje a Anthony Quinn." },
+          { y: "1985", t: "East Los Streetscapers crean el mural de 80x85 pies 'El Nuevo Fuego'." }
+        ],
+        people: [
+          { name: "East Los Streetscapers", role: "Pioneros del Muralismo Chicano", bio: "Colectivo artístico fundado por Wayne Healy y David Botello que unió la cosmología azteca con la identidad urbana angelina." },
+          { name: "Paul Gonzales", role: "Boxeador Medallista de Oro", bio: "Pugilista originario del Este de LA que conquistó el Oro olímpico en 1984 y el Trofeo Val Barker al mejor boxeador del torneo." },
+          { name: "Valerie Briscoe-Hooks", role: "Triple Campeona Olímpica", bio: "Atleta del Sur de LA que hizo historia en 1984 al ser la primera mujer en ganar el oro en 200m y 400m en los mismos Juegos." },
+          { name: "Anthony Quinn", role: "Actor Ganador del Óscar", bio: "Leyenda chihuahuense del cine retratado en el mural vecino de Eloy Torrez en su icónico baile de Zorba el Griego." }
+        ],
+        stories: [
+          { 
+            h: "El Fuego Nuevo Azteca y la Llama Olímpica", 
+            p: "Pintado en <strong>1985</strong> por los artistas de <strong>East Los Streetscapers</strong> (Healy, Botello y Yepes). En el México prehispánico, cada 52 años se apagaban todos los fuegos del imperio y los sacerdotes encendían un único 'Fuego Nuevo' (<em>Xiuhmolpilli</em>) en la cima sagrada para simbolizar la renovación cósmica.<br><br>Los Ángeles fue sede olímpica en <strong>1932</strong> y en <strong>1984</strong>: un intervalo de <strong>exactamente 52 años</strong>. El mural fusiona la mitología azteca con el regreso de la antorcha olímpica a la ciudad." 
+          },
+          { 
+            h: "Campeones Locales del Este y Sur de LA", 
+            p: "Rinde homenaje a atletas locales: el boxeador del Este de LA <strong>Paul Gonzales</strong> (Oro en 1984 y Trofeo Val Barker) y la velocista del Sur de LA <strong>Valerie Briscoe-Hooks</strong> (primera mujer en ganar oro en 200m y 400m en los mismos Juegos Olímpicos)." 
+          },
+          { 
+            h: "El Corredor de Arte de Victor Clothing Co.", 
+            p: "La tienda Victor Clothing financió grandes murales chicanos. Justo al lado pueden ver <strong>The Pope of Broadway (1984)</strong> de Eloy Torrez, que retrata al gran actor mexicano <strong>Anthony Quinn</strong> bailando con los brazos abiertos en su papel de <em>Zorba el Griego</em>." 
+          }
+        ],
+        callouts: [
+          { cls: "box-tip", t: "Foto Panorámica", d: "Párate en la acera de enfrente de Broadway para capturar tanto <em>El Nuevo Fuego</em> como el mural de Anthony Quinn en una sola foto." }
+        ]
+      }
+    },
+
+    // 14. Transportation & Car Culture History
+    {
+      id: 14,
+      mapUrl: "https://maps.google.com/?q=Los+Angeles+Union+Station",
+      en: {
+        title: "Transportation History & Car Culture",
+        address: "Downtown Los Angeles Regional Transit Corridor",
+        short: "14. Transportation",
+        timeline: [
+          { y: "1901", t: "Henry Huntington incorporates the Pacific Electric Railway ('Red Cars')." },
+          { y: "1925", t: "LA becomes the global per-capita car capital (1 car per 3 residents)." },
+          { y: "1940", t: "America's first freeway (Arroyo Seco Parkway / CA-110) connects Pasadena to DTLA." },
+          { y: "1948", t: "In-N-Out Burger opens California's first drive-thru with intercoms in Baldwin Park." },
+          { y: "1949", t: "Federal antitrust conviction of GM, Firestone, and Standard Oil in US v. National City Lines." }
+        ],
+        people: [
+          { name: "Henry E. Huntington", role: "Rail & Real Estate Baron", bio: "Mastermind behind the 1,100-mile Pacific Electric 'Red Car' transit empire, which he operated as a loss leader to sell vast suburban real estate developments." },
+          { name: "Isaias W. Hellman", role: "Pioneer Financier & Banker", bio: "President of Farmers and Merchants Bank and partner of Huntington who provided the crucial banking capital that built modern Southern California." },
+          { name: "Harry & Esther Snyder", role: "In-N-Out Founders", bio: "Opened California's first drive-thru burger stand in Baldwin Park in 1948, pioneering the two-way speaker box and fresh-to-order car culture dining." }
+        ],
+        stories: [
+          { 
+            h: "Henry Huntington & The Red Car Real Estate Scheme", 
+            p: "When Collis Huntington died, his nephew <strong>Henry Huntington</strong> was passed over for leadership of the Southern Pacific Railroad in San Francisco. Huntington took his inheritance south, partnered with banker Isaias W. Hellman, and built the <strong>Pacific Electric Railway (the famous 'Red Cars')</strong> into the largest electric interurban transit network on earth (over 1,100 miles of track)." 
+          },
+          { 
+            h: "The Train as a Loss Leader", 
+            p: "Here is the genius secret: <strong>the streetcars were intentionally operated as a loss leader</strong>. Huntington lost money on passenger fares because the tracks were laid straight into empty orange groves and ranchlands owned by his private land syndicates. The trains existed purely to sell suburban real estate, causing LA's population to explode from <strong>102,000 in 1900 to 1.2 million by 1930</strong>." 
+          },
+          { 
+            h: "The GM Antitrust Monopoly & The Automotive Shift", 
+            p: "As Angelenos bought private cars, rail lines lost revenue. In the landmark federal antitrust case <em>United States v. National City Lines</em>, it was proven that General Motors, Firestone Tire, Standard Oil of California, and Mack Trucks secretly funded a front company that bought up electric streetcar networks across 45+ US cities, tore up the tracks, and motorized the lines with diesel buses to cement car dominance." 
+          },
+          { 
+            h: "The Birth of Car Culture & In-N-Out Burger", 
+            p: "By 1925, Los Angeles was the car capital of the world (1 car for every 3 residents, compared to 1 in 7 nationally). In 1940, the region opened America's first freeway: the <strong>Arroyo Seco Parkway (CA-110)</strong>. With car culture reigning supreme, in 1948 Harry and Esther Snyder opened California's first drive-thru in Baldwin Park featuring a revolutionary two-way speaker box: <strong>In-N-Out Burger</strong>." 
+          }
+        ],
+        callouts: [
+          { cls: "box-food", t: "In-N-Out Secret Menu Guide", d: "<ul><li><strong>Animal Style:</strong> Mustard-seared beef, pickles, caramelized grilled onions, extra spread.</li><li><strong>Protein Style:</strong> Burger wrapped in fresh lettuce leaves (no bun).</li><li><strong>Flying Dutchman:</strong> Two slices of cheese melted between two beef patties (no bun, no veggies).</li></ul>" }
+        ]
+      },
+      es: {
+        title: "Historia del Transporte y Cultura del Auto",
+        address: "Corredor Histórico de Transporte de Los Ángeles",
+        short: "14. Transporte",
+        timeline: [
+          { y: "1901", t: "Henry Huntington funda los tranvías 'Red Cars' de Pacific Electric." },
+          { y: "1925", t: "LA se convierte en la capital mundial del automóvil (1 auto por cada 3 habitantes)." },
+          { y: "1940", t: "Abre la primera autopista de EE. UU. (Arroyo Seco Parkway / CA-110) hacia DTLA." },
+          { y: "1948", t: "In-N-Out Burger abre el primer autoservicio con intercomunicador en Baldwin Park." },
+          { y: "1949", t: "Condena federal antimonopolio a GM, Firestone y Standard Oil por desmantelar tranvías." }
+        ],
+        people: [
+          { name: "Henry E. Huntington", role: "Magnate de Tranvías y Bienes Raíces", bio: "Creador del imperio de tranvías 'Red Cars' de más de 1,100 millas, operados a pérdida para vender terrenos agrícolas convertidos en suburbios." },
+          { name: "Isaias W. Hellman", role: "Banquero Pionero de California", bio: "Presidente de Farmers and Merchants Bank y socio de Huntington que financió el crecimiento de los servicios públicos e industrias de LA." },
+          { name: "Harry y Esther Snyder", role: "Fundadores de In-N-Out", bio: "Abrieron el primer autoservicio de California en Baldwin Park en 1948, inventando el sistema de pedidos por altavoz bidireccional." }
+        ],
+        stories: [
+          { 
+            h: "Henry Huntington y el Gran Negocio Inmobiliario", 
+            p: "Al fallecer su tío Collis Huntington, <strong>Henry Huntington</strong> no obtuvo la presidencia del ferrocarril en San Francisco. Se mudó al sur con su capital, se asoció con el banquero Isaias W. Hellman y fundó los tranvías <strong>Pacific Electric ('Red Cars')</strong>, alcanzando más de 1,100 millas de vías electrificadas." 
+          },
+          { 
+            h: "El Tranvía como Gancho Comercial", 
+            p: "El secreto fue brillante: <strong>los tranvías operaban con pérdidas a propósito</strong>. A Huntington no le importaba el costo del pasaje porque tendía las vías directamente hacia enormes campos de naranjos y terrenos agrícolas que sus sindicatos habían comprado a bajo precio. Los tranvías servían para vender casas suburbanas, disparando la población de <strong>102,000 en 1900 a 1.2 millones en 1930</strong>." 
+          },
+          { 
+            h: "El Juicio Antimonopolio de General Motors", 
+            p: "A medida que la gente compraba autos, los tranvías perdieron pasaje. En el juicio antimonopolio <em>EE. UU. contra National City Lines</em>, se demostró que General Motors, Firestone Tire y Standard Oil financiaron una empresa fantasma para comprar y desmantelar los tranvías en más de 45 ciudades, reemplazándolos por autobuses a diésel." 
+          },
+          { 
+            h: "La Cultura del Auto e In-N-Out Burger", 
+            p: "Para 1925, Los Ángeles era la capital mundial del automóvil (1 auto por cada 3 habitantes). En 1940 abrió la primera autopista de acceso controlado del país: el <strong>Arroyo Seco Parkway (CA-110)</strong>. En pleno auge automotriz, en 1948 Harry y Esther Snyder abrieron el primer autoservicio con intercomunicador en Baldwin Park: <strong>In-N-Out Burger</strong>." 
+          }
+        ],
+        callouts: [
+          { cls: "box-food", t: "Menú Secreto de In-N-Out", d: "<ul><li><strong>Animal Style:</strong> Carne sellada en mostaza, cebolla caramelizada, salsa extra.</li><li><strong>Protein Style:</strong> Envuelto en hojas de lechuga fresca.</li><li><strong>Flying Dutchman:</strong> Dos carnes y dos quesos derretidos (sin pan ni verduras).</li></ul>" }
         ]
       }
     }
@@ -1200,11 +1276,8 @@ function renderView(shouldScroll = true) {
   const d = s[currentLang];
   const u = tourData.ui[currentLang];
 
-  // UI Titles & Labels
   const uiTitle = document.getElementById('ui-title');
   const uiDesc = document.getElementById('ui-desc');
-  const selectorLabel = document.getElementById('selector-label');
-  const stopBadge = document.getElementById('stop-badge');
   const stopTitle = document.getElementById('stop-title');
   const stopAddress = document.getElementById('stop-address');
   const stopMapLink = document.getElementById('stop-map-link');
@@ -1213,8 +1286,6 @@ function renderView(shouldScroll = true) {
 
   if (uiTitle) uiTitle.textContent = u.title;
   if (uiDesc) uiDesc.textContent = u.desc;
-  if (selectorLabel) selectorLabel.textContent = u.selectorLabel;
-  if (stopBadge) stopBadge.textContent = `${u.stopWord} ${currentStop} ${u.ofWord} ${totalStops}`;
   if (stopTitle) stopTitle.textContent = d.title;
   if (stopAddress) stopAddress.textContent = d.address;
   if (stopMapLink) {
@@ -1224,15 +1295,13 @@ function renderView(shouldScroll = true) {
   if (timelineHeading) timelineHeading.textContent = u.timelineHead;
   if (peopleHeading) peopleHeading.textContent = u.peopleHead;
 
-  // Progress Bar
+  // Progress Tracker
   const pct = Math.round((currentStop / totalStops) * 100);
   const progressFill = document.getElementById('progress-fill');
   const progressText = document.getElementById('progress-text');
-  const progressPercent = document.getElementById('progress-percent');
 
   if (progressFill) progressFill.style.width = pct + '%';
   if (progressText) progressText.textContent = `${u.stopWord} ${currentStop} ${u.ofWord} ${totalStops} • ${d.title}`;
-  if (progressPercent) progressPercent.textContent = `${pct}% ${u.completeWord}`;
 
   // Timeline List
   const tlContainer = document.getElementById('timeline-list');
@@ -1260,7 +1329,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
-  // Story Deep Dives
+  // Story Content
   const storyContainer = document.getElementById('story-content');
   if (storyContainer) {
     storyContainer.innerHTML = d.stories.map(story => `
@@ -1269,7 +1338,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Callouts Box Grid
+  // Callouts
   const calloutContainer = document.getElementById('callouts-container');
   if (calloutContainer) {
     calloutContainer.innerHTML = d.callouts.map(c => `
@@ -1301,7 +1370,7 @@ function renderView(shouldScroll = true) {
   const pillNav = document.getElementById('pill-nav');
   if (pillNav) {
     pillNav.innerHTML = tourData.stops.map((st, idx) => `
-      <button class="pill-btn ${idx + 1 === currentStop ? 'active' : ''}" onclick="goToStop(${idx + 1})">
+      <button type="button" class="pill-btn ${idx + 1 === currentStop ? 'active' : ''}" onclick="goToStop(${idx + 1})">
         ${st[currentLang].short}
       </button>
     `).join('');
@@ -1324,7 +1393,6 @@ function renderView(shouldScroll = true) {
     promoBtn.textContent = u.promoBtnText;
   }
 
-  // Scroll to tracker
   if (shouldScroll) {
     const tracker = document.getElementById('tracker');
     if (tracker) {
@@ -1368,7 +1436,6 @@ function setLanguage(lang) {
   renderView(false);
 }
 
-// Global Keyboard Navigation
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight' && currentStop < totalStops) {
     changeStop(1);
@@ -1377,7 +1444,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Auto-run on load
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => renderView(false));
 } else {
