@@ -6,6 +6,8 @@
 let currentLang = 'en';
 let currentStop = 1;
 const totalStops = 12;
+let map = null;
+let mapMarkers = [];
 
 const tourData = {
   ui: {
@@ -48,6 +50,7 @@ const tourData = {
     // 1. Walt Disney Concert Hall
     {
       id: 1,
+      coords: [-118.2500, 34.0553],
       mapUrl: "https://maps.google.com/?q=Walt+Disney+Concert+Hall+Los+Angeles",
       en: {
         title: "Walt Disney Concert Hall",
@@ -144,6 +147,7 @@ const tourData = {
     // 2. The Broad Museum
     {
       id: 2,
+      coords: [-118.2505, 34.0545],
       mapUrl: "https://maps.google.com/?q=The+Broad+Los+Angeles",
       en: {
         title: "The Broad Museum",
@@ -238,6 +242,7 @@ const tourData = {
     // 3. MOCA Grand Avenue
     {
       id: 3,
+      coords: [-118.2508, 34.0534],
       mapUrl: "https://maps.google.com/?q=MOCA+Grand+Avenue+Los+Angeles",
       en: {
         title: "Museum of Contemporary Art (MOCA Grand Avenue)",
@@ -320,6 +325,7 @@ const tourData = {
     // 4. California Plaza Overlook & U.S. Bank Tower
     {
       id: 4,
+      coords: [-118.2542, 34.0510],
       mapUrl: "https://maps.google.com/?q=US+Bank+Tower+Los+Angeles",
       en: {
         title: "California Plaza Overlook & U.S. Bank Tower",
@@ -410,6 +416,7 @@ const tourData = {
     // 5. Angels Flight Railway
     {
       id: 5,
+      coords: [-118.2501, 34.0514],
       mapUrl: "https://maps.google.com/?q=Angels+Flight+Railway+Los+Angeles",
       en: {
         title: "Angels Flight Railway",
@@ -496,6 +503,7 @@ const tourData = {
     // 6. Grand Central Market
     {
       id: 6,
+      coords: [-118.2495, 34.0506],
       mapUrl: "https://maps.google.com/?q=Grand+Central+Market+Los+Angeles",
       en: {
         title: "Grand Central Market",
@@ -578,6 +586,7 @@ const tourData = {
     // 7. The Bradbury Building
     {
       id: 7,
+      coords: [-118.2483, 34.0505],
       mapUrl: "https://maps.google.com/?q=Bradbury+Building+Los+Angeles",
       en: {
         title: "The Bradbury Building",
@@ -670,6 +679,7 @@ const tourData = {
     // 8. The Million Dollar Theater
     {
       id: 8,
+      coords: [-118.2491, 34.0508],
       mapUrl: "https://maps.google.com/?q=Million+Dollar+Theater+Los+Angeles",
       en: {
         title: "The Million Dollar Theater",
@@ -760,6 +770,7 @@ const tourData = {
     // 9. Evolution Sculpture
     {
       id: 9,
+      coords: [-118.2464, 34.0520],
       mapUrl: "https://maps.google.com/?q=200+S+Broadway+Los+Angeles",
       en: {
         title: "The Evolution of Los Angeles Sculpture",
@@ -854,6 +865,7 @@ const tourData = {
     // 10. Los Angeles City Hall
     {
       id: 10,
+      coords: [-118.2427, 34.0537],
       mapUrl: "https://maps.google.com/?q=Los+Angeles+City+Hall",
       en: {
         title: "Los Angeles City Hall",
@@ -944,6 +956,7 @@ const tourData = {
     // 11. Courthouses
     {
       id: 11,
+      coords: [-118.2422, 34.0556],
       mapUrl: "https://maps.google.com/?q=Hall+of+Justice+Los+Angeles",
       en: {
         title: "Civic Center & Historic Courthouses Row",
@@ -1022,9 +1035,10 @@ const tourData = {
     // 12. Placita Olvera (Tour Finale)
     {
       id: 12,
+      coords: [-118.2389, 34.0573],
       mapUrl: "https://maps.google.com/?q=Olvera+Street+Los+Angeles",
       en: {
-        title: "Placita Olvera & El Pueblo Monument (Tour Finale)",
+        title: "Placita Olvera & El Pueblo Monument",
         address: "845 N Alameda St",
         short: "12. Placita Olvera",
         timeline: [
@@ -1068,7 +1082,7 @@ const tourData = {
         ]
       },
       es: {
-        title: "Placita Olvera y Monumento El Pueblo (Fin del Tour)",
+        title: "Placita Olvera y Monumento El Pueblo",
         address: "845 N Alameda St",
         short: "12. Placita Olvera",
         timeline: [
@@ -1115,6 +1129,89 @@ const tourData = {
   ]
 };
 
+// Initialize Embedded Mapbox Map
+function initTourMap() {
+  const mapContainer = document.getElementById('tour-map');
+  if (!mapContainer || map) return;
+
+  map = new mapboxgl.Map({
+    container: 'tour-map',
+    style: 'mapbox://styles/mapbox/light-v11',
+    center: tourData.stops[0].coords,
+    zoom: 15.5,
+    pitch: 25,
+    attributionControl: false
+  });
+
+  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+
+  map.on('load', () => {
+    // Add Route Polyline
+    const routeCoords = tourData.stops.map(st => st.coords);
+    map.addSource('tour-route', {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: routeCoords
+        }
+      }
+    });
+
+    map.addLayer({
+      id: 'tour-route-line',
+      type: 'line',
+      source: 'tour-route',
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      paint: {
+        'line-color': '#2563eb',
+        'line-width': 3.5,
+        'line-dasharray': [1.5, 1.5]
+      }
+    });
+
+    // Create Numbered Pins for All Stops
+    tourData.stops.forEach((st, idx) => {
+      const el = document.createElement('div');
+      el.className = `map-pin ${idx + 1 === currentStop ? 'active' : ''}`;
+      el.id = `map-pin-${idx + 1}`;
+      el.innerText = idx + 1;
+      el.addEventListener('click', () => goToStop(idx + 1));
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat(st.coords)
+        .addTo(map);
+
+      mapMarkers.push(marker);
+    });
+  });
+}
+
+function updateMapPosition() {
+  const targetStop = tourData.stops[currentStop - 1];
+  if (!targetStop || !map) return;
+
+  map.flyTo({
+    center: targetStop.coords,
+    zoom: 16,
+    speed: 1.2,
+    curve: 1.1,
+    essential: true
+  });
+
+  // Update Pin Highlights
+  tourData.stops.forEach((_, idx) => {
+    const pinEl = document.getElementById(`map-pin-${idx + 1}`);
+    if (pinEl) {
+      pinEl.classList.toggle('active', idx + 1 === currentStop);
+    }
+  });
+}
+
 function renderView(shouldScroll = true) {
   const s = tourData.stops[currentStop - 1];
   const d = s[currentLang];
@@ -1139,7 +1236,7 @@ function renderView(shouldScroll = true) {
   if (timelineHeading) timelineHeading.textContent = u.timelineHead;
   if (peopleHeading) peopleHeading.textContent = u.peopleHead;
 
-  // Progress Tracker
+  // Progress Bar
   const pct = Math.round((currentStop / totalStops) * 100);
   const progressFill = document.getElementById('progress-fill');
   const progressText = document.getElementById('progress-text');
@@ -1147,7 +1244,7 @@ function renderView(shouldScroll = true) {
   if (progressFill) progressFill.style.width = pct + '%';
   if (progressText) progressText.textContent = `${u.stopWord} ${currentStop} ${u.ofWord} ${totalStops} • ${d.title}`;
 
-  // Timeline List
+  // Timeline
   const tlContainer = document.getElementById('timeline-list');
   if (tlContainer) {
     tlContainer.innerHTML = d.timeline.map(item => `
@@ -1155,7 +1252,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Notable Figures Section
+  // People Cards
   const peopleSection = document.getElementById('people-section');
   const peopleGrid = document.getElementById('people-grid');
   if (peopleSection && peopleGrid) {
@@ -1173,7 +1270,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
-  // Story Content
+  // Story Deep Dives
   const storyContainer = document.getElementById('story-content');
   if (storyContainer) {
     storyContainer.innerHTML = d.stories.map(story => `
@@ -1182,7 +1279,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Callouts
+  // Callouts Grid
   const calloutContainer = document.getElementById('callouts-container');
   if (calloutContainer) {
     calloutContainer.innerHTML = d.callouts.map(c => `
@@ -1193,7 +1290,7 @@ function renderView(shouldScroll = true) {
     `).join('');
   }
 
-  // Stepper Buttons
+  // Stepper Nav
   const btnPrev = document.getElementById('nav-prev');
   const btnNext = document.getElementById('nav-next');
   if (btnPrev) {
@@ -1210,7 +1307,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
-  // Render Jump Pills
+  // Pill Carousel
   const pillNav = document.getElementById('pill-nav');
   if (pillNav) {
     pillNav.innerHTML = tourData.stops.map((st, idx) => `
@@ -1225,7 +1322,7 @@ function renderView(shouldScroll = true) {
     }
   }
 
-  // Bottom Promo
+  // Promo Banner
   const promoTitle = document.getElementById('promo-title');
   const promoDesc = document.getElementById('promo-desc');
   const promoBtn = document.getElementById('promo-btn');
@@ -1236,6 +1333,9 @@ function renderView(shouldScroll = true) {
     promoBtn.href = u.promoLink;
     promoBtn.textContent = u.promoBtnText;
   }
+
+  // Update Map Position
+  updateMapPosition();
 
   if (shouldScroll) {
     const tracker = document.getElementById('tracker');
@@ -1289,7 +1389,11 @@ document.addEventListener('keydown', (e) => {
 });
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => renderView(false));
+  document.addEventListener('DOMContentLoaded', () => {
+    initTourMap();
+    renderView(false);
+  });
 } else {
+  initTourMap();
   renderView(false);
 }
