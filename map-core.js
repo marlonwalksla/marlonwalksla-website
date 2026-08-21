@@ -411,3 +411,42 @@ window.initMapEngine = async function() {
     if (window.initMyTripView) window.initMyTripView(geojsonData.features);
   }
 };
+
+/* =========================================================
+ * 10. TOUR TAB vs EXPLORE TAB LOGIC (FULLY DYNAMIC)
+ * ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const modeButtons = document.querySelectorAll('.mode-btn');
+  
+  modeButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const mode = this.getAttribute('data-mode');
+      
+      // Make sure geo data and your existing update function are ready
+      if (!window.marlonGeoData || !window.updateMapMarkers) return;
+
+      if (mode === 'tours') {
+        // 1. Automatically gather every stop from every tour you have defined
+        let allTourSpotTitles = [];
+        if (window.MARLON_ROUTES_PRESETS) {
+          allTourSpotTitles = window.MARLON_ROUTES_PRESETS.flatMap(preset => preset.spotTitles || []);
+        }
+
+        // 2. Filter the dataset to ONLY show those specific tour stops
+        const tourSpots = window.marlonGeoData.features.filter(spot => {
+          const name = spot.properties.Name || spot.properties.title || spot.properties.name || '';
+          
+          // Show the spot if it's in a tour route, OR if it's one of the main starting points
+          return allTourSpotTitles.includes(name) || name.includes('Chinese Theatre') || name.includes('Walt Disney Concert');
+        });
+        
+        // 3. Feed them into your smart map updater
+        window.updateMapMarkers(tourSpots);
+
+      } else if (mode === 'explore') {
+        // 1. Feed ALL 231 spots back into the map
+        window.updateMapMarkers(window.marlonGeoData.features);
+      }
+    });
+  });
+});
