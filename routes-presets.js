@@ -28,11 +28,17 @@ window.MARLON_ROUTES_PRESETS = [
     description: 'Walk in the footsteps of cinema legends along Hollywood Boulevard.',
     bookingUrl: 'https://wa.me/12692670410?text=Hi%20Marlon!%20I%20want%20to%20book%20the%20Hollywood%20%26%20Movie%20Magic%20Tour',
     bookingLabel: '💬 Book via WhatsApp',
-    spotTitles: [
+spotTitles: [
       'TCL Chinese Theatre',
-      'Hollywood Bowl',
-      'Paramount Pictures Studio Tour',
-      'Pantages Theatre'
+      'Dolby Theatre',
+      'El Capitan Theatre',
+      'The Hollywood Roosevelt Hotel',
+      'Egyptian Theatre',
+      'Musso & Frank Grill',
+      'Pantages Theatre',
+      'Capitol Records Building',
+      'Crossroads of the World'
+      'Hollywood Sign Viewpoint (Lake Hollywood Park)',
     ]
   },
   {
