@@ -47,7 +47,7 @@ const tourData = {
     }
   },
   stops: [
-    // STOP 1: Hollywood Sign
+    // STOP 1: Hollywood Sign (Prologue)
     {
       id: 1,
       coords: [-118.3268, 34.1265],
@@ -128,94 +128,15 @@ const tourData = {
       }
     },
 
-    // STOP 2: Dolby Theatre
+    // STOP 2: TCL Chinese Theatre
     {
       id: 2,
-      coords: [-118.3404, 34.1021],
-      mapUrl: "https://maps.google.com/?q=Dolby+Theatre+Hollywood",
-      en: {
-        title: "Dolby Theatre & Ovation Hollywood",
-        address: "6801 Hollywood Blvd",
-        short: "2. Dolby Theatre",
-        timeline: [
-          { y: "2001", t: "Opens as the Kodak Theatre, custom-built for the Academy Awards." },
-          { y: "2002", t: "Hosts the Oscars for the first time, ending decades of nomadic ceremonies." },
-          { y: "2012", t: "Dolby Laboratories acquires naming rights following Kodak's bankruptcy." },
-          { y: "Present", t: "Broadcasts live to an international audience exceeding several hundred million viewers." }
-        ],
-        people: [
-          { name: "David Rockwell", role: "Lead Theatrical Architect", bio: "Acclaimed designer who engineered the auditorium with specialized raking, lighting fixtures, and camera pathways specifically for live international television." },
-          { name: "Sid Ganis", role: "Former Academy President", bio: "Key film executive who championed building a permanent, technologically advanced auditorium in Hollywood for the Oscars." }
-        ],
-        stories: [
-          { 
-            h: "The Permanent Home of the Oscars", 
-            p: "Stand beneath the towering Babylon archway inside the grand open-air courtyard of Ovation Hollywood. Since March 2002, this 3,400-seat theater has served as the permanent, custom-engineered home of the Academy Awards. Prior to its construction, the Oscars were nomadic, bouncing for over seven decades between hotel ballrooms, the Dorothy Chandler Pavilion in DTLA, and the Shrine Auditorium. Civic leaders realized Hollywood Boulevard needed an anchor institution to pull the film industry's biggest night back to its birthplace." 
-          },
-          { 
-            h: "Engineering for the Live Broadcast", 
-            p: "Unlike historic venues built strictly for theatrical acoustics, the Dolby Theatre was designed from the ground up for live television broadcasting. Architect David Rockwell designed the orchestra seating with a steep rake so cameras can capture clean reaction shots of nominees without heads blocking the view. The venue features an extensive subterranean cable network built directly into the floor and walls, allowing dozens of international television networks to plug directly into broadcast feeds. The private greenroom suites are soundproofed and strategically connected to backstage tunnels to manage celebrity traffic." 
-          },
-          { 
-            h: "The Walk of Winners", 
-            p: "As you walk through the multi-tiered grand lobby leading toward the theater doors, look at the illuminated art-glass columns flanking the central staircase. Each column is etched with the name of every single film that has won Best Picture, from <em>Wings</em> in 1927 to the present day. If you inspect the higher tiers of the glass pillars, you will notice large blank spaces intentionally left open. These empty bands are reserved for the future Best Picture winners of the next several decades." 
-          },
-          { 
-            h: "The Multi-Block Red Carpet Transformation", 
-            p: "Each spring, the city shuts down Hollywood Boulevard for nearly an entire week to construct the Oscars arrival compound. Workers install heavy steel scaffolding and an extensive transparent weather tent over the street to protect designer gowns from sudden rain. Hundreds of feet of vibrant red carpet are rolled out across the raw asphalt, transforming the public roadway into an exclusive, highly secured corridor lined with dozens of international media stages." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "The Archway Photo", d: "Take the outdoor escalator up to the 3rd-floor pedestrian bridge. Look straight through the open Babylon archway to capture a framed postcard shot of the Hollywood Sign." }
-        ]
-      },
-      es: {
-        title: "Teatro Dolby y Ovation Hollywood",
-        address: "6801 Hollywood Blvd",
-        short: "2. Teatro Dolby",
-        timeline: [
-          { y: "2001", t: "Abre sus puertas como el Teatro Kodak, diseñado para los Premios de la Academia." },
-          { y: "2002", t: "Alberga los Óscar por primera vez, terminando con décadas de sedes provisionales." },
-          { y: "2012", t: "Dolby Laboratories adquiere los derechos del nombre tras la quiebra de Kodak." },
-          { y: "Presente", t: "Transmite la ceremonia en vivo a cientos de millones de televidentes." }
-        ],
-        people: [
-          { name: "David Rockwell", role: "Arquitecto Teatral Principal", bio: "Diseñador que estructuró el auditorio con una inclinación especial e iluminación técnica para transmisiones televisivas globales." },
-          { name: "Sid Ganis", role: "Expresidente de la Academia", bio: "Ejecutivo cinematográfico que impulsó la construcción de una sede tecnológica definitiva para los Premios Óscar en Hollywood." }
-        ],
-        stories: [
-          { 
-            h: "El Hogar Definitivo de los Óscar", 
-            p: "Párense bajo el imponente arco de estilo babilónico en el patio central de Ovation Hollywood. Desde marzo de 2002, este auditorio de 3,400 butacas ha sido la sede definitiva construida a la medida de los Premios Óscar. Durante más de siete décadas, la gala no tuvo un recinto propio y deambuló entre salones de hoteles, el Dorothy Chandler Pavilion en el centro y el Shrine Auditorium. Los líderes de la ciudad comprendieron que Hollywood necesitaba un templo moderno para regresar su noche más importante al lugar donde todo comenzó." 
-          },
-          { 
-            h: "Ingeniería para la Televisión en Vivo", 
-            p: "A diferencia de los teatros convencionales diseñados solo para la voz, el Teatro Dolby fue concebido desde sus cimientos para transmisiones televisivas complejas. El arquitecto David Rockwell diseñó la platea con una inclinación pronunciada para que las cámaras graben las reacciones de los nominados sin que las cabezas de enfrente tapen la toma. Las paredes y suelos contienen una inmensa red oculta de fibra óptica para que las televisoras del mundo se conecten al instante. Además, cuenta con camerinos insonorizados y túneles subterráneos para el flujo seguro de las celebridades." 
-          },
-          { 
-            h: "El Paseo de los Ganadores", 
-            p: "Al recorrer el vestíbulo principal hacia las puertas del auditorio, observen las columnas de vidrio translúcido que decoran la gran escalera. Cada columna lleva grabado el título de cada largometraje ganador a Mejor Película desde <em>Wings</em> en 1927 hasta la actualidad. Si miran con atención los niveles superiores de los pilares, verán amplias secciones de vidrio completamente vacías. Esos paneles están reservados para las películas que ganarán el premio en las próximas décadas." 
-          },
-          { 
-            h: "La Transformación de la Alfombra Roja", 
-            p: "Cada primavera, el Ayuntamiento cierra el bulevar durante casi una semana completa para montar el impresionante complejo de la alfombra roja. Se instalan cientos de toneladas de estructuras de acero y una carpa protectora transparente para evitar que la lluvia dañe los vestidos de alta costura. Kilómetros de tela roja cubren el asfalto público, convirtiendo la calle en un set de máxima seguridad rodeado de reflectores y estudios de televisión internacionales." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "El Mirador del Arco", d: "Suban por las escaleras mecánicas hasta el puente peatonal del tercer piso para obtener una vista enmarcada perfecta del letrero de Hollywood a través del arco." }
-        ]
-      }
-    },
-
-    // STOP 3: TCL Chinese Theatre
-    {
-      id: 3,
       coords: [-118.3410, 34.1020],
       mapUrl: "https://maps.google.com/?q=TCL+Chinese+Theatre",
       en: {
         title: "TCL Chinese Theatre & Forecourt",
         address: "6925 Hollywood Blvd",
-        short: "3. Chinese Theatre",
+        short: "2. Chinese Theatre",
         timeline: [
           { y: "1927", t: "Showman Sid Grauman opens the palace with Cecil B. DeMille's The King of Kings." },
           { y: "1944", t: "Hosts the Academy Awards for three consecutive years (1944–1946)." },
@@ -252,7 +173,7 @@ const tourData = {
       es: {
         title: "TCL Chinese Theatre",
         address: "6925 Hollywood Blvd",
-        short: "3. Teatro Chino",
+        short: "2. Teatro Chino",
         timeline: [
           { y: "1927", t: "Sid Grauman inaugura el palacio con El Rey de Reyes de Cecil B. DeMille." },
           { y: "1944", t: "Sede de los Premios Óscar durante tres años consecutivos (1944–1946)." },
@@ -288,258 +209,94 @@ const tourData = {
       }
     },
 
-    // STOP 4: Hollywood Roosevelt
+    // STOP 3: Dolby Theatre
+    {
+      id: 3,
+      coords: [-118.3404, 34.1021],
+      mapUrl: "https://maps.google.com/?q=Dolby+Theatre+Hollywood",
+      en: {
+        title: "Dolby Theatre & Ovation Hollywood",
+        address: "6801 Hollywood Blvd",
+        short: "3. Dolby Theatre",
+        timeline: [
+          { y: "2001", t: "Opens as the Kodak Theatre, custom-built for the Academy Awards." },
+          { y: "2002", t: "Hosts the Oscars for the first time, ending decades of nomadic ceremonies." },
+          { y: "2012", t: "Dolby Laboratories acquires naming rights following Kodak's bankruptcy." },
+          { y: "Present", t: "Broadcasts live to an international audience exceeding several hundred million viewers." }
+        ],
+        people: [
+          { name: "David Rockwell", role: "Lead Theatrical Architect", bio: "Acclaimed designer who engineered the auditorium with specialized raking, lighting fixtures, and camera pathways specifically for live international television." },
+          { name: "Sid Ganis", role: "Former Academy President", bio: "Key film executive who championed building a permanent, technologically advanced auditorium in Hollywood for the Oscars." }
+        ],
+        stories: [
+          { 
+            h: "The Permanent Home of the Oscars", 
+            p: "Stand beneath the towering Babylon archway inside the grand open-air courtyard of Ovation Hollywood. Since March 2002, this 3,400-seat theater has served as the permanent, custom-engineered home of the Academy Awards. Prior to its construction, the Oscars were nomadic, bouncing for over seven decades between hotel ballrooms, the Dorothy Chandler Pavilion in DTLA, and the Shrine Auditorium. Civic leaders realized Hollywood Boulevard needed an anchor institution to pull the film industry's biggest night back to its birthplace." 
+          },
+          { 
+            h: "Engineering for the Live Broadcast", 
+            p: "Unlike historic venues built strictly for theatrical acoustics, the Dolby Theatre was designed from the ground up for live television broadcasting. Architect David Rockwell designed the orchestra seating with a steep rake so cameras can capture clean reaction shots of nominees without heads blocking the view. The venue features an extensive subterranean cable network built directly into the floor and walls, allowing dozens of international television networks to plug directly into broadcast feeds. The private greenroom suites are soundproofed and strategically connected to backstage tunnels to manage celebrity traffic." 
+          },
+          { 
+            h: "The Walk of Winners", 
+            p: "As you walk through the multi-tiered grand lobby leading toward the theater doors, look at the illuminated art-glass columns flanking the central staircase. Each column is etched with the name of every single film that has won Best Picture, from <em>Wings</em> in 1927 to the present day. If you inspect the higher tiers of the glass pillars, you will notice large blank spaces intentionally left open. These empty bands are reserved for the future Best Picture winners of the next several decades." 
+          },
+          { 
+            h: "The Multi-Block Red Carpet Transformation", 
+            p: "Each spring, the city shuts down Hollywood Boulevard for nearly an entire week to construct the Oscars arrival compound. Workers install heavy steel scaffolding and an extensive transparent weather tent over the street to protect designer gowns from sudden rain. Hundreds of feet of vibrant red carpet are rolled out across the raw asphalt, transforming the public roadway into an exclusive, highly secured corridor lined with dozens of international media stages." 
+          }
+        ],
+        callouts: [
+          { cls: "box-tip", t: "The Archway Photo", d: "Take the outdoor escalator up to the 3rd-floor pedestrian bridge. Look straight through the open Babylon archway to capture a framed postcard shot of the Hollywood Sign." }
+        ]
+      },
+      es: {
+        title: "Teatro Dolby y Ovation Hollywood",
+        address: "6801 Hollywood Blvd",
+        short: "3. Teatro Dolby",
+        timeline: [
+          { y: "2001", t: "Abre sus puertas como el Teatro Kodak, diseñado para los Premios de la Academia." },
+          { y: "2002", t: "Alberga los Óscar por primera vez, terminando con décadas de sedes provisionales." },
+          { y: "2012", t: "Dolby Laboratories adquiere los derechos del nombre tras la quiebra de Kodak." },
+          { y: "Presente", t: "Transmite la ceremonia en vivo a cientos de millones de televidentes." }
+        ],
+        people: [
+          { name: "David Rockwell", role: "Arquitecto Teatral Principal", bio: "Diseñador que estructuró el auditorio con una inclinación especial e iluminación técnica para transmisiones televisivas globales." },
+          { name: "Sid Ganis", role: "Exprespresidente de la Academia", bio: "Ejecutivo cinematográfico que impulsó la construcción de una sede tecnológica definitiva para los Premios Óscar en Hollywood." }
+        ],
+        stories: [
+          { 
+            h: "El Hogar Definitivo de los Óscar", 
+            p: "Párense bajo el imponente arco de estilo babilónico en el patio central de Ovation Hollywood. Desde marzo de 2002, este auditorio de 3,400 butacas ha sido la sede definitiva construida a la medida de los Premios Óscar. Durante más de siete décadas, la gala no tuvo un recinto propio y deambuló entre salones de hoteles, el Dorothy Chandler Pavilion en el centro y el Shrine Auditorium. Los líderes de la ciudad comprendieron que Hollywood necesitaba un templo moderno para regresar su noche más importante al lugar donde todo comenzó." 
+          },
+          { 
+            h: "Ingeniería para la Televisión en Vivo", 
+            p: "A diferencia de los teatros convencionales diseñados solo para la voz, el Teatro Dolby fue concebido desde sus cimientos para transmisiones televisivas complejas. El arquitecto David Rockwell diseñó la platea con una inclinación pronunciada para que las cámaras graben las reacciones de los nominados sin que las cabezas de enfrente tapen la toma. Las paredes y suelos contienen una inmensa red oculta de fibra óptica para que las televisoras del mundo se conecten al instante. Además, cuenta con camerinos insonorizados y túneles subterráneos para el flujo seguro de las celebridades." 
+          },
+          { 
+            h: "El Paseo de los Ganadores", 
+            p: "Al recorrer el vestíbulo principal hacia las puertas del auditorio, observen las columnas de vidrio translúcido que decoran la gran escalera. Cada columna lleva grabado el título de cada largometraje ganador a Mejor Película desde <em>Wings</em> en 1927 hasta la actualidad. Si miran con atención los niveles superiores de los pilares, verán amplias secciones de vidrio completamente vacías. Esos paneles están reservados para las películas que ganarán el premio en las próximas décadas." 
+          },
+          { 
+            h: "La Transformación de la Alfombra Roja", 
+            p: "Cada primavera, el Ayuntamiento cierra el bulevar durante casi una semana completa para montar el impresionante complejo de la alfombra roja. Se instalan cientos de toneladas de estructuras de acero y una carpa protectora transparente para evitar que la lluvia dañe los vestidos de alta costura. Kilómetros de tela roja cubren el asfalto público, convirtiendo la calle en un set de máxima seguridad rodeado de reflectores y estudios de televisión internacionales." 
+          }
+        ],
+        callouts: [
+          { cls: "box-tip", t: "El Mirador del Arco", d: "Suban por las escaleras mecánicas hasta el puente peatonal del tercer piso para obtener una vista enmarcada perfecta del letrero de Hollywood a través del arco." }
+        ]
+      }
+    },
+
+    // STOP 4: El Capitan Theatre
     {
       id: 4,
-      coords: [-118.3418, 34.1012],
-      mapUrl: "https://maps.google.com/?q=Hollywood+Roosevelt+Hotel",
-      en: {
-        title: "The Hollywood Roosevelt Hotel",
-        address: "7000 Hollywood Blvd (Cross the street)",
-        short: "4. The Roosevelt",
-        timeline: [
-          { y: "1927", t: "Opens its doors, funded by a syndicate of Hollywood's founding royalty." },
-          { y: "1929", t: "Hosts the very first Academy Awards banquet in the Blossom Room." },
-          { y: "1952", t: "Marilyn Monroe resides in a poolside cabana suite during her early rise." },
-          { y: "1988", t: "British artist David Hockney paints his million-dollar mural on the pool floor." }
-        ],
-        people: [
-          { name: "Douglas Fairbanks & Mary Pickford", role: "Founders & Investors", bio: "Silent screen legends who pooled their fortunes with studio boss Louis B. Mayer to create an exclusive luxury hotel for the motion picture elite." },
-          { name: "Marilyn Monroe", role: "Iconic Resident", bio: "Lived in cabana suite #229 for two formative years, shooting her very first commercial print ads on the hotel's diving board." },
-          { name: "David Hockney", role: "Contemporary Master", bio: "Renowned British painter who spent an afternoon painting a sweeping blue crescent mural on the bottom of the drained Tropicana Pool." }
-        ],
-        stories: [
-          { 
-            h: "The Celebrity Investment Syndicate", 
-            p: "Step across the street into the grand Spanish Colonial lobby of the Hollywood Roosevelt Hotel. Opened in May 1927, this luxury landmark was not constructed by ordinary commercial developers. It was financed by a private syndicate of Hollywood royalty: Douglas Fairbanks, Mary Pickford, Sid Grauman, and MGM studio boss Louis B. Mayer. They invested $2.5 million to create an opulent retreat where industry executives and movie stars could dine, drink, and conduct business away from prying press cameras." 
-          },
-          { 
-            h: "The 15-Minute Academy Awards (1929)", 
-            p: "Walk up the mezzanine staircase to the historic Blossom Room. On May 16, 1929, the very first Academy Awards ceremony was held right here as an intimate industry dinner for just 270 guests. Tickets cost five dollars, and there was zero broadcast suspense because the winners had already been printed in local newspapers three months earlier. The entire awards presentation was hosted by Douglas Fairbanks and lasted a mere 15 minutes, serving as a brief toast before a private late-night party." 
-          },
-          { 
-            h: "Marilyn Monroe's Launchpad", 
-            p: "The Roosevelt played a pivotal role in the early life of Norma Jeane Mortenson before she became Marilyn Monroe. In the late 1940s and early 1950s, she lived in a second-floor poolside cabana room for two years while modeling for the Blue Book Agency and signing her first studio contracts. She posed for her very first commercial magazine advertisement—a print feature for suntan lotion—standing directly on the diving board of the hotel's Tropicana Pool. The property became her personal sanctuary throughout her rise to international stardom." 
-          },
-          { 
-            h: "David Hockney's Pool & Ghost Lore", 
-            p: "Walk out back into the lush courtyard to view the famous Tropicana Pool. In 1988, celebrated British artist David Hockney drained the water and spent an afternoon painting a series of blue curved brushstrokes directly onto the plaster floor, creating a celebrated work of modern art. The hotel is also famous for its ghost stories. Staff and guests have reported hearing actor Montgomery Clift practicing his brass trumpet on the ninth floor, while others have reported seeing Marilyn Monroe's reflection in a full-length vintage mirror that once furnished her poolside suite." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "The Million-Dollar Pool", d: "Step into the Tropicana courtyard and peer down through the pool water to admire the million-dollar curved blue mural painted by artist David Hockney in 1988." }
-        ]
-      },
-      es: {
-        title: "Hotel Hollywood Roosevelt",
-        address: "7000 Hollywood Blvd (Cruza la calle)",
-        short: "4. The Roosevelt",
-        timeline: [
-          { y: "1927", t: "Abre sus puertas, financiado por los fundadores de la industria del cine." },
-          { y: "1929", t: "Sede de la primera ceremonia de los Premios Óscar en el Blossom Room." },
-          { y: "1952", t: "Marilyn Monroe vive en una de las cabañas junto a la piscina del hotel." },
-          { y: "1988", t: "El artista David Hockney pinta su famoso mural en el fondo de la piscina." }
-        ],
-        people: [
-          { name: "Douglas Fairbanks y Mary Pickford", role: "Fundadores e Inversores", bio: "Monarcas del cine mudo que unieron sus fortunas con Louis B. Mayer para levantar un hotel de lujo exclusivo para la élite de Hollywood." },
-          { name: "Marilyn Monroe", role: "Residente Emblemática", bio: "Vivió en la cabaña #229 durante dos años cruciales, realizando su primera sesión publicitaria en el trampolín del hotel." },
-          { name: "David Hockney", role: "Artista Contemporáneo", bio: "Pintor británico que decoró el fondo de la piscina con un mural de trazos azules curvados valuado en millones de dólares." }
-        ],
-        stories: [
-          { 
-            h: "El Sindicato de las Superestrellas", 
-            p: "Crucen la calle y entren al majestuoso vestíbulo colonial español del Hotel Hollywood Roosevelt. Inaugurado en mayo de 1927, este inmueble histórico no fue levantado por inversionistas inmobiliarios comunes. Fue financiado por las máximas estrellas del cine: Douglas Fairbanks, Mary Pickford, Sid Grauman y el jefe de MGM, Louis B. Mayer. Invirtieron $2.5 millones de dólares para crear un refugio de lujo donde directores y actores pudieran cenar, festejar y cerrar contratos lejos de los periodistas." 
-          },
-          { 
-            h: "Los Premios Óscar de 15 Minutos (1929)", 
-            p: "Suban las escaleras hacia el salón Blossom Room en el entrepiso. El 16 de mayo de 1929 se celebró aquí la primera entrega de los Premios de la Academia como un banquete íntimo para solo 270 personas. La entrada costaba cinco dólares y no existía tensión mediática porque los ganadores ya habían sido publicados en los periódicos tres meses antes. Douglas Fairbanks entregó los galardones en apenas 15 minutos, convirtiendo la noche en una cena relajada entre colegas." 
-          },
-          { 
-            h: "El Despegue de Marilyn Monroe", 
-            p: "El Roosevelt fue fundamental en los inicios de Norma Jeane Mortenson antes de ser Marilyn Monroe. A finales de los años 40 vivió durante dos años en una cabaña del segundo piso junto a la piscina mientras trabajaba como modelo y firmaba sus primeros contratos con los estudios. Su primera sesión publicitaria comercial—un anuncio de bronceador—se tomó sobre el trampolín de la piscina Tropicana. El hotel fue su hogar seguro en los momentos en que despegaba su carrera mundial." 
-          },
-          { 
-            h: "La Piscina de David Hockney y Leyendas", 
-            p: "Salgan al patio trasero para contemplar la emblemática piscina Tropicana. En 1988, el pintor británico David Hockney vació el agua y pasó una tarde entera pintando medialunas azules sobre el concreto, creando una obra de arte moderna de valor incalculable. Además, el hotel es famoso por sus relatos paranormales. Huéspedes y empleados afirman escuchar al actor Montgomery Clift practicando la trompeta en el noveno piso, y muchos aseguran haber visto el reflejo de Marilyn Monroe en un espejo antiguo de su antigua suite." 
-          }
-        ],
-        callouts: [
-          { cls: "box-tip", t: "La Piscina del Millón de Dólares", d: "Asómense a la piscina del patio Tropicana para ver a través del agua los trazos curvos azules pintados por el famoso artista David Hockney en 1988." }
-        ]
-      }
-    },
-
-    // STOP 5: Egyptian Theatre
-    {
-      id: 5,
-      coords: [-118.3364, 34.1016],
-      mapUrl: "https://maps.google.com/?q=Egyptian+Theatre+Hollywood",
-      en: {
-        title: "The Egyptian Theatre",
-        address: "6712 Hollywood Blvd",
-        short: "5. Egyptian Theatre",
-        timeline: [
-          { y: "1922", t: "Opens its doors, capitalizing on global Egyptomania." },
-          { y: "1922", t: "Hosts the premiere of Robin Hood, inventing the modern red carpet." },
-          { y: "1998", t: "Purchased and stabilized by the American Cinematheque." },
-          { y: "2023", t: "Netflix and American Cinematheque complete a historic restoration." }
-        ],
-        people: [
-          { name: "Sid Grauman", role: "Master Showman & Impresario", bio: "The promotional pioneer who conceived the courtyard theater format and created the template for modern movie premieres." },
-          { name: "Douglas Fairbanks", role: "Actor & Film Producer", bio: "Silent screen swashbuckler whose blockbuster Robin Hood launched the theater and set the gold standard for celebrity arrivals." },
-          { name: "Howard Carter", role: "British Archaeologist", bio: "His historic 1922 discovery of King Tutankhamun's tomb in Egypt fueled worldwide public fascination that Grauman leveraged to sell tickets." }
-        ],
-        stories: [
-          { 
-            h: "The Birth of Egyptomania (1922)", 
-            p: "Five years before he constructed the Chinese Theatre, Sid Grauman opened the Egyptian Theatre on October 18, 1922. His timing was a masterstroke of marketing intuition. Earlier that same year, British archaeologist Howard Carter discovered the untouched tomb of King Tutankhamun in Egypt's Valley of the Kings. The entire Western world was gripped by 'Egyptomania,' and Grauman capitalized on the craze by styling his new theater as an open-air pharaonic palace adorned with scarabs, sphinxes, and hieroglyphic murals." 
-          },
-          { 
-            h: "Inventing the Hollywood Red Carpet", 
-            p: "The Egyptian Theatre holds a monumental place in cinema history as the birthplace of the modern movie premiere. On opening night in 1922, Grauman staged the world premiere of Douglas Fairbanks’ million-dollar epic <em>Robin Hood</em>. This single evening established the promotional formula still used worldwide today: Grauman set up military searchlights sweeping the sky, assembled velvet crowd ropes, and rolled out a long red carpet across the courtyard for Fairbanks and Mary Pickford to walk down as screaming fans looked on." 
-          },
-          { 
-            h: "The Forecourt Experience", 
-            p: "The deep, open-air courtyard in front of the theater was engineered for spectacle and crowd management. Before the feature presentation began, Grauman hired costumed actors dressed as Egyptian temple guards to pace the upper roof parapets with bronze spears, announcing showtimes with ceremonial horns. Grauman even kept live monkeys, tropical birds, and exotic desert artifacts in the courtyard to entertain waiting ticket holders as they queued up for the show." 
-          },
-          { 
-            h: "The Netflix Architectural Restoration", 
-            p: "After falling into disrepair during the late 20th century, the Egyptian Theatre was purchased through a public-private partnership involving Netflix and the nonprofit American Cinematheque. Over three years, preservation experts stripped away clumsy 1960s drywall additions, seismic-retrofitted the masonry walls, and restored the original 1922 silent-era color palette. Today, the theater operates as one of the finest classic film revival houses in the world, equipped to project vintage nitrate, 35mm, 70mm, and digital cinema." 
-          }
-        ],
-        callouts: [
-          { cls: "box-lore", t: "A 1922 Time Machine", d: "Walk down the courtyard to the main entrance doors. The lobby and auditorium have been restored to their exact 1922 silent-era appearance, complete with a gilded sunburst ceiling." }
-        ]
-      },
-      es: {
-        title: "Teatro Egipcio (Egyptian Theatre)",
-        address: "6712 Hollywood Blvd",
-        short: "5. Teatro Egipcio",
-        timeline: [
-          { y: "1922", t: "Abre sus puertas aprovechando la 'Egiptomanía' internacional." },
-          { y: "1922", t: "Estreno de Robin Hood, donde se inventa la alfombra roja moderna." },
-          { y: "1998", t: "Adquirido y rescatado por la American Cinematheque." },
-          { y: "2023", t: "Netflix finaliza una restauración arquitectónica de millones de dólares." }
-        ],
-        people: [
-          { name: "Sid Grauman", role: "Empresario y Productor", bio: "Pionero de la publicidad cinematográfica que ideó los teatros con patio y creó el formato moderno de los estrenos de cine." },
-          { name: "Douglas Fairbanks", role: "Actor y Productor", bio: "Aclamado héroe de acción de Robin Hood (1922), cuyo estreno consagró el protocolo de la llegada de estrellas." },
-          { name: "Howard Carter", role: "Arqueólogo Británico", bio: "Su hallazgo de la tumba de Tutankamón en 1922 desató una fascinación global que Grauman aprovechó para vender entradas." }
-        ],
-        stories: [
-          { 
-            h: "La Fiebre por Egipto (1922)", 
-            p: "Cinco años antes de construir el Teatro Chino, Sid Grauman inauguró el Teatro Egipcio el 18 de octubre de 1922. Fue una jugada publicitaria maestra. Ese mismo año, el arqueólogo Howard Carter descubrió la tumba intacta de Tutankamón en el Valle de los Reyes. El mundo entero sucumbió a la 'Egiptomanía', y Grauman aprovechó la euforia diseñando un teatro con la apariencia del templo de un faraón, lleno de escarabajos sagrados, esfinges y murales jeroglíficos." 
-          },
-          { 
-            h: "La Invención de la Alfombra Roja", 
-            p: "El Teatro Egipcio es el lugar de nacimiento de las premieres cinematográficas modernas. En la noche inaugural de 1922, Grauman organizó el estreno mundial de la superproducción <em>Robin Hood</em> de Douglas Fairbanks. Esa velada definió la fórmula que se sigue usando en todo el mundo: Grauman colocó reflectores antiaéreos en el cielo, cuerdas de terciopelo y desplegó una enorme alfombra roja para que Fairbanks y Mary Pickford caminaran entre los vítores de miles de fanáticos." 
-          },
-          { 
-            h: "El Espectáculo del Patio al Aire Libre", 
-            p: "El profundo patio frontal fue concebido como un escenario de entretenimiento y control de multitudes. Antes de cada función, Grauman contrataba actores vestidos como guardias del faraón para patrullar las terrazas superiores portando lanzas de bronce y tocando trompetas ceremoniales. Además, colocaba monos, aves tropicales y vasijas antiguas en el patio para entretener al público mientras esperaba su turno de entrar." 
-          },
-          { 
-            h: "La Gran Restauración de Netflix", 
-            p: "Tras sufrir décadas de abandono a finales del siglo XX, el inmueble fue adquirido en una alianza entre Netflix y la organización American Cinematheque. Durante tres años, restauradores retiraron divisiones añadidas en los años 60, reforzaron la estructura contra terremotos y recuperaron los colores originales de 1922. Hoy en día funciona como una de las salas de cine clásico más avanzadas del mundo, capaz de proyectar películas en nitrato, 35mm, 70mm y digital." 
-          }
-        ],
-        callouts: [
-          { cls: "box-lore", t: "Una Máquina del Tiempo de 1922", d: "Caminen por el patio hasta las puertas de cristal. El vestíbulo y la sala principal fueron restaurados a su estado exacto de 1922, incluyendo su impresionante techo con un sol dorado." }
-        ]
-      }
-    },
-
-    // STOP 6: Musso & Frank
-    {
-      id: 6,
-      coords: [-118.3353, 34.1018],
-      mapUrl: "https://maps.google.com/?q=Musso+and+Frank+Grill",
-      en: {
-        title: "The Musso & Frank Grill",
-        address: "6667 Hollywood Blvd",
-        short: "6. Musso & Frank",
-        timeline: [
-          { y: "1919", t: "Opens as 'Frank's Cafe', predating the Hollywood Sign." },
-          { y: "1930s", t: "Becomes the literary hub for America's greatest novelists." },
-          { y: "1955", t: "Longtime bartender Manny Aguirre perfects the stirred martini." },
-          { y: "2019", t: "Celebrates its centennial and appears in Tarantino's Once Upon a Time in Hollywood." }
-        ],
-        people: [
-          { name: "Charlie Chaplin", role: "Cinema Legend & Regular", bio: "Dined here daily during the silent era, famously challenging Douglas Fairbanks to horse races down Hollywood Boulevard outside." },
-          { name: "F. Scott Fitzgerald & Ernest Hemingway", role: "Literary Giants", bio: "Acclaimed novelists who drank, argued, and punched up studio screenplays in the restaurant's private back booths." },
-          { name: "Raymond Chandler", role: "Detective Noir Author", bio: "Legendary crime writer who drank gimlets at the mahogany counter while drafting his iconic Philip Marlowe detective mysteries." }
-        ],
-        stories: [
-          { 
-            h: "Hollywood's Oldest Living Room (1919)", 
-            p: "Look across the boulevard at the red awnings of Musso & Frank Grill. Opened in 1919 by Joseph Musso and Frank Toulet, this is the oldest continually operating restaurant in Hollywood, predating the Hollywood Sign by four years. Stepping through the heavy front doors is like stepping onto a 1930s film set, featuring dark mahogany woodwork, red leather booths, and warm amber lighting. For over a century, the restaurant has served as the social living room for the film industry." 
-          },
-          { 
-            h: "The Literary Clubhouse", 
-            p: "During the Golden Age, major movie studios recruited America's greatest novelists to Hollywood with lucrative screenplay contracts. Unaccustomed to studio interference, writers made Musso & Frank their unofficial daily headquarters. F. Scott Fitzgerald, Ernest Hemingway, William Faulkner, and John Steinbeck spent their afternoons drinking in the back booths while editing manuscripts. Film noir pioneer Raymond Chandler famously sat at the bar drinking gimlets while crafting dialogue for detective Philip Marlowe." 
-          },
-          { 
-            h: "Chaplin's Window Booth #1", 
-            p: "Charlie Chaplin was a daily fixture during the 1920s and had his own permanently reserved table: Booth #1 by the front window. At the time, Hollywood Boulevard was still a dusty unpaved roadway with wooden hitching posts. Chaplin insisted on the window booth so he could keep a watchful eye on his horse tied up outside while dining with fellow screen star Douglas Fairbanks. The table remains one of the most requested dining booths in Los Angeles." 
-          },
-          { 
-            h: "The Martini Ritual & The Red Coats", 
-            p: "Musso & Frank is world-famous for preserving classic culinary hospitality. The servers and bartenders wear formal red tuxedo coats and black bowties, with several waiters having worked at the restaurant for over 40 years. The restaurant is renowned for its classic dry gin martini: stirred precisely for thirty seconds, poured into a chilled glass, and served alongside a small sidecar decanter resting in crushed ice so the refill stays ice-cold." 
-          }
-        ],
-        callouts: [
-          { cls: "box-food", t: "The Classic Sidecar Martini", d: "Order a classic martini at the bar to experience the historic service: your drink is served with an iced miniature glass sidecar decanter to keep your second pour freezing cold." }
-        ]
-      },
-      es: {
-        title: "The Musso & Frank Grill",
-        address: "6667 Hollywood Blvd",
-        short: "6. Musso & Frank",
-        timeline: [
-          { y: "1919", t: "Abre como 'Frank's Cafe', cuatro años antes de que existiera el letrero de Hollywood." },
-          { y: "Años 1930", t: "Se convierte en el punto de encuentro de los grandes escritores estadounidenses." },
-          { y: "1955", t: "El cantinero Manny Aguirre perfecciona la receta clásica del Martini revuelto." },
-          { y: "2019", t: "Celebra su centenario y aparece en Había una vez en Hollywood de Tarantino." }
-        ],
-        people: [
-          { name: "Charlie Chaplin", role: "Leyenda del Cine", bio: "Cliente diario durante la época muda que competía en carreras de caballos contra Douglas Fairbanks a lo largo del bulevar." },
-          { name: "F. Scott Fitzgerald y Ernest Hemingway", role: "Gigantes de la Literatura", bio: "Novelistas consagrados que bebían, discutían y pulían guiones de cine en las mesas privadas del fondo." },
-          { name: "Raymond Chandler", role: "Maestro de Novela Negra", bio: "Escritor policíaco que bebía en la barra de caoba mientras redactaba las aventuras del detective Philip Marlowe." }
-        ],
-        stories: [
-          { 
-            h: "La Sala de Estar de Hollywood (1919)", 
-            p: "Observen los toldos rojos del restaurante Musso & Frank Grill. Inaugurado en 1919 por Joseph Musso y Frank Toulet, es el restaurante más antiguo en operación continua de Hollywood, abriendo cuatro años antes de que se construyera el letrero de Hollywood. Cruzar sus puertas es entrar a un set cinematográfico de los años 30, con acabados en caoba oscura, asientos de cuero rojo y luz cálida. Durante más de un siglo, ha sido el comedor de confianza para la industria cinematográfica." 
-          },
-          { 
-            h: "El Club de los Grandes Escritores", 
-            p: "Durante la época dorada, los grandes estudios contrataron a los novelistas más respetados del país para escribir guiones. Incómodos con la burocracia de las oficinas, los autores convirtieron este restaurante en su oficina de trabajo. Figuras como F. Scott Fitzgerald, Ernest Hemingway, William Faulkner y John Steinbeck pasaban las tardes bebiendo y corrigiendo textos en las mesas traseras. Raymond Chandler escribió parte de sus novelas de detectives mientras disfrutaba de sus cócteles en la barra." 
-          },
-          { 
-            h: "La Mesa #1 de Charlie Chaplin", 
-            p: "Charlie Chaplin era un comensal habitual en los años 20 y tenía su propia mesa reservada: la Mesa #1 junto a la ventana. En aquella época, Hollywood Boulevard era un camino de terracería con postes de madera para amarrar animales. Chaplin exigía esa mesa específica para vigilar a su caballo amarrado afuera mientras almorzaba con su amigo Douglas Fairbanks. Hoy en día, esa misma mesa sigue siendo una de las más solicitadas de la ciudad." 
-          },
-          { 
-            h: "El Ritual del Martini y las Chaquetas Rojas", 
-            p: "Musso & Frank destaca por mantener intacto el servicio clásico de la vieja escuela. Los meseros y cantineros visten chaquetas rojas de esmoquin y corbatines negros, y muchos de ellos llevan más de cuatro décadas trabajando en el lugar. Su bebida más famosa es el Martini clásico de ginebra: revuelto durante 30 segundos, servido en copa helada y acompañado por una pequeña jarrita de cristal sobre hielo triturado para que el segundo trago permanezca helado." 
-          }
-        ],
-        callouts: [
-          { cls: "box-food", t: "El Secreto del Martini Clásico", d: "Si entran a la barra, pidan su clásico Martini: se sirve acompañado de una pequeña jarra sobre hielo para mantener la bebida completamente helada." }
-        ]
-      }
-    },
-
-    // STOP 7: El Capitan Theatre
-    {
-      id: 7,
       coords: [-118.3392, 34.1015],
       mapUrl: "https://maps.google.com/?q=El+Capitan+Theatre",
       en: {
         title: "The El Capitan Theatre",
         address: "6838 Hollywood Blvd",
-        short: "7. El Capitan",
+        short: "4. El Capitan",
         timeline: [
           { y: "1926", t: "Opens as a live stage venue, dubbed 'Hollywood's First Home of the Spoken Drama'." },
           { y: "1941", t: "Hosts the defiant world premiere of Orson Welles' masterpiece Citizen Kane." },
@@ -576,7 +333,7 @@ const tourData = {
       es: {
         title: "Teatro El Capitán",
         address: "6838 Hollywood Blvd",
-        short: "7. El Capitán",
+        short: "4. El Capitán",
         timeline: [
           { y: "1926", t: "Abre como foro teatral, apodado 'El Primer Hogar del Drama Hablado'." },
           { y: "1941", t: "Celebra el histórico estreno mundial de El Ciudadano Kane de Orson Welles." },
@@ -612,83 +369,326 @@ const tourData = {
       }
     },
 
-    // STOP 8: The Pantages Theatre
+    // STOP 5: Hollywood Roosevelt
     {
-      id: 8,
-      coords: [-118.3255, 34.1022],
-      mapUrl: "https://maps.google.com/?q=Pantages+Theatre+Hollywood",
+      id: 5,
+      coords: [-118.3418, 34.1012],
+      mapUrl: "https://maps.google.com/?q=Hollywood+Roosevelt+Hotel",
       en: {
-        title: "The Pantages Theatre",
-        address: "6233 Hollywood Blvd (Near Hollywood & Vine)",
-        short: "8. The Pantages",
+        title: "The Hollywood Roosevelt Hotel",
+        address: "7000 Hollywood Blvd (Cross the street)",
+        short: "5. The Roosevelt",
         timeline: [
-          { y: "1930", t: "Opens as the last great movie palace erected in Hollywood during the Golden Age." },
-          { y: "1949", t: "Billionaire Howard Hughes purchases the building and sets up private offices." },
-          { y: "1953", t: "Hosts the very first televised Academy Awards ceremony in broadcast history." },
-          { y: "Present", t: "Serves as Los Angeles' premier home for major touring Broadway theatricals." }
+          { y: "1927", t: "Opens its doors, funded by a syndicate of Hollywood's founding royalty." },
+          { y: "1929", t: "Hosts the very first Academy Awards banquet in the Blossom Room." },
+          { y: "1952", t: "Marilyn Monroe resides in a poolside cabana suite during her early rise." },
+          { y: "1988", t: "British artist David Hockney paints his million-dollar mural on the pool floor." }
         ],
         people: [
-          { name: "Alexander Pantages", role: "Vaudeville & Theater Mogul", bio: "Greek immigrant who built an empire of dozens of theaters across North America, building this flagship palace at the height of his career." },
-          { name: "Howard Hughes", role: "Aviation & Film Tycoon", bio: "Eccentric billionaire who bought the building in 1949, running his RKO film empire from a private suite on the second floor." },
-          { name: "B. Marcus Priteca", role: "Master Theater Architect", bio: "Architect who designed the sensational Zigzag Art Deco interior, utilizing geometric frosted glass, gold leaf, and dramatic sunburst chandeliers." }
+          { name: "Douglas Fairbanks & Mary Pickford", role: "Founders & Investors", bio: "Silent screen legends who pooled their fortunes with studio boss Louis B. Mayer to create an exclusive luxury hotel for the motion picture elite." },
+          { name: "Marilyn Monroe", role: "Iconic Resident", bio: "Lived in cabana suite #229 for two formative years, shooting her very first commercial print ads on the hotel's diving board." },
+          { name: "David Hockney", role: "Contemporary Master", bio: "Renowned British painter who spent an afternoon painting a sweeping blue crescent mural on the bottom of the drained Tropicana Pool." }
         ],
         stories: [
           { 
-            h: "The Last Grand Movie Palace (1930)", 
-            p: "As you approach the famous intersection of Hollywood and Vine, you will find the Pantages Theatre. Opened on June 4, 1930, by Greek-American theater magnate Alexander Pantages, it cost $1.25 million and held 2,800 seats. It holds the historical distinction of being the absolute last grand movie palace constructed in Hollywood during the Golden Age. Just as it opened, the Great Depression deepened, bringing an end to the era of palatial movie palace construction." 
+            h: "The Celebrity Investment Syndicate", 
+            p: "Step across the street into the grand Spanish Colonial lobby of the Hollywood Roosevelt Hotel. Opened in May 1927, this luxury landmark was not constructed by ordinary commercial developers. It was financed by a private syndicate of Hollywood royalty: Douglas Fairbanks, Mary Pickford, Sid Grauman, and MGM studio boss Louis B. Mayer. They invested $2.5 million to create an opulent retreat where industry executives and movie stars could dine, drink, and conduct business away from prying press cameras." 
           },
           { 
-            h: "Zigzag Art Deco Masterwork", 
-            p: "The auditorium and grand lobby represent the pinnacle of Zigzag Art Deco architectural design. Architect B. Marcus Priteca rejected traditional European classical motifs in favor of geometric, futuristic shapes that captured the technological energy of the 1930s. The lobby features soaring vaulted ceilings, backlit frosted glass pillars, and massive hammered gold-leaf starbursts. The ceiling resembles a celestial galaxy illuminated by custom chandeliers and hidden neon fixtures." 
+            h: "The 15-Minute Academy Awards (1929)", 
+            p: "Walk up the mezzanine staircase to the historic Blossom Room. On May 16, 1929, the very first Academy Awards ceremony was held right here as an intimate industry dinner for just 270 guests. Tickets cost five dollars, and there was zero broadcast suspense because the winners had already been printed in local newspapers three months earlier. The entire awards presentation was hosted by Douglas Fairbanks and lasted a mere 15 minutes, serving as a brief toast before a private late-night party." 
           },
           { 
-            h: "Howard Hughes' Secret Penthouse Headquarters", 
-            p: "In 1949, the eccentric aviation billionaire and film producer Howard Hughes purchased the theater to expand his control over the RKO movie studio. Hughes was notoriously reclusive and distrustful of the public eye. He converted the theater's entire second floor into his personal executive headquarters and living quarters, holding late-night movie screenings and directing corporate strategy without having to step outside into the streets." 
+            h: "Marilyn Monroe's Launchpad", 
+            p: "The Roosevelt played a pivotal role in the early life of Norma Jeane Mortenson before she became Marilyn Monroe. In the late 1940s and early 1950s, she lived in a second-floor poolside cabana room for two years while modeling for the Blue Book Agency and signing her first studio contracts. She posed for her very first commercial magazine advertisement—a print feature for suntan lotion—standing directly on the diving board of the hotel's Tropicana Pool. The property became her personal sanctuary throughout her rise to international stardom." 
           },
           { 
-            h: "The First Televised Oscars (1953)", 
-            p: "The Pantages hosted the Academy Awards ceremonies from 1950 to 1960. On March 19, 1953, the venue made television history as the site of the first-ever televised Oscar ceremony. Hosted by Bob Hope, over 40 million Americans tuned in on their living room black-and-white sets to watch Hollywood glamour in real time. Today, the theater is the premier destination in Southern California for blockbuster Broadway musicals like <em>Hamilton</em> and <em>The Lion King</em>." 
+            h: "David Hockney's Pool & Ghost Lore", 
+            p: "Walk out back into the lush courtyard to view the famous Tropicana Pool. In 1988, celebrated British artist David Hockney drained the water and spent an afternoon painting a series of blue curved brushstrokes directly onto the plaster floor, creating a celebrated work of modern art. The hotel is also famous for its ghost stories. Staff and guests have reported hearing actor Montgomery Clift practicing his brass trumpet on the ninth floor, while others have reported seeing Marilyn Monroe's reflection in a full-length vintage mirror that once furnished her poolside suite." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Broadway in LA", d: "Today, the Pantages operates as the city's premier Broadway venue, hosting multi-month runs of massive musical productions like <em>Hamilton</em> and <em>Wicked</em>." }
+          { cls: "box-tip", t: "The Million-Dollar Pool", d: "Step into the Tropicana courtyard and peer down through the pool water to admire the million-dollar curved blue mural painted by artist David Hockney in 1988." }
         ]
       },
       es: {
-        title: "Teatro Pantages",
-        address: "6233 Hollywood Blvd (Cerca de Hollywood y Vine)",
-        short: "8. El Pantages",
+        title: "Hotel Hollywood Roosevelt",
+        address: "7000 Hollywood Blvd (Cruza la calle)",
+        short: "5. The Roosevelt",
         timeline: [
-          { y: "1930", t: "Se inaugura como el último gran palacio de cine de la época dorada." },
-          { y: "1949", t: "El multimillonario Howard Hughes adquiere el edificio y monta sus oficinas." },
-          { y: "1953", t: "Sede de la primera transmisión televisada de los Premios Óscar." },
-          { y: "Presente", t: "Es la sede principal de los grandes musicales de Broadway en gira por LA." }
+          { y: "1927", t: "Abre sus puertas, financiado por los fundadores de la industria del cine." },
+          { y: "1929", t: "Sede de la primera ceremonia de los Premios Óscar en el Blossom Room." },
+          { y: "1952", t: "Marilyn Monroe vive en una de las cabañas junto a la piscina del hotel." },
+          { y: "1988", t: "El artista David Hockney pinta su famoso mural en el fondo de la piscina." }
         ],
         people: [
-          { name: "Alexander Pantages", role: "Magnate del Vodevil y Teatros", bio: "Inmigrante griego que forjó un imperio de teatros por todo el país, construyendo este palacio en la cumbre de su carrera." },
-          { name: "Howard Hughes", role: "Magnate de Aviación y Cine", bio: "Excéntrico multimillonario que compró el teatro en 1949 y dirigió su estudio de cine RKO desde un departamento en el piso superior." },
-          { name: "B. Marcus Priteca", role: "Arquitecto Teatral", bio: "Diseñador que concibió el interior Art Déco Zigzag con figuras geométricas, pan de oro y candelabros en forma de sol." }
+          { name: "Douglas Fairbanks y Mary Pickford", role: "Fundadores e Inversores", bio: "Monarcas del cine mudo que unieron sus fortunas con Louis B. Mayer para levantar un hotel de lujo exclusivo para la élite de Hollywood." },
+          { name: "Marilyn Monroe", role: "Residente Emblemática", bio: "Vivió en la cabaña #229 durante dos años cruciales, realizando su primera sesión publicitaria en el trampolín del hotel." },
+          { name: "David Hockney", role: "Artista Contemporáneo", bio: "Pintor británico que decoró el fondo de la piscina con un mural de trazos azules curvados valuado en millones de dólares." }
         ],
         stories: [
           { 
-            h: "El Último Palacio del Cine (1930)", 
-            p: "Al acercarse a la intersección de Hollywood y Vine se encuentra el Teatro Pantages. Inaugurado el 4 de junio de 1930 por el empresario Alexander Pantages, tuvo un costo de $1.25 millones de dólares y capacidad para 2,800 personas. Ostenta la distinción histórica de ser el último gran palacio de cine construido en Hollywood durante la época dorada. Su apertura coincidió con el inicio de la Gran Depresión, poniendo fin a la construcción de estos recintos monumentales." 
+            h: "El Sindicato de las Superestrellas", 
+            p: "Crucen la calle y entren al majestuoso vestíbulo colonial español del Hotel Hollywood Roosevelt. Inaugurado en mayo de 1927, este inmueble histórico no fue levantado por inversionistas inmobiliarios comunes. Fue financiado por las máximas estrellas del cine: Douglas Fairbanks, Mary Pickford, Sid Grauman y el jefe de MGM, Louis B. Mayer. Invirtieron $2.5 millones de dólares para crear un refugio de lujo donde directores y actores pudieran cenar, festejar y cerrar contratos lejos de los periodistas." 
           },
           { 
-            h: "Una Obra Maestra del Art Déco Zigzag", 
-            p: "El vestíbulo y la sala principal representan la cúspide del estilo Art Déco en su vertiente geométrica o 'Zigzag'. El arquitecto B. Marcus Priteca evitó los estilos clásicos europeos y optó por figuras abstractas que reflejaban la velocidad de la era de las máquinas. El vestíbulo luce techos abovedados de doble altura, columnas de vidrio esmerilado con iluminación trasera y enormes soles bañados en pan de oro. El techo simula una galaxia geométrica iluminada por luces ocultas." 
+            h: "Los Premios Óscar de 15 Minutos (1929)", 
+            p: "Suban las escaleras hacia el salón Blossom Room en el entrepiso. El 16 de mayo de 1929 se celebró aquí la primera entrega de los Premios de la Academia como un banquete íntimo para solo 270 personas. La entrada costaba cinco dólares y no existía tensión mediática porque los ganadores ya habían sido publicados en los periódicos tres meses antes. Douglas Fairbanks entregó los galardones en apenas 15 minutos, convirtiendo la noche en una cena relajada entre colegas." 
           },
           { 
-            h: "El Refugio Secreto de Howard Hughes", 
-            p: "En 1949, el excéntrico multimillonario de la aviación Howard Hughes compró el edificio para fortalecer su control sobre la productora RKO Pictures. Hughes, conocido por su carácter ermitaño, adaptó todo el segundo piso como su residencia particular y centro de operaciones. Desde allí organizaba proyecciones privadas a altas horas de la madrugada y administraba sus empresas sin ser visto por los fanáticos en la calle." 
+            h: "El Despegue de Marilyn Monroe", 
+            p: "El Roosevelt fue fundamental en los inicios de Norma Jeane Mortenson antes de ser Marilyn Monroe. A finales de los años 40 vivió durante dos años en una cabaña del segundo piso junto a la piscina mientras trabajaba como modelo y firmaba sus primeros contratos con los estudios. Su primera sesión publicitaria comercial—un anuncio de bronceador—se tomó sobre el trampolín de la piscina Tropicana. El hotel fue su hogar seguro en los momentos en que despegaba su carrera mundial." 
           },
           { 
-            h: "Los Primeros Óscar por Televisión (1953)", 
-            p: "El Pantages albergó la ceremonia de los Premios Óscar de 1950 a 1960. El 19 de marzo de 1953 hizo historia al ser el escenario de la primera transmisión televisada de los galardones. Conducida por Bob Hope, más de 40 millones de personas vieron la gala en vivo en sus pantallas en blanco y negro. Hoy en día, el teatro es el principal foro de Los Ángeles para grandes musicales de Broadway como <em>Hamilton</em> y <em>El Rey León</em>." 
+            h: "La Piscina de David Hockney y Leyendas", 
+            p: "Salgan al patio trasero para contemplar la emblemática piscina Tropicana. En 1988, el pintor británico David Hockney vació el agua y pasó una tarde entera pintando medialunas azules sobre el concreto, creando una obra de arte moderna de valor incalculable. Además, el hotel es famoso por sus relatos paranormales. Huéspedes y empleados afirman escuchar al actor Montgomery Clift practicando la trompeta en el noveno piso, y muchos aseguran haber visto el reflejo de Marilyn Monroe en un espejo antiguo de su antigua suite." 
           }
         ],
         callouts: [
-          { cls: "box-tip", t: "Broadway en Los Ángeles", d: "Actualmente el Pantages es el epicentro del teatro musical en la costa oeste, presentando giras de producciones como <em>Wicked</em> y <em>Hamilton</em>." }
+          { cls: "box-tip", t: "La Piscina del Millón de Dólares", d: "Asómense a la piscina del patio Tropicana para ver a través del agua los trazos curvos azules pintados por el famoso artista David Hockney en 1988." }
+        ]
+      }
+    },
+
+    // STOP 6: Egyptian Theatre
+    {
+      id: 6,
+      coords: [-118.3364, 34.1016],
+      mapUrl: "https://maps.google.com/?q=Egyptian+Theatre+Hollywood",
+      en: {
+        title: "The Egyptian Theatre",
+        address: "6712 Hollywood Blvd",
+        short: "6. Egyptian Theatre",
+        timeline: [
+          { y: "1922", t: "Opens its doors, capitalizing on global Egyptomania." },
+          { y: "1922", t: "Hosts the premiere of Robin Hood, inventing the modern red carpet." },
+          { y: "1998", t: "Purchased and stabilized by the American Cinematheque." },
+          { y: "2023", t: "Netflix and American Cinematheque complete a historic restoration." }
+        ],
+        people: [
+          { name: "Sid Grauman", role: "Master Showman & Impresario", bio: "The promotional pioneer who conceived the courtyard theater format and created the template for modern movie premieres." },
+          { name: "Douglas Fairbanks", role: "Actor & Film Producer", bio: "Silent screen swashbuckler whose blockbuster Robin Hood launched the theater and set the gold standard for celebrity arrivals." },
+          { name: "Howard Carter", role: "British Archaeologist", bio: "His historic 1922 discovery of King Tutankhamun's tomb in Egypt fueled worldwide public fascination that Grauman leveraged to sell tickets." }
+        ],
+        stories: [
+          { 
+            h: "The Birth of Egyptomania (1922)", 
+            p: "Five years before he constructed the Chinese Theatre, Sid Grauman opened the Egyptian Theatre on October 18, 1922. His timing was a masterstroke of marketing intuition. Earlier that same year, British archaeologist Howard Carter discovered the untouched tomb of King Tutankhamun in Egypt's Valley of the Kings. The entire Western world was gripped by 'Egyptomania,' and Grauman capitalized on the craze by styling his new theater as an open-air pharaonic palace adorned with scarabs, sphinxes, and hieroglyphic murals." 
+          },
+          { 
+            h: "Inventing the Hollywood Red Carpet", 
+            p: "The Egyptian Theatre holds a monumental place in cinema history as the birthplace of the modern movie premiere. On opening night in 1922, Grauman staged the world premiere of Douglas Fairbanks’ million-dollar epic <em>Robin Hood</em>. This single evening established the promotional formula still used worldwide today: Grauman set up military searchlights sweeping the sky, assembled velvet crowd ropes, and rolled out a long red carpet across the courtyard for Fairbanks and Mary Pickford to walk down as screaming fans looked on." 
+          },
+          { 
+            h: "The Forecourt Experience", 
+            p: "The deep, open-air courtyard in front of the theater was engineered for spectacle and crowd management. Before the feature presentation began, Grauman hired costumed actors dressed as Egyptian temple guards to pace the upper roof parapets with bronze spears, announcing showtimes with ceremonial horns. Grauman even kept live monkeys, tropical birds, and exotic desert artifacts in the courtyard to entertain waiting ticket holders as they queued up for the show." 
+          },
+          { 
+            h: "The Netflix Architectural Restoration", 
+            p: "After falling into disrepair during the late 20th century, the Egyptian Theatre was purchased through a public-private partnership involving Netflix and the nonprofit American Cinematheque. Over three years, preservation experts stripped away clumsy 1960s drywall additions, seismic-retrofitted the masonry walls, and restored the original 1922 silent-era color palette. Today, the theater operates as one of the finest classic film revival houses in the world, equipped to project vintage nitrate, 35mm, 70mm, and digital cinema." 
+          }
+        ],
+        callouts: [
+          { cls: "box-lore", t: "A 1922 Time Machine", d: "Walk down the courtyard to the main entrance doors. The lobby and auditorium have been restored to their exact 1922 silent-era appearance, complete with a gilded sunburst ceiling." }
+        ]
+      },
+      es: {
+        title: "Teatro Egipcio (Egyptian Theatre)",
+        address: "6712 Hollywood Blvd",
+        short: "6. Teatro Egipcio",
+        timeline: [
+          { y: "1922", t: "Abre sus puertas aprovechando la 'Egiptomanía' internacional." },
+          { y: "1922", t: "Estreno de Robin Hood, donde se inventa la alfombra roja moderna." },
+          { y: "1998", t: "Adquirido y rescatado por la American Cinematheque." },
+          { y: "2023", t: "Netflix finaliza una restauración arquitectónica de millones de dólares." }
+        ],
+        people: [
+          { name: "Sid Grauman", role: "Empresario y Productor", bio: "Pionero de la publicidad cinematográfica que ideó los teatros con patio y creó el formato moderno de los estrenos de cine." },
+          { name: "Douglas Fairbanks", role: "Actor y Productor", bio: "Aclamado héroe de acción de Robin Hood (1922), cuyo estreno consagró el protocolo de la llegada de estrellas." },
+          { name: "Howard Carter", role: "Arqueólogo Británico", bio: "Su hallazgo de la tumba de Tutankamón en 1922 desató una fascinación global que Grauman aprovechó para vender entradas." }
+        ],
+        stories: [
+          { 
+            h: "La Fiebre por Egipto (1922)", 
+            p: "Cinco años antes de construir el Teatro Chino, Sid Grauman inauguró el Teatro Egipcio el 18 de octubre de 1922. Fue una jugada publicitaria maestra. Ese mismo año, el arqueólogo Howard Carter descubrió la tumba intacta de Tutankamón en el Valle de los Reyes. El mundo entero sucumbió a la 'Egiptomanía', y Grauman aprovechó la euforia diseñando un teatro con la apariencia del templo de un faraón, lleno de escarabajos sagrados, esfinges y murales jeroglíficos." 
+          },
+          { 
+            h: "La Invención de la Alfombra Roja", 
+            p: "El Teatro Egipcio es el lugar de nacimiento de las premieres cinematográficas modernas. En la noche inaugural de 1922, Grauman organizó el estreno mundial de la superproducción <em>Robin Hood</em> de Douglas Fairbanks. Esa velada definió la fórmula que se sigue usando en todo el mundo: Grauman colocó reflectores antiaéreos en el cielo, cuerdas de terciopelo y desplegó una enorme alfombra roja para que Fairbanks y Mary Pickford caminaran entre los vítores de miles de fanáticos." 
+          },
+          { 
+            h: "El Espectáculo del Patio al Aire Libre", 
+            p: "El profundo patio frontal fue concebido como un escenario de entretenimiento y control de multitudes. Antes de cada función, Grauman contrataba actores vestidos como guardias del faraón para patrullar las terrazas superiores portando lanzas de bronce y tocando trompetas ceremoniales. Además, colocaba monos, aves tropicales y vasijas antiguas en el patio para entretener al público mientras esperaba su turno de entrar." 
+          },
+          { 
+            h: "La Gran Restauración de Netflix", 
+            p: "Tras sufrir décadas de abandono a finales del siglo XX, el inmueble fue adquirido en una alianza entre Netflix y la organización American Cinematheque. Durante tres años, restauradores retiraron divisiones añadidas en los años 60, reforzaron la estructura contra terremotos y recuperaron los colores originales de 1922. Hoy en día funciona como una de las salas de cine clásico más avanzadas del mundo, capaz de proyectar películas en nitrato, 35mm, 70mm y digital." 
+          }
+        ],
+        callouts: [
+          { cls: "box-lore", t: "Una Máquina del Tiempo de 1922", d: "Caminen por el patio hasta las puertas de cristal. El vestíbulo y la sala principal fueron restaurados a su estado exacto de 1922, incluyendo su impresionante techo con un sol dorado." }
+        ]
+      }
+    },
+
+    // STOP 7: Musso & Frank
+    {
+      id: 7,
+      coords: [-118.3353, 34.1018],
+      mapUrl: "https://maps.google.com/?q=Musso+and+Frank+Grill",
+      en: {
+        title: "The Musso & Frank Grill",
+        address: "6667 Hollywood Blvd",
+        short: "7. Musso & Frank",
+        timeline: [
+          { y: "1919", t: "Opens as 'Frank's Cafe', predating the Hollywood Sign." },
+          { y: "1930s", t: "Becomes the literary hub for America's greatest novelists." },
+          { y: "1955", t: "Longtime bartender Manny Aguirre perfects the stirred martini." },
+          { y: "2019", t: "Celebrates its centennial and appears in Tarantino's Once Upon a Time in Hollywood." }
+        ],
+        people: [
+          { name: "Charlie Chaplin", role: "Cinema Legend & Regular", bio: "Dined here daily during the silent era, famously challenging Douglas Fairbanks to horse races down Hollywood Boulevard outside." },
+          { name: "F. Scott Fitzgerald & Ernest Hemingway", role: "Literary Giants", bio: "Acclaimed novelists who drank, argued, and punched up studio screenplays in the restaurant's private back booths." },
+          { name: "Raymond Chandler", role: "Detective Noir Author", bio: "Legendary crime writer who drank gimlets at the mahogany counter while drafting his iconic Philip Marlowe detective mysteries." }
+        ],
+        stories: [
+          { 
+            h: "Hollywood's Oldest Living Room (1919)", 
+            p: "Look across the boulevard at the red awnings of Musso & Frank Grill. Opened in 1919 by Joseph Musso and Frank Toulet, this is the oldest continually operating restaurant in Hollywood, predating the Hollywood Sign by four years. Stepping through the heavy front doors is like stepping onto a 1930s film set, featuring dark mahogany woodwork, red leather booths, and warm amber lighting. For over a century, the restaurant has served as the social living room for the film industry." 
+          },
+          { 
+            h: "The Literary Clubhouse", 
+            p: "During the Golden Age, major movie studios recruited America's greatest novelists to Hollywood with lucrative screenplay contracts. Unaccustomed to studio interference, writers made Musso & Frank their unofficial daily headquarters. F. Scott Fitzgerald, Ernest Hemingway, William Faulkner, and John Steinbeck spent their afternoons drinking in the back booths while editing manuscripts. Film noir pioneer Raymond Chandler famously sat at the bar drinking gimlets while crafting dialogue for detective Philip Marlowe." 
+          },
+          { 
+            h: "Chaplin's Window Booth #1", 
+            p: "Charlie Chaplin was a daily fixture during the 1920s and had his own permanently reserved table: Booth #1 by the front window. At the time, Hollywood Boulevard was still a dusty unpaved roadway with wooden hitching posts. Chaplin insisted on the window booth so he could keep a watchful eye on his horse tied up outside while dining with fellow screen star Douglas Fairbanks. The table remains one of the most requested dining booths in Los Angeles." 
+          },
+          { 
+            h: "The Martini Ritual & The Red Coats", 
+            p: "Musso & Frank is world-famous for preserving classic culinary hospitality. The servers and bartenders wear formal red tuxedo coats and black bowties, with several waiters having worked at the restaurant for over 40 years. The restaurant is renowned for its classic dry gin martini: stirred precisely for thirty seconds, poured into a chilled glass, and served alongside a small sidecar decanter resting in crushed ice so the refill stays ice-cold." 
+          }
+        ],
+        callouts: [
+          { cls: "box-food", t: "The Classic Sidecar Martini", d: "Order a classic martini at the bar to experience the historic service: your drink is served with an iced miniature glass sidecar decanter to keep your second pour freezing cold." }
+        ]
+      },
+      es: {
+        title: "The Musso & Frank Grill",
+        address: "6667 Hollywood Blvd",
+        short: "7. Musso & Frank",
+        timeline: [
+          { y: "1919", t: "Abre como 'Frank's Cafe', cuatro años antes de que existiera el letrero de Hollywood." },
+          { y: "Años 1930", t: "Se convierte en el punto de encuentro de los grandes escritores estadounidenses." },
+          { y: "1955", t: "El cantinero Manny Aguirre perfecciona la receta clásica del Martini revuelto." },
+          { y: "2019", t: "Celebra su centenario y aparece en Había una vez en Hollywood de Tarantino." }
+        ],
+        people: [
+          { name: "Charlie Chaplin", role: "Leyenda del Cine", bio: "Cliente diario durante la época muda que competía en carreras de caballos contra Douglas Fairbanks a lo largo del bulevar." },
+          { name: "F. Scott Fitzgerald y Ernest Hemingway", role: "Gigantes de la Literatura", bio: "Novelistas consagrados que bebían, discutían y pulían guiones de cine en las mesas privadas del fondo." },
+          { name: "Raymond Chandler", role: "Maestro de Novela Negra", bio: "Escritor policíaco que bebía en la barra de caoba mientras redactaba las aventuras del detective Philip Marlowe." }
+        ],
+        stories: [
+          { 
+            h: "La Sala de Estar de Hollywood (1919)", 
+            p: "Observen los toldos rojos del restaurante Musso & Frank Grill. Inaugurado en 1919 por Joseph Musso y Frank Toulet, es el restaurante más antiguo en operación continua de Hollywood, abriendo cuatro años antes de que se construyera el letrero de Hollywood. Cruzar sus puertas es entrar a un set cinematográfico de los años 30, con acabados en caoba oscura, asientos de cuero rojo y luz cálida. Durante más de un siglo, ha sido el comedor de confianza para la industria cinematográfica." 
+          },
+          { 
+            h: "El Club de los Grandes Escritores", 
+            p: "Durante la época dorada, los grandes estudios contrataron a los novelistas más respetados del país para escribir guiones. Incómodos con la burocracia de las oficinas, los autores convirtieron este restaurante en su oficina de trabajo. Figuras como F. Scott Fitzgerald, Ernest Hemingway, William Faulkner y John Steinbeck pasaban las tardes bebiendo y corrigiendo textos en las mesas traseras. Raymond Chandler escribió parte de sus novelas de detectives mientras disfrutaba de sus cócteles en la barra." 
+          },
+          { 
+            h: "La Mesa #1 de Charlie Chaplin", 
+            p: "Charlie Chaplin era un comensal habitual en los años 20 y tenía su propia mesa reservada: la Mesa #1 junto a la ventana. En aquella época, Hollywood Boulevard era un camino de terracería con postes de madera para amarrar animales. Chaplin exigía esa mesa específica para vigilar a su caballo amarrado afuera mientras almorzaba con su amigo Douglas Fairbanks. Hoy en día, esa misma mesa sigue siendo una de las más solicitadas de la ciudad." 
+          },
+          { 
+            h: "El Ritual del Martini y las Chaquetas Rojas", 
+            p: "Musso & Frank destaca por mantener intacto el servicio clásico de la vieja escuela. Los meseros y cantineros visten chaquetas rojas de esmoquin y corbatines negros, y muchos de ellos llevan más de cuatro décadas trabajando en el lugar. Su bebida más famosa es el Martini clásico de ginebra: revuelto durante 30 segundos, servido en copa helada y acompañado por una pequeña jarrita de cristal sobre hielo triturado para que el segundo trago permanezca helado." 
+          }
+        ],
+        callouts: [
+          { cls: "box-food", t: "El Secreto del Martini Clásico", d: "Si entran a la barra, pidan su clásico Martini: se sirve acompañado de una pequeña jarra sobre hielo para mantener la bebida completamente helada." }
+        ]
+      }
+    },
+
+    // STOP 8: Knickerbocker Hotel
+    {
+      id: 8,
+      coords: [-118.3283, 34.1032],
+      mapUrl: "https://maps.google.com/?q=Hollywood+Knickerbocker+Apartments",
+      en: {
+        title: "The Hollywood Knickerbocker Hotel",
+        address: "1714 Ivar Ave",
+        short: "8. Knickerbocker",
+        timeline: [
+          { y: "1926", t: "Opens as a luxury residential hotel for the silent film community." },
+          { y: "1936", t: "Bess Houdini holds the historic 10th and final séance on the rooftop." },
+          { y: "1948", t: "Pioneering silent film director D.W. Griffith collapses in the lobby." },
+          { y: "1966", t: "Beloved 'I Love Lucy' actor William Frawley collapses outside the entrance." }
+        ],
+        people: [
+          { name: "Bess Houdini", role: "Magician's Widow & Performer", bio: "Conducted ten annual Halloween séances to contact her late husband Harry, ending with her famous rooftop declaration on this building." },
+          { name: "William Frawley", role: "Actor (Fred Mertz)", bio: "Beloved television actor on I Love Lucy who resided here for years and suffered a fatal heart attack on the sidewalk out front." },
+          { name: "D.W. Griffith", role: "Silent Film Director", bio: "Pioneering director of early cinema who spent his impoverished final years living in isolation here until his death in the lobby." }
+        ],
+        stories: [
+          { 
+            h: "A Silent Era Sanctuary (1926)", 
+            p: "Turn onto Ivar Avenue to view the Renaissance Revival facade of the Knickerbocker Hotel. Opened in 1926 as a luxury residential apartment hotel, it was designed as a private, elegant retreat for the early royalty of cinema. Silent screen stars like Rudolph Valentino, Gloria Swanson, and Mae Murray lived in its multi-room suites to escape the aggressive studio press. The property featured a lavish ground-floor dining room, private subterranean speakeasy rooms, and high ceilings that offered quiet sanctuary." 
+          },
+          { 
+            h: "The 10th & Final Houdini Séance (1936)", 
+            p: "This building is famous for one of the most celebrated paranormal events in American history. Before his death in 1926, legendary escape artist Harry Houdini gave his wife Bess a secret ten-word code phrase, promising that if communication from beyond the grave was possible, he would contact her. For nine consecutive years on Halloween night, Bess held solemn séances across the country without success. On October 31, 1936, she held the tenth and final attempt on the open rooftop of the Knickerbocker amid a sudden rainstorm." 
+          },
+          { 
+            h: "The Séance Conclusion: 'The Play Is Over'", 
+            p: "Over 300 journalists, scientists, and spiritualists crowded onto the Knickerbocker roof as Bess pleaded for a sign from Houdini. When the clock struck midnight and no signal occurred, Bess turned off the spotlight illuminating Houdini's portrait. She famously announced to the assembled media: <em>'Houdini did not come through. My last hope is gone. I do not believe that Houdini can come back to me, or to anyone. The play is over. Good night, Harry.'</em>" 
+          },
+          { 
+            h: "Golden Age Tragedies & Elvis Lore", 
+            p: "The hotel carries a dark history beneath its glamour. In 1948, pioneering film director D.W. Griffith, living in forgotten isolation, suffered a fatal cerebral hemorrhage in the main lobby. In March 1966, beloved actor William Frawley (famous as landlord Fred Mertz on <em>I Love Lucy</em>) suffered a fatal heart attack and collapsed on the sidewalk directly outside the front doors. In 1956, Elvis Presley stayed in Room 1016 while filming <em>Love Me Tender</em>, resulting in screaming crowds of teenage fans surrounding the block." 
+          }
+        ],
+        callouts: [
+          { cls: "box-lore", t: "Elvis's Secret Stay", d: "Elvis Presley stayed in Room 1016 in 1956 while making 'Love Me Tender'; police had to sneak him through the service alley to escape hundreds of fans." }
+        ]
+      },
+      es: {
+        title: "Hotel Hollywood Knickerbocker",
+        address: "1714 Ivar Ave",
+        short: "8. Knickerbocker",
+        timeline: [
+          { y: "1926", t: "Abre como hotel residencial de lujo para la comunidad del cine mudo." },
+          { y: "1936", t: "Bess Houdini celebra su décima y última sesión espiritista en la azotea." },
+          { y: "1948", t: "El pionero del cine D.W. Griffith fallece en el vestíbulo principal." },
+          { y: "1966", t: "El actor William Frawley (I Love Lucy) se desploma en la acera exterior." }
+        ],
+        people: [
+          { name: "Bess Houdini", role: "Viuda del Ilusionista", bio: "Realizó sesiones espiritistas en Halloween durante diez años para contactar a Harry, concluyendo en esta azotea." },
+          { name: "William Frawley", role: "Actor de TV (Fred Mertz)", bio: "Inolvidable coprotagonista de I Love Lucy que residió aquí y sufrió un infarto fulminante frente al hotel." },
+          { name: "D.W. Griffith", role: "Director de Cine Mudo", bio: "Pionero cinematográfico que pasó sus últimos años recluido en este inmueble hasta su fallecimiento en el vestíbulo." }
+        ],
+        stories: [
+          { 
+            h: "Un Refugio del Cine Mudo (1926)", 
+            p: "Caminen por Ivar Avenue para admirar la fachada neorrenacentista del Hotel Knickerbocker. Inaugurado en 1926 como hotel de apartamentos de lujo, fue diseñado como un retiro exclusivo para las estrellas de la época muda. Figuras como Rudolph Valentino, Gloria Swanson y Mae Murray vivieron en sus suites para alejarse del acoso de la prensa. Contaba con comedores privados, túneles para burlar la ley seca y un ambiente elegante que ofrecía total privacidad a la industria." 
+          },
+          { 
+            h: "La Décima Sesión de Houdini (1936)", 
+            p: "Este edificio resguarda el suceso paranormal más célebre de la historia de Los Ángeles. Antes de morir en 1926, el legendario ilusionista Harry Houdini le dio a su esposa Bess un código secreto de diez palabras, prometiendo que si el contacto con el más allá era real, se comunicaría con ella. Durante nueve años consecutivos en la noche de Halloween, Bess realizó sesiones espiritistas sin éxito. El 31 de octubre de 1936 organizó el décimo y último intento en la azotea del Knickerbocker en medio de una tormenta." 
+          },
+          { 
+            h: "El Fin de la Promesa: 'La Obra ha Terminado'", 
+            p: "Más de 300 reporteros, científicos e invitados llenaron la azotea mientras Bess esperaba una señal de su esposo. Al sonar las doce campanadas de la medianoche sin ninguna manifestación, Bess apagó la vela que alumbraba el retrato de Houdini. Dirigiéndose a la prensa, pronunció sus recordadas palabras: <em>'Houdini no se comunicó. Mi última esperanza se ha ido. No creo que pueda regresar. La obra ha terminado. Buenas noches, Harry.'</em>" 
+          },
+          { 
+            h: "Tragedias de Hollywood y el Paso de Elvis", 
+            p: "El inmueble resguarda memorias dramáticas. En 1948, el influyente cineasta D.W. Griffith, viviendo en el olvido, sufrió una hemorragia cerebral fatal en el vestíbulo. En marzo de 1966, el actor William Frawley (el entrañable Fred Mertz en <em>I Love Lucy</em>) sufrió un paro cardíaco y murió en la acera frente a la entrada. En 1956, Elvis Presley se hospedó en la suite 1016 mientras filmaba <em>Love Me Tender</em>, provocando que la policía cerrara la calle ante miles de admiradoras." 
+          }
+        ],
+        callouts: [
+          { cls: "box-lore", t: "La Habitación de Elvis", d: "Elvis Presley se hospedó en la suite 1016 en 1956 durante el rodaje de 'Love Me Tender'; la policía tuvo que sacarlo por los callejones de servicio ante las multitudes." }
         ]
       }
     },
@@ -774,83 +774,83 @@ const tourData = {
       }
     },
 
-    // STOP 10: Knickerbocker Hotel
+    // STOP 10: The Pantages Theatre
     {
       id: 10,
-      coords: [-118.3283, 34.1032],
-      mapUrl: "https://maps.google.com/?q=Hollywood+Knickerbocker+Apartments",
+      coords: [-118.3255, 34.1022],
+      mapUrl: "https://maps.google.com/?q=Pantages+Theatre+Hollywood",
       en: {
-        title: "The Hollywood Knickerbocker Hotel",
-        address: "1714 Ivar Ave",
-        short: "10. Knickerbocker",
+        title: "The Pantages Theatre",
+        address: "6233 Hollywood Blvd (Near Hollywood & Vine)",
+        short: "10. The Pantages",
         timeline: [
-          { y: "1926", t: "Opens as a luxury residential hotel for the silent film community." },
-          { y: "1936", t: "Bess Houdini holds the historic 10th and final séance on the rooftop." },
-          { y: "1948", t: "Pioneering silent film director D.W. Griffith collapses in the lobby." },
-          { y: "1966", t: "Beloved 'I Love Lucy' actor William Frawley collapses outside the entrance." }
+          { y: "1930", t: "Opens as the last great movie palace erected in Hollywood during the Golden Age." },
+          { y: "1949", t: "Billionaire Howard Hughes purchases the building and sets up private offices." },
+          { y: "1953", t: "Hosts the very first televised Academy Awards ceremony in broadcast history." },
+          { y: "Present", t: "Serves as Los Angeles' premier home for major touring Broadway theatricals." }
         ],
         people: [
-          { name: "Bess Houdini", role: "Magician's Widow & Performer", bio: "Conducted ten annual Halloween séances to contact her late husband Harry, ending with her famous rooftop declaration on this building." },
-          { name: "William Frawley", role: "Actor (Fred Mertz)", bio: "Beloved television actor on I Love Lucy who resided here for years and suffered a fatal heart attack on the sidewalk out front." },
-          { name: "D.W. Griffith", role: "Silent Film Director", bio: "Pioneering director of early cinema who spent his impoverished final years living in isolation here until his death in the lobby." }
+          { name: "Alexander Pantages", role: "Vaudeville & Theater Mogul", bio: "Greek immigrant who built an empire of dozens of theaters across North America, building this flagship palace at the height of his career." },
+          { name: "Howard Hughes", role: "Aviation & Film Tycoon", bio: "Eccentric billionaire who bought the building in 1949, running his RKO film empire from a private suite on the second floor." },
+          { name: "B. Marcus Priteca", role: "Master Theater Architect", bio: "Architect who designed the sensational Zigzag Art Deco interior, utilizing geometric frosted glass, gold leaf, and dramatic sunburst chandeliers." }
         ],
         stories: [
           { 
-            h: "A Silent Era Sanctuary (1926)", 
-            p: "Turn onto Ivar Avenue to view the Renaissance Revival facade of the Knickerbocker Hotel. Opened in 1926 as a luxury residential apartment hotel, it was designed as a private, elegant retreat for the early royalty of cinema. Silent screen stars like Rudolph Valentino, Gloria Swanson, and Mae Murray lived in its multi-room suites to escape the aggressive studio press. The property featured a lavish ground-floor dining room, private subterranean speakeasy rooms, and high ceilings that offered quiet sanctuary." 
+            h: "The Last Grand Movie Palace (1930)", 
+            p: "As you approach the famous intersection of Hollywood and Vine, you will find the Pantages Theatre. Opened on June 4, 1930, by Greek-American theater magnate Alexander Pantages, it cost $1.25 million and held 2,800 seats. It holds the historical distinction of being the absolute last grand movie palace constructed in Hollywood during the Golden Age. Just as it opened, the Great Depression deepened, bringing an end to the era of palatial movie palace construction." 
           },
           { 
-            h: "The 10th & Final Houdini Séance (1936)", 
-            p: "This building is famous for one of the most celebrated paranormal events in American history. Before his death in 1926, legendary escape artist Harry Houdini gave his wife Bess a secret ten-word code phrase, promising that if communication from beyond the grave was possible, he would contact her. For nine consecutive years on Halloween night, Bess held solemn séances across the country without success. On October 31, 1936, she held the tenth and final attempt on the open rooftop of the Knickerbocker amid a sudden rainstorm." 
+            h: "Zigzag Art Deco Masterwork", 
+            p: "The auditorium and grand lobby represent the pinnacle of Zigzag Art Deco architectural design. Architect B. Marcus Priteca rejected traditional European classical motifs in favor of geometric, futuristic shapes that captured the technological energy of the 1930s. The lobby features soaring vaulted ceilings, backlit frosted glass pillars, and massive hammered gold-leaf starbursts. The ceiling resembles a celestial galaxy illuminated by custom chandeliers and hidden neon fixtures." 
           },
           { 
-            h: "The Séance Conclusion: 'The Play Is Over'", 
-            p: "Over 300 journalists, scientists, and spiritualists crowded onto the Knickerbocker roof as Bess pleaded for a sign from Houdini. When the clock struck midnight and no signal occurred, Bess turned off the spotlight illuminating Houdini's portrait. She famously announced to the assembled media: <em>'Houdini did not come through. My last hope is gone. I do not believe that Houdini can come back to me, or to anyone. The play is over. Good night, Harry.'</em>" 
+            h: "Howard Hughes' Secret Penthouse Headquarters", 
+            p: "In 1949, the eccentric aviation billionaire and film producer Howard Hughes purchased the theater to expand his control over the RKO movie studio. Hughes was notoriously reclusive and distrustful of the public eye. He converted the theater's entire second floor into his personal executive headquarters and living quarters, holding late-night movie screenings and directing corporate strategy without having to step outside into the streets." 
           },
           { 
-            h: "Golden Age Tragedies & Elvis Lore", 
-            p: "The hotel carries a dark history beneath its glamour. In 1948, pioneering film director D.W. Griffith, living in forgotten isolation, suffered a fatal cerebral hemorrhage in the main lobby. In March 1966, beloved actor William Frawley (famous as landlord Fred Mertz on <em>I Love Lucy</em>) suffered a fatal heart attack and collapsed on the sidewalk directly outside the front doors. In 1956, Elvis Presley stayed in Room 1016 while filming <em>Love Me Tender</em>, resulting in screaming crowds of teenage fans surrounding the block." 
+            h: "The First Televised Oscars (1953)", 
+            p: "The Pantages hosted the Academy Awards ceremonies from 1950 to 1960. On March 19, 1953, the venue made television history as the site of the first-ever televised Oscar ceremony. Hosted by Bob Hope, over 40 million Americans tuned in on their living room black-and-white sets to watch Hollywood glamour in real time. Today, the theater is the premier destination in Southern California for blockbuster Broadway musicals like <em>Hamilton</em> and <em>The Lion King</em>." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "Elvis's Secret Stay", d: "Elvis Presley stayed in Room 1016 in 1956 while making 'Love Me Tender'; police had to sneak him through the service alley to escape hundreds of fans." }
+          { cls: "box-tip", t: "Broadway in LA", d: "Today, the Pantages operates as the city's premier Broadway venue, hosting multi-month runs of massive musical productions like <em>Hamilton</em> and <em>Wicked</em>." }
         ]
       },
       es: {
-        title: "Hotel Hollywood Knickerbocker",
-        address: "1714 Ivar Ave",
-        short: "10. Knickerbocker",
+        title: "Teatro Pantages",
+        address: "6233 Hollywood Blvd (Cerca de Hollywood y Vine)",
+        short: "10. El Pantages",
         timeline: [
-          { y: "1926", t: "Abre como hotel residencial de lujo para la comunidad del cine mudo." },
-          { y: "1936", t: "Bess Houdini celebra su décima y última sesión espiritista en la azotea." },
-          { y: "1948", t: "El pionero del cine D.W. Griffith fallece en el vestíbulo principal." },
-          { y: "1966", t: "El actor William Frawley (I Love Lucy) se desploma en la acera exterior." }
+          { y: "1930", t: "Se inaugura como el último gran palacio de cine de la época dorada." },
+          { y: "1949", t: "El multimillonario Howard Hughes adquiere el edificio y monta sus oficinas." },
+          { y: "1953", t: "Sede de la primera transmisión televisada de los Premios Óscar." },
+          { y: "Presente", t: "Es la sede principal de los grandes musicales de Broadway en gira por LA." }
         ],
         people: [
-          { name: "Bess Houdini", role: "Viuda del Ilusionista", bio: "Realizó sesiones espiritistas en Halloween durante diez años para contactar a Harry, concluyendo en esta azotea." },
-          { name: "William Frawley", role: "Actor de TV (Fred Mertz)", bio: "Inolvidable coprotagonista de I Love Lucy que residió aquí y sufrió un infarto fulminante frente al hotel." },
-          { name: "D.W. Griffith", role: "Director de Cine Mudo", bio: "Pionero cinematográfico que pasó sus últimos años recluido en este inmueble hasta su fallecimiento en el vestíbulo." }
+          { name: "Alexander Pantages", role: "Magnate del Vodevil y Teatros", bio: "Inmigrante griego que forjó un imperio de teatros por todo el país, construyendo este palacio en la cumbre de su carrera." },
+          { name: "Howard Hughes", role: "Magnate de Aviación y Cine", bio: "Excéntrico multimillonario que compró el teatro en 1949 y dirigió su estudio de cine RKO desde un departamento en el piso superior." },
+          { name: "B. Marcus Priteca", role: "Arquitecto Teatral", bio: "Diseñador que concibió el interior Art Déco Zigzag con figuras geométricas, pan de oro y candelabros en forma de sol." }
         ],
         stories: [
           { 
-            h: "Un Refugio del Cine Mudo (1926)", 
-            p: "Caminen por Ivar Avenue para admirar la fachada neorrenacentista del Hotel Knickerbocker. Inaugurado en 1926 como hotel de apartamentos de lujo, fue diseñado como un retiro exclusivo para las estrellas de la época muda. Figuras como Rudolph Valentino, Gloria Swanson y Mae Murray vivieron en sus suites para alejarse del acoso de la prensa. Contaba con comedores privados, túneles para burlar la ley seca y un ambiente elegante que ofrecía total privacidad a la industria." 
+            h: "El Último Palacio del Cine (1930)", 
+            p: "Al acercarse a la intersección de Hollywood y Vine se encuentra el Teatro Pantages. Inaugurado el 4 de junio de 1930 por el empresario Alexander Pantages, tuvo un costo de $1.25 millones de dólares y capacidad para 2,800 personas. Ostenta la distinción histórica de ser el último gran palacio de cine construido en Hollywood durante la época dorada. Su apertura coincidió con el inicio de la Gran Depresión, poniendo fin a la construcción de estos recintos monumentales." 
           },
           { 
-            h: "La Décima Sesión de Houdini (1936)", 
-            p: "Este edificio resguarda el suceso paranormal más célebre de la historia de Los Ángeles. Antes de morir en 1926, el legendario ilusionista Harry Houdini le dio a su esposa Bess un código secreto de diez palabras, prometiendo que si el contacto con el más allá era real, se comunicaría con ella. Durante nueve años consecutivos en la noche de Halloween, Bess realizó sesiones espiritistas sin éxito. El 31 de octubre de 1936 organizó el décimo y último intento en la azotea del Knickerbocker en medio de una tormenta." 
+            h: "Una Obra Maestra del Art Déco Zigzag", 
+            p: "El vestíbulo y la sala principal representan la cúspide del estilo Art Déco en su vertiente geométrica o 'Zigzag'. El arquitecto B. Marcus Priteca evitó los estilos clásicos europeos y optó por figuras abstractas que reflejaban la velocidad de la era de las máquinas. El vestíbulo luce techos abovedados de doble altura, columnas de vidrio esmerilado con iluminación trasera y enormes soles bañados en pan de oro. El techo simula una galaxia geométrica iluminada por luces ocultas." 
           },
           { 
-            h: "El Fin de la Promesa: 'La Obra ha Terminado'", 
-            p: "Más de 300 reporteros, científicos e invitados llenaron la azotea mientras Bess esperaba una señal de su esposo. Al sonar las doce campanadas de la medianoche sin ninguna manifestación, Bess apagó la vela que alumbraba el retrato de Houdini. Dirigiéndose a la prensa, pronunció sus recordadas palabras: <em>'Houdini no se comunicó. Mi última esperanza se ha ido. No creo que pueda regresar. La obra ha terminado. Buenas noches, Harry.'</em>" 
+            h: "El Refugio Secreto de Howard Hughes", 
+            p: "En 1949, el excéntrico multimillonario de la aviación Howard Hughes compró el edificio para fortalecer su control sobre la productora RKO Pictures. Hughes, conocido por su carácter ermitaño, adaptó todo el segundo piso como su residencia particular y centro de operaciones. Desde allí organizaba proyecciones privadas a altas horas de la madrugada y administraba sus empresas sin ser visto por los fanáticos en la calle." 
           },
           { 
-            h: "Tragedias de Hollywood y el Paso de Elvis", 
-            p: "El inmueble resguarda memorias dramáticas. En 1948, el influyente cineasta D.W. Griffith, viviendo en el olvido, sufrió una hemorragia cerebral fatal en el vestíbulo. En marzo de 1966, el actor William Frawley (el entrañable Fred Mertz en <em>I Love Lucy</em>) sufrió un paro cardíaco y murió en la acera frente a la entrada. En 1956, Elvis Presley se hospedó en la suite 1016 mientras filmaba <em>Love Me Tender</em>, provocando que la policía cerrara la calle ante miles de admiradoras." 
+            h: "Los Primeros Óscar por Televisión (1953)", 
+            p: "El Pantages albergó la ceremonia de los Premios Óscar de 1950 a 1960. El 19 de marzo de 1953 hizo historia al ser el escenario de la primera transmisión televisada de los galardones. Conducida por Bob Hope, más de 40 millones de personas vieron la gala en vivo en sus pantallas en blanco y negro. Hoy en día, el teatro es el principal foro de Los Ángeles para grandes musicales de Broadway como <em>Hamilton</em> y <em>El Rey León</em>." 
           }
         ],
         callouts: [
-          { cls: "box-lore", t: "La Habitación de Elvis", d: "Elvis Presley se hospedó en la suite 1016 en 1956 durante el rodaje de 'Love Me Tender'; la policía tuvo que sacarlo por los callejones de servicio ante las multitudes." }
+          { cls: "box-tip", t: "Broadway en Los Ángeles", d: "Actualmente el Pantages es el epicentro del teatro musical en la costa oeste, presentando giras de producciones como <em>Wicked</em> y <em>Hamilton</em>." }
         ]
       }
     },
@@ -1065,7 +1065,7 @@ function initTourMap() {
           'line-cap': 'round'
         },
         paint: {
-          'line-color': '#2563eb',
+          'line-color': '#059669',
           'line-width': 3.5,
           'line-dasharray': [1.5, 1.5]
         }
@@ -1289,7 +1289,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// App Startup Sequence (Content loads first, map initializes second)
+// App Startup Sequence
 function startApp() {
   renderView(false);
   initTourMap();
