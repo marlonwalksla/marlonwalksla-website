@@ -7,64 +7,28 @@ window.MARLON_ROUTES_PRESETS = [
   {
     id: 'dtla-essential',
     title: '🏛️ DTLA Free Walking Tour',
-    duration: 'Unlimited Spots • ~2.5 hrs',
+    duration: '12 Spots • ~2.5 hrs',
     description: 'Marlon’s flagship walk through historic architecture, markets, and culture.',
     bookingUrl: 'https://www.freetour.com/los-angeles/free-tour-of-downtown-los-angeles',
     bookingLabel: '🎟️ Book Free Tour',
     spotTitles: [
-      'Walt Disney Concert Hall',
-      'The Broad',
-      'Angels Flight',
-      'Grand Central Market',
-      'Bradbury Building',
-      'City Hall',
-      'Placita Olvera'
+      'Disney Hall', 'The Broad', 'MOCA', 'Torre U.S. Bank', 
+      'Angels Flight', 'Grand Central Market', 'Bradbury Building', 
+      'Million Dollar Theater', 'Evolution Sculpture', 'City Hall', 
+      'Courthouses Row', 'Placita Olvera'
     ]
   },
   {
     id: 'hollywood-highlights',
-    title: '🎬 Hollywood & Movie Magic',
-    duration: '4 Spots • ~3.5 hrs',
-    description: 'Walk in the footsteps of cinema legends along Hollywood Boulevard.',
-    bookingUrl: 'https://wa.me/12692670410?text=Hi%20Marlon!%20I%20want%20to%20book%20the%20Hollywood%20%26%20Movie%20Magic%20Tour',
-    bookingLabel: '💬 Book via WhatsApp',
-spotTitles: [
-      'TCL Chinese Theatre',
-      'Dolby Theatre',
-      'El Capitan Theatre',
-      'The Hollywood Roosevelt Hotel',
-      'Egyptian Theatre',
-      'Musso & Frank Grill',
-      'Pantages Theatre',
-      'Capitol Records Building',
-      'Crossroads of the World'
-      'Hollywood Sign Viewpoint (Lake Hollywood Park)',
-    ]
-  },
-  {
-    id: 'beach-coastal-day',
-    title: '🌅 Beach & Coastal Sunset',
-    duration: '3 Spots • ~4.0 hrs',
-    description: 'Soak in the sun, piers, and ocean breeze along the Westside.',
-    bookingUrl: 'https://wa.me/12692670410?text=Hi%20Marlon!%20I%20want%20to%20book%20the%20Beach%20%26%20Coastal%20Sunset%20Tour',
-    bookingLabel: '💬 Book via WhatsApp',
+    title: '🎬 Hollywood Stars & Scandals',
+    duration: '12 Spots • ~2.5 hrs',
+    description: 'Explore 100+ years of cinema history, iconic movie palaces, and true crime lore.',
+    bookingUrl: '/hollywood-self-guided-tour',
+    bookingLabel: '📱 Buy Self-Guided Tour',
     spotTitles: [
-      'Santa Monica Pier',
-      'Venice Canals',
-      'Abbot Kinney Boulevard'
-    ]
-  },
-  {
-    id: 'museums-grove',
-    title: '🎨 Museums & The Grove',
-    duration: '3 Spots • ~3.0 hrs',
-    description: 'High culture meets iconic shopping and outdoor dining.',
-    bookingUrl: 'https://wa.me/12692670410?text=Hi%20Marlon!%20I%20want%20to%20book%20the%20Museums%20%26%20The%20Grove%20Tour',
-    bookingLabel: '💬 Book via WhatsApp',
-    spotTitles: [
-      'LACMA',
-      'The Farmers Market',
-      'The Grove'
+      'Hollywood Sign', 'Chinese Theatre', 'Dolby Theatre', 'El Capitan', 
+      'The Roosevelt', 'Egyptian Theatre', 'Musso & Frank', 'Knickerbocker', 
+      'Capitol Records', 'The Pantages', 'Chaplin Studios', 'Crossroads'
     ]
   }
 ];
