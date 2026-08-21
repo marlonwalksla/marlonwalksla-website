@@ -29,10 +29,11 @@ window.updateNavTabCounts = function() {
   const totalPinned = Object.keys(savedMap).length;
 
   if (modeExploreBtn) {
-    modeExploreBtn.textContent = `🧭 Explore LA (${totalExplore})`;
+    // Removed "LA" to prevent button text from wrapping on mobile
+    modeExploreBtn.textContent = `🧭 Explore (${totalExplore})`;
   }
   if (modeMyTripBtn) {
-    modeMyTripBtn.textContent = `🧳 My Trip (${totalPinned})`;
+    modeMyTripBtn.textContent = `🧳 Trip (${totalPinned})`;
   }
 };
 
