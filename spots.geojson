@@ -2207,12 +2207,12 @@
         ]
       },
       "properties": {
-        "Name": "Ovation Hollywood",
-        "Slug": "ovation-hollywood-a9734",
+        "Name": "Dolby Theatre",
+        "Slug": "dolby-theatre-hollywood",
         "City": "Hollywood",
-        "Category": "Shopping",
+        "Category": "Entertainment",
         "Tags": "shopping; photo-spot; must-see; public-transit; historic",
-        "Description": "The bustling Hollywood & Highland complex framing sweeping views of the Hollywood Sign and hosting the Dolby Theatre."
+        "Description": "The permanent home of the Academy Awards, featuring the iconic Babylon archway framing sweeping views of the Hollywood Sign."
       }
     },
     {
