@@ -124,7 +124,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23475569%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: right 6px top 50%;
@@ -242,6 +241,11 @@
   background-color: #dbeafe;
   padding: 2px 6px;
   border-radius: 10px;
+}
+
+/* Hide the 3rd badge on all tour cards automatically */
+.tour-badges .tour-badge:nth-child(3) {
+  display: none !important;
 }
 
 .hero-tour h3 {
@@ -417,50 +421,6 @@
 .marker-wrapper.is-pinned-ring .custom-emoji-marker {
   box-shadow: 0 0 0 4px #2563eb, 0 2px 10px rgba(37, 99, 235, 0.5) !important;
   border: 2px solid #ffffff !important;
-}
-
-/* ------------------------------------------------------------------------------
- * Filters map pins to only show stops included in active tour presets.
- * ------------------------------------------------------------------------------ */
-function showTourPinsOnMap() {
-  if (!window.MARLON_ROUTES_PRESETS || !window.map) return;
-
-  // 1. Gather all spot titles across all defined tours
-  const allTourTitles = [
-    ...new Set(
-      window.MARLON_ROUTES_PRESETS.flatMap(preset => preset.spotTitles || [])
-    )
-  ];
-
-  // 2. Filter Mapbox layer by spot name
-  const tourFilter = ['in', ['get', 'Name'], ['literal', allTourTitles]];
-
-  if (window.map.getLayer('unclustered-point')) {
-    window.map.setFilter('unclustered-point', tourFilter);
-  }
-  if (window.map.getLayer('spots-layer')) {
-    window.map.setFilter('spots-layer', tourFilter);
-  }
-
-  // 3. (Optional) Re-center & fit the map bounds to encompass Hollywood & DTLA
-  const bounds = new mapboxgl.LngLatBounds();
-  bounds.extend([-118.3402, 34.1016]); // Hollywood
-  bounds.extend([-118.2497, 34.0553]); // DTLA
-  window.map.fitBounds(bounds, { padding: 80, maxZoom: 14 });
-}
-
-/**
- * Resets map filters when returning to the Explore tab.
- */
-function resetMapToAllPins() {
-  if (!window.map) return;
-
-  if (window.map.getLayer('unclustered-point')) {
-    window.map.setFilter('unclustered-point', null);
-  }
-  if (window.map.getLayer('spots-layer')) {
-    window.map.setFilter('spots-layer', null);
-  }
 }
 
 .marker-wrapper.is-visited-pin .custom-emoji-marker {
