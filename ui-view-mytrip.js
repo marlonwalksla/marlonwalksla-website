@@ -321,14 +321,16 @@ function renderLogisticsView() {
       </div>
     </div>
 
-    <div class="logistics-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px;">
-      <h4 style="margin: 0 0 4px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">🚶 Tour Directions</h4>
-      <a href="https://maps.google.com/?q=Pershing+Square+Los+Angeles" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 8px 0; font-size: 0.78rem; font-weight: 800; text-align: center; color: #ffffff; background: #059669; border-radius: 6px; text-decoration: none;">🗺️ Get Directions to Tour Meetup</a>
-    </div>
-
     <div class="logistics-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
       <h4 style="margin: 0 0 4px 0; font-size: 0.85rem; color: #0f172a; font-weight: 800;">🚆 LA Metro & Transit</h4>
-      <p style="margin: 0; font-size: 0.78rem; color: #475569; line-height: 1.35;">Tap card or Apple/Google Pay works on all Metro buses and subways ($1.75 flat fare with free 2-hour transfers).</p>
+      <p style="margin: 0 0 8px 0; font-size: 0.78rem; color: #475569; line-height: 1.35;">
+        You can now pay the $1.75 flat fare directly at the turnstile using any contactless credit/debit card, Apple Pay, or Google Pay—no transit card required!
+      </p>
+      <p style="margin: 0 0 4px 0; font-size: 0.78rem; font-weight: 700; color: #1e293b;">Get the TAP LA App:</p>
+      <div style="display: flex; gap: 8px;">
+        <a href="https://apps.apple.com/us/app/tap-la/id1505839730" target="_blank" rel="noopener" style="font-size: 0.72rem; color: #2563eb; text-decoration: underline;">Download on App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=net.metro.taprider" target="_blank" rel="noopener" style="font-size: 0.72rem; color: #2563eb; text-decoration: underline;">Get it on Google Play</a>
+      </div>
     </div>
     <div class="bottom-scroll-spacer" style="height: 50px; width: 100%; flex-shrink: 0;"></div>
   `;
