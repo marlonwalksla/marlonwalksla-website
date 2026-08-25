@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.js
- * CATEGORY: MarlonWalksLA Website - Consolidated Polaroid Reviews Carousel
+ * CATEGORY: MarlonWalksLA Website - Lightweight Centered Rewind Carousel
  * ============================================================================== */
 
 window.initFlipCards = function() {
@@ -55,15 +55,18 @@ window.initFlipCards = function() {
       swiperContainer.parentNode.insertBefore(controlsBar, swiperContainer.nextSibling);
     }
 
-    // 4. Initialize Single Unified Swiper Instance
+    // 4. Initialize Zero-Clone Centered Rewind Swiper
     let touchStartX = 0;
 
     new Swiper(swiperContainer, {
       slidesPerView: 'auto',
+      centeredSlides: true,
+      rewind: true,
       spaceBetween: 24,
       grabCursor: true,
       observer: true,
       observeParents: true,
+
       navigation: {
         nextEl: controlsBar.querySelector('.swiper-custom-next'),
         prevEl: controlsBar.querySelector('.swiper-custom-prev')
@@ -73,11 +76,25 @@ window.initFlipCards = function() {
         type: 'bullets',
         clickable: true
       },
+
       breakpoints: {
-        0: { slidesPerView: 1.15, spaceBetween: 14 },
-        600: { slidesPerView: 1.6, spaceBetween: 18 },
-        992: { slidesPerView: 'auto', spaceBetween: 24 }
+        0: {
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          spaceBetween: 14
+        },
+        768: {
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          spaceBetween: 20
+        },
+        992: {
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          spaceBetween: 24
+        }
       },
+
       on: {
         touchStart(s, e) {
           touchStartX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
