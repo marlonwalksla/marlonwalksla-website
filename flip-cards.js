@@ -1,6 +1,6 @@
 /* ==============================================================================
  * FILE: flip-cards.js
- * CATEGORY: MarlonWalksLA Website - Polaroid Reviews Carousel
+ * CATEGORY: MarlonWalksLA Website - Consolidated Polaroid Reviews Carousel
  * ============================================================================== */
 
 window.initFlipCards = function() {
@@ -15,9 +15,8 @@ window.initFlipCards = function() {
     const swiperContainer = root.querySelector('.swiper');
     if (!wrapper || !swiperContainer) return;
 
-    // 1. Split Reviewer Name on line 1 and Gold Stars on line 2 (Only if stars exist in text)
-    const titles = root.querySelectorAll('.pc-title');
-    titles.forEach(titleEl => {
+    // 1. Separate Reviewer Name & Gold Stars
+    root.querySelectorAll('.pc-title').forEach(titleEl => {
       if (!titleEl.querySelector('.pc-reviewer-stars')) {
         const rawText = titleEl.innerText || titleEl.textContent || '';
         const starMatch = rawText.match(/[⭐★\u2605\u2B50]+/g);
@@ -29,11 +28,9 @@ window.initFlipCards = function() {
       }
     });
 
-    // 2. Natural organic Polaroid scatter rotation angles for idle cards
+    // 2. Set Organic Polaroid Scatter Rotation
     const rotationPatterns = [-2.8, 2.2, -1.8, 2.5, -2.2, 1.8];
-    const items = Array.from(wrapper.children);
-    
-    items.forEach((item, index) => {
+    Array.from(wrapper.children).forEach((item, index) => {
       const card = item.querySelector('.pc-card');
       if (card) {
         const rotationAngle = rotationPatterns[index % rotationPatterns.length];
@@ -41,26 +38,46 @@ window.initFlipCards = function() {
       }
     });
 
-    // 3. Swiper Drag Scroll Physics with Wider Spacing
+    // 3. Inject Navigation & Pagination Controls if missing
+    let controlsBar = root.querySelector('.swiper-custom-controls');
+    if (!controlsBar) {
+      controlsBar = document.createElement('div');
+      controlsBar.className = 'swiper-custom-controls';
+      controlsBar.innerHTML = `
+        <button class="swiper-custom-prev" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="swiper-custom-pagination"></div>
+        <button class="swiper-custom-next" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      `;
+      swiperContainer.parentNode.insertBefore(controlsBar, swiperContainer.nextSibling);
+    }
+
+    // 4. Initialize Single Unified Swiper Instance
     let touchStartX = 0;
 
     new Swiper(swiperContainer, {
       slidesPerView: 'auto',
-      spaceBetween: 32, // Increased spacing between cards
+      spaceBetween: 24,
       grabCursor: true,
-      freeMode: {
-        enabled: true,
-        sticky: false,
-        momentumBounce: false,
-      },
       observer: true,
       observeParents: true,
-
-      breakpoints: {
-        0: { spaceBetween: 20 },
-        768: { spaceBetween: 32 }
+      navigation: {
+        nextEl: controlsBar.querySelector('.swiper-custom-next'),
+        prevEl: controlsBar.querySelector('.swiper-custom-prev')
       },
-
+      pagination: {
+        el: controlsBar.querySelector('.swiper-custom-pagination'),
+        type: 'bullets',
+        clickable: true
+      },
+      breakpoints: {
+        0: { slidesPerView: 1.15, spaceBetween: 14 },
+        600: { slidesPerView: 1.6, spaceBetween: 18 },
+        992: { slidesPerView: 'auto', spaceBetween: 24 }
+      },
       on: {
         touchStart(s, e) {
           touchStartX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
@@ -68,7 +85,6 @@ window.initFlipCards = function() {
         touchMove(s, e) {
           const currentX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
           const diffX = currentX - touchStartX;
-          
           if (Math.abs(diffX) > 8) {
             const activeSlide = s.slides[s.activeIndex];
             if (activeSlide) {
