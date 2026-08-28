@@ -1,5 +1,5 @@
 /* ==========================================================================
-   tour-water.js - MarlonWalksLA LA Water History Tour
+   history-water.js - MarlonWalksLA LA Water History Tour
    Repository: marlonwalksla/marlonwalksla-website
    ========================================================================== */
 
