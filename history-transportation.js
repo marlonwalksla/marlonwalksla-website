@@ -1,5 +1,5 @@
 /* ==========================================================================
-   tour-transportation.js - MarlonWalksLA LA Transportation & Mobility Tour
+   history-transportation.js - MarlonWalksLA LA Transportation & Mobility Tour
    Repository: marlonwalksla/marlonwalksla-website
    ========================================================================== */
 
