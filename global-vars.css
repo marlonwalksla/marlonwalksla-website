@@ -152,3 +152,68 @@ body, .main-wrapper {
   color: #15803d;
   border: 1px solid #86efac;
 }
+
+/* ==============================================================================
+ * STRUCTURAL SKELETON (Free Tour, Team Tour, Guides, History)
+ * ============================================================================== */
+
+/* 1. Free & Team Tour 2-Column Grids */
+.free-tour-wrapper, .private-tour-wrapper { width: 100%; max-width: 960px; margin: 24px auto; padding: 0 20px; box-sizing: border-box; }
+.free-tour-card, .private-tour-card { background: #f8fafc; border: 2px solid var(--border-light); border-radius: 24px; padding: 36px; display: grid; grid-template-columns: 1.3fr 1.05fr; gap: 36px; align-items: center; }
+
+.tour-specs-grid, .private-specs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; padding: 18px 20px; background: #ffffff; border-radius: 16px; border: 1px solid var(--border-light); }
+.spec-item { display: flex; align-items: flex-start; gap: 10px; }
+.spec-icon { color: var(--brand-blue); flex-shrink: 0; margin-top: 2px; }
+.spec-item div { display: flex; flex-direction: column; }
+.spec-item strong { font-size: 0.86rem; color: var(--text-main); font-weight: 700; }
+.spec-item span { font-size: 0.82rem; color: var(--text-muted); line-height: 1.35; }
+
+.tour-highlights-box, .private-highlights-box { border-top: 1px solid var(--border-light); padding-top: 18px; margin-bottom: 18px; }
+.highlights-title { font-size: 0.92rem; font-weight: 800; color: var(--text-main); margin: 0 0 10px 0; }
+.highlights-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.highlights-list li { font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; line-height: 1.4; }
+.highlights-list li span { font-weight: 900; }
+.tour-highlights-box .highlights-list li span { color: var(--ernesto-green); }
+.private-highlights-box .highlights-list li span { color: var(--ernesto-blue); }
+
+.platform-proof-strip { border-top: 1px solid var(--border-light); padding-top: 16px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; width: 100%; }
+.proof-label { font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.04em; }
+.platform-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.platform-tag { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); background: #ffffff; border: 1px solid var(--border-light); padding: 3px 9px; border-radius: 6px; }
+
+.tour-action-col, .private-action-col { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+.polaroid-caption { padding: 16px 4px 2px 4px; display: flex; flex-direction: column; flex-grow: 1; }
+.polaroid-header-row, .card-top-row, .hist-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 8px; margin-bottom: 8px; }
+.polaroid-title, .card-guide-title, .hist-card-title { font-size: 1.08rem; font-weight: 900; color: var(--text-main); margin: 0; line-height: 1.25; }
+.card-guide-title, .hist-card-title { font-size: 1.3rem; }
+.polaroid-desc, .card-desc, .hist-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.48; margin: 0 0 16px 0; text-align: left; }
+.card-desc, .hist-desc { font-size: 0.9rem; }
+.action-footer-links { margin-top: 12px; display: flex; justify-content: center; width: 100%; }
+.sub-link { font-size: 0.84rem; font-weight: 600; color: var(--ernesto-blue); text-decoration: none !important; }
+.sub-link:hover { text-decoration: underline !important; }
+
+/* 2. Guides & History 2-Card Grids */
+.guides-promo-section, .history-promo-section { padding: 32px 0 20px 0; width: 100%; }
+.guides-promo-wrap, .history-promo-wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+.guides-header, .history-header { text-align: center; max-width: 720px; margin: 0 auto 36px auto; }
+
+.section-tagline { display: inline-block; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 10px; }
+.tagline-green { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+.tagline-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+
+.guides-grid, .history-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; align-items: stretch; margin-bottom: 24px; }
+.card-meta, .hist-meta { font-size: 0.82rem; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 12px; }
+.card-highlights, .hist-highlights { list-style: none; padding: 0; margin: 0 0 22px 0; flex-grow: 1; }
+.card-highlights li, .hist-highlights li { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; position: relative; padding-left: 18px; line-height: 1.45; }
+.card-highlights li::before, .hist-highlights li::before { content: "✓"; position: absolute; left: 0; font-weight: 900; }
+.card-highlights li::before { color: var(--ernesto-green-dark); }
+.hist-highlights li::before { color: var(--ernesto-blue-dark); }
+
+/* Responsive Adjustments */
+@media (max-width: 860px) {
+  .free-tour-card, .private-tour-card { grid-template-columns: 1fr; padding: 24px; gap: 28px; }
+  .tour-specs-grid, .private-specs-grid { grid-template-columns: 1fr; gap: 12px; }
+  .polaroid-header-row { flex-direction: row; }
+  .global-polaroid-img-frame { height: 230px; }
+}
