@@ -1,26 +1,154 @@
 /* ==============================================================================
- * FILE: global-vars.css
- * CATEGORY: MarlonWalksLA Website - Global Variables & Brand Colors
+ * MARLONWALKSLA - MASTER GLOBAL STYLESHEET
+ * Replaces all inline <style> blocks in individual sections
  * ============================================================================== */
 
 :root {
-  /* Core Brand Colors */
+  /* Brand Colors */
   --brand-blue: #3898ec;
-  --ernesto-blue: #2B82B9;
+  --ernesto-blue: #2563eb;
+  --ernesto-blue-dark: #1d4ed8;
   --ernesto-pink: #FF00E6; 
   --ernesto-orange: #F58220; 
-  --ernesto-green: #10b981; 
-
-  /* 8 Primary Map Categories */
-  --cat-cafes: #a855f7;         
-  --cat-dining: #ef4444;        
-  --cat-nightlife: #6366f1;     
-  --cat-landmarks: #f59e0b;     
-  --cat-arts: #ec4899;          
-  --cat-shopping: #06b6d4;      
-  --cat-parks: #10b981;         
-  --cat-entertainment: #2563eb; 
+  --ernesto-green: #22c55e; 
+  --ernesto-green-dark: #16a34a;
+  
+  /* Global UI Variables */
+  --bg-yellow: #fffdf0; /* The cohesive background color */
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-light: #e2e8f0;
+  --border-hover: #94a3b8;
+  
+  /* Standardized Shadows */
+  --shadow-base: 0 10px 25px -4px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 22px 42px -6px rgba(15, 23, 42, 0.15);
 }
 
-/* Hide Webflow Empty States */
-.w-dyn-empty { display: none !important; }
+/* 1. GLOBAL BACKGROUND */
+body, .main-wrapper {
+  background-color: var(--bg-yellow);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* 2. GLOBAL TYPOGRAPHY (Replaces .tour-main-heading, .private-main-heading, etc.) */
+.section-heading {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--text-main);
+  line-height: 1.2;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+}
+
+.section-lead-text {
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0 0 24px 0;
+}
+
+/* 3. THE MASTER POLAROID CARD */
+/* Replaces .polaroid-frame and .guide-polaroid-card in all sections */
+.global-polaroid {
+  background: #ffffff !important;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 14px 14px 20px 14px;
+  box-shadow: var(--shadow-base);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.global-polaroid:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+.global-polaroid-img-frame {
+  width: 100%;
+  height: 250px; /* Standardized height */
+  background: #f8fafc;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.global-polaroid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.global-polaroid:hover .global-polaroid-img {
+  transform: scale(1.03);
+}
+
+/* 4. INTENT-BASED BUTTONS */
+.btn-global {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 18px;
+  font-weight: 800;
+  font-size: 0.98rem;
+  border-radius: 10px;
+  text-decoration: none !important;
+  transition: background 0.2s ease, transform 0.15s ease;
+  box-sizing: border-box;
+}
+
+/* Primary = Revenue/Booking (Green) */
+.btn-primary {
+  background: var(--ernesto-green);
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+}
+.btn-primary:hover {
+  background: var(--ernesto-green-dark);
+  transform: translateY(-1px);
+}
+
+/* Secondary = Information/Story (Blue) */
+.btn-secondary {
+  background: var(--ernesto-blue);
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+.btn-secondary:hover {
+  background: var(--ernesto-blue-dark);
+  transform: translateY(-1px);
+}
+
+/* 5. UNIFIED PILL BADGES */
+.global-badge {
+  font-size: 0.74rem;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Info Badges (Blue) */
+.badge-info {
+  background: #eff6ff;
+  color: var(--ernesto-blue);
+  border: 1px solid #bfdbfe;
+}
+
+/* Price/Booking Badges (Green) */
+.badge-price {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
