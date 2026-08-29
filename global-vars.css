@@ -377,3 +377,172 @@ body, .main-wrapper {
     gap: 12px;
   }
 }
+
+/* ==============================================================================
+ * HERO SECTION (Mascot Constraints, Blue Rotator & Subtitle Spacing)
+ * ============================================================================== */
+
+.hero-left-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 1. Locked Mascot Sizing (Fixes Enlarged Images) */
+.ernesto-feature-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  max-height: 120px;
+  margin: 0 auto 8px auto;
+}
+
+.ernesto-dynamic-img {
+  height: 120px !important;
+  max-height: 120px !important;
+  width: auto !important;
+  max-width: 140px !important;
+  object-fit: contain;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+/* 2. Rotating Title & Blue Middle Word */
+.hero-rotating-title {
+  text-align: center;
+  font-size: clamp(2.35rem, 4.3vw, 3.35rem);
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+  line-height: 1.12;
+  white-space: nowrap;
+}
+
+.rotator-text {
+  display: inline-block;
+  color: var(--ernesto-blue) !important;
+  min-width: 0;
+  letter-spacing: -0.01em;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.rotator-text.fade-out,
+.ernesto-dynamic-img.fade-out {
+  opacity: 0;
+  transform: translateY(-6px) scale(0.95);
+}
+
+.rotator-text.fade-in,
+.ernesto-dynamic-img.fade-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 3. Subtitle Typography & Alignment */
+.hero-tagline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  margin: 0 0 24px 0;
+}
+
+.tagline-lead {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.tagline-sub {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.005em;
+}
+
+/* 4. Value List & Icons */
+.hero-value-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.hero-value-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.94rem;
+  color: #334155;
+  line-height: 1.48;
+}
+
+.service-icon-box {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  background: #f1f5f9;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ernesto-blue);
+  margin-top: 1px;
+}
+
+.service-svg {
+  width: 15px;
+  height: 15px;
+}
+
+.hero-value-list strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* Mobile & Tablet Layout Adjustments */
+@media (max-width: 991px) {
+  .hero-left-wrapper {
+    margin: 0 auto 36px auto !important;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ernesto-feature-wrap {
+    height: 100px !important;
+    max-height: 100px !important;
+    margin-bottom: 6px !important;
+  }
+  .ernesto-dynamic-img {
+    height: 100px !important;
+    max-height: 100px !important;
+  }
+  .hero-rotating-title {
+    font-size: clamp(2.1rem, 8vw, 2.5rem) !important;
+  }
+  .tagline-lead {
+    font-size: 1.08rem !important;
+  }
+  .tagline-sub {
+    font-size: 0.88rem !important;
+  }
+  .hero-tagline {
+    margin-bottom: 20px !important;
+  }
+  .hero-value-list {
+    gap: 12px;
+  }
+}
