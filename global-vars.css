@@ -546,3 +546,35 @@ body, .main-wrapper {
     gap: 12px;
   }
 }
+
+/* ==============================================================================
+ * HERO LANGUAGE TOGGLE PILL
+ * ============================================================================== */
+.hero-lang-toggle-wrap {
+  display: inline-flex;
+  align-items: center;
+  background: #f1f5f9;
+  border: 1px solid var(--border-light);
+  border-radius: 30px;
+  padding: 3px;
+  margin: 0 auto 14px auto;
+  gap: 2px;
+}
+
+.hero-lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hero-lang-btn.is-active {
+  background: var(--ernesto-blue);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
