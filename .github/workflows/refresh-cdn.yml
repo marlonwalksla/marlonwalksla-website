@@ -1,0 +1,24 @@
+# Refreshes jsDelivr's copy of the site files after every push to main,
+# so changes show up on marlonwalksla.com within a minute or two
+# instead of waiting up to 12 hours for the cache to expire.
+name: Refresh jsDelivr cache
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # lets you run it by hand from the Actions tab
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Purge every site file from jsDelivr
+        run: |
+          base="https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main"
+          for f in *.js *.css *.geojson; do
+            [ -e "$f" ] || continue
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$base/$f")
+            echo "$code  $f"
+          done

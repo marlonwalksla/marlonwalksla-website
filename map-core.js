@@ -59,8 +59,7 @@ window.initMapEngine = async function() {
    * ========================================================= */
   let geojsonData = null;
   try {
-    let res = await fetch('https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/spots.geojson');
-    if (!res.ok) res = await fetch('https://raw.githack.com/marlonwalksla/marlonwalksla-website/main/MarlonWalksLA%20-%20Spots.geojson');
+    const res = await fetch('https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/spots.geojson');
     if (res.ok) geojsonData = await res.json();
   } catch (err) { 
     console.error('Failed to load GeoJSON dataset:', err); 
