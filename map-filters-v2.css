@@ -47,6 +47,11 @@
   outline: 2px solid var(--ernesto-orange, #F58220); outline-offset: 2px;
 }
 
+.mw-place-row { padding-left: 2px; }
+.mw-chip-sub { font-size: 12.5px; padding: 5px 10px; background: #f8fafc; }
+.mw-chip-sub[aria-pressed="true"] { background: var(--ernesto-orange, #F58220); border-color: var(--ernesto-orange, #F58220); color: #fff; }
+.mw-n { font-size: 11px; opacity: .7; font-variant-numeric: tabular-nums; margin-left: 2px; }
+
 .mw-toggle-row { display: flex; gap: 6px; flex-wrap: wrap; }
 .mw-toggle[aria-pressed="true"] { background: var(--ernesto-green-dark, #16a34a); border-color: var(--ernesto-green-dark, #16a34a); }
 

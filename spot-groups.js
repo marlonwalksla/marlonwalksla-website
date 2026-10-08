@@ -2,42 +2,42 @@
  * FILE: spot-groups.js
  * CATEGORY: MarlonWalksLA Website - Parts of Town & Moods (map filter groups)
  *
- * Groups the 40 neighborhoods in spots.geojson into a few "parts of town",
- * and the 70+ tags into a few "moods". Edit the lists below to regroup;
- * the map filters, quiz and area links all read from here.
+ * Locations are the real place names in spots.geojson (the "City" field).
+ * Regions only help people find a location faster: tap a region, then its
+ * locations appear. Add a new location by adding it to a region's list.
+ * Moods group the 70+ tags. The map filters, quiz and links all read from here.
  * ============================================================================== */
 
 window.MARLON_GROUPS = {
+  /* Regions (navigation only). Order = order shown. */
   areas: [
     { id: 'downtown', en: 'Downtown', es: 'Centro',
       cities: ['DTLA', 'Arts District', 'Chinatown', 'Little Tokyo', 'Lincoln Heights'] },
     { id: 'hollywood', en: 'Hollywood', es: 'Hollywood',
-      cities: ['Hollywood', 'East Hollywood', 'North Hollywood', 'Burbank'] },
-    { id: 'weho', en: 'West Hollywood', es: 'West Hollywood',
-      cities: ['West Hollywood'] },
-    { id: 'beverlyhills', en: 'Beverly Hills', es: 'Beverly Hills',
-      cities: ['Beverly Hills', 'Century City'] },
-    { id: 'eastside', en: 'Echo Park & Silver Lake', es: 'Echo Park y Silver Lake',
-      cities: ['Echo Park', 'Silver Lake', 'Los Feliz'] },
-    { id: 'midcity', en: 'Koreatown & Mid-City', es: 'Koreatown y Mid-City',
-      cities: ['Koreatown', 'Mid-City', 'Miracle Mile', 'Fairfax'] },
-    { id: 'santamonica', en: 'Santa Monica', es: 'Santa Monica',
-      cities: ['Santa Monica'] },
-    { id: 'venice', en: 'Venice', es: 'Venice',
-      cities: ['Venice'] },
-    { id: 'malibu', en: 'Malibu', es: 'Malibu',
-      cities: ['Malibu'] },
-    { id: 'westside', en: 'Westwood & Culver City', es: 'Westwood y Culver City',
-      cities: ['Westwood', 'Brentwood', 'Sawtelle', 'Culver City'] },
-    { id: 'inglewood', en: 'Inglewood', es: 'Inglewood',
-      cities: ['Inglewood'] },
-    { id: 'southbay', en: 'South Bay beaches', es: 'Playas del South Bay',
-      cities: ['Playa del Rey', 'Manhattan Beach', 'Hermosa Beach', 'Redondo Beach', 'Rancho Palos Verdes'] },
+      cities: ['Hollywood', 'West Hollywood', 'East Hollywood'] },
+    { id: 'eastside', en: 'Eastside', es: 'Eastside',
+      cities: ['Echo Park', 'Silver Lake', 'Los Feliz', 'Highland Park'] },
+    { id: 'midcity', en: 'Mid-City & Beverly Hills', es: 'Mid-City y Beverly Hills',
+      cities: ['Koreatown', 'Mid-City', 'Miracle Mile', 'Fairfax', 'Beverly Hills', 'Century City'] },
+    { id: 'westside', en: 'Westside & Malibu', es: 'Westside y Malibu',
+      cities: ['Santa Monica', 'Venice', 'Malibu', 'Culver City', 'Westwood', 'Brentwood', 'Sawtelle'] },
+    { id: 'valley', en: 'The Valley & Glendale', es: 'El Valle y Glendale',
+      cities: ['North Hollywood', 'Burbank', 'Glendale'] },
+    { id: 'southbay', en: 'South Bay & Inglewood', es: 'South Bay e Inglewood',
+      cities: ['Inglewood', 'Playa del Rey', 'Manhattan Beach', 'Hermosa Beach', 'Redondo Beach', 'Rancho Palos Verdes'] },
     { id: 'longbeach', en: 'Long Beach', es: 'Long Beach',
       cities: ['Long Beach'] },
-    { id: 'pasadena', en: 'Pasadena & Northeast LA', es: 'Pasadena y el noreste',
-      cities: ['Pasadena', 'Highland Park', 'Glendale', 'San Marino', 'La Cañada Flintridge', 'Arcadia', 'San Gabriel', 'Alhambra'] }
+    { id: 'pasadena', en: 'Pasadena & SGV', es: 'Pasadena y SGV',
+      cities: ['Pasadena', 'San Marino', 'La Cañada Flintridge', 'Arcadia', 'San Gabriel', 'Alhambra'] }
   ],
+
+  /* Shorter or friendlier display names for some locations */
+  placeLabels: { 'North Hollywood': 'NoHo', 'La Cañada Flintridge': 'La Cañada', 'Rancho Palos Verdes': 'Palos Verdes' },
+
+  placeId: function(city) {
+    return String(city || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  },
+  placeLabel: function(city) { return this.placeLabels[city] || city; },
 
   moods: [
     { id: 'views', en: 'Views & sunsets', es: 'Vistas y atardeceres', emoji: '🌅',
@@ -56,7 +56,7 @@ window.MARLON_GROUPS = {
       tags: ['entertainment', 'shopping', 'vintage-thrifting'], categories: ['Entertainment', 'Shopping'] }
   ],
 
-  /* Returns the area id for a spot's City, or null */
+  /* Returns the region id for a spot's City, or null */
   areaOf: function(city) {
     const c = (city || '').trim();
     const a = this.areas.find(area => area.cities.includes(c));
