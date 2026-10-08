@@ -3359,12 +3359,30 @@
         ]
       },
       "properties": {
-        "Name": "Elysian Park & Angel's Point",
+        "Name": "Elysian Park",
         "Slug": "elysian-park-angel-s-point-eb317",
         "City": "Echo Park",
         "Category": "Parks",
-        "Tags": "free-budget; photo-spot; dog-friendly; romantic; local-favorite",
-        "Description": "LA's oldest public park offering panoramic skyline views, quiet trails, and palm tree groves."
+        "Tags": "free-budget; dog-friendly; local-favorite; hiking",
+        "Description": "LA's oldest public park, with quiet trails, palm groves and the hills around Dodger Stadium."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.2455,
+          34.0806
+        ]
+      },
+      "properties": {
+        "Name": "Angels Point",
+        "Slug": "angels-point-elysian-park",
+        "City": "Echo Park",
+        "Category": "Parks",
+        "Tags": "free-budget; photo-spot; romantic; local-favorite; sunset",
+        "Description": "A hilltop lookout in Elysian Park with views of the DTLA skyline, Dodger Stadium and, on clear days, the Hollywood Sign."
       }
     },
     {
