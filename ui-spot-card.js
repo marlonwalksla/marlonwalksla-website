@@ -30,10 +30,6 @@ window.MarlonSpotCard = {
       ? spotData.gmapsUrl 
       : `https://www.google.com/maps/dir/?api=1&destination=${spotData.lat},${spotData.lng}`;
 
-    const bookTourSubject = encodeURIComponent(`Walking Tour Inquiry - ${spotData.title}`);
-    const bookTourBody = encodeURIComponent(`Hi Marlon,\n\nI'm interested in booking a tour that includes ${spotData.title}!\n\nPreferred Date:\nParty Size:\n\nThanks!`);
-    const bookTourMailto = `mailto:marlonwalksla@gmail.com?subject=${bookTourSubject}&body=${bookTourBody}`;
-
     container.innerHTML = `
       <div class="polaroid-caption-card" data-id="${spotData.id}">
         <!-- ROW 1: BACK BUTTON (LEFT) & CATEGORY BADGE (RIGHT) -->
@@ -70,13 +66,6 @@ window.MarlonSpotCard = {
           <button type="button" class="card-pill-btn toggle-visited-btn ${isVisited ? 'is-active' : ''}" data-id="${spotData.id}">
             ${isVisited ? '✓ Visited' : '✓ Visited'}
           </button>
-        </div>
-
-        <!-- PRIMARY CTA: BOOK TOUR -->
-        <div class="polaroid-caption-footer">
-          <a href="${bookTourMailto}" class="polaroid-directions-btn primary-cta book-tour-cta">
-            🎟️ Book Tour
-          </a>
         </div>
       </div>
     `;
