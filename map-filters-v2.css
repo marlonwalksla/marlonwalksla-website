@@ -1,0 +1,82 @@
+/* ==============================================================================
+ * FILE: map-filters-v2.css
+ * CATEGORY: MarlonWalksLA Website - Quick filter chips + "Help me choose" quiz
+ * Pairs with ui-view-explore-v2.js. Uses brand tokens from global-vars.css.
+ * ============================================================================== */
+
+.mw-quick-filters { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.mw-quick-filters [hidden], .mw-quiz[hidden] { display: none !important; }
+
+.mw-quiz-btn {
+  align-self: stretch;
+  border: 2px dashed var(--ernesto-pink, #FF00E6);
+  background: #fff;
+  color: var(--text-main, #0f172a);
+  font: inherit; font-size: 14px; font-weight: 800;
+  padding: 9px 12px; border-radius: 12px; cursor: pointer;
+}
+.mw-quiz-btn:hover { background: #fff5fe; }
+
+.mw-filter-group { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.mw-filter-label {
+  font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-muted, #475569);
+}
+
+/* Chips scroll sideways on narrow screens instead of wrapping into a tall block */
+.mw-chip-row {
+  display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.mw-chip-row::-webkit-scrollbar { display: none; }
+.mw-chip-row.mw-wrap { flex-wrap: wrap; overflow: visible; }
+
+.mw-chip {
+  flex: 0 0 auto;
+  font: inherit; font-size: 13px; font-weight: 600; line-height: 1.2;
+  padding: 6px 11px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--border-light, #e2e8f0);
+  background: #fff; color: var(--text-main, #0f172a);
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.mw-chip:hover { border-color: var(--border-hover, #94a3b8); }
+.mw-chip[aria-pressed="true"] {
+  background: var(--ernesto-blue, #2563eb); border-color: var(--ernesto-blue, #2563eb); color: #fff;
+}
+.mw-chip:focus-visible, .mw-quiz-btn:focus-visible, .mw-primary:focus-visible, .mw-link:focus-visible, .mw-reset:focus-visible {
+  outline: 2px solid var(--ernesto-orange, #F58220); outline-offset: 2px;
+}
+
+.mw-toggle-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.mw-toggle[aria-pressed="true"] { background: var(--ernesto-green-dark, #16a34a); border-color: var(--ernesto-green-dark, #16a34a); }
+
+.mw-result-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.mw-result-count { font-size: 13px; font-weight: 700; color: var(--text-muted, #475569); font-variant-numeric: tabular-nums; }
+.mw-reset {
+  font: inherit; font-size: 12px; font-weight: 700; color: var(--ernesto-blue, #2563eb);
+  background: none; border: none; cursor: pointer; padding: 4px 2px;
+}
+
+/* While the quiz is open, show only the quiz */
+.mw-quick-filters.is-quizzing > :not(.mw-quiz) { display: none !important; }
+
+/* Quiz panel */
+.mw-quiz {
+  border: 1px solid var(--border-light, #e2e8f0); border-radius: 14px; background: #fff;
+  padding: 14px; box-shadow: var(--shadow-base, 0 10px 25px -4px rgba(15,23,42,.08));
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mw-quiz-step { font-size: 11px; font-weight: 800; color: var(--ernesto-pink, #FF00E6); letter-spacing: .06em; }
+.mw-quiz-q { font-size: 17px; font-weight: 900; color: var(--text-main, #0f172a); line-height: 1.25; }
+.mw-quiz-hint { font-size: 12px; color: var(--text-muted, #475569); margin-top: -6px; }
+.mw-quiz-nav { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.mw-primary {
+  font: inherit; font-size: 14px; font-weight: 800; color: #fff; background: var(--ernesto-blue, #2563eb);
+  border: none; border-radius: 10px; padding: 8px 14px; cursor: pointer; margin-left: auto;
+}
+.mw-primary:hover { background: var(--ernesto-blue-dark, #1d4ed8); }
+.mw-link { font: inherit; font-size: 13px; font-weight: 700; color: var(--text-muted, #475569); background: none; border: none; cursor: pointer; padding: 4px 0; }
+
+.mw-empty { padding: 12px; color: #64748b; font-size: .85rem; }
+
+@media (prefers-reduced-motion: reduce) { .mw-chip { transition: none; } }
