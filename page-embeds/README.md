@@ -1,0 +1,13 @@
+# Page embed copies (Oct 14, 2026 drafts)
+
+Copies of the HTML embed code pasted into Webflow for the new pages. Webflow is the live
+source; these are for reference and for re-pasting. Styles come from `tour-pages.css`.
+Red `.tp-todo` text marks info Marlon still needs to fill in.
+
+| File | Webflow page | Where it sits |
+|---|---|---|
+| free-en.html | /free-walking-tour-los-angeles | Whole page body |
+| free-es.html | /free-tour-los-angeles-espanol | Whole page body |
+| team-top.html, team-form-intro.html, team-bottom.html | /team-building-walking-tour-los-angeles | Above the form, left of the form, below the form |
+| private-top.html, private-form-intro.html, private-bottom.html | /private-tours-los-angeles | Above the form, left of the form, below the form |
+| about.html | /about | Whole page body |
