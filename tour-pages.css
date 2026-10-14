@@ -1,0 +1,127 @@
+/* ==============================================================================
+ * FILE: tour-pages.css
+ * MarlonWalksLA - shared styles for the dedicated tour pages (Oct 2026)
+ * Pages: /free-walking-tour-los-angeles, /free-tour-los-angeles-espanol,
+ *        /team-building-walking-tour-los-angeles, /private-tours-los-angeles, /about
+ * Uses the brand tokens from global-vars.css.
+ * .tp-todo = RED placeholder: info Marlon still needs to fill in. Remove when done.
+ * ============================================================================== */
+
+.tp { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text-main, #0f172a); }
+.tp *, .tp *::before, .tp *::after { box-sizing: border-box; }
+.tp-wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+.tp-section { padding: 56px 0; }
+.tp-section + .tp-section { padding-top: 8px; }
+.tp-bg-book { background: #FFF3D6; }
+.tp-bg-team { background: #E8F0FF; }
+.tp-bg-private { background: #FCEAF3; }
+.tp-bg-white { background: #ffffff; }
+
+/* ---------- Red placeholders (to fill in) ---------- */
+.tp-todo { color: #c81e1e !important; background: #fde8e8; border: 1px dashed #f05252; border-radius: 6px; padding: 0 6px; font-weight: 700; }
+.tp-todo-box { color: #c81e1e; background: #fde8e8; border: 2px dashed #f05252; border-radius: 16px; padding: 18px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 160px; line-height: 1.4; }
+.tp-draft-bar { background: #c81e1e; color: #fff; text-align: center; font-size: 0.85rem; font-weight: 700; padding: 8px 16px; }
+
+/* ---------- Hero ---------- */
+.tp-hero { padding: 56px 0 40px; }
+.tp-hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: center; }
+.tp-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 50px; margin-bottom: 14px; background: #ffffff; color: #b45309; }
+.tp-eyebrow.blue { color: #1d4ed8; background: #dbeafe; }
+.tp-eyebrow.pink { color: #be185d; background: #fce7f3; }
+.tp-h1 { font-size: clamp(2rem, 4.6vw, 3.1rem); line-height: 1.08; font-weight: 900; letter-spacing: -0.02em; margin: 0 0 14px; }
+.tp-lead { font-size: 1.08rem; line-height: 1.55; color: var(--text-muted, #475569); margin: 0 0 18px; max-width: 560px; }
+.tp-rating { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.95rem; margin-bottom: 18px; color: #0f172a; }
+.tp-rating .stars { color: #f59e0b; letter-spacing: 2px; }
+.tp-rating .muted { font-weight: 600; color: var(--text-muted, #475569); }
+.tp-chips { list-style: none; padding: 0; margin: 0 0 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+.tp-chips li { font-size: 0.9rem; font-weight: 700; color: #334155; background: #ffffff; border: 1.5px solid #f3e3b5; padding: 7px 14px; border-radius: 50px; }
+.tp-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.tp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 22px; border-radius: 10px; font-weight: 800; font-size: 1rem; text-decoration: none !important; transition: transform 0.15s ease, background 0.2s ease; }
+.tp-btn:hover { transform: translateY(-1px); }
+.tp-btn.green { background: var(--ernesto-green, #22c55e); color: #fff !important; box-shadow: 0 4px 12px rgba(34,197,94,0.25); }
+.tp-btn.green:hover { background: var(--ernesto-green-dark, #16a34a); }
+.tp-btn.blue { background: var(--ernesto-blue, #2563eb); color: #fff !important; }
+.tp-btn.blue:hover { background: var(--ernesto-blue-dark, #1d4ed8); }
+.tp-btn.ghost { background: #ffffff; color: #0f172a !important; border: 1.5px solid var(--border-light, #e2e8f0); }
+.tp-hero-visual { position: relative; }
+.tp-polaroid { background: #fff; padding: 12px 12px 18px; border-radius: 6px; box-shadow: 0 12px 36px rgba(0,0,0,0.12); transform: rotate(-2deg); }
+.tp-polaroid img { width: 100%; height: 300px; object-fit: cover; display: block; border-radius: 3px; }
+.tp-polaroid .cap { font-size: 0.9rem; font-weight: 700; color: #334155; text-align: center; margin-top: 10px; }
+.tp-ernesto { position: absolute; width: 120px; right: -14px; bottom: -26px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12)); }
+
+/* ---------- Headings / text ---------- */
+.tp-h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; font-weight: 900; letter-spacing: -0.01em; margin: 0 0 10px; }
+.tp-h3 { font-size: 1.12rem; font-weight: 900; margin: 0 0 6px; }
+.tp-sub { font-size: 1rem; line-height: 1.55; color: var(--text-muted, #475569); margin: 0 0 26px; max-width: 680px; }
+.tp-center { text-align: center; }
+.tp-center .tp-sub { margin-left: auto; margin-right: auto; }
+.tp p { line-height: 1.6; }
+
+/* ---------- Cards / grids ---------- */
+.tp-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.tp-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tp-card { background: #ffffff; border: 1px solid var(--border-light, #e2e8f0); border-radius: 18px; padding: 22px; box-shadow: var(--shadow-base, 0 10px 25px -4px rgba(15,23,42,0.08)); }
+.tp-card p { margin: 0; color: var(--text-muted, #475569); font-size: 0.95rem; }
+.tp-card .icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
+.tp-card .price { margin-top: 12px; font-weight: 800; color: #0f172a; }
+.tp-card ul { margin: 10px 0 0; padding-left: 18px; color: var(--text-muted, #475569); font-size: 0.93rem; line-height: 1.55; }
+
+/* ---------- Route / timeline ---------- */
+.tp-route { list-style: none; counter-reset: stop; padding: 0; margin: 0; display: grid; gap: 12px; }
+.tp-route li { counter-increment: stop; display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; background: #fff; border: 1px solid var(--border-light, #e2e8f0); border-radius: 14px; padding: 14px 16px; }
+.tp-route li::before { content: counter(stop); width: 32px; height: 32px; border-radius: 50%; background: var(--ernesto-blue, #2563eb); color: #fff; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.tp-route strong { display: block; font-size: 1rem; }
+.tp-route span { color: var(--text-muted, #475569); font-size: 0.92rem; line-height: 1.5; }
+.tp-route.time li { grid-template-columns: 86px 1fr; }
+.tp-route.time li::before { content: none; }
+.tp-route.time .when { font-weight: 900; color: var(--ernesto-blue, #2563eb); font-size: 0.9rem; padding-top: 2px; }
+
+/* ---------- Reviews ---------- */
+.tp-reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.tp-review { background: #fff; border-radius: 16px; padding: 20px; border: 1px solid var(--border-light, #e2e8f0); display: flex; flex-direction: column; gap: 10px; }
+.tp-review .stars { color: #f59e0b; letter-spacing: 2px; font-size: 0.95rem; }
+.tp-review q { quotes: "\201C" "\201D"; font-size: 0.97rem; line-height: 1.55; color: #1e293b; }
+.tp-review .tr { font-size: 0.85rem; color: var(--text-muted, #475569); font-style: italic; }
+.tp-review .who { margin-top: auto; font-size: 0.85rem; font-weight: 800; color: #475569; }
+.tp-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 0 26px; }
+.tp-stat { background: #fff; border: 1.5px solid var(--border-light, #e2e8f0); border-radius: 50px; padding: 8px 16px; font-size: 0.9rem; font-weight: 800; }
+.tp-stat span { color: #f59e0b; }
+
+/* ---------- Ernesto game ---------- */
+.tp-ernesto-row { display: grid; grid-template-columns: 180px 1fr; gap: 28px; align-items: center; }
+.tp-ernesto-row img { width: 180px; height: auto; }
+
+/* ---------- FAQ ---------- */
+.tp-faq { display: grid; gap: 10px; max-width: 820px; margin: 0 auto; }
+.tp-faq details { background: #fff; border: 1px solid var(--border-light, #e2e8f0); border-radius: 14px; padding: 16px 20px; }
+.tp-faq summary { font-weight: 800; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.tp-faq summary::-webkit-details-marker { display: none; }
+.tp-faq summary::after { content: "+"; font-weight: 900; color: var(--ernesto-blue, #2563eb); }
+.tp-faq details[open] summary::after { content: "\2212"; }
+.tp-faq details p { margin: 10px 0 0; color: var(--text-muted, #475569); }
+
+/* ---------- Meeting point ---------- */
+.tp-meet { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+.tp-meet iframe { width: 100%; height: 280px; border: 0; border-radius: 16px; }
+
+/* ---------- Calendar ---------- */
+.tp-cal { width: 100%; min-height: 460px; background: #fff; border-radius: 18px; border: 1px solid #f3e3b5; overflow: hidden; }
+.tp-lang-note { text-align: center; margin-top: 12px; font-weight: 700; font-size: 0.92rem; }
+.tp-lang-note a { color: var(--ernesto-blue, #2563eb); }
+
+/* ---------- Final CTA ---------- */
+.tp-cta { background: #0f172a; color: #fff; border-radius: 24px; padding: 40px 28px; text-align: center; }
+.tp-cta .tp-h2 { color: #fff; }
+.tp-cta .tp-sub { color: #cbd5e1; margin-left: auto; margin-right: auto; }
+.tp-cta .tp-btns { justify-content: center; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .tp-hero-grid, .tp-meet, .tp-ernesto-row { grid-template-columns: 1fr; }
+  .tp-grid-3, .tp-reviews { grid-template-columns: 1fr; }
+  .tp-grid-2 { grid-template-columns: 1fr; }
+  .tp-ernesto { width: 90px; right: 4px; }
+  .tp-ernesto-row img { width: 140px; margin: 0 auto; }
+  .tp-section { padding: 40px 0; }
+  .tp-hero { padding: 36px 0 28px; }
+}
