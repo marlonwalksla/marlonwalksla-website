@@ -8,6 +8,9 @@
  * ============================================================================== */
 
 .tp { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text-main, #0f172a); }
+/* Oct 15: regular-weight body text (the site default was too bold) and links that look like links */
+.tp p, .tp li, .tp q, .tp details p { font-weight: 400; }
+.tp a:not(.tp-btn) { color: var(--ernesto-blue, #2563eb); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .tp *, .tp *::before, .tp *::after { box-sizing: border-box; }
 .tp-wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
 .tp-section { padding: 56px 0; }
@@ -47,7 +50,7 @@
 .tp-polaroid { background: #fff; padding: 12px 12px 18px; border-radius: 6px; box-shadow: 0 12px 36px rgba(0,0,0,0.12); transform: rotate(-2deg); }
 .tp-polaroid img { width: 100%; height: 300px; object-fit: cover; display: block; border-radius: 3px; }
 .tp-polaroid .cap { font-size: 0.9rem; font-weight: 700; color: #334155; text-align: center; margin-top: 10px; }
-.tp-ernesto { position: absolute; width: 120px; right: -14px; bottom: -26px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12)); }
+.tp-ernesto { position: absolute; width: 120px; right: -22px; top: -46px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12)); }
 
 /* ---------- Headings / text ---------- */
 .tp-h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; font-weight: 900; letter-spacing: -0.01em; margin: 0 0 10px; }
@@ -120,8 +123,14 @@
   .tp-hero-grid, .tp-meet, .tp-ernesto-row { grid-template-columns: 1fr; }
   .tp-grid-3, .tp-reviews { grid-template-columns: 1fr; }
   .tp-grid-2 { grid-template-columns: 1fr; }
-  .tp-ernesto { width: 90px; right: 4px; }
+  .tp-ernesto { width: 90px; right: -6px; top: -34px; }
   .tp-ernesto-row img { width: 140px; margin: 0 auto; }
   .tp-section { padding: 40px 0; }
   .tp-hero { padding: 36px 0 28px; }
 }
+
+/* Oct 15: animated route sections and the private-tour price row */
+.tp-route-sec { background: linear-gradient(180deg, #eef4ff 0%, #ffffff 100%); }
+.tp-route-sec .ra { margin-top: 18px; }
+.tp-price-row .price { font-size: 2.2rem; font-weight: 900; color: var(--ernesto-blue, #2563eb); margin: 4px 0 6px; }
+.tp-price-row p { margin: 0; color: #475569; }
