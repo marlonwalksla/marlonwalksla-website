@@ -1,0 +1,13 @@
+{ "mode": "drive",
+  "areas": [
+    {"name": "Hollywood Hills", "lat": 34.1345, "lng": -118.3290},
+    {"name": "Griffith Park", "lat": 34.1300, "lng": -118.2950},
+    {"name": "Hollywood", "lat": 34.0985, "lng": -118.3290},
+    {"name": "Miracle Mile", "lat": 34.0560, "lng": -118.3470}
+  ],
+  "stops": [
+    {"time": "12:30 PM", "name": "Hollywood Sign viewpoint", "desc": "Photos with the sign from the best angle. Marlon picks you up at your hotel first.", "lat": 34.1269, "lng": -118.3223},
+    {"time": "2:00 PM", "name": "Griffith Observatory", "desc": "Views over all of Los Angeles.", "lat": 34.1184, "lng": -118.3004},
+    {"time": "4:00 PM", "name": "The Grove", "desc": "Shopping and an early dinner at the Farmers Market next door.", "lat": 34.0720, "lng": -118.3576},
+    {"time": "6:30 PM", "name": "Urban Light", "desc": "The lamp posts light up after sunset. Then Marlon drops you off at your hotel.", "lat": 34.0630, "lng": -118.3593}
+  ] }
