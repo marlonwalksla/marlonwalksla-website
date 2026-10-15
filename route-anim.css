@@ -2,11 +2,13 @@
  * FILE: route-anim.css
  * MarlonWalksLA - styles for the animated route map (route-anim.js). Oct 2026.
  * ============================================================================== */
-.ra { container-type: inline-size; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; }
+.ra { container-type: inline-size; overflow-x: clip; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; }
 .ra *, .ra *::before, .ra *::after { box-sizing: border-box; }
 .ra-wrap { display: grid; grid-template-columns: 1.35fr 1fr; gap: 22px; align-items: start; }
 @container (min-width: 721px) { .ra-map { position: sticky; top: 80px; } }
 @container (max-width: 720px) { .ra-wrap { grid-template-columns: 1fr; } }
+.ra-wrap.ra-nolist { grid-template-columns: 1fr; }
+.ra-nolist .ra-map { position: relative; top: auto; }
 
 /* ---------- map ---------- */
 .ra-map { position: relative; align-self: start; border-radius: 18px; box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.10); background: #fff; }
@@ -30,7 +32,7 @@
 
 .ra-ernesto { position: absolute; width: 58px; height: auto; transform: translate(-50%, calc(-100% - 12px)); pointer-events: none; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.18)); z-index: 2; }
 .ra-compact .ra-ernesto { width: 46px; }
-.ra-bubble { position: absolute; transform: translate(-50%, 18px); background: #0f172a; color: #fff; font-size: 12.5px; font-weight: 800; padding: 6px 10px; border-radius: 999px; white-space: nowrap; opacity: 0; transition: opacity 0.25s; pointer-events: none; z-index: 3; }
+.ra-bubble { position: absolute; transform: translate(-50%, 18px); background: #0f172a; color: #fff; font-size: 12.5px; font-weight: 800; padding: 6px 10px; border-radius: 999px; white-space: nowrap; max-width: calc(100% - 12px); overflow: hidden; text-overflow: ellipsis; opacity: 0; transition: opacity 0.25s; pointer-events: none; z-index: 3; }
 .ra-bubble.is-on { opacity: 1; }
 
 /* ---------- step list ---------- */

@@ -4,7 +4,7 @@
  * while the matching step in the list lights up. Oct 2026.
  *
  * Usage (in a Webflow HTML embed):
- *   <div class="ra" data-ernesto="<image url>" [data-compact]>
+ *   <div class="ra" data-ernesto="<image url>" [data-compact] [data-nolist]>
  *     <script type="application/json" class="ra-data">
  *       { "mode": "walk" | "drive",
  *         "areas": [ { "name": "Bunker Hill", "lat": 34.05, "lng": -118.25 } ],
@@ -13,6 +13,8 @@
  *   </div>
  *   Then load route-anim.js (script tag) and route-anim.css (stylesheet) on the page.
  *
+ * data-compact = smaller Ernesto, no descriptions. data-nolist = map only (the bubble
+ * shows time + stop name), for small spaces like the home page.
  * Coordinates are real lat/lng, projected to a simple flat map (no map tiles).
  * Clicking a step jumps Ernesto there. Respects "reduce motion" settings.
  * ============================================================================== */
@@ -62,6 +64,7 @@
     var areas = data.areas || [];
     var mode = data.mode === 'drive' ? 'drive' : 'walk';
     var compact = root.hasAttribute('data-compact');
+    var nolist = root.hasAttribute('data-nolist');
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ---- projection ----
@@ -103,7 +106,7 @@
 
     // ---- DOM ----
     dataEl.remove();
-    var wrap = h('div', 'ra-wrap' + (compact ? ' ra-compact' : ''), root);
+    var wrap = h('div', 'ra-wrap' + (compact ? ' ra-compact' : '') + (nolist ? ' ra-nolist' : ''), root);
     var mapBox = h('div', 'ra-map', wrap);
     var svg = el('svg', { viewBox: '0 0 ' + VBW + ' ' + VBH, role: 'img',
       'aria-label': 'Route map: ' + stops.map(function (s) { return s.name; }).join(', ') }, mapBox);
@@ -149,8 +152,8 @@
     ern.onerror = function () { ern.style.display = 'none'; };
     var bubble = h('div', 'ra-bubble', mapBox);
 
-    var list = h('ol', 'ra-list', wrap);
-    var items = stops.map(function (st, i) {
+    var list = nolist ? null : h('ol', 'ra-list', wrap);
+    var items = nolist ? [] : stops.map(function (st, i) {
       var li = h('li', 'ra-step', list);
       li.tabIndex = 0;
       var num = h('span', 'ra-step-num', li, String(i + 1));
@@ -178,8 +181,12 @@
         li.classList.toggle('is-active', k === i);
         li.classList.toggle('is-done', k < i);
       });
-      bubble.textContent = stops[i].name;
-      bubble.style.left = (pts[i].x / VBW * 100) + '%';
+      bubble.textContent = (nolist && stops[i].time ? stops[i].time + ' \u00b7 ' : '') + stops[i].name;
+      // keep the bubble inside the map, even for stops near the edge
+      var mw = mapBox.clientWidth || VBW, bw = bubble.offsetWidth || 0;
+      var cx = pts[i].x / VBW * mw;
+      cx = Math.max(bw / 2 + 6, Math.min(mw - bw / 2 - 6, cx));
+      bubble.style.left = cx + 'px';
       bubble.style.top = (pts[i].y / VBH * 100) + '%';
       bubble.classList.add('is-on');
     }

@@ -1,0 +1,45 @@
+<!-- ==============================================================================
+     MARLONWALKSLA - HOME HERO RIGHT COLUMN: THREE POLAROIDS (Oct 15, 2026)
+     Replaced the review carousel. One real guest Polaroid per tour, each links to
+     its page. Captions switch language with the hero toggle (setHeroLanguage in
+     the hero left embed swaps the ids below and the data-href-es links).
+     ============================================================================== -->
+<div class="hp3">
+  <a class="hp3-card hp3-a" href="/free-walking-tour-los-angeles" data-href-en="/free-walking-tour-los-angeles" data-href-es="/free-tour-los-angeles-espanol">
+    <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a89e44a0b1c36455438_polaroid-olvera-group-selfie.jpg" alt="Free tour group with their Polaroid on Olvera Street" loading="eager">
+    <span class="hp3-cap"><strong id="hero-pol-free">Free Tours</strong><em id="hero-pol-free-sub">Downtown LA &middot; 2 hours</em></span>
+  </a>
+  <a class="hp3-card hp3-b" href="/private-tours-los-angeles">
+    <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.jpg" alt="Private tour guests at sunset by Griffith Observatory" loading="eager">
+    <span class="hp3-cap"><strong id="hero-pol-private">Private Tours</strong><em id="hero-pol-private-sub">Pickup included &middot; 4 to 8 hours</em></span>
+  </a>
+  <a class="hp3-card hp3-c" href="/team-building-walking-tour-los-angeles">
+    <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.jpg" alt="A team with Ernesto at La Placita" loading="eager">
+    <span class="hp3-cap"><strong id="hero-pol-team">Team Tours</strong><em id="hero-pol-team-sub">Downtown LA &middot; about 6 hours</em></span>
+  </a>
+</div>
+<style>
+  .hp3 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; max-width: 500px; margin: 0 auto; padding: 18px 8px 24px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .hp3-card { display: block; background: #fff; padding: 10px 10px 14px; border-radius: 4px; box-shadow: 0 14px 30px -8px rgba(15, 23, 42, 0.28); text-decoration: none !important; color: #0f172a; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .hp3-card img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 2px; background: #e2e8f0; }
+  .hp3-cap { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; margin-top: 10px; }
+  .hp3-cap strong { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.01em; color: #0f172a; }
+  .hp3-cap em { font-style: normal; font-size: 0.82rem; font-weight: 600; color: #64748b; }
+  .hp3-a { transform: rotate(-4deg); }
+  .hp3-b { transform: rotate(3deg) translateY(22px); }
+  .hp3-c { grid-column: 1 / -1; justify-self: center; width: calc(50% - 11px); transform: rotate(-1.5deg) translateY(20px); }
+  .hp3-card:hover, .hp3-card:focus-visible { transform: rotate(0deg) translateY(-6px) scale(1.03); box-shadow: 0 22px 40px -10px rgba(15, 23, 42, 0.35); z-index: 2; position: relative; }
+  .hp3-card:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  @media (max-width: 767px) {
+    .hp3 { grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 10px 0 0; max-width: 520px; }
+    .hp3-card { padding: 6px 6px 9px; }
+    .hp3-c { grid-column: auto; width: auto; }
+    .hp3-a { transform: rotate(-3deg); }
+    .hp3-b { transform: rotate(2deg) translateY(8px); }
+    .hp3-c { transform: rotate(-1.5deg); }
+    .hp3-cap { margin-top: 6px; }
+    .hp3-cap strong { font-size: 0.86rem; }
+    .hp3-cap em { font-size: 0.66rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .hp3-card { transition: none; } }
+</style>
