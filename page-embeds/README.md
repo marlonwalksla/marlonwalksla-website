@@ -11,3 +11,6 @@ Red `.tp-todo` text marks info Marlon still needs to fill in.
 | team-top.html, team-form-intro.html, team-bottom.html | /team-building-walking-tour-los-angeles | Above the form, left of the form, below the form |
 | private-top.html, private-form-intro.html, private-bottom.html | /private-tours-los-angeles | Above the form, left of the form, below the form |
 | about.html | /about | Whole page body |
+| privacy-policy.html | /privacy-policy | Whole page body |
+| terms.html | /terms | Whole page body |
+| 404.html | 404 utility page | To paste by hand in the Designer (the API cannot edit utility pages) |
