@@ -191,7 +191,7 @@
       var num = h('span', 'ra-step-num', li, String(i + 1));
       num.setAttribute('aria-hidden', 'true');
       var body = h('div', 'ra-step-body', li);
-      if (st.time) h('span', 'ra-step-time', body, st.time);
+      // Oct 16, 2026: stop times are no longer shown anywhere (Marlon's call)
       h('strong', 'ra-step-name', body, st.name);
       if (st.desc && !compact) h('span', 'ra-step-desc', body, st.desc);
       li.addEventListener('click', function () { jump(i); });
