@@ -70,7 +70,7 @@
     if (es) { es.href = esHref; if (isEs) es.setAttribute('aria-current', 'true'); }
     if (isEs) {
       if (home) home.href = '/es';
-      if (maps) { maps.textContent = 'Mapa'; maps.href = '/maps?lang=es'; }
+      if (maps) { var ms = maps.querySelector('span'); if (ms) ms.textContent = 'Mapa'; maps.href = '/maps?lang=es'; }
     }
     if (maps && path === '/maps') maps.setAttribute('aria-current', 'page');
   })();

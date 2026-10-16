@@ -184,7 +184,7 @@ def build(lang):
   .mw-bg-book .mwla-book-facts {{ display: none !important; }}
   .mw-bg-book .mwla-book-cal {{ background: #ffffff; padding: 8px; }}
   .mw-bg-team {{ background: #DFE8C0 {svg_uri(route_bg_svg())} no-repeat right -80px top 30px / 640px auto !important; }}
-  .mw-bg-private {{ {GRID} !important; position: relative; padding-top: 40px; }}
+  .mw-bg-private {{ {GRID} !important; position: relative; }}
   /* Pinata fringe again where the team section meets the private one */
   .mw-bg-private::before {{ content: ""; position: absolute; top: 0; left: 0; right: 0; height: 38px; background: {svg_uri(fringe_svg())} repeat-x top left; pointer-events: none; }}
   @media (max-width: 767px) {{ .mw-bg-team {{ background-image: none !important; }} }}
