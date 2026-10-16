@@ -15,6 +15,11 @@
 .ra-map svg { display: block; width: 100%; height: auto; }
 .ra-bg { fill: #f6f1e4; }
 .ra-gridDot { fill: #e2d9c2; }
+/* Downtown backdrop: soft streets, one freeway, Grand Park */
+.ra-st { stroke: #ffffff; stroke-width: 6; stroke-linecap: round; opacity: 0.85; }
+.ra-fwy { stroke: #ead9b4; stroke-width: 13; stroke-linecap: round; }
+.ra-park { fill: #dfe8c0; opacity: 0.8; }
+.ra-stname { font-size: 9px; font-weight: 700; letter-spacing: 0.06em; fill: #b8ab8a; }
 .ra-area { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; fill: #b8ab8a; }
 .ra-trail path { fill: none; stroke: #cbd5e1; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 2 9; }
 .ra-trail.ra-drive path { stroke-dasharray: 10 8; stroke-width: 5; }

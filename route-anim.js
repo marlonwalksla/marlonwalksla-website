@@ -14,7 +14,7 @@
  *   Then load route-anim.js (script tag) and route-anim.css (stylesheet) on the page.
  *
  * data-label = map label for screen readers (default "Route map"). data-compact = smaller Ernesto, no descriptions. data-nolist = map only (the bubble
- * shows time + stop name), for small spaces like the home page.
+ * shows the stop name), for small spaces like the home page.
  * Coordinates are real lat/lng, projected to a simple flat map (no map tiles).
  * Clicking a step jumps Ernesto there. Respects "reduce motion" settings.
  * ============================================================================== */
@@ -118,6 +118,38 @@
     el('rect', { x: 0, y: 0, width: VBW, height: VBH, rx: 18, 'class': 'ra-bg' }, svg);
     el('rect', { x: 0, y: 0, width: VBW, height: VBH, rx: 18, fill: 'url(#' + pid + ')' }, svg);
 
+    // ---- Downtown LA backdrop (Oct 2026): a light, simplified street grid so DTLA maps
+    // read as Downtown. Drawn automatically when the route sits in Downtown; turn off
+    // with "base": "none" in the JSON. Streets are real directions, not exact surveys.
+    var cLat = (minLat + maxLat) / 2, cLng = (minLng + maxLng) / 2;
+    var inDTLA = cLat > 34.035 && cLat < 34.07 && cLng > -118.27 && cLng < -118.225;
+    if (data.base !== 'none' && (data.base === 'dtla' || inDTLA)) {
+      var cid = 'ra-clip-' + pid;
+      var cp = el('clipPath', { id: cid }, defs);
+      el('rect', { x: 0, y: 0, width: VBW, height: VBH, rx: 18 }, cp);
+      var base = el('g', { 'class': 'ra-base', 'clip-path': 'url(#' + cid + ')' }, svg);
+      // Grid anchored at Broadway & 1st St. "a" steps one avenue to the northwest
+      // (Main, Spring, Broadway, Hill, Grand), "n" steps one numbered street to the southwest.
+      function g(a, n) { return proj({ lat: 34.0532 + a * 0.0012 - n * 0.00147, lng: -118.2448 - a * 0.00225 - n * 0.00185 }); }
+      function line(p1, p2, cls) { el('line', { x1: p1.x.toFixed(1), y1: p1.y.toFixed(1), x2: p2.x.toFixed(1), y2: p2.y.toFixed(1), 'class': cls }, base); }
+      // Grand Park, between City Hall and the Music Center
+      var gp = [g(1.6, -1.3), g(-0.9, -1.3), g(-0.9, -0.2), g(1.6, -0.2)];
+      el('polygon', { points: gp.map(function (q) { return q.x.toFixed(1) + ',' + q.y.toFixed(1); }).join(' '), 'class': 'ra-park' }, base);
+      line(g(-6, -2.35), g(7, -2.35), 'ra-fwy');                       // US-101
+      [-2, -1, 0, 1, 2, 3].forEach(function (a) { line(g(a, -2.3), g(a, 7), 'ra-st'); });       // Main ... Grand / Hope
+      [-1.3, 0, 1, 2, 3, 4, 5, 6].forEach(function (n) { line(g(-5, n), g(6, n), 'ra-st'); }); // Temple, 1st ... 6th
+      function label(txt, p1, p2) {
+        var ang = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+        if (ang > 90) ang -= 180; if (ang < -90) ang += 180;
+        var mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
+        var t = el('text', { x: mx.toFixed(1), y: my.toFixed(1), dy: '-0.45em', 'class': 'ra-stname', 'text-anchor': 'middle', transform: 'rotate(' + ang.toFixed(1) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1) + ')' }, base);
+        t.textContent = txt;
+      }
+      label('Broadway', g(0, 3.6), g(0, 4.6));
+      label('1st St', g(-3.4, 0), g(-2.4, 0));
+      label('101', g(4.4, -2.35), g(5.2, -2.35));
+    }
+
     areas.forEach(function (a) {
       var p = proj(a);
       var t = el('text', { x: p.x, y: p.y, 'class': 'ra-area', 'text-anchor': 'middle' }, svg);
@@ -181,7 +213,7 @@
         li.classList.toggle('is-active', k === i);
         li.classList.toggle('is-done', k < i);
       });
-      bubble.textContent = (nolist && stops[i].time ? stops[i].time + ' \u00b7 ' : '') + stops[i].name;
+      bubble.textContent = stops[i].name; // map-only (home page) bubbles show just the stop name, no time
       // keep the bubble inside the map, even for stops near the edge
       var mw = mapBox.clientWidth || VBW, bw = bubble.offsetWidth || 0;
       var cx = pts[i].x / VBW * mw;
