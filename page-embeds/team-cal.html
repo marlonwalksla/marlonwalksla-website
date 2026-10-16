@@ -1,0 +1,44 @@
+<!-- Team tour booking calendar (Cal.com: marlonwalksla/group-tours).
+     Lives inside the .mw-form-card on Home, /es and the Team page (same embed on all three).
+     The old Webflow "Team Tour Inquiry" form + its title/sub/note are hidden (not deleted) on those pages.
+     Language comes from <html lang>. -->
+<div class="tcal" id="tcal">
+  <h3 class="tcal-title" data-en="Pick your team day" data-es="Elige el día de tu equipo">Pick your team day</h3>
+  <p class="tcal-sub" data-en="Choose a date and book it now. 5 to 30 guests, about 6 hours, lunch not included." data-es="Elige una fecha y resérvala ya. De 5 a 30 personas, unas 6 horas, almuerzo no incluido.">Choose a date and book it now. 5 to 30 guests, about 6 hours, lunch not included.</p>
+  <div class="tcal-box" id="tcal-inline"><p class="tcal-loading" data-en="Loading calendar&hellip;" data-es="Cargando calendario&hellip;">Loading calendar&hellip;</p></div>
+  <p class="tcal-note"><span data-en="More than 30 guests or a special request?" data-es="¿Más de 30 personas o algo especial?">More than 30 guests or a special request?</span>
+    <a href="https://wa.me/12692670410?text=Hi%20Marlon,%20I'm%20planning%20a%20team%20walk!" target="_blank" rel="noopener noreferrer" data-en="Message Marlon" data-es="Escríbele a Marlon">Message Marlon</a></p>
+</div>
+<style>
+  .tcal { width: 100%; }
+  .mw-form-card:has(.tcal) > .w-form { display: none !important; }
+  .tcal-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.6rem; line-height: 1.15; margin: 0 0 6px; color: #27302E; }
+  .tcal-sub { font-family: "Fredoka", "Nunito", sans-serif; font-size: 1rem; line-height: 1.45; margin: 0 0 14px; color: #3B4440; }
+  .tcal-box { min-height: 520px; border-radius: 12px; overflow: hidden; background: #fff; }
+  .tcal-loading { padding: 40px 16px; text-align: center; color: #6B7370; font-size: 0.95rem; margin: 0; }
+  .tcal-note { margin: 14px 0 0; font-size: 0.95rem; line-height: 1.5; color: #3B4440; }
+  .tcal-note a { color: #1B6688 !important; font-weight: 700; text-decoration: underline; }
+</style>
+<script>
+(function () {
+  var es = (document.documentElement.lang || "").toLowerCase().indexOf("es") === 0;
+  var root = document.getElementById("tcal");
+  if (!root) return;
+  var card = root.closest(".mw-form-card"), oldForm = card && card.querySelector(".w-form");
+  if (oldForm) oldForm.style.display = "none";
+  if (es) root.querySelectorAll("[data-es]").forEach(function (el) { el.innerHTML = el.getAttribute("data-es"); });
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  var done = false;
+  function load() {
+    if (done) return; done = true;
+    var box = document.getElementById("tcal-inline"); box.innerHTML = "";
+    Cal("init", "group-tours", { origin: "https://app.cal.com" });
+    Cal.ns["group-tours"]("inline", { elementOrSelector: "#tcal-inline", config: { layout: "month_view", theme: "light" }, calLink: "marlonwalksla/group-tours" });
+    Cal.ns["group-tours"]("ui", { theme: "light", hideEventTypeDetails: false, layout: "month_view" });
+  }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: "600px" });
+    io.observe(root);
+  } else load();
+})();
+</script>

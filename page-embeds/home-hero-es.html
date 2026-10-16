@@ -69,7 +69,7 @@
   .mwh-label { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px; }
   .mwh-label strong { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.3rem; line-height: 1.1; color: #27302E !important; }
   .mwh-label em { font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #4D5551 !important; }
-  .mwh-p1 { grid-area: free; width: 82%; transform: rotate(-2deg); }
+  .mwh-p1 { grid-area: free; width: calc(50% - 13px); justify-self: center; transform: rotate(-2deg); }
   .mwh-p2 { grid-area: priv; transform: rotate(2.5deg); margin-top: 8px; }
   .mwh-p3 { grid-area: team; transform: rotate(-1.5deg); }
   .mwh-photo:hover, .mwh-photo:focus-visible { transform: rotate(0deg) translateY(-6px); z-index: 3; }
@@ -88,8 +88,8 @@
     .mwh-h1 { font-size: clamp(2.6rem, 12vw, 3.4rem); }
     .mwh-line { font-size: 1.05rem; }
     .mwh-btn { font-size: 1.15rem; padding: 13px 26px; }
-    .mwh-photos { grid-template-columns: 1.25fr 1fr 1fr; grid-template-areas: "free team priv"; gap: 12px 10px; max-width: 460px; align-items: end; padding-top: 4px; }
-    .mwh-p1 { width: 100%; }
+    .mwh-photos { grid-template-columns: 1fr 1fr 1fr; grid-template-areas: "free team priv"; gap: 12px 10px; max-width: 460px; align-items: end; padding-top: 4px; }
+    .mwh-p1 { width: 100%; justify-self: stretch; }
     .mwh-p2 { margin-top: 0; }
     .mwh-label strong { font-size: 0.92rem; }
     .mwh-label em { font-size: 0.74rem; }
