@@ -7,9 +7,9 @@ import urllib.parse
 
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERNESTO = CDN + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
-P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.jpg"
-P_PRIV = CDN + "6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.jpg"
-P_TEAM = CDN + "6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.jpg"  # stand-in until the group-at-GCM Polaroid is uploaded
+P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp"
+P_PRIV = CDN + "6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp"
+P_TEAM = CDN + "6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.webp"  # stand-in until the group-at-GCM Polaroid is uploaded
 
 T = {
     "en": dict(
@@ -94,9 +94,6 @@ def build(lang):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <section class="mwh" lang="{lang}">
-  <svg class="mwh-route" viewBox="0 0 1200 640" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M560 560 C 640 600 700 470 640 380 S 700 120 820 150 S 1010 300 1080 170 S 1150 520 960 560" fill="none" stroke="#2890B6" stroke-width="4" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-  </svg>
   <div class="mwh-wrap">
     <div class="mwh-text">
       <img class="mwh-ernesto-sm" src="{ERNESTO}" alt="" aria-hidden="true">
@@ -106,6 +103,9 @@ def build(lang):
       <a class="mwh-btn" href="{t["btn_href"]}">{t["btn"]}</a>
     </div>
     <div class="mwh-photos">
+      <svg class="mwh-route" viewBox="0 0 680 720" aria-hidden="true">
+        <path d="M80 675 C170 720 190 620 140 500 S200 220 290 140 S580 140 640 220 S660 350 540 440" fill="none" stroke="#2890B6" stroke-width="4" stroke-dasharray="2 13" stroke-linecap="round"/>
+      </svg>
 {card("free", "mwh-p1", "rgba(255,0,255,.45)")}{card("team", "mwh-p3", "rgba(255,255,0,.6)")}{card("priv", "mwh-p2", "rgba(40,144,182,.45)")}      <img class="mwh-ernesto" src="{ERNESTO}" alt="{t["ern_alt"]}">
     </div>
   </div>
@@ -118,7 +118,8 @@ def build(lang):
 
   .mwh {{ position: relative; overflow: hidden; {GRID}; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }}
   .mwh *, .mwh *::before {{ box-sizing: border-box; }}
-  .mwh-route {{ position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }}
+  /* Trail is drawn in the photo box's own pixels, so it lines up with the photos at every width and ends behind the Private photo */
+  .mwh-route {{ position: absolute; left: -160px; top: -20px; width: 680px; height: 720px; pointer-events: none; z-index: 0; }}
   .mwh-wrap {{ position: relative; max-width: 1140px; margin: 0 auto; padding: 64px 24px 72px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }}
   .mwh-eyebrow {{ display: inline-flex; align-items: center; gap: 8px; background: #27302E; color: #FFF6E6; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; }}
   .mwh-eyebrow i {{ width: 8px; height: 8px; border-radius: 50%; background: #FFD43B; display: block; }}
@@ -134,10 +135,10 @@ def build(lang):
   .mwh-proof span {{ color: #E89B00; letter-spacing: 2px; margin-right: 4px; }}
 
   .mwh-photos {{ position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "free free" "team priv"; gap: 30px 26px; align-items: start; max-width: 450px; justify-self: center; width: 100%; }}
-  .mwh-photo {{ position: relative; display: block; text-decoration: none !important; color: #27302E; transition: transform 0.2s ease-out; }}
+  .mwh-photo {{ position: relative; z-index: 1; display: block; text-decoration: none !important; color: #27302E; transition: transform 0.2s ease-out; }}
   .mwh-photo img {{ display: block; width: 100%; height: auto; border-radius: 3px; box-shadow: 0 10px 24px -10px rgba(39, 48, 46, 0.45); }}
   .mwh-tape {{ position: absolute; top: -10px; left: 50%; width: 74px; height: 22px; transform: translateX(-50%) rotate(-4deg); z-index: 2; mix-blend-mode: multiply; }}
-  .mwh-label {{ display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px; }}
+  .mwh-label {{ position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; width: fit-content; margin: 10px auto 0; padding: 2px 10px 4px; border-radius: 10px; background: #FFF6E6; }}
   .mwh-label strong {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.3rem; line-height: 1.1; color: #27302E !important; }}
   .mwh-label em {{ font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #4D5551 !important; }}
   .mwh-p1 {{ grid-area: free; width: calc(50% - 13px); justify-self: center; transform: rotate(-2deg); }}
