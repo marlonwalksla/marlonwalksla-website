@@ -1,0 +1,71 @@
+<!-- ==============================================================================
+     MARLONWALKSLA - GLOBAL HEADER (inside the HEADER component)
+     Oct 16, 2026: slimmed to logo + Maps + EN | ES switch (Marlon's call).
+     The switch links to the matching page in the other language when one exists
+     (Home <-> /es, free tour EN <-> ES, Ernesto <-> Ernesto ES); other pages
+     switch to the Home page of that language. Tours, team, private and About are
+     reached from the Home photos and the footer.
+     ============================================================================== -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&display=swap" rel="stylesheet">
+<header class="mwhd" role="banner">
+  <div class="mwhd-wrap">
+    <a href="/" class="mwhd-logo" id="mwhd-home" aria-label="MarlonWalksLA home">
+      <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf6566579c80566562_Circle%20Full.png" alt="" width="38" height="38">
+      <span>MarlonWalks<b>LA</b></span>
+    </a>
+    <nav class="mwhd-nav" aria-label="Main">
+      <a href="/maps" class="mwhd-link" id="mwhd-maps">Maps</a>
+      <div class="mwhd-lang" role="group" aria-label="Language / Idioma">
+        <a href="/" id="mwhd-en" lang="en" hreflang="en">EN</a>
+        <a href="/es" id="mwhd-es" lang="es" hreflang="es">ES</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<style>
+  .mwhd { background: #27302E; color: #FFF6E6; position: relative; z-index: 999999; font-family: "Fredoka", "Nunito", system-ui, sans-serif; }
+  .mwhd *, .mwhd *::before { box-sizing: border-box; }
+  .mwhd-wrap { max-width: 1140px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .mwhd-logo { display: flex; align-items: center; gap: 10px; text-decoration: none !important; color: #FFF6E6 !important; }
+  .mwhd-logo img { width: 38px; height: 38px; border-radius: 50%; display: block; }
+  .mwhd-logo span { font-family: "Lilita One", sans-serif; font-size: 1.35rem; letter-spacing: 0.01em; line-height: 1; }
+  .mwhd-logo b { font-weight: 400; color: #FFD43B; }
+  .mwhd-nav { display: flex; align-items: center; gap: 18px; }
+  .mwhd-link { color: #FFF6E6 !important; text-decoration: none !important; font-weight: 500; font-size: 1.02rem; padding: 10px 4px; }
+  .mwhd-link:hover, .mwhd-link[aria-current="page"] { color: #FFD43B !important; }
+  .mwhd-lang { display: inline-flex; border: 1.5px solid rgba(255, 246, 230, 0.55); border-radius: 999px; padding: 3px; }
+  .mwhd-lang a { min-width: 44px; text-align: center; padding: 7px 10px; border-radius: 999px; font-weight: 600; font-size: 0.92rem; color: #FFF6E6 !important; text-decoration: none !important; line-height: 1.2; }
+  .mwhd-lang a[aria-current="true"] { background: #FFD43B; color: #27302E !important; }
+  .mwhd a:focus-visible { outline: 2px solid #FFD43B; outline-offset: 3px; }
+  @media (max-width: 480px) {
+    .mwhd-wrap { padding: 8px 14px; }
+    .mwhd-logo img { width: 32px; height: 32px; }
+    .mwhd-logo span { font-size: 1.12rem; }
+    .mwhd-nav { gap: 10px; }
+  }
+</style>
+<script>
+  (function () {
+    var path = (location.pathname.replace(/\/+$/, '') || '/');
+    var pairs = [
+      ['/', '/es'],
+      ['/free-walking-tour-los-angeles', '/free-tour-los-angeles-espanol'],
+      ['/ernesto', '/ernesto-es']
+    ];
+    var esPages = ['/es', '/free-tour-los-angeles-espanol', '/ernesto-es'];
+    var isEs = esPages.indexOf(path) > -1;
+    var enHref = '/', esHref = '/es';
+    for (var i = 0; i < pairs.length; i++) {
+      if (path === pairs[i][0] || path === pairs[i][1]) { enHref = pairs[i][0]; esHref = pairs[i][1]; }
+    }
+    var en = document.getElementById('mwhd-en'), es = document.getElementById('mwhd-es');
+    var home = document.getElementById('mwhd-home'), maps = document.getElementById('mwhd-maps');
+    if (en) { en.href = enHref; if (!isEs) en.setAttribute('aria-current', 'true'); }
+    if (es) { es.href = esHref; if (isEs) es.setAttribute('aria-current', 'true'); }
+    if (isEs) {
+      if (home) home.href = '/es';
+      if (maps) { maps.textContent = 'Mapa'; maps.href = '/maps?lang=es'; }
+    }
+    if (maps && path === '/maps') maps.setAttribute('aria-current', 'page');
+  })();
+</script>
