@@ -14,7 +14,7 @@
       <span>MarlonWalks<b>LA</b></span>
     </a>
     <nav class="mwhd-nav" aria-label="Main">
-      <a href="/maps" class="mwhd-link" id="mwhd-maps">Maps</a>
+      <a href="/maps" class="mwhd-link mwhd-maps" id="mwhd-maps"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Maps</span></a>
       <div class="mwhd-lang" role="group" aria-label="Language / Idioma">
         <a href="/" id="mwhd-en" lang="en" hreflang="en">EN</a>
         <a href="/es" id="mwhd-es" lang="es" hreflang="es">ES</a>
@@ -33,6 +33,10 @@
   .mwhd-nav { display: flex; align-items: center; gap: 18px; }
   .mwhd-link { color: #FFF6E6 !important; text-decoration: none !important; font-weight: 500; font-size: 1.02rem; padding: 10px 4px; }
   .mwhd-link:hover, .mwhd-link[aria-current="page"] { color: #FFD43B !important; }
+  /* Maps reads as a link: pin icon, underline and a soft outline */
+  .mwhd-maps { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px !important; border: 1.5px solid rgba(255, 246, 230, 0.55); border-radius: 999px; min-height: 40px; }
+  .mwhd-maps span { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+  .mwhd-maps:hover { border-color: #FFD43B; }
   .mwhd-lang { display: inline-flex; border: 1.5px solid rgba(255, 246, 230, 0.55); border-radius: 999px; padding: 3px; }
   .mwhd-lang a { min-width: 44px; text-align: center; padding: 7px 10px; border-radius: 999px; font-weight: 600; font-size: 0.92rem; color: #FFF6E6 !important; text-decoration: none !important; line-height: 1.2; }
   .mwhd-lang a[aria-current="true"] { background: #FFD43B; color: #27302E !important; }
@@ -42,6 +46,8 @@
     .mwhd-logo img { width: 32px; height: 32px; }
     .mwhd-logo span { font-size: 1.12rem; }
     .mwhd-nav { gap: 10px; }
+    .mwhd-maps { padding: 6px 10px !important; gap: 4px; min-height: 38px; }
+    .mwhd-lang a { min-width: 40px; padding: 7px 8px; }
   }
 </style>
 <script>

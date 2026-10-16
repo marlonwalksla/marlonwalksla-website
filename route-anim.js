@@ -131,10 +131,11 @@
       // Grid anchored at Broadway & 1st St. "a" steps one avenue to the northwest
       // (Main, Spring, Broadway, Hill, Grand), "n" steps one numbered street to the southwest.
       function g(a, n) { return proj({ lat: 34.0532 + a * 0.0012 - n * 0.00147, lng: -118.2448 - a * 0.00225 - n * 0.00185 }); }
-      function line(p1, p2, cls) { el('line', { x1: p1.x.toFixed(1), y1: p1.y.toFixed(1), x2: p2.x.toFixed(1), y2: p2.y.toFixed(1), 'class': cls }, base); }
+      var LOOK = { 'ra-st': { stroke: '#ffffff', 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.85 }, 'ra-fwy': { stroke: '#ead9b4', 'stroke-width': 13, 'stroke-linecap': 'round' } };
+      function line(p1, p2, cls) { var a = { x1: p1.x.toFixed(1), y1: p1.y.toFixed(1), x2: p2.x.toFixed(1), y2: p2.y.toFixed(1), 'class': cls }; for (var k in LOOK[cls]) a[k] = LOOK[cls][k]; el('line', a, base); }
       // Grand Park, between City Hall and the Music Center
       var gp = [g(1.6, -1.3), g(-0.9, -1.3), g(-0.9, -0.2), g(1.6, -0.2)];
-      el('polygon', { points: gp.map(function (q) { return q.x.toFixed(1) + ',' + q.y.toFixed(1); }).join(' '), 'class': 'ra-park' }, base);
+      el('polygon', { points: gp.map(function (q) { return q.x.toFixed(1) + ',' + q.y.toFixed(1); }).join(' '), 'class': 'ra-park', fill: '#dfe8c0', opacity: 0.8 }, base);
       line(g(-6, -2.35), g(7, -2.35), 'ra-fwy');                       // US-101
       [-2, -1, 0, 1, 2, 3].forEach(function (a) { line(g(a, -2.3), g(a, 7), 'ra-st'); });       // Main ... Grand / Hope
       [-1.3, 0, 1, 2, 3, 4, 5, 6].forEach(function (n) { line(g(-5, n), g(6, n), 'ra-st'); }); // Temple, 1st ... 6th
@@ -142,7 +143,7 @@
         var ang = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
         if (ang > 90) ang -= 180; if (ang < -90) ang += 180;
         var mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
-        var t = el('text', { x: mx.toFixed(1), y: my.toFixed(1), dy: '-0.45em', 'class': 'ra-stname', 'text-anchor': 'middle', transform: 'rotate(' + ang.toFixed(1) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1) + ')' }, base);
+        var t = el('text', { x: mx.toFixed(1), y: my.toFixed(1), dy: '-0.45em', 'class': 'ra-stname', fill: '#b8ab8a', 'font-size': 9, 'font-weight': 700, 'text-anchor': 'middle', transform: 'rotate(' + ang.toFixed(1) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1) + ')' }, base);
         t.textContent = txt;
       }
       label('Broadway', g(0, 3.6), g(0, 4.6));
@@ -177,6 +178,20 @@
       g.addEventListener('click', function () { jump(i); });
       return g;
     });
+
+    // Map-only maps (Home page) get a bar under the map: stop name + arrows to move Ernesto.
+    var ctrl = null, ctrlName = null, ctrlNum = null;
+    if (nolist) {
+      ctrl = h('div', 'ra-ctrl', wrap);
+      var prevB = h('button', 'ra-ctrl-btn', ctrl, '\u2039'); prevB.type = 'button'; prevB.setAttribute('aria-label', 'Previous stop');
+      var mid = h('div', 'ra-ctrl-mid', ctrl);
+      ctrlNum = h('span', 'ra-ctrl-num', mid);
+      ctrlName = h('strong', 'ra-ctrl-name', mid);
+      mid.setAttribute('aria-live', 'polite');
+      var nextB = h('button', 'ra-ctrl-btn', ctrl, '\u203A'); nextB.type = 'button'; nextB.setAttribute('aria-label', 'Next stop');
+      prevB.addEventListener('click', function () { jump((cur - 1 + stops.length) % stops.length); });
+      nextB.addEventListener('click', function () { jump((cur + 1) % stops.length); });
+    }
 
     var ern = h('img', 'ra-ernesto', mapBox);
     ern.alt = '';
@@ -214,6 +229,7 @@
         li.classList.toggle('is-done', k < i);
       });
       bubble.textContent = stops[i].name; // map-only (home page) bubbles show just the stop name, no time
+      if (ctrl) { ctrlNum.textContent = (i + 1) + ' / ' + stops.length; ctrlName.textContent = stops[i].name; }
       // keep the bubble inside the map, even for stops near the edge
       var mw = mapBox.clientWidth || VBW, bw = bubble.offsetWidth || 0;
       var cx = pts[i].x / VBW * mw;

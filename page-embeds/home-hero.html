@@ -33,7 +33,7 @@
     <a class="mwh-photo mwh-p2" href="/private-tours-los-angeles">
       <span class="mwh-tape" style="background:rgba(40,144,182,.45)"></span>
       <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp" alt="Private tour guest at sunset by Griffith Observatory" loading="eager">
-      <span class="mwh-label"><strong>Private Tours</strong><em>Pick Up &amp; Drop Off</em></span>
+      <span class="mwh-label"><strong>Private Tours</strong><em>Pick Up/Drop Off</em></span>
     </a>
       <img class="mwh-ernesto" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map">
     </div>
@@ -112,7 +112,9 @@
   .mw-bg-book .mwla-lang-label { color: #FFF6E6 !important; }
   .mw-bg-book .mwla-book-facts { display: none !important; }
   .mw-bg-book .mwla-book-cal { background: #ffffff; padding: 8px; }
-  .mw-bg-team { background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360' viewBox='0 0 640 360'%3E%3Cpath d='M20 330 C 140 300 120 170 250 180 S 420 300 520 200 S 600 60 630 30' fill='none' stroke='%232890B6' stroke-opacity='0.35' stroke-width='4' stroke-dasharray='2 12' stroke-linecap='round'/%3E%3Cg fill='%23ffffff' stroke='%232890B6' stroke-opacity='0.45' stroke-width='3'%3E%3Ccircle cx='20' cy='330' r='9'/%3E%3Ccircle cx='250' cy='180' r='9'/%3E%3Ccircle cx='520' cy='200' r='9'/%3E%3C/g%3E%3C/svg%3E") no-repeat right -80px top 30px / 640px auto !important; }
-  .mw-bg-private { background-color:#FFF6E6;background-image:linear-gradient(#F1E4CB 1px,transparent 1px),linear-gradient(90deg,#F1E4CB 1px,transparent 1px);background-size:26px 26px !important; }
+  .mw-bg-team { background: #DFE8C0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360' viewBox='0 0 640 360'%3E%3Cpath d='M20 330 C 140 300 120 170 250 180 S 420 300 520 200 S 600 60 630 30' fill='none' stroke='%232890B6' stroke-opacity='0.35' stroke-width='4' stroke-dasharray='2 12' stroke-linecap='round'/%3E%3Cg fill='%23ffffff' stroke='%232890B6' stroke-opacity='0.45' stroke-width='3'%3E%3Ccircle cx='20' cy='330' r='9'/%3E%3Ccircle cx='250' cy='180' r='9'/%3E%3Ccircle cx='520' cy='200' r='9'/%3E%3C/g%3E%3C/svg%3E") no-repeat right -80px top 30px / 640px auto !important; }
+  .mw-bg-private { background-color:#FFF6E6;background-image:linear-gradient(#F1E4CB 1px,transparent 1px),linear-gradient(90deg,#F1E4CB 1px,transparent 1px);background-size:26px 26px !important; position: relative; padding-top: 40px; }
+  /* Pinata fringe again where the team section meets the private one */
+  .mw-bg-private::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 38px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='38' viewBox='0 0 48 38'%3E%3Cpath d='M0 0H48V30Q42 37 36 30Q30 37 24 30Q18 37 12 30Q6 37 0 30Z' fill='%23FF6600'/%3E%3Cpath d='M0 0H48V23Q42 30 36 23Q30 30 24 23Q18 30 12 23Q6 30 0 23Z' fill='%2300FF00'/%3E%3Cpath d='M0 0H48V16Q42 23 36 16Q30 23 24 16Q18 23 12 16Q6 23 0 16Z' fill='%23FFFF00'/%3E%3Cpath d='M0 0H48V9Q42 16 36 9Q30 16 24 9Q18 16 12 9Q6 16 0 9Z' fill='%23FF00FF'/%3E%3C/svg%3E") repeat-x top left; pointer-events: none; }
   @media (max-width: 767px) { .mw-bg-team { background-image: none !important; } }
 </style>

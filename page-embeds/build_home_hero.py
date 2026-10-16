@@ -23,7 +23,7 @@ T = {
               "Free tour guests holding their Polaroid at La Placita Olvera"),
         team=("Team Tours", "Up to 30 guests", "/team-building-walking-tour-los-angeles",
               "Polaroid of Grand Central Market at night, where team tours stop for lunch"),
-        priv=("Private Tours", "Pick Up &amp; Drop Off", "/private-tours-los-angeles",
+        priv=("Private Tours", "Pick Up/Drop Off", "/private-tours-los-angeles",
               "Private tour guest at sunset by Griffith Observatory"),
     ),
     "es": dict(
@@ -183,8 +183,10 @@ def build(lang):
   .mw-bg-book .mwla-lang-label {{ color: #FFF6E6 !important; }}
   .mw-bg-book .mwla-book-facts {{ display: none !important; }}
   .mw-bg-book .mwla-book-cal {{ background: #ffffff; padding: 8px; }}
-  .mw-bg-team {{ background: #ffffff {svg_uri(route_bg_svg())} no-repeat right -80px top 30px / 640px auto !important; }}
-  .mw-bg-private {{ {GRID} !important; }}
+  .mw-bg-team {{ background: #DFE8C0 {svg_uri(route_bg_svg())} no-repeat right -80px top 30px / 640px auto !important; }}
+  .mw-bg-private {{ {GRID} !important; position: relative; padding-top: 40px; }}
+  /* Pinata fringe again where the team section meets the private one */
+  .mw-bg-private::before {{ content: ""; position: absolute; top: 0; left: 0; right: 0; height: 38px; background: {svg_uri(fringe_svg())} repeat-x top left; pointer-events: none; }}
   @media (max-width: 767px) {{ .mw-bg-team {{ background-image: none !important; }} }}
 </style>
 '''
