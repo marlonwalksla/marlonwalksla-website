@@ -13,7 +13,7 @@
  *   </div>
  *   Then load route-anim.js (script tag) and route-anim.css (stylesheet) on the page.
  *
- * data-compact = smaller Ernesto, no descriptions. data-nolist = map only (the bubble
+ * data-label = map label for screen readers (default "Route map"). data-compact = smaller Ernesto, no descriptions. data-nolist = map only (the bubble
  * shows time + stop name), for small spaces like the home page.
  * Coordinates are real lat/lng, projected to a simple flat map (no map tiles).
  * Clicking a step jumps Ernesto there. Respects "reduce motion" settings.
@@ -109,7 +109,7 @@
     var wrap = h('div', 'ra-wrap' + (compact ? ' ra-compact' : '') + (nolist ? ' ra-nolist' : ''), root);
     var mapBox = h('div', 'ra-map', wrap);
     var svg = el('svg', { viewBox: '0 0 ' + VBW + ' ' + VBH, role: 'img',
-      'aria-label': 'Route map: ' + stops.map(function (s) { return s.name; }).join(', ') }, mapBox);
+      'aria-label': (root.getAttribute('data-label') || 'Route map') + ': ' + stops.map(function (s) { return s.name; }).join(', ') }, mapBox);
 
     var defs = el('defs', {}, svg);
     var pid = 'ra-grid-' + Math.random().toString(36).slice(2, 8);
