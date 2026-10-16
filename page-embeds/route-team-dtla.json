@@ -25,10 +25,17 @@
   "stops": [
     {
       "time": "10:00 AM",
-      "name": "Walt Disney Concert Hall and The Broad",
+      "name": "Walt Disney Concert Hall",
       "desc": "Meet up and start the Ernesto hunt.",
-      "lat": 34.0553,
-      "lng": -118.2498
+      "lat": 34.0556,
+      "lng": -118.2493
+    },
+    {
+      "time": "10:30 AM",
+      "name": "The Broad",
+      "desc": "Free contemporary art, right next door.",
+      "lat": 34.0541,
+      "lng": -118.2507
     },
     {
       "time": "11:00 AM",
@@ -38,32 +45,39 @@
       "lng": -118.2504
     },
     {
-      "time": "12:00 PM",
+      "time": "11:45 AM",
       "name": "Lunch at Grand Central Market",
-      "desc": "30+ food stalls, so every diet and taste is covered.",
+      "desc": "30+ food stalls, so every diet and taste is covered. Lunch is not included in the price.",
       "lat": 34.0509,
       "lng": -118.2491
     },
     {
-      "time": "1:15 PM",
+      "time": "1:00 PM",
       "name": "Bradbury Building",
       "desc": "The 1893 landmark from the movies.",
       "lat": 34.0505,
       "lng": -118.2478
     },
     {
-      "time": "1:45 PM",
-      "name": "Grand Park",
-      "desc": "Shade, fountains and a team photo stop.",
-      "lat": 34.0563,
-      "lng": -118.2455
+      "time": "1:30 PM",
+      "name": "The Evolution of Los Angeles",
+      "desc": "The story of LA on one mural.",
+      "lat": 34.0521,
+      "lng": -118.2452
     },
     {
-      "time": "2:15 PM",
+      "time": "2:00 PM",
       "name": "City Hall",
       "desc": "The 1928 tower at the heart of LA's government.",
       "lat": 34.0537,
       "lng": -118.2427
+    },
+    {
+      "time": "2:30 PM",
+      "name": "The courthouses",
+      "desc": "LA's courthouses and the stories behind them.",
+      "lat": 34.0549,
+      "lng": -118.241
     },
     {
       "time": "3:00 PM",
