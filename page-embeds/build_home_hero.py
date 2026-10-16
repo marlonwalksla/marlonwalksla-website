@@ -7,9 +7,9 @@ import urllib.parse
 
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERNESTO = CDN + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
-P_FREE = CDN + "6ac74a89e44a0b1c36455438_polaroid-olvera-group-selfie.jpg"
+P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.jpg"
 P_PRIV = CDN + "6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.jpg"
-P_TEAM = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.jpg"
+P_TEAM = CDN + "6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.jpg"  # stand-in until the group-at-GCM Polaroid is uploaded
 
 T = {
     "en": dict(
@@ -19,11 +19,11 @@ T = {
         btn="Book a free tour", btn_href="#book",
         proof="4.9 stars from 505 reviews",
         ern_alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map",
-        free=("Free tour", "2 hours &middot; tip-based", "/free-walking-tour-los-angeles",
-              "Free tour guests with their Polaroid on Olvera Street"),
-        team=("Team tours", "6 to 35 guests", "/team-building-walking-tour-los-angeles",
-              "A tour group holding their Polaroid at La Placita"),
-        priv=("Private tours", "Hotel pickup", "/private-tours-los-angeles",
+        free=("Free Tour", "Tip-based", "/free-walking-tour-los-angeles",
+              "Free tour guests holding their Polaroid at La Placita Olvera"),
+        team=("Team Tours", "Up to 30 guests", "/team-building-walking-tour-los-angeles",
+              "Polaroid of Grand Central Market at night, where team tours stop for lunch"),
+        priv=("Private Tours", "Pick Up &amp; Drop Off", "/private-tours-los-angeles",
               "Private tour guest at sunset by Griffith Observatory"),
     ),
     "es": dict(
@@ -33,11 +33,11 @@ T = {
         btn="Reserva un free tour", btn_href="#book",
         proof="4,9 estrellas en 505 opiniones",
         ern_alt="Ernesto la pi&ntilde;ata, tu gu&iacute;a, con una tablet y un mapa",
-        free=("Free tour", "2 horas &middot; con propina", "/free-tour-los-angeles-espanol",
-              "Grupo del free tour con su Polaroid en la Calle Olvera"),
-        team=("Tours de equipo", "De 6 a 35 personas", "/team-building-walking-tour-los-angeles",
-              "Un grupo con su Polaroid en La Placita"),
-        priv=("Tours privados", "Desde tu hotel", "/private-tours-los-angeles",
+        free=("Free Tour", "Con propina", "/free-tour-los-angeles-espanol",
+              "Grupo del free tour con su Polaroid en La Placita Olvera"),
+        team=("Tours de Equipo", "Hasta 30 personas", "/team-building-walking-tour-los-angeles",
+              "Polaroid de Grand Central Market de noche, donde los equipos almuerzan"),
+        priv=("Tours Privados", "Te recojo y te llevo", "/private-tours-los-angeles",
               "Invitada de un tour privado al atardecer en el Observatorio Griffith"),
     ),
 }
@@ -104,10 +104,9 @@ def build(lang):
       <h1 class="mwh-h1">{t["h1"]}</h1>
       <p class="mwh-line">{t["line"]}</p>
       <a class="mwh-btn" href="{t["btn_href"]}">{t["btn"]}</a>
-      <p class="mwh-proof"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> {t["proof"]}</p>
     </div>
     <div class="mwh-photos">
-{card("free", "mwh-p1", "rgba(255,0,255,.45)")}{card("priv", "mwh-p2", "rgba(40,144,182,.45)")}{card("team", "mwh-p3", "rgba(255,255,0,.6)")}      <img class="mwh-ernesto" src="{ERNESTO}" alt="{t["ern_alt"]}">
+{card("free", "mwh-p1", "rgba(255,0,255,.45)")}{card("team", "mwh-p3", "rgba(255,255,0,.6)")}{card("priv", "mwh-p2", "rgba(40,144,182,.45)")}      <img class="mwh-ernesto" src="{ERNESTO}" alt="{t["ern_alt"]}">
     </div>
   </div>
 </section>
@@ -134,13 +133,13 @@ def build(lang):
   .mwh-proof {{ margin: 18px 0 0; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.98rem; color: #3B4440; }}
   .mwh-proof span {{ color: #E89B00; letter-spacing: 2px; margin-right: 4px; }}
 
-  .mwh-photos {{ position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "free free" "priv team"; gap: 30px 26px; align-items: start; max-width: 450px; justify-self: center; width: 100%; }}
+  .mwh-photos {{ position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "free free" "team priv"; gap: 30px 26px; align-items: start; max-width: 450px; justify-self: center; width: 100%; }}
   .mwh-photo {{ position: relative; display: block; text-decoration: none !important; color: #27302E; transition: transform 0.2s ease-out; }}
   .mwh-photo img {{ display: block; width: 100%; height: auto; border-radius: 3px; box-shadow: 0 10px 24px -10px rgba(39, 48, 46, 0.45); }}
   .mwh-tape {{ position: absolute; top: -10px; left: 50%; width: 74px; height: 22px; transform: translateX(-50%) rotate(-4deg); z-index: 2; mix-blend-mode: multiply; }}
   .mwh-label {{ display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px; }}
-  .mwh-label strong {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.3rem; line-height: 1.1; }}
-  .mwh-label em {{ font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #4D5551; }}
+  .mwh-label strong {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.3rem; line-height: 1.1; color: #27302E !important; }}
+  .mwh-label em {{ font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #4D5551 !important; }}
   .mwh-p1 {{ grid-area: free; width: 82%; transform: rotate(-2deg); }}
   .mwh-p2 {{ grid-area: priv; transform: rotate(2.5deg); margin-top: 8px; }}
   .mwh-p3 {{ grid-area: team; transform: rotate(-1.5deg); }}
@@ -160,7 +159,7 @@ def build(lang):
     .mwh-h1 {{ font-size: clamp(2.6rem, 12vw, 3.4rem); }}
     .mwh-line {{ font-size: 1.05rem; }}
     .mwh-btn {{ font-size: 1.15rem; padding: 13px 26px; }}
-    .mwh-photos {{ grid-template-columns: 1.25fr 1fr 1fr; grid-template-areas: "free priv team"; gap: 12px 10px; max-width: 460px; align-items: end; padding-top: 4px; }}
+    .mwh-photos {{ grid-template-columns: 1.25fr 1fr 1fr; grid-template-areas: "free team priv"; gap: 12px 10px; max-width: 460px; align-items: end; padding-top: 4px; }}
     .mwh-p1 {{ width: 100%; }}
     .mwh-p2 {{ margin-top: 0; }}
     .mwh-label strong {{ font-size: 0.92rem; }}
@@ -177,6 +176,7 @@ def build(lang):
   .mw-bg-book .mwla-book-title {{ color: #FFF6E6 !important; font-family: "Lilita One", sans-serif; font-weight: 400; }}
   .mw-bg-book .mwla-book-sub {{ color: #E3F1F7 !important; }}
   .mw-bg-book .mwla-lang-label {{ color: #FFF6E6 !important; }}
+  .mw-bg-book .mwla-book-facts {{ display: none !important; }}
   .mw-bg-book .mwla-book-cal {{ background: #ffffff; padding: 8px; }}
   .mw-bg-team {{ background: #ffffff {svg_uri(route_bg_svg())} no-repeat right -80px top 30px / 640px auto !important; }}
   .mw-bg-private {{ {GRID} !important; }}
