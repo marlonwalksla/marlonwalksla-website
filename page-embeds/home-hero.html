@@ -1,7 +1,7 @@
 <!-- ==============================================================================
      MARLONWALKSLA - HOME HERO (EN)  Oct 16, 2026 redesign
      Built by page-embeds/build_home_hero.py. Grid paper + Ernesto's route line,
-     one H1, one button, three whole taped photos that link to each tour, one Ernesto.
+     one H1, one button, three taped photos that jump to each tour's section below, one Ernesto.
      No rotating words or images; the language switch lives in the header.
      The <style> below also sets the Home section backgrounds (booking, team, private).
      ============================================================================== -->
@@ -14,26 +14,26 @@
       <span class="mwh-eyebrow"><i></i>Downtown LA walking tours</span>
       <h1 class="mwh-h1">Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with a local</span></h1>
       <p class="mwh-line">Free walking tours, team outings and private days, in English and Spanish.</p>
-      <a class="mwh-btn" href="#book">Book a free tour</a>
+      <a class="mwh-btn" href="#team">Explore my tours &darr;</a>
     </div>
     <div class="mwh-photos">
       <svg class="mwh-route" viewBox="0 0 760 480" aria-hidden="true">
         <path d="M90 390 C135 395 128 320 135 260 S340 130 420 155 S590 125 640 190" fill="none" stroke="#2890B6" stroke-width="4" stroke-dasharray="2 13" stroke-linecap="round"/>
       </svg>
-    <a class="mwh-photo mwh-p1" href="/free-walking-tour-los-angeles">
+    <a class="mwh-photo mwh-p1" href="#book">
       <span class="mwh-tape" style="background:rgba(255,0,255,.45)"></span>
       <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp" alt="Free tour guests holding their Polaroid at La Placita Olvera" loading="eager">
-      <span class="mwh-label"><strong>Free Tour</strong><em>Tip-based</em></span>
+      <span class="mwh-label"><strong>Free Tour</strong><em>Tip-based</em><span class="mwh-go">See dates &darr;</span></span>
     </a>
-    <a class="mwh-photo mwh-p3" href="/team-building-walking-tour-los-angeles">
+    <a class="mwh-photo mwh-p3" href="#team">
       <span class="mwh-tape" style="background:rgba(255,255,0,.6)"></span>
       <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.webp" alt="Polaroid of Grand Central Market at night, where team tours stop for lunch" loading="eager">
-      <span class="mwh-label"><strong>Team Tours</strong><em>Up to 30 guests</em></span>
+      <span class="mwh-label"><strong>Team Tours</strong><em>Up to 30 guests</em><span class="mwh-go">See dates &darr;</span></span>
     </a>
-    <a class="mwh-photo mwh-p2" href="/private-tours-los-angeles">
+    <a class="mwh-photo mwh-p2" href="#private">
       <span class="mwh-tape" style="background:rgba(40,144,182,.45)"></span>
       <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp" alt="Private tour guest at sunset by Griffith Observatory" loading="eager">
-      <span class="mwh-label"><strong>Private Tours</strong><em>Pick Up/Drop Off</em></span>
+      <span class="mwh-label"><strong>Private Tours</strong><em>Pick Up/Drop Off</em><span class="mwh-go">See dates &darr;</span></span>
     </a>
       <img class="mwh-ernesto" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map">
     </div>
@@ -72,6 +72,10 @@
   .mwh-label { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; width: fit-content; margin: 10px auto 0; padding: 2px 10px 4px; border-radius: 10px; background: #FFF6E6; }
   .mwh-label strong { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.3rem; line-height: 1.1; color: #27302E !important; }
   .mwh-label em { font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #4D5551 !important; }
+  .mwh-go { display: inline-block; margin-top: 6px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; color: #27302E; background: #FFD43B; border: 1.5px solid #27302E; border-radius: 999px; padding: 2px 10px; }
+  .mwh-photo:hover .mwh-go { background: #ffffff; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   .mwh-p1 { grid-area: free; transform: rotate(-2deg); }
   .mwh-p2 { grid-area: priv; transform: rotate(2.5deg); margin-top: 10px; }
   .mwh-p3 { grid-area: team; transform: rotate(-1.5deg); margin-top: -26px; }
@@ -98,6 +102,7 @@
     .mwh-p2 { margin-top: 0; }
     .mwh-label strong { font-size: 0.92rem; }
     .mwh-label em { font-size: 0.74rem; }
+    .mwh-go { font-size: 0.68rem; padding: 1px 7px; margin-top: 4px; }
     .mwh-tape { width: 44px; height: 14px; top: -7px; }
     .mwh-text { display: flex; flex-direction: column; align-items: center; }
   }
@@ -112,7 +117,7 @@
   .mw-bg-book .mwla-lang-label { color: #FFF6E6 !important; }
   .mw-bg-book .mwla-book-facts { display: none !important; }
   .mw-bg-book .mwla-book-cal { background: #ffffff; padding: 8px; }
-  .mw-bg-team { background: #DFE8C0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360' viewBox='0 0 640 360'%3E%3Cpath d='M20 330 C 140 300 120 170 250 180 S 420 300 520 200 S 600 60 630 30' fill='none' stroke='%232890B6' stroke-opacity='0.35' stroke-width='4' stroke-dasharray='2 12' stroke-linecap='round'/%3E%3Cg fill='%23ffffff' stroke='%232890B6' stroke-opacity='0.45' stroke-width='3'%3E%3Ccircle cx='20' cy='330' r='9'/%3E%3Ccircle cx='250' cy='180' r='9'/%3E%3Ccircle cx='520' cy='200' r='9'/%3E%3C/g%3E%3C/svg%3E") no-repeat right -80px top 30px / 640px auto !important; }
+  .mw-bg-team { background: #DFE8C0 !important; }
   .mw-bg-private { background-color:#FFF6E6;background-image:linear-gradient(#F1E4CB 1px,transparent 1px),linear-gradient(90deg,#F1E4CB 1px,transparent 1px);background-size:26px 26px !important; position: relative; }
   /* Pinata fringe again where the team section meets the private one */
   .mw-bg-private::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 38px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='38' viewBox='0 0 48 38'%3E%3Cpath d='M0 0H48V30Q42 37 36 30Q30 37 24 30Q18 37 12 30Q6 37 0 30Z' fill='%23FF6600'/%3E%3Cpath d='M0 0H48V23Q42 30 36 23Q30 30 24 23Q18 30 12 23Q6 30 0 23Z' fill='%2300FF00'/%3E%3Cpath d='M0 0H48V16Q42 23 36 16Q30 23 24 16Q18 23 12 16Q6 23 0 16Z' fill='%23FFFF00'/%3E%3Cpath d='M0 0H48V9Q42 16 36 9Q30 16 24 9Q18 16 12 9Q6 16 0 9Z' fill='%23FF00FF'/%3E%3C/svg%3E") repeat-x top left; pointer-events: none; }

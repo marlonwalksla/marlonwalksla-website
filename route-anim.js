@@ -198,6 +198,7 @@
     ern.src = root.getAttribute('data-ernesto') || '';
     ern.onerror = function () { ern.style.display = 'none'; };
     var bubble = h('div', 'ra-bubble', mapBox);
+    if (nolist) bubble.style.display = 'none'; // map-only maps show the stop name in the bar under the map instead
 
     var list = nolist ? null : h('ol', 'ra-list', wrap);
     var items = nolist ? [] : stops.map(function (st, i) {

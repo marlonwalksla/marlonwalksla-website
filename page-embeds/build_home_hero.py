@@ -16,28 +16,28 @@ T = {
         eyebrow="Downtown LA walking tours",
         h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with a local</span>',
         line="Free walking tours, team outings and private days, in English and Spanish.",
-        btn="Book a free tour", btn_href="#book",
+        btn="Explore my tours &darr;", btn_href="#team", go="See dates &darr;",
         proof="4.9 stars from 505 reviews",
         ern_alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map",
-        free=("Free Tour", "Tip-based", "/free-walking-tour-los-angeles",
+        free=("Free Tour", "Tip-based", "#book",
               "Free tour guests holding their Polaroid at La Placita Olvera"),
-        team=("Team Tours", "Up to 30 guests", "/team-building-walking-tour-los-angeles",
+        team=("Team Tours", "Up to 30 guests", "#team",
               "Polaroid of Grand Central Market at night, where team tours stop for lunch"),
-        priv=("Private Tours", "Pick Up/Drop Off", "/private-tours-los-angeles",
+        priv=("Private Tours", "Pick Up/Drop Off", "#private",
               "Private tour guest at sunset by Griffith Observatory"),
     ),
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
         h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con un local</span>',
         line="Free tours, tours para equipos y d&iacute;as privados, en espa&ntilde;ol e ingl&eacute;s.",
-        btn="Reserva un free tour", btn_href="#book",
+        btn="Explora mis tours &darr;", btn_href="#team", go="Ver fechas &darr;",
         proof="4,9 estrellas en 505 opiniones",
         ern_alt="Ernesto la pi&ntilde;ata, tu gu&iacute;a, con una tablet y un mapa",
-        free=("Free Tour", "Con propina", "/free-tour-los-angeles-espanol",
+        free=("Free Tour", "Con propina", "#book",
               "Grupo del free tour con su Polaroid en La Placita Olvera"),
-        team=("Tours de Equipo", "Hasta 30 personas", "/team-building-walking-tour-los-angeles",
+        team=("Tours de Equipo", "Hasta 30 personas", "#team",
               "Polaroid de Grand Central Market de noche, donde los equipos almuerzan"),
-        priv=("Tours Privados", "Te recojo y te llevo", "/private-tours-los-angeles",
+        priv=("Tours Privados", "Te recojo y te llevo", "#private",
               "Invitada de un tour privado al atardecer en el Observatorio Griffith"),
     ),
 }
@@ -82,12 +82,12 @@ def build(lang):
         return (f'    <a class="mwh-photo {cls}" href="{href}">\n'
                 f'      <span class="mwh-tape" style="background:{tape}"></span>\n'
                 f'      <img src="{img}" alt="{alt}" loading="eager">\n'
-                f'      <span class="mwh-label"><strong>{title}</strong><em>{sub}</em></span>\n'
+                f'      <span class="mwh-label"><strong>{title}</strong><em>{sub}</em><span class="mwh-go">{t["go"]}</span></span>\n'
                 f'    </a>\n')
     html = f'''<!-- ==============================================================================
      MARLONWALKSLA - HOME HERO ({lang.upper()})  Oct 16, 2026 redesign
      Built by page-embeds/build_home_hero.py. Grid paper + Ernesto's route line,
-     one H1, one button, three whole taped photos that link to each tour, one Ernesto.
+     one H1, one button, three taped photos that jump to each tour's section below, one Ernesto.
      No rotating words or images; the language switch lives in the header.
      The <style> below also sets the Home section backgrounds (booking, team, private).
      ============================================================================== -->
@@ -143,6 +143,10 @@ def build(lang):
   .mwh-label {{ position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; width: fit-content; margin: 10px auto 0; padding: 2px 10px 4px; border-radius: 10px; background: #FFF6E6; }}
   .mwh-label strong {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.3rem; line-height: 1.1; color: #27302E !important; }}
   .mwh-label em {{ font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #4D5551 !important; }}
+  .mwh-go {{ display: inline-block; margin-top: 6px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; color: #27302E; background: #FFD43B; border: 1.5px solid #27302E; border-radius: 999px; padding: 2px 10px; }}
+  .mwh-photo:hover .mwh-go {{ background: #ffffff; }}
+  html {{ scroll-behavior: smooth; }}
+  @media (prefers-reduced-motion: reduce) {{ html {{ scroll-behavior: auto; }} }}
   .mwh-p1 {{ grid-area: free; transform: rotate(-2deg); }}
   .mwh-p2 {{ grid-area: priv; transform: rotate(2.5deg); margin-top: 10px; }}
   .mwh-p3 {{ grid-area: team; transform: rotate(-1.5deg); margin-top: -26px; }}
@@ -169,6 +173,7 @@ def build(lang):
     .mwh-p2 {{ margin-top: 0; }}
     .mwh-label strong {{ font-size: 0.92rem; }}
     .mwh-label em {{ font-size: 0.74rem; }}
+    .mwh-go {{ font-size: 0.68rem; padding: 1px 7px; margin-top: 4px; }}
     .mwh-tape {{ width: 44px; height: 14px; top: -7px; }}
     .mwh-text {{ display: flex; flex-direction: column; align-items: center; }}
   }}
@@ -183,7 +188,7 @@ def build(lang):
   .mw-bg-book .mwla-lang-label {{ color: #FFF6E6 !important; }}
   .mw-bg-book .mwla-book-facts {{ display: none !important; }}
   .mw-bg-book .mwla-book-cal {{ background: #ffffff; padding: 8px; }}
-  .mw-bg-team {{ background: #DFE8C0 {svg_uri(route_bg_svg())} no-repeat right -80px top 30px / 640px auto !important; }}
+  .mw-bg-team {{ background: #DFE8C0 !important; }}
   .mw-bg-private {{ {GRID} !important; position: relative; }}
   /* Pinata fringe again where the team section meets the private one */
   .mw-bg-private::before {{ content: ""; position: absolute; top: 0; left: 0; right: 0; height: 38px; background: {svg_uri(fringe_svg())} repeat-x top left; pointer-events: none; }}

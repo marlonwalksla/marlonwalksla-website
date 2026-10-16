@@ -3,7 +3,6 @@
      The old Webflow "Team Tour Inquiry" form + its title/sub/note are hidden (not deleted) on those pages.
      Language comes from <html lang>. -->
 <div class="tcal" id="tcal">
-  <h3 class="tcal-title" data-en="Pick your team day" data-es="Elige el día de tu equipo">Pick your team day</h3>
   <div class="tcal-box" id="tcal-inline"><p class="tcal-loading" data-en="Loading calendar&hellip;" data-es="Cargando calendario&hellip;">Loading calendar&hellip;</p></div>
 </div>
 <style>
@@ -31,7 +30,7 @@
     var box = document.getElementById("tcal-inline"); box.innerHTML = "";
     Cal("init", "group-tours", { origin: "https://app.cal.com" });
     Cal.ns["group-tours"]("inline", { elementOrSelector: "#tcal-inline", config: { layout: "month_view", theme: "light" }, calLink: "marlonwalksla/group-tours" });
-    Cal.ns["group-tours"]("ui", { theme: "light", hideEventTypeDetails: false, layout: "month_view" });
+    Cal.ns["group-tours"]("ui", { theme: "light", hideEventTypeDetails: true, layout: "month_view" }); // Oct 16, 2026: no title/length/location/time zone panel, the page already says it
   }
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: "600px" });
