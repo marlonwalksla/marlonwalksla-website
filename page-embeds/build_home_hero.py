@@ -101,8 +101,8 @@ def build(lang):
       <h1 class="mwh-h1">{t["h1"]}</h1>
       <p class="mwh-line">{t["line"]}</p>
       <div class="mwh-cta">
-        <a class="mwh-btn" href="{t["btn_href"]}">{t["btn"]}</a>
         <img class="mwh-ernesto" src="{ERNESTO}" alt="{t["ern_alt"]}">
+        <a class="mwh-btn" href="{t["btn_href"]}">{t["btn"]}</a>
       </div>
     </div>
     <div class="mwh-photos">
@@ -153,8 +153,9 @@ def build(lang):
   .mwh-photo:hover, .mwh-photo:focus-visible {{ transform: rotate(0deg) translateY(-6px); z-index: 3; }}
   .mwh-photo:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 6px; border-radius: 4px; }}
   /* Ernesto stands next to the button, pointing the way */
-  .mwh-cta {{ position: relative; display: inline-block; }}
-  .mwh-ernesto {{ position: absolute; left: 100%; bottom: -18px; margin-left: 20px; width: 82px; height: auto; pointer-events: none; filter: drop-shadow(0 8px 10px rgba(39, 48, 46, 0.18)); }}
+  /* Oct 16, 2026: Ernesto is to the LEFT of the button (Marlon's call) */
+  .mwh-cta {{ display: inline-flex; align-items: flex-end; gap: 18px; }}
+  .mwh-ernesto {{ width: 82px; height: auto; margin-bottom: -18px; pointer-events: none; filter: drop-shadow(0 8px 10px rgba(39, 48, 46, 0.18)); }}
   .mwh-ernesto-sm {{ display: none; }}
 
   @media (max-width: 991px) {{
