@@ -30,10 +30,14 @@ text = {
  "en": {"eyebrow":"Free DTLA Walking Tour","title":"Join a Free Tour!",
         "sub":"Walk through 240 years of Los Angeles history, architecture and culture with a local guide. Booking takes under a minute.",
         "strip":"The route","hint":"Scroll the 9 stops","wa":"\U0001F4AC Questions? WhatsApp Marlon",
+        "meet":"About 2 hours · We meet at Walt Disney Concert Hall, 600 W 1st St · Tip-based",
+        "prev":"Previous stops","next":"Next stops",
         "waHref":"https://wa.me/12692670410?text=Hi%20Marlon,%20I'm%20interested%20in%20joining%20the%20free%20Downtown%20LA%20walking%20tour!"},
  "es": {"eyebrow":"Free Tour por Downtown LA","title":"¡Únete a un Free Tour!",
         "sub":"Recorre 240 años de historia, arquitectura y cultura de Los Ángeles con un guía local. Reservar toma menos de un minuto.",
         "strip":"La ruta","hint":"Desliza las 9 paradas","wa":"\U0001F4AC ¿Preguntas? Escríbele a Marlon por WhatsApp",
+        "meet":"Unas 2 horas · Nos vemos en Walt Disney Concert Hall, 600 W 1st St · Con propina",
+        "prev":"Paradas anteriores","next":"Paradas siguientes",
         "waHref":"https://wa.me/12692670410?text=Hola%20Marlon,%20me%20interesa%20el%20free%20tour%20en%20espa%C3%B1ol"},
 }
 for i,(img,n_en,l_en,n_es,l_es,alt) in enumerate(STOPS,1):
@@ -45,7 +49,8 @@ html = f'''<!-- ================================================================
      Built by page-embeds/build_home_book.py. Same embed on Home (/) and /es.
      EN event: cal.com/marlonwalksla/free-tour-dtla
      ES event: cal.com/marlonwalksla/free-tour-dtla-espanol
-     Oct 16, 2026: calendar with a scrolling strip of the 9 route stops beside it.
+     Oct 16, 2026: the 9 route stops are a swipe row ABOVE the calendar (no more tall side scroll),
+     and the calendar is a narrow card with Cal's detail panel hidden (one line of facts replaces it).
      ============================================================================== -->
 <div class="mwla-book" id="book">
   <div class="mwla-book-head">
@@ -66,23 +71,30 @@ html = f'''<!-- ================================================================
     </div>
   </div>
 
-  <div class="mwla-book-grid">
-    <section class="mwla-strip" aria-labelledby="mwla-strip-title">
-      <div class="mwla-strip-head"><h3 id="mwla-strip-title" data-i18n="strip">{text["en"]["strip"]}</h3><span data-i18n="hint">{text["en"]["hint"]}</span></div>
-      <div class="mwla-stops-wrap"><ol class="mwla-stops" tabindex="0">
-{chr(10).join(items)}
-      </ol></div>
-    </section>
-    <div class="mwla-book-cals">
-      <div class="mwla-book-cal" id="mwla-cal-en"></div>
-      <div class="mwla-book-cal" id="mwla-cal-es" style="display:none"></div>
+  <section class="mwla-strip" aria-labelledby="mwla-strip-title">
+    <div class="mwla-strip-head">
+      <h3 id="mwla-strip-title" data-i18n="strip">{text["en"]["strip"]}</h3>
+      <div class="mwla-strip-tools">
+        <span class="mwla-strip-hint" data-i18n="hint">{text["en"]["hint"]}</span>
+        <button type="button" class="mwla-arrow" id="mwla-prev" aria-label="{text["en"]["prev"]}" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button type="button" class="mwla-arrow" id="mwla-next" aria-label="{text["en"]["next"]}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
     </div>
+    <ol class="mwla-stops" id="mwla-stops" tabindex="0">
+{chr(10).join(items)}
+    </ol>
+  </section>
+
+  <p class="mwla-meet" data-i18n="meet">{text["en"]["meet"]}</p>
+  <div class="mwla-book-cals">
+    <div class="mwla-book-cal" id="mwla-cal-en"></div>
+    <div class="mwla-book-cal" id="mwla-cal-es" style="display:none"></div>
   </div>
 
 </div>
 
 <style>
-  .mwla-book {{ max-width: 1140px; margin: 0 auto; padding: 56px 20px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }}
+  .mwla-book {{ max-width: 1140px; margin: 0 auto; padding: 40px 20px 52px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }}
   .mwla-book *, .mwla-book *::before {{ box-sizing: border-box; }}
   .mwla-book-head {{ display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: center; max-width: 820px; margin: 0 auto 24px; }}
   .mwla-book-ernesto {{ width: 140px; height: auto; display: block; }}
@@ -96,14 +108,17 @@ html = f'''<!-- ================================================================
   .mwla-lang-opt:hover {{ color: #0f172a; }}
   .mwla-lang-opt.is-active {{ background: #FFD43B; color: #27302E; }}
 
-  .mwla-book-grid {{ display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 20px; align-items: stretch; }}
-  .mwla-strip {{ background: #FFF6E6; border-radius: 18px; padding: 16px 10px 0; display: grid; grid-template-rows: auto 1fr; min-height: 0; min-width: 0; overflow: hidden; }}
-  .mwla-strip-head {{ display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 0 8px 6px; }}
+  /* The route: one swipe row above the calendar (was a tall column scrolling down beside it) */
+  .mwla-strip {{ background: #FFF6E6; border-radius: 18px; padding: 12px 8px 2px; min-width: 0; overflow: hidden; }}
+  .mwla-strip-head {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px; }}
   .mwla-strip-head h3 {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; margin: 0; color: #27302E; }}
-  .mwla-strip-head span {{ font-family: "Fredoka", sans-serif; font-size: 0.82rem; font-weight: 500; color: #5b6461; }}
-  /* The list sits in an absolutely positioned box so the strip is exactly as tall as the calendar */
-  .mwla-stops-wrap {{ position: relative; min-height: 0; }}
-  .mwla-stops {{ position: absolute; inset: 0; list-style: none; margin: 0; padding: 18px 16px 24px; display: grid; align-content: start; gap: 30px; overflow-y: auto; scroll-snap-type: y proximity; overscroll-behavior: contain; }}
+  .mwla-strip-tools {{ display: flex; align-items: center; gap: 8px; }}
+  .mwla-strip-hint {{ font-family: "Fredoka", sans-serif; font-size: 0.85rem; font-weight: 500; color: #4D5551; margin-right: 4px; }}
+  .mwla-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; background: #FFD43B; color: #27302E; border: 2px solid #27302E; border-radius: 12px; cursor: pointer; transition: opacity 0.15s ease-out, transform 0.15s ease-out; }}
+  .mwla-arrow:hover:not(:disabled) {{ transform: translateY(-1px); }}
+  .mwla-arrow:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 2px; }}
+  .mwla-arrow:disabled {{ opacity: 0.35; cursor: default; }}
+  .mwla-stops {{ list-style: none; margin: 0; padding: 22px 16px 22px; display: grid; grid-auto-flow: column; grid-auto-columns: 190px; gap: 24px; align-items: start; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; scroll-padding-left: 16px; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #C9B98F transparent; }}
   .mwla-stops:focus-visible {{ outline: 3px solid #2890B6; outline-offset: -3px; border-radius: 10px; }}
   .mwla-stop {{ position: relative; scroll-snap-align: start; }}
   .mwla-stop-pic {{ position: relative; display: block; }}
@@ -118,8 +133,10 @@ html = f'''<!-- ================================================================
   .mwla-stop-t {{ display: flex; flex-direction: column; align-items: center; text-align: center; padding: 10px 4px 0; }}
   .mwla-stop-t b {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.1rem; color: #27302E; line-height: 1.15; }}
   .mwla-stop-t small {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #4D5551; }}
-  .mwla-book-cals {{ min-width: 0; }}
-  .mwla-book-cal {{ width: 100%; min-height: 640px; border-radius: 18px; overflow: hidden; }}
+  /* One line of facts replaces Cal's tall detail panel, then a narrow calendar card */
+  .mwla-meet {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.4; text-align: center; text-wrap: balance; color: #E3F1F7; margin: 22px auto 14px; max-width: 700px; }}
+  .mwla-book-cals {{ min-width: 0; max-width: 480px; margin: 0 auto; }}
+  .mwla-book-cal {{ width: 100%; min-height: 380px; border-radius: 18px; overflow: hidden; }}
 
   .mwla-book-wa {{ display: inline-block; margin-top: 10px; font-size: 0.95rem; font-weight: 700; color: #FFF6E6 !important; text-decoration: underline; text-underline-offset: 3px; }}
   .mwla-book-wa:hover {{ text-decoration: underline; }}
@@ -129,13 +146,13 @@ html = f'''<!-- ================================================================
     .mwla-book-head {{ grid-template-columns: 1fr; text-align: center; gap: 8px; }}
     .mwla-book-ernesto {{ width: 92px; margin: 0 auto; }}
     .mwla-book-sub {{ margin: 0 auto; }}
-    .mwla-book-grid {{ grid-template-columns: minmax(0, 1fr); }}
-    .mwla-strip {{ display: block; padding-bottom: 4px; }}
-    .mwla-stops-wrap {{ position: static; }}
-    .mwla-stops {{ position: static; grid-auto-flow: column; grid-auto-columns: 150px; align-items: start; overflow-x: auto; overflow-y: visible; scroll-snap-type: x proximity; scroll-padding-left: 14px; padding: 18px 10px 14px 18px; gap: 20px; }}
-    .mwla-book-cal {{ min-height: 560px; border-radius: 14px; }}
+    .mwla-strip-head {{ padding: 0 6px; }}
+    .mwla-arrow {{ display: none; }}
+    .mwla-stops {{ grid-auto-columns: 150px; scroll-padding-left: 14px; padding: 20px 10px 16px 14px; gap: 20px; }}
+    .mwla-meet {{ font-size: 0.95rem; margin: 18px auto 12px; }}
+    .mwla-book-cal {{ min-height: 360px; border-radius: 14px; }}
   }}
-  @media (prefers-reduced-motion: reduce) {{ .mwla-lang-opt {{ transition: none; }} }}
+  @media (prefers-reduced-motion: reduce) {{ .mwla-lang-opt, .mwla-arrow {{ transition: none; }} }}
 </style>
 
 <script type="text/javascript">
@@ -152,7 +169,7 @@ html = f'''<!-- ================================================================
       const ev = calEvents[lang];
       Cal("init", ev.ns, {{ origin: "https://app.cal.com" }});
       Cal.ns[ev.ns]("inline", {{ elementOrSelector: ev.el, config: {{ layout: "month_view", theme: "light" }}, calLink: ev.link }});
-      Cal.ns[ev.ns]("ui", {{ theme: "light", hideEventTypeDetails: false, layout: "month_view" }});
+      Cal.ns[ev.ns]("ui", {{ theme: "light", hideEventTypeDetails: true, layout: "month_view" }}); // Oct 16, 2026: details panel hidden (like the team calendar); the line above the calendar says length and meeting point
       loaded[lang] = true;
     }}
     const T = {json.dumps(text, ensure_ascii=False)};
@@ -162,6 +179,8 @@ html = f'''<!-- ================================================================
       const t = T[lang];
       root.querySelectorAll("[data-i18n]").forEach(function (el) {{ const k = el.getAttribute("data-i18n"); if (t[k] != null) el.textContent = t[k]; }});
       const wa = document.getElementById("mwla-book-wa"); if (wa) wa.href = t.waHref;
+      const pv = document.getElementById("mwla-prev"), nx = document.getElementById("mwla-next");
+      if (pv) pv.setAttribute("aria-label", t.prev); if (nx) nx.setAttribute("aria-label", t.next);
       ["en", "es"].forEach(function (l) {{
         const b = document.getElementById("mwla-lang-" + l);
         if (b) {{ b.classList.toggle("is-active", l === lang); b.setAttribute("aria-pressed", l === lang); }}
@@ -169,6 +188,22 @@ html = f'''<!-- ================================================================
         if (c) c.style.display = l === lang ? "" : "none";
       }});
       loadCal(lang);
+    }}
+    // Arrows for the stop row (desktop). Phones just swipe.
+    const row = document.getElementById("mwla-stops"), prev = document.getElementById("mwla-prev"), next = document.getElementById("mwla-next");
+    const calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function edges() {{
+      if (!row || !prev || !next) return;
+      prev.disabled = row.scrollLeft <= 2;
+      next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 2;
+    }}
+    function nudge(dir) {{ row.scrollBy({{ left: dir * Math.max(row.clientWidth * 0.8, 200), behavior: calm ? "auto" : "smooth" }}); }}
+    if (row && prev && next) {{
+      prev.addEventListener("click", function () {{ nudge(-1); }});
+      next.addEventListener("click", function () {{ nudge(1); }});
+      row.addEventListener("scroll", edges, {{ passive: true }});
+      window.addEventListener("resize", edges);
+      edges();
     }}
     window.mwlaBookSet = apply;
     apply((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 ? "es" : "en");

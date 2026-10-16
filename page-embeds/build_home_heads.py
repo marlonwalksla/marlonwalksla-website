@@ -32,6 +32,19 @@ CSS = """<style>
     .mwsh-sub { margin: 0 auto; }
   }
 </style>"""
+# Oct 16, 2026: tighter Team section. The banner sat 86px above the cards (30px margin + 56px split padding)
+# and the calendar card was pushed 48px lower than the left column (leftover room for Ernesto).
+TEAM_CSS = """<style>
+  /* Team section spacing (Home and /es) */
+  #team.mwsh { margin-bottom: 0; }
+  #team-split { padding-top: 28px; padding-bottom: 40px; grid-column-gap: 28px; grid-row-gap: 24px; }
+  #team-split .mw-offer { padding-top: 0; }
+  #team-split .private-specs-grid { margin-bottom: 16px; padding: 16px 18px; }
+  #team-split .mw-route { margin-top: 0; }
+  #team-split .mw-offer-links { margin-top: 10px; gap: 4px 22px; }
+  @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
+</style>
+"""
 for (sec, lang), (eb, title, sub, alt) in T.items():
     side = " is-right" if sec == "priv" else ""
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
@@ -45,6 +58,6 @@ for (sec, lang), (eb, title, sub, alt) in T.items():
   </div>
 </div>
 {CSS}
-"""
+{TEAM_CSS if sec == "team" else ""}"""
     open(f"home-head-{sec}-{lang}.html", "w", encoding="utf-8").write(html)
     print("wrote", f"home-head-{sec}-{lang}.html")

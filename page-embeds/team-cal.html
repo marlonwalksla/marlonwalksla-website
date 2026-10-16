@@ -8,6 +8,8 @@
 <style>
   .tcal { width: 100%; }
   .mw-form-card:has(.tcal) > .w-form { display: none !important; }
+  /* Oct 16, 2026: the 48px top margin was room for Ernesto peeking over the card (he is hidden now). It pushed the calendar below the left column. */
+  .mw-form-card:has(.tcal) { margin-top: 0; padding: 18px; }
   .tcal-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.6rem; line-height: 1.15; margin: 0 0 12px; color: #27302E; }
   .tcal-sub { font-family: "Fredoka", "Nunito", sans-serif; font-size: 1rem; line-height: 1.45; margin: 0 0 14px; color: #3B4440; }
   .tcal-box { min-height: 520px; border-radius: 12px; overflow: hidden; background: #fff; }
