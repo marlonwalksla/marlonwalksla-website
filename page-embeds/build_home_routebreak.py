@@ -7,9 +7,9 @@ STOPS = [("Walt Disney Concert Hall", 34.0556, -118.2493), ("Angels Flight", 34.
          ("City Hall", 34.0537, -118.2427), ("Olvera Street", 34.0574, -118.2381)]
 T = {
  "en": dict(title="See the Route", sub="A sample team day, all on foot. Six of the stops, not to scale.",
-            more="See the full schedule", href="/team-building-walking-tour-los-angeles", alt="Line-art sketch of the sample team route through Downtown LA, six numbered stops from Walt Disney Concert Hall to Olvera Street"),
+            cta="Build Your Own LA Itinerary", cta_href="/maps", more="See the full schedule", href="/team-building-walking-tour-los-angeles", alt="Line-art sketch of the sample team route through Downtown LA, six numbered stops from Walt Disney Concert Hall to Olvera Street"),
  "es": dict(title="Mira la ruta", sub="Un d&iacute;a de equipo de ejemplo, todo a pie. Seis de las paradas, sin escala.",
-            more="Ver el itinerario completo", href="/team-building-walking-tour-los-angeles", alt="Dibujo de la ruta de ejemplo para equipos por el centro de LA, seis paradas numeradas desde Walt Disney Concert Hall hasta la Calle Olvera"),
+            cta="Arma tu propio itinerario en LA", cta_href="/maps?lang=es", more="Ver el itinerario completo", href="/team-building-walking-tour-los-angeles", alt="Dibujo de la ruta de ejemplo para equipos por el centro de LA, seis paradas numeradas desde Walt Disney Concert Hall hasta la Calle Olvera"),
 }
 W, H = 640, 150
 lngs = [s[2] for s in STOPS]; lats = [s[1] for s in STOPS]
@@ -38,6 +38,11 @@ CSS = """<style>
   .rm-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 20px 48px; align-items: center; }
   .rm-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; margin: 0 0 10px; color: #27302E; }
   .rm-sub { margin: 0 0 12px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.4; color: #3B4440; max-width: 34ch; }
+  .rm-cta { display: inline-block; margin: 4px 0 6px; font-family: "Lilita One", sans-serif; font-size: 1.2rem; letter-spacing: 0.01em; line-height: 1.2; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 12px 24px; min-height: 44px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .rm-cta:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+  .rm-cta:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
+  .rm-cta:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) { .rm-cta { transition: none; } }
   .rm-more { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #1B6688 !important; text-decoration: underline !important; text-underline-offset: 3px; display: inline-block; padding: 8px 0; }
   .rm-more:hover { color: #27302E !important; }
   .rm-map { background: #fff; border: 2.5px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; padding: 10px 12px 12px; }
@@ -53,6 +58,7 @@ for lang, name in (("en", "home-routebreak.html"), ("es", "home-routebreak-es.ht
     items = "".join(f"<li>{n}</li>" for n, _, _ in STOPS)
     html = (f"<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: SEE THE ROUTE banner. Built by page-embeds/build_home_routebreak.py. Oct 17, 2026 (Marlon via Gemini): sits between Team and Private; static line art, no live map. -->\n"
             f"<section class=\"rm\" aria-label=\"{t['title']}\">\n  <div class=\"rm-wrap\">\n    <div>\n      <h2 class=\"rm-title\">{t['title']}</h2>\n      <p class=\"rm-sub\">{t['sub']}</p>\n"
+            f"      <a class=\"rm-cta\" href=\"{t['cta_href']}\">{t['cta']}</a><br>\n"
             f"      <a class=\"rm-more\" href=\"{t['href']}\">{t['more']} &rarr;</a>\n    </div>\n"
             f"    <div class=\"rm-map\">{svg.replace('__ALT__', t['alt'])}<ol class=\"rm-list\">{items}</ol></div>\n  </div>\n</section>\n" + CSS)
     open(name, "w", encoding="utf-8").write(html); print("wrote", name)
