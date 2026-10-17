@@ -109,7 +109,8 @@ LEFT_JS = r"""<script>
   function fmt(h) { return (Math.round(h * 2) / 2).toString().replace(".5", "½"); }
   function show(id) {
     var s = S[id]; if (!frame) return;
-    var old = frame.firstElementChild, el;
+    while (frame.children.length > 1) frame.removeChild(frame.firstElementChild);
+    var old = frame.lastElementChild, el;
     if (s.photo) { el = document.createElement("img"); el.src = s.photo; el.alt = s.name; el.loading = "lazy"; }
     else { el = document.createElement("div"); el.className = "pvb-card"; el.style.background = s.color; el.textContent = s.name; }
     el.classList.add("is-out"); frame.appendChild(el);
