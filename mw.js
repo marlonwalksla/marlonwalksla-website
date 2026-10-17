@@ -1,4 +1,4 @@
-/* MarlonWalksLA section loader (loader-v1)
+/* MarlonWalksLA section loader (loader-v2)
  *
  * Each Webflow HTML embed holds ONE line:
  *   <script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@50683478626ed739694449b34e582d1456ebe644/mw.js" data-s="home-hero"></script>
@@ -6,14 +6,14 @@
  * exactly where the script tag sits, so the page looks the same as if the
  * code were pasted into the embed.
  *
- * Which branch it reads:
+ * Which branch it reads (v2: test site reads GitHub first, live site reads jsDelivr first):
  *   marlonwalksla.com / www.marlonwalksla.com  -> "live" (changes only when Marlon approves)
  *   everything else (webflow.io, Designer)     -> "test"
  *   Add ?mw=live or ?mw=test to a non-live address to preview the other branch.
  *
  * It uses a synchronous request on purpose: the section appears in place,
  * before the browser keeps parsing, and its scripts run in the same order as
- * before. Webflow pins this file to one commit (loader-v1 = 50683478626ed739694449b34e582d1456ebe644), so it never changes by accident.
+ * before. Webflow pins this file to one commit (see CLAUDE.md), so it never changes by accident.
  */
 (function () {
   'use strict';
@@ -34,10 +34,11 @@
   var bucket = Math.floor(Date.now() / (prod ? 600000 : 60000));
   var path = 'page-embeds/' + name + '.html?v=' + bucket;
   var repo = 'marlonwalksla/marlonwalksla-website';
-  var urls = [
-    'https://cdn.jsdelivr.net/gh/' + repo + '@' + ref + '/' + path,
-    'https://raw.githubusercontent.com/' + repo + '/' + ref + '/' + path
-  ];
+  var cdn = 'https://cdn.jsdelivr.net/gh/' + repo + '@' + ref + '/' + path;
+  var raw = 'https://raw.githubusercontent.com/' + repo + '/' + ref + '/' + path;
+  // marlonwalksla.com: jsDelivr first (fast, cached). Test site: GitHub first, because jsDelivr can keep
+  // serving an older copy of a branch for hours, and the test site must show the latest push within a minute.
+  var urls = prod ? [cdn, raw] : [raw, cdn];
 
   function put(html) {
     var p = s.parentNode;
