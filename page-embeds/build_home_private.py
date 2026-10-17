@@ -128,7 +128,7 @@ LEFT_JS = r"""<script>
     st.lo = (sm + dm * 0.85) / 60; st.hi = (sm + dm * 1.4) / 60;
     var mid = (st.lo + st.hi) / 2;
     for (var k = 0; k < D.packages.length; k++) if (mid <= D.packages[k].hours) { st.pkg = D.packages[k]; break; }
-    st.over = !st.pkg; st.range = fmt(st.lo) + " " + t.to + " " + fmt(st.hi);
+    st.over = !st.pkg; st.range = fmt(st.lo) === fmt(st.hi) ? fmt(st.lo) : fmt(st.lo) + " " + t.to + " " + fmt(st.hi);
     return st;
   }
   function publish() {
