@@ -10,14 +10,14 @@ PICS = [
 ]
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="about $", notes="About 5 hours · Lunch not included · Minimum 5 guests",
+   pp_pre="about $", notes="Angels Flight ride, film and the Ernesto hunt included · Lunch not included",
    btn="Learn more", btn_note="", href="/team-building-walking-tour-los-angeles",
    wa="More than 30 guests? Message Marlon",
    wa_href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2030",
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="unos $", notes="Unas 5 horas · Almuerzo no incluido · Mínimo 5 personas",
+   pp_pre="unos $", notes="Incluye Angels Flight, las fotos y la búsqueda de Ernesto · Almuerzo no incluido",
    btn="Más información", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    wa="¿Más de 30 personas? Escríbeme",
    wa_href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2030",

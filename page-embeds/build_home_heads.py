@@ -4,11 +4,11 @@ C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERN = {"team": C + "6a87ce800a9b9169f06d40de_Polaroid%20Photographer.avif",
        "priv": C + "6a87cf628c921f7de316043f_Hiking.avif"}
 T = {
- ("team", "en"): ("Team Tours", "Explore DTLA as a Team",
-   "Get your team out of the office for fresh air, real conversation and LA history, with lunch at Grand Central Market and the Ernesto photo competition.",
+ ("team", "en"): ("Team Tours", "Celebrate Your Team",
+   "Walk Downtown LA, share lunch at Grand Central Market, and take home photos of your favorite people.",
    "Ernesto with his Polaroid camera"),
- ("team", "es"): ("Tours de equipo", "Explora DTLA en equipo",
-   "Saca a tu equipo de la oficina: aire libre, buena conversaci&oacute;n e historia de LA, con almuerzo en Grand Central Market y el concurso de fotos de Ernesto.",
+ ("team", "es"): ("Tours de equipo", "Celebra a tu equipo",
+   "Recorre el centro de LA, almuerza en Grand Central Market y ll&eacute;vate fotos de tu gente favorita.",
    "Ernesto con su c&aacute;mara Polaroid"),
  ("priv", "en"): ("Private Tours", "LA, Your Way",
    "Marlon picks you up, does the driving and plans the day around you: the Hollywood Sign, Griffith Observatory, the best views and the spots locals love.",
@@ -45,7 +45,18 @@ TEAM_CSS = """<style>
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
 </style>
 """
+# Oct 16, 2026: who the team walk is for (celebration angle)
+CHIPS = {("team", "en"): ["Birthdays", "Product launches", "Company offsites"],
+         ("team", "es"): ["Cumplea&ntilde;os", "Lanzamientos", "Retiros de empresa"]}
+CHIP_CSS = """<style>
+  .mwsh-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 12px 0 0; padding: 0; }
+  .mwsh-chips li { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #27302E; background: #FFF6E6; border: 1.5px solid #27302E; border-radius: 999px; padding: 3px 12px; }
+  @media (max-width: 900px) { .mwsh-chips { justify-content: center; } }
+</style>
+"""
 for (sec, lang), (eb, title, sub, alt) in T.items():
+    chips = CHIPS.get((sec, lang))
+    chip_html = ("\n    <ul class=\"mwsh-chips\">" + "".join(f"<li>{c}</li>" for c in chips) + "</ul>") if chips else ""
     side = " is-right" if sec == "priv" else ""
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
      Sits above the two-column layout, same look as the free tour banner. -->
@@ -54,10 +65,10 @@ for (sec, lang), (eb, title, sub, alt) in T.items():
   <div>
     <span class="mwsh-eyebrow">{eb}</span>
     <h2 class="mwsh-title">{title}</h2>
-    <p class="mwsh-sub">{sub}</p>
+    <p class="mwsh-sub">{sub}</p>{chip_html}
   </div>
 </div>
 {CSS}
-{TEAM_CSS if sec == "team" else ""}"""
+{TEAM_CSS + CHIP_CSS if sec == "team" else ""}"""
     open(f"home-head-{sec}-{lang}.html", "w", encoding="utf-8").write(html)
     print("wrote", f"home-head-{sec}-{lang}.html")
