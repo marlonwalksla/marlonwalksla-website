@@ -8,8 +8,8 @@ import urllib.parse
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERNESTO = CDN + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
 P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp"
-P_PRIV = CDN + "6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp"
-P_TEAM = CDN + "6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.webp"  # stand-in until the group-at-GCM Polaroid is uploaded
+P_PRIV = CDN + "6ad327874042d5e60f8724b9_Master%20Polaroids.png"  # Oct 17, 2026: Marlon's pick
+P_TEAM = CDN + "6ad2f698e11872cd0c80b662_Website%20Images%20(14).webp"  # Oct 17, 2026: Kara's birthday group at the Grand Central Market sign
 
 T = {
     "en": dict(
@@ -22,9 +22,9 @@ T = {
         free=("Free Tour", "Tip-based", "#book",
               "Free tour guests holding their Polaroid at La Placita Olvera"),
         team=("Team Tours", "Up to 30 guests", "#team",
-              "Polaroid of Grand Central Market at night, where team tours stop for lunch"),
+              "Kara's birthday group at the Grand Central Market sign"),
         priv=("Private Tours", "Pick Up/Drop Off", "#private",
-              "Private tour guest at sunset by Griffith Observatory"),
+              "Private tour guests with their Polaroid"),
     ),
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
@@ -36,9 +36,9 @@ T = {
         free=("Free Tour", "Con propina", "#book",
               "Grupo del free tour con su Polaroid en La Placita Olvera"),
         team=("Tours de Equipo", "Hasta 30 personas", "#team",
-              "Polaroid de Grand Central Market de noche, donde los equipos almuerzan"),
+              "El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
         priv=("Tours Privados", "Te recojo y te llevo", "#private",
-              "Invitada de un tour privado al atardecer en el Observatorio Griffith"),
+              "Invitados de un tour privado con su Polaroid"),
     ),
 }
 
@@ -111,7 +111,7 @@ def build(lang):
 </section>
 <style>
   /* Let the old hero section and column get out of the way */
-  .section.max-height_100vh_desktop {{ max-height: none !important; min-height: 0 !important; overflow: visible !important; padding: 0 !important; display: block !important; background: none !important; }}
+  .section.max-height_100vh_desktop {{ max-height: none !important; min-height: 0 !important; overflow: visible !important; padding: 0 !important; display: block !important; background-color: #FFF6E6 !important; background-image: linear-gradient(#F1E4CB 1px, transparent 1px), linear-gradient(90deg, #F1E4CB 1px, transparent 1px) !important; background-size: 26px 26px !important; }}
   .hero-left-col {{ width: 100% !important; max-width: none !important; flex: none !important; padding: 0 !important; margin: 0 !important; height: auto !important; }}
   .hero-right-col {{ display: none !important; }}
 
@@ -181,18 +181,26 @@ def build(lang):
   }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-btn, .mwh-photo {{ transition: none; }} }}
 
-  /* ---------- Home section papers (Oct 17, 2026): every section is a different paper ----------
-     Hero = grid paper (above). Reviews = kraft. Team = postcard. Free tour = airmail envelope. Private = travel journal.
-     All drawn in CSS, no image files. Old solid colors (sage, blue, stray yellow) are gone. */
+  /* ---------- Home = postcards on a desk (Oct 17, 2026, Marlon's idea) ----------
+     Hero = grid-paper desk. Reviews = kraft board. Each tour section is a postcard from its place:
+     Team = Grand Central Market, Free tour = El Pueblo (papel picado), Private = thick premium cardstock with a gold seal.
+     Stamps use Marlon's own Polaroids. No landmark logos. All CSS, no new image files. */
   body {{ background-color: #FFF6E6; }}
-  .rv-banner {{ background: #D9B98C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .12 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; border-top: 0 !important; border-bottom: 0 !important; }}
-  .mw-bg-team {{ position: relative; background: #FBF7EE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; }}
-  .mw-bg-team::after {{ content: "LA"; position: absolute; top: 26px; right: 34px; width: 64px; height: 78px; display: grid; place-items: center; background: #2890B6; color: #FFF6E6; font: 400 1.1rem "Lilita One", sans-serif; border: 5px dotted #FBF7EE; outline: 2px solid #FBF7EE; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(5deg); pointer-events: none; }}
-  .mw-bg-team::before {{ content: "DOWNTOWN \\00B7 LOS ANGELES"; position: absolute; top: 44px; right: 112px; width: 92px; height: 92px; border: 2px solid rgba(39, 48, 46, 0.28); border-radius: 50%; display: grid; place-items: center; text-align: center; padding: 14px; box-sizing: border-box; font: 700 0.58rem/1.3 "Fredoka", sans-serif; letter-spacing: 0.08em; color: rgba(39, 48, 46, 0.4); transform: rotate(-12deg); pointer-events: none; }}
-  .mw-bg-book {{ position: relative; background: #F4EFE3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; padding-top: 40px; padding-bottom: 14px; }}
-  .mw-bg-book::before, .mw-bg-book::after {{ content: ""; position: absolute; left: 0; right: 0; height: 14px; background: repeating-linear-gradient(-45deg, #D9453B 0 16px, #F4EFE3 16px 26px, #1B6688 26px 42px, #F4EFE3 42px 52px); pointer-events: none; }}
-  .mw-bg-book::before {{ top: 0; }}
-  .mw-bg-book::after {{ bottom: 0; }}
+  section:has(.rv-banner) {{ background: #D9B98C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .12 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; }}
+  .rv-banner {{ background: transparent !important; border-top: 0 !important; border-bottom: 0 !important; }}
+  /* Postcard edge: a thin printed frame line inside every tour section */
+  .mw-bg-team, .mw-bg-book, .mw-bg-private {{ position: relative; }}
+  .mw-bg-team > *, .mw-bg-book > *, .mw-bg-private > * {{ position: relative; z-index: 2; }}
+  /* Team: Grand Central Market postcard */
+  .mw-bg-team {{ background: #FBF7EE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; box-shadow: inset 0 0 0 14px #FBF7EE, inset 0 0 0 15.5px rgba(39, 48, 46, 0.18); }}
+  .mw-bg-team::after {{ content: ""; position: absolute; top: 26px; right: 34px; width: 70px; height: 84px; background: #FBF7EE url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.webp") center / 58px 72px no-repeat; border: 5px dotted #FBF7EE; outline: 2px solid #FBF7EE; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(5deg); pointer-events: none; z-index: 1; }}
+  .mw-bg-team::before {{ content: "GRAND CENTRAL MARKET \\00B7 SINCE 1917"; position: absolute; top: 46px; right: 116px; width: 96px; height: 96px; border: 2px solid rgba(39, 48, 46, 0.28); border-radius: 50%; display: grid; place-items: center; text-align: center; padding: 14px; box-sizing: border-box; font: 700 0.56rem/1.35 "Fredoka", sans-serif; letter-spacing: 0.08em; color: rgba(39, 48, 46, 0.42); transform: rotate(-12deg); pointer-events: none; z-index: 1; }}
+  /* Free tour: El Pueblo postcard, papel picado along the top */
+  .mw-bg-book {{ background: #FBEFE2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; padding-top: 58px; padding-bottom: 14px; box-shadow: inset 0 0 0 14px #FBEFE2, inset 0 0 0 15.5px rgba(39, 48, 46, 0.18); }}
+  .mw-bg-book::before {{ content: ""; position: absolute; top: 0; left: 0; right: 0; height: 44px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='44'%3E%3Cpath d='M0 6H240' stroke='%2327302E' stroke-width='1.5'/%3E%3Cpath d='M3 6H45V34L40 40L35 34L30 40L24 34L19 40L14 34L8 40L3 34Z' fill='%23FF00FF'/%3E%3Ccircle cx='24' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='12' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='30' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M51 6H93V34L88 40L83 34L78 40L72 34L67 40L62 34L56 40L51 34Z' fill='%23FFD43B'/%3E%3Ccircle cx='72' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='60' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='78' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M99 6H141V34L136 40L131 34L126 40L120 34L115 40L110 34L104 40L99 34Z' fill='%2300C853'/%3E%3Ccircle cx='120' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='108' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='126' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M147 6H189V34L184 40L179 34L174 40L168 34L163 40L158 34L152 40L147 34Z' fill='%232890B6'/%3E%3Ccircle cx='168' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='156' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='174' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M195 6H237V34L232 40L227 34L222 40L216 34L211 40L206 34L200 40L195 34Z' fill='%23FF6600'/%3E%3Ccircle cx='216' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='204' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='222' y='24' width='6' height='5' fill='%23FFF'/%3E%3C/svg%3E") repeat-x top left; pointer-events: none; z-index: 1; }}
+  .mw-bg-book .mwla-book-head::after {{ content: ""; position: absolute; top: -6px; right: -90px; width: 70px; height: 84px; background: #FBEFE2 url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a884cd6ef1aef19e7fc_polaroid-olvera-kiosko.webp") center / 58px 72px no-repeat; border: 5px dotted #FBEFE2; outline: 2px solid #FBEFE2; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(-4deg); pointer-events: none; z-index: 1; }}
+  .mw-bg-book .mwla-book-head {{ position: relative; }}
+  .mw-bg-book::after {{ content: none !important; }}
   .mw-bg-book .mwla-book-title {{ color: #27302E !important; font-family: "Lilita One", sans-serif; font-weight: 400; }}
   .mw-bg-book .mwla-book-sub {{ color: #3B4440 !important; }}
   .mw-bg-book .mwla-lang-label {{ color: #27302E !important; }}
@@ -200,11 +208,13 @@ def build(lang):
   .mw-bg-book .mwla-book-wa {{ color: #1B6688 !important; }}
   .mw-bg-book .mwla-book-facts {{ display: none !important; }}
   .mw-bg-book .mwla-book-cal {{ background: #ffffff; padding: 8px; box-shadow: 0 10px 24px -14px rgba(39, 48, 46, 0.5); }}
-  .mw-bg-private {{ position: relative; background-color: #FFFDF6 !important; background-image: linear-gradient(90deg, transparent 64px, #E9A3A3 64px 66px, transparent 66px), repeating-linear-gradient(transparent 0 27px, #D6E4EE 27px 28px) !important; background-size: auto !important; }}
+  /* Private: thick cream cardstock (fiber texture), gold rule and a gold-framed seal */
+  .mw-bg-private {{ background: #F6F1E6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .35' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E") !important; background-size: auto !important; box-shadow: inset 0 0 0 14px #F6F1E6, inset 0 0 0 15.5px #C9A54B, inset 0 0 0 19px #F6F1E6, inset 0 0 0 20px rgba(201, 165, 75, 0.6); }}
+  .mw-bg-private::after {{ content: ""; position: absolute; top: 26px; left: 34px; width: 70px; height: 84px; background: #F6F1E6 url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp") center / 58px 72px no-repeat; border: 3px solid #C9A54B; outline: 1px solid #C9A54B; outline-offset: 3px; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(-5deg); pointer-events: none; z-index: 1; }}
   .mw-bg-private::before {{ content: none !important; }}
   @media (max-width: 900px) {{
-    .mw-bg-team::before, .mw-bg-team::after {{ display: none; }}
-    .mw-bg-private {{ background-image: linear-gradient(90deg, transparent 18px, #E9A3A3 18px 20px, transparent 20px), repeating-linear-gradient(transparent 0 27px, #D6E4EE 27px 28px) !important; }}
+    .mw-bg-team::before, .mw-bg-team::after, .mw-bg-private::after, .mw-bg-book .mwla-book-head::after {{ display: none; }}
+    .mw-bg-team, .mw-bg-book, .mw-bg-private {{ box-shadow: none; }}
   }}
 </style>
 '''
