@@ -1,7 +1,10 @@
 # Page embed copies (Oct 14, 2026 drafts)
 
-Copies of the HTML embed code pasted into Webflow for the new pages. Webflow is the live
-source; these are for reference and for re-pasting. Styles come from `tour-pages.css`.
+Section HTML for the site's embeds. **Home, /es, Team, Private and the Free tour pages now load
+these files straight from this repo** (each Webflow embed is one `mw.js` line; see `MAP.md`), so for
+those pages the repo is the source of truth: edit here, not in Webflow. Branch `test` feeds the test
+site, branch `live` feeds marlonwalksla.com. About, Privacy, Terms, 404 and the header are still
+reference copies (Webflow is the source). Styles come from `tour-pages.css`.
 Red `.tp-todo` text marks info Marlon still needs to fill in.
 
 | File | Webflow page | Where it sits |

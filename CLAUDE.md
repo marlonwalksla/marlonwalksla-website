@@ -4,9 +4,12 @@ MarlonWalksLA is Marlon Gonzalez's walking-tour business in Los Angeles: free to
 
 ## How the site is built
 - **Webflow** (site ID `6a050f29c558b4d909196aad`) holds the pages, CMS and forms. Most page content lives in HTML embeds.
+- **Embeds on Home, /es, Team, Private and the Free tour pages are one line each** that loads its section from this repo through `mw.js` (see `page-embeds/MAP.md`). Other pages still hold their code directly in Webflow.
 - **This repo** holds the custom CSS and JS. Webflow loads them from jsDelivr: `https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/<file>?v=N`.
 - `.github/workflows/refresh-cdn.yml` purges jsDelivr after every push to main, so changes show within a minute or two. Bump `?v=` in Webflow when a change must show immediately.
-- `page-embeds/` holds reference copies of the HTML pasted into Webflow embeds. Webflow is the live source; keep these copies in sync when you change an embed.
+- `page-embeds/` holds the section HTML for those one-line embeds. For Home, /es, Team, Private and Free tour the repo is the source (Webflow only holds the loader line). For other pages (About, Privacy, 404, header...) the files are reference copies; Webflow is the source, so keep them in sync.
+- **Two branches feed the sections:** `test` is what the test site (marlonwalksla.webflow.io) loads, `live` is what marlonwalksla.com loads. `mw.js` picks the branch from the hostname. Edit and push `test`; only after Marlon says OK, `git push origin test:live`. `loader-v1` is a tag, so `mw.js` never changes by accident (to change the loader, make `loader-v2` and update the 25 embeds).
+- CSS and JS files (`global-vars.css`, `map-core.js`, etc.) still load from `@main`, so a push to main reaches the live site. Treat main as live for those files.
 
 ## Key files
 - `global-vars.css`: brand colors and shared components (loaded site-wide)
