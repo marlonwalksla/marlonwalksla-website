@@ -9,7 +9,7 @@ ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
 POLS = [  # image, year, tape color, alt
   (C+"6ac74a8b6dc6526aa1e35909_polaroid-disney-hall-couple.webp", "2003", "rgba(255,0,255,.45)", "Guests with their Polaroid at Walt Disney Concert Hall"),
   (C+"6ac74a889c33f92895c9275a_polaroid-city-hall-couple.webp", "1928", "rgba(255,255,0,.6)", "Polaroid at Los Angeles City Hall"),
-  (C+"6ac74a884cd6ef1aef19e7fc_polaroid-olvera-kiosko.webp", "1781", "rgba(40,144,182,.45)", "Polaroid of the kiosko at Placita Olvera"),
+  (C+"6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp", "1781", "rgba(40,144,182,.45)", "Tour group holding their Polaroid at La Placita Olvera"),  # Oct 17, 2026: the old hero Free Tour photo, now here
 ]
 RA_EN = '{"mode":"walk","areas":[{"name":"Bunker Hill","lat":34.0538,"lng":-118.2528},{"name":"Historic Core","lat":34.0478,"lng":-118.247},{"name":"Civic Center","lat":34.0519,"lng":-118.2418},{"name":"El Pueblo","lat":34.059,"lng":-118.238}],"stops":[{"name":"Walt Disney Concert Hall","desc":"Where we meet. Frank Gehry\'s steel landmark and the story of how it got built.","lat":34.0556,"lng":-118.2493},{"name":"The Broad","desc":"Next door, a free contemporary art museum that opened in 2015.","lat":34.0541,"lng":-118.2507},{"name":"Angels Flight","desc":"Built in 1901, \\"the world\'s shortest railway\\" has carried over 100 million passengers.","lat":34.0513,"lng":-118.2504},{"name":"Grand Central Market","desc":"Open since 1917. Today it\'s 30+ food stalls from all over the world.","lat":34.0509,"lng":-118.2491},{"name":"Bradbury Building","desc":"The 1893 interior you\'ve seen in movies.","lat":34.0505,"lng":-118.2478},{"name":"The Evolution of Los Angeles","desc":"The story of LA on one mural.","lat":34.0521,"lng":-118.2452},{"name":"City Hall","desc":"The 1928 tower at the heart of LA\'s government.","lat":34.0537,"lng":-118.2427},{"name":"The courthouses","desc":"LA\'s courthouses and the stories behind them.","lat":34.0549,"lng":-118.241},{"name":"Placita Olvera and El Pueblo de Los \\u00c1ngeles","desc":"Where Los Angeles began in 1781. The tour ends here, a short walk from Union Station.","lat":34.0574,"lng":-118.2381}]}'
 RA_ES = '{"mode":"walk","areas":[{"name":"Bunker Hill","lat":34.0538,"lng":-118.2528},{"name":"Historic Core","lat":34.0478,"lng":-118.247},{"name":"Civic Center","lat":34.0519,"lng":-118.2418},{"name":"El Pueblo","lat":34.059,"lng":-118.238}],"stops":[{"name":"Walt Disney Concert Hall","desc":"Punto de encuentro. El edificio de acero de Frank Gehry y la historia detr\\u00e1s.","lat":34.0556,"lng":-118.2493},{"name":"The Broad","desc":"Al lado, un museo de arte contempor\\u00e1neo gratuito, abierto en 2015.","lat":34.0541,"lng":-118.2507},{"name":"Angels Flight","desc":"De 1901, \\"el ferrocarril m\\u00e1s corto del mundo\\", con m\\u00e1s de 100 millones de pasajeros.","lat":34.0513,"lng":-118.2504},{"name":"Grand Central Market","desc":"Abierto desde 1917. Hoy re\\u00fane m\\u00e1s de 30 puestos de comida de todo el mundo.","lat":34.0509,"lng":-118.2491},{"name":"Bradbury Building","desc":"El interior de 1893 que has visto en el cine.","lat":34.0505,"lng":-118.2478},{"name":"La Evoluci\\u00f3n de Los \\u00c1ngeles","desc":"La historia de LA en un solo mural.","lat":34.0521,"lng":-118.2452},{"name":"City Hall","desc":"La torre de 1928, coraz\\u00f3n del gobierno de la ciudad.","lat":34.0537,"lng":-118.2427},{"name":"Los juzgados","desc":"Los juzgados de LA y las historias detr\\u00e1s de ellos.","lat":34.0549,"lng":-118.241},{"name":"La Placita Olvera y El Pueblo de Los \\u00c1ngeles","desc":"Donde naci\\u00f3 Los \\u00c1ngeles en 1781. Aqu\\u00ed termina el tour, cerca de Union Station.","lat":34.0574,"lng":-118.2381}]}'
@@ -18,7 +18,8 @@ text = {
         "sub":"Walk back in time through 240 years of Los Angeles history with a local guide. Booking takes under a minute.",
         "wa":"\U0001F4AC Questions? WhatsApp Marlon",
         "back":"Walk backwards through LA history",
-        "tip":"Tip-based",
+        "tip":"Tip-based","line":"Explore Downtown LA with Marlon and tip what feels right.",
+        "qt":"Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.","qwho":"Angel · Google (in Spanish)",
         "p1n":"Walt Disney Concert Hall","p1l":"Where we meet",
         "p2n":"City Hall","p2l":"The 1928 tower",
         "p3n":"Placita Olvera","p3l":"Where LA began",
@@ -31,7 +32,8 @@ text = {
         "sub":"Viaja hacia atrás en el tiempo por 240 años de historia de Los Ángeles con un guía local. Reservar toma menos de un minuto.",
         "wa":"\U0001F4AC ¿Preguntas? Escríbele a Marlon por WhatsApp",
         "back":"Camina hacia atrás en la historia de LA",
-        "tip":"Con propina",
+        "tip":"Con propina","line":"Explora el centro de LA con Marlon y deja la propina que creas justa.",
+        "qt":"Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.","qwho":"Angel · Google",
         "p1n":"Walt Disney Concert Hall","p1l":"Punto de encuentro",
         "p2n":"City Hall","p2l":"La torre de 1928",
         "p3n":"La Placita Olvera","p3l":"Donde nació LA",
@@ -43,7 +45,7 @@ text = {
 }
 pols = "".join(
   f'<figure class="mwla-pol" style="--r:{r}"><span class="mwla-tape" style="background:{tape}"></span><img src="{img}" alt="{alt}" loading="lazy">'
-  f'<figcaption><b data-pi="p{i}n">{text["en"][f"p{i}n"]}</b></figcaption></figure>'
+  f'</figure>'
   for i,((img,yr,tape,alt),r) in enumerate(zip(POLS,["-2.5deg","2deg","-1.5deg"]),1))
 
 html = f'''<!-- ==============================================================================
@@ -57,17 +59,21 @@ html = f'''<!-- ================================================================
 <div class="mwla-book" id="book">
   <div class="mwla-book-head">
     <div class="mwla-book-head-text">
-      <p class="pc-from" data-pi="from">{text["en"]["from"]}</p>
       <h2 class="mwla-book-title" data-pi="title">{text["en"]["title"]}</h2>
+      <p class="pc-line" data-pi="line">{text["en"]["line"]}</p>
       <ul class="pc-badges"><li class="pc-badge"><span aria-hidden="true">&#127758;</span><span>Espa&ntilde;ol &amp; English</span></li><li class="pc-badge"><span aria-hidden="true">&#128155;</span><span data-pi="tip">{text["en"]["tip"]}</span></li></ul>
-      <p class="pc-to"><span data-pi="toL">{text["en"]["toL"]}</span> <span data-pi="to">{text["en"]["to"]}</span></p>
       <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-pi="wa">{text["en"]["wa"]}</a>
+    </div>
+    <div class="pc-addr">
+      <p class="pc-from" data-pi="from">{text["en"]["from"]}</p>
+      <p class="pc-to"><span data-pi="toL">{text["en"]["toL"]}</span> <span data-pi="to">{text["en"]["to"]}</span></p>
     </div>
   </div>
 
   <div class="mwla-fgrid">
     <div class="mwla-fleft">
       <div class="mwla-pols">{pols}</div>
+      <figure class="mwla-q"><blockquote data-pi="qt">{text["en"]["qt"]}</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span data-pi="qwho">{text["en"]["qwho"]}</span></figcaption></figure>
       <div class="mwla-fmap">
         <div class="ra" id="mwla-free-ra" data-compact data-nolist data-label="Route map" data-ernesto="{ERN}"><script type="application/json" class="ra-data" id="mwla-free-ra-data">{{RA_EN}}</script></div>
       </div>
@@ -102,7 +108,12 @@ html = f'''<!-- ================================================================
 <style>
   .mwla-book {{ max-width: 1140px; margin: 0 auto; padding: 40px 20px 52px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }}
   .mwla-book *, .mwla-book *::before {{ box-sizing: border-box; }}
-  .mwla-book-head {{ display: block; max-width: 1060px; margin: 0 auto 28px; text-align: left; }}
+  .mwla-book-head {{ display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 28px; text-align: left; }}
+  /* Oct 17, 2026 (Marlon): a quote under the Polaroids, like the Team section (no captions under the photos) */
+  .mwla-q {{ margin: 22px 0 0; padding-left: 14px; border-left: 4px solid #D6479B; }}
+  .mwla-q blockquote {{ margin: 0; font-size: 1rem; line-height: 1.5; color: #3B4440; }}
+  .mwla-q figcaption {{ margin-top: 4px; font-size: 0.85rem; color: #5B6663; }}
+  .mwla-q figcaption span:first-child {{ color: #E89B00; letter-spacing: 1px; margin-right: 4px; }}
   .mwla-book-title {{ font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #0f172a; margin: 0; }}
   .mwla-book-sub {{ font-size: 1.05rem; line-height: 1.55; color: #475569; margin: 0; max-width: 56ch; }}
   .mwla-book-wa {{ display: inline-block; margin-top: 10px; font-size: 0.95rem; font-weight: 700; color: #1B6688 !important; text-decoration: underline; text-underline-offset: 3px; }}
@@ -137,7 +148,8 @@ html = f'''<!-- ================================================================
   }}
   @media (max-width: 900px) {{
     .mwla-book {{ padding: 40px 16px; }}
-    .mwla-book-head {{ gap: 12px; }}
+    .mwla-book-head {{ grid-template-columns: 1fr; gap: 6px; }}
+    .mwla-book-head .pc-addr {{ justify-self: end; }}
     .mwla-book-title {{ font-size: clamp(1.7rem, 8vw, 2.2rem); }}
     .mwla-book-head .pc-badge {{ font-size: 0.9rem; }}
     .mwla-pols {{ gap: 12px; }}

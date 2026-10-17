@@ -16,9 +16,9 @@
 /* Oct 17, 2026 (Marlon): no stamp and no striped edge on the cards (stripes stay on the outside of the section).
    Ernesto stands next to the button instead: he takes you there. */
 .mw-form-card::after { content: none !important; display: none !important; }
-.pc-cta { display: flex; align-items: flex-end; gap: 12px; margin-top: 18px; }
+.pc-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 18px; }
 .pc-cta > .mw-form-submit, .pc-cta > .tq-btn { flex: 1 1 auto; width: auto !important; min-width: 0; margin-top: 0 !important; }
-.pc-cta-ern { display: block; flex: none; width: auto; height: 84px; margin: 0 0 -6px; }
+.pc-cta-ern { display: block; flex: none; width: auto; height: 84px; margin: -10px 0 -6px; }
 /* Handwritten labels, ruled lines instead of boxes */
 .mw-form-card .mw-form-label { font-family: "Caveat", cursive !important; font-weight: 700 !important; font-size: 1.3rem !important; line-height: 1.1 !important; color: #3B4440 !important; margin: 12px 0 0 !important; text-transform: none !important; letter-spacing: 0 !important; }
 .mw-form-card .mw-form-input {

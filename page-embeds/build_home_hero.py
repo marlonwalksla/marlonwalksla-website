@@ -7,7 +7,8 @@ import urllib.parse
 
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERNESTO = CDN + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
-P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp"
+P_FREE = CDN + "6ad3d70ae5ccdc27ab358156_free-tour-avila-adobe.webp"  # Oct 17, 2026 (Marlon): yellow-frame Polaroid; the old La Placita one moved into the free tour section
+_OLD_P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp"
 P_PRIV = CDN + "6ad327874042d5e60f8724b9_Master%20Polaroids.png"  # Oct 17, 2026: Marlon's pick
 P_TEAM = CDN + "6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp"  # Oct 17, 2026 (Marlon): green-tinted Polaroid, Kara's birthday group at the Grand Central Market
 
@@ -19,11 +20,11 @@ T = {
         btn="Explore my tours", btn_href="#team", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         ern_alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map",
-        free=("Free Tour", "Tip-based", "#book",
-              "Free tour guests holding their Polaroid at La Placita Olvera"),
-        team=("Team Tours", "Up to 30 guests", "#team",
+        free=("Free Tour", "Join a Free Tour!", "#book",
+              "Free tour guests posing together at the Avila Adobe garden"),
+        team=("Team Tours", "Celebrate Your Team", "#team",
               "Kara's birthday group at the Grand Central Market sign"),
-        priv=("Private Tours", "Pick Up/Drop Off", "#private",
+        priv=("Private Tours", "LA, Your Way", "#private",
               "Private tour guests with their Polaroid"),
     ),
     "es": dict(
@@ -33,11 +34,11 @@ T = {
         btn="Explora mis tours", btn_href="#team", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         ern_alt="Ernesto la pi&ntilde;ata, tu gu&iacute;a, con una tablet y un mapa",
-        free=("Free Tour", "Con propina", "#book",
-              "Grupo del free tour con su Polaroid en La Placita Olvera"),
-        team=("Tours de Equipo", "Hasta 30 personas", "#team",
+        free=("Free Tour", "&iexcl;&Uacute;nete a un Free Tour!", "#book",
+              "Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
+        team=("Tours de Equipo", "Celebra a tu equipo", "#team",
               "El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
-        priv=("Tours Privados", "Te recojo y te llevo", "#private",
+        priv=("Tours Privados", "LA a tu manera", "#private",
               "Invitados de un tour privado con su Polaroid"),
     ),
 }
@@ -119,8 +120,8 @@ def build(lang):
       <h1 class="mwh-h1">{t["h1"]}</h1>
       <p class="mwh-line">{t["line"]}</p>
       <div class="mwh-cta">
-        <a class="mwh-btn" href="{t["btn_href"]}">{t["btn"]}</a>
         <img class="mwh-ern" src="{ERNESTO}" alt="{t["ern_alt"]}" width="90" height="108">
+        <a class="mwh-btn" href="{t["btn_href"]}">{t["btn"]}</a>
       </div>
     </div>
     <div class="mwh-photos">
@@ -176,6 +177,7 @@ def build(lang):
   /* Oct 17, 2026 (Marlon): no stamp. Ernesto stands next to the button: he takes you there. */
   .mwh-cta {{ display: flex; align-items: flex-end; gap: 14px; }}
   .mwh-ern {{ display: block; width: auto; height: 108px; flex: none; margin: 0 0 -8px; }}
+  .mwh-cta {{ align-items: center; }}
 
   @media (max-width: 991px) {{
     .mwh-wrap {{ grid-template-columns: 1fr; padding: 54px 40px 62px; gap: 34px; }}
@@ -245,6 +247,9 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   .mw-bg-book .mwla-book-facts { display: none !important; }
   .mw-bg-book .mwla-book-cal { background: #ffffff; padding: 8px; box-shadow: 0 10px 24px -14px rgba(39, 48, 46, 0.5); }
   /* return address, the "To" line and the postmark */
+  .pc-addr { text-align: right; justify-self: end; align-self: start; max-width: 360px; }
+  .pc-addr .pc-from, .pc-addr .pc-to { text-align: right; }
+  .pc-line { margin: 8px 0 0; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.1rem; line-height: 1.4; color: #3B4440; max-width: 46ch; }
   .pc-from { margin: 0 0 8px; font-family: "Caveat", cursive; font-weight: 600; font-size: 1.2rem; line-height: 1.1; color: #5B6663; }
   .pc-to { display: inline-block; margin: 2px 0 10px; padding: 0 6px 2px 0; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.15; color: #27302E; border-bottom: 2px dotted rgba(39, 48, 46, 0.4); }
   .pc-to span:first-child { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6663; margin-right: 4px; }

@@ -18,10 +18,11 @@ T = {
    [(PERSON, "1-4", "1 a 4 personas"), ("&#128663;", "Te recojo y te llevo", None)]),
 }
 CSS = """<style>
-  .mwsh { display: block; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
+  .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
   .mwsh-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #27302E; margin: 0; }
   @media (max-width: 900px) {
-    .mwsh { padding: 14px 28px 0; }
+    .mwsh { padding: 14px 28px 0; grid-template-columns: 1fr; }
+    .mwsh .pc-addr { justify-self: end; }
     .mwsh-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
     .mwsh .pc-badge { font-size: 0.9rem; }
   }
@@ -39,6 +40,7 @@ TEAM_CSS = """<style>
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
 </style>
 """
+LINES = {('team', 'en'): 'Explore Downtown LA together and take home a photo of your favorite people.', ('team', 'es'): 'Explora el centro de LA en equipo y ll&eacute;vate una foto de tu gente favorita.', ('priv', 'en'): 'Pick your stops and explore LA at your pace, door to door.', ('priv', 'es'): 'Elige tus paradas y explora LA a tu ritmo, de puerta a puerta.'}
 FROM = {"en": "From: Marlon &middot; MarlonWalksLA, Los Angeles", "es": "De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles"}
 TO = {("team", "en"): ("To:", "your team &middot; Grand Central Market, 317 S Broadway"),
       ("team", "es"): ("Para:", "tu equipo &middot; Grand Central Market, 317 S Broadway"),
@@ -52,12 +54,15 @@ for (sec, lang), (title, alt, badges) in T.items():
         f'<li class="pc-badge"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}>{ic}<span>{tx}</span></li>'
         for ic, tx, lbl in badges)
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
-     Postcard header: text on the left (no stamp, Oct 17 2026). Badge styles live in home-hero.html. -->
+     Postcard header: title, one short sentence and badges on the left; the From and To lines on the right (Oct 17, 2026). Address, sentence and badge styles live in home-hero.html. -->
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">
   <div class="mwsh-main">
-    <p class="pc-from">{FROM[lang]}</p>
     <h2 class="mwsh-title">{title}</h2>
+    <p class="pc-line">{LINES[(sec, lang)]}</p>
     <ul class="pc-badges">{b_html}</ul>
+  </div>
+  <div class="pc-addr">
+    <p class="pc-from">{FROM[lang]}</p>
     <p class="pc-to"><span>{to_lbl}</span> {to_txt}</p>
   </div>
 </div>

@@ -14,25 +14,25 @@
       <h1 class="mwh-h1">Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with a local</span></h1>
       <p class="mwh-line">Free walking tours, team outings and private days, in English and Spanish.</p>
       <div class="mwh-cta">
-        <a class="mwh-btn" href="#team">Explore my tours</a>
         <img class="mwh-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map" width="90" height="108">
+        <a class="mwh-btn" href="#team">Explore my tours</a>
       </div>
     </div>
     <div class="mwh-photos">
     <a class="mwh-photo mwh-p1" href="#team">
       <span class="mwh-tape" style="background:rgba(96,200,96,.6)"></span>
       <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp" alt="Kara's birthday group at the Grand Central Market sign" loading="eager">
-      <span class="mwh-label"><strong>Team Tours</strong><em>Up to 30 guests</em><span class="mwh-go">See dates</span></span>
+      <span class="mwh-label"><strong>Team Tours</strong><em>Celebrate Your Team</em><span class="mwh-go">See dates</span></span>
     </a>
     <a class="mwh-photo mwh-p3" href="#book">
       <span class="mwh-tape" style="background:rgba(255,0,255,.45)"></span>
-      <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp" alt="Free tour guests holding their Polaroid at La Placita Olvera" loading="eager">
-      <span class="mwh-label"><strong>Free Tour</strong><em>Tip-based</em><span class="mwh-go">See dates</span></span>
+      <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad3d70ae5ccdc27ab358156_free-tour-avila-adobe.webp" alt="Free tour guests posing together at the Avila Adobe garden" loading="eager">
+      <span class="mwh-label"><strong>Free Tour</strong><em>Join a Free Tour!</em><span class="mwh-go">See dates</span></span>
     </a>
     <a class="mwh-photo mwh-p2" href="#private">
       <span class="mwh-tape" style="background:rgba(40,144,182,.45)"></span>
       <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad327874042d5e60f8724b9_Master%20Polaroids.png" alt="Private tour guests with their Polaroid" loading="eager">
-      <span class="mwh-label"><strong>Private Tours</strong><em>Pick Up/Drop Off</em><span class="mwh-go">See dates</span></span>
+      <span class="mwh-label"><strong>Private Tours</strong><em>LA, Your Way</em><span class="mwh-go">See dates</span></span>
     </a>
     </div>
   </div>
@@ -86,6 +86,7 @@
   /* Oct 17, 2026 (Marlon): no stamp. Ernesto stands next to the button: he takes you there. */
   .mwh-cta { display: flex; align-items: flex-end; gap: 14px; }
   .mwh-ern { display: block; width: auto; height: 108px; flex: none; margin: 0 0 -8px; }
+  .mwh-cta { align-items: center; }
 
   @media (max-width: 991px) {
     .mwh-wrap { grid-template-columns: 1fr; padding: 54px 40px 62px; gap: 34px; }
@@ -143,6 +144,9 @@
   .mw-bg-book .mwla-book-facts { display: none !important; }
   .mw-bg-book .mwla-book-cal { background: #ffffff; padding: 8px; box-shadow: 0 10px 24px -14px rgba(39, 48, 46, 0.5); }
   /* return address, the "To" line and the postmark */
+  .pc-addr { text-align: right; justify-self: end; align-self: start; max-width: 360px; }
+  .pc-addr .pc-from, .pc-addr .pc-to { text-align: right; }
+  .pc-line { margin: 8px 0 0; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.1rem; line-height: 1.4; color: #3B4440; max-width: 46ch; }
   .pc-from { margin: 0 0 8px; font-family: "Caveat", cursive; font-weight: 600; font-size: 1.2rem; line-height: 1.1; color: #5B6663; }
   .pc-to { display: inline-block; margin: 2px 0 10px; padding: 0 6px 2px 0; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.15; color: #27302E; border-bottom: 2px dotted rgba(39, 48, 46, 0.4); }
   .pc-to span:first-child { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6663; margin-right: 4px; }
@@ -186,9 +190,9 @@
 /* Oct 17, 2026 (Marlon): no stamp and no striped edge on the cards (stripes stay on the outside of the section).
    Ernesto stands next to the button instead: he takes you there. */
 .mw-form-card::after { content: none !important; display: none !important; }
-.pc-cta { display: flex; align-items: flex-end; gap: 12px; margin-top: 18px; }
+.pc-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 18px; }
 .pc-cta > .mw-form-submit, .pc-cta > .tq-btn { flex: 1 1 auto; width: auto !important; min-width: 0; margin-top: 0 !important; }
-.pc-cta-ern { display: block; flex: none; width: auto; height: 84px; margin: 0 0 -6px; }
+.pc-cta-ern { display: block; flex: none; width: auto; height: 84px; margin: -10px 0 -6px; }
 /* Handwritten labels, ruled lines instead of boxes */
 .mw-form-card .mw-form-label { font-family: "Caveat", cursive !important; font-weight: 700 !important; font-size: 1.3rem !important; line-height: 1.1 !important; color: #3B4440 !important; margin: 12px 0 0 !important; text-transform: none !important; letter-spacing: 0 !important; }
 .mw-form-card .mw-form-input {
@@ -221,7 +225,7 @@
 
 </style>
 <script>
-/* Oct 17, 2026 (Marlon): Ernesto stands next to the send button of each inquiry form: he takes you there.
+/* Oct 17, 2026 (Marlon): Ernesto stands on the LEFT of the send button of each inquiry form: he takes you there.
    The forms are native Webflow forms, so the button is wrapped here instead of being edited in the Designer. */
 (function () {
   var ERN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif";
@@ -229,9 +233,9 @@
     document.querySelectorAll(".mw-form-card .mw-form-submit").forEach(function (b) {
       if (b.parentNode.classList.contains("pc-cta")) return;
       var w = document.createElement("div"); w.className = "pc-cta";
-      b.parentNode.insertBefore(w, b); w.appendChild(b);
+      b.parentNode.insertBefore(w, b);
       var i = document.createElement("img"); i.className = "pc-cta-ern"; i.src = ERN; i.alt = ""; i.setAttribute("aria-hidden", "true"); i.loading = "lazy";
-      w.appendChild(i);
+      w.appendChild(i); w.appendChild(b);
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wrap); else wrap();

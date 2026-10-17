@@ -1,18 +1,22 @@
 <!-- MARLONWALKSLA - HOME ES: PRIVATE SECTION BANNER. Built by page-embeds/build_home_heads.py.
-     Postcard header: text on the left (no stamp, Oct 17 2026). Badge styles live in home-hero.html. -->
+     Postcard header: title, one short sentence and badges on the left; the From and To lines on the right (Oct 17, 2026). Address, sentence and badge styles live in home-hero.html. -->
 <div class="mwsh" id="private">
   <div class="mwsh-main">
-    <p class="pc-from">De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles</p>
     <h2 class="mwsh-title">LA a tu manera</h2>
+    <p class="pc-line">Elige tus paradas y explora LA a tu ritmo, de puerta a puerta.</p>
     <ul class="pc-badges"><li class="pc-badge" aria-label="1 a 4 personas"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" r="3.6" fill="#27302E"/><path d="M3 18c0-4.2 3.1-6.6 7-6.6s7 2.4 7 6.6z" fill="#27302E"/></svg><span>1-4</span></li><li class="pc-badge">&#128663;<span>Te recojo y te llevo</span></li></ul>
+  </div>
+  <div class="pc-addr">
+    <p class="pc-from">De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles</p>
     <p class="pc-to"><span>Para:</span> ti &middot; cualquier parte de LA</p>
   </div>
 </div>
 <style>
-  .mwsh { display: block; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
+  .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
   .mwsh-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #27302E; margin: 0; }
   @media (max-width: 900px) {
-    .mwsh { padding: 14px 28px 0; }
+    .mwsh { padding: 14px 28px 0; grid-template-columns: 1fr; }
+    .mwsh .pc-addr { justify-self: end; }
     .mwsh-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
     .mwsh .pc-badge { font-size: 0.9rem; }
   }
