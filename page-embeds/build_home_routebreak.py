@@ -33,8 +33,10 @@ svg = (f"<svg class='rm-svg' viewBox='0 0 {W} {H}' role='img' aria-label='__ALT_
        f"<g stroke='#27302E' stroke-opacity='.12' stroke-width='9' stroke-linecap='round' fill='none'>{streets}</g>"
        f"<path d='{d}' fill='none' stroke='#2890B6' stroke-width='4' stroke-dasharray='2 10' stroke-linecap='round'/>{dots}</svg>")
 CSS = """<style>
-  .rm { width: 100%; box-sizing: border-box; padding: 40px 20px; background-color: #FFF6E6; background-image: linear-gradient(#F1E4CB 1px, transparent 1px), linear-gradient(90deg, #F1E4CB 1px, transparent 1px); background-size: 26px 26px; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }
+  .rm { position: relative; width: 100%; box-sizing: border-box; padding: 40px 20px; background-color: #FFF6E6; background-image: linear-gradient(#F1E4CB 1px, transparent 1px), linear-gradient(90deg, #F1E4CB 1px, transparent 1px); background-size: 26px 26px; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }
   .rm *, .rm *::before { box-sizing: border-box; }
+  .rm::before { content: ""; display: block; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px) top / 100% 14px no-repeat, linear-gradient(to top, rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px) bottom / 100% 14px no-repeat; pointer-events: none; z-index: 3; transform: none; border: 0; outline: 0; box-shadow: none; width: auto; height: auto; }
+  .rm > * { position: relative; z-index: 2; }
   .rm-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 20px 48px; align-items: center; }
   .rm-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; margin: 0 0 10px; color: #27302E; }
   .rm-sub { margin: 0 0 12px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.4; color: #3B4440; max-width: 34ch; }
