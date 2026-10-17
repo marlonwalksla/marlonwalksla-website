@@ -22,6 +22,7 @@ text = {
         "p1n":"Walt Disney Concert Hall","p1l":"Where we meet",
         "p2n":"City Hall","p2l":"The 1928 tower",
         "p3n":"Placita Olvera","p3l":"Where LA began",
+        "from":"From: Marlon · MarlonWalksLA, Los Angeles","toL":"To:","to":"you · Walt Disney Concert Hall, 600 W 1st St","pm":"LOS ANGELES",
         "cardh":"Pick your date",
         "meet":"About 2 hours · We meet at Walt Disney Concert Hall, 600 W 1st St · Tip-based",
         "maplabel":"Route map",
@@ -34,13 +35,14 @@ text = {
         "p1n":"Walt Disney Concert Hall","p1l":"Punto de encuentro",
         "p2n":"City Hall","p2l":"La torre de 1928",
         "p3n":"La Placita Olvera","p3l":"Donde nació LA",
+        "from":"De: Marlon · MarlonWalksLA, Los Ángeles","toL":"Para:","to":"ti · Walt Disney Concert Hall, 600 W 1st St","pm":"LOS ÁNGELES",
         "cardh":"Elige tu fecha",
         "meet":"Unas 2 horas · Nos vemos en Walt Disney Concert Hall, 600 W 1st St · Con propina",
         "maplabel":"Mapa de la ruta",
         "waHref":"https://wa.me/12692670410?text=Hola%20Marlon,%20me%20interesa%20el%20free%20tour%20en%20espa%C3%B1ol"},
 }
 pols = "".join(
-  f'<figure class="mwla-pol" style="--r:{r}"><span class="mwla-tape" style="background:{tape}"></span><img src="{img}" alt="{alt}" loading="lazy">'
+  f'<figure class="mwla-pol pc-pol" style="--r:{r}"><span class="mwla-tape pc-tape" style="background:{tape}"></span><img src="{img}" alt="{alt}" loading="lazy">'
   f'<figcaption><span class="mwla-year">{yr}</span><b data-i18n="p{i}n">{text["en"][f"p{i}n"]}</b><small data-i18n="p{i}l">{text["en"][f"p{i}l"]}</small></figcaption></figure>'
   for i,((img,yr,tape,alt),r) in enumerate(zip(POLS,["-2.5deg","2deg","-1.5deg"]),1))
 
@@ -56,17 +58,20 @@ html = f'''<!-- ================================================================
   <div class="mwla-book-head">
     <img class="mwla-book-ernesto" src="{C}6a87cf72cbcbd01da7ff38c7_Pointing%20(Right).avif" alt="Ernesto pointing to the free tour calendar">
     <div class="mwla-book-head-text">
+      <p class="pc-from" data-i18n="from">{text["en"]["from"]}</p>
       <span class="mwla-book-eyebrow" data-i18n="eyebrow">{text["en"]["eyebrow"]}</span>
       <h2 class="mwla-book-title" data-i18n="title">{text["en"]["title"]}</h2>
+      <p class="pc-to"><span data-i18n="toL">{text["en"]["toL"]}</span> <span data-i18n="to">{text["en"]["to"]}</span></p>
       <p class="mwla-book-sub" data-i18n="sub">{text["en"]["sub"]}</p>
       <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-i18n="wa">{text["en"]["wa"]}</a>
     </div>
+    <div class="pc-slot" data-pc-slot="pc-free"><span class="pc-pm" aria-hidden="true"><b data-i18n="pm">{text["en"]["pm"]}</b><i>CA</i></span></div>
   </div>
 
   <div class="mwla-fgrid">
     <div class="mwla-fleft">
       <h3 class="mwla-back-h" data-i18n="back">{text["en"]["back"]}</h3>
-      <div class="mwla-pols">{pols}</div>
+      <i data-pc-home="pc-free" hidden></i><div class="mwla-pols pc-pols" id="pc-free">{pols}</div>
       <p class="mwla-timenote" data-i18n="timenote">{text["en"]["timenote"]}</p>
       <div class="mwla-fmap">
         <div class="ra" id="mwla-free-ra" data-compact data-nolist data-label="Route map" data-ernesto="{ERN}"><script type="application/json" class="ra-data" id="mwla-free-ra-data">{{RA_EN}}</script></div>
@@ -102,7 +107,7 @@ html = f'''<!-- ================================================================
 <style>
   .mwla-book {{ max-width: 1140px; margin: 0 auto; padding: 40px 20px 52px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }}
   .mwla-book *, .mwla-book *::before {{ box-sizing: border-box; }}
-  .mwla-book-head {{ display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: center; max-width: 820px; margin: 0 auto 28px; }}
+  .mwla-book-head {{ display: grid; grid-template-columns: 140px minmax(0, 1fr) auto; gap: 24px; align-items: center; max-width: 1060px; margin: 0 auto 28px; }}
   .mwla-book-ernesto {{ width: 140px; height: auto; display: block; }}
   .mwla-book-eyebrow {{ display: inline-block; font-family: "Fredoka", sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #b45309; background: #ffffff; padding: 6px 14px; border-radius: 50px; margin-bottom: 12px; }}
   .mwla-book-title {{ font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #0f172a; margin: 0 0 10px; }}
@@ -142,6 +147,7 @@ html = f'''<!-- ================================================================
   @media (max-width: 900px) {{
     .mwla-book {{ padding: 40px 16px; }}
     .mwla-book-head {{ grid-template-columns: 1fr; text-align: center; gap: 8px; }}
+    .mwla-book-head .pc-slot {{ justify-self: center; }}
     .mwla-book-ernesto {{ width: 92px; margin: 0 auto; }}
     .mwla-book-sub {{ margin: 0 auto; }}
     .mwla-pols {{ gap: 12px; }}

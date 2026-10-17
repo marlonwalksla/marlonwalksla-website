@@ -1,15 +1,18 @@
 <!-- MARLONWALKSLA - HOME: PRIVATE SECTION BANNER. Built by page-embeds/build_home_heads.py.
      Sits above the two-column layout, same look as the free tour banner. -->
-<div class="mwsh is-right" id="private">
+<div class="mwsh" id="private">
   <img class="mwsh-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87cf628c921f7de316043f_Hiking.avif" alt="Ernesto ready for a hike" loading="lazy">
   <div>
+    <p class="pc-from">From: Marlon &middot; MarlonWalksLA, Los Angeles</p>
     <span class="mwsh-eyebrow">Private Tours</span>
     <h2 class="mwsh-title">LA, Your Way</h2>
-    <p class="mwsh-sub">Marlon picks you up, does the driving and plans the day around you: the Hollywood Sign, Griffith Observatory, the best views and the spots locals love.</p>
+    <p class="pc-to"><span>To:</span> you &middot; anywhere in LA, I pick you up</p>
+    <p class="mwsh-sub">Marlon does the driving and plans the day around you: the Hollywood Sign, Griffith Observatory, the beach and the spots locals love.</p>
   </div>
+  <div class="pc-slot" data-pc-slot="pc-priv"><span class="pc-pm" aria-hidden="true"><b>LOS ANGELES</b><i>CA</i></span></div>
 </div>
 <style>
-  .mwsh { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 24px; align-items: center; max-width: 860px; margin: 0 auto 30px; padding-top: 28px; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; }
+  .mwsh { display: grid; grid-template-columns: 130px minmax(0, 1fr) auto; gap: 24px; align-items: center; max-width: 1060px; margin: 0 auto 30px; padding-top: 28px; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; }
   .mwsh.is-right { grid-template-columns: minmax(0, 1fr) 130px; }
   .mwsh.is-right .mwsh-ern { order: 2; }
   .mwsh-ern { width: 130px; height: auto; max-height: 190px; object-fit: contain; display: block; }
@@ -18,6 +21,7 @@
   .mwsh-sub { font-size: 1.05rem; line-height: 1.55; color: #3B4440; margin: 0; max-width: 60ch; }
   @media (max-width: 900px) {
     .mwsh, .mwsh.is-right { grid-template-columns: 1fr; text-align: center; gap: 8px; }
+    .mwsh .pc-slot { justify-self: center; }
     .mwsh.is-right .mwsh-ern { order: 0; }
     .mwsh-ern { width: 92px; max-height: 130px; margin: 0 auto; }
     .mwsh-sub { margin: 0 auto; }

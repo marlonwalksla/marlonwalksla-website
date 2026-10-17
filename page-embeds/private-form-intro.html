@@ -15,3 +15,75 @@
   </ul>
   <p style="margin-top:14px"><a href="https://wa.me/12692670410?text=Hi%20Marlon,%20I'm%20interested%20in%20a%20private%20tour" target="_blank" rel="noopener" style="font-weight:700;color:#2563eb;text-decoration:none">&#128172; Quick question? Chat on WhatsApp</a></p>
 </div>
+<script>
+  /* Oct 17, 2026: the inquiry form is a postcard to Marlon (styles below), so the button mails it */
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("#private-tour-form .mw-form-submit").forEach(function (b) { b.value = "Send my postcard"; b.setAttribute("data-wait", "Sending..."); });
+  });
+</script>
+<!-- PC-FORMS:START (built by build_postcard_forms.py from postcard-forms.css) -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ==============================================================================
+ * REPLY POSTCARDS (Oct 17, 2026, late; Marlon: "when filling in information it's like you're sending me a postcard")
+ * Every booking/inquiry card (.mw-form-card: Home team price card, Home and Private page inquiry form,
+ * Team page calendar) looks like the back of a postcard addressed to Marlon: airmail edge, an Ernesto stamp,
+ * handwritten labels and ruled lines instead of boxes. Native Webflow forms, so submissions work as before.
+ * ============================================================================== */
+.mw-form-card {
+  --pc-edge: repeating-linear-gradient(-45deg, #D93A2B 0 12px, #FFFDF7 12px 20px, #2890B6 20px 32px, #FFFDF7 32px 40px);
+  position: relative;
+  min-width: 0;
+  background: #FFFDF7 !important;
+  border: 10px solid transparent !important;
+  border-image: var(--pc-edge) 10 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 16px 32px -20px rgba(39, 48, 46, 0.65) !important;
+}
+.mw-bg-team .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #D93A2B 0 12px, #FFFDF7 12px 20px, #F2B807 20px 32px, #FFFDF7 32px 40px); }
+.mw-bg-private .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #1F2A44 0 12px, #FFFDF7 12px 20px, #C9A54B 20px 32px, #FFFDF7 32px 40px); }
+/* Ernesto is the stamp */
+.mw-form-card::after {
+  content: "" !important;
+  position: absolute; top: 12px; right: 12px; width: 58px; height: 70px; padding: 6px; box-sizing: border-box;
+  background: url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif") center 60% / 40px auto no-repeat content-box, linear-gradient(#FFF1C9, #FFF1C9) content-box, #fff;
+  -webkit-mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
+  mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
+  transform: rotate(4deg); pointer-events: none;
+}
+.mw-form-card:has(.tcal)::after { display: none; }
+.mw-form-card .mw-form-title, .mw-form-card .tq-title, .mw-form-card .mw-form-sub { padding-right: 64px; }
+/* Handwritten labels, ruled lines instead of boxes */
+.mw-form-card .mw-form-label { font-family: "Caveat", cursive !important; font-weight: 700 !important; font-size: 1.3rem !important; line-height: 1.1 !important; color: #3B4440 !important; margin: 12px 0 0 !important; text-transform: none !important; letter-spacing: 0 !important; }
+.mw-form-card .mw-form-input {
+  background: transparent !important; border: 0 !important; border-bottom: 2px dotted rgba(39, 48, 46, 0.38) !important; border-radius: 0 !important;
+  box-shadow: none !important; padding: 4px 2px !important; margin-bottom: 2px !important; height: auto !important; min-height: 40px; width: 100%; max-width: 100%; box-sizing: border-box;
+  font-family: "Caveat", cursive !important; font-weight: 600; font-size: 1.45rem !important; color: #1F2A44 !important;
+}
+.mw-form-card .mw-form-input::placeholder { color: rgba(59, 68, 64, 0.42) !important; }
+.mw-form-card .mw-form-input:focus { outline: none !important; border-bottom: 2px solid #2890B6 !important; }
+.mw-form-card select.mw-form-input { cursor: pointer; }
+.mw-form-card .mw-form-textarea {
+  border-bottom: 0 !important; min-height: 136px; line-height: 34px !important; padding-top: 0 !important;
+  background: repeating-linear-gradient(transparent 0 33px, rgba(39, 48, 46, 0.22) 33px 34px) !important;
+}
+.mw-form-card .mw-form-submit {
+  width: 100%; margin-top: 18px; font-family: "Lilita One", sans-serif !important; font-size: 1.25rem !important; letter-spacing: 0.01em;
+  color: #27302E !important; background: #FFD43B !important; border: 2.5px solid #27302E !important; border-radius: 999px !important;
+  padding: 12px 22px !important; box-shadow: 4px 4px 0 #27302E !important; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+}
+.mw-form-card .mw-form-submit:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E !important; }
+/* Sent: a postmark */
+.mw-form-card .w-form-done { background: transparent !important; padding: 18px 8px !important; text-align: center; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.5rem; color: #1F2A44; }
+.mw-form-card .w-form-done::before {
+  content: "\2713"; display: grid; place-items: center; width: 92px; height: 92px; margin: 0 auto 12px;
+  border: 3px solid #1B6688; outline: 2px solid #1B6688; outline-offset: 4px; border-radius: 50%;
+  font: 700 2.4rem/1 "Fredoka", sans-serif; color: #1B6688; transform: rotate(-12deg);
+}
+@media (max-width: 767px) {
+  .mw-form-card { border-width: 7px !important; }
+  .mw-form-card::after { width: 50px; height: 60px; }
+}
+@media (prefers-reduced-motion: reduce) { .mw-form-card .mw-form-submit { transition: none; } }
+</style>
+<!-- PC-FORMS:END -->

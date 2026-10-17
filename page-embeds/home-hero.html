@@ -6,7 +6,7 @@
      The <style> below also sets the Home section backgrounds (booking, team, private).
      ============================================================================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600&family=Lilita+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <section class="mwh" lang="en">
   <div class="mwh-wrap">
     <div class="mwh-text">
@@ -110,26 +110,26 @@
   }
   @media (prefers-reduced-motion: reduce) { .mwh-btn, .mwh-photo { transition: none; } }
 
-  /* ---------- Home = postcards on a desk (Oct 17, 2026, Marlon's idea) ----------
-     Hero = grid-paper desk. Reviews = kraft board. Each tour section is a postcard from its place:
-     Team = Grand Central Market, Free tour = El Pueblo (papel picado), Private = thick premium cardstock with a gold seal.
-     Stamps use Marlon's own Polaroids. No landmark logos. All CSS, no new image files. */
+  /* ---------- Home = backs of postcards (Oct 17, 2026, late) ----------
+     Marlon's pick: an airmail stripe border per tour, the return address top left, the place as the address,
+     a dotted line down the middle, map on the message side, the booking card on the address side.
+     The Polaroids can sit in the card (default) or move up as stamps: html.pc-stamps (test switch on webflow.io). */
   body { background-color: #FFF6E6; }
   section:has(.rv-banner) { background: #D9B98C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .12 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; }
   .rv-banner { background: transparent !important; border-top: 0 !important; border-bottom: 0 !important; }
-  /* Postcard edge: a thin printed frame line inside every tour section */
-  .mw-bg-team, .mw-bg-book, .mw-bg-private { position: relative; }
+  .mw-bg-team, .mw-bg-book, .mw-bg-private { position: relative; box-shadow: none !important; }
   .mw-bg-team > *, .mw-bg-book > *, .mw-bg-private > * { position: relative; z-index: 2; }
-  /* Team: Grand Central Market postcard */
-  .mw-bg-team { background: #FBF7EE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; box-shadow: inset 0 0 0 14px #FBF7EE, inset 0 0 0 15.5px rgba(39, 48, 46, 0.18); }
-  .mw-bg-team::after { content: ""; position: absolute; top: 26px; right: 34px; width: 70px; height: 84px; background: #FBF7EE url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.webp") center / 58px 72px no-repeat; border: 5px dotted #FBF7EE; outline: 2px solid #FBF7EE; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(5deg); pointer-events: none; z-index: 1; }
-  .mw-bg-team::before { content: "GRAND CENTRAL MARKET \00B7 SINCE 1917"; position: absolute; top: 46px; right: 116px; width: 96px; height: 96px; border: 2px solid rgba(39, 48, 46, 0.28); border-radius: 50%; display: grid; place-items: center; text-align: center; padding: 14px; box-sizing: border-box; font: 700 0.56rem/1.35 "Fredoka", sans-serif; letter-spacing: 0.08em; color: rgba(39, 48, 46, 0.42); transform: rotate(-12deg); pointer-events: none; z-index: 1; }
-  /* Free tour: El Pueblo postcard, papel picado along the top */
-  .mw-bg-book { background: #FBEFE2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; padding-top: 58px; padding-bottom: 14px; box-shadow: inset 0 0 0 14px #FBEFE2, inset 0 0 0 15.5px rgba(39, 48, 46, 0.18); }
-  .mw-bg-book::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 44px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='44'%3E%3Cpath d='M0 6H240' stroke='%2327302E' stroke-width='1.5'/%3E%3Cpath d='M3 6H45V34L40 40L35 34L30 40L24 34L19 40L14 34L8 40L3 34Z' fill='%23FF00FF'/%3E%3Ccircle cx='24' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='12' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='30' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M51 6H93V34L88 40L83 34L78 40L72 34L67 40L62 34L56 40L51 34Z' fill='%23FFD43B'/%3E%3Ccircle cx='72' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='60' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='78' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M99 6H141V34L136 40L131 34L126 40L120 34L115 40L110 34L104 40L99 34Z' fill='%2300C853'/%3E%3Ccircle cx='120' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='108' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='126' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M147 6H189V34L184 40L179 34L174 40L168 34L163 40L158 34L152 40L147 34Z' fill='%232890B6'/%3E%3Ccircle cx='168' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='156' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='174' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M195 6H237V34L232 40L227 34L222 40L216 34L211 40L206 34L200 40L195 34Z' fill='%23FF6600'/%3E%3Ccircle cx='216' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='204' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='222' y='24' width='6' height='5' fill='%23FFF'/%3E%3C/svg%3E") repeat-x top left; pointer-events: none; z-index: 1; }
-  .mw-bg-book .mwla-book-head::after { content: ""; position: absolute; top: -6px; right: -90px; width: 70px; height: 84px; background: #FBEFE2 url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a884cd6ef1aef19e7fc_polaroid-olvera-kiosko.webp") center / 58px 72px no-repeat; border: 5px dotted #FBEFE2; outline: 2px solid #FBEFE2; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(-4deg); pointer-events: none; z-index: 1; }
-  .mw-bg-book .mwla-book-head { position: relative; }
-  .mw-bg-book::after { content: none !important; }
+  .mw-bg-team, .mw-bg-private { padding-top: 30px; }
+  .mw-split > * { min-width: 0; }
+  .mw-bg-team { background: #FBF7EE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; --pc-stripes: repeating-linear-gradient(-45deg, #D93A2B 0 16px, transparent 16px 26px, #F2B807 26px 42px, transparent 42px 52px); }
+  .mw-bg-book { background: #FBEFE2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; padding-top: 64px; padding-bottom: 14px; --pc-stripes: repeating-linear-gradient(-45deg, #FF00FF 0 14px, transparent 14px 22px, #FFD43B 22px 36px, transparent 36px 44px, #00C853 44px 58px, transparent 58px 66px, #2890B6 66px 80px, transparent 80px 88px); }
+  .mw-bg-private { background: #F6F1E6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .35' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E") !important; background-size: auto !important; --pc-stripes: repeating-linear-gradient(-45deg, #1F2A44 0 16px, transparent 16px 26px, #C9A54B 26px 42px, transparent 42px 52px); }
+  /* the airmail border */
+  .mw-bg-team::after, .mw-bg-book::after, .mw-bg-private::after { content: "" !important; display: block !important; position: absolute; inset: 12px; border: 12px solid transparent; border-image: var(--pc-stripes) 12; background: none !important; transform: none !important; outline: 0 !important; box-shadow: none !important; width: auto !important; height: auto !important; pointer-events: none; z-index: 1; }
+  .mw-bg-team::before, .mw-bg-private::before { content: none !important; }
+  /* papel picado hangs inside the border, across the top of the free tour card */
+  .mw-bg-book::before { content: ""; position: absolute; top: 24px; left: 24px; right: 24px; height: 44px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='44'%3E%3Cpath d='M0 6H240' stroke='%2327302E' stroke-width='1.5'/%3E%3Cpath d='M3 6H45V34L40 40L35 34L30 40L24 34L19 40L14 34L8 40L3 34Z' fill='%23FF00FF'/%3E%3Ccircle cx='24' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='12' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='30' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M51 6H93V34L88 40L83 34L78 40L72 34L67 40L62 34L56 40L51 34Z' fill='%23FFD43B'/%3E%3Ccircle cx='72' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='60' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='78' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M99 6H141V34L136 40L131 34L126 40L120 34L115 40L110 34L104 40L99 34Z' fill='%2300C853'/%3E%3Ccircle cx='120' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='108' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='126' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M147 6H189V34L184 40L179 34L174 40L168 34L163 40L158 34L152 40L147 34Z' fill='%232890B6'/%3E%3Ccircle cx='168' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='156' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='174' y='24' width='6' height='5' fill='%23FFF'/%3E%3Cpath d='M195 6H237V34L232 40L227 34L222 40L216 34L211 40L206 34L200 40L195 34Z' fill='%23FF6600'/%3E%3Ccircle cx='216' cy='18' r='5' fill='%23FFF'/%3E%3Crect x='204' y='24' width='6' height='5' fill='%23FFF'/%3E%3Crect x='222' y='24' width='6' height='5' fill='%23FFF'/%3E%3C/svg%3E") repeat-x top left; pointer-events: none; z-index: 1; }
+  .mw-bg-book .mwla-book-head::after { content: none !important; }
   .mw-bg-book .mwla-book-title { color: #27302E !important; font-family: "Lilita One", sans-serif; font-weight: 400; }
   .mw-bg-book .mwla-book-sub { color: #3B4440 !important; }
   .mw-bg-book .mwla-lang-label { color: #27302E !important; }
@@ -137,12 +137,143 @@
   .mw-bg-book .mwla-book-wa { color: #1B6688 !important; }
   .mw-bg-book .mwla-book-facts { display: none !important; }
   .mw-bg-book .mwla-book-cal { background: #ffffff; padding: 8px; box-shadow: 0 10px 24px -14px rgba(39, 48, 46, 0.5); }
-  /* Private: thick cream cardstock (fiber texture), gold rule and a gold-framed seal */
-  .mw-bg-private { background: #F6F1E6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .35' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E") !important; background-size: auto !important; box-shadow: inset 0 0 0 14px #F6F1E6, inset 0 0 0 15.5px #C9A54B, inset 0 0 0 19px #F6F1E6, inset 0 0 0 20px rgba(201, 165, 75, 0.6); }
-  .mw-bg-private::after { content: ""; position: absolute; top: 26px; left: 34px; width: 70px; height: 84px; background: #F6F1E6 url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp") center / 58px 72px no-repeat; border: 3px solid #C9A54B; outline: 1px solid #C9A54B; outline-offset: 3px; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(-5deg); pointer-events: none; z-index: 1; }
-  .mw-bg-private::before { content: none !important; }
-  @media (max-width: 900px) {
-    .mw-bg-team::before, .mw-bg-team::after, .mw-bg-private::after, .mw-bg-book .mwla-book-head::after { display: none; }
-    .mw-bg-team, .mw-bg-book, .mw-bg-private { box-shadow: none; }
+  /* return address, the "To" line and the postmark */
+  .pc-from { margin: 0 0 8px; font-family: "Caveat", cursive; font-weight: 600; font-size: 1.2rem; line-height: 1.1; color: #5B6663; }
+  .pc-to { display: inline-block; margin: 2px 0 10px; padding: 0 6px 2px 0; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.15; color: #1F2A44; border-bottom: 2px dotted rgba(39, 48, 46, 0.4); }
+  .pc-to span:first-child { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6663; margin-right: 4px; }
+  .pc-slot { position: relative; align-self: start; justify-self: end; min-width: 120px; display: flex; justify-content: flex-end; padding-top: 6px; }
+  .pc-pm { position: relative; display: grid; place-items: center; align-content: center; width: 96px; height: 96px; border: 2.5px solid rgba(31, 42, 68, 0.38); border-radius: 50%; transform: rotate(-12deg); font-family: "Fredoka", sans-serif; color: rgba(31, 42, 68, 0.5); text-align: center; }
+  .pc-pm b { font-weight: 700; font-size: 0.62rem; letter-spacing: 0.1em; }
+  .pc-pm i { font-style: normal; font-weight: 700; font-size: 1.1rem; }
+  .pc-pm::before { content: ""; position: absolute; right: 88%; top: 30px; width: 90px; height: 36px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='36'%3E%3Cg fill='none' stroke='%231F2A44' stroke-opacity='.38' stroke-width='2.2'%3E%3Cpath d='M0 6q11-6 22 0t22 0 22 0 22 0'/%3E%3Cpath d='M0 18q11-6 22 0t22 0 22 0 22 0'/%3E%3Cpath d='M0 30q11-6 22 0t22 0 22 0 22 0'/%3E%3C/g%3E%3C/svg%3E") no-repeat; }
+  /* the dotted line down the middle of the card */
+  @media (min-width: 992px) {
+    .mw-bg-team .mw-split-left, .mw-bg-private .mw-split-left { padding-right: 28px; border-right: 2px dashed rgba(39, 48, 46, 0.22); }
+    .mw-bg-book .mwla-fleft { padding-right: 28px; border-right: 2px dashed rgba(39, 48, 46, 0.22); }
   }
+  /* the free tour card on the address side gets the same reply-postcard edge as the forms */
+  .mw-bg-book .mwla-fcard { border: 10px solid transparent; border-image: repeating-linear-gradient(-45deg, #FF00FF 0 12px, #fff 12px 20px, #2890B6 20px 32px, #fff 32px 40px) 10; border-radius: 0; }
+  /* ----- Stamp mode: the Polaroids move up to the top right corner as stamps ----- */
+  html.pc-stamps .pc-pm { display: none; }
+  html.pc-stamps .pc-hide-stamps { display: none; }
+  html.pc-stamps .pc-slot .pc-pols { display: flex !important; gap: 0; padding: 0 8px 0 0; margin: 0; filter: drop-shadow(0 6px 8px rgba(39, 48, 46, 0.3)); }
+  html.pc-stamps .pc-slot .pc-pols::before { display: none !important; }
+  html.pc-stamps .pc-slot .pc-pol { position: relative; width: 100px; margin: 0 -10px 0 0; padding: 7px; background: #fff; transform: rotate(var(--r)); -webkit-mask: radial-gradient(circle at center, transparent 3.2px, #000 3.6px) -5px -5px / 10px 10px, linear-gradient(#000 0 0) content-box; mask: radial-gradient(circle at center, transparent 3.2px, #000 3.6px) -5px -5px / 10px 10px, linear-gradient(#000 0 0) content-box; }
+  html.pc-stamps .pc-slot .pc-pol img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; box-shadow: none; }
+  html.pc-stamps .pc-slot .pc-tape { display: none; }
+  html.pc-stamps .pc-slot .pc-pol figcaption { position: absolute; left: 0; right: 0; bottom: 12px; margin: 0; }
+  html.pc-stamps .pc-slot .pc-pol figcaption b, html.pc-stamps .pc-slot .pc-pol figcaption small { display: none; }
+  html.pc-stamps .pc-slot .mwla-year { font-size: 0.78rem; padding: 0 7px; margin: 0; }
+  /* wavy cancel lines across the stamps */
+  html.pc-stamps .pc-slot::after { content: ""; position: absolute; left: -34px; top: 38px; width: 200px; height: 44px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='44'%3E%3Cg fill='none' stroke='%231F2A44' stroke-opacity='.45' stroke-width='2.2'%3E%3Cpath d='M0 8q12.5-7 25 0t25 0 25 0 25 0 25 0 25 0 25 0 25 0'/%3E%3Cpath d='M0 22q12.5-7 25 0t25 0 25 0 25 0 25 0 25 0 25 0 25 0'/%3E%3Cpath d='M0 36q12.5-7 25 0t25 0 25 0 25 0 25 0 25 0 25 0 25 0'/%3E%3C/g%3E%3C/svg%3E") no-repeat; pointer-events: none; z-index: 3; }
+  /* test-only switch (shows on marlonwalksla.webflow.io, never on the live domain) */
+  .pc-switch { position: fixed; left: 12px; bottom: 12px; z-index: 9999; display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: #27302E; color: #FFF6E6; border-radius: 999px; font: 600 0.78rem "Fredoka", sans-serif; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); }
+  .pc-switch span { padding: 0 4px; }
+  .pc-switch button { font: inherit; color: #FFF6E6; background: transparent; border: 1.5px solid #FFF6E6; border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+  .pc-switch button[aria-pressed="true"] { background: #FFD43B; color: #27302E; border-color: #FFD43B; }
+  @media (max-width: 900px) {
+    .mw-bg-team::after, .mw-bg-book::after, .mw-bg-private::after { inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
+    .mw-bg-book::before { top: 13px; left: 13px; right: 13px; }
+    .mw-bg-book { padding-top: 52px; }
+    .pc-slot { justify-content: center; min-width: 0; padding-top: 4px; }
+    .pc-pm { display: none; }
+    html.pc-stamps .pc-slot .pc-pol { width: 84px; }
+    html.pc-stamps .pc-slot::after { left: 50%; transform: translateX(-50%); width: 160px; }
+    .mw-bg-book .mwla-fcard { border-width: 7px; }
+  }
+/* ==============================================================================
+ * REPLY POSTCARDS (Oct 17, 2026, late; Marlon: "when filling in information it's like you're sending me a postcard")
+ * Every booking/inquiry card (.mw-form-card: Home team price card, Home and Private page inquiry form,
+ * Team page calendar) looks like the back of a postcard addressed to Marlon: airmail edge, an Ernesto stamp,
+ * handwritten labels and ruled lines instead of boxes. Native Webflow forms, so submissions work as before.
+ * ============================================================================== */
+.mw-form-card {
+  --pc-edge: repeating-linear-gradient(-45deg, #D93A2B 0 12px, #FFFDF7 12px 20px, #2890B6 20px 32px, #FFFDF7 32px 40px);
+  position: relative;
+  min-width: 0;
+  background: #FFFDF7 !important;
+  border: 10px solid transparent !important;
+  border-image: var(--pc-edge) 10 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 16px 32px -20px rgba(39, 48, 46, 0.65) !important;
+}
+.mw-bg-team .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #D93A2B 0 12px, #FFFDF7 12px 20px, #F2B807 20px 32px, #FFFDF7 32px 40px); }
+.mw-bg-private .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #1F2A44 0 12px, #FFFDF7 12px 20px, #C9A54B 20px 32px, #FFFDF7 32px 40px); }
+/* Ernesto is the stamp */
+.mw-form-card::after {
+  content: "" !important;
+  position: absolute; top: 12px; right: 12px; width: 58px; height: 70px; padding: 6px; box-sizing: border-box;
+  background: url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif") center 60% / 40px auto no-repeat content-box, linear-gradient(#FFF1C9, #FFF1C9) content-box, #fff;
+  -webkit-mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
+  mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
+  transform: rotate(4deg); pointer-events: none;
+}
+.mw-form-card:has(.tcal)::after { display: none; }
+.mw-form-card .mw-form-title, .mw-form-card .tq-title, .mw-form-card .mw-form-sub { padding-right: 64px; }
+/* Handwritten labels, ruled lines instead of boxes */
+.mw-form-card .mw-form-label { font-family: "Caveat", cursive !important; font-weight: 700 !important; font-size: 1.3rem !important; line-height: 1.1 !important; color: #3B4440 !important; margin: 12px 0 0 !important; text-transform: none !important; letter-spacing: 0 !important; }
+.mw-form-card .mw-form-input {
+  background: transparent !important; border: 0 !important; border-bottom: 2px dotted rgba(39, 48, 46, 0.38) !important; border-radius: 0 !important;
+  box-shadow: none !important; padding: 4px 2px !important; margin-bottom: 2px !important; height: auto !important; min-height: 40px; width: 100%; max-width: 100%; box-sizing: border-box;
+  font-family: "Caveat", cursive !important; font-weight: 600; font-size: 1.45rem !important; color: #1F2A44 !important;
+}
+.mw-form-card .mw-form-input::placeholder { color: rgba(59, 68, 64, 0.42) !important; }
+.mw-form-card .mw-form-input:focus { outline: none !important; border-bottom: 2px solid #2890B6 !important; }
+.mw-form-card select.mw-form-input { cursor: pointer; }
+.mw-form-card .mw-form-textarea {
+  border-bottom: 0 !important; min-height: 136px; line-height: 34px !important; padding-top: 0 !important;
+  background: repeating-linear-gradient(transparent 0 33px, rgba(39, 48, 46, 0.22) 33px 34px) !important;
+}
+.mw-form-card .mw-form-submit {
+  width: 100%; margin-top: 18px; font-family: "Lilita One", sans-serif !important; font-size: 1.25rem !important; letter-spacing: 0.01em;
+  color: #27302E !important; background: #FFD43B !important; border: 2.5px solid #27302E !important; border-radius: 999px !important;
+  padding: 12px 22px !important; box-shadow: 4px 4px 0 #27302E !important; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+}
+.mw-form-card .mw-form-submit:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E !important; }
+/* Sent: a postmark */
+.mw-form-card .w-form-done { background: transparent !important; padding: 18px 8px !important; text-align: center; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.5rem; color: #1F2A44; }
+.mw-form-card .w-form-done::before {
+  content: "\2713"; display: grid; place-items: center; width: 92px; height: 92px; margin: 0 auto 12px;
+  border: 3px solid #1B6688; outline: 2px solid #1B6688; outline-offset: 4px; border-radius: 50%;
+  font: 700 2.4rem/1 "Fredoka", sans-serif; color: #1B6688; transform: rotate(-12deg);
+}
+@media (max-width: 767px) {
+  .mw-form-card { border-width: 7px !important; }
+  .mw-form-card::after { width: 50px; height: 60px; }
+}
+@media (prefers-reduced-motion: reduce) { .mw-form-card .mw-form-submit { transition: none; } }
+
 </style>
+
+<script>
+  /* Polaroids: in the card (default) or as stamps. ?pc=stamps or ?pc=card sets it; the switch only shows on the test site. */
+  (function () {
+    var KEY = "mwPcMode";
+    function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function save(m) { try { localStorage.setItem(KEY, m); } catch (e) {} }
+    function apply(mode) {
+      document.documentElement.classList.toggle("pc-stamps", mode === "stamps");
+      document.querySelectorAll("[data-pc-home]").forEach(function (home) {
+        var id = home.getAttribute("data-pc-home"), pols = document.getElementById(id), slot = document.querySelector('[data-pc-slot="' + id + '"]');
+        if (!pols || !slot) return;
+        if (mode === "stamps") { if (pols.parentNode !== slot) slot.insertBefore(pols, slot.firstChild); }
+        else if (home.nextSibling !== pols) home.parentNode.insertBefore(pols, home.nextSibling);
+      });
+      document.querySelectorAll(".pc-switch button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === mode)); });
+    }
+    function init() {
+      var q = (location.search.match(/[?&]pc=(stamps|card)/) || [])[1];
+      if (q) save(q);
+      var test = /\.webflow\.io$/.test(location.hostname) || location.protocol === "file:";
+      var mode = test ? (q || saved() || "card") : "card";
+      if (test) {
+        var bar = document.createElement("div"); bar.className = "pc-switch";
+        bar.innerHTML = '<span>Polaroids:</span><button type="button" data-mode="card">In the card</button><button type="button" data-mode="stamps">As stamps</button>';
+        bar.addEventListener("click", function (e) { var m = e.target.getAttribute && e.target.getAttribute("data-mode"); if (m) { save(m); apply(m); } });
+        document.body.appendChild(bar);
+      }
+      apply(mode);
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+  })();
+</script>

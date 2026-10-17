@@ -1,37 +1,136 @@
 <!-- ==============================================================================
-     MARLONWALKSLA - HOME: PRIVATE TOURS (DETAILS COLUMN)  Oct 15, 2026
-     Matches the Private Tours page (pickup, driving, 4/8/12 hours) and links to
-     it. Styles .mw-offer / .mw-route / .mw-offer-* come from the Team Tours embed.
-     The inquiry form is the native Webflow form "Private Tour Inquiry".
+     MARLONWALKSLA - HOME: PRIVATE TOURS (LEFT COLUMN)  Built by page-embeds/build_home_private.py
+     Oct 17, 2026 (late): Polaroids + Marlon's story, then route chips that join into one day on the map,
+     hours + the package that fits, "Steal this itinerary" (Google Maps) and "Do it with me".
+     The inquiry form on the right is the native Webflow form "Private Tour Inquiry" (styled as a postcard by postcard-forms.css, inlined in the Home hero embed).
      ============================================================================== -->
+<div class="mw-offer pv" id="private-tours">
+  <div class="pvp">
+    <h3 class="pvp-h pc-hide-stamps">Your LA, in Polaroids</h3>
+    <i data-pc-home="pc-priv" hidden></i><div class="pvp-row pc-pols" id="pc-priv"><figure class="pvp-pol pc-pol" style="--r:-2.5deg"><span class="pvp-tape pc-tape" style="background:rgba(255,255,0,.6)"></span><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp" alt="Sunset at Griffith Observatory" loading="lazy"></figure><figure class="pvp-pol pc-pol" style="--r:2deg"><span class="pvp-tape pc-tape" style="background:rgba(255,0,255,.45)"></span><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac75116ea4b76796295dd9e_polaroid-familia-nunez-avila.webp" alt="A family with their Polaroid" loading="lazy"></figure><figure class="pvp-pol pc-pol" style="--r:-1.5deg"><span class="pvp-tape pc-tape" style="background:rgba(40,144,182,.45)"></span><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac751164510f5f1ff6d218c_polaroid-natalia-olaf-angels-flight.webp" alt="Natalia and Olaf with their Polaroid" loading="lazy"></figure></div>
+    <figure class="pvp-q"><blockquote>&ldquo;The tour went so well that we ended up doing a private tour to Lake Hollywood Park to see the sign up close and take photos, before dropping them off at Griffith Observatory.&rdquo;</blockquote><figcaption>Marlon, about Belén's family · Instagram</figcaption></figure>
+  </div>
 
-<div class="mw-offer" id="private-tours">
-  <!-- Eyebrow, title and intro moved to the section banner above (home-head-priv-en.html) -->
-  <div class="private-specs-grid">
-    <div class="spec-item">
-      <svg width="24" height="24" class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 1 0 4 0M15 17a2 2 0 1 0 4 0M3 17v-5l2-5h14l2 5v5"/></svg>
-      <div><strong>Pickup</strong><span>From your hotel, up to 4 guests</span></div>
+  <h3 class="pvr-h">Pick your routes</h3>
+  <p class="pvr-hint">Turn on one, two or all three. They join into one day.</p>
+  <div class="pvr-chips" role="group" aria-label="Pick your routes"><button type="button" class="pvr-chip" data-route="hol" style="--c:#C9A54B" aria-pressed="true"><span class="pvr-dot" aria-hidden="true"></span><span class="pvr-name">Hollywood Views</span><span class="pvr-stops">Hollywood Sign viewpoint · Griffith Observatory · Urban Light</span></button><button type="button" class="pvr-chip" data-route="mid" style="--c:#B5527E" aria-pressed="false"><span class="pvr-dot" aria-hidden="true"></span><span class="pvr-name">Beverly Hills and Mid-City</span><span class="pvr-stops">The Grove and Farmers Market · Beverly Hills sign · Rodeo Drive</span></button><button type="button" class="pvr-chip" data-route="coast" style="--c:#2890B6" aria-pressed="false"><span class="pvr-dot" aria-hidden="true"></span><span class="pvr-name">The Coast</span><span class="pvr-stops">Santa Monica Pier · Venice Beach and Canals</span></button></div>
+
+  <div class="mw-route pvr-map" id="pvr-map"></div>
+
+  <div class="pvr-sum" aria-live="polite">
+    <p class="pvr-hours" id="pvr-hours"></p>
+    <p class="pvr-fit" id="pvr-fit"></p>
+    <div class="pvr-acts">
+      <a class="pvr-steal" id="pvr-steal" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">&#128506; Steal this itinerary</a>
+      <button type="button" class="pvr-copy" id="pvr-copy">Copy the list</button>
     </div>
-    <div class="spec-item">
-      <svg width="24" height="24" class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-      <div><strong>Length</strong><span>4, 8 or 12 hours</span></div>
-    </div>
-    <div class="spec-item">
-      <svg width="24" height="24" class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
-      <div><strong>Where</strong><span>All of LA, your choice of stops</span></div>
-    </div>
-    <div class="spec-item">
-      <svg width="24" height="24" class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-      <div><strong>Language</strong><span>English or Espa&ntilde;ol</span></div>
+    <p class="pvr-free">The plan is free. The fun is doing it with me.</p>
+    <div class="pvr-acts">
+      <a class="pvr-with" id="pvr-with" href="https://wa.me/12692670410" target="_blank" rel="noopener noreferrer">&#128172; Do it with me</a>
+      <a class="pvr-post" id="pvr-post" href="#private-tour-form">&#9993; or send me a postcard</a>
     </div>
   </div>
 
-  <div class="mw-route">
-    <div class="ra" data-compact data-nolist data-ernesto="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"><script type="application/json" class="ra-data">{"mode":"drive","areas":[{"name":"Hollywood Hills","lat":34.1345,"lng":-118.329},{"name":"Griffith Park","lat":34.13,"lng":-118.295},{"name":"Hollywood","lat":34.0985,"lng":-118.329},{"name":"Miracle Mile","lat":34.056,"lng":-118.347}],"stops":[{"time":"12:30 PM","name":"Hollywood Sign viewpoint","desc":"Photos with the sign from the best angle. Marlon picks you up at your hotel first.","lat":34.1269,"lng":-118.3223},{"time":"2:00 PM","name":"Griffith Observatory","desc":"Views over all of Los Angeles.","lat":34.1184,"lng":-118.3004},{"time":"4:00 PM","name":"The Grove","desc":"Shopping and an early dinner at the Farmers Market next door.","lat":34.072,"lng":-118.3576},{"time":"6:30 PM","name":"Urban Light","desc":"The lamp posts light up after sunset. Then Marlon drops you off at your hotel.","lat":34.063,"lng":-118.3593}]}</script></div>
-  </div>
-
-  <div class="mw-offer-links">
-    <a class="mw-offer-more" href="/private-tours-los-angeles">See private tour prices &rarr;</a>
-    <a class="mw-offer-wa" href="https://wa.me/12692670410?text=Hi%20Marlon,%20I'm%20interested%20in%20a%20private%20tour!" target="_blank" rel="noopener noreferrer">&#128172; Quick question? Chat on WhatsApp</a>
-  </div>
+  <p class="pvr-facts">Hotel pickup · up to 4 guests · English or Español &middot; <a class="mw-offer-more" href="/private-tours-los-angeles">See private tour prices &rarr;</a></p>
 </div>
+<script type="application/json" id="pvr-data">{"lang": "en", "t": {"polh": "Your LA, in Polaroids", "story": "The tour went so well that we ended up doing a private tour to Lake Hollywood Park to see the sign up close and take photos, before dropping them off at Griffith Observatory.", "storyby": "Marlon, about Belén's family · Instagram", "pickh": "Pick your routes", "pickhint": "Turn on one, two or all three. They join into one day.", "maplabel": "Route map", "about": "About", "to": "to", "hours": "hours", "with_": "with pickup and driving", "fits": "Fits a", "car": "for your whole car", "over": "That's more than one day. Message me and we'll plan two.", "steal": "Steal this itinerary", "copy": "Copy the list", "copied": "Copied!", "free": "The plan is free. The fun is doing it with me.", "withme": "Do it with me", "postcard": "or send me a postcard", "prices": "See private tour prices", "facts": "Hotel pickup · up to 4 guests · English or Español", "wa": "Hi Marlon, I'd like a private tour: ", "mylist": "My LA day, planned with MarlonWalksLA", "domore": "Do it with Marlon", "msg": "I'd like these routes: ", "send": "Send my postcard", "sending": "Sending...", "stopword": "stops"}, "packages": [{"label": "Half day", "hours": 4, "price": 249}, {"label": "Full day", "hours": 8, "price": 399}, {"label": "Long day", "hours": 12, "price": 499}], "stops": {"sign": {"name": "Hollywood Sign viewpoint", "desc": "Photos with the sign from Lake Hollywood Park.", "min": 30, "lat": 34.1265, "lng": -118.3297, "q": "Lake Hollywood Park, Los Angeles, CA"}, "griffith": {"name": "Griffith Observatory", "desc": "Views over all of Los Angeles.", "min": 60, "lat": 34.1184, "lng": -118.3004, "q": "Griffith Observatory, Los Angeles, CA"}, "urban": {"name": "Urban Light", "desc": "The 202 street lamps at LACMA.", "min": 20, "lat": 34.0629, "lng": -118.3593, "q": "Urban Light, LACMA, Los Angeles, CA"}, "grove": {"name": "The Grove and Farmers Market", "desc": "Shops, snacks and the 1934 market.", "min": 60, "lat": 34.072, "lng": -118.3576, "q": "The Original Farmers Market, Los Angeles, CA"}, "bhsign": {"name": "Beverly Hills sign", "desc": "The lily pond and the famous sign.", "min": 15, "lat": 34.0717, "lng": -118.4045, "q": "Beverly Gardens Park, Beverly Hills, CA"}, "rodeo": {"name": "Rodeo Drive", "desc": "A walk down the fanciest street in LA.", "min": 45, "lat": 34.0696, "lng": -118.4031, "q": "Rodeo Drive, Beverly Hills, CA"}, "pier": {"name": "Santa Monica Pier", "desc": "The pier, the beach and the end of Route 66.", "min": 60, "lat": 34.0094, "lng": -118.4973, "q": "Santa Monica Pier, Santa Monica, CA"}, "venice": {"name": "Venice Beach and Canals", "desc": "The boardwalk, then the quiet canals.", "min": 60, "lat": 33.985, "lng": -118.4695, "q": "Venice Canals, Los Angeles, CA"}}, "routes": [{"id": "hol", "name": "Hollywood Views", "color": "#C9A54B", "stops": ["sign", "griffith", "urban"], "areas": [{"name": "Hollywood Hills", "lat": 34.1345, "lng": -118.329}, {"name": "Griffith Park", "lat": 34.13, "lng": -118.295}, {"name": "Miracle Mile", "lat": 34.056, "lng": -118.347}]}, {"id": "mid", "name": "Beverly Hills and Mid-City", "color": "#B5527E", "stops": ["grove", "bhsign", "rodeo"], "areas": [{"name": "Beverly Hills", "lat": 34.0736, "lng": -118.4004}]}, {"id": "coast", "name": "The Coast", "color": "#2890B6", "stops": ["pier", "venice"], "areas": [{"name": "Santa Monica", "lat": 34.0195, "lng": -118.4912}, {"name": "Venice", "lat": 33.985, "lng": -118.4695}]}]}</script>
+<style>
+  .pv .pvp { margin: 0 0 24px; }
+  .pvp-h, .pvr-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; color: #27302E; margin: 0 0 16px; }
+  .pvp-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; padding: 0 6px; }
+  .pvp-pol { position: relative; margin: 0; transform: rotate(var(--r)); }
+  .pvp-pol img { display: block; width: 100%; height: auto; box-shadow: 0 10px 20px -10px rgba(39, 48, 46, 0.5); }
+  .pvp-tape { position: absolute; top: -9px; left: 50%; width: 58px; height: 18px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 1; }
+  .pvp-q { margin: 18px 0 0; padding-left: 14px; border-left: 4px solid #C9A54B; }
+  .pvp-q blockquote { margin: 0; font-size: 1rem; line-height: 1.5; color: #3B4440; }
+  .pvp-q figcaption { margin-top: 4px; font-size: 0.85rem; color: #5B6663; }
+  .pvr-h { margin: 0 0 4px; }
+  .pvr-hint { margin: 0 0 12px; font-size: 0.95rem; color: #4D5551; }
+  .pvr-chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .pvr-chip { font: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 2px; padding: 10px 12px 10px 34px; position: relative; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; border-radius: 12px; transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out; }
+  .pvr-chip:hover { transform: translateY(-2px); }
+  .pvr-chip:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pvr-dot { position: absolute; left: 11px; top: 13px; width: 15px; height: 15px; border-radius: 50%; border: 2.5px solid var(--c); background: #fff; }
+  .pvr-chip[aria-pressed="true"] { border-color: var(--c); background: #fff; box-shadow: 0 0 0 1.5px var(--c), 0 8px 16px -12px rgba(39, 48, 46, 0.6); }
+  .pvr-chip[aria-pressed="true"] .pvr-dot { background: var(--c); box-shadow: inset 0 0 0 2.5px #fff; }
+  .pvr-name { font-weight: 800; font-size: 0.98rem; line-height: 1.2; }
+  .pvr-stops { font-size: 0.78rem; line-height: 1.3; color: #5B6663; }
+  .pvr-map { margin-top: 16px; }
+  .pvr-sum { margin-top: 14px; }
+  .pvr-hours { margin: 0; font-family: "Lilita One", sans-serif; font-size: 1.3rem; color: #27302E; }
+  .pvr-hours small { font-family: "Nunito", sans-serif; font-size: 0.9rem; color: #5B6663; margin-left: 4px; }
+  .pvr-fit { margin: 2px 0 12px; font-size: 1rem; color: #27302E; }
+  .pvr-acts { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+  .pvr-steal, .pvr-with { display: inline-block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 9px 18px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; }
+  .pvr-with { background: #FFD43B; }
+  .pvr-steal:hover, .pvr-with:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #27302E; }
+  .pvr-copy { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; color: #1B6688; background: none; border: 0; padding: 6px 2px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .pvr-post { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; color: #1B6688 !important; text-decoration: underline !important; text-underline-offset: 3px; }
+  .pvr-free { margin: 16px 0 10px; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.15; color: #1F2A44; }
+  .pvr-facts { margin: 18px 0 0; font-size: 0.9rem; color: #4D5551; }
+  .pvr-facts .mw-offer-more { padding: 0; font-size: 0.95rem; }
+  @media (max-width: 600px) { .pvr-chips { grid-template-columns: 1fr; } .pvp-row { gap: 12px; } }
+  @media (prefers-reduced-motion: reduce) { .pvr-chip, .pvr-steal, .pvr-with { transition: none; } }
+</style>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById("pvr-data").textContent), t = D.t;
+  var box = document.getElementById("pvr-map"), chips = [].slice.call(document.querySelectorAll(".pvr-chip"));
+  if (!box || !chips.length) return;
+  function km(a, b) { var R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLn = (b.lng - a.lng) * r;
+    var h = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLn / 2) * Math.sin(dLn / 2);
+    return 2 * R * Math.asin(Math.sqrt(h)); }
+  // Same rough LA math as the Private page: road about 1.35x straight line, about 25 km/h, 5 min to park; plus 60 min hotel pickup and drop-off
+  function drive(a, b) { return km(a, b) * 1.35 / 25 * 60 + 5; }
+  function fmt(h) { return (Math.round(h * 2) / 2).toString().replace(".5", "½"); }
+  function picked() { return D.routes.filter(function (r) { return chips.some(function (c) { return c.dataset.route === r.id && c.getAttribute("aria-pressed") === "true"; }); }); }
+  var cur = [];
+  function draw(routes) {
+    var stops = [], areas = [];
+    routes.forEach(function (r) { r.stops.forEach(function (id) { stops.push(D.stops[id]); }); areas = areas.concat(r.areas); });
+    var ra = document.createElement("div");
+    ra.className = "ra"; ra.setAttribute("data-compact", ""); ra.setAttribute("data-nolist", "");
+    ra.setAttribute("data-label", t.maplabel); ra.setAttribute("data-ernesto", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif");
+    var sc = document.createElement("script"); sc.type = "application/json"; sc.className = "ra-data";
+    sc.textContent = JSON.stringify({ mode: "drive", areas: areas, stops: stops.map(function (s) { return { name: s.name, desc: s.desc, lat: s.lat, lng: s.lng }; }) });
+    ra.appendChild(sc); box.innerHTML = ""; box.appendChild(ra);
+    if (window.MWRouteAnim) window.MWRouteAnim.init();
+    cur = stops;
+    var dm = 0; for (var i = 1; i < stops.length; i++) dm += drive(stops[i - 1], stops[i]);
+    var sm = stops.reduce(function (a, s) { return a + s.min; }, 0) + 60;
+    var lo = (sm + dm * 0.85) / 60, hi = (sm + dm * 1.4) / 60, mid = (lo + hi) / 2, fit = null;
+    for (var k = 0; k < D.packages.length; k++) if (mid <= D.packages[k].hours) { fit = D.packages[k]; break; }
+    document.getElementById("pvr-hours").innerHTML = t.about + " " + fmt(lo) + " " + t.to + " " + fmt(hi) + " " + t.hours + "<small>" + t.with_ + "</small>";
+    document.getElementById("pvr-fit").innerHTML = fit ? t.fits + " <strong>" + fit.label + ", $" + fit.price + "</strong> " + t.car + "." : t.over;
+    var q = stops.map(function (s) { return encodeURIComponent(s.q); });
+    document.getElementById("pvr-steal").href = "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=" + q[q.length - 1] + (q.length > 1 ? "&waypoints=" + q.slice(0, -1).join("%7C") : "");
+    var names = routes.map(function (r) { return r.name; }).join(" + ");
+    document.getElementById("pvr-with").href = "https://wa.me/12692670410?text=" + encodeURIComponent(t.wa + names + (fit ? " (" + fit.label + ")" : ""));
+    document.getElementById("pvr-post").setAttribute("data-msg", t.msg + names + ".");
+  }
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () {
+      var on = c.getAttribute("aria-pressed") === "true";
+      if (on && picked().length === 1) return; // keep at least one route on
+      c.setAttribute("aria-pressed", on ? "false" : "true");
+      draw(picked());
+    });
+  });
+  document.getElementById("pvr-copy").addEventListener("click", function () {
+    var b = this, txt = t.mylist + "\n" + cur.map(function (s, i) { return (i + 1) + ". " + s.name; }).join("\n") +
+      "\n" + document.getElementById("pvr-steal").href + "\n" + t.domore + ": https://www.marlonwalksla.com/private-tours-los-angeles";
+    function done() { var o = b.textContent; b.textContent = t.copied; setTimeout(function () { b.textContent = o; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () { window.prompt("", txt); });
+    else window.prompt("", txt);
+  });
+  // "Send me a postcard": jump to the form and start the message with the routes they picked
+  document.getElementById("pvr-post").addEventListener("click", function () {
+    var m = document.getElementById("priv-msg");
+    if (m && !m.value) m.value = this.getAttribute("data-msg") || "";
+  });
+  // The form button reads like mailing a postcard
+  function sendBtn() { document.querySelectorAll("#private-tour-form .mw-form-submit").forEach(function (b) { b.value = t.send; b.setAttribute("data-wait", t.sending); }); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", sendBtn); else sendBtn();
+  draw(picked());
+})();
+</script>

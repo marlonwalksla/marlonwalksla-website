@@ -3,14 +3,17 @@
 <div class="mwsh" id="team">
   <img class="mwsh-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce800a9b9169f06d40de_Polaroid%20Photographer.avif" alt="Ernesto con su c&aacute;mara Polaroid" loading="lazy">
   <div>
+    <p class="pc-from">De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles</p>
     <span class="mwsh-eyebrow">Tours de equipo</span>
     <h2 class="mwsh-title">Celebra a tu equipo</h2>
+    <p class="pc-to"><span>Para:</span> tu equipo &middot; Grand Central Market, 317 S Broadway</p>
     <p class="mwsh-sub">Recorre el centro de LA, almuerza en Grand Central Market y ll&eacute;vate fotos de tu gente favorita.</p>
     <ul class="mwsh-chips"><li>Cumplea&ntilde;os</li><li>Lanzamientos</li><li>Retiros de empresa</li></ul>
   </div>
+  <div class="pc-slot" data-pc-slot="pc-team"><span class="pc-pm" aria-hidden="true"><b>LOS &Aacute;NGELES</b><i>CA</i></span></div>
 </div>
 <style>
-  .mwsh { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 24px; align-items: center; max-width: 860px; margin: 0 auto 30px; padding-top: 28px; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; }
+  .mwsh { display: grid; grid-template-columns: 130px minmax(0, 1fr) auto; gap: 24px; align-items: center; max-width: 1060px; margin: 0 auto 30px; padding-top: 28px; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; }
   .mwsh.is-right { grid-template-columns: minmax(0, 1fr) 130px; }
   .mwsh.is-right .mwsh-ern { order: 2; }
   .mwsh-ern { width: 130px; height: auto; max-height: 190px; object-fit: contain; display: block; }
@@ -19,6 +22,7 @@
   .mwsh-sub { font-size: 1.05rem; line-height: 1.55; color: #3B4440; margin: 0; max-width: 60ch; }
   @media (max-width: 900px) {
     .mwsh, .mwsh.is-right { grid-template-columns: 1fr; text-align: center; gap: 8px; }
+    .mwsh .pc-slot { justify-self: center; }
     .mwsh.is-right .mwsh-ern { order: 0; }
     .mwsh-ern { width: 92px; max-height: 130px; margin: 0 auto; }
     .mwsh-sub { margin: 0 auto; }

@@ -255,6 +255,7 @@
     function tick(now) {
       raf = null;
       if (!running) return;
+      if (!root.isConnected) { running = false; return; } // map was swapped out (Home private route toggles)
       var el2 = now - phaseStart;
       if (phase === 'dwell') {
         var wait = cur === stops.length - 1 ? END_DWELL : DWELL;
