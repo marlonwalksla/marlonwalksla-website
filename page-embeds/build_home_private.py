@@ -29,7 +29,7 @@ S = {  # id: (EN name, ES name, EN desc, ES desc, minutes, lat, lng, Google Maps
     "venice": ("Venice Beach and Canals", "Venice Beach y los canales", "The boardwalk, then the quiet canals.", "El malecón y luego los canales tranquilos.", 60, 33.985, -118.4695, "Venice Canals, Los Angeles, CA"),
 }
 ROUTES = [  # order = the order the day runs when routes are combined (east to west)
-    {"id": "hol", "en": "Hollywood Views", "es": "Vistas de Hollywood", "color": "#C9A54B", "stops": ["sign", "griffith", "urban"],
+    {"id": "hol", "en": "Hollywood Views", "es": "Vistas de Hollywood", "color": "#FF6600", "stops": ["sign", "griffith", "urban"],
      "areas": [["Hollywood Hills", 34.1345, -118.329], ["Griffith Park", 34.13, -118.295], ["Miracle Mile", 34.056, -118.347]]},
     {"id": "mid", "en": "Beverly Hills and Mid-City", "es": "Beverly Hills y Mid-City", "color": "#B5527E", "stops": ["grove", "bhsign", "rodeo"],
      "areas": [["Beverly Hills", 34.0736, -118.4004]]},
@@ -77,7 +77,7 @@ def build(lang):
             "routes": [{"id": r["id"], "name": r[lang], "color": r["color"], "stops": r["stops"],
                         "areas": [{"name": a[0], "lat": a[1], "lng": a[2]} for a in r["areas"]]} for r in ROUTES]}
     pols = "".join(
-        f'<figure class="pvp-pol pc-pol" style="--r:{r}"><span class="pvp-tape pc-tape" style="background:{tape}"></span><img src="{src}" alt="{alt_en if lang == "en" else alt_es}" loading="lazy"></figure>'
+        f'<figure class="pvp-pol" style="--r:{r}"><span class="pvp-tape" style="background:{tape}"></span><img src="{src}" alt="{alt_en if lang == "en" else alt_es}" loading="lazy"></figure>'
         for src, alt_en, alt_es, r, tape in POLS)
     chips = "".join(
         f'<button type="button" class="pvr-chip" data-route="{r["id"]}" style="--c:{r["color"]}" aria-pressed="{"true" if r["id"] == "hol" else "false"}">'
@@ -93,8 +93,7 @@ def build(lang):
      ============================================================================== -->
 <div class="mw-offer pv" id="private-tours">
   <div class="pvp">
-    <h3 class="pvp-h pc-hide-stamps">{t["polh"]}</h3>
-    <i data-pc-home="pc-priv" hidden></i><div class="pvp-row pc-pols" id="pc-priv">{pols}</div>
+    <div class="pvp-row">{pols}</div>
     <figure class="pvp-q"><blockquote>&ldquo;{esc(t["story"])}&rdquo;</blockquote><figcaption>{esc(t["storyby"])}</figcaption></figure>
   </div>
 
@@ -128,7 +127,7 @@ def build(lang):
   .pvp-pol {{ position: relative; margin: 0; transform: rotate(var(--r)); }}
   .pvp-pol img {{ display: block; width: 100%; height: auto; box-shadow: 0 10px 20px -10px rgba(39, 48, 46, 0.5); }}
   .pvp-tape {{ position: absolute; top: -9px; left: 50%; width: 58px; height: 18px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 1; }}
-  .pvp-q {{ margin: 18px 0 0; padding-left: 14px; border-left: 4px solid #C9A54B; }}
+  .pvp-q {{ margin: 18px 0 0; padding-left: 14px; border-left: 4px solid #2890B6; }}
   .pvp-q blockquote {{ margin: 0; font-size: 1rem; line-height: 1.5; color: #3B4440; }}
   .pvp-q figcaption {{ margin-top: 4px; font-size: 0.85rem; color: #5B6663; }}
   .pvr-h {{ margin: 0 0 4px; }}

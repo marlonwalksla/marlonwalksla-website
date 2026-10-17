@@ -14,8 +14,8 @@
   border-radius: 0 !important;
   box-shadow: 0 16px 32px -20px rgba(39, 48, 46, 0.65) !important;
 }
-.mw-bg-team .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #D93A2B 0 12px, #FFFDF7 12px 20px, #F2B807 20px 32px, #FFFDF7 32px 40px); }
-.mw-bg-private .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #1F2A44 0 12px, #FFFDF7 12px 20px, #C9A54B 20px 32px, #FFFDF7 32px 40px); }
+.mw-bg-team .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #E8412F 0 12px, #FFFDF7 12px 20px, #2890B6 20px 32px, #FFFDF7 32px 40px); }
+.mw-bg-private .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #2890B6 0 12px, #FFFDF7 12px 20px, #FFD43B 20px 32px, #FFFDF7 32px 40px); }
 /* Ernesto is the stamp */
 .mw-form-card::after {
   content: "" !important;

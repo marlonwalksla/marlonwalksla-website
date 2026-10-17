@@ -42,8 +42,8 @@ text = {
         "waHref":"https://wa.me/12692670410?text=Hola%20Marlon,%20me%20interesa%20el%20free%20tour%20en%20espa%C3%B1ol"},
 }
 pols = "".join(
-  f'<figure class="mwla-pol pc-pol" style="--r:{r}"><span class="mwla-tape pc-tape" style="background:{tape}"></span><img src="{img}" alt="{alt}" loading="lazy">'
-  f'<figcaption><span class="mwla-year">{yr}</span><b data-i18n="p{i}n">{text["en"][f"p{i}n"]}</b><small data-i18n="p{i}l">{text["en"][f"p{i}l"]}</small></figcaption></figure>'
+  f'<figure class="mwla-pol" style="--r:{r}"><span class="mwla-tape" style="background:{tape}"></span><img src="{img}" alt="{alt}" loading="lazy">'
+  f'<figcaption><span class="mwla-year">{yr}</span><b data-i18n="p{i}n">{text["en"][f"p{i}n"]}</b></figcaption></figure>'
   for i,((img,yr,tape,alt),r) in enumerate(zip(POLS,["-2.5deg","2deg","-1.5deg"]),1))
 
 html = f'''<!-- ==============================================================================
@@ -62,16 +62,14 @@ html = f'''<!-- ================================================================
       <span class="mwla-book-eyebrow" data-i18n="eyebrow">{text["en"]["eyebrow"]}</span>
       <h2 class="mwla-book-title" data-i18n="title">{text["en"]["title"]}</h2>
       <p class="pc-to"><span data-i18n="toL">{text["en"]["toL"]}</span> <span data-i18n="to">{text["en"]["to"]}</span></p>
-      <p class="mwla-book-sub" data-i18n="sub">{text["en"]["sub"]}</p>
       <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-i18n="wa">{text["en"]["wa"]}</a>
     </div>
-    <div class="pc-slot" data-pc-slot="pc-free"><span class="pc-pm" aria-hidden="true"><b data-i18n="pm">{text["en"]["pm"]}</b><i>CA</i></span></div>
+    <div class="pc-slot"><span class="pc-pm" aria-hidden="true"><b data-i18n="pm">{text["en"]["pm"]}</b><i>CA</i></span></div>
   </div>
 
   <div class="mwla-fgrid">
     <div class="mwla-fleft">
-      <h3 class="mwla-back-h" data-i18n="back">{text["en"]["back"]}</h3>
-      <i data-pc-home="pc-free" hidden></i><div class="mwla-pols pc-pols" id="pc-free">{pols}</div>
+      <div class="mwla-pols">{pols}</div>
       <p class="mwla-timenote" data-i18n="timenote">{text["en"]["timenote"]}</p>
       <div class="mwla-fmap">
         <div class="ra" id="mwla-free-ra" data-compact data-nolist data-label="Route map" data-ernesto="{ERN}"><script type="application/json" class="ra-data" id="mwla-free-ra-data">{{RA_EN}}</script></div>

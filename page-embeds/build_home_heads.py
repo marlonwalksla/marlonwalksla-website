@@ -77,10 +77,9 @@ for (sec, lang), (eb, title, sub, alt) in T.items():
     <p class="pc-from">{FROM[lang]}</p>
     <span class="mwsh-eyebrow">{eb}</span>
     <h2 class="mwsh-title">{title}</h2>
-    <p class="pc-to"><span>{to_lbl}</span> {to_txt}</p>
-    <p class="mwsh-sub">{sub}</p>{chip_html}
+    <p class="pc-to"><span>{to_lbl}</span> {to_txt}</p>{chip_html}
   </div>
-  <div class="pc-slot" data-pc-slot="pc-{key}"><span class="pc-pm" aria-hidden="true"><b>{pm1}</b><i>{pm2}</i></span></div>
+  <div class="pc-slot"><span class="pc-pm" aria-hidden="true"><b>{pm1}</b><i>{pm2}</i></span></div>
 </div>
 {CSS}
 {TEAM_CSS + CHIP_CSS if sec == "team" else ""}"""
