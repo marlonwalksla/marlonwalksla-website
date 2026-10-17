@@ -4,12 +4,13 @@
 # background styles (booking = deep blue + pinata fringe, team = white + route line,
 # private = grid paper). Run: python3 build_home_hero.py
 import urllib.parse
+import silhouettes as SIL  # original LA silhouettes for the postcard backs
 
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERNESTO = CDN + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
-P_FREE = CDN + "6ad3d70ae5ccdc27ab358156_free-tour-avila-adobe.webp"  # Oct 17, 2026 (Marlon): yellow-frame Polaroid; the old La Placita one moved into the free tour section
+P_FREE = CDN + "6ad3db6c73266c4e732cdd90_free-tour-avila-adobe.webp"  # Oct 17, 2026 (Marlon): yellow-frame Polaroid; the old La Placita one moved into the free tour section
 _OLD_P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp"
-P_PRIV = CDN + "6ad327874042d5e60f8724b9_Master%20Polaroids.png"  # Oct 17, 2026: Marlon's pick
+P_PRIV = CDN + "6ad3db6be47154900024909b_private-tour-urban-lights.webp"  # Oct 17, 2026: Marlon's pick
 P_TEAM = CDN + "6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp"  # Oct 17, 2026 (Marlon): green-tinted Polaroid, Kara's birthday group at the Grand Central Market
 
 T = {
@@ -19,6 +20,7 @@ T = {
         line="Free walking tours, team outings and private days, in English and Spanish.",
         btn="Explore my tours", btn_href="#team", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
+        frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
         ern_alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map",
         free=("Free Tour", "Join a Free Tour!", "#book",
               "Free tour guests posing together at the Avila Adobe garden"),
@@ -33,6 +35,7 @@ T = {
         line="Free tours, tours para equipos y d&iacute;as privados, en espa&ntilde;ol e ingl&eacute;s.",
         btn="Explora mis tours", btn_href="#team", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
+        frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
         ern_alt="Ernesto la pi&ntilde;ata, tu gu&iacute;a, con una tablet y un mapa",
         free=("Free Tour", "&iexcl;&Uacute;nete a un Free Tour!", "#book",
               "Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
@@ -116,7 +119,6 @@ def build(lang):
 <section class="mwh" lang="{lang}">
   <div class="mwh-wrap">
     <div class="mwh-text">
-      <span class="mwh-eyebrow"><i></i>{t["eyebrow"]}</span>
       <h1 class="mwh-h1">{t["h1"]}</h1>
       <p class="mwh-line">{t["line"]}</p>
       <div class="mwh-cta">
@@ -124,8 +126,11 @@ def build(lang):
         <a class="mwh-btn" href="{t["btn_href"]}">{t["btn"]}</a>
       </div>
     </div>
+    <div class="mwh-right">
+    <div class="pc-addr"><p class="pc-from">{t["frm"]}</p><p class="pc-to"><span>{t["toL"]}</span> {t["to"]}</p></div>
     <div class="mwh-photos">
 {card("team", "mwh-p1", "rgba(96,200,96,.6)")}{card("free", "mwh-p3", "rgba(255,0,255,.45)")}{card("priv", "mwh-p2", "rgba(40,144,182,.45)")}    </div>
+    </div>
   </div>
 </section>
 <style>
@@ -136,15 +141,13 @@ def build(lang):
 
   /* Full width: the grid paper runs edge to edge even inside Webflow's centered container */
   body {{ overflow-x: clip; }}
-  .mwh {{ position: relative; overflow: hidden; width: 100vw; margin-left: calc(50% - 50vw); {GRID}; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }}
+  .mwh {{ position: relative; overflow: hidden; width: var(--mwh-w, 100vw); margin-left: calc(50% - var(--mwh-w, 100vw) / 2); {GRID}; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }}
   .mwh *, .mwh *::before {{ box-sizing: border-box; }}
   .mwh-wrap {{ position: relative; max-width: 1140px; margin: 0 auto; padding: 56px 56px 76px; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 28px; align-items: center; }}
-  .mwh-eyebrow {{ display: inline-flex; align-items: center; gap: 8px; background: #27302E; color: #FFF6E6; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; }}
-  .mwh-eyebrow i {{ width: 8px; height: 8px; border-radius: 50%; background: #FFD43B; display: block; }}
-  .mwh-h1 {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.9rem, 6.4vw, 5.2rem); line-height: 0.98; letter-spacing: 0.005em; margin: 18px 0 16px; color: #27302E; }}
+  .mwh-h1 {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.9rem, 6.4vw, 5.2rem); line-height: 0.98; letter-spacing: 0.005em; margin: 0 0 16px; color: #27302E; }}
   .mwh-blue {{ color: #2890B6; }}
   .mwh-mark {{ background: linear-gradient(transparent 62%, #FFD43B 62%, #FFD43B 92%, transparent 92%); padding: 0 4px; }}
-  .mwh-line {{ font-size: 1.15rem; line-height: 1.55; max-width: 30ch; margin: 0 0 44px; color: #3B4440; }}
+  .mwh-line {{ font-size: 1.15rem; line-height: 1.55; max-width: 30ch; margin: 0 0 24px; color: #3B4440; }}
   .mwh-btn {{ display: inline-block; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 14px 30px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }}
   .mwh-btn:hover {{ transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }}
   .mwh-btn:active {{ transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }}
@@ -174,6 +177,13 @@ def build(lang):
   /* Oct 17, 2026 (Marlon): the hero is a postcard too. Airmail edge, text on the left, Ernesto is the stamp on the right. */
   .mwh::after {{ content: ""; position: absolute; inset: 12px; border: 12px solid transparent; border-image: repeating-linear-gradient(-45deg, #E8412F 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px) 12; pointer-events: none; z-index: 1; }}
   .mwh-wrap {{ z-index: 2; }}
+  /* Oct 17, 2026: Webflow's embed wrappers clip anything wider than the 1136px container (overflow hidden), which cut the full-width paper and the airmail sides. Let this one out. */
+  .w-embed:has(> .mwh), .hero-left-col:has(.mwh), .code-embed:has(.mwh) {{ overflow: visible !important; }}
+  .mwh-right {{ display: grid; gap: 6px; min-width: 0; }}
+  .mwh-right .pc-addr {{ justify-self: end; }}
+  .mwh-right .mwh-photos {{ margin: 0 auto; }}
+  .mwh-wrap > * {{ position: relative; z-index: 1; }}
+  .mwh-wrap::before {{ content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 190px; background: url("__SKYLINE__") no-repeat center bottom / auto 100%; pointer-events: none; z-index: 0; }}
   /* Oct 17, 2026 (Marlon): no stamp. Ernesto stands next to the button: he takes you there. */
   .mwh-cta {{ display: flex; align-items: flex-end; gap: 14px; }}
   .mwh-ern {{ display: block; width: auto; height: 108px; flex: none; margin: 0 0 -8px; }}
@@ -181,7 +191,7 @@ def build(lang):
 
   @media (max-width: 991px) {{
     .mwh-wrap {{ grid-template-columns: 1fr; padding: 54px 40px 62px; gap: 34px; }}
-    .mwh-line {{ margin: 0 0 26px; }}
+    .mwh-line {{ margin: 0 0 20px; }}
     .mwh-photos {{ max-width: 520px; padding-top: 8px; }}
     .mwh-p2, .mwh-p3 {{ margin-top: 0; }}
   }}
@@ -197,10 +207,11 @@ def build(lang):
     .mwh-go {{ font-size: 0.68rem; padding: 1px 7px; margin-top: 4px; }}
     .mwh-tape {{ width: 44px; height: 14px; top: -7px; }}
     .mwh-text {{ display: flex; flex-direction: column; align-items: flex-start; }}
+    .mwh-cta {{ align-self: center; }}
+    .mwh-wrap::before {{ height: 120px; }}
     .mwh::after {{ inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }}
     .mwh-wrap {{ padding: 36px 30px 40px; }}
     .mwh-ern {{ height: 86px; }}
-    .mwh-eyebrow {{ font-size: 0.7rem; padding: 6px 11px; }}
   }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-btn, .mwh-photo {{ transition: none; }} }}
 
@@ -213,6 +224,10 @@ def build(lang):
                  "  document.documentElement.setAttribute('lang', 'es');\n"
                  "  document.addEventListener('DOMContentLoaded', function () { if (typeof window.mwlaBookSet === 'function') window.mwlaBookSet('es'); });\n"
                  "</script>\n")
+    html = (html.replace("__SKYLINE__", SIL.svg_uri(SIL.skyline("#27302E", 0.07)))
+                .replace("__SIL_TEAM__", SIL.svg_uri(SIL.city_hall("#2E9E57", 0.22)))
+                .replace("__SIL_PRIV__", SIL.svg_uri(SIL.observatory("#2890B6", 0.22)))
+                .replace("__SIL_FREE__", SIL.svg_uri(SIL.kiosko("#D6479B", 0.18))))
     return html
 
 
@@ -253,6 +268,13 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   .pc-from { margin: 0 0 8px; font-family: "Caveat", cursive; font-weight: 600; font-size: 1.2rem; line-height: 1.1; color: #5B6663; }
   .pc-to { display: inline-block; margin: 2px 0 10px; padding: 0 6px 2px 0; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.15; color: #27302E; border-bottom: 2px dotted rgba(39, 48, 46, 0.4); }
   .pc-to span:first-child { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6663; margin-right: 4px; }
+  /* Oct 17, 2026 (Marlon): LA silhouettes fill the white space of each postcard back, like the example postcards */
+  #team.mwsh, #private.mwsh, .mwla-book-head { position: relative; }
+  #team.mwsh::before, #private.mwsh::before, .mwla-book-head::before { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: min(560px, 64%); background: no-repeat right bottom / contain; pointer-events: none; z-index: 0; }
+  #team.mwsh::before { background-image: url("__SIL_TEAM__"); }
+  #private.mwsh::before { background-image: url("__SIL_PRIV__"); }
+  .mwla-book-head::before { background-image: url("__SIL_FREE__"); }
+  #team.mwsh > *, #private.mwsh > *, .mwla-book-head > * { position: relative; z-index: 1; }
   /* badges: small facts, not buttons */
   .pc-badges { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 14px; padding: 0; }
   .pc-badge { display: inline-flex; align-items: center; gap: 7px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.98rem; line-height: 1.2; color: #27302E; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 4px 14px 4px 10px; }
@@ -277,7 +299,9 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
     .mw-bg-book::after { inset: 6px; border-width: 22px; border-image-slice: 40; border-image-width: 22px; }
   }
 '''
-PC_JS = "<script>\n" + open("postcard-forms.js", encoding="utf-8").read() + "</script>\n"  # Ernesto next to the form send buttons
+PC_JS = ("<script>\n" + open("postcard-forms.js", encoding="utf-8").read() + "</script>\n"  # Ernesto next to the form send buttons
+         + "<script>\n/* Full-width hero: use the width WITHOUT the scrollbar so the airmail edge is not cut at the screen sides */\n"
+         "(function(){var h=document.querySelector('.mwh');if(!h)return;function f(){h.style.setProperty('--mwh-w',document.documentElement.clientWidth+'px');}f();window.addEventListener('resize',f);document.addEventListener('DOMContentLoaded',f);})();\n</script>\n")
 
 for lang, name in (("en", "home-hero.html"), ("es", "home-hero-es.html")):
     open(name, "w", encoding="utf-8").write(build(lang))
