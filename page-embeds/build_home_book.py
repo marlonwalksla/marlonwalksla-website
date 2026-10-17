@@ -1,56 +1,56 @@
 # Builds home-book.html: the Home "Join a Free Tour" section (same file on / and /es).
-# Oct 16, 2026 (Marlon's option A): EN/ES Cal.com calendars with a scrolling strip of
-# route stop photos beside them (a swipe row on phones). Starts in Spanish when the
-# page language is es (the Spanish Home hero sets it before this runs).
+# Oct 17, 2026 (Marlon): same shape as the Team section. Left: three Polaroids that walk BACKWARDS in time
+# (Disney Hall 2003, City Hall 1928, Placita Olvera 1781) and the free tour route map (same data as the
+# free tour pages). Right: a sticky card with the tour language switch, one line of facts and the calendar.
+# Starts in Spanish when the page language is es (the Spanish Home hero sets it before this runs).
 import json
 C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-STOPS = [
-  (C+"6ac74a8b6dc6526aa1e35909_polaroid-disney-hall-couple.webp", "Walt Disney Concert Hall", "Where we meet", "Walt Disney Concert Hall", "Punto de encuentro", "Guests with their Polaroid at Walt Disney Concert Hall"),
-  (C+"6a51ec6473eccefdeea7678e_The%20Broad.webp", "The Broad", "Free contemporary art", "The Broad", "Arte contemporáneo gratis", "Ernesto at The Broad"),
-  (C+"6ac74a89e44a0b1c364553f8_polaroid-angels-flight-car.webp", "Angels Flight", "The 1901 railway", "Angels Flight", "El funicular de 1901", "Polaroid of an Angels Flight car"),
-  (C+"6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.webp", "Grand Central Market", "30+ food stalls since 1917", "Grand Central Market", "Más de 30 puestos desde 1917", "Polaroid of Grand Central Market at night"),
-  (C+"6ac751176ec3f46c273784eb_polaroid-raul-bradbury.webp", "Bradbury Building", "The 1893 movie star", "Bradbury Building", "La estrella de cine de 1893", "A guest's Polaroid at the Bradbury Building"),
-  (C+"6ac75117cf5707658580af96_polaroid-olga-evolution-la.webp", "The Evolution of Los Angeles", "LA's story on one mural", "La Evolución de Los Ángeles", "La historia de LA en un mural", "A family's Polaroid at The Evolution of Los Angeles mural"),
-  (C+"6ac74a889c33f92895c9275a_polaroid-city-hall-couple.webp", "City Hall", "The 1928 tower", "City Hall", "La torre de 1928", "Polaroid at Los Angeles City Hall"),
-  (None, "The courthouses", "LA's courthouses", "Los juzgados", "Los juzgados de LA", ""),
-  (C+"6ac74a884cd6ef1aef19e7fc_polaroid-olvera-kiosko.webp", "Placita Olvera", "Where LA began in 1781", "La Placita Olvera", "Donde nació LA en 1781", "Polaroid of the kiosko at Placita Olvera"),
+ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
+POLS = [  # image, year, tape color, alt
+  (C+"6ac74a8b6dc6526aa1e35909_polaroid-disney-hall-couple.webp", "2003", "rgba(255,0,255,.45)", "Guests with their Polaroid at Walt Disney Concert Hall"),
+  (C+"6ac74a889c33f92895c9275a_polaroid-city-hall-couple.webp", "1928", "rgba(255,255,0,.6)", "Polaroid at Los Angeles City Hall"),
+  (C+"6ac74a884cd6ef1aef19e7fc_polaroid-olvera-kiosko.webp", "1781", "rgba(40,144,182,.45)", "Polaroid of the kiosko at Placita Olvera"),
 ]
-POINT = C+"6a87cf6d715b4e53c40aaf8d_Pointing%20(Left).avif"
-
-def esc(s): return s.replace("&","&amp;").replace("<","&lt;").replace('"',"&quot;")
-
-items = []
-for i,(img,n_en,l_en,n_es,l_es,alt) in enumerate(STOPS,1):
-    pic = (f'<img src="{img}" alt="{esc(alt)}" loading="lazy">' if img else
-           f'<span class="mwla-stop-ph"><img src="{POINT}" alt="" aria-hidden="true"></span>')
-    tape = ["rgba(255,0,255,.45)","rgba(255,255,0,.6)","rgba(40,144,182,.45)"][(i-1)%3]
-    items.append(f'      <li class="mwla-stop"><span class="mwla-stop-pic"><span class="mwla-tape" style="background:{tape}"></span>{pic}<span class="mwla-stop-n" aria-hidden="true">{i}</span></span>'
-                 f'<span class="mwla-stop-t"><b data-i18n="s{i}n">{esc(n_en)}</b><small data-i18n="s{i}l">{esc(l_en)}</small></span></li>')
+RA_EN = '{"mode":"walk","areas":[{"name":"Bunker Hill","lat":34.0538,"lng":-118.2528},{"name":"Historic Core","lat":34.0478,"lng":-118.247},{"name":"Civic Center","lat":34.0519,"lng":-118.2418},{"name":"El Pueblo","lat":34.059,"lng":-118.238}],"stops":[{"name":"Walt Disney Concert Hall","desc":"Where we meet. Frank Gehry\'s steel landmark and the story of how it got built.","lat":34.0556,"lng":-118.2493},{"name":"The Broad","desc":"Next door, a free contemporary art museum that opened in 2015.","lat":34.0541,"lng":-118.2507},{"name":"Angels Flight","desc":"Built in 1901, \\"the world\'s shortest railway\\" has carried over 100 million passengers.","lat":34.0513,"lng":-118.2504},{"name":"Grand Central Market","desc":"Open since 1917. Today it\'s 30+ food stalls from all over the world.","lat":34.0509,"lng":-118.2491},{"name":"Bradbury Building","desc":"The 1893 interior you\'ve seen in movies.","lat":34.0505,"lng":-118.2478},{"name":"The Evolution of Los Angeles","desc":"The story of LA on one mural.","lat":34.0521,"lng":-118.2452},{"name":"City Hall","desc":"The 1928 tower at the heart of LA\'s government.","lat":34.0537,"lng":-118.2427},{"name":"The courthouses","desc":"LA\'s courthouses and the stories behind them.","lat":34.0549,"lng":-118.241},{"name":"Placita Olvera and El Pueblo de Los \\u00c1ngeles","desc":"Where Los Angeles began in 1781. The tour ends here, a short walk from Union Station.","lat":34.0574,"lng":-118.2381}]}'
+RA_ES = '{"mode":"walk","areas":[{"name":"Bunker Hill","lat":34.0538,"lng":-118.2528},{"name":"Historic Core","lat":34.0478,"lng":-118.247},{"name":"Civic Center","lat":34.0519,"lng":-118.2418},{"name":"El Pueblo","lat":34.059,"lng":-118.238}],"stops":[{"name":"Walt Disney Concert Hall","desc":"Punto de encuentro. El edificio de acero de Frank Gehry y la historia detr\\u00e1s.","lat":34.0556,"lng":-118.2493},{"name":"The Broad","desc":"Al lado, un museo de arte contempor\\u00e1neo gratuito, abierto en 2015.","lat":34.0541,"lng":-118.2507},{"name":"Angels Flight","desc":"De 1901, \\"el ferrocarril m\\u00e1s corto del mundo\\", con m\\u00e1s de 100 millones de pasajeros.","lat":34.0513,"lng":-118.2504},{"name":"Grand Central Market","desc":"Abierto desde 1917. Hoy re\\u00fane m\\u00e1s de 30 puestos de comida de todo el mundo.","lat":34.0509,"lng":-118.2491},{"name":"Bradbury Building","desc":"El interior de 1893 que has visto en el cine.","lat":34.0505,"lng":-118.2478},{"name":"La Evoluci\\u00f3n de Los \\u00c1ngeles","desc":"La historia de LA en un solo mural.","lat":34.0521,"lng":-118.2452},{"name":"City Hall","desc":"La torre de 1928, coraz\\u00f3n del gobierno de la ciudad.","lat":34.0537,"lng":-118.2427},{"name":"Los juzgados","desc":"Los juzgados de LA y las historias detr\\u00e1s de ellos.","lat":34.0549,"lng":-118.241},{"name":"La Placita Olvera y El Pueblo de Los \\u00c1ngeles","desc":"Donde naci\\u00f3 Los \\u00c1ngeles en 1781. Aqu\\u00ed termina el tour, cerca de Union Station.","lat":34.0574,"lng":-118.2381}]}'
 text = {
  "en": {"eyebrow":"Free DTLA Walking Tour","title":"Join a Free Tour!",
-        "sub":"Walk through 240 years of Los Angeles history, architecture and culture with a local guide. Booking takes under a minute.",
-        "strip":"The route","hint":"Scroll the 9 stops","wa":"\U0001F4AC Questions? WhatsApp Marlon",
+        "sub":"Walk back in time through 240 years of Los Angeles history with a local guide. Booking takes under a minute.",
+        "wa":"\U0001F4AC Questions? WhatsApp Marlon",
+        "back":"Walk backwards through LA history",
+        "timenote":"Start at a 2003 landmark and end at the plaza where LA began in 1781.",
+        "p1n":"Walt Disney Concert Hall","p1l":"Where we meet",
+        "p2n":"City Hall","p2l":"The 1928 tower",
+        "p3n":"Placita Olvera","p3l":"Where LA began",
+        "cardh":"Pick your date",
         "meet":"About 2 hours · We meet at Walt Disney Concert Hall, 600 W 1st St · Tip-based",
-        "prev":"Previous stops","next":"Next stops",
+        "maplabel":"Route map",
         "waHref":"https://wa.me/12692670410?text=Hi%20Marlon,%20I'm%20interested%20in%20joining%20the%20free%20Downtown%20LA%20walking%20tour!"},
  "es": {"eyebrow":"Free Tour por Downtown LA","title":"¡Únete a un Free Tour!",
-        "sub":"Recorre 240 años de historia, arquitectura y cultura de Los Ángeles con un guía local. Reservar toma menos de un minuto.",
-        "strip":"La ruta","hint":"Desliza las 9 paradas","wa":"\U0001F4AC ¿Preguntas? Escríbele a Marlon por WhatsApp",
+        "sub":"Viaja hacia atrás en el tiempo por 240 años de historia de Los Ángeles con un guía local. Reservar toma menos de un minuto.",
+        "wa":"\U0001F4AC ¿Preguntas? Escríbele a Marlon por WhatsApp",
+        "back":"Camina hacia atrás en la historia de LA",
+        "timenote":"Empiezas en un edificio de 2003 y terminas en la plaza donde nació LA en 1781.",
+        "p1n":"Walt Disney Concert Hall","p1l":"Punto de encuentro",
+        "p2n":"City Hall","p2l":"La torre de 1928",
+        "p3n":"La Placita Olvera","p3l":"Donde nació LA",
+        "cardh":"Elige tu fecha",
         "meet":"Unas 2 horas · Nos vemos en Walt Disney Concert Hall, 600 W 1st St · Con propina",
-        "prev":"Paradas anteriores","next":"Paradas siguientes",
+        "maplabel":"Mapa de la ruta",
         "waHref":"https://wa.me/12692670410?text=Hola%20Marlon,%20me%20interesa%20el%20free%20tour%20en%20espa%C3%B1ol"},
 }
-for i,(img,n_en,l_en,n_es,l_es,alt) in enumerate(STOPS,1):
-    text["en"][f"s{i}n"]=n_en; text["en"][f"s{i}l"]=l_en
-    text["es"][f"s{i}n"]=n_es; text["es"][f"s{i}l"]=l_es
+pols = "".join(
+  f'<figure class="mwla-pol" style="--r:{r}"><span class="mwla-tape" style="background:{tape}"></span><img src="{img}" alt="{alt}" loading="lazy">'
+  f'<figcaption><span class="mwla-year">{yr}</span><b data-i18n="p{i}n">{text["en"][f"p{i}n"]}</b><small data-i18n="p{i}l">{text["en"][f"p{i}l"]}</small></figcaption></figure>'
+  for i,((img,yr,tape,alt),r) in enumerate(zip(POLS,["-2.5deg","2deg","-1.5deg"]),1))
 
 html = f'''<!-- ==============================================================================
      MARLONWALKSLA - BOOK A FREE TOUR (CAL.COM INLINE CALENDARS, EN + ES)
      Built by page-embeds/build_home_book.py. Same embed on Home (/) and /es.
      EN event: cal.com/marlonwalksla/free-tour-dtla
      ES event: cal.com/marlonwalksla/free-tour-dtla-espanol
-     Oct 16, 2026: the 9 route stops are a swipe row ABOVE the calendar (no more tall side scroll),
-     and the calendar is a narrow card with Cal's detail panel hidden (one line of facts replaces it).
+     Oct 17, 2026: left = three Polaroids walking back in time (2003, 1928, 1781) + the free tour map;
+     right = sticky card with the language switch and the calendar.
      ============================================================================== -->
 <div class="mwla-book" id="book">
   <div class="mwla-book-head">
@@ -63,96 +63,93 @@ html = f'''<!-- ================================================================
     </div>
   </div>
 
-  <div class="mwla-lang-switch" role="group" aria-label="Tour language / Idioma del tour">
-    <span class="mwla-lang-label">Tour language &middot; Idioma del tour</span>
-    <div class="mwla-lang-pill">
-      <button type="button" class="mwla-lang-opt is-active" id="mwla-lang-en" onclick="mwlaBookSet('en')" aria-pressed="true">English</button>
-      <button type="button" class="mwla-lang-opt" id="mwla-lang-es" onclick="mwlaBookSet('es')" aria-pressed="false">Espa&ntilde;ol</button>
-    </div>
-  </div>
-
-  <section class="mwla-strip" aria-labelledby="mwla-strip-title">
-    <div class="mwla-strip-head">
-      <h3 id="mwla-strip-title" data-i18n="strip">{text["en"]["strip"]}</h3>
-      <div class="mwla-strip-tools">
-        <span class="mwla-strip-hint" data-i18n="hint">{text["en"]["hint"]}</span>
-        <button type="button" class="mwla-arrow" id="mwla-prev" aria-label="{text["en"]["prev"]}" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <button type="button" class="mwla-arrow" id="mwla-next" aria-label="{text["en"]["next"]}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+  <div class="mwla-fgrid">
+    <div class="mwla-fleft">
+      <h3 class="mwla-back-h" data-i18n="back">{text["en"]["back"]}</h3>
+      <div class="mwla-pols">{pols}</div>
+      <p class="mwla-timenote" data-i18n="timenote">{text["en"]["timenote"]}</p>
+      <div class="mwla-fmap">
+        <div class="ra" id="mwla-free-ra" data-compact data-nolist data-label="Route map" data-ernesto="{ERN}"><script type="application/json" class="ra-data" id="mwla-free-ra-data">{{RA_EN}}</script></div>
       </div>
     </div>
-    <ol class="mwla-stops" id="mwla-stops" tabindex="0">
-{chr(10).join(items)}
-    </ol>
-  </section>
-
-  <p class="mwla-meet" data-i18n="meet">{text["en"]["meet"]}</p>
-  <div class="mwla-book-cals">
-    <div class="mwla-book-cal" id="mwla-cal-en"></div>
-    <div class="mwla-book-cal" id="mwla-cal-es" style="display:none"></div>
+    <div class="mwla-fcard">
+      <h3 class="mwla-card-h" data-i18n="cardh">{text["en"]["cardh"]}</h3>
+      <div class="mwla-lang-switch" role="group" aria-label="Tour language / Idioma del tour">
+        <span class="mwla-lang-label">Tour language &middot; Idioma del tour</span>
+        <div class="mwla-lang-pill">
+          <button type="button" class="mwla-lang-opt is-active" id="mwla-lang-en" onclick="mwlaBookSet('en')" aria-pressed="true">English</button>
+          <button type="button" class="mwla-lang-opt" id="mwla-lang-es" onclick="mwlaBookSet('es')" aria-pressed="false">Espa&ntilde;ol</button>
+        </div>
+      </div>
+      <p class="mwla-meet" data-i18n="meet">{text["en"]["meet"]}</p>
+      <div class="mwla-book-cals">
+        <div class="mwla-book-cal" id="mwla-cal-en"></div>
+        <div class="mwla-book-cal" id="mwla-cal-es" style="display:none"></div>
+      </div>
+    </div>
   </div>
-
 </div>
+<script>
+  /* Pick the map language before route-anim.js draws it (the Spanish Home sets <html lang="es"> above) */
+  (function () {{
+    if ((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") !== 0) return;
+    var d = document.getElementById("mwla-free-ra-data"), m = document.getElementById("mwla-free-ra");
+    if (d) d.textContent = {{RA_ES_JS}};
+    if (m) m.setAttribute("data-label", "Mapa de la ruta");
+  }})();
+</script>
 
 <style>
   .mwla-book {{ max-width: 1140px; margin: 0 auto; padding: 40px 20px 52px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }}
   .mwla-book *, .mwla-book *::before {{ box-sizing: border-box; }}
-  .mwla-book-head {{ display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: center; max-width: 820px; margin: 0 auto 24px; }}
+  .mwla-book-head {{ display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: center; max-width: 820px; margin: 0 auto 28px; }}
   .mwla-book-ernesto {{ width: 140px; height: auto; display: block; }}
   .mwla-book-eyebrow {{ display: inline-block; font-family: "Fredoka", sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #b45309; background: #ffffff; padding: 6px 14px; border-radius: 50px; margin-bottom: 12px; }}
   .mwla-book-title {{ font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #0f172a; margin: 0 0 10px; }}
   .mwla-book-sub {{ font-size: 1.05rem; line-height: 1.55; color: #475569; margin: 0; max-width: 56ch; }}
-  .mwla-lang-switch {{ display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 0 auto 22px; }}
-  .mwla-lang-label {{ font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #92400e; }}
-  .mwla-lang-pill {{ display: inline-flex; background: #ffffff; border: 2px solid #f3e3b5; border-radius: 50px; padding: 4px; gap: 4px; }}
-  .mwla-lang-opt {{ font: inherit; font-size: 1rem; font-weight: 800; color: #475569; background: transparent; border: none; border-radius: 50px; padding: 10px 26px; cursor: pointer; transition: background 0.15s ease-out, color 0.15s ease-out; }}
+  .mwla-book-wa {{ display: inline-block; margin-top: 10px; font-size: 0.95rem; font-weight: 700; color: #1B6688 !important; text-decoration: underline; text-underline-offset: 3px; }}
+
+  /* Two columns, like the Team section */
+  .mwla-fgrid {{ display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px; align-items: start; }}
+  .mwla-back-h {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; color: #27302E; margin: 0 0 18px; }}
+  .mwla-pols {{ position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; padding: 0 6px; }}
+  /* a dotted "time line" running behind the three Polaroids, newest to oldest */
+  .mwla-pols::before {{ content: ""; position: absolute; left: 8%; right: 8%; top: 42%; border-top: 3px dotted rgba(39, 48, 46, 0.35); z-index: 0; }}
+  .mwla-pol {{ position: relative; z-index: 1; margin: 0; transform: rotate(var(--r)); }}
+  .mwla-pol img {{ display: block; width: 100%; height: auto; box-shadow: 0 10px 20px -10px rgba(39, 48, 46, 0.5); }}
+  .mwla-tape {{ position: absolute; top: -9px; left: 50%; width: 58px; height: 18px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 2; }}
+  .mwla-pol figcaption {{ display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px; }}
+  .mwla-year {{ font-family: "Lilita One", sans-serif; font-size: 1.05rem; color: #FFF6E6; background: #27302E; border-radius: 999px; padding: 1px 10px; margin-bottom: 4px; }}
+  .mwla-pol b {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.05rem; line-height: 1.15; color: #27302E; }}
+  .mwla-pol small {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #4D5551; }}
+  .mwla-timenote {{ margin: 16px 0 18px; padding-left: 14px; border-left: 4px solid #FFD43B; font-size: 1rem; line-height: 1.5; color: #3B4440; }}
+  .mwla-fcard {{ background: #ffffff; border-radius: 18px; padding: 20px 18px 18px; box-shadow: 0 12px 30px -18px rgba(39, 48, 46, 0.55); }}
+  @media (min-width: 992px) {{ .mwla-fcard {{ position: sticky; top: 90px; }} }}
+  .mwla-card-h {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.45rem; color: #27302E; margin: 0 0 12px; }}
+  .mwla-lang-switch {{ display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin: 0 0 12px; }}
+  .mwla-lang-label {{ font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #27302E; }}
+  .mwla-lang-pill {{ display: inline-flex; background: #FFF6E6; border: 2px solid #f3e3b5; border-radius: 50px; padding: 4px; gap: 4px; }}
+  .mwla-lang-opt {{ font: inherit; font-size: 1rem; font-weight: 800; color: #475569; background: transparent; border: none; border-radius: 50px; padding: 9px 22px; cursor: pointer; transition: background 0.15s ease-out, color 0.15s ease-out; }}
   .mwla-lang-opt:hover {{ color: #0f172a; }}
   .mwla-lang-opt.is-active {{ background: #FFD43B; color: #27302E; }}
+  .mwla-meet {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; line-height: 1.4; color: #3B4440; margin: 0 0 12px; }}
+  .mwla-book-cals {{ min-width: 0; }}
+  .mwla-book-cal {{ width: 100%; min-height: 380px; border-radius: 12px; overflow: hidden; }}
 
-  /* The route: one swipe row above the calendar (was a tall column scrolling down beside it) */
-  .mwla-strip {{ background: #FFF6E6; border-radius: 18px; padding: 12px 8px 2px; min-width: 0; overflow: hidden; }}
-  .mwla-strip-head {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px; }}
-  .mwla-strip-head h3 {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; margin: 0; color: #27302E; }}
-  .mwla-strip-tools {{ display: flex; align-items: center; gap: 8px; }}
-  .mwla-strip-hint {{ font-family: "Fredoka", sans-serif; font-size: 0.85rem; font-weight: 500; color: #4D5551; margin-right: 4px; }}
-  .mwla-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; background: #FFD43B; color: #27302E; border: 2px solid #27302E; border-radius: 12px; cursor: pointer; transition: opacity 0.15s ease-out, transform 0.15s ease-out; }}
-  .mwla-arrow:hover:not(:disabled) {{ transform: translateY(-1px); }}
-  .mwla-arrow:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 2px; }}
-  .mwla-arrow:disabled {{ opacity: 0.35; cursor: default; }}
-  .mwla-stops {{ list-style: none; margin: 0; padding: 22px 16px 22px; display: grid; grid-auto-flow: column; grid-auto-columns: 190px; gap: 24px; align-items: start; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; scroll-padding-left: 16px; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #C9B98F transparent; }}
-  .mwla-stops:focus-visible {{ outline: 3px solid #2890B6; outline-offset: -3px; border-radius: 10px; }}
-  .mwla-stop {{ position: relative; scroll-snap-align: start; }}
-  .mwla-stop-pic {{ position: relative; display: block; }}
-  .mwla-stop:nth-child(odd) .mwla-stop-pic {{ transform: rotate(-1.8deg); }}
-  .mwla-stop:nth-child(even) .mwla-stop-pic {{ transform: rotate(1.6deg); }}
-  .mwla-stop-pic > img, .mwla-stop-ph {{ display: block; width: 100%; height: auto; border-radius: 3px; box-shadow: 0 10px 22px -10px rgba(39, 48, 46, 0.5); }}
-  .mwla-stop-ph {{ aspect-ratio: 1 / 1; background: #ffffff; display: flex; align-items: center; justify-content: center; }}
-  .mwla-stop-ph img {{ width: 46%; height: auto; }}
-  .mwla-tape {{ position: absolute; top: -10px; left: 50%; width: 70px; height: 20px; transform: translateX(-50%) rotate(-4deg); z-index: 2; mix-blend-mode: multiply; }}
-  .mwla-stop:nth-child(even) .mwla-tape {{ transform: translateX(-50%) rotate(5deg); }}
-  .mwla-stop-n {{ position: absolute; top: -10px; left: -10px; width: 30px; height: 30px; border-radius: 50%; background: #2890B6; color: #ffffff; font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; border: 2.5px solid #ffffff; z-index: 3; }}
-  .mwla-stop-t {{ display: flex; flex-direction: column; align-items: center; text-align: center; padding: 10px 4px 0; }}
-  .mwla-stop-t b {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.1rem; color: #27302E; line-height: 1.15; }}
-  .mwla-stop-t small {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.88rem; color: #4D5551; }}
-  /* One line of facts replaces Cal's tall detail panel, then a narrow calendar card */
-  .mwla-meet {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.4; text-align: center; text-wrap: balance; color: #E3F1F7; margin: 22px auto 14px; max-width: 700px; }}
-  .mwla-book-cals {{ min-width: 0; max-width: 480px; margin: 0 auto; }}
-  .mwla-book-cal {{ width: 100%; min-height: 380px; border-radius: 18px; overflow: hidden; }}
-
-  .mwla-book-wa {{ display: inline-block; margin-top: 10px; font-size: 0.95rem; font-weight: 700; color: #FFF6E6 !important; text-decoration: underline; text-underline-offset: 3px; }}
-  .mwla-book-wa:hover {{ text-decoration: underline; }}
-
+  @media (max-width: 991px) {{
+    .mwla-fgrid {{ grid-template-columns: 1fr; }}
+  }}
   @media (max-width: 900px) {{
     .mwla-book {{ padding: 40px 16px; }}
     .mwla-book-head {{ grid-template-columns: 1fr; text-align: center; gap: 8px; }}
     .mwla-book-ernesto {{ width: 92px; margin: 0 auto; }}
     .mwla-book-sub {{ margin: 0 auto; }}
-    .mwla-strip-head {{ padding: 0 6px; }}
-    .mwla-arrow {{ display: none; }}
-    .mwla-stops {{ grid-auto-columns: 150px; scroll-padding-left: 14px; padding: 20px 10px 16px 14px; gap: 20px; }}
-    .mwla-meet {{ font-size: 0.95rem; margin: 18px auto 12px; }}
-    .mwla-book-cal {{ min-height: 360px; border-radius: 14px; }}
+    .mwla-pols {{ gap: 12px; }}
+    .mwla-pol b {{ font-size: 0.9rem; }}
+    .mwla-pol small {{ font-size: 0.75rem; }}
+    .mwla-book-cal {{ min-height: 360px; }}
   }}
-  @media (prefers-reduced-motion: reduce) {{ .mwla-lang-opt, .mwla-arrow {{ transition: none; }} }}
+  @media (prefers-reduced-motion: reduce) {{ .mwla-lang-opt {{ transition: none; }} }}
 </style>
 
 <script type="text/javascript">
@@ -169,7 +166,7 @@ html = f'''<!-- ================================================================
       const ev = calEvents[lang];
       Cal("init", ev.ns, {{ origin: "https://app.cal.com" }});
       Cal.ns[ev.ns]("inline", {{ elementOrSelector: ev.el, config: {{ layout: "month_view", theme: "light" }}, calLink: ev.link }});
-      Cal.ns[ev.ns]("ui", {{ theme: "light", hideEventTypeDetails: true, layout: "month_view" }}); // Oct 16, 2026: details panel hidden (like the team calendar); the line above the calendar says length and meeting point
+      Cal.ns[ev.ns]("ui", {{ theme: "light", hideEventTypeDetails: true, layout: "month_view" }}); // details panel hidden; the line above the calendar says length and meeting point
       loaded[lang] = true;
     }}
     const T = {json.dumps(text, ensure_ascii=False)};
@@ -179,8 +176,6 @@ html = f'''<!-- ================================================================
       const t = T[lang];
       root.querySelectorAll("[data-i18n]").forEach(function (el) {{ const k = el.getAttribute("data-i18n"); if (t[k] != null) el.textContent = t[k]; }});
       const wa = document.getElementById("mwla-book-wa"); if (wa) wa.href = t.waHref;
-      const pv = document.getElementById("mwla-prev"), nx = document.getElementById("mwla-next");
-      if (pv) pv.setAttribute("aria-label", t.prev); if (nx) nx.setAttribute("aria-label", t.next);
       ["en", "es"].forEach(function (l) {{
         const b = document.getElementById("mwla-lang-" + l);
         if (b) {{ b.classList.toggle("is-active", l === lang); b.setAttribute("aria-pressed", l === lang); }}
@@ -189,26 +184,11 @@ html = f'''<!-- ================================================================
       }});
       loadCal(lang);
     }}
-    // Arrows for the stop row (desktop). Phones just swipe.
-    const row = document.getElementById("mwla-stops"), prev = document.getElementById("mwla-prev"), next = document.getElementById("mwla-next");
-    const calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function edges() {{
-      if (!row || !prev || !next) return;
-      prev.disabled = row.scrollLeft <= 2;
-      next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 2;
-    }}
-    function nudge(dir) {{ row.scrollBy({{ left: dir * Math.max(row.clientWidth * 0.8, 200), behavior: calm ? "auto" : "smooth" }}); }}
-    if (row && prev && next) {{
-      prev.addEventListener("click", function () {{ nudge(-1); }});
-      next.addEventListener("click", function () {{ nudge(1); }});
-      row.addEventListener("scroll", edges, {{ passive: true }});
-      window.addEventListener("resize", edges);
-      edges();
-    }}
     window.mwlaBookSet = apply;
     apply((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 ? "es" : "en");
   }})();
 </script>
 '''
+html = html.replace("{RA_EN}", RA_EN).replace("{RA_ES_JS}", json.dumps(RA_ES))
 open("home-book.html","w",encoding="utf-8").write(html)
 print("wrote home-book.html", len(html))
