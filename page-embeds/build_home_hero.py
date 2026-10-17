@@ -173,7 +173,7 @@ def build(lang):
   /* Oct 17, 2026 (Marlon): the hero is a postcard too. Airmail edge, text on the left, Ernesto is the stamp on the right. */
   .mwh::after {{ content: ""; position: absolute; inset: 12px; border: 12px solid transparent; border-image: repeating-linear-gradient(-45deg, #E8412F 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px) 12; pointer-events: none; z-index: 1; }}
   .mwh-wrap {{ z-index: 2; }}
-  .mwh-slot {{ position: absolute; top: 46px; right: 52px; z-index: 3; }}
+  .mwh-wrap > .mwh-slot {{ position: absolute; top: 46px; right: 52px; z-index: 3; justify-self: auto; }}
 
   @media (max-width: 991px) {{
     .mwh-wrap {{ grid-template-columns: 1fr; padding: 54px 40px 62px; gap: 34px; }}
@@ -195,7 +195,7 @@ def build(lang):
     .mwh-text {{ display: flex; flex-direction: column; align-items: flex-start; }}
     .mwh::after {{ inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }}
     .mwh-wrap {{ padding: 36px 24px 40px; }}
-    .mwh-slot {{ top: 28px; right: 24px; }}
+    .mwh-wrap > .mwh-slot {{ top: 28px; right: 24px; }}
     .mwh-eyebrow {{ font-size: 0.7rem; padding: 6px 11px; max-width: calc(100% - 96px); }}
   }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-btn, .mwh-photo {{ transition: none; }} }}
