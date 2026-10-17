@@ -74,9 +74,6 @@ html = f'''<!-- ================================================================
     <div class="mwla-fleft">
       <div class="mwla-pols">{pols}</div>
       <figure class="mwla-q"><blockquote data-pi="qt">{text["en"]["qt"]}</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span data-pi="qwho">{text["en"]["qwho"]}</span></figcaption></figure>
-      <div class="mwla-fmap">
-        <div class="ra" id="mwla-free-ra" data-compact data-nolist data-label="Route map" data-ernesto="{ERN}"><script type="application/json" class="ra-data" id="mwla-free-ra-data">{{RA_EN}}</script></div>
-      </div>
     </div>
     <div class="mwla-fcard">
       <h3 class="mwla-card-h" data-i18n="cardh">{text["en"]["cardh"]}</h3>
@@ -95,15 +92,6 @@ html = f'''<!-- ================================================================
     </div>
   </div>
 </div>
-<script>
-  /* Pick the map language before route-anim.js draws it (the Spanish Home sets <html lang="es"> above) */
-  (function () {{
-    if ((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") !== 0) return;
-    var d = document.getElementById("mwla-free-ra-data"), m = document.getElementById("mwla-free-ra");
-    if (d) d.textContent = {{RA_ES_JS}};
-    if (m) m.setAttribute("data-label", "Mapa de la ruta");
-  }})();
-</script>
 
 <style>
   .mwla-book {{ max-width: 1140px; margin: 0 auto; padding: 40px 20px 52px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }}
@@ -203,6 +191,6 @@ html = f'''<!-- ================================================================
   }})();
 </script>
 '''
-html = html.replace("{RA_EN}", RA_EN).replace("{RA_ES_JS}", json.dumps(RA_ES))
+html = html.replace("{RA_EN}", RA_EN)
 open("home-book.html","w",encoding="utf-8").write(html)
 print("wrote home-book.html", len(html))

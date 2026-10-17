@@ -1,0 +1,33 @@
+<!-- MARLONWALKSLA - HOME ES: LOGISTICS FAQ accordion (native details elements). Built by page-embeds/build_home_lower.py. Oct 17, 2026. -->
+<section class="hl hl-faq" id="faq" aria-label="Bueno saber">
+  <div class="hl-faq-wrap">
+    <h2 class="hl-title">Bueno saber</h2>
+    <p class="hl-sub">Respuestas rápidas antes de reservar.</p>
+    <details class="hl-q" style="--r:-0.6deg;--t:rgba(255,212,59,.7)"><summary>¿Dónde nos vemos?</summary><p>Free tour: Walt Disney Concert Hall, 600 W 1st St. Busca a Marlon con una tablet. Tour de equipo: Grand Central Market, 317 S Broadway. Tour privado: Marlon te recoge en tu hotel.</p></details>
+    <details class="hl-q" style="--r:0.5deg;--t:rgba(40,144,182,.45)"><summary>¿Y el estacionamiento?</summary><p>El free tour es a pie, así que estacionas una sola vez. Los tours privados incluyen recogida en el hotel, así que no necesitas estacionar. ¿Quieres consejos de garajes? Escríbele a Marlon.</p></details>
+    <details class="hl-q" style="--r:-0.4deg;--t:rgba(255,0,255,.4)"><summary>¿La ruta es accesible?</summary><p>Hay escaleras en Angels Flight. ¿Vienes con silla de ruedas o carriola? Escríbele a Marlon antes del tour y lo planeamos.</p></details>
+    <details class="hl-q" style="--r:0.6deg;--t:rgba(96,200,96,.55)"><summary>¿Cuánto dura el free tour?</summary><p>Unas 2 horas, en español o en inglés. Reservar es gratis. Al final dejas la propina que creas justa.</p></details>
+    <details class="hl-q" style="--r:-0.5deg;--t:rgba(255,212,59,.7)"><summary>¿Y si necesito cancelar?</summary><p>Los free tours salen con 3 o más personas. Si no puedes venir, escribe por correo al menos 24 horas antes. Los tours privados se cancelan gratis hasta 48 horas antes.</p></details>
+    <details class="hl-q" style="--r:0.4deg;--t:rgba(40,144,182,.45)"><summary>¿Y si hace calor o llueve?</summary><p>En los tours de equipo, Marlon escribe al grupo y lo deciden juntos.</p></details>
+    <p class="hl-ask">¿Tienes otra pregunta? <a href="https://wa.me/12692670410" target="_blank" rel="noopener noreferrer">Escríbele a Marlon</a></p>
+  </div>
+</section>
+<style>
+  .hl { width: 100%; box-sizing: border-box; padding: 44px 20px; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }
+  .hl *, .hl *::before { box-sizing: border-box; }
+  .hl-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1.02; margin: 0 0 12px; color: #27302E; }
+  .hl-faq { background-color: #FFF6E6; background-image: linear-gradient(#F1E4CB 1px, transparent 1px), linear-gradient(90deg, #F1E4CB 1px, transparent 1px); background-size: 26px 26px; scroll-margin-top: 20px; }
+  .hl-faq-wrap { max-width: 800px; margin: 0 auto; }
+  .hl-sub { margin: 0 0 24px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.1rem; color: #3B4440; }
+  .hl-q { position: relative; margin: 0 0 16px; background: #fff; border: 2px solid #27302E; border-radius: 8px; box-shadow: 3px 3px 0 #27302E; transform: rotate(var(--r, 0deg)); }
+  .hl-q::before { content: ""; position: absolute; top: -9px; left: 24px; width: 52px; height: 16px; background: var(--t, rgba(255, 212, 59, .7)); transform: rotate(-3deg); mix-blend-mode: multiply; pointer-events: none; }
+  .hl-q summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 52px; padding: 14px 18px; font-family: "Lilita One", sans-serif; font-size: 1.2rem; line-height: 1.2; color: #27302E; }
+  .hl-q summary::-webkit-details-marker { display: none; }
+  .hl-q summary::after { content: "+"; flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #FFD43B; border: 2px solid #27302E; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; line-height: 1; transition: transform 0.2s ease-out; }
+  .hl-q[open] summary::after { content: "\2212"; }
+  .hl-q summary:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; border-radius: 6px; }
+  .hl-q p { margin: 0; padding: 0 18px 16px; font-size: 1.05rem; line-height: 1.6; color: #3B4440; }
+  .hl-ask { margin: 22px 0 0; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; color: #3B4440; }
+  .hl-ask a { color: #1B6688 !important; font-weight: 600; text-decoration: underline !important; text-underline-offset: 3px; }
+  @media (max-width: 820px) { .hl { padding: 34px 16px; } .hl-q summary { font-size: 1.1rem; } }
+</style>

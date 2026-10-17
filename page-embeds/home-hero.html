@@ -103,7 +103,10 @@
   /* Oct 17, 2026 (Marlon, via Gemini): Ernesto + two scrapbook language tags under the headline; two CTAs; no header bar on Home */
   body:has(.mwh) .mwhd { display: none !important; }
   body:has(.mwh) .section.max-height_100vh_desktop { margin-top: 0 !important; }
-  .mwh::after { inset: 0; }
+  /* Oct 17, 2026 (Marlon, via Gemini): one airmail border wraps the whole page, top to footer, instead of one per section */
+  .mwh::after { content: none !important; }
+  body:has(.mwh) { position: relative; }
+  body:has(.mwh)::after { content: ""; position: absolute; inset: 0; border: 12px solid transparent; border-image: repeating-linear-gradient(-45deg, #E8412F 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px) 12; pointer-events: none; z-index: 9999; }
   .mwh-wrap { padding-top: 64px; }
   .mwh-lang { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 18px; }
   .mwh-lang .mwh-ern { height: 96px; margin: 0 4px 0 0; }
@@ -142,7 +145,7 @@
     .mwh-lang .mwh-ern { height: 76px; }
     .mwh-lb { font-size: 1.05rem; padding: 11px 16px; }
     .mwh-wrap::before { height: 120px; }
-    .mwh::after { inset: 0; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
+    body:has(.mwh)::after { border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
     .mwh-wrap { padding: 40px 30px 40px; }
   }
   @media (prefers-reduced-motion: reduce) { .mwh-btn, .mwh-photo { transition: none; } }
