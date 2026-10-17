@@ -1,0 +1,47 @@
+# Which Webflow embed loads which section
+
+Every embed below holds ONE line (replace `NAME` with the section):
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@loader-v1/mw.js" data-s="NAME"></script>
+```
+
+`mw.js` reads `page-embeds/NAME.html` from branch **test** on the test site (marlonwalksla.webflow.io) and from branch **live** on marlonwalksla.com. Add `?mw=live` or `?mw=test` to a non-live address to preview the other branch.
+
+| Page | Webflow element id | NAME |
+|---|---|---|
+| Home `/` | e2a6c92c-f998-5c7c-e007-3a5db12425a2 | home-hero |
+| Home `/` | 4cfee3e5-143c-5185-3851-226ca405b253 | home-reviews-strip |
+| Home `/` | 58217d5a-ced5-fee1-734c-21530d5ff09e | home-head-team-en |
+| Home `/` | a1c51e49-c58b-035e-874c-7a7b24095f8b | home-team |
+| Home `/` | 31fa31d5-a9b6-fb51-2386-a5946c0efc5c | home-team-card |
+| Home `/` | 6cd423ec-8fea-fac1-c803-c74e55d93d64 | home-book |
+| Home `/` | 7c8ed06c-5570-e5d3-c87f-b1db627c75bd | home-head-priv-en |
+| Home `/` | c68da5d9-5110-9ac4-4efd-9961b55ef7f3 | home-private |
+| `/es` | e2a6c92c-f998-5c7c-e007-3a5db12425a2 | home-hero-es |
+| `/es` | 4cfee3e5-143c-5185-3851-226ca405b253 | home-reviews-strip-es |
+| `/es` | 3ec4414c-9f11-83b5-d9e2-c73899f9fbef | home-head-team-es |
+| `/es` | a1c51e49-c58b-035e-874c-7a7b24095f8b | home-team-es |
+| `/es` | 7f02e782-430a-abb1-aab6-5aa1e7696a63 | home-team-card-es |
+| `/es` | 6cd423ec-8fea-fac1-c803-c74e55d93d64 | home-book (shared with Home) |
+| `/es` | 5d7aabcd-0d4f-036c-b4d4-6175cfc11ff6 | home-head-priv-es |
+| `/es` | c68da5d9-5110-9ac4-4efd-9961b55ef7f3 | home-private-es |
+| Team | b4e79ecd-d6ac-869b-17ea-28e8b559ca8f | team-top |
+| Team | a1c51e49-c58b-035e-874c-7a7b24095f8b | team-form-intro |
+| Team | 3049b8c5-fbe4-d3b5-1725-38c7cfdfc634 | team-cal |
+| Team | 7b6465cc-cad2-4bba-dd04-b190dfbb95fe | team-bottom |
+| Private | 1a57a50a-3883-dd48-647e-cedea579fac9 | private-top |
+| Private | c68da5d9-5110-9ac4-4efd-9961b55ef7f3 | private-form-intro |
+| Private | 7927d9d0-7c63-98d1-2fcd-b3abb3e1a5ef | private-bottom |
+| Free tour (EN) | cd2baa09-ef16-9101-6dcd-b2d609521976 | free-en |
+| Free tour (ES) | 39c8fd9c-f688-31d6-b125-d1c05baba456 | free-es |
+
+(The same element id can appear on several pages because Webflow reuses ids across pages; the page decides which one you mean.)
+
+## Hidden embeds left in Webflow (not published, not converted)
+Archived copies are in `legacy/`: `hero-polaroids-hidden.html`, `old-free-tour-section.html`, `old-self-guided-guides.html`, `old-history-lore.html`. Safe to delete in Webflow when Marlon wants.
+
+## How to change a section
+1. Edit `page-embeds/NAME.html` on branch **test** and push. The test site shows it within about a minute.
+2. When Marlon approves, publish to the live site with: `git push origin test:live` (never before he says OK).
+3. Rollback: push the previous commit to `live` (`git push -f origin <old-sha>:live`) or revert on `test` and push again.
