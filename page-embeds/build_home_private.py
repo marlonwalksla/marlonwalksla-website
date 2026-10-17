@@ -41,6 +41,7 @@ T = {
    polh="Your LA, in Polaroids",
    story="The tour went so well that we ended up doing a private tour to Lake Hollywood Park to see the sign up close and take photos, before dropping them off at Griffith Observatory.",
    storyby="Marlon, about Belén's family · Instagram",
+   perks=["Set your own pace", "1-on-1 local insights", "Hotel pickup and drop-off", "Pick your own stops"],
    pickh="Pick your routes", pickhint="Turn on one, two or all three. They join into one day.",
    maplabel="Route map", about="About", to="to", hours="hours", with_="with pickup and driving",
    fits="Fits a", car="for your whole car", over="That's more than one day. Message me and we'll plan two.",
@@ -55,6 +56,7 @@ T = {
    polh="Tu LA, en Polaroids",
    story="El tour fue tan bien que terminamos haciendo un tour privado al Lake Hollywood Park para ver el letrero de cerca y sacar fotos, antes de dejarlos en el Observatorio Griffith.",
    storyby="Marlon, sobre la familia de Belén · Instagram",
+   perks=["A tu ritmo", "Un local solo para tu grupo", "Recogida y regreso al hotel", "Elige tus paradas"],
    pickh="Elige tus rutas", pickhint="Activa una, dos o las tres. Se juntan en un solo día.",
    maplabel="Mapa de la ruta", about="Unas", to="a", hours="horas", with_="con recogida y manejo",
    fits="Cabe en", car="para todo tu auto", over="Es más de un día. Escríbeme y armamos dos.",
@@ -84,6 +86,9 @@ def build(lang):
         f'<span class="pvr-dot" aria-hidden="true"></span><span class="pvr-name">{esc(r[lang])}</span>'
         f'<span class="pvr-stops">{esc(" · ".join(S[s][0 if lang == "en" else 1] for s in r["stops"]))}</span></button>'
         for r in ROUTES)
+    tapes = ["rgba(255,255,0,.6)", "rgba(40,144,182,.45)", "rgba(255,0,255,.4)", "rgba(96,200,96,.55)"]
+    perks = "".join(f'<li style="--r:{r}deg"><span class="pvk-tape" style="background:{tp}"></span><span class="pvk-ck" aria-hidden="true">&#10003;</span>{esc(x)}</li>'
+                    for x, r, tp in zip(t["perks"], (-1.5, 1.5, 1, -1), tapes))
     js_data = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     return f"""<!-- ==============================================================================
      MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: PRIVATE TOURS (LEFT COLUMN)  Built by page-embeds/build_home_private.py
@@ -97,11 +102,11 @@ def build(lang):
     <figure class="pvp-q"><blockquote>&ldquo;{esc(t["story"])}&rdquo;</blockquote><figcaption>{esc(t["storyby"])}</figcaption></figure>
   </div>
 
+  <ul class="pvk">{perks}</ul>
+
   <h3 class="pvr-h">{t["pickh"]}</h3>
   <p class="pvr-hint">{t["pickhint"]}</p>
   <div class="pvr-chips" role="group" aria-label="{t["pickh"]}">{chips}</div>
-
-  <div class="mw-route pvr-map" id="pvr-map"></div>
 
   <div class="pvr-sum" aria-live="polite">
     <p class="pvr-hours" id="pvr-hours"></p>
@@ -131,6 +136,11 @@ def build(lang):
   .pvp-q blockquote {{ margin: 0; font-size: 1rem; line-height: 1.5; color: #3B4440; }}
   .pvp-q figcaption {{ margin-top: 4px; font-size: 0.85rem; color: #5B6663; }}
   .pvr-h {{ margin: 0 0 4px; }}
+  /* Oct 17, 2026 (Marlon, via Gemini): scrapbook perks next to the booking form; no map on this card */
+  .pvk {{ list-style: none; margin: 0 0 24px; padding: 6px 4px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; }}
+  .pvk li {{ position: relative; display: flex; align-items: center; gap: 10px; background: #fff; border: 2px solid #27302E; border-radius: 6px; padding: 14px 14px 12px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.02rem; line-height: 1.25; color: #27302E; box-shadow: 3px 3px 0 #27302E; transform: rotate(var(--r)); }}
+  .pvk-tape {{ position: absolute; top: -9px; left: 50%; width: 50px; height: 15px; transform: translateX(-50%) rotate(-3deg); mix-blend-mode: multiply; }}
+  .pvk-ck {{ flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #FFD43B; border: 2px solid #27302E; font-size: 0.85rem; font-weight: 700; }}
   .pvr-hint {{ margin: 0 0 12px; font-size: 0.95rem; color: #4D5551; }}
   .pvr-chips {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }}
   .pvr-chip {{ font: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 2px; padding: 10px 12px 10px 34px; position: relative; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; border-radius: 12px; transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out; }}
@@ -141,7 +151,6 @@ def build(lang):
   .pvr-chip[aria-pressed="true"] .pvr-dot {{ background: var(--c); box-shadow: inset 0 0 0 2.5px #fff; }}
   .pvr-name {{ font-weight: 800; font-size: 0.98rem; line-height: 1.2; }}
   .pvr-stops {{ font-size: 0.78rem; line-height: 1.3; color: #5B6663; }}
-  .pvr-map {{ margin-top: 16px; }}
   .pvr-sum {{ margin-top: 14px; }}
   .pvr-hours {{ margin: 0; font-family: "Lilita One", sans-serif; font-size: 1.3rem; color: #27302E; }}
   .pvr-hours small {{ font-family: "Nunito", sans-serif; font-size: 0.9rem; color: #5B6663; margin-left: 4px; }}
@@ -155,14 +164,14 @@ def build(lang):
   .pvr-free {{ margin: 16px 0 10px; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.15; color: #1F2A44; }}
   .pvr-facts {{ margin: 18px 0 0; font-size: 0.9rem; color: #4D5551; }}
   .pvr-facts .mw-offer-more {{ padding: 0; font-size: 0.95rem; }}
-  @media (max-width: 600px) {{ .pvr-chips {{ grid-template-columns: 1fr; }} .pvp-row {{ gap: 12px; }} }}
+  @media (max-width: 600px) {{ .pvr-chips {{ grid-template-columns: 1fr; }} .pvk {{ grid-template-columns: 1fr; }} .pvp-row {{ gap: 12px; }} }}
   @media (prefers-reduced-motion: reduce) {{ .pvr-chip, .pvr-steal, .pvr-with {{ transition: none; }} }}
 </style>
 <script>
 (function () {{
   var D = JSON.parse(document.getElementById("pvr-data").textContent), t = D.t;
-  var box = document.getElementById("pvr-map"), chips = [].slice.call(document.querySelectorAll(".pvr-chip"));
-  if (!box || !chips.length) return;
+  var chips = [].slice.call(document.querySelectorAll(".pvr-chip"));
+  if (!chips.length) return;
   function km(a, b) {{ var R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLn = (b.lng - a.lng) * r;
     var h = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLn / 2) * Math.sin(dLn / 2);
     return 2 * R * Math.asin(Math.sqrt(h)); }}
@@ -174,13 +183,6 @@ def build(lang):
   function draw(routes) {{
     var stops = [], areas = [];
     routes.forEach(function (r) {{ r.stops.forEach(function (id) {{ stops.push(D.stops[id]); }}); areas = areas.concat(r.areas); }});
-    var ra = document.createElement("div");
-    ra.className = "ra"; ra.setAttribute("data-compact", ""); ra.setAttribute("data-nolist", "");
-    ra.setAttribute("data-label", t.maplabel); ra.setAttribute("data-ernesto", "{ERN}");
-    var sc = document.createElement("script"); sc.type = "application/json"; sc.className = "ra-data";
-    sc.textContent = JSON.stringify({{ mode: "drive", areas: areas, stops: stops.map(function (s) {{ return {{ name: s.name, desc: s.desc, lat: s.lat, lng: s.lng }}; }}) }});
-    ra.appendChild(sc); box.innerHTML = ""; box.appendChild(ra);
-    if (window.MWRouteAnim) window.MWRouteAnim.init();
     cur = stops;
     var dm = 0; for (var i = 1; i < stops.length; i++) dm += drive(stops[i - 1], stops[i]);
     var sm = stops.reduce(function (a, s) {{ return a + s.min; }}, 0) + 60;

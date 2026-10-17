@@ -11,11 +11,17 @@
   <div class="mwh-wrap">
     <div class="mwh-text">
       <h1 class="mwh-h1">Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with a local</span></h1>
-      <p class="mwh-line">Free walking tours, team outings and private days, in English and Spanish.</p>
-      <div class="mwh-cta">
+      <div class="mwh-lang" role="group" aria-label="Language / Idioma">
         <img class="mwh-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map" width="90" height="108">
-        <a class="mwh-btn" href="#team">Explore my tours</a>
+        <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en" aria-current="true">English</a>
+        <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es">Espa&ntilde;ol</a>
       </div>
+      <p class="mwh-line">Explore 2-hour walking tours in downtown Los Angeles, in English and Spanish.</p>
+      <div class="mwh-cta">
+        <a class="mwh-btn" href="#team">Book a Team Outing</a>
+        <a class="mwh-btn mwh-btn2" href="#private">Design a Private Tour</a>
+      </div>
+      <a class="mwh-free" href="#book">Or join a free tour &rarr;</a>
     </div>
     <div class="mwh-right">
     <div class="pc-addr"><p class="pc-from">From: Marlon &middot; MarlonWalksLA, Los Angeles</p><p class="pc-to"><span>To:</span> you &middot; your next trip to LA</p></div>
@@ -53,7 +59,7 @@
   .mwh-h1 { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.9rem, 6.4vw, 5.2rem); line-height: 0.98; letter-spacing: 0.005em; margin: 0 0 16px; color: #27302E; }
   .mwh-blue { color: #2890B6; }
   .mwh-mark { background: linear-gradient(transparent 62%, #FFD43B 62%, #FFD43B 92%, transparent 92%); padding: 0 4px; }
-  .mwh-line { font-size: 1.15rem; line-height: 1.55; max-width: 30ch; margin: 0 0 24px; color: #3B4440; }
+  .mwh-line { font-size: 1.15rem; line-height: 1.55; max-width: 34ch; margin: 0 0 22px; color: #3B4440; }
   .mwh-btn { display: inline-block; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 14px 30px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
   .mwh-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
   .mwh-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
@@ -93,7 +99,24 @@
   /* Oct 17, 2026 (Marlon): no stamp. Ernesto stands next to the button: he takes you there. */
   .mwh-cta { display: flex; align-items: flex-end; gap: 14px; }
   .mwh-ern { display: block; width: auto; height: 108px; flex: none; margin: 0 0 -8px; }
-  .mwh-cta { align-items: center; }
+  .mwh-cta { align-items: center; flex-wrap: wrap; gap: 14px; }
+  /* Oct 17, 2026 (Marlon, via Gemini): Ernesto + two scrapbook language tags under the headline; two CTAs; no header bar on Home */
+  body:has(.mwh) .mwhd { display: none !important; }
+  .mwh::after { inset: 0; }
+  .mwh-wrap { padding-top: 64px; }
+  .mwh-lang { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 18px; }
+  .mwh-lang .mwh-ern { height: 96px; margin: 0 4px 0 0; }
+  .mwh-lb { position: relative; font-family: "Lilita One", sans-serif; font-size: 1.15rem; line-height: 1; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2.5px solid #27302E; border-radius: 12px; padding: 12px 20px; min-height: 44px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .mwh-lb::before { content: ""; position: absolute; top: -9px; left: 50%; width: 46px; height: 15px; background: rgba(40,144,182,.45); transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; }
+  .mwh-lb2::before { background: rgba(255,0,255,.4); transform: translateX(-50%) rotate(3deg); }
+  .mwh-lb1 { transform: rotate(-2deg); }
+  .mwh-lb2 { transform: rotate(2deg); }
+  .mwh-lb[aria-current="true"] { background: #FFD43B; }
+  .mwh-lb:hover { transform: rotate(0) translateY(-2px); box-shadow: 5px 5px 0 #27302E; }
+  .mwh-lb:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  .mwh-btn2 { background: #fff; }
+  .mwh-free { display: inline-block; margin-top: 16px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #1B6688 !important; text-decoration: underline !important; text-underline-offset: 3px; padding: 8px 0; }
+  .mwh-free:hover { color: #27302E !important; }
 
   @media (max-width: 991px) {
     .mwh-wrap { grid-template-columns: 1fr; padding: 54px 40px 62px; gap: 34px; }
@@ -113,11 +136,13 @@
     .mwh-go { font-size: 0.68rem; padding: 1px 7px; margin-top: 4px; }
     .mwh-tape { width: 44px; height: 14px; top: -7px; }
     .mwh-text { display: flex; flex-direction: column; align-items: flex-start; }
-    .mwh-cta { align-self: center; }
+    .mwh-cta { align-self: stretch; flex-direction: column; align-items: stretch; }
+    .mwh-btn { text-align: center; }
+    .mwh-lang .mwh-ern { height: 76px; }
+    .mwh-lb { font-size: 1.05rem; padding: 11px 16px; }
     .mwh-wrap::before { height: 120px; }
-    .mwh::after { inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
-    .mwh-wrap { padding: 36px 30px 40px; }
-    .mwh-ern { height: 86px; }
+    .mwh::after { inset: 0; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
+    .mwh-wrap { padding: 40px 30px 40px; }
   }
   @media (prefers-reduced-motion: reduce) { .mwh-btn, .mwh-photo { transition: none; } }
 
