@@ -16,8 +16,8 @@ P_TEAM = CDN + "6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp"  # Oct 1
 T = {
     "en": dict(
         eyebrow="Downtown LA walking tours",
-        h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with a local</span>',
-        line="Explore 2-hour walking tours in downtown Los Angeles, in English and Spanish.",
+        h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon and Ernesto</span>',
+        line="Free walking tours, team outings and private days, in English and Spanish.",
         btn="Book a Team Outing", btn_href="#team", btn2="Design a Private Tour", btn2_href="#private", freeL="Or join a free tour &rarr;", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
@@ -31,8 +31,8 @@ T = {
     ),
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
-        h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con un local</span>',
-        line="Explora tours a pie de 2 horas por el centro de Los &Aacute;ngeles, en espa&ntilde;ol e ingl&eacute;s.",
+        h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon y Ernesto</span>',
+        line="Free tours, tours para equipos y d&iacute;as privados, en espa&ntilde;ol e ingl&eacute;s.",
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
@@ -135,7 +135,6 @@ def build(lang):
       <a class="mwh-free" href="#book">{t["freeL"]}</a>
     </div>
     <div class="mwh-right">
-    <div class="pc-addr"><p class="pc-from">{t["frm"]}</p><p class="pc-to"><span>{t["toL"]}</span> {t["to"]}</p></div>
     <div class="mwh-photos">
 {card("team", "mwh-p1", "rgba(96,200,96,.6)")}{card("free", "mwh-p3", "rgba(255,0,255,.45)")}{card("priv", "mwh-p2", "rgba(40,144,182,.45)")}    </div>
     </div>
@@ -152,7 +151,7 @@ def build(lang):
   .mwh {{ position: relative; overflow: hidden; width: var(--mwh-w, 100vw); margin-left: calc(50% - var(--mwh-w, 100vw) / 2); {GRID}; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }}
   .mwh *, .mwh *::before {{ box-sizing: border-box; }}
   .mwh-wrap {{ position: relative; max-width: 1140px; margin: 0 auto; padding: 56px 56px 76px; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 28px; align-items: center; }}
-  .mwh-h1 {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.9rem, 6.4vw, 5.2rem); line-height: 0.98; letter-spacing: 0.005em; margin: 0 0 16px; color: #27302E; }}
+  .mwh-h1 {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.7rem, 5.4vw, 4.4rem); line-height: 0.98; letter-spacing: 0.005em; margin: 0 0 16px; color: #27302E; }}
   .mwh-blue {{ color: #2890B6; }}
   .mwh-mark {{ background: linear-gradient(transparent 62%, #FFD43B 62%, #FFD43B 92%, transparent 92%); padding: 0 4px; }}
   .mwh-line {{ font-size: 1.15rem; line-height: 1.55; max-width: 34ch; margin: 0 0 22px; color: #3B4440; }}
@@ -195,14 +194,12 @@ def build(lang):
   /* Oct 17, 2026 (Marlon): no stamp. Ernesto stands next to the button: he takes you there. */
   .mwh-cta {{ display: flex; align-items: flex-end; gap: 14px; }}
   .mwh-ern {{ display: block; width: auto; height: 108px; flex: none; margin: 0 0 -8px; }}
-  .mwh-cta {{ align-items: center; flex-wrap: wrap; gap: 14px; }}
+  .mwh-cta {{ display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 14px; }}
+  .mwh-cta .mwh-btn {{ flex: 0 1 auto; font-size: 1.15rem; padding: 13px 22px; text-align: center; }}
   /* Oct 17, 2026 (Marlon, via Gemini): Ernesto + two scrapbook language tags under the headline; two CTAs; no header bar on Home */
   body:has(.mwh) .mwhd {{ display: none !important; }}
   body:has(.mwh) .section.max-height_100vh_desktop {{ margin-top: 0 !important; }}
-  /* Oct 17, 2026 (Marlon, via Gemini): one airmail border wraps the whole page, top to footer, instead of one per section */
-  .mwh::after {{ content: none !important; }}
-  body:has(.mwh) {{ position: relative; }}
-  body:has(.mwh)::after {{ content: ""; position: absolute; inset: 0; border: 12px solid transparent; border-image: repeating-linear-gradient(-45deg, #E8412F 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px) 12; pointer-events: none; z-index: 9999; }}
+  /* Oct 17, 2026 (Marlon, via Gemini round 2): back to one border per section; the hero keeps its own airmail edge (inset 12px) */
   .mwh-wrap {{ padding-top: 64px; }}
   .mwh-lang {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 18px; }}
   .mwh-lang .mwh-ern {{ height: 96px; margin: 0 4px 0 0; }}
@@ -236,14 +233,14 @@ def build(lang):
     .mwh-go {{ font-size: 0.68rem; padding: 1px 7px; margin-top: 4px; }}
     .mwh-tape {{ width: 44px; height: 14px; top: -7px; }}
     .mwh-text {{ display: flex; flex-direction: column; align-items: flex-start; }}
-    .mwh-cta {{ align-self: stretch; flex-direction: column; align-items: stretch; }}
-    .mwh-btn {{ text-align: center; }}
+    .mwh-cta {{ align-self: stretch; }}
     .mwh-lang .mwh-ern {{ height: 76px; }}
     .mwh-lb {{ font-size: 1.05rem; padding: 11px 16px; }}
     .mwh-wrap::before {{ height: 120px; }}
-    body:has(.mwh)::after {{ border-width: 7px; border-image-slice: 7; border-image-width: 7px; }}
+    .mwh::after {{ inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }}
     .mwh-wrap {{ padding: 40px 30px 40px; }}
   }}
+  @media (max-width: 520px) {{ .mwh-cta .mwh-btn {{ flex: 1 1 100%; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-btn, .mwh-photo {{ transition: none; }} }}
 
   {POSTCARD}
