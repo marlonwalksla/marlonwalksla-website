@@ -193,7 +193,7 @@ def build(lang):
     .mwh-p1 {{ width: 100%; justify-self: stretch; }}
     .mwh-p2 {{ margin-top: 0; }}
     .mwh-label strong {{ font-size: 0.92rem; }}
-    .mwh-label em {{ font-size: 0.74rem; }}
+    .mwh-label em {{ font-size: 0.74rem; line-height: 1.2; }}
     .mwh-go {{ font-size: 0.68rem; padding: 1px 7px; margin-top: 4px; }}
     .mwh-tape {{ width: 44px; height: 14px; top: -7px; }}
     .mwh-text {{ display: flex; flex-direction: column; align-items: flex-start; }}
@@ -271,6 +271,7 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   /* Oct 17, 2026 (Marlon): colorful borders only on the outside of the section; inner cards get a thin plain line */
   .mw-bg-book .mwla-fcard { border: 2px solid #27302E; border-radius: 18px; }
   @media (max-width: 900px) {
+    .pc-addr { margin-top: 8px; }
     .mw-bg-team::after, .mw-bg-private::after { inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
     .mw-bg-book { padding: 10px 16px 4px !important; }
     .mw-bg-book::after { inset: 6px; border-width: 22px; border-image-slice: 40; border-image-width: 22px; }
