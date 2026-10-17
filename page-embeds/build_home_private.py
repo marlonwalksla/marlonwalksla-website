@@ -260,7 +260,6 @@ def calc_html(lang):
   <p class="pcq-none" hidden>{t["none"]}</p>
   <ul class="pcq-list" aria-label="{t["yours"]}" hidden></ul>
   <div class="pcq-out" aria-live="polite" hidden>
-    <span class="pcq-cap">{t["about"]} ...</span>
     <span class="pcq-hours"></span>
     <span class="pcq-price"></span>
     <span class="pcq-cap">{t["est"]}</span>
