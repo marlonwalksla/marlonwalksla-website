@@ -18,11 +18,11 @@ T = {
    [(PERSON, "1-4", "1 a 4 personas"), ("&#128663;", "Te recojo y te llevo", None)]),
 }
 CSS = """<style>
-  .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding-top: 28px; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
+  .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
   .mwsh-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #27302E; margin: 0; }
   .mwsh .pc-slot { justify-self: end; min-width: 0; }
   @media (max-width: 900px) {
-    .mwsh { gap: 12px; padding-top: 14px; }
+    .mwsh { gap: 12px; padding: 14px 28px 0; }
     .mwsh-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
     .mwsh .pc-badge { font-size: 0.9rem; }
   }

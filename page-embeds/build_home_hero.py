@@ -195,7 +195,7 @@ def build(lang):
     .mwh-tape {{ width: 44px; height: 14px; top: -7px; }}
     .mwh-text {{ display: flex; flex-direction: column; align-items: flex-start; }}
     .mwh::after {{ inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }}
-    .mwh-wrap {{ padding: 36px 24px 40px; }}
+    .mwh-wrap {{ padding: 36px 30px 40px; }}
     .mwh-wrap > .mwh-slot {{ top: 28px; right: 24px; }}
     .mwh-eyebrow {{ font-size: 0.7rem; padding: 6px 11px; max-width: calc(100% - 96px); }}
   }}
