@@ -1,28 +1,21 @@
 <!-- MARLONWALKSLA - HOME: PRIVATE SECTION BANNER. Built by page-embeds/build_home_heads.py.
-     Sits above the two-column layout, same look as the free tour banner. -->
+     Postcard header: text on the left, Ernesto is the stamp on the right. Stamp, badge and postmark styles live in home-hero.html. -->
 <div class="mwsh" id="private">
-  <img class="mwsh-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87cf628c921f7de316043f_Hiking.avif" alt="Ernesto ready for a hike" loading="lazy">
-  <div>
+  <div class="mwsh-main">
     <p class="pc-from">From: Marlon &middot; MarlonWalksLA, Los Angeles</p>
-    <span class="mwsh-eyebrow">Private Tours</span>
     <h2 class="mwsh-title">LA, Your Way</h2>
-    <p class="pc-to"><span>To:</span> you &middot; anywhere in LA, I pick you up</p>
+    <ul class="pc-badges"><li class="pc-badge" aria-label="1 to 4 guests"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" r="3.6" fill="#27302E"/><path d="M3 18c0-4.2 3.1-6.6 7-6.6s7 2.4 7 6.6z" fill="#27302E"/></svg><span>1-4</span></li><li class="pc-badge">&#128663;<span>Pick up / drop off</span></li></ul>
+    <p class="pc-to"><span>To:</span> you &middot; anywhere in LA</p>
   </div>
-  <div class="pc-slot"><span class="pc-pm" aria-hidden="true"><b>LOS ANGELES</b><i>CA</i></span></div>
+  <div class="pc-slot"><span class="pc-pm" aria-hidden="true"><b>LOS ANGELES</b><i>CA</i></span><span class="pc-stamp"><span class="pc-stamp-in"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87cf628c921f7de316043f_Hiking.avif" alt="Ernesto ready for a hike" loading="lazy"></span></span></div>
 </div>
 <style>
-  .mwsh { display: grid; grid-template-columns: 130px minmax(0, 1fr) auto; gap: 24px; align-items: center; max-width: 1060px; margin: 0 auto 30px; padding-top: 28px; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; }
-  .mwsh.is-right { grid-template-columns: minmax(0, 1fr) 130px; }
-  .mwsh.is-right .mwsh-ern { order: 2; }
-  .mwsh-ern { width: 130px; height: auto; max-height: 190px; object-fit: contain; display: block; }
-  .mwsh-eyebrow { display: inline-block; font-family: "Fredoka", sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #27302E; background: #ffffff; border: 2px solid #27302E; padding: 5px 14px; border-radius: 50px; margin-bottom: 10px; }
-  .mwsh-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #27302E; margin: 0 0 8px; }
-  .mwsh-sub { font-size: 1.05rem; line-height: 1.55; color: #3B4440; margin: 0; max-width: 60ch; }
+  .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding-top: 28px; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
+  .mwsh-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #27302E; margin: 0; }
+  .mwsh .pc-slot { justify-self: end; min-width: 0; }
   @media (max-width: 900px) {
-    .mwsh, .mwsh.is-right { grid-template-columns: 1fr; text-align: center; gap: 8px; }
-    .mwsh .pc-slot { justify-self: center; }
-    .mwsh.is-right .mwsh-ern { order: 0; }
-    .mwsh-ern { width: 92px; max-height: 130px; margin: 0 auto; }
-    .mwsh-sub { margin: 0 auto; }
+    .mwsh { gap: 12px; padding-top: 14px; }
+    .mwsh-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
+    .mwsh .pc-badge { font-size: 0.9rem; }
   }
 </style>

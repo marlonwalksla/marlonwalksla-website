@@ -18,7 +18,7 @@ text = {
         "sub":"Walk back in time through 240 years of Los Angeles history with a local guide. Booking takes under a minute.",
         "wa":"\U0001F4AC Questions? WhatsApp Marlon",
         "back":"Walk backwards through LA history",
-        "timenote":"Start at a 2003 landmark and end at the plaza where LA began in 1781.",
+        "tip":"Tip-based",
         "p1n":"Walt Disney Concert Hall","p1l":"Where we meet",
         "p2n":"City Hall","p2l":"The 1928 tower",
         "p3n":"Placita Olvera","p3l":"Where LA began",
@@ -31,7 +31,7 @@ text = {
         "sub":"Viaja hacia atrás en el tiempo por 240 años de historia de Los Ángeles con un guía local. Reservar toma menos de un minuto.",
         "wa":"\U0001F4AC ¿Preguntas? Escríbele a Marlon por WhatsApp",
         "back":"Camina hacia atrás en la historia de LA",
-        "timenote":"Empiezas en un edificio de 2003 y terminas en la plaza donde nació LA en 1781.",
+        "tip":"Con propina",
         "p1n":"Walt Disney Concert Hall","p1l":"Punto de encuentro",
         "p2n":"City Hall","p2l":"La torre de 1928",
         "p3n":"La Placita Olvera","p3l":"Donde nació LA",
@@ -43,7 +43,7 @@ text = {
 }
 pols = "".join(
   f'<figure class="mwla-pol" style="--r:{r}"><span class="mwla-tape" style="background:{tape}"></span><img src="{img}" alt="{alt}" loading="lazy">'
-  f'<figcaption><span class="mwla-year">{yr}</span><b data-i18n="p{i}n">{text["en"][f"p{i}n"]}</b></figcaption></figure>'
+  f'<figcaption><b data-pi="p{i}n">{text["en"][f"p{i}n"]}</b></figcaption></figure>'
   for i,((img,yr,tape,alt),r) in enumerate(zip(POLS,["-2.5deg","2deg","-1.5deg"]),1))
 
 html = f'''<!-- ==============================================================================
@@ -56,21 +56,19 @@ html = f'''<!-- ================================================================
      ============================================================================== -->
 <div class="mwla-book" id="book">
   <div class="mwla-book-head">
-    <img class="mwla-book-ernesto" src="{C}6a87cf72cbcbd01da7ff38c7_Pointing%20(Right).avif" alt="Ernesto pointing to the free tour calendar">
     <div class="mwla-book-head-text">
-      <p class="pc-from" data-i18n="from">{text["en"]["from"]}</p>
-      <span class="mwla-book-eyebrow" data-i18n="eyebrow">{text["en"]["eyebrow"]}</span>
-      <h2 class="mwla-book-title" data-i18n="title">{text["en"]["title"]}</h2>
-      <p class="pc-to"><span data-i18n="toL">{text["en"]["toL"]}</span> <span data-i18n="to">{text["en"]["to"]}</span></p>
-      <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-i18n="wa">{text["en"]["wa"]}</a>
+      <p class="pc-from" data-pi="from">{text["en"]["from"]}</p>
+      <h2 class="mwla-book-title" data-pi="title">{text["en"]["title"]}</h2>
+      <ul class="pc-badges"><li class="pc-badge"><span aria-hidden="true">&#127758;</span><span>Espa&ntilde;ol &amp; English</span></li><li class="pc-badge"><span aria-hidden="true">&#128155;</span><span data-pi="tip">{text["en"]["tip"]}</span></li></ul>
+      <p class="pc-to"><span data-pi="toL">{text["en"]["toL"]}</span> <span data-pi="to">{text["en"]["to"]}</span></p>
+      <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-pi="wa">{text["en"]["wa"]}</a>
     </div>
-    <div class="pc-slot"><span class="pc-pm" aria-hidden="true"><b data-i18n="pm">{text["en"]["pm"]}</b><i>CA</i></span></div>
+    <div class="pc-slot"><span class="pc-pm" aria-hidden="true"><b data-pi="pm">{text["en"]["pm"]}</b><i>CA</i></span><span class="pc-stamp"><span class="pc-stamp-in"><img src="{C}6a87cf72cbcbd01da7ff38c7_Pointing%20(Right).avif" alt="Ernesto pointing to the free tour calendar"></span></span></div>
   </div>
 
   <div class="mwla-fgrid">
     <div class="mwla-fleft">
       <div class="mwla-pols">{pols}</div>
-      <p class="mwla-timenote" data-i18n="timenote">{text["en"]["timenote"]}</p>
       <div class="mwla-fmap">
         <div class="ra" id="mwla-free-ra" data-compact data-nolist data-label="Route map" data-ernesto="{ERN}"><script type="application/json" class="ra-data" id="mwla-free-ra-data">{{RA_EN}}</script></div>
       </div>
@@ -105,10 +103,8 @@ html = f'''<!-- ================================================================
 <style>
   .mwla-book {{ max-width: 1140px; margin: 0 auto; padding: 40px 20px 52px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }}
   .mwla-book *, .mwla-book *::before {{ box-sizing: border-box; }}
-  .mwla-book-head {{ display: grid; grid-template-columns: 140px minmax(0, 1fr) auto; gap: 24px; align-items: center; max-width: 1060px; margin: 0 auto 28px; }}
-  .mwla-book-ernesto {{ width: 140px; height: auto; display: block; }}
-  .mwla-book-eyebrow {{ display: inline-block; font-family: "Fredoka", sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #b45309; background: #ffffff; padding: 6px 14px; border-radius: 50px; margin-bottom: 12px; }}
-  .mwla-book-title {{ font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #0f172a; margin: 0 0 10px; }}
+  .mwla-book-head {{ display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto 28px; text-align: left; }}
+  .mwla-book-title {{ font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #0f172a; margin: 0; }}
   .mwla-book-sub {{ font-size: 1.05rem; line-height: 1.55; color: #475569; margin: 0; max-width: 56ch; }}
   .mwla-book-wa {{ display: inline-block; margin-top: 10px; font-size: 0.95rem; font-weight: 700; color: #1B6688 !important; text-decoration: underline; text-underline-offset: 3px; }}
 
@@ -122,10 +118,8 @@ html = f'''<!-- ================================================================
   .mwla-pol img {{ display: block; width: 100%; height: auto; box-shadow: 0 10px 20px -10px rgba(39, 48, 46, 0.5); }}
   .mwla-tape {{ position: absolute; top: -9px; left: 50%; width: 58px; height: 18px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 2; }}
   .mwla-pol figcaption {{ display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px; }}
-  .mwla-year {{ font-family: "Lilita One", sans-serif; font-size: 1.05rem; color: #FFF6E6; background: #27302E; border-radius: 999px; padding: 1px 10px; margin-bottom: 4px; }}
   .mwla-pol b {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.05rem; line-height: 1.15; color: #27302E; }}
   .mwla-pol small {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #4D5551; }}
-  .mwla-timenote {{ margin: 16px 0 18px; padding-left: 14px; border-left: 4px solid #FFD43B; font-size: 1rem; line-height: 1.5; color: #3B4440; }}
   .mwla-fcard {{ background: #ffffff; border-radius: 18px; padding: 20px 18px 18px; box-shadow: 0 12px 30px -18px rgba(39, 48, 46, 0.55); }}
   @media (min-width: 992px) {{ .mwla-fcard {{ position: sticky; top: 90px; }} }}
   .mwla-card-h {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.45rem; color: #27302E; margin: 0 0 12px; }}
@@ -144,10 +138,10 @@ html = f'''<!-- ================================================================
   }}
   @media (max-width: 900px) {{
     .mwla-book {{ padding: 40px 16px; }}
-    .mwla-book-head {{ grid-template-columns: 1fr; text-align: center; gap: 8px; }}
-    .mwla-book-head .pc-slot {{ justify-self: center; }}
-    .mwla-book-ernesto {{ width: 92px; margin: 0 auto; }}
-    .mwla-book-sub {{ margin: 0 auto; }}
+    .mwla-book-head {{ gap: 12px; }}
+    .mwla-book-title {{ font-size: clamp(1.7rem, 8vw, 2.2rem); }}
+    .mwla-book-head .pc-slot {{ justify-self: end; min-width: 0; }}
+    .mwla-book-head .pc-badge {{ font-size: 0.9rem; }}
     .mwla-pols {{ gap: 12px; }}
     .mwla-pol b {{ font-size: 0.9rem; }}
     .mwla-pol small {{ font-size: 0.75rem; }}
@@ -175,11 +169,17 @@ html = f'''<!-- ================================================================
     }}
     const T = {json.dumps(text, ensure_ascii=False)};
     const root = document.getElementById("book");
+    const pageLang = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 ? "es" : "en";
+    // Oct 17, 2026 (Marlon): the switch changes ONLY the calendar card. The rest of the page keeps the page language.
+    (function () {{
+      const t = T[pageLang];
+      root.querySelectorAll("[data-pi]").forEach(function (el) {{ const k = el.getAttribute("data-pi"); if (t[k] != null) el.textContent = t[k]; }});
+      const wa = document.getElementById("mwla-book-wa"); if (wa) wa.href = t.waHref;
+    }})();
     function apply(lang) {{
       lang = lang === "es" ? "es" : "en";
       const t = T[lang];
       root.querySelectorAll("[data-i18n]").forEach(function (el) {{ const k = el.getAttribute("data-i18n"); if (t[k] != null) el.textContent = t[k]; }});
-      const wa = document.getElementById("mwla-book-wa"); if (wa) wa.href = t.waHref;
       ["en", "es"].forEach(function (l) {{
         const b = document.getElementById("mwla-lang-" + l);
         if (b) {{ b.classList.toggle("is-active", l === lang); b.setAttribute("aria-pressed", l === lang); }}

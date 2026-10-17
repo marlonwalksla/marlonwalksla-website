@@ -100,7 +100,8 @@
   font: 700 2.4rem/1 "Fredoka", sans-serif; color: #1B6688; transform: rotate(-12deg);
 }
 @media (max-width: 767px) {
-  .mw-form-card { border-width: 7px !important; }
+  /* phones: thin plain line instead of the busy stripes (Marlon, Oct 17) */
+  .mw-form-card { border: 2px solid #27302E !important; border-image: none !important; }
   .mw-form-card::after { width: 50px; height: 60px; }
 }
 @media (prefers-reduced-motion: reduce) { .mw-form-card .mw-form-submit { transition: none; } }
