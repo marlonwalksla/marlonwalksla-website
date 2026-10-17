@@ -20,7 +20,8 @@ CSS = """<style>
   .rm *, .rm *::before { box-sizing: border-box; }
   .rm::before { content: ""; display: block; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px) top / 100% 14px no-repeat, linear-gradient(to top, rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px) bottom / 100% 14px no-repeat; pointer-events: none; z-index: 3; }
   .rm > * { position: relative; z-index: 2; }
-  .rm-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 20px 40px; align-items: center; }
+  .rm-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .rm-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 32px; }
   .rm-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.1rem, 4.6vw, 3.2rem); line-height: 1; margin: 0 0 10px; color: #27302E; }
   .rm-sub { margin: 0 0 14px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.4; color: #3B4440; max-width: 34ch; }
   .rm-ctarow { display: flex; align-items: flex-end; gap: 0; margin-top: 6px; }
@@ -31,7 +32,7 @@ CSS = """<style>
   .rm-mascot { flex: none; height: 118px; width: auto; margin-left: -14px; position: relative; z-index: 2; pointer-events: none; }
   @media (prefers-reduced-motion: reduce) { .rm-cta { transition: none; } }
   .rm-map { min-width: 0; background: #fff; border: 2.5px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; padding: 10px 12px 12px; }
-  @media (max-width: 820px) { .rm { padding: 30px 16px; } .rm-wrap { grid-template-columns: 1fr; } .rm-mascot { height: 100px; } }
+  @media (max-width: 820px) { .rm { padding: 30px 16px; } .rm-mascot { height: 100px; } }
 </style>
 """
 LOADER = """<script>
@@ -47,7 +48,7 @@ LOADER = """<script>
 for lang, name in (("en", "home-routebreak.html"), ("es", "home-routebreak-es.html")):
     t = T[lang]
     html = (f"<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LA RECOMMENDATIONS MAP banner. Built by page-embeds/build_home_routebreak.py. Oct 17, 2026 (Marlon via Gemini): sits between Team and Private; same route map as the Team page. -->\n"
-            f"<section class=\"rm\" aria-label=\"{t['title']}\">\n  <div class=\"rm-wrap\">\n    <div>\n      <h2 class=\"rm-title\">{t['title']}</h2>\n      <p class=\"rm-sub\">{t['sub']}</p>\n"
-            f"      <div class=\"rm-ctarow\"><a class=\"rm-cta\" href=\"{t['cta_href']}\">{t['cta']}</a><img class=\"rm-mascot\" src=\"{MASCOT_URL}\" alt=\"\" aria-hidden=\"true\" loading=\"lazy\"></div>\n    </div>\n"
+            f"<section class=\"rm\" aria-label=\"{t['title']}\">\n  <div class=\"rm-wrap\">\n    <div class=\"rm-head\">\n    <div>\n      <h2 class=\"rm-title\">{t['title']}</h2>\n      <p class=\"rm-sub\">{t['sub']}</p>\n"
+            f"      <div class=\"rm-ctarow\"><a class=\"rm-cta\" href=\"{t['cta_href']}\">{t['cta']}</a><img class=\"rm-mascot\" src=\"{MASCOT_URL}\" alt=\"\" aria-hidden=\"true\" loading=\"lazy\"></div>\n    </div>\n    </div>\n"
             f"    <div class=\"rm-map\"><div class=\"ra\" data-label=\"{t['label']}\" data-compact data-ernesto=\"{TOUR_GUIDE}\"><script type=\"application/json\" class=\"ra-data\">{RA}</script></div></div>\n  </div>\n</section>\n" + CSS + LOADER)
     open(name, "w", encoding="utf-8").write(html); print("wrote", name)
