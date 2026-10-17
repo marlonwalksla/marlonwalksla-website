@@ -181,20 +181,31 @@ def build(lang):
   }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-btn, .mwh-photo {{ transition: none; }} }}
 
-  /* ---------- Home section backgrounds (Oct 16, 2026) ---------- */
-  .rv-banner {{ background: #ffffff !important; }}
-  .mw-bg-book {{ position: relative; background: #1B6688 !important; padding-top: 40px; }}
-  .mw-bg-book::before {{ content: ""; position: absolute; top: 0; left: 0; right: 0; height: 38px; background: {svg_uri(fringe_svg())} repeat-x top left; pointer-events: none; }}
-  .mw-bg-book .mwla-book-title {{ color: #FFF6E6 !important; font-family: "Lilita One", sans-serif; font-weight: 400; }}
-  .mw-bg-book .mwla-book-sub {{ color: #E3F1F7 !important; }}
-  .mw-bg-book .mwla-lang-label {{ color: #FFF6E6 !important; }}
+  /* ---------- Home section papers (Oct 17, 2026): every section is a different paper ----------
+     Hero = grid paper (above). Reviews = kraft. Team = postcard. Free tour = airmail envelope. Private = travel journal.
+     All drawn in CSS, no image files. Old solid colors (sage, blue, stray yellow) are gone. */
+  body {{ background-color: #FFF6E6; }}
+  .rv-banner {{ background: #D9B98C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .12 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; border-top: 0 !important; border-bottom: 0 !important; }}
+  .mw-bg-team {{ position: relative; background: #FBF7EE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; }}
+  .mw-bg-team::after {{ content: "LA"; position: absolute; top: 26px; right: 34px; width: 64px; height: 78px; display: grid; place-items: center; background: #2890B6; color: #FFF6E6; font: 400 1.1rem "Lilita One", sans-serif; border: 5px dotted #FBF7EE; outline: 2px solid #FBF7EE; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(5deg); pointer-events: none; }}
+  .mw-bg-team::before {{ content: "DOWNTOWN \\00B7 LOS ANGELES"; position: absolute; top: 44px; right: 112px; width: 92px; height: 92px; border: 2px solid rgba(39, 48, 46, 0.28); border-radius: 50%; display: grid; place-items: center; text-align: center; padding: 14px; box-sizing: border-box; font: 700 0.58rem/1.3 "Fredoka", sans-serif; letter-spacing: 0.08em; color: rgba(39, 48, 46, 0.4); transform: rotate(-12deg); pointer-events: none; }}
+  .mw-bg-book {{ position: relative; background: #F4EFE3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; padding-top: 40px; padding-bottom: 14px; }}
+  .mw-bg-book::before, .mw-bg-book::after {{ content: ""; position: absolute; left: 0; right: 0; height: 14px; background: repeating-linear-gradient(-45deg, #D9453B 0 16px, #F4EFE3 16px 26px, #1B6688 26px 42px, #F4EFE3 42px 52px); pointer-events: none; }}
+  .mw-bg-book::before {{ top: 0; }}
+  .mw-bg-book::after {{ bottom: 0; }}
+  .mw-bg-book .mwla-book-title {{ color: #27302E !important; font-family: "Lilita One", sans-serif; font-weight: 400; }}
+  .mw-bg-book .mwla-book-sub {{ color: #3B4440 !important; }}
+  .mw-bg-book .mwla-lang-label {{ color: #27302E !important; }}
+  .mw-bg-book .mwla-meet {{ color: #3B4440 !important; }}
+  .mw-bg-book .mwla-book-wa {{ color: #1B6688 !important; }}
   .mw-bg-book .mwla-book-facts {{ display: none !important; }}
-  .mw-bg-book .mwla-book-cal {{ background: #ffffff; padding: 8px; }}
-  .mw-bg-team {{ background: #DFE8C0 !important; }}
-  .mw-bg-private {{ {GRID} !important; position: relative; }}
-  /* Pinata fringe again where the team section meets the private one */
-  .mw-bg-private::before {{ content: ""; position: absolute; top: 0; left: 0; right: 0; height: 38px; background: {svg_uri(fringe_svg())} repeat-x top left; pointer-events: none; }}
-  @media (max-width: 767px) {{ .mw-bg-team {{ background-image: none !important; }} }}
+  .mw-bg-book .mwla-book-cal {{ background: #ffffff; padding: 8px; box-shadow: 0 10px 24px -14px rgba(39, 48, 46, 0.5); }}
+  .mw-bg-private {{ position: relative; background-color: #FFFDF6 !important; background-image: linear-gradient(90deg, transparent 64px, #E9A3A3 64px 66px, transparent 66px), repeating-linear-gradient(transparent 0 27px, #D6E4EE 27px 28px) !important; background-size: auto !important; }}
+  .mw-bg-private::before {{ content: none !important; }}
+  @media (max-width: 900px) {{
+    .mw-bg-team::before, .mw-bg-team::after {{ display: none; }}
+    .mw-bg-private {{ background-image: linear-gradient(90deg, transparent 18px, #E9A3A3 18px 20px, transparent 20px), repeating-linear-gradient(transparent 0 27px, #D6E4EE 27px 28px) !important; }}
+  }}
 </style>
 '''
     if lang == "es":

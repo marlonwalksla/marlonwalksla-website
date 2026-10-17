@@ -10,14 +10,14 @@ PICS = [
 ]
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="about $", notes="Angels Flight ride, film and the Ernesto hunt included · Lunch not included",
+   pp_pre="about $", notes="About 5 hours · Angels Flight ride and an instant photo for everyone included · Lunch at the end, not included",
    btn="Learn more", btn_note="", href="/team-building-walking-tour-los-angeles",
    wa="More than 30 guests? Message Marlon",
    wa_href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2030",
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="unos $", notes="Incluye Angels Flight, las fotos y la búsqueda de Ernesto · Almuerzo no incluido",
+   pp_pre="unos $", notes="Unas 5 horas · Incluye Angels Flight y una foto instantánea para cada quien · Almuerzo al final, no incluido",
    btn="Más información", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    wa="¿Más de 30 personas? Escríbeme",
    wa_href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2030",
@@ -44,15 +44,12 @@ for lang, t in T.items():
   <a class="tq-btn" href="{t["href"]}">{t["btn"]}</a>
   {note}
   <a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a>
-  <div class="tq-proof">
-    <h4 class="tq-proof-h">{t["proof"]}</h4>
-    <div class="tq-pols">{pics}</div>
-    <figure class="tq-q"><blockquote>&ldquo;{t["quote"]}&rdquo;</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> {t["who"]}</figcaption></figure>
-  </div>
 </div>
 <style>
   .mw-form-card:has(.tq) > .w-form {{ display: none !important; }}
   .mw-form-card:has(.tq) {{ margin-top: 0; padding: 22px 22px 20px; }}
+  /* Oct 17, 2026: the card is short now, so it stays in view while the photos and map scroll */
+  @media (min-width: 992px) {{ .mw-form-card:has(.tq) {{ position: sticky; top: 90px; }} }}
   .tq {{ font-family: "Nunito", system-ui, sans-serif; color: #27302E; }}
   .tq-title {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.5rem; line-height: 1.15; margin: 0 0 10px; color: #27302E; }}
   .tq-label {{ display: block; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.02rem; margin-bottom: 4px; }}
