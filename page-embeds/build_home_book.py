@@ -63,7 +63,6 @@ html = f'''<!-- ================================================================
       <p class="pc-to"><span data-pi="toL">{text["en"]["toL"]}</span> <span data-pi="to">{text["en"]["to"]}</span></p>
       <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-pi="wa">{text["en"]["wa"]}</a>
     </div>
-    <div class="pc-slot"><span class="pc-pm" aria-hidden="true"><b data-pi="pm">{text["en"]["pm"]}</b><i>CA</i></span><span class="pc-stamp"><span class="pc-stamp-in"><img src="{C}6a87cf72cbcbd01da7ff38c7_Pointing%20(Right).avif" alt="Ernesto pointing to the free tour calendar"></span></span></div>
   </div>
 
   <div class="mwla-fgrid">
@@ -103,7 +102,7 @@ html = f'''<!-- ================================================================
 <style>
   .mwla-book {{ max-width: 1140px; margin: 0 auto; padding: 40px 20px 52px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }}
   .mwla-book *, .mwla-book *::before {{ box-sizing: border-box; }}
-  .mwla-book-head {{ display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto 28px; text-align: left; }}
+  .mwla-book-head {{ display: block; max-width: 1060px; margin: 0 auto 28px; text-align: left; }}
   .mwla-book-title {{ font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #0f172a; margin: 0; }}
   .mwla-book-sub {{ font-size: 1.05rem; line-height: 1.55; color: #475569; margin: 0; max-width: 56ch; }}
   .mwla-book-wa {{ display: inline-block; margin-top: 10px; font-size: 0.95rem; font-weight: 700; color: #1B6688 !important; text-decoration: underline; text-underline-offset: 3px; }}
@@ -140,7 +139,6 @@ html = f'''<!-- ================================================================
     .mwla-book {{ padding: 40px 16px; }}
     .mwla-book-head {{ gap: 12px; }}
     .mwla-book-title {{ font-size: clamp(1.7rem, 8vw, 2.2rem); }}
-    .mwla-book-head .pc-slot {{ justify-self: end; min-width: 0; }}
     .mwla-book-head .pc-badge {{ font-size: 0.9rem; }}
     .mwla-pols {{ gap: 12px; }}
     .mwla-pol b {{ font-size: 0.9rem; }}

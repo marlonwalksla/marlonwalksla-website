@@ -5,7 +5,7 @@ ERN = {"team": C + "6a87ce800a9b9169f06d40de_Polaroid%20Photographer.avif",
        "priv": C + "6a87cf628c921f7de316043f_Hiking.avif"}
 PERSON = ('<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" r="3.6" fill="#27302E"/>'
           '<path d="M3 18c0-4.2 3.1-6.6 7-6.6s7 2.4 7 6.6z" fill="#27302E"/></svg>')
-# Oct 17, 2026 (Marlon): postcard headers. Text left, Ernesto is the stamp on the right, small badges instead of pills.
+# Oct 17, 2026 (Marlon): postcard headers. Text left, small badges instead of pills. Ernesto lives next to the form buttons, not up here.
 # title = the line that sells it; badges = quick facts (person icon + group size, camera + film pics, car + pickup)
 T = {
  ("team", "en"): ("Celebrate Your Team", "Ernesto with his Polaroid camera",
@@ -18,11 +18,10 @@ T = {
    [(PERSON, "1-4", "1 a 4 personas"), ("&#128663;", "Te recojo y te llevo", None)]),
 }
 CSS = """<style>
-  .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
+  .mwsh { display: block; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
   .mwsh-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #27302E; margin: 0; }
-  .mwsh .pc-slot { justify-self: end; min-width: 0; }
   @media (max-width: 900px) {
-    .mwsh { gap: 12px; padding: 14px 28px 0; }
+    .mwsh { padding: 14px 28px 0; }
     .mwsh-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
     .mwsh .pc-badge { font-size: 0.9rem; }
   }
@@ -53,7 +52,7 @@ for (sec, lang), (title, alt, badges) in T.items():
         f'<li class="pc-badge"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}>{ic}<span>{tx}</span></li>'
         for ic, tx, lbl in badges)
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
-     Postcard header: text on the left, Ernesto is the stamp on the right. Stamp, badge and postmark styles live in home-hero.html. -->
+     Postcard header: text on the left (no stamp, Oct 17 2026). Badge styles live in home-hero.html. -->
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">
   <div class="mwsh-main">
     <p class="pc-from">{FROM[lang]}</p>
@@ -61,7 +60,6 @@ for (sec, lang), (title, alt, badges) in T.items():
     <ul class="pc-badges">{b_html}</ul>
     <p class="pc-to"><span>{to_lbl}</span> {to_txt}</p>
   </div>
-  <div class="pc-slot"><span class="pc-pm" aria-hidden="true"><b>{pm1}</b><i>{pm2}</i></span><span class="pc-stamp"><span class="pc-stamp-in"><img src="{ERN[sec]}" alt="{alt}" loading="lazy"></span></span></div>
 </div>
 {CSS}
 {TEAM_CSS if sec == "team" else ""}"""

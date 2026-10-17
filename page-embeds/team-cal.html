@@ -46,32 +46,24 @@
 /* ==============================================================================
  * REPLY POSTCARDS (Oct 17, 2026, late; Marlon: "when filling in information it's like you're sending me a postcard")
  * Every booking/inquiry card (.mw-form-card: Home team price card, Home and Private page inquiry form,
- * Team page calendar) looks like the back of a postcard addressed to Marlon: airmail edge, an Ernesto stamp,
+ * Team page calendar) looks like the back of a postcard addressed to Marlon: a thin plain edge,
  * handwritten labels and ruled lines instead of boxes. Native Webflow forms, so submissions work as before.
  * ============================================================================== */
 .mw-form-card {
-  --pc-edge: repeating-linear-gradient(-45deg, #D93A2B 0 12px, #FFFDF7 12px 20px, #2890B6 20px 32px, #FFFDF7 32px 40px);
   position: relative;
   min-width: 0;
   background: #FFFDF7 !important;
-  border: 10px solid transparent !important;
-  border-image: var(--pc-edge) 10 !important;
-  border-radius: 0 !important;
+  border: 2px solid #27302E !important;
+  border-image: none !important;
+  border-radius: 16px !important;
   box-shadow: 0 16px 32px -20px rgba(39, 48, 46, 0.65) !important;
 }
-.mw-bg-team .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #E8412F 0 12px, #FFFDF7 12px 20px, #2890B6 20px 32px, #FFFDF7 32px 40px); }
-.mw-bg-private .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #2890B6 0 12px, #FFFDF7 12px 20px, #FFD43B 20px 32px, #FFFDF7 32px 40px); }
-/* Ernesto is the stamp */
-.mw-form-card::after {
-  content: "" !important;
-  position: absolute; top: 12px; right: 12px; width: 58px; height: 70px; padding: 6px; box-sizing: border-box;
-  background: url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif") center 60% / 40px auto no-repeat content-box, linear-gradient(#FFF1C9, #FFF1C9) content-box, #fff;
-  -webkit-mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
-  mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
-  transform: rotate(4deg); pointer-events: none;
-}
-.mw-form-card:has(.tcal)::after { display: none; }
-.mw-form-card .mw-form-title, .mw-form-card .tq-title, .mw-form-card .mw-form-sub { padding-right: 64px; }
+/* Oct 17, 2026 (Marlon): no stamp and no striped edge on the cards (stripes stay on the outside of the section).
+   Ernesto stands next to the button instead: he takes you there. */
+.mw-form-card::after { content: none !important; display: none !important; }
+.pc-cta { display: flex; align-items: flex-end; gap: 12px; margin-top: 18px; }
+.pc-cta > .mw-form-submit, .pc-cta > .tq-btn { flex: 1 1 auto; width: auto !important; min-width: 0; margin-top: 0 !important; }
+.pc-cta-ern { display: block; flex: none; width: auto; height: 84px; margin: 0 0 -6px; }
 /* Handwritten labels, ruled lines instead of boxes */
 .mw-form-card .mw-form-label { font-family: "Caveat", cursive !important; font-weight: 700 !important; font-size: 1.3rem !important; line-height: 1.1 !important; color: #3B4440 !important; margin: 12px 0 0 !important; text-transform: none !important; letter-spacing: 0 !important; }
 .mw-form-card .mw-form-input {
@@ -99,11 +91,24 @@
   border: 3px solid #1B6688; outline: 2px solid #1B6688; outline-offset: 4px; border-radius: 50%;
   font: 700 2.4rem/1 "Fredoka", sans-serif; color: #1B6688; transform: rotate(-12deg);
 }
-@media (max-width: 767px) {
-  /* phones: thin plain line instead of the busy stripes (Marlon, Oct 17) */
-  .mw-form-card { border: 2px solid #27302E !important; border-image: none !important; }
-  .mw-form-card::after { width: 50px; height: 60px; }
-}
+@media (max-width: 767px) { .pc-cta-ern { height: 70px; } }
 @media (prefers-reduced-motion: reduce) { .mw-form-card .mw-form-submit { transition: none; } }
 </style>
+<script>
+/* Oct 17, 2026 (Marlon): Ernesto stands next to the send button of each inquiry form: he takes you there.
+   The forms are native Webflow forms, so the button is wrapped here instead of being edited in the Designer. */
+(function () {
+  var ERN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif";
+  function wrap() {
+    document.querySelectorAll(".mw-form-card .mw-form-submit").forEach(function (b) {
+      if (b.parentNode.classList.contains("pc-cta")) return;
+      var w = document.createElement("div"); w.className = "pc-cta";
+      b.parentNode.insertBefore(w, b); w.appendChild(b);
+      var i = document.createElement("img"); i.className = "pc-cta-ern"; i.src = ERN; i.alt = ""; i.setAttribute("aria-hidden", "true"); i.loading = "lazy";
+      w.appendChild(i);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wrap); else wrap();
+})();
+</script>
 <!-- PC-FORMS:END -->

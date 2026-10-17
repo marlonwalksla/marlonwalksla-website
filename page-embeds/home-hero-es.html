@@ -9,19 +9,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600&family=Lilita+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <section class="mwh" lang="es">
   <div class="mwh-wrap">
-    <div class="pc-slot mwh-slot"><span class="pc-pm" aria-hidden="true"><b>LOS &Aacute;NGELES</b><i>CA</i></span><span class="pc-stamp"><span class="pc-stamp-in"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="Ernesto la pi&ntilde;ata, tu gu&iacute;a, con una tablet y un mapa"></span></span></div>
     <div class="mwh-text">
       <span class="mwh-eyebrow"><i></i>Tours a pie por el centro de LA</span>
       <h1 class="mwh-h1">Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con un local</span></h1>
       <p class="mwh-line">Free tours, tours para equipos y d&iacute;as privados, en espa&ntilde;ol e ingl&eacute;s.</p>
       <div class="mwh-cta">
         <a class="mwh-btn" href="#team">Explora mis tours</a>
+        <img class="mwh-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="Ernesto la pi&ntilde;ata, tu gu&iacute;a, con una tablet y un mapa" width="90" height="108">
       </div>
     </div>
     <div class="mwh-photos">
     <a class="mwh-photo mwh-p1" href="#team">
-      <span class="mwh-tape" style="background:rgba(255,255,0,.6)"></span>
-      <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad2f698e11872cd0c80b662_Website%20Images%20(14).webp" alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market" loading="eager">
+      <span class="mwh-tape" style="background:rgba(96,200,96,.6)"></span>
+      <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp" alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market" loading="eager">
       <span class="mwh-label"><strong>Tours de Equipo</strong><em>Hasta 30 personas</em><span class="mwh-go">Ver fechas</span></span>
     </a>
     <a class="mwh-photo mwh-p3" href="#book">
@@ -83,8 +83,9 @@
   /* Oct 17, 2026 (Marlon): the hero is a postcard too. Airmail edge, text on the left, Ernesto is the stamp on the right. */
   .mwh::after { content: ""; position: absolute; inset: 12px; border: 12px solid transparent; border-image: repeating-linear-gradient(-45deg, #E8412F 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px) 12; pointer-events: none; z-index: 1; }
   .mwh-wrap { z-index: 2; }
-  .mwh-wrap > .mwh-slot { position: absolute; top: 46px; right: 52px; z-index: 3; justify-self: auto; }
-  @media (min-width: 992px) { .mwh-wrap { padding-right: 176px; } .mwh-wrap > .mwh-slot { right: 40px; } }
+  /* Oct 17, 2026 (Marlon): no stamp. Ernesto stands next to the button: he takes you there. */
+  .mwh-cta { display: flex; align-items: flex-end; gap: 14px; }
+  .mwh-ern { display: block; width: auto; height: 108px; flex: none; margin: 0 0 -8px; }
 
   @media (max-width: 991px) {
     .mwh-wrap { grid-template-columns: 1fr; padding: 54px 40px 62px; gap: 34px; }
@@ -106,8 +107,8 @@
     .mwh-text { display: flex; flex-direction: column; align-items: flex-start; }
     .mwh::after { inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
     .mwh-wrap { padding: 36px 30px 40px; }
-    .mwh-wrap > .mwh-slot { top: 28px; right: 24px; }
-    .mwh-eyebrow { font-size: 0.7rem; padding: 6px 11px; max-width: calc(100% - 96px); }
+    .mwh-ern { height: 86px; }
+    .mwh-eyebrow { font-size: 0.7rem; padding: 6px 11px; }
   }
   @media (prefers-reduced-motion: reduce) { .mwh-btn, .mwh-photo { transition: none; } }
 
@@ -123,7 +124,7 @@
   .mw-bg-team, .mw-bg-private { padding-top: 30px; }
   .mw-split > * { min-width: 0; }
   #private-split { padding-top: 20px; }
-  .mw-bg-team { background: #FFF1B8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; --pc-stripes: repeating-linear-gradient(-45deg, #E8412F 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px); }
+  .mw-bg-team { background: #E3F6D8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; --pc-stripes: repeating-linear-gradient(-45deg, #2E9E57 0 16px, transparent 16px 26px, #94E059 26px 42px, transparent 42px 52px); }
   .mw-bg-book { background: #FFE3F1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; }
   .mw-bg-private { background: #DCEFFA url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .35' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E") !important; background-size: auto !important; --pc-stripes: repeating-linear-gradient(-45deg, #2890B6 0 16px, transparent 16px 26px, #FFD43B 26px 42px, transparent 42px 52px); }
   /* the airmail border */
@@ -145,19 +146,6 @@
   .pc-from { margin: 0 0 8px; font-family: "Caveat", cursive; font-weight: 600; font-size: 1.2rem; line-height: 1.1; color: #5B6663; }
   .pc-to { display: inline-block; margin: 2px 0 10px; padding: 0 6px 2px 0; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.15; color: #27302E; border-bottom: 2px dotted rgba(39, 48, 46, 0.4); }
   .pc-to span:first-child { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6663; margin-right: 4px; }
-  .pc-slot { position: relative; align-self: start; justify-self: end; min-width: 120px; display: flex; justify-content: flex-end; padding-top: 6px; }
-  .pc-pm { position: relative; display: grid; place-items: center; align-content: center; width: 96px; height: 96px; border: 2.5px solid rgba(31, 42, 68, 0.38); border-radius: 50%; transform: rotate(-12deg); font-family: "Fredoka", sans-serif; color: rgba(31, 42, 68, 0.5); text-align: center; }
-  .pc-pm b { font-weight: 700; font-size: 0.62rem; letter-spacing: 0.1em; }
-  .pc-pm i { font-style: normal; font-weight: 700; font-size: 1.1rem; }
-  .pc-pm::before { content: ""; position: absolute; right: 88%; top: 30px; width: 90px; height: 36px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='36'%3E%3Cg fill='none' stroke='%231F2A44' stroke-opacity='.38' stroke-width='2.2'%3E%3Cpath d='M0 6q11-6 22 0t22 0 22 0 22 0'/%3E%3Cpath d='M0 18q11-6 22 0t22 0 22 0 22 0'/%3E%3Cpath d='M0 30q11-6 22 0t22 0 22 0 22 0'/%3E%3C/g%3E%3C/svg%3E") no-repeat; }
-  /* Oct 17, 2026: Ernesto is the postcard stamp (top right), postmark overlaps its left edge */
-  .pc-slot { gap: 0; align-items: flex-start; }
-  .pc-slot .pc-pm { order: -1; margin: 38px -44px 0 0; z-index: 2; }
-  .pc-stamp { position: relative; flex: none; width: 108px; height: 130px; padding: 9px; box-sizing: border-box; background: #fff; transform: rotate(3deg); filter: drop-shadow(0 6px 8px rgba(39, 48, 46, 0.28));
-    -webkit-mask: radial-gradient(circle at center, transparent 3.6px, #000 4px) -5px -5px / 10px 10px, linear-gradient(#000 0 0) content-box;
-    mask: radial-gradient(circle at center, transparent 3.6px, #000 4px) -5px -5px / 10px 10px, linear-gradient(#000 0 0) content-box; }
-  .pc-stamp-in { display: flex; align-items: flex-end; justify-content: center; width: 100%; height: 100%; background: #FFF1C9; border: 1.5px solid rgba(39, 48, 46, 0.25); overflow: hidden; }
-  .pc-stamp-in img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
   /* badges: small facts, not buttons */
   .pc-badges { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 14px; padding: 0; }
   .pc-badge { display: inline-flex; align-items: center; gap: 7px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.98rem; line-height: 1.2; color: #27302E; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 4px 14px 4px 10px; }
@@ -173,48 +161,34 @@
     .mw-bg-book .mwla-fleft { padding-right: 28px; border-right: 2px dashed rgba(39, 48, 46, 0.22); }
   }
   /* the free tour card on the address side gets the same reply-postcard edge as the forms */
-  .mw-bg-book .mwla-fcard { border: 10px solid transparent; border-image: repeating-linear-gradient(-45deg, #FF00FF 0 12px, #fff 12px 20px, #2890B6 20px 32px, #fff 32px 40px) 10; border-radius: 0; }
+  /* Oct 17, 2026 (Marlon): colorful borders only on the outside of the section; inner cards get a thin plain line */
+  .mw-bg-book .mwla-fcard { border: 2px solid #27302E; border-radius: 18px; }
   @media (max-width: 900px) {
     .mw-bg-team::after, .mw-bg-private::after { inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
     .mw-bg-book { padding: 10px 16px 4px !important; }
     .mw-bg-book::after { inset: 6px; border-width: 22px; border-image-slice: 40; border-image-width: 22px; }
-    .pc-slot { min-width: 0; padding-top: 4px; }
-    .pc-pm { display: none; }
-    .pc-stamp { width: 70px; height: 86px; padding: 6px;
-      -webkit-mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
-      mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box; }
-    /* phones: the inner reply card gets a thin plain line, the stripes were too busy */
-    .mw-bg-book .mwla-fcard { border: 2px solid #27302E; border-image: none; }
   }
 /* ==============================================================================
  * REPLY POSTCARDS (Oct 17, 2026, late; Marlon: "when filling in information it's like you're sending me a postcard")
  * Every booking/inquiry card (.mw-form-card: Home team price card, Home and Private page inquiry form,
- * Team page calendar) looks like the back of a postcard addressed to Marlon: airmail edge, an Ernesto stamp,
+ * Team page calendar) looks like the back of a postcard addressed to Marlon: a thin plain edge,
  * handwritten labels and ruled lines instead of boxes. Native Webflow forms, so submissions work as before.
  * ============================================================================== */
 .mw-form-card {
-  --pc-edge: repeating-linear-gradient(-45deg, #D93A2B 0 12px, #FFFDF7 12px 20px, #2890B6 20px 32px, #FFFDF7 32px 40px);
   position: relative;
   min-width: 0;
   background: #FFFDF7 !important;
-  border: 10px solid transparent !important;
-  border-image: var(--pc-edge) 10 !important;
-  border-radius: 0 !important;
+  border: 2px solid #27302E !important;
+  border-image: none !important;
+  border-radius: 16px !important;
   box-shadow: 0 16px 32px -20px rgba(39, 48, 46, 0.65) !important;
 }
-.mw-bg-team .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #E8412F 0 12px, #FFFDF7 12px 20px, #2890B6 20px 32px, #FFFDF7 32px 40px); }
-.mw-bg-private .mw-form-card { --pc-edge: repeating-linear-gradient(-45deg, #2890B6 0 12px, #FFFDF7 12px 20px, #FFD43B 20px 32px, #FFFDF7 32px 40px); }
-/* Ernesto is the stamp */
-.mw-form-card::after {
-  content: "" !important;
-  position: absolute; top: 12px; right: 12px; width: 58px; height: 70px; padding: 6px; box-sizing: border-box;
-  background: url("https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif") center 60% / 40px auto no-repeat content-box, linear-gradient(#FFF1C9, #FFF1C9) content-box, #fff;
-  -webkit-mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
-  mask: radial-gradient(circle at center, transparent 2.6px, #000 3px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box;
-  transform: rotate(4deg); pointer-events: none;
-}
-.mw-form-card:has(.tcal)::after { display: none; }
-.mw-form-card .mw-form-title, .mw-form-card .tq-title, .mw-form-card .mw-form-sub { padding-right: 64px; }
+/* Oct 17, 2026 (Marlon): no stamp and no striped edge on the cards (stripes stay on the outside of the section).
+   Ernesto stands next to the button instead: he takes you there. */
+.mw-form-card::after { content: none !important; display: none !important; }
+.pc-cta { display: flex; align-items: flex-end; gap: 12px; margin-top: 18px; }
+.pc-cta > .mw-form-submit, .pc-cta > .tq-btn { flex: 1 1 auto; width: auto !important; min-width: 0; margin-top: 0 !important; }
+.pc-cta-ern { display: block; flex: none; width: auto; height: 84px; margin: 0 0 -6px; }
 /* Handwritten labels, ruled lines instead of boxes */
 .mw-form-card .mw-form-label { font-family: "Caveat", cursive !important; font-weight: 700 !important; font-size: 1.3rem !important; line-height: 1.1 !important; color: #3B4440 !important; margin: 12px 0 0 !important; text-transform: none !important; letter-spacing: 0 !important; }
 .mw-form-card .mw-form-input {
@@ -242,14 +216,27 @@
   border: 3px solid #1B6688; outline: 2px solid #1B6688; outline-offset: 4px; border-radius: 50%;
   font: 700 2.4rem/1 "Fredoka", sans-serif; color: #1B6688; transform: rotate(-12deg);
 }
-@media (max-width: 767px) {
-  /* phones: thin plain line instead of the busy stripes (Marlon, Oct 17) */
-  .mw-form-card { border: 2px solid #27302E !important; border-image: none !important; }
-  .mw-form-card::after { width: 50px; height: 60px; }
-}
+@media (max-width: 767px) { .pc-cta-ern { height: 70px; } }
 @media (prefers-reduced-motion: reduce) { .mw-form-card .mw-form-submit { transition: none; } }
 
 </style>
+<script>
+/* Oct 17, 2026 (Marlon): Ernesto stands next to the send button of each inquiry form: he takes you there.
+   The forms are native Webflow forms, so the button is wrapped here instead of being edited in the Designer. */
+(function () {
+  var ERN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif";
+  function wrap() {
+    document.querySelectorAll(".mw-form-card .mw-form-submit").forEach(function (b) {
+      if (b.parentNode.classList.contains("pc-cta")) return;
+      var w = document.createElement("div"); w.className = "pc-cta";
+      b.parentNode.insertBefore(w, b); w.appendChild(b);
+      var i = document.createElement("img"); i.className = "pc-cta-ern"; i.src = ERN; i.alt = ""; i.setAttribute("aria-hidden", "true"); i.loading = "lazy";
+      w.appendChild(i);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wrap); else wrap();
+})();
+</script>
 <script>
   /* Spanish Home: page language for browsers and the booking calendar in Spanish */
   document.documentElement.setAttribute('lang', 'es');

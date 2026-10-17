@@ -41,7 +41,7 @@ for lang, t in T.items():
     <div><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-cap">{t["pp"]}</span></div>
   </div>
   <p class="tq-notes">{t["notes"]}</p>
-  <a class="tq-btn" href="{t["href"]}">{t["btn"]}</a>
+  <div class="pc-cta"><a class="tq-btn" href="{t["href"]}">{t["btn"]}</a><img class="pc-cta-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"></div>
   {note}
   <a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a>
 </div>
