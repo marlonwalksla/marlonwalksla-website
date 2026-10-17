@@ -18,6 +18,8 @@ Every embed below holds ONE line (replace `NAME` with the section):
 | Home `/` | 6cd423ec-8fea-fac1-c803-c74e55d93d64 | home-book |
 | Home `/` | 48906d05-b82d-8615-1893-70ff9206bf30 | home-routebreak (See the Route banner, between Team and Private) |
 | Home `/` | 7c8ed06c-5570-e5d3-c87f-b1db627c75bd | home-head-priv-en |
+| Home `/` | 949fabfc-ee51-3076-1c49-ca4d16682326 | home-meet (Meet Your Local Guide, after Private) |
+| Home `/` | 754980d4-c34f-c5a0-ac89-1d8149e55fe5 | home-faq (accordion, after Free tour) |
 | Home `/` | c68da5d9-5110-9ac4-4efd-9961b55ef7f3 | home-private |
 | `/es` | e2a6c92c-f998-5c7c-e007-3a5db12425a2 | home-hero-es |
 | `/es` | 4cfee3e5-143c-5185-3851-226ca405b253 | home-reviews-strip-es |
@@ -27,6 +29,8 @@ Every embed below holds ONE line (replace `NAME` with the section):
 | `/es` | 6cd423ec-8fea-fac1-c803-c74e55d93d64 | home-book (shared with Home) |
 | `/es` | ba55dbdd-8d2f-f001-ac51-49b23d15e359 | home-routebreak-es |
 | `/es` | 5d7aabcd-0d4f-036c-b4d4-6175cfc11ff6 | home-head-priv-es |
+| `/es` | dea24ab3-68f9-9433-33b3-0c5518d29e1a | home-meet-es |
+| `/es` | fba131a9-a4df-7d6d-ac4d-0ecefdcdca09 | home-faq-es |
 | `/es` | c68da5d9-5110-9ac4-4efd-9961b55ef7f3 | home-private-es |
 | Team | b4e79ecd-d6ac-869b-17ea-28e8b559ca8f | team-top |
 | Team | a1c51e49-c58b-035e-874c-7a7b24095f8b | team-form-intro |
