@@ -1,0 +1,85 @@
+<!-- MARLONWALKSLA - HOME ES: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py. Oct 17, 2026 (Marlon via Gemini). Reads the picks from home-private.html through window.MWPV. -->
+<div class="pcq" id="pcq">
+  <h3 class="pcq-title">Calcula tu día</h3>
+  <p class="pcq-hint">Según los lugares que elegiste. Marlon confirma el precio final.</p>
+  <p class="pcq-none" hidden>Elige al menos un lugar para ver tu estimado.</p>
+  <ul class="pcq-list" aria-label="Tus lugares" hidden></ul>
+  <div class="pcq-out" aria-live="polite" hidden>
+    <span class="pcq-cap">Unas ...</span>
+    <span class="pcq-hours"></span>
+    <span class="pcq-price"></span>
+    <span class="pcq-cap">Precio estimado</span>
+    <p class="pcq-fit"></p>
+  </div>
+  <p class="pcq-incl">Recogida y regreso al hotel incluidos</p>
+  <div class="pcq-ern"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><button type="button" class="pcq-cta" aria-disabled="true">Finalizar mi tour a medida</button></div>
+  <p class="pcq-note">Sin pago ahora. Después le mandas tus datos a Marlon.</p>
+</div>
+<script type="application/json" id="pcq-t">{"remove": "Quitar", "about": "Unas", "to": "a", "hours": "horas", "fits": "Cabe en", "car": "1 a 4 personas, un precio por auto", "over": "Es más de un día. Escríbele a Marlon y armamos dos.", "cta": "Finalizar mi tour a medida", "wait": "Elige un lugar primero"}</script>
+<style>
+  /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
+  .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
+  .mw-form-card:has(.pcq) { margin-top: 0; padding: 24px 24px 20px; box-shadow: 6px 6px 0 #27302E; }
+  @media (min-width: 992px) { .mw-form-card:has(.pcq) { position: sticky; top: 20px; } }
+  .pcq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
+  .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.8rem; line-height: 1.1; margin: 0 0 6px; color: #27302E; }
+  .pcq-hint { margin: 0 0 14px; font-size: 0.95rem; line-height: 1.45; color: #4D5551; }
+  .pcq-list { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .pcq-list li { display: inline-flex; align-items: center; gap: 6px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.9rem; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 3px 6px 3px 12px; }
+  .pcq-list button { width: 26px; height: 26px; border-radius: 50%; border: 0; background: #F1E4CB; color: #27302E; font-size: 1rem; line-height: 1; cursor: pointer; }
+  .pcq-list button:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-none { margin: 0 0 14px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; color: #3B4440; }
+  .pcq-out { margin: 4px 0 8px; }
+  .pcq-cap { display: block; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #5B6663; margin-top: 3px; }
+  .pcq-hours { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+  .pcq-price { display: block; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; margin-top: 12px; font-variant-numeric: tabular-nums; }
+  .pcq-fit { margin: 6px 0 0; font-size: 1rem; line-height: 1.45; color: #27302E; }
+  .pcq-incl { margin: 10px 0 16px; font-size: 0.92rem; color: #4D5551; }
+  .pcq-cta { display: block; width: 100%; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 13px 24px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .pcq-cta:hover:not([aria-disabled="true"]) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+  .pcq-cta:active:not([aria-disabled="true"]) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
+  .pcq-cta:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  .pcq-cta[aria-disabled="true"] { background: #E9E2D2; color: #6B726F; box-shadow: none; cursor: not-allowed; }
+  .pcq-ern { display: flex; align-items: center; gap: 12px; }
+  .pcq-ern img { height: 84px; width: auto; flex: none; }
+  .pcq-note { margin: 10px 0 0; text-align: center; font-size: 0.88rem; color: #5B6663; }
+  @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
+</style>
+<script>
+(function () {
+  var root = document.getElementById("pcq"); if (!root) return;
+  var t = JSON.parse(document.getElementById("pcq-t").textContent);
+  var list = root.querySelector(".pcq-list"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out");
+  var hrs = root.querySelector(".pcq-hours"), price = root.querySelector(".pcq-price"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta");
+  var st = null;
+  function render(s) {
+    st = s; if (!s) return;
+    list.innerHTML = "";
+    s.ids.forEach(function (id, i) {
+      var li = document.createElement("li"), sp = document.createElement("span"), b = document.createElement("button");
+      sp.textContent = s.names[i]; b.type = "button"; b.textContent = "×"; b.setAttribute("aria-label", t.remove + " " + s.names[i]);
+      b.addEventListener("click", function () { if (window.MWPV && window.MWPV.remove) window.MWPV.remove(id); });
+      li.appendChild(sp); li.appendChild(b); list.appendChild(li);
+    });
+    var has = s.ids.length > 0;
+    none.hidden = has; out.hidden = !has; list.hidden = !has;
+    if (has) {
+      hrs.textContent = t.about + " " + s.range + " " + t.hours;
+      if (s.pkg) { price.textContent = "$" + s.pkg.price; fit.innerHTML = ""; fit.appendChild(document.createTextNode(t.fits + " ")); var sg = document.createElement("strong"); sg.textContent = s.pkg.label; fit.appendChild(sg); fit.appendChild(document.createTextNode(", " + t.car + ".")); }
+      else { price.textContent = "$499+"; fit.textContent = t.over; }
+    }
+    cta.setAttribute("aria-disabled", has ? "false" : "true");
+    cta.textContent = has ? t.cta : t.wait;
+  }
+  window.addEventListener("mwpv", function (e) { render(e.detail); });
+  if (window.MWPV && window.MWPV.state) render(window.MWPV.state);
+  else render({ ids: [], names: [] });
+  cta.addEventListener("click", function () {
+    if (!st || !st.ids.length) return;
+    var plan = { v: 1, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, pkg: st.pkg ? st.pkg.label : "", price: st.pkg ? st.pkg.price : null, over: !!st.over, saved: new Date().toISOString() };
+    try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&est=" + (st.pkg ? st.pkg.price : "") + "&pkg=" + encodeURIComponent(plan.pkg) + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang;
+    window.location.href = "/private-tour?" + q;
+  });
+})();
+</script>

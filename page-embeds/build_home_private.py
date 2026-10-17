@@ -1,229 +1,279 @@
-# Builds the Home private section column (left side of #private-split): home-private.html and home-private-es.html.
-# Oct 17, 2026 (late): same pattern as Team and Free. Three Polaroids + a real story from Marlon's Instagram,
-# then three route chips that join into one day on the animated map, hours and the package that fits,
-# "Steal this itinerary" (Google Maps with every stop) and "Do it with me".
-# Prices/times are the same placeholders as the Private page builder (build_private_builder.py). Edit both together.
+# Builds the Home "LA, Your Way" itinerary builder (Oct 17, 2026, Marlon via Gemini, chunk 3):
+#   home-private.html / home-private-es.html           = left column: toggle pills + one big Polaroid that follows the last pick
+#   home-private-calc.html / home-private-calc-es.html = right column: Estimate calculator + "Finalize Custom Tour"
+# The two embeds talk through window.MWPV (state) and the "mwpv" event. The estimate math is the same as the old route chips:
+# 60 min hotel pickup and drop-off + minutes at each stop + driving between areas, shown as a range, matched to a flat per-car package.
+# PACKAGES prices are PLACEHOLDER estimates (see build_private_builder.py). The Polaroid for places without a photo is a colored card.
+# Finalize saves the plan to localStorage ("mwla-private-plan") and opens /private-tour?stops=...&est=... (page-embeds/private-tour-plan.html).
 import json
 
 C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
-# STAND-INS until Marlon uploads Hollywood Sign and Santa Monica Polaroids: swap the 2nd and 3rd image here.
-POLS = [
-    (C + "6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp", "Sunset at Griffith Observatory", "Atardecer en el Observatorio Griffith", "-2.5deg", "rgba(255,255,0,.6)"),
-    (C + "6ac75116ea4b76796295dd9e_polaroid-familia-nunez-avila.webp", "A family with their Polaroid", "Una familia con su Polaroid", "2deg", "rgba(255,0,255,.45)"),
-    (C + "6ac751164510f5f1ff6d218c_polaroid-natalia-olaf-angels-flight.webp", "Natalia and Olaf with their Polaroid", "Natalia y Olaf con su Polaroid", "-1.5deg", "rgba(40,144,182,.45)"),
-]
-PACKAGES = [  # same as the Private page
+PACKAGES = [
     {"en": "Half day", "es": "Medio día", "hours": 4, "price": 249},
     {"en": "Full day", "es": "Día completo", "hours": 8, "price": 399},
     {"en": "Long day", "es": "Día largo", "hours": 12, "price": 499},
 ]
-S = {  # id: (EN name, ES name, EN desc, ES desc, minutes, lat, lng, Google Maps search)
-    "sign": ("Hollywood Sign viewpoint", "Mirador del letrero de Hollywood", "Photos with the sign from Lake Hollywood Park.", "Fotos con el letrero desde Lake Hollywood Park.", 30, 34.1265, -118.3297, "Lake Hollywood Park, Los Angeles, CA"),
-    "griffith": ("Griffith Observatory", "Observatorio Griffith", "Views over all of Los Angeles.", "Vistas de todo Los Ángeles.", 60, 34.1184, -118.3004, "Griffith Observatory, Los Angeles, CA"),
-    "urban": ("Urban Light", "Urban Light", "The 202 street lamps at LACMA.", "Las 202 farolas de LACMA.", 20, 34.0629, -118.3593, "Urban Light, LACMA, Los Angeles, CA"),
-    "grove": ("The Grove and Farmers Market", "The Grove y el Farmers Market", "Shops, snacks and the 1934 market.", "Tiendas, antojitos y el mercado de 1934.", 60, 34.072, -118.3576, "The Original Farmers Market, Los Angeles, CA"),
-    "bhsign": ("Beverly Hills sign", "Letrero de Beverly Hills", "The lily pond and the famous sign.", "El estanque y el famoso letrero.", 15, 34.0717, -118.4045, "Beverly Gardens Park, Beverly Hills, CA"),
-    "rodeo": ("Rodeo Drive", "Rodeo Drive", "A walk down the fanciest street in LA.", "Un paseo por la calle más elegante de LA.", 45, 34.0696, -118.4031, "Rodeo Drive, Beverly Hills, CA"),
-    "pier": ("Santa Monica Pier", "Muelle de Santa Mónica", "The pier, the beach and the end of Route 66.", "El muelle, la playa y el final de la Ruta 66.", 60, 34.0094, -118.4973, "Santa Monica Pier, Santa Monica, CA"),
-    "venice": ("Venice Beach and Canals", "Venice Beach y los canales", "The boardwalk, then the quiet canals.", "El malecón y luego los canales tranquilos.", 60, 33.985, -118.4695, "Venice Canals, Los Angeles, CA"),
-}
-ROUTES = [  # order = the order the day runs when routes are combined (east to west)
-    {"id": "hol", "en": "Hollywood Views", "es": "Vistas de Hollywood", "color": "#FF6600", "stops": ["sign", "griffith", "urban"],
-     "areas": [["Hollywood Hills", 34.1345, -118.329], ["Griffith Park", 34.13, -118.295], ["Miracle Mile", 34.056, -118.347]]},
-    {"id": "mid", "en": "Beverly Hills and Mid-City", "es": "Beverly Hills y Mid-City", "color": "#B5527E", "stops": ["grove", "bhsign", "rodeo"],
-     "areas": [["Beverly Hills", 34.0736, -118.4004]]},
-    {"id": "coast", "en": "The Coast", "es": "La costa", "color": "#2890B6", "stops": ["pier", "venice"],
-     "areas": [["Santa Monica", 34.0195, -118.4912], ["Venice", 33.985, -118.4695]]},
+DT_CENTER = (34.0522, -118.2437)
+# id: (group, EN name, ES name, EN line, ES line, minutes, lat, lng, photo file or None, placeholder color)
+S = [
+    ("disney", "dt", "Walt Disney Concert Hall", "Walt Disney Concert Hall", "Steel curves and a hidden garden.", "Curvas de acero y un jardín escondido.", 20, 34.0556, -118.2493, "6ac74a8b6dc6526aa1e35909_polaroid-disney-hall-couple.webp", "#BFE3F2"),
+    ("broad", "dt", "The Broad", "The Broad", "Free contemporary art next door.", "Arte contemporáneo gratis, al lado.", 30, 34.0541, -118.2507, None, "#F6C6DF"),
+    ("angels", "dt", "Angels Flight", "Angels Flight", "The 1901 railway down Bunker Hill.", "El tranvía de 1901 por Bunker Hill.", 20, 34.0513, -118.2504, "6ac74a89e44a0b1c364553f8_polaroid-angels-flight-car.webp", "#FFE08A"),
+    ("gcm", "dt", "Grand Central Market", "Grand Central Market", "30+ food stalls under neon signs.", "Más de 30 puestos de comida bajo letreros de neón.", 40, 34.0509, -118.2491, "6ac74a8872cf323a6f897a43_polaroid-grand-central-market-night.webp", "#FFD2B0"),
+    ("bradbury", "dt", "Bradbury Building", "Bradbury Building", "The 1893 atrium from the movies.", "El atrio de 1893 que salió en películas.", 15, 34.0505, -118.2478, "6ac751176ec3f46c273784eb_polaroid-raul-bradbury.webp", "#D9F5E3"),
+    ("mural", "dt", "The Evolution of LA mural", "Mural La Evolución de LA", "A wall that tells LA's story.", "Un muro que cuenta la historia de LA.", 10, 34.0521, -118.2452, "6ac75117cf5707658580af96_polaroid-olga-evolution-la.webp", "#E3F6D8"),
+    ("cityhall", "dt", "City Hall", "City Hall", "The 1928 tower and its views.", "La torre de 1928 y sus vistas.", 20, 34.0537, -118.2427, "6ac74a889c33f92895c9275a_polaroid-city-hall-couple.webp", "#DCEFFA"),
+    ("courts", "dt", "The courthouses", "Los juzgados", "Grand Park and the old courthouses.", "Grand Park y los juzgados antiguos.", 15, 34.0549, -118.2410, None, "#E6DAF7"),
+    ("olvera", "dt", "Olvera Street", "Calle Olvera", "Where LA began, in 1781.", "Donde empezó LA, en 1781.", 30, 34.0574, -118.2381, "6ac74a884cd6ef1aef19e7fc_polaroid-olvera-kiosko.webp", "#FFE3F1"),
+    ("sign", "la", "Hollywood Sign viewpoint", "Mirador del letrero de Hollywood", "Photos with the sign from Lake Hollywood Park.", "Fotos con el letrero desde Lake Hollywood Park.", 30, 34.1265, -118.3297, "6ac74a88eac936a211a2bc6c_polaroid-hollywood-sign.webp", "#FFE08A"),
+    ("griffith", "la", "Griffith Observatory", "Observatorio Griffith", "Views over all of Los Angeles.", "Vistas de todo Los Ángeles.", 60, 34.1184, -118.3004, "6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp", "#FFD2B0"),
+    ("urban", "la", "Urban Light", "Urban Light", "The 202 street lamps at LACMA.", "Las 202 farolas de LACMA.", 20, 34.0629, -118.3593, "6ac74a88ef17ffc941f06a81_polaroid-urban-lights.webp", "#BFE3F2"),
+    ("grove", "la", "The Grove and Farmers Market", "The Grove y el Farmers Market", "Shops, snacks and the 1934 market.", "Tiendas, antojitos y el mercado de 1934.", 60, 34.072, -118.3576, None, "#F6C6DF"),
+    ("bhsign", "la", "Beverly Hills sign", "Letrero de Beverly Hills", "The lily pond and the famous sign.", "El estanque y el famoso letrero.", 15, 34.0717, -118.4045, None, "#D9F5E3"),
+    ("rodeo", "la", "Rodeo Drive", "Rodeo Drive", "A walk down the fanciest street in LA.", "Un paseo por la calle más elegante de LA.", 45, 34.0696, -118.4031, None, "#E6DAF7"),
+    ("pier", "la", "Santa Monica Pier", "Muelle de Santa Mónica", "The pier, the beach and the end of Route 66.", "El muelle, la playa y el final de la Ruta 66.", 60, 34.0094, -118.4973, None, "#DCEFFA"),
+    ("venice", "la", "Venice Beach and Canals", "Venice Beach y los canales", "The boardwalk, then the quiet canals.", "El malecón y luego los canales tranquilos.", 60, 33.985, -118.4695, None, "#E3F6D8"),
 ]
+DEFAULT_ON = ["angels", "gcm", "bradbury"]
 T = {
  "en": dict(
-   polh="Your LA, in Polaroids",
-   story="The tour went so well that we ended up doing a private tour to Lake Hollywood Park to see the sign up close and take photos, before dropping them off at Griffith Observatory.",
-   storyby="Marlon, about Belén's family · Instagram",
-   perks=["Set your own pace", "1-on-1 local insights", "Hotel pickup and drop-off", "Pick your own stops"],
-   pickh="Pick your routes", pickhint="Turn on one, two or all three. They join into one day.",
-   maplabel="Route map", about="About", to="to", hours="hours", with_="with pickup and driving",
-   fits="Fits a", car="for your whole car", over="That's more than one day. Message me and we'll plan two.",
-   steal="Steal this itinerary", copy="Copy the list", copied="Copied!",
-   free="The plan is free. The fun is doing it with me.",
-   withme="Do it with me", postcard="or send me a postcard",
-   prices="See private tour prices", facts="Hotel pickup · up to 4 guests · English or Español",
-   wa="Hi Marlon, I'd like a private tour: ", mylist="My LA day, planned with MarlonWalksLA", domore="Do it with Marlon",
-   msg="I'd like these routes: ", send="Send my postcard", sending="Sending...",
-   stopword="stops"),
+  h="Pick your places", hint="Tap the places you want. The Polaroid shows your latest pick.",
+  g_dt="Downtown, on foot", g_la="Beyond Downtown, by car",
+  cap0="Tap a place to see it", picked="Your latest pick",
+  ch="Estimate your day", chint="Based on the places you picked. Marlon confirms the final price.",
+  none="Pick at least one place to see your estimate.", yours="Your places", about="About", to="to", hours="hours",
+  incl="Hotel pickup and drop-off included", fits="Fits a", car="1 to 4 guests, one price per car", over="That is more than one day. Message Marlon and we will plan two.",
+  est="Estimated price", base="Base: pickup, drop-off and driving", cta="Finalize Custom Tour", wait="Choose a place first", note="No payment now. Next you send Marlon your details.",
+  remove="Remove", count="places picked"),
  "es": dict(
-   polh="Tu LA, en Polaroids",
-   story="El tour fue tan bien que terminamos haciendo un tour privado al Lake Hollywood Park para ver el letrero de cerca y sacar fotos, antes de dejarlos en el Observatorio Griffith.",
-   storyby="Marlon, sobre la familia de Belén · Instagram",
-   perks=["A tu ritmo", "Un local solo para tu grupo", "Recogida y regreso al hotel", "Elige tus paradas"],
-   pickh="Elige tus rutas", pickhint="Activa una, dos o las tres. Se juntan en un solo día.",
-   maplabel="Mapa de la ruta", about="Unas", to="a", hours="horas", with_="con recogida y manejo",
-   fits="Cabe en", car="para todo tu auto", over="Es más de un día. Escríbeme y armamos dos.",
-   steal="Róbate este itinerario", copy="Copiar la lista", copied="¡Copiada!",
-   free="El plan es gratis. Lo divertido es hacerlo conmigo.",
-   withme="Hazlo conmigo", postcard="o mándame una postal",
-   prices="Ver precios de tours privados", facts="Recogida en tu hotel · hasta 4 personas · English o Español",
-   wa="Hola Marlon, me interesa un tour privado: ", mylist="Mi día en LA, planeado con MarlonWalksLA", domore="Hazlo con Marlon",
-   msg="Me interesan estas rutas: ", send="Enviar mi postal", sending="Enviando...",
-   stopword="paradas"),
+  h="Elige tus lugares", hint="Toca los lugares que quieras. El Polaroid muestra tu última elección.",
+  g_dt="Centro, a pie", g_la="Más allá del centro, en auto",
+  cap0="Toca un lugar para verlo", picked="Tu última elección",
+  ch="Calcula tu día", chint="Según los lugares que elegiste. Marlon confirma el precio final.",
+  none="Elige al menos un lugar para ver tu estimado.", yours="Tus lugares", about="Unas", to="a", hours="horas",
+  incl="Recogida y regreso al hotel incluidos", fits="Cabe en", car="1 a 4 personas, un precio por auto", over="Es más de un día. Escríbele a Marlon y armamos dos.",
+  est="Precio estimado", base="Base: recogida, regreso y manejo", cta="Finalizar mi tour a medida", wait="Elige un lugar primero", note="Sin pago ahora. Después le mandas tus datos a Marlon.",
+  remove="Quitar", count="lugares elegidos"),
 }
+
 
 def esc(x):
     return x.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
-def build(lang):
-    t = T[lang]
-    data = {"lang": lang, "t": t, "packages": [{"label": p[lang], "hours": p["hours"], "price": p["price"]} for p in PACKAGES],
-            "stops": {k: {"name": v[0 if lang == "en" else 1], "desc": v[2 if lang == "en" else 3], "min": v[4], "lat": v[5], "lng": v[6], "q": v[7]} for k, v in S.items()},
-            "routes": [{"id": r["id"], "name": r[lang], "color": r["color"], "stops": r["stops"],
-                        "areas": [{"name": a[0], "lat": a[1], "lng": a[2]} for a in r["areas"]]} for r in ROUTES]}
-    pols = "".join(
-        f'<figure class="pvp-pol" style="--r:{r}"><span class="pvp-tape" style="background:{tape}"></span><img src="{src}" alt="{alt_en if lang == "en" else alt_es}" loading="lazy"></figure>'
-        for src, alt_en, alt_es, r, tape in POLS)
-    chips = "".join(
-        f'<button type="button" class="pvr-chip" data-route="{r["id"]}" style="--c:{r["color"]}" aria-pressed="{"true" if r["id"] == "hol" else "false"}">'
-        f'<span class="pvr-dot" aria-hidden="true"></span><span class="pvr-name">{esc(r[lang])}</span>'
-        f'<span class="pvr-stops">{esc(" · ".join(S[s][0 if lang == "en" else 1] for s in r["stops"]))}</span></button>'
-        for r in ROUTES)
-    tapes = ["rgba(255,255,0,.6)", "rgba(40,144,182,.45)", "rgba(255,0,255,.4)", "rgba(96,200,96,.55)"]
-    perks = "".join(f'<li style="--r:{r}deg"><span class="pvk-tape" style="background:{tp}"></span><span class="pvk-ck" aria-hidden="true">&#10003;</span>{esc(x)}</li>'
-                    for x, r, tp in zip(t["perks"], (-1.5, 1.5, 1, -1), tapes))
-    js_data = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
-    return f"""<!-- ==============================================================================
-     MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: PRIVATE TOURS (LEFT COLUMN)  Built by page-embeds/build_home_private.py
-     Oct 17, 2026 (late): Polaroids + Marlon's story, then route chips that join into one day on the map,
-     hours + the package that fits, "Steal this itinerary" (Google Maps) and "Do it with me".
-     The inquiry form on the right is the native Webflow form "Private Tour Inquiry" (styled as a postcard by postcard-forms.css, inlined in the Home hero embed).
-     ============================================================================== -->
-<div class="mw-offer pv" id="private-tours">
-  <div class="pvp">
-    <div class="pvp-row">{pols}</div>
-    <figure class="pvp-q"><blockquote>&ldquo;{esc(t["story"])}&rdquo;</blockquote><figcaption>{esc(t["storyby"])}</figcaption></figure>
-  </div>
 
-  <ul class="pvk">{perks}</ul>
+def data_for(lang):
+    i = 0 if lang == "en" else 1
+    stops = [{"id": s[0], "group": s[1], "name": s[2 + i], "line": s[4 + i], "min": s[6], "lat": s[7], "lng": s[8],
+              "photo": (C + s[9]) if s[9] else None, "color": s[10]} for s in S]
+    return {"lang": lang, "t": T[lang], "stops": stops, "on": DEFAULT_ON, "center": DT_CENTER,
+            "packages": [{"label": p[lang], "hours": p["hours"], "price": p["price"]} for p in PACKAGES]}
 
-  <h3 class="pvr-h">{t["pickh"]}</h3>
-  <p class="pvr-hint">{t["pickhint"]}</p>
-  <div class="pvr-chips" role="group" aria-label="{t["pickh"]}">{chips}</div>
 
-  <div class="pvr-sum" aria-live="polite">
-    <p class="pvr-hours" id="pvr-hours"></p>
-    <p class="pvr-fit" id="pvr-fit"></p>
-    <div class="pvr-acts">
-      <a class="pvr-steal" id="pvr-steal" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">&#128506; {t["steal"]}</a>
-      <button type="button" class="pvr-copy" id="pvr-copy">{t["copy"]}</button>
-    </div>
-    <p class="pvr-free">{t["free"]}</p>
-    <div class="pvr-acts">
-      <a class="pvr-with" id="pvr-with" href="https://wa.me/12692670410" target="_blank" rel="noopener noreferrer">&#128172; {t["withme"]}</a>
-      <a class="pvr-post" id="pvr-post" href="#private-tour-form">&#9993; {t["postcard"]}</a>
-    </div>
-  </div>
-
-  <p class="pvr-facts">{t["facts"]} &middot; <a class="mw-offer-more" href="/private-tours-los-angeles">{t["prices"]} &rarr;</a></p>
-</div>
-<script type="application/json" id="pvr-data">{js_data}</script>
-<style>
-  .pv .pvp {{ margin: 0 0 24px; }}
-  .pvp-h, .pvr-h {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; color: #27302E; margin: 0 0 16px; }}
-  .pvp-row {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; padding: 0 6px; }}
-  .pvp-pol {{ position: relative; margin: 0; transform: rotate(var(--r)); }}
-  .pvp-pol img {{ display: block; width: 100%; height: auto; box-shadow: 0 10px 20px -10px rgba(39, 48, 46, 0.5); }}
-  .pvp-tape {{ position: absolute; top: -9px; left: 50%; width: 58px; height: 18px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 1; }}
-  .pvp-q {{ margin: 18px 0 0; padding-left: 14px; border-left: 4px solid #2890B6; }}
-  .pvp-q blockquote {{ margin: 0; font-size: 1rem; line-height: 1.5; color: #3B4440; }}
-  .pvp-q figcaption {{ margin-top: 4px; font-size: 0.85rem; color: #5B6663; }}
-  .pvr-h {{ margin: 0 0 4px; }}
-  /* Oct 17, 2026 (Marlon, via Gemini): scrapbook perks next to the booking form; no map on this card */
-  .pvk {{ list-style: none; margin: 0 0 24px; padding: 6px 4px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; }}
-  .pvk li {{ position: relative; display: flex; align-items: center; gap: 10px; background: #fff; border: 2px solid #27302E; border-radius: 6px; padding: 14px 14px 12px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.02rem; line-height: 1.25; color: #27302E; box-shadow: 3px 3px 0 #27302E; transform: rotate(var(--r)); }}
-  .pvk-tape {{ position: absolute; top: -9px; left: 50%; width: 50px; height: 15px; transform: translateX(-50%) rotate(-3deg); mix-blend-mode: multiply; }}
-  .pvk-ck {{ flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #FFD43B; border: 2px solid #27302E; font-size: 0.85rem; font-weight: 700; }}
-  .pvr-hint {{ margin: 0 0 12px; font-size: 0.95rem; color: #4D5551; }}
-  .pvr-chips {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }}
-  .pvr-chip {{ font: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 2px; padding: 10px 12px 10px 34px; position: relative; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; border-radius: 12px; transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out; }}
-  .pvr-chip:hover {{ transform: translateY(-2px); }}
-  .pvr-chip:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 2px; }}
-  .pvr-dot {{ position: absolute; left: 11px; top: 13px; width: 15px; height: 15px; border-radius: 50%; border: 2.5px solid var(--c); background: #fff; }}
-  .pvr-chip[aria-pressed="true"] {{ border-color: var(--c); background: #fff; box-shadow: 0 0 0 1.5px var(--c), 0 8px 16px -12px rgba(39, 48, 46, 0.6); }}
-  .pvr-chip[aria-pressed="true"] .pvr-dot {{ background: var(--c); box-shadow: inset 0 0 0 2.5px #fff; }}
-  .pvr-name {{ font-weight: 800; font-size: 0.98rem; line-height: 1.2; }}
-  .pvr-stops {{ font-size: 0.78rem; line-height: 1.3; color: #5B6663; }}
-  .pvr-sum {{ margin-top: 14px; }}
-  .pvr-hours {{ margin: 0; font-family: "Lilita One", sans-serif; font-size: 1.3rem; color: #27302E; }}
-  .pvr-hours small {{ font-family: "Nunito", sans-serif; font-size: 0.9rem; color: #5B6663; margin-left: 4px; }}
-  .pvr-fit {{ margin: 2px 0 12px; font-size: 1rem; color: #27302E; }}
-  .pvr-acts {{ display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }}
-  .pvr-steal, .pvr-with {{ display: inline-block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 9px 18px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; }}
-  .pvr-with {{ background: #FFD43B; }}
-  .pvr-steal:hover, .pvr-with:hover {{ transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #27302E; }}
-  .pvr-copy {{ font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; color: #1B6688; background: none; border: 0; padding: 6px 2px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }}
-  .pvr-post {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; color: #1B6688 !important; text-decoration: underline !important; text-underline-offset: 3px; }}
-  .pvr-free {{ margin: 16px 0 10px; font-family: "Caveat", cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.15; color: #1F2A44; }}
-  .pvr-facts {{ margin: 18px 0 0; font-size: 0.9rem; color: #4D5551; }}
-  .pvr-facts .mw-offer-more {{ padding: 0; font-size: 0.95rem; }}
-  @media (max-width: 600px) {{ .pvr-chips {{ grid-template-columns: 1fr; }} .pvk {{ grid-template-columns: 1fr; }} .pvp-row {{ gap: 12px; }} }}
-  @media (prefers-reduced-motion: reduce) {{ .pvr-chip, .pvr-steal, .pvr-with {{ transition: none; }} }}
+LEFT_CSS = """<style>
+  .pvb { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
+  .pvb-pol { position: relative; width: min(300px, 82%); margin: 8px auto 26px; background: #fff; padding: 12px 12px 14px; transform: rotate(-2deg); box-shadow: 0 14px 28px -12px rgba(39, 48, 46, 0.55); }
+  .pvb-tape { position: absolute; top: -11px; left: 50%; width: 76px; height: 22px; transform: translateX(-50%) rotate(-4deg); background: rgba(255, 212, 59, .7); mix-blend-mode: multiply; z-index: 1; }
+  .pvb-frame { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #F4EBDD; }
+  .pvb-frame img, .pvb-card { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pvb-frame img { object-fit: cover; }
+  .pvb-card { display: grid; place-items: center; padding: 18px; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.9rem; line-height: 1.1; color: #27302E; }
+  .pvb-frame > * { transition: opacity 0.2s ease-out; }
+  .pvb-frame .is-out { opacity: 0; }
+  .pvb-cap { margin: 10px 4px 0; text-align: center; min-height: 3.1em; }
+  .pvb-cap strong { display: block; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.2rem; line-height: 1.15; }
+  .pvb-cap span { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.92rem; color: #4D5551; }
+  .pvb-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; margin: 0 0 4px; color: #27302E; }
+  .pvb-hint { margin: 0 0 14px; font-size: 0.95rem; color: #4D5551; }
+  .pvb-g { margin: 14px 0 8px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6663; }
+  .pvb-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pvb-pill { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.98rem; line-height: 1.2; color: #27302E; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 9px 16px; min-height: 44px; cursor: pointer; transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, background 0.15s ease-out; }
+  .pvb-pill:hover { transform: translateY(-2px); box-shadow: 0 3px 0 #27302E; }
+  .pvb-pill[aria-pressed="true"] { background: #FFD43B; box-shadow: 2px 2px 0 #27302E; font-weight: 600; }
+  .pvb-pill[aria-pressed="true"]::before { content: "\\2713"; margin-right: 6px; }
+  .pvb-pill:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { .pvb-pill, .pvb-frame > * { transition: none; } }
 </style>
-<script>
-(function () {{
-  var D = JSON.parse(document.getElementById("pvr-data").textContent), t = D.t;
-  var chips = [].slice.call(document.querySelectorAll(".pvr-chip"));
-  if (!chips.length) return;
-  function km(a, b) {{ var R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLn = (b.lng - a.lng) * r;
+"""
+
+LEFT_JS = r"""<script>
+(function () {
+  var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, S = {}, ORDER = [];
+  D.stops.forEach(function (s) { S[s.id] = s; ORDER.push(s.id); });
+  var frame = document.getElementById("pvb-frame"), cap = document.getElementById("pvb-cap");
+  var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), on = {}, last = null;
+  D.on.forEach(function (id) { on[id] = true; last = id; });
+  function km(a, b) { var R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLn = (b.lng - a.lng) * r;
     var h = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLn / 2) * Math.sin(dLn / 2);
-    return 2 * R * Math.asin(Math.sqrt(h)); }}
-  // Same rough LA math as the Private page: road about 1.35x straight line, about 25 km/h, 5 min to park; plus 60 min hotel pickup and drop-off
-  function drive(a, b) {{ return km(a, b) * 1.35 / 25 * 60 + 5; }}
-  function fmt(h) {{ return (Math.round(h * 2) / 2).toString().replace(".5", "½"); }}
-  function picked() {{ return D.routes.filter(function (r) {{ return chips.some(function (c) {{ return c.dataset.route === r.id && c.getAttribute("aria-pressed") === "true"; }}); }}); }}
-  var cur = [];
-  function draw(routes) {{
-    var stops = [], areas = [];
-    routes.forEach(function (r) {{ r.stops.forEach(function (id) {{ stops.push(D.stops[id]); }}); areas = areas.concat(r.areas); }});
-    cur = stops;
-    var dm = 0; for (var i = 1; i < stops.length; i++) dm += drive(stops[i - 1], stops[i]);
-    var sm = stops.reduce(function (a, s) {{ return a + s.min; }}, 0) + 60;
-    var lo = (sm + dm * 0.85) / 60, hi = (sm + dm * 1.4) / 60, mid = (lo + hi) / 2, fit = null;
-    for (var k = 0; k < D.packages.length; k++) if (mid <= D.packages[k].hours) {{ fit = D.packages[k]; break; }}
-    document.getElementById("pvr-hours").innerHTML = t.about + " " + fmt(lo) + " " + t.to + " " + fmt(hi) + " " + t.hours + "<small>" + t.with_ + "</small>";
-    document.getElementById("pvr-fit").innerHTML = fit ? t.fits + " <strong>" + fit.label + ", $" + fit.price + "</strong> " + t.car + "." : t.over;
-    var q = stops.map(function (s) {{ return encodeURIComponent(s.q); }});
-    document.getElementById("pvr-steal").href = "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=" + q[q.length - 1] + (q.length > 1 ? "&waypoints=" + q.slice(0, -1).join("%7C") : "");
-    var names = routes.map(function (r) {{ return r.name; }}).join(" + ");
-    document.getElementById("pvr-with").href = "https://wa.me/12692670410?text=" + encodeURIComponent(t.wa + names + (fit ? " (" + fit.label + ")" : ""));
-    document.getElementById("pvr-post").setAttribute("data-msg", t.msg + names + ".");
-  }}
-  chips.forEach(function (c) {{
-    c.addEventListener("click", function () {{
-      var on = c.getAttribute("aria-pressed") === "true";
-      if (on && picked().length === 1) return; // keep at least one route on
-      c.setAttribute("aria-pressed", on ? "false" : "true");
-      draw(picked());
-    }});
-  }});
-  document.getElementById("pvr-copy").addEventListener("click", function () {{
-    var b = this, txt = t.mylist + "\\n" + cur.map(function (s, i) {{ return (i + 1) + ". " + s.name; }}).join("\\n") +
-      "\\n" + document.getElementById("pvr-steal").href + "\\n" + t.domore + ": https://www.marlonwalksla.com/private-tours-los-angeles";
-    function done() {{ var o = b.textContent; b.textContent = t.copied; setTimeout(function () {{ b.textContent = o; }}, 1600); }}
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () {{ window.prompt("", txt); }});
-    else window.prompt("", txt);
-  }});
-  // "Send me a postcard": jump to the form and start the message with the routes they picked
-  document.getElementById("pvr-post").addEventListener("click", function () {{
-    var m = document.getElementById("priv-msg");
-    if (m && !m.value) m.value = this.getAttribute("data-msg") || "";
-  }});
-  // The form button reads like mailing a postcard
-  function sendBtn() {{ document.querySelectorAll("#private-tour-form .mw-form-submit").forEach(function (b) {{ b.value = t.send; b.setAttribute("data-wait", t.sending); }}); }}
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", sendBtn); else sendBtn();
-  draw(picked());
-}})();
+    return 2 * R * Math.asin(Math.sqrt(h)); }
+  function drive(a, b) { return km(a, b) * 1.35 / 25 * 60 + 5; }  // road about 1.35x the straight line, 25 km/h, 5 min to park
+  function fmt(h) { return (Math.round(h * 2) / 2).toString().replace(".5", "½"); }
+  function show(id) {
+    var s = S[id]; if (!frame) return;
+    var old = frame.firstElementChild, el;
+    if (s.photo) { el = document.createElement("img"); el.src = s.photo; el.alt = s.name; el.loading = "lazy"; }
+    else { el = document.createElement("div"); el.className = "pvb-card"; el.style.background = s.color; el.textContent = s.name; }
+    el.classList.add("is-out"); frame.appendChild(el);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.remove("is-out"); if (old) old.classList.add("is-out"); setTimeout(function () { if (old && old.parentNode) old.parentNode.removeChild(old); }, 220); }); });
+    cap.innerHTML = "<strong></strong><span></span>"; cap.firstChild.textContent = s.name; cap.lastChild.textContent = s.line;
+  }
+  function state() {
+    var ids = ORDER.filter(function (id) { return on[id]; }), stops = ids.map(function (id) { return S[id]; });
+    var sm = stops.reduce(function (a, s) { return a + s.min; }, 0) + 60, dm = 0, prev = null;
+    stops.forEach(function (s) {
+      var node = s.group === "dt" ? null : s;
+      if (node) { var from = prev || (stops.some(function (x) { return x.group === "dt"; }) ? { lat: D.center[0], lng: D.center[1] } : null); if (from) dm += drive(from, node); prev = node; }
+    });
+    var st = { ids: ids, names: stops.map(function (s) { return s.name; }), lang: D.lang, lo: null, hi: null, pkg: null, over: false, t: t, last: last };
+    if (!ids.length) return st;
+    st.lo = (sm + dm * 0.85) / 60; st.hi = (sm + dm * 1.4) / 60;
+    var mid = (st.lo + st.hi) / 2;
+    for (var k = 0; k < D.packages.length; k++) if (mid <= D.packages[k].hours) { st.pkg = D.packages[k]; break; }
+    st.over = !st.pkg; st.range = fmt(st.lo) + " " + t.to + " " + fmt(st.hi);
+    return st;
+  }
+  function publish() {
+    var st = state(); window.MWPV = window.MWPV || {}; window.MWPV.state = st; window.MWPV.remove = function (id) { on[id] = false; sync(); };
+    try { window.dispatchEvent(new CustomEvent("mwpv", { detail: st })); } catch (e) {}
+  }
+  function sync() { pills.forEach(function (p) { p.setAttribute("aria-pressed", on[p.dataset.id] ? "true" : "false"); }); publish(); }
+  pills.forEach(function (p) {
+    p.addEventListener("click", function () {
+      var id = p.dataset.id; on[id] = !on[id];
+      if (on[id]) { last = id; show(id); }
+      sync();
+    });
+  });
+  if (last) show(last);
+  sync();
+})();
 </script>
 """
 
-for lang, name in (("en", "home-private.html"), ("es", "home-private-es.html")):
-    open(name, "w", encoding="utf-8").write(build(lang))
-    print("wrote", name)
+
+def left_html(lang):
+    t = T[lang]; data = data_for(lang)
+    i = 0 if lang == "en" else 1
+
+    def pills(group):
+        return "".join(f'<button type="button" class="pvb-pill" data-id="{s[0]}" aria-pressed="false">{esc(s[2 + i])}</button>' for s in S if s[1] == group)
+    js_data = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    return f"""<!-- ==============================================================================
+     MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LA, YOUR WAY - ITINERARY BUILDER (LEFT COLUMN). Built by page-embeds/build_home_private.py
+     Oct 17, 2026 (Marlon via Gemini): pills + one big Polaroid that follows the latest pick. The estimate lives in home-private-calc.html (right column).
+     ============================================================================== -->
+<div class="mw-offer pvb" id="private-tours">
+  <figure class="pvb-pol"><span class="pvb-tape"></span><div class="pvb-frame" id="pvb-frame"><div class="pvb-card" style="background:#FFF6E6">{esc(t["cap0"])}</div></div>
+    <figcaption class="pvb-cap" id="pvb-cap" aria-live="polite"><strong>{esc(t["cap0"])}</strong></figcaption></figure>
+  <h3 class="pvb-h">{t["h"]}</h3>
+  <p class="pvb-hint">{t["hint"]}</p>
+  <p class="pvb-g">{t["g_dt"]}</p>
+  <div class="pvb-pills" role="group" aria-label="{t["g_dt"]}">{pills("dt")}</div>
+  <p class="pvb-g">{t["g_la"]}</p>
+  <div class="pvb-pills" role="group" aria-label="{t["g_la"]}">{pills("la")}</div>
+</div>
+<script type="application/json" id="pvb-data">{js_data}</script>
+""" + LEFT_CSS + LEFT_JS
+
+
+CALC_CSS = """<style>
+  /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
+  .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
+  .mw-form-card:has(.pcq) { margin-top: 0; padding: 24px 24px 20px; box-shadow: 6px 6px 0 #27302E; }
+  @media (min-width: 992px) { .mw-form-card:has(.pcq) { position: sticky; top: 20px; } }
+  .pcq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
+  .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.8rem; line-height: 1.1; margin: 0 0 6px; color: #27302E; }
+  .pcq-hint { margin: 0 0 14px; font-size: 0.95rem; line-height: 1.45; color: #4D5551; }
+  .pcq-list { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .pcq-list li { display: inline-flex; align-items: center; gap: 6px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.9rem; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 3px 6px 3px 12px; }
+  .pcq-list button { width: 26px; height: 26px; border-radius: 50%; border: 0; background: #F1E4CB; color: #27302E; font-size: 1rem; line-height: 1; cursor: pointer; }
+  .pcq-list button:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-none { margin: 0 0 14px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; color: #3B4440; }
+  .pcq-out { margin: 4px 0 8px; }
+  .pcq-cap { display: block; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #5B6663; margin-top: 3px; }
+  .pcq-hours { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+  .pcq-price { display: block; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; margin-top: 12px; font-variant-numeric: tabular-nums; }
+  .pcq-fit { margin: 6px 0 0; font-size: 1rem; line-height: 1.45; color: #27302E; }
+  .pcq-incl { margin: 10px 0 16px; font-size: 0.92rem; color: #4D5551; }
+  .pcq-cta { display: block; width: 100%; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 13px 24px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .pcq-cta:hover:not([aria-disabled="true"]) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+  .pcq-cta:active:not([aria-disabled="true"]) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
+  .pcq-cta:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  .pcq-cta[aria-disabled="true"] { background: #E9E2D2; color: #6B726F; box-shadow: none; cursor: not-allowed; }
+  .pcq-ern { display: flex; align-items: center; gap: 12px; }
+  .pcq-ern img { height: 84px; width: auto; flex: none; }
+  .pcq-note { margin: 10px 0 0; text-align: center; font-size: 0.88rem; color: #5B6663; }
+  @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
+</style>
+"""
+
+CALC_JS = r"""<script>
+(function () {
+  var root = document.getElementById("pcq"); if (!root) return;
+  var t = JSON.parse(document.getElementById("pcq-t").textContent);
+  var list = root.querySelector(".pcq-list"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out");
+  var hrs = root.querySelector(".pcq-hours"), price = root.querySelector(".pcq-price"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta");
+  var st = null;
+  function render(s) {
+    st = s; if (!s) return;
+    list.innerHTML = "";
+    s.ids.forEach(function (id, i) {
+      var li = document.createElement("li"), sp = document.createElement("span"), b = document.createElement("button");
+      sp.textContent = s.names[i]; b.type = "button"; b.textContent = "×"; b.setAttribute("aria-label", t.remove + " " + s.names[i]);
+      b.addEventListener("click", function () { if (window.MWPV && window.MWPV.remove) window.MWPV.remove(id); });
+      li.appendChild(sp); li.appendChild(b); list.appendChild(li);
+    });
+    var has = s.ids.length > 0;
+    none.hidden = has; out.hidden = !has; list.hidden = !has;
+    if (has) {
+      hrs.textContent = t.about + " " + s.range + " " + t.hours;
+      if (s.pkg) { price.textContent = "$" + s.pkg.price; fit.innerHTML = ""; fit.appendChild(document.createTextNode(t.fits + " ")); var sg = document.createElement("strong"); sg.textContent = s.pkg.label; fit.appendChild(sg); fit.appendChild(document.createTextNode(", " + t.car + ".")); }
+      else { price.textContent = "$499+"; fit.textContent = t.over; }
+    }
+    cta.setAttribute("aria-disabled", has ? "false" : "true");
+    cta.textContent = has ? t.cta : t.wait;
+  }
+  window.addEventListener("mwpv", function (e) { render(e.detail); });
+  if (window.MWPV && window.MWPV.state) render(window.MWPV.state);
+  else render({ ids: [], names: [] });
+  cta.addEventListener("click", function () {
+    if (!st || !st.ids.length) return;
+    var plan = { v: 1, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, pkg: st.pkg ? st.pkg.label : "", price: st.pkg ? st.pkg.price : null, over: !!st.over, saved: new Date().toISOString() };
+    try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&est=" + (st.pkg ? st.pkg.price : "") + "&pkg=" + encodeURIComponent(plan.pkg) + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang;
+    window.location.href = "/private-tour?" + q;
+  });
+})();
+</script>
+"""
+
+ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
+
+
+def calc_html(lang):
+    t = T[lang]
+    tj = json.dumps({"remove": t["remove"], "about": t["about"], "to": t["to"], "hours": t["hours"], "fits": t["fits"], "car": t["car"], "over": t["over"], "cta": t["cta"], "wait": t["wait"]}, ensure_ascii=False)
+    return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py. Oct 17, 2026 (Marlon via Gemini). Reads the picks from home-private.html through window.MWPV. -->
+<div class="pcq" id="pcq">
+  <h3 class="pcq-title">{t["ch"]}</h3>
+  <p class="pcq-hint">{t["chint"]}</p>
+  <p class="pcq-none" hidden>{t["none"]}</p>
+  <ul class="pcq-list" aria-label="{t["yours"]}" hidden></ul>
+  <div class="pcq-out" aria-live="polite" hidden>
+    <span class="pcq-cap">{t["about"]} ...</span>
+    <span class="pcq-hours"></span>
+    <span class="pcq-price"></span>
+    <span class="pcq-cap">{t["est"]}</span>
+    <p class="pcq-fit"></p>
+  </div>
+  <p class="pcq-incl">{t["incl"]}</p>
+  <div class="pcq-ern"><img src="{ERN}" alt="" aria-hidden="true" loading="lazy"><button type="button" class="pcq-cta" aria-disabled="true">{t["cta"]}</button></div>
+  <p class="pcq-note">{t["note"]}</p>
+</div>
+<script type="application/json" id="pcq-t">{tj}</script>
+""" + CALC_CSS + CALC_JS
+
+
+for lang, suf in (("en", ""), ("es", "-es")):
+    open(f"home-private{suf}.html", "w", encoding="utf-8").write(left_html(lang))
+    open(f"home-private-calc{suf}.html", "w", encoding="utf-8").write(calc_html(lang))
+    print("wrote", lang)
