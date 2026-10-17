@@ -174,6 +174,7 @@ def build(lang):
   .mwh::after {{ content: ""; position: absolute; inset: 12px; border: 12px solid transparent; border-image: repeating-linear-gradient(-45deg, #E8412F 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px) 12; pointer-events: none; z-index: 1; }}
   .mwh-wrap {{ z-index: 2; }}
   .mwh-wrap > .mwh-slot {{ position: absolute; top: 46px; right: 52px; z-index: 3; justify-self: auto; }}
+  @media (min-width: 992px) {{ .mwh-wrap {{ padding-right: 176px; }} .mwh-wrap > .mwh-slot {{ right: 40px; }} }}
 
   @media (max-width: 991px) {{
     .mwh-wrap {{ grid-template-columns: 1fr; padding: 54px 40px 62px; gap: 34px; }}
