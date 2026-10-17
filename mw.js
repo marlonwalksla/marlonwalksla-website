@@ -1,7 +1,7 @@
 /* MarlonWalksLA section loader (loader-v1)
  *
  * Each Webflow HTML embed holds ONE line:
- *   <script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@loader-v1/mw.js" data-s="home-hero"></script>
+ *   <script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@50683478626ed739694449b34e582d1456ebe644/mw.js" data-s="home-hero"></script>
  * This script fetches page-embeds/<data-s>.html from this repo and puts it
  * exactly where the script tag sits, so the page looks the same as if the
  * code were pasted into the embed.
@@ -13,7 +13,7 @@
  *
  * It uses a synchronous request on purpose: the section appears in place,
  * before the browser keeps parsing, and its scripts run in the same order as
- * before. This file is tagged (loader-v1) so it never changes by accident.
+ * before. Webflow pins this file to one commit (loader-v1 = 50683478626ed739694449b34e582d1456ebe644), so it never changes by accident.
  */
 (function () {
   'use strict';

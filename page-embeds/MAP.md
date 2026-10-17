@@ -3,7 +3,7 @@
 Every embed below holds ONE line (replace `NAME` with the section):
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@loader-v1/mw.js" data-s="NAME"></script>
+<script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@50683478626ed739694449b34e582d1456ebe644/mw.js" data-s="NAME"></script>
 ```
 
 `mw.js` reads `page-embeds/NAME.html` from branch **test** on the test site (marlonwalksla.webflow.io) and from branch **live** on marlonwalksla.com. Add `?mw=live` or `?mw=test` to a non-live address to preview the other branch.
