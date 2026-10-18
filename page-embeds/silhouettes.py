@@ -248,12 +248,12 @@ def trio(color="#1B8A8F", opacity=1):
 
 
 def taco(color="#D6452F", opacity=1):
-    """Challenge stamp: a street taco seen from the side: a folded crescent shell with fillings spilling out the top."""
-    d = '<path d="M92 96 Q260 300 428 96 Q260 168 92 96 Z"/>'
-    d += '<path d="M116 98 Q150 68 178 90 Q196 54 232 76 Q258 40 288 74 Q322 50 340 84 Q372 70 404 98 Q260 140 116 98 Z"/>'
-    for x, y in ((170, 70), (232, 54), (304, 58), (362, 72)):
-        d += f'<circle cx="{x}" cy="{y}" r="11"/>'
-    d += '<rect x="120" y="206" width="280" height="9" rx="4"/>'
+    """Challenge stamp: a street taco in the classic shape: a thick half-disc shell, lettuce and fillings piled on its flat top, a fold line inside."""
+    G = 'stroke="#fff" stroke-width="5" stroke-linejoin="round"'
+    d = '<path d="M96 112 H424 A164 104 0 0 1 96 112 Z"/>'                                                   # shell: half disc
+    d += '<path d="M128 150 A132 70 0 0 0 392 150" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'   # fold line
+    d += f'<path d="M104 112 Q112 70 146 84 Q158 46 196 62 Q218 30 252 54 Q286 28 310 60 Q346 42 360 80 Q398 68 416 112 Z" {G}/>'  # lettuce pile
+    d += f'<circle cx="210" cy="86" r="16" {G}/><circle cx="286" cy="90" r="14" {G}/><circle cx="346" cy="98" r="11" {G}/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 

@@ -19,7 +19,7 @@ T = {
     "en": dict(
         eyebrow="Downtown LA walking tours",
         h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon</span>', hand="&amp; Ernesto!",
-        line="Explore Los Angeles on a free tour, a team outing or a private day.",
+        line='Explore LA on a <span class="mwh-hl" data-tone="green">team tour</span>, a <span class="mwh-hl" data-tone="yellow">free tour</span> or a <span class="mwh-hl" data-tone="blue">private tour</span>, in English or Spanish.',
         btn="Book a Team Outing", btn_href="#team", btn2="Design a Private Tour", btn2_href="#private", freeL="Or join a free tour &rarr;", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
@@ -34,7 +34,7 @@ T = {
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
         h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span>', hand="&iexcl;y Ernesto!",
-        line="Explora Los &Aacute;ngeles en un free tour, una salida de equipo o un d&iacute;a privado.",
+        line='Explora LA en un <span class="mwh-hl" data-tone="green">tour de equipo</span>, un <span class="mwh-hl" data-tone="yellow">free tour</span> o un <span class="mwh-hl" data-tone="blue">tour privado</span>, en espa&ntilde;ol o ingl&eacute;s.',
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
@@ -136,15 +136,18 @@ def build(lang):
     es = lang == 'es'
     # Oct 18, 2026 (Marlon): six stamps. Left of the text: the three tours. Right of the carousel: three challenges. They sit in the side margins,
     # anchored to the text column's edge, so they follow it at any width and may run off the screen edge instead of covering text.
-    def hs(uid, cls, top, bottom, icon, year, ink, rot, seed, bold=False):
-        return stamps.stamp(uid, top, bottom, icon, year, ink, rot, seed, cls, bold)
+    def hs(uid, top, bottom, icon, year, ink, rot, seed, bold=False):
+        return stamps.stamp(uid, top, bottom, icon, year, ink, rot, seed, "", bold)
     CH = 'RETO' if es else 'CHALLENGE'
-    HERO_STAMPS = (hs('hsa', 'hs-a', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -9, 3)
-                   + hs('hsb', 'hs-b', 'WALT DISNEY CONCERT HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'wdch', 'EST. 2003', '#D6479B', 8, 6)
-                   + hs('hsc', 'hs-c', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9)
-                   + hs('hsd', 'hs-d', CH, 'COME TACOS DE CALLE' if es else 'EAT LA STREET TACOS', 'taco', '', '#D6452F', 7, 12, True)
-                   + hs('hse', 'hs-e', CH, 'SUBE A ANGELS FLIGHT' if es else 'RIDE ANGELS FLIGHT', 'angels', '', '#2E7BB0', -8, 15, True)
-                   + hs('hsf', 'hs-f', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 6, 18, True))
+    # Oct 18, 2026 (Marlon): five stamps, always visible. They sit in one tidy strip along the bottom of the hero (never in the side margins, never hidden):
+    # the three tours, then two challenges.
+    HERO_STAMPS = ('<div class="mwh-stamps" aria-hidden="true">'
+                   + hs('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -8, 3)
+                   + hs('hsb', 'WALT DISNEY CONCERT HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'wdch', 'EST. 2003', '#D6479B', 7, 6)
+                   + hs('hsc', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9)
+                   + hs('hsd', CH, 'COME TACOS DE CALLE' if es else 'EAT LA STREET TACOS', 'taco', '', '#D6452F', 8, 12, True)
+                   + hs('hse', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', -7, 18, True)
+                   + '</div>')
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
     PREV = "Previous tour" if lang == "en" else "Tour anterior"
@@ -169,7 +172,6 @@ def build(lang):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600&family=Lilita+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <section class="mwh" lang="{lang}">
-  {HERO_STAMPS}
   <div class="mwh-wrap">
     <div class="mwh-text">
       <h1 class="mwh-h1">{t["h1"]}</h1>
@@ -194,6 +196,7 @@ def build(lang):
       <div class="mwh-tabs" role="group" aria-label="{CAR_LABEL}">{TAB_HTML}</div>
     </div>
   </div>
+  {HERO_STAMPS}
 </section>
 <style>
   /* Let the old hero section and column get out of the way */
@@ -321,7 +324,12 @@ def build(lang):
   .mwh-tag[data-tone="green"] {{ --tone: #86D69E; }}
   .mwh-tag[data-tone="yellow"] {{ --tone: #FFD43B; }}
   .mwh-tag[data-tone="blue"] {{ --tone: #8CCBE8; }}
-  .mwh-cap em.mwh-tag {{ margin-top: 6px; padding: 1px 12px 2px; font-weight: 600; font-size: 1rem; color: #27302E; background: linear-gradient(transparent 38%, var(--tone) 38%, var(--tone) 94%, transparent 94%); }}
+  /* Oct 18, 2026 (Marlon): the highlight covers the whole height of the word, top to bottom */
+  .mwh-cap em.mwh-tag {{ margin-top: 8px; padding: 4px 14px; line-height: 1.25; font-weight: 600; font-size: 1rem; color: #27302E; background: var(--tone); border-radius: 5px; }}
+  .mwh-hl {{ padding: 2px 7px; border-radius: 5px; color: #27302E; font-weight: 700; background: var(--tone); -webkit-box-decoration-break: clone; box-decoration-break: clone; }}
+  .mwh-hl[data-tone="green"] {{ --tone: #86D69E; }}
+  .mwh-hl[data-tone="yellow"] {{ --tone: #FFD43B; }}
+  .mwh-hl[data-tone="blue"] {{ --tone: #8CCBE8; }}
   .mwh-cap em {{ font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; color: #4D5551; }}
   .mwh-nav {{ width: 46px; height: 46px; border-radius: 50%; border: 2.5px solid #27302E; background: #fff; color: #27302E; font-size: 1.7rem; line-height: 1; padding: 0 0 4px; cursor: pointer; box-shadow: 2px 2px 0 #27302E; transition: transform 0.15s ease-out; }}
   .mwh-nav:hover {{ transform: translateY(-2px); }}
@@ -336,18 +344,11 @@ def build(lang):
   .mwh-cbtn {{ font-size: 1.2rem; padding: 13px 26px; }}
   /* Oct 17, 2026: the skyline silhouette is replaced by two ink stamps */
   .mwh-wrap::before {{ content: none !important; }}
-  .mwh > svg.stamp {{ position: absolute; z-index: 1; }}
-  /* stamp size follows the screen (about 100px at 1235 wide, 130px from 1630 up); left stamps end 18px before the text column, right ones start 16px after the carousel arrows */
-  .mwh {{ --sw: clamp(88px, 8vw, 130px); }}
-  .mwh > svg.stamp {{ width: var(--sw); }}
-  .mwh > .hs-a {{ left: calc(50% - 531px - var(--sw) - 12px); top: 30px; }}
-  .mwh > .hs-b {{ left: calc(50% - 531px - var(--sw) * .86); top: 214px; width: calc(var(--sw) * .86); }}
-  .mwh > .hs-c {{ left: calc(50% - 531px - var(--sw) - 6px); bottom: 24px; }}
-  .mwh > .hs-d {{ left: calc(50% + 482px); top: 30px; }}
-  .mwh > .hs-e {{ left: calc(50% + 490px); top: 230px; width: calc(var(--sw) * .86); }}
-  .mwh > .hs-f {{ left: calc(50% + 482px); bottom: 24px; }}
-  @media (max-width: 1100px) {{ .mwh > svg.stamp {{ display: none; }} }}
-  @media (max-width: 767px) {{ .mwh > svg.stamp {{ display: none; }} .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
+  /* five stamps in one strip along the bottom: same layout at every width, they just get smaller (about 66px on a phone, 112px on desktop) */
+  .mwh-stamps {{ position: relative; z-index: 1; display: flex; justify-content: center; align-items: flex-start; padding: 0 20px 38px; margin-top: -30px; pointer-events: none; }}
+  .mwh-stamps svg.stamp {{ position: static; flex: 0 1 auto; width: clamp(62px, 17vw, 112px); height: auto; margin: 0 -3px; }}
+  .mwh-stamps svg.stamp:nth-child(even) {{ margin-top: 16px; }}
+  @media (max-width: 767px) {{ .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
 
   {PAPER_HERO}

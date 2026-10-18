@@ -20,7 +20,7 @@ def icon(name, ink):
     if name == "palm": return _inner(SIL.palm(ink)), (220, 220, "150 0 220 220", 100)
     if name == "sunset": return _inner(SIL.sunset(ink)), (320, 170, "100 40 320 170", 124)
     if name == "sun": return _inner(SIL.sun(ink)), (280, 160, "120 50 280 160", 108)
-    if name == "taco": return _inner(SIL.taco(ink)), (420, 190, "80 40 360 190", 118)
+    if name == "taco": return _inner(SIL.taco(ink)), (420, 190, "70 20 380 200", 116)
     if name == "angels": return _inner(SIL.angels_flight(ink)), (400, 200, "62 14 400 200", 118)
     if name == "polaroid": return _inner(SIL.polaroid(ink)), (262, 186, "142 16 262 186", 100)
     if name == "pier": return _inner(SIL.pier(ink)), (460, 210, "30 10 460 210", 138)
