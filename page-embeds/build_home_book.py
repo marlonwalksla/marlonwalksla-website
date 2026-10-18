@@ -64,10 +64,6 @@ html = f'''<!-- ================================================================
       <ul class="pc-badges"><li class="pc-badge"><span aria-hidden="true">&#127758;</span><span>Espa&ntilde;ol &amp; English</span></li><li class="pc-badge"><span aria-hidden="true">&#128155;</span><span data-pi="tip">{text["en"]["tip"]}</span></li></ul>
       <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-pi="wa">{text["en"]["wa"]}</a>
     </div>
-    <div class="pc-addr">
-      <p class="pc-from" data-pi="from">{text["en"]["from"]}</p>
-      <p class="pc-to"><span data-pi="toL">{text["en"]["toL"]}</span> <span data-pi="to">{text["en"]["to"]}</span></p>
-    </div>
   </div>
 
   <div class="mwla-fgrid">

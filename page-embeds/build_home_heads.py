@@ -51,8 +51,8 @@ PM = {"en": ("LOS ANGELES", "CA"), "es": ("LOS &Aacute;NGELES", "CA")}
 for (sec, lang), (title, alt, badges) in T.items():
     to_lbl, to_txt = TO[(sec, lang)]
     pm1, pm2 = PM[lang]
-    # Oct 17, 2026 (Marlon): Team header = one building (Grand Central Market), no From/To text. Private keeps its address lines.
-    addr = "" if sec == "team" else f'''  <div class="pc-addr">
+    # Oct 17, 2026 (Marlon): no From/To address lines in any section header (Team shows one building: Grand Central Market).
+    addr = "" if True else f'''  <div class="pc-addr">
     <p class="pc-from">{FROM[lang]}</p>
     <p class="pc-to"><span>{to_lbl}</span> {to_txt}</p>
   </div>

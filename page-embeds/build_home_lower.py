@@ -49,7 +49,7 @@ MEET_CSS = """<style>
 </style>
 """
 FAQ_CSS = """<style>
-""" + CSS_COMMON + """  .hl-faq { background-color: #FFF6E6; background-image: linear-gradient(#F1E4CB 1px, transparent 1px), linear-gradient(90deg, #F1E4CB 1px, transparent 1px); background-size: 26px 26px; scroll-margin-top: 20px; }
+""" + CSS_COMMON + """  .hl-faq { background: #F1F5D8; scroll-margin-top: 20px; }
   .hl-faq-wrap { max-width: 800px; margin: 0 auto; }
   .hl-sub { margin: 0 0 24px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.1rem; color: #3B4440; }
   .hl-q { position: relative; margin: 0 0 16px; background: #fff; border: 2px solid #27302E; border-radius: 8px; box-shadow: 3px 3px 0 #27302E; transform: rotate(var(--r, 0deg)); }

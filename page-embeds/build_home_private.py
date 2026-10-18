@@ -34,7 +34,7 @@ S = [
     ("pier", "la", "Santa Monica Pier", "Muelle de Santa Mónica", "The pier, the beach and the end of Route 66.", "El muelle, la playa y el final de la Ruta 66.", 60, 34.0094, -118.4973, None, "#DCEFFA"),
     ("venice", "la", "Venice Beach and Canals", "Venice Beach y los canales", "The boardwalk, then the quiet canals.", "El malecón y luego los canales tranquilos.", 60, 33.985, -118.4695, None, "#E3F6D8"),
 ]
-DEFAULT_ON = ["angels", "gcm", "bradbury"]
+DEFAULT_ON = ["sign", "griffith", "urban"]
 T = {
  "en": dict(
   h="Pick your places", hint="Tap the places you want. The Polaroid shows your latest pick.",
@@ -64,7 +64,7 @@ def esc(x):
 def data_for(lang):
     i = 0 if lang == "en" else 1
     stops = [{"id": s[0], "group": s[1], "name": s[2 + i], "line": s[4 + i], "min": s[6], "lat": s[7], "lng": s[8],
-              "photo": (C + s[9]) if s[9] else None, "color": s[10]} for s in S]
+              "photo": (C + s[9]) if s[9] else None, "color": s[10]} for s in S if s[1] == "la"]  # Oct 17, 2026 (Marlon): no Downtown-on-foot options; private tours are by car
     return {"lang": lang, "t": T[lang], "stops": stops, "on": DEFAULT_ON, "center": DT_CENTER,
             "packages": [{"label": p[lang], "hours": p["hours"], "price": p["price"]} for p in PACKAGES]}
 
@@ -121,8 +121,8 @@ LEFT_JS = r"""<script>
     var ids = ORDER.filter(function (id) { return on[id]; }), stops = ids.map(function (id) { return S[id]; });
     var sm = stops.reduce(function (a, s) { return a + s.min; }, 0) + 60, dm = 0, prev = null;
     stops.forEach(function (s) {
-      var node = s.group === "dt" ? null : s;
-      if (node) { var from = prev || (stops.some(function (x) { return x.group === "dt"; }) ? { lat: D.center[0], lng: D.center[1] } : null); if (from) dm += drive(from, node); prev = node; }
+      var from = prev || { lat: D.center[0], lng: D.center[1] };  // pickup is Downtown
+      dm += drive(from, s); prev = s;
     });
     var st = { ids: ids, names: stops.map(function (s) { return s.name; }), lang: D.lang, lo: null, hi: null, pkg: null, over: false, t: t, last: last };
     if (!ids.length) return st;
@@ -167,10 +167,7 @@ def left_html(lang):
     <figcaption class="pvb-cap" id="pvb-cap" aria-live="polite"><strong>{esc(t["cap0"])}</strong></figcaption></figure>
   <h3 class="pvb-h">{t["h"]}</h3>
   <p class="pvb-hint">{t["hint"]}</p>
-  <p class="pvb-g">{t["g_dt"]}</p>
-  <div class="pvb-pills" role="group" aria-label="{t["g_dt"]}">{pills("dt")}</div>
-  <p class="pvb-g">{t["g_la"]}</p>
-  <div class="pvb-pills" role="group" aria-label="{t["g_la"]}">{pills("la")}</div>
+  <div class="pvb-pills" role="group" aria-label="{t["h"]}">{pills("la")}</div>
 </div>
 <script type="application/json" id="pvb-data">{js_data}</script>
 """ + LEFT_CSS + LEFT_JS
