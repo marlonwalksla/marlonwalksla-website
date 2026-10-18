@@ -19,7 +19,7 @@ T = {
     "en": dict(
         eyebrow="Downtown LA walking tours",
         h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon</span>', hand="&amp; Ernesto!",
-        line='Explore LA on a <span class="mwh-hl" data-tone="green">team tour</span>, a <span class="mwh-hl" data-tone="yellow">free tour</span> or a <span class="mwh-hl" data-tone="blue">private tour</span>, in English or Spanish.',
+        line='Explore LA on a <button type="button" class="mwh-hl" data-tone="green" data-i="0">team tour</button>, a <button type="button" class="mwh-hl" data-tone="yellow" data-i="1">free tour</button> or a <button type="button" class="mwh-hl" data-tone="blue" data-i="2">private tour</button>, in English or Spanish.',
         btn="Book a Team Outing", btn_href="#team", btn2="Design a Private Tour", btn2_href="#private", freeL="Or join a free tour &rarr;", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
@@ -34,7 +34,7 @@ T = {
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
         h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span>', hand="&iexcl;y Ernesto!",
-        line='Explora LA en un <span class="mwh-hl" data-tone="green">tour de equipo</span>, un <span class="mwh-hl" data-tone="yellow">free tour</span> o un <span class="mwh-hl" data-tone="blue">tour privado</span>, en espa&ntilde;ol o ingl&eacute;s.',
+        line='Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="yellow" data-i="1">free tour</button> o un <button type="button" class="mwh-hl" data-tone="blue" data-i="2">tour privado</button>, en espa&ntilde;ol o ingl&eacute;s.',
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
@@ -176,8 +176,9 @@ def build(lang):
   <div class="mwh-wrap">
     <div class="mwh-text">
       <h1 class="mwh-h1">{t["h1"]}</h1>
+      <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="{t["ern_alt"]}" loading="eager">
+      <span class="mwh-hand" lang="{lang}">{t["hand"]}</span>
       <div class="mwh-lang" role="group" aria-label="Language / Idioma">
-        <span class="mwh-hand" lang="{lang}">{t["hand"]}</span>
         <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en"{cur_en}>English</a>
         <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es"{cur_es}>Espa&ntilde;ol</a>
       </div>
@@ -194,8 +195,8 @@ def build(lang):
       </div>
       <div class="mwh-dots" aria-hidden="true">{DOTS}</div>
     </div>
+    {HERO_STAMPS}
   </div>
-  {HERO_STAMPS}
 </section>
 <style>
   /* Let the old hero section and column get out of the way */
@@ -297,7 +298,7 @@ def build(lang):
     .mwh-label em {{ font-size: 0.74rem; line-height: 1.2; }}
     .mwh-go {{ font-size: 0.68rem; padding: 1px 7px; margin-top: 4px; }}
     .mwh-tape {{ width: 44px; height: 14px; top: -7px; }}
-    .mwh-text {{ display: flex; flex-direction: column; align-items: flex-start; }}
+    .mwh-text {{ display: flex; flex-direction: column; align-items: center; }}
     .mwh-cta {{ align-self: stretch; }}
     .mwh-lb {{ font-size: 1.05rem; padding: 11px 16px; }}
     .mwh-wrap::before {{ height: 120px; }}
@@ -347,6 +348,18 @@ def build(lang):
   .mwh-cbtn {{ font-size: 1.2rem; padding: 13px 26px; }}
   /* Oct 17, 2026: the skyline silhouette is replaced by two ink stamps */
   .mwh-wrap::before {{ content: none !important; }}
+  /* Oct 18, 2026 (Marlon): the left column is centered: headline, Ernesto, "& Ernesto!", language tags, sentence. The three colored words in the sentence are buttons: they pick the tour and the picked one grows. */
+  .mwh-text {{ display: flex; flex-direction: column; align-items: center; text-align: center; }}
+  .mwh-h1 {{ margin-bottom: 6px; }}
+  .mwh-ern2 {{ display: block; height: 124px; width: auto; margin: 0 auto -2px; }}
+  .mwh-hand {{ position: static; display: block; margin: 0 0 16px; transform: rotate(-3deg); transform-origin: center; }}
+  .mwh-lang {{ justify-content: center; margin: 0 0 18px; }}
+  .mwh-line {{ margin: 0 auto; max-width: 36ch; line-height: 1.75; }}
+  .mwh-hl {{ display: inline-block; font: inherit; font-weight: 700; line-height: 1.25; margin: 0 4px; padding: 2px 8px; border: 0; cursor: pointer; transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }}
+  .mwh-hl:hover {{ transform: translateY(-1px); }}
+  .mwh-hl.is-on {{ transform: scale(1.12); box-shadow: 2px 2px 0 #27302E; }}
+  .mwh-hl:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 2px; }}
+  @media (prefers-reduced-motion: reduce) {{ .mwh-hl {{ transition: none; }} }}
   /* Oct 18, 2026 (Marlon): four stamps spread across the page along the bottom edge, tilted and overlapping the airmail border like postmarks; the layout gives them their own room under the content so they never cover text */
   .mwh-wrap {{ padding-bottom: 164px !important; }}
   .mwh-stamps {{ position: absolute; left: 0; right: 0; bottom: 0; height: 0; z-index: 3; pointer-events: none; }}
@@ -356,6 +369,16 @@ def build(lang):
   .mwh-stamps svg.stamp:nth-child(3) {{ left: 60%; }}
   .mwh-stamps svg.stamp:nth-child(4) {{ left: auto; right: 4%; bottom: 54px; }}
   @media (max-width: 520px) {{ .mwh-wrap {{ padding-bottom: 132px !important; }} .mwh-stamps svg.stamp:nth-child(2), .mwh-stamps svg.stamp:nth-child(4) {{ bottom: 48px; }} .mwh-stamps svg.stamp:nth-child(2) {{ left: 28%; }} .mwh-stamps svg.stamp:nth-child(3) {{ left: 52%; }} }}
+  /* Oct 18, 2026 (Marlon: "stamps across the page, not at the bottom"): on wide screens the four stamps are scattered over the card like real postmarks: top-left corner, top between the columns, lower left under the text, lower right under the photo. On phones they stay in one small row. */
+  @media (min-width: 1150px) {{
+    .mwh-wrap {{ padding-bottom: 76px !important; }}
+    .mwh-stamps {{ inset: 0; height: auto; }}
+    .mwh-stamps svg.stamp {{ width: clamp(86px, 8.6vw, 106px); }}
+    .mwh-stamps svg.stamp:nth-child(1) {{ left: 1%; top: 34px; bottom: auto; }}
+    .mwh-stamps svg.stamp:nth-child(2) {{ left: 41%; top: 28px; bottom: auto; }}
+    .mwh-stamps svg.stamp:nth-child(3) {{ left: 7%; top: auto; bottom: 36px; }}
+    .mwh-stamps svg.stamp:nth-child(4) {{ left: auto; right: 1%; top: auto; bottom: 36px; }}
+  }}
   @media (max-width: 767px) {{ .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-nav {{ margin-top: 150px; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
 
@@ -453,15 +476,18 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
 CAR_JS = """<script>
 (function () {
   var car = document.querySelector(".mwh-car"); if (!car) return;
-  var slides = [].slice.call(car.querySelectorAll(".mwh-slide")), dots = [].slice.call(document.querySelectorAll(".mwh-dots i"));
+  var slides = [].slice.call(car.querySelectorAll(".mwh-slide")), dots = [].slice.call(document.querySelectorAll(".mwh-dots i")), hls = [].slice.call(document.querySelectorAll(".mwh-hl"));
   var i = 0, timer = null, stopped = false;
   function show(n) {
     i = (n + slides.length) % slides.length;
     slides.forEach(function (s, k) { var on = k === i; s.classList.toggle("is-on", on); s.setAttribute("aria-hidden", on ? "false" : "true"); [].forEach.call(s.querySelectorAll("a"), function (a) { a.tabIndex = on ? 0 : -1; }); });
     dots.forEach(function (d, k) { d.classList.toggle("on", k === i); });
+    hls.forEach(function (b, k) { b.classList.toggle("is-on", k === i); b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
   }
   function stop() { stopped = true; if (timer) { clearInterval(timer); timer = null; } }
   function user(n) { stop(); show(n); }
+  hls.forEach(function (b) { b.addEventListener("click", function () { user(+b.getAttribute("data-i")); }); });
+  show(0);
   car.querySelector(".mwh-prev").addEventListener("click", function () { user(i - 1); });
   car.querySelector(".mwh-next").addEventListener("click", function () { user(i + 1); });
   var x0 = null; car.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
