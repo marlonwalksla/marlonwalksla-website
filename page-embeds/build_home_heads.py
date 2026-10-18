@@ -54,8 +54,15 @@ for (sec, lang), (title, alt, badges) in T.items():
     pm1, pm2 = PM[lang]
     # Oct 17, 2026 (Marlon): no From/To address lines in any section header (Team shows one building: Grand Central Market).
     es = lang == "es"
-    addr = "  " + (stamps.stamp("stt", "GRAND CENTRAL MARKET", "LOS &Aacute;NGELES" if es else "LOS ANGELES", "gcm", "EST. 1917", "#2E9E57", -8, 3) if sec == "team"
-                   else stamps.stamp("stp", "OBSERVATORIO GRIFFITH" if es else "GRIFFITH OBSERVATORY", "LOS &Aacute;NGELES" if es else "LOS ANGELES", "observatory", "EST. 1935", "#2890B6", 7, 5)) + "\n"
+    # Oct 18, 2026 (Marlon): two stamps per header, in inks that stand out from the card color (green, blue)
+    LA = "LOS &Aacute;NGELES" if es else "LOS ANGELES"
+    if sec == "team":
+        s1 = stamps.stamp("stt", "GRAND CENTRAL MARKET", LA, "gcm", "EST. 1917", "#D6452F", -8, 3)
+        s2 = stamps.stamp("stt2", "POLAROID DE EQUIPO" if es else "TEAM POLAROID", "FOTO INSTANT&Aacute;NEA" if es else "INSTANT PHOTO", "polaroid", "", "#6A4C93", 9, 11, "s2")
+    else:
+        s1 = stamps.stamp("stp", "OBSERVATORIO GRIFFITH" if es else "GRIFFITH OBSERVATORY", LA, "observatory", "EST. 1935", "#E2662A", 7, 5)
+        s2 = stamps.stamp("stp2", "MUELLE DE SANTA M&Oacute;NICA" if es else "SANTA MONICA PIER", "CALIFORNIA", "pier", "EST. 1909", "#B8326E", -9, 13, "s2")
+    addr = "  " + s1 + s2 + "\n"
     b_html = "".join(
         f'<li class="pc-badge"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}>{ic}<span>{tx}</span></li>'
         for ic, tx, lbl in badges)

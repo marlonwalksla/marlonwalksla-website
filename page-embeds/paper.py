@@ -10,20 +10,15 @@ FIBERS = 'url("data:image/svg+xml,' + urllib.parse.quote(_FIB, safe=" =:/;,'") +
 _EDGE = "rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px"
 
 
-def bg(fold):
-    f = f"{fold}%"
-    foldline = (f"linear-gradient(to bottom, rgba(39,48,46,0) calc({f} - 8px), rgba(39,48,46,.09) calc({f} - 1px), "
-                f"rgba(255,255,255,.6) calc({f} + 1px), rgba(39,48,46,.04) calc({f} + 4px), rgba(39,48,46,0) calc({f} + 16px))")
+def bg(fold=None):
+    # Oct 18, 2026 (Marlon): the fold and edge crease lines got in the way, so only the grain and the soft darker edges are left.
     return ", ".join([
-        foldline,
-        f"linear-gradient(to bottom, {_EDGE}) top / 100% 14px no-repeat",
-        f"linear-gradient(to top, {_EDGE}) bottom / 100% 14px no-repeat",
         "radial-gradient(ellipse at 50% 45%, rgba(110,80,40,0) 55%, rgba(110,80,40,.10) 100%)",
         FIBERS + " 0 0 / 240px 240px repeat",
     ])
 
 
-def rule(selector, fold):
+def rule(selector, fold=None):
     return (f'{selector} {{ content: "" !important; display: block !important; position: absolute; inset: 0; background: {bg(fold)} !important; '
             "pointer-events: none; z-index: 3; transform: none !important; border: 0 !important; outline: 0 !important; "
             "box-shadow: none !important; width: auto !important; height: auto !important; }")

@@ -91,6 +91,52 @@ def observatory(color="#2890B6", opacity=1):
     ground = f'<rect x="0" y="{b-6}" width="520" height="6"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 {b}" fill="{color}" opacity="{opacity}">{d}{ground}</svg>'
 
+def polaroid(color="#6A4C93", opacity=1):
+    """Team stamp icon (Oct 18, 2026): two Polaroids with happy little people in the windows."""
+    def pol(x, y, rot, people):
+        win = f"M10 10 H110 V100 H10 Z"
+        frame = f'<path fill-rule="evenodd" d="M0 0 H120 V132 H0 Z {win}"/>'
+        ppl = ""
+        for cx, cy, r in people:
+            ppl += f'<circle cx="{cx}" cy="{cy}" r="{r}"/><path d="M{cx-r*1.7:.0f} 100 Q{cx} {cy+r*1.6:.0f} {cx+r*1.7:.0f} 100 Z"/>'
+        return f'<g transform="translate({x} {y}) rotate({rot})">{frame}{ppl}</g>'
+    d = pol(150, 34, -9, [(34, 50, 9), (62, 44, 10), (90, 52, 8)])
+    d += pol(270, 30, 8, [(38, 52, 9), (66, 46, 10), (92, 54, 8)])
+    ground = '<rect x="0" y="214" width="520" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}{ground}</svg>'
+
+
+def pier(color="#B8326E", opacity=1):
+    """Private stamp icon: Santa Monica Pier, Ferris wheel on the deck, pilings, a palm."""
+    cx, cy, r = 290, 92, 70
+    d = f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" stroke-width="6"/><circle cx="{cx}" cy="{cy}" r="{r-22}" fill="none" stroke="{color}" stroke-width="3"/>'
+    import math
+    for i in range(12):
+        a = i * math.pi / 6
+        x, y = cx + r * math.cos(a), cy + r * math.sin(a)
+        d += f'<line x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}" stroke="{color}" stroke-width="3"/><circle cx="{x:.1f}" cy="{y:.1f}" r="8"/>'
+    d += f'<circle cx="{cx}" cy="{cy}" r="9"/><path d="M{cx-34} 176 L{cx} {cy} L{cx+34} 176" fill="none" stroke="{color}" stroke-width="6"/>'
+    d += '<rect x="40" y="168" width="440" height="12"/>'
+    for i in range(15):
+        d += f'<rect x="{50+i*30}" y="180" width="6" height="34"/>'
+    d += '<rect x="60" y="136" width="86" height="32"/><path d="M52 136 L103 108 L154 136 Z"/><rect x="392" y="146" width="62" height="22"/><path d="M392 146 Q423 118 454 146 Z"/>'
+    d += _palm(190, 168, 100, 8, .8)
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def wdch(color="#2B4F9E", opacity=1):
+    """Free tour stamp icon: Walt Disney Concert Hall, curving steel sails with thin gaps between them."""
+    sails = [
+        "M70 190 C80 130 130 88 200 76 C192 118 176 156 158 190 Z",
+        "M150 190 C172 114 246 54 338 40 C326 92 296 146 274 190 Z",
+        "M262 190 C292 106 356 70 438 82 C418 124 388 160 376 190 Z",
+        "M360 190 C396 150 438 138 478 150 L478 190 Z",
+    ]
+    d = "".join(f'<path d="{p}" stroke="#fff" stroke-width="4"/>' for p in sails)
+    d += '<rect x="40" y="190" width="440" height="12"/><rect x="0" y="214" width="520" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
 if __name__ == "__main__":
     import sys
     out = sys.argv[1]

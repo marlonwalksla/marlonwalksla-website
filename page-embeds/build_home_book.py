@@ -49,7 +49,8 @@ pols = "".join(
   f'</figure>'
   for i,((img,yr,tape,alt),r) in enumerate(zip(POLS,["-2.5deg","2deg","-1.5deg"]),1))
 
-STAMP_FREE = stamps.stamp("stf", "OLVERA STREET", "EL PUEBLO DE LOS ANGELES", "kiosko", "EST. 1781", "#D6479B", -7, 8)  # Oct 17, 2026: ink stamp replaces the silhouette
+STAMP_FREE = (stamps.stamp("stf", "OLVERA STREET", "EL PUEBLO DE LOS ANGELES", "kiosko", "EST. 1781", "#1B8A8F", -7, 8)
+              + stamps.stamp("stf2", "WALT DISNEY CONCERT HALL", "LOS ANGELES", "wdch", "EST. 2003", "#2B4F9E", 8, 14, "s2"))  # Oct 18, 2026: two stamps, inks that stand out from the pink card  # Oct 17, 2026: ink stamp replaces the silhouette
 html = f'''<!-- ==============================================================================
      MARLONWALKSLA - BOOK A FREE TOUR (CAL.COM INLINE CALENDARS, EN + ES)
      Built by page-embeds/build_home_book.py. Same embed on Home (/) and /es.
@@ -73,6 +74,7 @@ html = f'''<!-- ================================================================
     <div class="mwla-fleft">
       <div class="mwla-pols">{pols}</div>
       <figure class="mwla-q"><blockquote data-pi="qt">{text["en"]["qt"]}</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span data-pi="qwho">{text["en"]["qwho"]}</span></figcaption></figure>
+      <div class="mwla-map" id="mwla-map" aria-label="Free tour route map"></div>
     </div>
     <div class="mwla-fcard">
       <h3 class="mwla-card-h" data-i18n="cardh">{text["en"]["cardh"]}</h3>
@@ -117,6 +119,8 @@ html = f'''<!-- ================================================================
   .mwla-pol figcaption {{ display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px; }}
   .mwla-pol b {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.05rem; line-height: 1.15; color: #27302E; }}
   .mwla-pol small {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #4D5551; }}
+  .mwla-map {{ margin-top: 22px; min-width: 0; background: #fff; border: 2.5px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; padding: 10px 12px 12px; }}
+  .mwla-map:empty {{ display: none; }}
   .mwla-fcard {{ background: #ffffff; border-radius: 18px; padding: 20px 18px 18px; box-shadow: 0 12px 30px -18px rgba(39, 48, 46, 0.55); }}
   @media (min-width: 992px) {{ .mwla-fcard {{ position: sticky; top: 90px; }} }}
   .mwla-card-h {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.45rem; color: #27302E; margin: 0 0 12px; }}
@@ -189,7 +193,28 @@ html = f'''<!-- ================================================================
     apply((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 ? "es" : "en");
   }})();
 </script>
+<script type="application/json" id="mwla-ra-en">__RAEN__</script>
+<script type="application/json" id="mwla-ra-es">__RAES__</script>
+<script>
+/* Oct 18, 2026 (Marlon): the free tour route map sits under the review (same animated map as the Team page, map only: tap a stop and Ernesto walks there). */
+(function () {{
+  var box = document.getElementById("mwla-map"); if (!box) return;
+  var es = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 || /^\/es(\/|$)/.test(location.pathname);
+  var src = document.getElementById(es ? "mwla-ra-es" : "mwla-ra-en"); if (!src) return;
+  box.setAttribute("aria-label", es ? "Mapa de la ruta del tour gratis" : "Free tour route map");
+  var ra = document.createElement("div"); ra.className = "ra"; ra.setAttribute("data-nolist", ""); ra.setAttribute("data-compact", "");
+  ra.setAttribute("data-label", es ? "Mapa de la ruta del tour gratis" : "Free tour route map");
+  ra.setAttribute("data-ernesto", "__TG__");
+  var js = document.createElement("script"); js.type = "application/json"; js.className = "ra-data"; js.textContent = src.textContent; ra.appendChild(js); box.appendChild(ra);
+  var B = "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/";
+  if (!document.querySelector('link[href*="route-anim.css"]')) {{ var l = document.createElement("link"); l.rel = "stylesheet"; l.href = B + "route-anim.css?v=1"; document.head.appendChild(l); }}
+  function go() {{ if (window.MWRouteAnim) window.MWRouteAnim.init(); }}
+  if (window.MWRouteAnim) {{ go(); }} else {{ var s = document.createElement("script"); s.src = B + "route-anim.js?v=1"; s.onload = go; document.head.appendChild(s); }}
+}})();
+</script>
 '''
-html = html.replace("{RA_EN}", RA_EN)
+import json as _j
+html = html.replace("__RAEN__", open("route-free-en.json", encoding="utf-8").read().replace("</", "<\\/")).replace("__RAES__", open("route-free-es.json", encoding="utf-8").read().replace("</", "<\\/"))
+html = html.replace("__TG__", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif")
 open("home-book.html","w",encoding="utf-8").write(html)
 print("wrote home-book.html", len(html))

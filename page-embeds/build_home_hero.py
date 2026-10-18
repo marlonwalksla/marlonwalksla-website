@@ -120,7 +120,7 @@ def flag_frame():
 
 
 def build(lang):
-    POSTCARD = POSTCARD_CSS.replace('__FLAGS__', flag_frame()).replace('__PAPER_TEAM__', paper.rule('.mw-bg-team::before', 34)).replace('__PAPER_PRIVATE__', paper.rule('.mw-bg-private::before', 28)).replace('__PAPER_BOOK__', paper.rule('.mw-bg-book::before', 40)) + open('postcard-forms.css', encoding='utf-8').read()  # reply-postcard forms (shared with private-form-intro and team-cal)
+    POSTCARD = POSTCARD_CSS.replace('__FLAGS__', flag_frame()).replace('__PAPER_TEAM__', paper.rule('.mw-bg-team::before')).replace('__PAPER_PRIVATE__', paper.rule('.mw-bg-private::before')).replace('__PAPER_BOOK__', paper.rule('.mw-bg-book::before')) + open('postcard-forms.css', encoding='utf-8').read()  # reply-postcard forms (shared with private-form-intro and team-cal)
     t = T[lang]
     cur_en = ' aria-current="true"' if lang == 'en' else ''
     cur_es = ' aria-current="true"' if lang == 'es' else ''
@@ -132,7 +132,7 @@ def build(lang):
                 f'      <img src="{img}" alt="{alt}" loading="eager">\n'
                 f'      <span class="mwh-label"><strong>{title}</strong><em>{sub}</em><span class="mwh-go">{t["go"]}</span></span>\n'
                 f'    </a>\n')
-    PAPER_HERO = paper.rule('.mwh::before', 66).replace('{', '{{').replace('}', '}}')
+    PAPER_HERO = paper.rule('.mwh::before').replace('{', '{{').replace('}', '}}')
     es = lang == 'es'
     HERO_STAMPS = (stamps.stamp('hsa', 'CENTRO DE LOS &Aacute;NGELES' if es else 'DOWNTOWN LOS ANGELES', 'EXPLORADO' if es else 'EXPLORED', 'skyline', '', '#E8412F', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
                    + stamps.stamp('hsb', 'CITY HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'city_hall', 'EST. 1928', '#2890B6', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"'))
@@ -379,6 +379,8 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   /* Oct 17, 2026 (Marlon): ink stamps (passport style) replace the pale silhouettes; they fill the white space on the right of each header */
   svg.stamp { display: block; width: 150px; height: auto; mix-blend-mode: multiply; opacity: .93; transform: rotate(var(--r, -8deg)); pointer-events: none; }
   #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { position: absolute; top: 6px; right: 26px; z-index: 0; }
+  #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { top: 44px; right: 156px; }
+  @media (max-width: 1000px) { #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { display: none; } }
   @media (max-width: 700px) { #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { display: none; } }
   #team.mwsh > *, #private.mwsh > *, .mwla-book-head > * { position: relative; z-index: 1; }
   /* badges: small facts, not buttons */
