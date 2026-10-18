@@ -142,9 +142,9 @@ def build(lang):
     # Oct 18, 2026 (Marlon): four stamps spread across the hero, always visible: the three tours, then one challenge.
     HERO_STAMPS = ('<div class="mwh-stamps" aria-hidden="true">'
                    + hs('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -8, 3)
-                   + hs('hsb', 'WALT DISNEY CONCERT HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'wdch', 'EST. 2003', '#D6479B', 7, 6)
+                   + hs('hsb', 'PLACITA OLVERA', 'FREE TOUR' if not es else 'FREE TOUR', 'kiosko', 'EST. 1781', '#7A3FA0', 7, 6)
                    + hs('hsc', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9)
-                   + hs('hsd', CH, 'COME TACOS DE CALLE' if es else 'EAT LA STREET TACOS', 'taco', '', '#D6452F', 8, 12, True)
+                   + hs('hsd', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 8, 12, True)
                    + '</div>')
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
@@ -157,7 +157,10 @@ def build(lang):
         f'                <img src="{x["img"]}" alt="{x["alt"]}" loading="eager">\n'
         f'              </a>\n'
         f'              <p class="mwh-cap"><strong>{x["title"]}</strong><em class="mwh-tag" data-tone="{x["tone"]}">{x["eyebrow"]}</em></p>\n'
+        f'              <p class="mwh-sub">{x["line"]}</p>\n'
+        f'              <a class="mwh-btn mwh-cbtn" data-tone="{x["tone"]}" href="{x["href"]}" tabindex="{0 if n == 0 else -1}">{x["btn"]}</a>\n'
         f'            </div>\n' for n, x in enumerate(SL))
+    DOTS = "".join(f'<i{" class=\"on\"" if n == 0 else ""}></i>' for n in range(len(SL)))
     TAB_HTML = "".join(
         f'<button type="button" class="mwh-tab"{" aria-current=\"true\"" if n == 0 else ""}>{x["tab"]}</button>' for n, x in enumerate(SL))
     html = f'''<!-- ==============================================================================
@@ -179,7 +182,6 @@ def build(lang):
         <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es"{cur_es}>Espa&ntilde;ol</a>
       </div>
       <p class="mwh-line" id="mwh-line">{t["line"]}</p>
-      <a class="mwh-btn mwh-cbtn" id="mwh-cbtn" data-tone="{SL[0]["tone"]}" href="{SL[0]["href"]}">{SL[0]["btn"]}</a>
     </div>
     <div class="mwh-right">
       <div class="mwh-car" role="region" aria-roledescription="carousel" aria-label="{CAR_LABEL}">
@@ -190,7 +192,7 @@ def build(lang):
         </div>
         <button type="button" class="mwh-nav mwh-next" aria-label="{NEXT}">&rsaquo;</button>
       </div>
-      <div class="mwh-tabs" role="group" aria-label="{CAR_LABEL}">{TAB_HTML}</div>
+      <div class="mwh-dots" aria-hidden="true">{DOTS}</div>
     </div>
   </div>
   {HERO_STAMPS}
@@ -330,6 +332,12 @@ def build(lang):
   .mwh-nav:hover {{ transform: translateY(-2px); }}
   .mwh-nav:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 3px; }}
   .mwh-prev {{ grid-column: 1; grid-row: 1; }} .mwh-next {{ grid-column: 3; grid-row: 1; }}
+  .mwh-sub {{ margin: 10px auto 14px; max-width: 330px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 400; font-size: 1rem; line-height: 1.4; color: #4D5551; }}
+  .mwh-slide .mwh-cbtn {{ display: block; width: fit-content; max-width: 100%; box-sizing: border-box; margin: 0 auto; text-align: center; font-size: 1.1rem; padding: 12px 22px; }}
+  .mwh-dots {{ display: flex; gap: 8px; justify-content: center; }}
+  .mwh-dots i {{ width: 9px; height: 9px; border-radius: 50%; background: rgba(39, 48, 46, 0.2); }}
+  .mwh-dots i.on {{ background: #27302E; }}
+  .mwh-car .mwh-nav {{ align-self: start; margin-top: 170px; }}
   .mwh-tabs {{ display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }}
   /* Oct 18, 2026 (Marlon via Gemini): the three tabs are quiet flat tags, not CTAs (the yellow button is the one action) */
   .mwh-tab {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; color: #4D5551; background: rgba(39, 48, 46, 0.06); border: 0; border-radius: 8px; padding: 0 16px; min-height: 44px; cursor: pointer; }}
@@ -340,15 +348,15 @@ def build(lang):
   /* Oct 17, 2026: the skyline silhouette is replaced by two ink stamps */
   .mwh-wrap::before {{ content: none !important; }}
   /* Oct 18, 2026 (Marlon): four stamps spread across the page along the bottom edge, tilted and overlapping the airmail border like postmarks; the layout gives them their own room under the content so they never cover text */
-  .mwh-wrap {{ padding-bottom: 150px !important; }}
+  .mwh-wrap {{ padding-bottom: 164px !important; }}
   .mwh-stamps {{ position: absolute; left: 0; right: 0; bottom: 0; height: 0; z-index: 3; pointer-events: none; }}
-  .mwh-stamps svg.stamp {{ position: absolute; bottom: 26px; width: clamp(62px, 8.6vw, 106px); height: auto; margin: 0; }}
+  .mwh-stamps svg.stamp {{ position: absolute; bottom: 38px; width: clamp(62px, 8.6vw, 106px); height: auto; margin: 0; }}
   .mwh-stamps svg.stamp:nth-child(1) {{ left: 4%; }}
-  .mwh-stamps svg.stamp:nth-child(2) {{ left: 30%; bottom: 40px; }}
+  .mwh-stamps svg.stamp:nth-child(2) {{ left: 30%; bottom: 54px; }}
   .mwh-stamps svg.stamp:nth-child(3) {{ left: 60%; }}
-  .mwh-stamps svg.stamp:nth-child(4) {{ left: auto; right: 4%; bottom: 40px; }}
-  @media (max-width: 520px) {{ .mwh-wrap {{ padding-bottom: 118px !important; }} .mwh-stamps svg.stamp:nth-child(2), .mwh-stamps svg.stamp:nth-child(4) {{ bottom: 34px; }} .mwh-stamps svg.stamp:nth-child(2) {{ left: 28%; }} .mwh-stamps svg.stamp:nth-child(3) {{ left: 52%; }} }}
-  @media (max-width: 767px) {{ .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
+  .mwh-stamps svg.stamp:nth-child(4) {{ left: auto; right: 4%; bottom: 54px; }}
+  @media (max-width: 520px) {{ .mwh-wrap {{ padding-bottom: 132px !important; }} .mwh-stamps svg.stamp:nth-child(2), .mwh-stamps svg.stamp:nth-child(4) {{ bottom: 48px; }} .mwh-stamps svg.stamp:nth-child(2) {{ left: 28%; }} .mwh-stamps svg.stamp:nth-child(3) {{ left: 52%; }} }}
+  @media (max-width: 767px) {{ .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-nav {{ margin-top: 150px; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
 
   {PAPER_HERO}
@@ -445,19 +453,17 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
 CAR_JS = """<script>
 (function () {
   var car = document.querySelector(".mwh-car"); if (!car) return;
-  var slides = [].slice.call(car.querySelectorAll(".mwh-slide")), tabs = [].slice.call(document.querySelectorAll(".mwh-tab"));
-  var line = document.getElementById("mwh-line"), btn = document.getElementById("mwh-cbtn"), i = 0, timer = null, stopped = false;
+  var slides = [].slice.call(car.querySelectorAll(".mwh-slide")), dots = [].slice.call(document.querySelectorAll(".mwh-dots i"));
+  var i = 0, timer = null, stopped = false;
   function show(n) {
     i = (n + slides.length) % slides.length;
-    slides.forEach(function (s, k) { var on = k === i; s.classList.toggle("is-on", on); s.setAttribute("aria-hidden", on ? "false" : "true"); s.querySelector("a").tabIndex = on ? 0 : -1; });
-    tabs.forEach(function (t, k) { if (k === i) t.setAttribute("aria-current", "true"); else t.removeAttribute("aria-current"); });
-    var d = slides[i]; btn.setAttribute("data-tone", d.getAttribute("data-tone")); btn.textContent = d.getAttribute("data-btn"); btn.setAttribute("href", d.getAttribute("data-href"));
+    slides.forEach(function (s, k) { var on = k === i; s.classList.toggle("is-on", on); s.setAttribute("aria-hidden", on ? "false" : "true"); [].forEach.call(s.querySelectorAll("a"), function (a) { a.tabIndex = on ? 0 : -1; }); });
+    dots.forEach(function (d, k) { d.classList.toggle("on", k === i); });
   }
   function stop() { stopped = true; if (timer) { clearInterval(timer); timer = null; } }
   function user(n) { stop(); show(n); }
   car.querySelector(".mwh-prev").addEventListener("click", function () { user(i - 1); });
   car.querySelector(".mwh-next").addEventListener("click", function () { user(i + 1); });
-  tabs.forEach(function (t, k) { t.addEventListener("click", function () { user(k); }); });
   var x0 = null; car.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
   car.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1)); x0 = null; });
   ["mouseenter", "focusin"].forEach(function (ev) { document.querySelector(".mwh").addEventListener(ev, stop); });
