@@ -9,7 +9,7 @@ import paper
 import stamps  # original LA silhouettes for the postcard backs
 
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-ERNESTO = CDN + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
+ERNESTO = CDN + "6a052bdf15f429ade21cc6f5_Circle%20Full.webp"
 P_FREE = CDN + "6ad3db6c73266c4e732cdd90_free-tour-avila-adobe.webp"  # Oct 17, 2026 (Marlon): yellow-frame Polaroid; the old La Placita one moved into the free tour section
 _OLD_P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp"
 P_PRIV = CDN + "6ad3db6be47154900024909b_private-tour-urban-lights.webp"  # Oct 17, 2026: Marlon's pick
@@ -24,6 +24,7 @@ T = {
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
         ern_alt="Ernesto the pi&ntilde;ata, your tour guide, holding a tablet with a map",
+        badge_alt="MarlonWalksLA logo: Ernesto the pi&ntilde;ata donkey with a tablet and Polaroid camera",
         free=("Free Tour", "Join a Free Tour!", "#book",
               "Free tour guests posing together at the Avila Adobe garden"),
         team=("Team Tours", "Celebrate Your Team", "#team",
@@ -39,6 +40,7 @@ T = {
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
         ern_alt="Ernesto la pi&ntilde;ata, tu gu&iacute;a, con una tablet y un mapa",
+        badge_alt="Logo de MarlonWalksLA: Ernesto, el burro pi&ntilde;ata, con una tablet y una c&aacute;mara Polaroid",
         free=("Free Tour", "&iexcl;&Uacute;nete a un Free Tour!", "#book",
               "Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
         team=("Tours de Equipo", "Celebra a tu equipo", "#team",
@@ -176,7 +178,7 @@ def build(lang):
   <div class="mwh-wrap">
     <div class="mwh-text">
       <h1 class="mwh-h1">{t["h1"]}</h1>
-      <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="{t["ern_alt"]}" loading="eager">
+      <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf15f429ade21cc6f5_Circle%20Full.webp" alt="{t["badge_alt"]}" loading="eager" width="512" height="512">
       <span class="mwh-hand" lang="{lang}">{t["hand"]}</span>
       <div class="mwh-lang" role="group" aria-label="Language / Idioma">
         <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en"{cur_en}>English</a>
@@ -373,9 +375,14 @@ def build(lang):
   .mwh .mwh-line, .mwh .mwh-hl {{ font-family: "Fredoka", system-ui, sans-serif !important; font-weight: 500 !important; letter-spacing: 0 !important; text-shadow: none !important; }}
   .mwh .mwh-hl {{ font-weight: 600 !important; }}
   .mwh .mwh-hand {{ margin-top: 12px; }}
+  /* Oct 18, 2026 (Marlon): the round MarlonWalksLA badge introduces Ernesto. It is bigger (about 210px), sits like a sticker with a soft shadow, and "& Ernesto!" overlaps its lower edge like a label. The language tags get more room, so that part of the hero is taller. */
+  .mwh .mwh-ern2 {{ height: auto; width: clamp(150px, 17vw, 210px); aspect-ratio: 1 / 1; border-radius: 50%; margin: 10px auto 0; transform: rotate(-4deg); filter: drop-shadow(3px 4px 0 rgba(39, 48, 46, 0.18)); }}
+  .mwh .mwh-hand {{ margin: -26px 0 26px; position: relative; z-index: 1; text-shadow: 0 0 6px #FFF6E6, 0 0 6px #FFF6E6; }}
+  .mwh .mwh-lang {{ margin-bottom: 26px; }}
+  .mwh .mwh-wrap {{ padding-top: 76px; }}
   /* Oct 18, 2026 (Marlon: "stamps across the page, not at the bottom"): on wide screens the four stamps are scattered over the card like real postmarks: top-left corner, top between the columns, lower left under the text, lower right under the photo. On phones they stay in one small row. */
   @media (min-width: 1150px) {{
-    .mwh-wrap {{ padding-bottom: 76px !important; }}
+    .mwh-wrap {{ padding-bottom: 156px !important; }}
     .mwh-stamps {{ inset: 0; height: auto; }}
     .mwh-stamps svg.stamp {{ width: clamp(86px, 8.6vw, 106px); }}
     .mwh-stamps svg.stamp:nth-child(1) {{ left: 1%; top: 34px; bottom: auto; }}

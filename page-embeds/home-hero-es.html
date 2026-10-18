@@ -11,7 +11,7 @@
   <div class="mwh-wrap">
     <div class="mwh-text">
       <h1 class="mwh-h1">Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span></h1>
-      <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="Ernesto la pi&ntilde;ata, tu gu&iacute;a, con una tablet y un mapa" loading="eager">
+      <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf15f429ade21cc6f5_Circle%20Full.webp" alt="Logo de MarlonWalksLA: Ernesto, el burro pi&ntilde;ata, con una tablet y una c&aacute;mara Polaroid" loading="eager" width="512" height="512">
       <span class="mwh-hand" lang="es">&iexcl;y Ernesto!</span>
       <div class="mwh-lang" role="group" aria-label="Language / Idioma">
         <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en">English</a>
@@ -235,9 +235,14 @@
   .mwh .mwh-line, .mwh .mwh-hl { font-family: "Fredoka", system-ui, sans-serif !important; font-weight: 500 !important; letter-spacing: 0 !important; text-shadow: none !important; }
   .mwh .mwh-hl { font-weight: 600 !important; }
   .mwh .mwh-hand { margin-top: 12px; }
+  /* Oct 18, 2026 (Marlon): the round MarlonWalksLA badge introduces Ernesto. It is bigger (about 210px), sits like a sticker with a soft shadow, and "& Ernesto!" overlaps its lower edge like a label. The language tags get more room, so that part of the hero is taller. */
+  .mwh .mwh-ern2 { height: auto; width: clamp(150px, 17vw, 210px); aspect-ratio: 1 / 1; border-radius: 50%; margin: 10px auto 0; transform: rotate(-4deg); filter: drop-shadow(3px 4px 0 rgba(39, 48, 46, 0.18)); }
+  .mwh .mwh-hand { margin: -26px 0 26px; position: relative; z-index: 1; text-shadow: 0 0 6px #FFF6E6, 0 0 6px #FFF6E6; }
+  .mwh .mwh-lang { margin-bottom: 26px; }
+  .mwh .mwh-wrap { padding-top: 76px; }
   /* Oct 18, 2026 (Marlon: "stamps across the page, not at the bottom"): on wide screens the four stamps are scattered over the card like real postmarks: top-left corner, top between the columns, lower left under the text, lower right under the photo. On phones they stay in one small row. */
   @media (min-width: 1150px) {
-    .mwh-wrap { padding-bottom: 76px !important; }
+    .mwh-wrap { padding-bottom: 156px !important; }
     .mwh-stamps { inset: 0; height: auto; }
     .mwh-stamps svg.stamp { width: clamp(86px, 8.6vw, 106px); }
     .mwh-stamps svg.stamp:nth-child(1) { left: 1%; top: 34px; bottom: auto; }
