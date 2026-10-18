@@ -29,7 +29,7 @@
                 <span class="mwh-tape" style="background:rgba(96,200,96,.6)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp" alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market" loading="eager">
               </a>
-              <p class="mwh-cap"><strong>Celebra a tu equipo</strong><em class="mwh-tag" data-tone="green">Tours de Equipo</em></p>
+              <p class="mwh-cap"><strong data-tone="green">Celebra a tu equipo</strong></p>
               <p class="mwh-sub">Salidas de equipo para 5 a 30 personas. Todos se llevan una foto.</p>
               <a class="mwh-btn mwh-cbtn" data-tone="green" href="#team" tabindex="0">Reserva una salida de equipo</a>
             </div>
@@ -38,7 +38,7 @@
                 <span class="mwh-tape" style="background:rgba(40,144,182,.45)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad3db6be47154900024909b_private-tour-urban-lights.webp" alt="Invitados de un tour privado con su Polaroid" loading="eager">
               </a>
-              <p class="mwh-cap"><strong>LA a tu manera</strong><em class="mwh-tag" data-tone="blue">Tours Privados</em></p>
+              <p class="mwh-cap"><strong data-tone="blue">LA a tu manera</strong></p>
               <p class="mwh-sub">Elige tus paradas. Te recogemos y te llevamos de vuelta.</p>
               <a class="mwh-btn mwh-cbtn" data-tone="blue" href="#private" tabindex="-1">Dise&ntilde;a un tour privado</a>
             </div>
@@ -47,7 +47,7 @@
                 <span class="mwh-tape" style="background:rgba(255,0,255,.45)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad3db6c73266c4e732cdd90_free-tour-avila-adobe.webp" alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila" loading="eager">
               </a>
-              <p class="mwh-cap"><strong>&iexcl;&Uacute;nete a un Free Tour!</strong><em class="mwh-tag" data-tone="yellow">Free Tour</em></p>
+              <p class="mwh-cap"><strong data-tone="yellow">&iexcl;&Uacute;nete a un Free Tour!</strong></p>
               <p class="mwh-sub">Tours a pie gratis por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Das la propina que quieras.</p>
               <a class="mwh-btn mwh-cbtn" data-tone="yellow" href="#book" tabindex="-1">&Uacute;nete a un free tour</a>
             </div>
@@ -230,6 +230,15 @@
   .mwh .mwh-hand { margin: 22px 0 24px; position: relative; z-index: 1; }
   .mwh .mwh-lang { margin-bottom: 26px; }
   .mwh .mwh-wrap { padding-top: 76px; }
+  /* Oct 18, 2026 (Marlon): the color highlight moves from the small tag to the tour title ("LA, Your Way"); the tag is gone. Highlights are see-through (about 55%) so a stamp behind never fights the words. The sentence gets wider letter, word and line spacing so the picked word has room to grow. */
+  .mwh-cap strong[data-tone="green"], .mwh-hl[data-tone="green"] { --tone: rgba(134, 214, 158, 0.55); }
+  .mwh-cap strong[data-tone="yellow"], .mwh-hl[data-tone="yellow"] { --tone: rgba(255, 212, 59, 0.55); }
+  .mwh-cap strong[data-tone="blue"], .mwh-hl[data-tone="blue"] { --tone: rgba(140, 203, 232, 0.6); }
+  .mwh .mwh-cap strong { display: inline-block; padding: 4px 16px; line-height: 1.2; border-radius: 6px; background: var(--tone); }
+  .mwh .mwh-hl { background: var(--tone) !important; margin: 0 10px; letter-spacing: 0.02em !important; }
+  .mwh .mwh-line { letter-spacing: 0.02em !important; word-spacing: 0.08em; line-height: 2.05; max-width: 36ch; }
+  .mwh-text, .mwh-right { position: relative; z-index: 4; }
+  .mwh-stamps { z-index: 1 !important; }
   /* Oct 18, 2026 (Marlon): stamps must not make the hero taller, and must be easy to read. They sit in the empty side margins on wide screens (two left, two right, 124px). On smaller screens there is ONE stamp, in the top-right corner by the headline. */
   .mwh-stamps { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
   .mwh-stamps svg.stamp { position: absolute; width: 80px; height: auto; margin: 0; display: none; }
@@ -239,7 +248,7 @@
     .mwh-stamps svg.stamp { display: block; width: clamp(104px, 8.8vw, 120px); }
     .mwh-stamps svg.stamp:nth-child(1) { left: 24px; right: auto; top: 26px; }
     .mwh-stamps svg.stamp:nth-child(2) { right: 24px; top: 26px; }
-    .mwh-stamps svg.stamp:nth-child(3) { left: 24px; bottom: 28px; }
+    .mwh-stamps svg.stamp:nth-child(3) { left: 46%; bottom: 28px; }
     .mwh-stamps svg.stamp:nth-child(4) { right: 24px; bottom: 28px; }
   }
   @media (max-width: 767px) { .mwh-car { grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; } .mwh-nav { width: 40px; height: 40px; } .mwh-nav { margin-top: 150px; } }

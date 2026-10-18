@@ -158,7 +158,7 @@ def build(lang):
         f'                <span class="mwh-tape" style="background:{x["tape"]}"></span>\n'
         f'                <img src="{x["img"]}" alt="{x["alt"]}" loading="eager">\n'
         f'              </a>\n'
-        f'              <p class="mwh-cap"><strong>{x["title"]}</strong><em class="mwh-tag" data-tone="{x["tone"]}">{x["eyebrow"]}</em></p>\n'
+        f'              <p class="mwh-cap"><strong data-tone="{x["tone"]}">{x["title"]}</strong></p>\n'
         f'              <p class="mwh-sub">{x["line"]}</p>\n'
         f'              <a class="mwh-btn mwh-cbtn" data-tone="{x["tone"]}" href="{x["href"]}" tabindex="{0 if n == 0 else -1}">{x["btn"]}</a>\n'
         f'            </div>\n' for n, x in enumerate(SL))
@@ -370,6 +370,15 @@ def build(lang):
   .mwh .mwh-hand {{ margin: 22px 0 24px; position: relative; z-index: 1; }}
   .mwh .mwh-lang {{ margin-bottom: 26px; }}
   .mwh .mwh-wrap {{ padding-top: 76px; }}
+  /* Oct 18, 2026 (Marlon): the color highlight moves from the small tag to the tour title ("LA, Your Way"); the tag is gone. Highlights are see-through (about 55%) so a stamp behind never fights the words. The sentence gets wider letter, word and line spacing so the picked word has room to grow. */
+  .mwh-cap strong[data-tone="green"], .mwh-hl[data-tone="green"] {{ --tone: rgba(134, 214, 158, 0.55); }}
+  .mwh-cap strong[data-tone="yellow"], .mwh-hl[data-tone="yellow"] {{ --tone: rgba(255, 212, 59, 0.55); }}
+  .mwh-cap strong[data-tone="blue"], .mwh-hl[data-tone="blue"] {{ --tone: rgba(140, 203, 232, 0.6); }}
+  .mwh .mwh-cap strong {{ display: inline-block; padding: 4px 16px; line-height: 1.2; border-radius: 6px; background: var(--tone); }}
+  .mwh .mwh-hl {{ background: var(--tone) !important; margin: 0 10px; letter-spacing: 0.02em !important; }}
+  .mwh .mwh-line {{ letter-spacing: 0.02em !important; word-spacing: 0.08em; line-height: 2.05; max-width: 36ch; }}
+  .mwh-text, .mwh-right {{ position: relative; z-index: 4; }}
+  .mwh-stamps {{ z-index: 1 !important; }}
   /* Oct 18, 2026 (Marlon): stamps must not make the hero taller, and must be easy to read. They sit in the empty side margins on wide screens (two left, two right, 124px). On smaller screens there is ONE stamp, in the top-right corner by the headline. */
   .mwh-stamps {{ position: absolute; inset: 0; z-index: 3; pointer-events: none; }}
   .mwh-stamps svg.stamp {{ position: absolute; width: 80px; height: auto; margin: 0; display: none; }}
@@ -379,7 +388,7 @@ def build(lang):
     .mwh-stamps svg.stamp {{ display: block; width: clamp(104px, 8.8vw, 120px); }}
     .mwh-stamps svg.stamp:nth-child(1) {{ left: 24px; right: auto; top: 26px; }}
     .mwh-stamps svg.stamp:nth-child(2) {{ right: 24px; top: 26px; }}
-    .mwh-stamps svg.stamp:nth-child(3) {{ left: 24px; bottom: 28px; }}
+    .mwh-stamps svg.stamp:nth-child(3) {{ left: 46%; bottom: 28px; }}
     .mwh-stamps svg.stamp:nth-child(4) {{ right: 24px; bottom: 28px; }}
   }}
   @media (max-width: 767px) {{ .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-nav {{ margin-top: 150px; }} }}
