@@ -124,15 +124,37 @@ def pier(color="#B8326E", opacity=1):
 
 
 def wdch(color="#2B4F9E", opacity=1):
-    """Free tour stamp icon: Walt Disney Concert Hall, curving steel sails with thin gaps between them."""
-    sails = [
-        "M70 190 C80 130 130 88 200 76 C192 118 176 156 158 190 Z",
-        "M150 190 C172 114 246 54 338 40 C326 92 296 146 274 190 Z",
-        "M262 190 C292 106 356 70 438 82 C418 124 388 160 376 190 Z",
-        "M360 190 C396 150 438 138 478 150 L478 190 Z",
+    """Walt Disney Concert Hall (Frank Gehry, 2003): angular, leaning, folded stainless-steel panels, NOT round sails (those are the Sydney Opera House)."""
+    panels = [
+        "M70 176 L96 112 Q124 96 156 100 L170 176 Z",                       # low left fold
+        "M150 176 L196 72 Q232 52 276 58 L270 112 L246 176 Z",              # tall left lean
+        "M232 176 L286 40 Q330 22 372 36 L352 104 L318 176 Z",              # tallest, leaning right
+        "M308 176 L360 96 Q398 84 430 98 L418 148 L392 176 Z",              # right fold
+        "M388 176 L428 130 Q452 124 470 134 L466 176 Z",                    # low right fold
     ]
-    d = "".join(f'<path d="{p}" stroke="#fff" stroke-width="4"/>' for p in sails)
-    d += '<rect x="40" y="190" width="440" height="12"/><rect x="0" y="214" width="520" height="6"/>'
+    d = "".join(f'<path d="{p}" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>' for p in panels)
+    # fold creases inside the tall panels
+    d += '<path d="M196 72 L246 176 M286 40 L318 176 M360 96 L392 176" stroke="#fff" stroke-width="3" fill="none"/>'
+    d += '<rect x="50" y="176" width="440" height="22"/><rect x="214" y="182" width="52" height="16" fill="#fff"/><rect x="0" y="214" width="520" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def bradbury(color="#2E9E57", opacity=1):
+    """Bradbury Building (1893): the tall brick facade, rows of windows, a big arched entrance and a heavy cornice."""
+    b = 206
+    holes = ""
+    for r in range(5):
+        for c in range(5):
+            if r == 4 and c == 2:
+                continue
+            holes += f" M{168+c*40} {b-132+r*26} h22 v{16 if r < 4 else 14} h-22 Z"
+    holes += f" M238 {b} V{b-34} q22 -34 44 0 V{b} Z"
+    d = f'<path fill-rule="evenodd" d="M150 {b} V{b-150} H370 V{b} Z{holes}"/>'
+    d += f'<rect x="140" y="{b-162}" width="240" height="14"/><rect x="156" y="{b-176}" width="208" height="14"/><rect x="224" y="{b-196}" width="72" height="22"/>'
+    d += f'<rect x="136" y="{b-6}" width="248" height="6"/>'
+    # a hint of the ironwork: fire-escape rail across the third floor
+    d += f'<rect x="158" y="{b-80}" width="204" height="3" fill="#fff"/>'
+    d += '<rect x="90" y="206" width="340" height="6"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 

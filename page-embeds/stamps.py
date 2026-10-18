@@ -12,7 +12,7 @@ def _inner(svg):
 def icon(name, ink):
     if name == "gcm": return _inner(SIL.gcm(ink)), (390, 216, "58 8 390 216", 112)
     if name == "observatory": return _inner(SIL.observatory(ink)), (520, 220)
-    if name == "kiosko": return _inner(SIL.kiosko(ink)), (520, 220)
+    if name == "kiosko": return _inner(SIL.kiosko(ink)), (520, 220, "0 0 520 220", 126)
     if name == "city_tower": return _inner(SIL.city_tower(ink)), (160, 220, "180 0 160 220", 60)
     if name == "palm": return _inner(SIL.palm(ink)), (220, 220, "150 0 220 220", 100)
     if name == "sunset": return _inner(SIL.sunset(ink)), (320, 170, "100 40 320 170", 124)
@@ -22,7 +22,8 @@ def icon(name, ink):
     if name == "palms3": return _inner(SIL.palms3(ink)), (320, 220, "100 0 320 220", 146)
     if name == "obs": return _inner(SIL.observatory_clean(ink)), (300, 130, "110 50 300 130", 140)
     if name == "trio": return _inner(SIL.trio(ink)), (520, 220, "0 10 520 210", 134)
-    if name == "wdch": return _inner(SIL.wdch(ink)), (520, 220)
+    if name == "wdch": return _inner(SIL.wdch(ink)), (440, 210, "46 20 440 210", 138)
+    if name == "bradbury": return _inner(SIL.bradbury(ink)), (300, 220, "110 6 300 220", 112)
     if name == "city_hall": return _inner(SIL.city_hall(ink)), (520, 220)
     if name == "skyline": return _inner(SIL.skyline(ink)), (440, 200, "400 0 440 200")
     raise ValueError(name)
