@@ -19,7 +19,7 @@ T = {
     "en": dict(
         eyebrow="Downtown LA walking tours",
         h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon</span>', hand="&amp; Ernesto!",
-        line='Explore LA on a <button type="button" class="mwh-hl" data-tone="green" data-i="0">team tour</button>, a <button type="button" class="mwh-hl" data-tone="yellow" data-i="1">free tour</button> or a <button type="button" class="mwh-hl" data-tone="blue" data-i="2">private tour</button>, in English or Spanish.',
+        line='Explore LA on a <button type="button" class="mwh-hl" data-tone="green" data-i="0">team tour</button>, a <button type="button" class="mwh-hl" data-tone="blue" data-i="1">private tour</button> or a <button type="button" class="mwh-hl" data-tone="yellow" data-i="2">free tour</button>, in English or Spanish.',
         btn="Book a Team Outing", btn_href="#team", btn2="Design a Private Tour", btn2_href="#private", freeL="Or join a free tour &rarr;", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
@@ -35,7 +35,7 @@ T = {
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
         h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span>', hand="&iexcl;y Ernesto!",
-        line='Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="yellow" data-i="1">free tour</button> o un <button type="button" class="mwh-hl" data-tone="blue" data-i="2">tour privado</button>, en espa&ntilde;ol o ingl&eacute;s.',
+        line='Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="blue" data-i="1">tour privado</button> o un <button type="button" class="mwh-hl" data-tone="yellow" data-i="2">free tour</button>, en espa&ntilde;ol o ingl&eacute;s.',
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
@@ -56,18 +56,18 @@ SLIDES = {
  "en": [
   dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="#team",
        line="Team outings for 5 to 30 people. Everyone takes home a photo.", alt="Kara's birthday group at the Grand Central Market sign"),
-  dict(tab="Free", key="free", tone="yellow", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
-       line="Free walking tours of Downtown LA, in English and Spanish. Tip what you like.", alt="Free tour guests posing together at the Avila Adobe garden"),
   dict(tab="Private", key="priv", tone="blue", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="#private",
        line="Pick your stops. We pick you up and drop you off.", alt="Private tour guests with their Polaroid"),
+  dict(tab="Free", key="free", tone="yellow", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
+       line="Free walking tours of Downtown LA, in English and Spanish. Tip what you like.", alt="Free tour guests posing together at the Avila Adobe garden"),
  ],
  "es": [
   dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="#team",
        line="Salidas de equipo para 5 a 30 personas. Todos se llevan una foto.", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
-  dict(tab="Free", key="free", tone="yellow", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
-       line="Tours a pie gratis por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Das la propina que quieras.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
   dict(tab="Privado", key="priv", tone="blue", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="#private",
        line="Elige tus paradas. Te recogemos y te llevamos de vuelta.", alt="Invitados de un tour privado con su Polaroid"),
+  dict(tab="Free", key="free", tone="yellow", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
+       line="Tours a pie gratis por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Das la propina que quieras.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
  ],
 }
 
@@ -143,10 +143,10 @@ def build(lang):
     CH = 'RETO' if es else 'CHALLENGE'
     # Oct 18, 2026 (Marlon): four stamps spread across the hero, always visible: the three tours, then one challenge.
     HERO_STAMPS = ('<div class="mwh-stamps" aria-hidden="true">'
-                   + hs('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -8, 3)
-                   + hs('hsb', 'PLACITA OLVERA', 'FREE TOUR' if not es else 'FREE TOUR', 'kiosko', 'EST. 1781', '#7A3FA0', 7, 6)
-                   + hs('hsc', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9)
-                   + hs('hsd', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 8, 12, True)
++ hs('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -8, 3, True)
++ hs('hsc', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9, True)
++ hs('hsb', 'PLACITA OLVERA', 'FREE TOUR' if not es else 'FREE TOUR', 'kiosko', 'EST. 1781', '#7A3FA0', 7, 6, True)
++ hs('hsd', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 8, 12, True)
                    + '</div>')
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
@@ -362,33 +362,25 @@ def build(lang):
   .mwh-hl.is-on {{ transform: scale(1.12); box-shadow: 2px 2px 0 #27302E; }}
   .mwh-hl:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 2px; }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-hl {{ transition: none; }} }}
-  /* Oct 18, 2026 (Marlon): four stamps spread across the page along the bottom edge, tilted and overlapping the airmail border like postmarks; the layout gives them their own room under the content so they never cover text */
-  .mwh-wrap {{ padding-bottom: 164px !important; }}
-  .mwh-stamps {{ position: absolute; left: 0; right: 0; bottom: 0; height: 0; z-index: 3; pointer-events: none; }}
-  .mwh-stamps svg.stamp {{ position: absolute; bottom: 38px; width: clamp(62px, 8.6vw, 106px); height: auto; margin: 0; }}
-  .mwh-stamps svg.stamp:nth-child(1) {{ left: 4%; }}
-  .mwh-stamps svg.stamp:nth-child(2) {{ left: 30%; bottom: 54px; }}
-  .mwh-stamps svg.stamp:nth-child(3) {{ left: 60%; }}
-  .mwh-stamps svg.stamp:nth-child(4) {{ left: auto; right: 4%; bottom: 54px; }}
-  @media (max-width: 520px) {{ .mwh-wrap {{ padding-bottom: 132px !important; }} .mwh-stamps svg.stamp:nth-child(2), .mwh-stamps svg.stamp:nth-child(4) {{ bottom: 48px; }} .mwh-stamps svg.stamp:nth-child(2) {{ left: 28%; }} .mwh-stamps svg.stamp:nth-child(3) {{ left: 52%; }} }}
   /* Oct 18, 2026: on the live test site Webflow's paragraph style forces Lilita One here, and weight 700 gets faux-bolded (smeared). The sentence is short glanceable text, so it is Fredoka (real 500/600 weights). The callout gets room from Ernesto's feet. */
   .mwh .mwh-line, .mwh .mwh-hl {{ font-family: "Fredoka", system-ui, sans-serif !important; font-weight: 500 !important; letter-spacing: 0 !important; text-shadow: none !important; }}
   .mwh .mwh-hl {{ font-weight: 600 !important; }}
-  .mwh .mwh-hand {{ margin-top: 12px; }}
   /* Oct 18, 2026 (Marlon): the round MarlonWalksLA badge introduces Ernesto. It is bigger (about 210px), sits like a sticker with a soft shadow, and "& Ernesto!" overlaps its lower edge like a label. The language tags get more room, so that part of the hero is taller. */
   .mwh .mwh-ern2 {{ height: auto; width: clamp(150px, 17vw, 210px); aspect-ratio: 1 / 1; border-radius: 50%; margin: 10px auto 0; transform: rotate(-4deg); filter: drop-shadow(3px 4px 0 rgba(39, 48, 46, 0.18)); }}
-  .mwh .mwh-hand {{ margin: -26px 0 26px; position: relative; z-index: 1; text-shadow: 0 0 6px #FFF6E6, 0 0 6px #FFF6E6; }}
+  .mwh .mwh-hand {{ margin: 22px 0 24px; position: relative; z-index: 1; }}
   .mwh .mwh-lang {{ margin-bottom: 26px; }}
   .mwh .mwh-wrap {{ padding-top: 76px; }}
-  /* Oct 18, 2026 (Marlon: "stamps across the page, not at the bottom"): on wide screens the four stamps are scattered over the card like real postmarks: top-left corner, top between the columns, lower left under the text, lower right under the photo. On phones they stay in one small row. */
-  @media (min-width: 1150px) {{
-    .mwh-wrap {{ padding-bottom: 156px !important; }}
-    .mwh-stamps {{ inset: 0; height: auto; }}
-    .mwh-stamps svg.stamp {{ width: clamp(86px, 8.6vw, 106px); }}
-    .mwh-stamps svg.stamp:nth-child(1) {{ left: 1%; top: 34px; bottom: auto; }}
-    .mwh-stamps svg.stamp:nth-child(2) {{ left: 41%; top: 28px; bottom: auto; }}
-    .mwh-stamps svg.stamp:nth-child(3) {{ left: 7%; top: auto; bottom: 36px; }}
-    .mwh-stamps svg.stamp:nth-child(4) {{ left: auto; right: 1%; top: auto; bottom: 36px; }}
+  /* Oct 18, 2026 (Marlon): stamps must not make the hero taller, and must be easy to read. They sit in the empty side margins on wide screens (two left, two right, 124px). On smaller screens there is ONE stamp, in the top-right corner by the headline. */
+  .mwh-stamps {{ position: absolute; inset: 0; z-index: 3; pointer-events: none; }}
+  .mwh-stamps svg.stamp {{ position: absolute; width: 80px; height: auto; margin: 0; display: none; }}
+  .mwh-stamps svg.stamp:nth-child(1) {{ display: block; right: 10px; top: 22px; }}
+  @media (min-width: 992px) {{ .mwh-stamps svg.stamp:nth-child(1) {{ right: 22px; top: 22px; width: 96px; }} }}
+  @media (min-width: 1180px) {{
+    .mwh-stamps svg.stamp {{ display: block; width: clamp(104px, 8.8vw, 120px); }}
+    .mwh-stamps svg.stamp:nth-child(1) {{ left: 24px; right: auto; top: 26px; }}
+    .mwh-stamps svg.stamp:nth-child(2) {{ right: 24px; top: 26px; }}
+    .mwh-stamps svg.stamp:nth-child(3) {{ left: 24px; bottom: 28px; }}
+    .mwh-stamps svg.stamp:nth-child(4) {{ right: 24px; bottom: 28px; }}
   }}
   @media (max-width: 767px) {{ .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-nav {{ margin-top: 150px; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
