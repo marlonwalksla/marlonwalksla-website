@@ -74,7 +74,7 @@ html = f'''<!-- ================================================================
     <div class="mwla-fleft">
       <div class="mwla-pols">{pols}</div>
       <figure class="mwla-q"><blockquote data-pi="qt">{text["en"]["qt"]}</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span data-pi="qwho">{text["en"]["qwho"]}</span></figcaption></figure>
-      <div class="mwla-map" id="mwla-map" aria-label="Free tour route map"></div>
+      <div class="mwla-map"><img id="mwla-map-img" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad44d20976c216bae2d2f06_Free%20Tour%20Route.webp" alt="Map of the free tour route: nine stops from Walt Disney Concert Hall to Olvera Street" width="1200" height="800" loading="lazy" decoding="async"></div>
     </div>
     <div class="mwla-fcard">
       <h3 class="mwla-card-h" data-i18n="cardh">{text["en"]["cardh"]}</h3>
@@ -119,8 +119,8 @@ html = f'''<!-- ================================================================
   .mwla-pol figcaption {{ display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px; }}
   .mwla-pol b {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.05rem; line-height: 1.15; color: #27302E; }}
   .mwla-pol small {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #4D5551; }}
-  .mwla-map {{ margin-top: 22px; min-width: 0; background: #fff; border: 2.5px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; padding: 10px 12px 12px; }}
-  .mwla-map:empty {{ display: none; }}
+  .mwla-map {{ margin-top: 22px; min-width: 0; background: #fff; border: 2.5px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; padding: 10px; }}
+  .mwla-map img {{ display: block; width: 100%; max-width: 100%; height: auto; border-radius: 8px; }}
   .mwla-fcard {{ background: #ffffff; border-radius: 18px; padding: 20px 18px 18px; box-shadow: 0 12px 30px -18px rgba(39, 48, 46, 0.55); }}
   @media (min-width: 992px) {{ .mwla-fcard {{ position: sticky; top: 90px; }} }}
   .mwla-card-h {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.45rem; color: #27302E; margin: 0 0 12px; }}
@@ -193,28 +193,14 @@ html = f'''<!-- ================================================================
     apply((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 ? "es" : "en");
   }})();
 </script>
-<script type="application/json" id="mwla-ra-en">__RAEN__</script>
-<script type="application/json" id="mwla-ra-es">__RAES__</script>
 <script>
-/* Oct 18, 2026 (Marlon): the free tour route map sits under the review (same animated map as the Team page, map only: tap a stop and Ernesto walks there). */
+/* Oct 18, 2026 (Marlon): the free tour route is one static image under the review (no map script). Spanish alt text on /es. */
 (function () {{
-  var box = document.getElementById("mwla-map"); if (!box) return;
-  var es = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 || /^\/es(\/|$)/.test(location.pathname);
-  var src = document.getElementById(es ? "mwla-ra-es" : "mwla-ra-en"); if (!src) return;
-  box.setAttribute("aria-label", es ? "Mapa de la ruta del tour gratis" : "Free tour route map");
-  var ra = document.createElement("div"); ra.className = "ra"; ra.setAttribute("data-nolist", ""); ra.setAttribute("data-compact", "");
-  ra.setAttribute("data-label", es ? "Mapa de la ruta del tour gratis" : "Free tour route map");
-  ra.setAttribute("data-ernesto", "__TG__");
-  var js = document.createElement("script"); js.type = "application/json"; js.className = "ra-data"; js.textContent = src.textContent; ra.appendChild(js); box.appendChild(ra);
-  var B = "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/";
-  if (!document.querySelector('link[href*="route-anim.css"]')) {{ var l = document.createElement("link"); l.rel = "stylesheet"; l.href = B + "route-anim.css?v=1"; document.head.appendChild(l); }}
-  function go() {{ if (window.MWRouteAnim) window.MWRouteAnim.init(); }}
-  if (window.MWRouteAnim) {{ go(); }} else {{ var s = document.createElement("script"); s.src = B + "route-anim.js?v=1"; s.onload = go; document.head.appendChild(s); }}
+  var im = document.getElementById("mwla-map-img"); if (!im) return;
+  var es = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 || /^\\/es(\\/|$)/.test(location.pathname);
+  if (es) im.alt = "Mapa de la ruta del tour gratis: nueve paradas desde Walt Disney Concert Hall hasta la calle Olvera";
 }})();
 </script>
 '''
-import json as _j
-html = html.replace("__RAEN__", open("route-free-en.json", encoding="utf-8").read().replace("</", "<\\/")).replace("__RAES__", open("route-free-es.json", encoding="utf-8").read().replace("</", "<\\/"))
-html = html.replace("__TG__", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif")
 open("home-book.html","w",encoding="utf-8").write(html)
 print("wrote home-book.html", len(html))
