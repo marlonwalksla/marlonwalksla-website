@@ -18,7 +18,7 @@ P_TEAM = CDN + "6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp"  # Oct 1
 T = {
     "en": dict(
         eyebrow="Downtown LA walking tours",
-        h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon and Ernesto</span>',
+        h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon</span>', hand="&amp; Ernesto!",
         line="Free walking tours, team outings and private days, in English and Spanish.",
         btn="Book a Team Outing", btn_href="#team", btn2="Design a Private Tour", btn2_href="#private", freeL="Or join a free tour &rarr;", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
@@ -33,7 +33,7 @@ T = {
     ),
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
-        h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon y Ernesto</span>',
+        h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span>', hand="&iexcl;y Ernesto!",
         line="Free tours, tours para equipos y d&iacute;as privados, en espa&ntilde;ol e ingl&eacute;s.",
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
@@ -134,8 +134,9 @@ def build(lang):
                 f'    </a>\n')
     PAPER_HERO = paper.rule('.mwh::before').replace('{', '{{').replace('}', '}}')
     es = lang == 'es'
-    HERO_STAMPS = (stamps.stamp('hsa', 'CENTRO DE LOS &Aacute;NGELES' if es else 'DOWNTOWN LOS ANGELES', 'EXPLORADO' if es else 'EXPLORED', 'skyline', '', '#E8412F', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
-                   + stamps.stamp('hsb', 'CITY HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'city_hall', 'EST. 1928', '#2890B6', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"'))
+    HERO_STAMPS = (stamps.stamp('hsa', 'CENTRO DE LOS &Aacute;NGELES' if es else 'DOWNTOWN LOS ANGELES', 'EXPLORADO' if es else 'EXPLORED', 'palm', '', '#E8412F', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
+                   + stamps.stamp('hsb', 'CITY HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'city_tower', 'EST. 1928', '#2890B6', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"')
+                   + stamps.stamp('hsc', 'SOL DE CALIFORNIA' if es else 'CALIFORNIA SUNSHINE', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'sun', '', '#E27B1A', 6, 9).replace('class="stamp"', 'class="stamp stamp-c"'))
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
     PREV = "Previous tour" if lang == "en" else "Tour anterior"
@@ -165,7 +166,8 @@ def build(lang):
     <div class="mwh-text">
       <h1 class="mwh-h1">{t["h1"]}</h1>
       <div class="mwh-lang" role="group" aria-label="Language / Idioma">
-        <img class="mwh-ern" src="{ERNESTO}" alt="{t["ern_alt"]}" width="90" height="108">
+        <span class="mwh-ernwrap"><img class="mwh-ern" src="{ERNESTO}" alt="{t["ern_alt"]}" width="90" height="108">
+          <span class="mwh-hand" lang="{lang}">{t["hand"]}<svg class="mwh-arrow" viewBox="0 0 70 56" aria-hidden="true" focusable="false"><path d="M64 6 C 40 2, 14 14, 10 40" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><path d="M2 31 L10 44 L22 33" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
         <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en"{cur_en}>English</a>
         <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es"{cur_es}>Espa&ntilde;ol</a>
       </div>
@@ -248,6 +250,11 @@ def build(lang):
   .mwh-wrap {{ padding-top: 64px; }}
   .mwh-lang {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 18px; }}
   .mwh-lang .mwh-ern {{ height: 96px; margin: 0 4px 0 0; }}
+  /* Oct 18, 2026 (Marlon via Gemini): the headline says only "Explore LA with Marlon"; Ernesto gets a handwritten callout with a hand-drawn arrow */
+  .mwh-lang {{ margin-top: 50px; }}
+  .mwh-ernwrap {{ position: relative; display: inline-block; line-height: 0; }}
+  .mwh-hand {{ position: absolute; left: 58px; bottom: 92px; white-space: nowrap; font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 2.1rem; line-height: 1; color: #E8412F; transform: rotate(-7deg); transform-origin: left bottom; pointer-events: none; }}
+  .mwh-arrow {{ position: absolute; left: -40px; top: 26px; width: 52px; height: auto; transform: rotate(-4deg); }}
   .mwh-lb {{ position: relative; font-family: "Lilita One", sans-serif; font-size: 1.15rem; line-height: 1; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2.5px solid #27302E; border-radius: 12px; padding: 12px 20px; min-height: 44px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }}
   .mwh-lb::before {{ content: ""; position: absolute; top: -9px; left: 50%; width: 46px; height: 15px; background: rgba(40,144,182,.45); transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; }}
   .mwh-lb2::before {{ background: rgba(255,0,255,.4); transform: translateX(-50%) rotate(3deg); }}
@@ -305,16 +312,19 @@ def build(lang):
   .mwh-nav:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 3px; }}
   .mwh-prev {{ grid-column: 1; grid-row: 1; }} .mwh-next {{ grid-column: 3; grid-row: 1; }}
   .mwh-tabs {{ display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }}
-  .mwh-tab {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; color: #27302E; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 0 16px; min-height: 44px; cursor: pointer; }}
-  .mwh-tab[aria-current="true"] {{ background: #FFD43B; box-shadow: 2px 2px 0 #27302E; }}
+  /* Oct 18, 2026 (Marlon via Gemini): the three tabs are quiet flat tags, not CTAs (the yellow button is the one action) */
+  .mwh-tab {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; color: #4D5551; background: rgba(39, 48, 46, 0.06); border: 0; border-radius: 8px; padding: 0 16px; min-height: 44px; cursor: pointer; }}
+  .mwh-tab:hover {{ background: rgba(39, 48, 46, 0.1); }}
+  .mwh-tab[aria-current="true"] {{ font-weight: 700; color: #27302E; background: rgba(39, 48, 46, 0.12); box-shadow: none; }}
   .mwh-tab:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 3px; }}
   .mwh-cbtn {{ font-size: 1.2rem; padding: 13px 26px; }}
   /* Oct 17, 2026: the skyline silhouette is replaced by two ink stamps */
   .mwh-wrap::before {{ content: none !important; }}
   .mwh > svg.stamp {{ position: absolute; z-index: 1; }}
-  .mwh > .stamp-a {{ left: calc(50% - 250px); bottom: 26px; width: 130px; }}
-  .mwh > .stamp-b {{ right: max(44px, calc(50% - 560px)); bottom: 34px; width: 120px; }}
-  @media (max-width: 1100px) {{ .mwh > .stamp-b {{ display: none; }} }}
+  .mwh > .stamp-a {{ left: calc(50% - 262px); bottom: 20px; width: 182px; }}
+  .mwh > .stamp-b {{ right: max(48px, calc(50% - 570px)); bottom: 38px; width: 168px; }}
+  .mwh > .stamp-c {{ right: max(48px, calc(50% - 570px)); top: 38px; width: 150px; }}
+  @media (max-width: 1100px) {{ .mwh > .stamp-b, .mwh > .stamp-c {{ display: none; }} }}
   @media (max-width: 767px) {{ .mwh > svg.stamp {{ display: none; }} .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
 
@@ -377,10 +387,10 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   /* Oct 17, 2026 (Marlon): LA silhouettes fill the white space of each postcard back, like the example postcards */
   #team.mwsh, #private.mwsh, .mwla-book-head { position: relative; }
   /* Oct 17, 2026 (Marlon): ink stamps (passport style) replace the pale silhouettes; they fill the white space on the right of each header */
-  svg.stamp { display: block; width: 150px; height: auto; mix-blend-mode: multiply; opacity: .93; transform: rotate(var(--r, -8deg)); pointer-events: none; }
+  svg.stamp { display: block; width: 210px; height: auto; mix-blend-mode: multiply; opacity: .93; transform: rotate(var(--r, -8deg)); pointer-events: none; }
   #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { position: absolute; top: 6px; right: 26px; z-index: 0; }
-  #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { top: 44px; right: 156px; }
-  @media (max-width: 1000px) { #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { display: none; } }
+  #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { top: 50px; right: 232px; }
+  @media (max-width: 1100px) { #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { display: none; } }
   @media (max-width: 700px) { #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { display: none; } }
   #team.mwsh > *, #private.mwsh > *, .mwla-book-head > * { position: relative; z-index: 1; }
   /* badges: small facts, not buttons */

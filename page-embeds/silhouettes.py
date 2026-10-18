@@ -137,6 +137,39 @@ def wdch(color="#2B4F9E", opacity=1):
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 
+def city_tower(color="#2890B6", opacity=1):
+    """Hero stamp (Oct 18, 2026): just the City Hall tower, one clean shape."""
+    b = 214
+    d = f'<rect x="196" y="{b-44}" width="128" height="44"/><rect x="214" y="{b-74}" width="92" height="30"/><rect x="232" y="{b-104}" width="56" height="30"/>'
+    d += f'<rect x="242" y="{b-150}" width="36" height="46"/><rect x="236" y="{b-158}" width="48" height="8"/>'
+    d += f'<path d="M240 {b-158} L260 {b-192} L280 {b-158} Z"/><rect x="258" y="{b-210}" width="4" height="20"/>'
+    for i in range(3):
+        d += f'<rect x="{248+i*11}" y="{b-142}" width="5" height="28" fill="#fff"/>'
+    ground = f'<rect x="150" y="{b}" width="220" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}{ground}</svg>'
+
+
+def palm(color="#E8412F", opacity=1):
+    """Hero stamp: one tall palm tree."""
+    d = _palm(260, 214, 200, 10, 1.15)
+    d += '<rect x="170" y="214" width="180" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def sun(color="#E27B1A", opacity=1):
+    """Hero stamp: a low sun with rays over the horizon."""
+    import math
+    cx, cy, r = 260, 168, 54
+    d = f'<path d="M{cx-r} {cy} A{r} {r} 0 0 1 {cx+r} {cy} Z"/>'
+    for i in range(1, 9):
+        a = math.pi * i / 9
+        x1, y1 = cx - (r + 14) * math.cos(a), cy - (r + 14) * math.sin(a)
+        x2, y2 = cx - (r + 44) * math.cos(a), cy - (r + 44) * math.sin(a)
+        d += f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{color}" stroke-width="9" stroke-linecap="round"/>'
+    d += '<rect x="120" y="176" width="280" height="8"/><rect x="170" y="194" width="180" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
 if __name__ == "__main__":
     import sys
     out = sys.argv[1]
@@ -160,7 +193,7 @@ def gcm(color="#2E9E57", opacity=1):
     d += f'<rect x="94" y="{b-130}" width="332" height="10"/><rect x="232" y="{b-150}" width="56" height="20"/><rect x="254" y="{b-162}" width="12" height="12"/>'
     d += f'<rect x="70" y="{b-196}" width="20" height="170"/><rect x="66" y="{b-204}" width="28" height="10"/>'
     d += f'<rect x="108" y="{b-30}" width="124" height="8"/><rect x="288" y="{b-30}" width="124" height="8"/>'
-    blocks = [(6,70,32),(42,104,26),(436,86,30),(470,64,34)]
+    blocks = []  # Oct 18, 2026: one building only, no side blocks
     d += ''.join(f'<rect x="{x}" y="{b-h}" width="{w}" height="{h}"/>' for x, h, w in blocks)
     ground = f'<rect x="0" y="{b-6}" width="520" height="6"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 {b}" fill="{color}" opacity="{opacity}">{d}{ground}</svg>'
