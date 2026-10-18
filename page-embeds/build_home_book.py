@@ -1,3 +1,4 @@
+import stamps
 # Builds home-book.html: the Home "Join a Free Tour" section (same file on / and /es).
 # Oct 17, 2026 (Marlon): same shape as the Team section. Left: three Polaroids that walk BACKWARDS in time
 # (Disney Hall 2003, City Hall 1928, Placita Olvera 1781) and the free tour route map (same data as the
@@ -48,6 +49,7 @@ pols = "".join(
   f'</figure>'
   for i,((img,yr,tape,alt),r) in enumerate(zip(POLS,["-2.5deg","2deg","-1.5deg"]),1))
 
+STAMP_FREE = stamps.stamp("stf", "OLVERA STREET", "EL PUEBLO DE LOS ANGELES", "kiosko", "EST. 1781", "#D6479B", -7, 8)  # Oct 17, 2026: ink stamp replaces the silhouette
 html = f'''<!-- ==============================================================================
      MARLONWALKSLA - BOOK A FREE TOUR (CAL.COM INLINE CALENDARS, EN + ES)
      Built by page-embeds/build_home_book.py. Same embed on Home (/) and /es.
@@ -64,6 +66,7 @@ html = f'''<!-- ================================================================
       <ul class="pc-badges"><li class="pc-badge"><span aria-hidden="true">&#127758;</span><span>Espa&ntilde;ol &amp; English</span></li><li class="pc-badge"><span aria-hidden="true">&#128155;</span><span data-pi="tip">{text["en"]["tip"]}</span></li></ul>
       <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-pi="wa">{text["en"]["wa"]}</a>
     </div>
+    {STAMP_FREE}
   </div>
 
   <div class="mwla-fgrid">

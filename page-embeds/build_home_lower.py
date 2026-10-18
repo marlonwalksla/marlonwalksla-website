@@ -1,3 +1,4 @@
+import paper
 # Builds the lower Home sections (Oct 17, 2026, Marlon via Gemini chunk 3):
 #   home-meet(.es).html  = "Meet Your Local Guide" banner (between Private and Free tour)
 #   home-faq(.es).html   = "Good to Know" accordion (below the Free tour)
@@ -35,7 +36,8 @@ CSS_COMMON = """  .hl { width: 100%; box-sizing: border-box; padding: 44px 20px;
   .hl-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1.02; margin: 0 0 12px; color: #27302E; }
 """
 MEET_CSS = """<style>
-""" + CSS_COMMON + """  .hl-meet { background: #FFE9D6; }
+""" + CSS_COMMON + """  .hl-meet { position: relative; background: #FFE9D6; }
+  PAPER_MEET
   .hl-meet-wrap { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px 56px; align-items: center; }
   .hl-pol { position: relative; margin: 0; background: #fff; padding: 12px 12px 14px; transform: rotate(-2.5deg); box-shadow: 0 12px 24px -12px rgba(39, 48, 46, 0.5); }
   .hl-pol img, .hl-ph { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
@@ -49,7 +51,8 @@ MEET_CSS = """<style>
 </style>
 """
 FAQ_CSS = """<style>
-""" + CSS_COMMON + """  .hl-faq { background: #F1F5D8; scroll-margin-top: 20px; }
+""" + CSS_COMMON + """  .hl-faq { position: relative; background: #F1F5D8; scroll-margin-top: 20px; }
+  PAPER_FAQ
   .hl-faq-wrap { max-width: 800px; margin: 0 auto; }
   .hl-sub { margin: 0 0 24px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.1rem; color: #3B4440; }
   .hl-q { position: relative; margin: 0 0 16px; background: #fff; border: 2px solid #27302E; border-radius: 8px; box-shadow: 3px 3px 0 #27302E; transform: rotate(var(--r, 0deg)); }
@@ -74,11 +77,11 @@ for lang, suf in (("en", ""), ("es", "-es")):
     meet = (f"<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: MEET YOUR LOCAL GUIDE banner. Built by page-embeds/build_home_lower.py. Oct 17, 2026 (Marlon via Gemini). Photo is a placeholder until MARLON_PHOTO is set. -->\n"
             f'<section class="hl hl-meet" aria-label="{t["meet_title"]}">\n  <div class="hl-meet-wrap">\n    <figure class="hl-pol"><span class="hl-tape"></span>{photo}</figure>\n'
             f'    <div>\n      <p class="hl-eyebrow">{t["meet_eyebrow"]}</p>\n      <h2 class="hl-title">{t["meet_title"]}</h2>\n      <p class="hl-body">{t["meet_body"]}</p>\n'
-            f'      <a class="hl-more" href="/about">{t["meet_more"]} &rarr;</a>\n    </div>\n  </div>\n</section>\n' + MEET_CSS)
+            f'      <a class="hl-more" href="/about">{t["meet_more"]} &rarr;</a>\n    </div>\n  </div>\n</section>\n' + MEET_CSS.replace("PAPER_MEET", paper.rule(".hl-meet::before", 50)))
     qs = "".join(f'<details class="hl-q" style="--r:{ROT[i]};--t:{TAPES[i % 4]}"><summary>{q}</summary><p>{a}</p></details>\n    ' for i, (q, a) in enumerate(t["faq"]))
     faq = (f"<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LOGISTICS FAQ accordion (native details elements). Built by page-embeds/build_home_lower.py. Oct 17, 2026. -->\n"
            f'<section class="hl hl-faq" id="faq" aria-label="{t["faq_title"]}">\n  <div class="hl-faq-wrap">\n    <h2 class="hl-title">{t["faq_title"]}</h2>\n    <p class="hl-sub">{t["faq_sub"]}</p>\n    {qs}'
-           f'<p class="hl-ask">{t["ask"]} <a href="{WA}" target="_blank" rel="noopener noreferrer">{t["ask_link"]}</a></p>\n  </div>\n</section>\n' + FAQ_CSS)
+           f'<p class="hl-ask">{t["ask"]} <a href="{WA}" target="_blank" rel="noopener noreferrer">{t["ask_link"]}</a></p>\n  </div>\n</section>\n' + FAQ_CSS.replace("PAPER_FAQ", paper.rule(".hl-faq::before", 30)))
     open(f"home-meet{suf}.html", "w", encoding="utf-8").write(meet)
     open(f"home-faq{suf}.html", "w", encoding="utf-8").write(faq)
     print("wrote", suf or "en")

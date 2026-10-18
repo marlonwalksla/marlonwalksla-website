@@ -4,7 +4,9 @@
 # background styles (booking = deep blue + pinata fringe, team = white + route line,
 # private = grid paper). Run: python3 build_home_hero.py
 import urllib.parse
-import silhouettes as SIL  # original LA silhouettes for the postcard backs
+import silhouettes as SIL
+import paper
+import stamps  # original LA silhouettes for the postcard backs
 
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERNESTO = CDN + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
@@ -118,7 +120,7 @@ def flag_frame():
 
 
 def build(lang):
-    POSTCARD = POSTCARD_CSS.replace('__FLAGS__', flag_frame()) + open('postcard-forms.css', encoding='utf-8').read()  # reply-postcard forms (shared with private-form-intro and team-cal)
+    POSTCARD = POSTCARD_CSS.replace('__FLAGS__', flag_frame()).replace('__PAPER_TEAM__', paper.rule('.mw-bg-team::before', 34)).replace('__PAPER_PRIVATE__', paper.rule('.mw-bg-private::before', 28)).replace('__PAPER_BOOK__', paper.rule('.mw-bg-book::before', 40)) + open('postcard-forms.css', encoding='utf-8').read()  # reply-postcard forms (shared with private-form-intro and team-cal)
     t = T[lang]
     cur_en = ' aria-current="true"' if lang == 'en' else ''
     cur_es = ' aria-current="true"' if lang == 'es' else ''
@@ -130,6 +132,10 @@ def build(lang):
                 f'      <img src="{img}" alt="{alt}" loading="eager">\n'
                 f'      <span class="mwh-label"><strong>{title}</strong><em>{sub}</em><span class="mwh-go">{t["go"]}</span></span>\n'
                 f'    </a>\n')
+    PAPER_HERO = paper.rule('.mwh::before', 66).replace('{', '{{').replace('}', '}}')
+    es = lang == 'es'
+    HERO_STAMPS = (stamps.stamp('hsa', 'CENTRO DE LOS &Aacute;NGELES' if es else 'DOWNTOWN LOS ANGELES', 'EXPLORADO' if es else 'EXPLORED', 'skyline', '', '#E8412F', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
+                   + stamps.stamp('hsb', 'CITY HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'city_hall', 'EST. 1928', '#2890B6', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"'))
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
     PREV = "Previous tour" if lang == "en" else "Tour anterior"
@@ -154,6 +160,7 @@ def build(lang):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600&family=Lilita+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <section class="mwh" lang="{lang}">
+  {HERO_STAMPS}
   <div class="mwh-wrap">
     <div class="mwh-text">
       <h1 class="mwh-h1">{t["h1"]}</h1>
@@ -302,12 +309,16 @@ def build(lang):
   .mwh-tab[aria-current="true"] {{ background: #FFD43B; box-shadow: 2px 2px 0 #27302E; }}
   .mwh-tab:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 3px; }}
   .mwh-cbtn {{ font-size: 1.2rem; padding: 13px 26px; }}
-  /* bigger, clearer LA silhouettes along the bottom */
-  .mwh-wrap::before {{ height: 300px; opacity: 1; }}
-  @media (max-width: 991px) {{ .mwh-wrap::before {{ height: 200px; }} }}
-  @media (max-width: 767px) {{ .mwh-wrap::before {{ height: 150px; }} .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
+  /* Oct 17, 2026: the skyline silhouette is replaced by two ink stamps */
+  .mwh-wrap::before {{ content: none !important; }}
+  .mwh > svg.stamp {{ position: absolute; z-index: 1; }}
+  .mwh > .stamp-a {{ left: calc(50% - 250px); bottom: 26px; width: 130px; }}
+  .mwh > .stamp-b {{ right: max(44px, calc(50% - 560px)); bottom: 34px; width: 120px; }}
+  @media (max-width: 1100px) {{ .mwh > .stamp-b {{ display: none; }} }}
+  @media (max-width: 767px) {{ .mwh > svg.stamp {{ display: none; }} .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
 
+  {PAPER_HERO}
   {POSTCARD}
 </style>
 '''
@@ -341,10 +352,11 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   .mw-bg-private { background: #DCEFFA url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .35' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E") !important; background-size: auto !important; --pc-stripes: repeating-linear-gradient(-45deg, #2890B6 0 16px, transparent 16px 26px, #FFD43B 26px 42px, transparent 42px 52px); }
   /* the airmail border */
   .mw-bg-team::after, .mw-bg-book::after, .mw-bg-private::after { content: "" !important; display: block !important; position: absolute; inset: 12px; border: 12px solid transparent; border-image: var(--pc-stripes) 12; background: none !important; transform: none !important; outline: 0 !important; box-shadow: none !important; width: auto !important; height: auto !important; pointer-events: none; z-index: 1; }
-  /* Oct 17, 2026 (Marlon via Gemini): paper crease on the top and bottom edges (a fold in thick paper) */
-  .mw-bg-team::before, .mw-bg-private::before { content: "" !important; display: block !important; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px) top / 100% 14px no-repeat, linear-gradient(to top, rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px) bottom / 100% 14px no-repeat !important; pointer-events: none; z-index: 3; transform: none !important; border: 0 !important; outline: 0 !important; box-shadow: none !important; width: auto !important; height: auto !important; }
+  /* Oct 17, 2026 (Marlon): paper texture on every card: fibers, soft dark edges, one fold line at a different height per card, fold lines at the top and bottom edges */
+  __PAPER_TEAM__
+  __PAPER_PRIVATE__
   /* Oct 17, 2026 (Marlon): papel picado flags are the whole outline of the free tour card (no airmail stripes) */
-  .mw-bg-book::before { content: none !important; }
+  __PAPER_BOOK__
   .mw-bg-book { padding: 14px 52px 6px !important; }
   .mw-bg-book::after { inset: 8px; border-width: 44px; border-image: url("__FLAGS__") 40 round; }
   .mw-bg-book .mwla-book-head::after { content: none !important; }
@@ -364,10 +376,10 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   .pc-to span:first-child { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6663; margin-right: 4px; }
   /* Oct 17, 2026 (Marlon): LA silhouettes fill the white space of each postcard back, like the example postcards */
   #team.mwsh, #private.mwsh, .mwla-book-head { position: relative; }
-  #team.mwsh::before, #private.mwsh::before, .mwla-book-head::before { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: min(560px, 64%); background: no-repeat right bottom / contain; pointer-events: none; z-index: 0; }
-  #team.mwsh::before { background-image: url("__SIL_TEAM__"); }
-  #private.mwsh::before { background-image: url("__SIL_PRIV__"); }
-  .mwla-book-head::before { background-image: url("__SIL_FREE__"); }
+  /* Oct 17, 2026 (Marlon): ink stamps (passport style) replace the pale silhouettes; they fill the white space on the right of each header */
+  svg.stamp { display: block; width: 150px; height: auto; mix-blend-mode: multiply; opacity: .93; transform: rotate(var(--r, -8deg)); pointer-events: none; }
+  #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { position: absolute; top: 6px; right: 26px; z-index: 0; }
+  @media (max-width: 700px) { #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { display: none; } }
   #team.mwsh > *, #private.mwsh > *, .mwla-book-head > * { position: relative; z-index: 1; }
   /* badges: small facts, not buttons */
   .pc-badges { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 14px; padding: 0; }

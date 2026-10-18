@@ -1,5 +1,6 @@
 # Builds the section header banners on Home (/) and /es for the Team and Private sections.
 # Oct 16, 2026: same look as the free tour banner (Ernesto beside an eyebrow, title and one line).
+import stamps
 C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERN = {"team": C + "6a87ce800a9b9169f06d40de_Polaroid%20Photographer.avif",
        "priv": C + "6a87cf628c921f7de316043f_Hiking.avif"}
@@ -52,11 +53,9 @@ for (sec, lang), (title, alt, badges) in T.items():
     to_lbl, to_txt = TO[(sec, lang)]
     pm1, pm2 = PM[lang]
     # Oct 17, 2026 (Marlon): no From/To address lines in any section header (Team shows one building: Grand Central Market).
-    addr = "" if True else f'''  <div class="pc-addr">
-    <p class="pc-from">{FROM[lang]}</p>
-    <p class="pc-to"><span>{to_lbl}</span> {to_txt}</p>
-  </div>
-'''
+    es = lang == "es"
+    addr = "  " + (stamps.stamp("stt", "GRAND CENTRAL MARKET", "LOS &Aacute;NGELES" if es else "LOS ANGELES", "gcm", "EST. 1917", "#2E9E57", -8, 3) if sec == "team"
+                   else stamps.stamp("stp", "OBSERVATORIO GRIFFITH" if es else "GRIFFITH OBSERVATORY", "LOS &Aacute;NGELES" if es else "LOS ANGELES", "observatory", "EST. 1935", "#2890B6", 7, 5)) + "\n"
     b_html = "".join(
         f'<li class="pc-badge"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}>{ic}<span>{tx}</span></li>'
         for ic, tx, lbl in badges)
