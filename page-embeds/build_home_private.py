@@ -37,18 +37,18 @@ S = [
 DEFAULT_ON = ["sign", "griffith", "urban"]
 T = {
  "en": dict(
-  h="Pick your places", hint="Tap the places you want. The Polaroid shows your latest pick.",
+  h="Pick your places", hint="Tap the places you want. Each one lands on the pile.",
   g_dt="Downtown, on foot", g_la="Beyond Downtown, by car",
-  cap0="Tap a place to see it", picked="Your latest pick",
+  cap0="Tap a place and its photo lands here", picked="Your latest pick",
   ch="Estimate your day", chint="Based on the places you picked. Marlon confirms the final price.",
   none="Pick at least one place to see your estimate.", yours="Your places", about="About", to="to", hours="hours",
   incl="Hotel pickup and drop-off included", fits="Fits a", car="1 to 4 guests, one price per car", over="That is more than one day. Message Marlon and we will plan two.",
   est="Estimated price", base="Base: pickup, drop-off and driving", cta="Finalize Custom Tour", wait="Choose a place first", note="No payment now. Next you send Marlon your details.",
   remove="Remove", count="places picked"),
  "es": dict(
-  h="Elige tus lugares", hint="Toca los lugares que quieras. El Polaroid muestra tu última elección.",
+  h="Elige tus lugares", hint="Toca los lugares que quieras. Cada uno cae en la pila.",
   g_dt="Centro, a pie", g_la="Más allá del centro, en auto",
-  cap0="Toca un lugar para verlo", picked="Tu última elección",
+  cap0="Toca un lugar y su foto cae aquí", picked="Tu última elección",
   ch="Calcula tu día", chint="Según los lugares que elegiste. Marlon confirma el precio final.",
   none="Elige al menos un lugar para ver tu estimado.", yours="Tus lugares", about="Unas", to="a", hours="horas",
   incl="Recogida y regreso al hotel incluidos", fits="Cabe en", car="1 a 4 personas, un precio por auto", over="Es más de un día. Escríbele a Marlon y armamos dos.",
@@ -70,18 +70,21 @@ def data_for(lang):
 
 
 LEFT_CSS = """<style>
-  .pvb { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
-  .pvb-pol { position: relative; width: min(300px, 82%); margin: 8px auto 26px; background: #fff; padding: 12px 12px 14px; transform: rotate(-2deg); box-shadow: 0 14px 28px -12px rgba(39, 48, 46, 0.55); }
-  .pvb-tape { position: absolute; top: -11px; left: 50%; width: 76px; height: 22px; transform: translateX(-50%) rotate(-4deg); background: rgba(255, 212, 59, .7); mix-blend-mode: multiply; z-index: 1; }
-  .pvb-frame { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #F4EBDD; }
-  .pvb-frame img, .pvb-card { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .pvb-frame img { object-fit: cover; }
-  .pvb-card { display: grid; place-items: center; padding: 18px; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.9rem; line-height: 1.1; color: #27302E; }
-  .pvb-frame > * { transition: opacity 0.2s ease-out; }
-  .pvb-frame .is-out { opacity: 0; }
-  .pvb-cap { margin: 10px 4px 0; text-align: center; min-height: 3.1em; }
-  .pvb-cap strong { display: block; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.2rem; line-height: 1.15; }
-  .pvb-cap span { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.92rem; color: #4D5551; }
+  .pvb { font-family: "Nunito", system-ui, sans-serif; color: #27302E; overflow-x: clip; }
+  /* Oct 18, 2026 (Marlon via Gemini): Polaroid Stack. Tapping a place tosses its photo onto the pile; tapping again takes it off. */
+  .polaroid-stack-area { position: relative; width: 100%; min-height: 400px; margin: 0 0 18px; --pw: 210px; }
+  .stacked-photo { position: absolute; width: var(--pw); box-sizing: border-box; background: #fff; padding: 10px 10px 12px; box-shadow: 0 10px 22px -8px rgba(39, 48, 46, 0.55), 0 2px 4px rgba(39, 48, 46, 0.18);
+    transition: all 0.3s ease-out; will-change: transform, opacity; }
+  .stacked-photo.is-drop { opacity: 0; margin-top: -46px; }
+  .stacked-photo.is-gone { opacity: 0; margin-top: 18px; }
+  .stacked-photo .sp-img { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #F4EBDD; }
+  .stacked-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stacked-photo .sp-card { position: absolute; inset: 0; display: grid; place-items: center; padding: 12px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; line-height: 1.25; color: #27302E; }
+  .stacked-photo figcaption { margin: 9px 2px 0; text-align: center; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.02rem; line-height: 1.15; color: #27302E; }
+  .stacked-photo .sp-tape { position: absolute; top: -9px; left: 50%; width: 56px; height: 18px; transform: translateX(-50%) rotate(-4deg); background: rgba(255, 212, 59, .7); mix-blend-mode: multiply; }
+  .pvb-empty { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; color: #5B6663; border: 3px dashed rgba(39, 48, 46, .25); border-radius: 14px; transition: opacity .2s ease-out; pointer-events: none; }
+  .polaroid-stack-area.has-photos .pvb-empty { opacity: 0; }
+  @media (max-width: 600px) { .polaroid-stack-area { min-height: 340px; --pw: 168px; } }
   .pvb-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; margin: 0 0 4px; color: #27302E; }
   .pvb-hint { margin: 0 0 14px; font-size: 0.95rem; color: #4D5551; }
   .pvb-g { margin: 14px 0 8px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6663; }
@@ -91,7 +94,7 @@ LEFT_CSS = """<style>
   .pvb-pill[aria-pressed="true"] { background: #FFD43B; box-shadow: 2px 2px 0 #27302E; font-weight: 600; }
   .pvb-pill[aria-pressed="true"]::before { content: "\\2713"; margin-right: 6px; }
   .pvb-pill:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
-  @media (prefers-reduced-motion: reduce) { .pvb-pill, .pvb-frame > * { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .pvb-pill, .stacked-photo { transition: none; } }
 </style>
 """
 
@@ -99,7 +102,7 @@ LEFT_JS = r"""<script>
 (function () {
   var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, S = {}, ORDER = [];
   D.stops.forEach(function (s) { S[s.id] = s; ORDER.push(s.id); });
-  var frame = document.getElementById("pvb-frame"), cap = document.getElementById("pvb-cap");
+  var area = document.getElementById("polaroid-stack-area"), zTop = 10, still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), on = {}, last = null;
   D.on.forEach(function (id) { on[id] = true; last = id; });
   function km(a, b) { var R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLn = (b.lng - a.lng) * r;
@@ -107,16 +110,37 @@ LEFT_JS = r"""<script>
     return 2 * R * Math.asin(Math.sqrt(h)); }
   function drive(a, b) { return km(a, b) * 1.35 / 25 * 60 + 5; }  // road about 1.35x the straight line, 25 km/h, 5 min to park
   function fmt(h) { return (Math.round(h * 2) / 2).toString().replace(".5", "½"); }
-  function show(id) {
-    var s = S[id]; if (!frame) return;
-    while (frame.children.length > 1) frame.removeChild(frame.firstElementChild);
-    var old = frame.lastElementChild, el;
-    if (s.photo) { el = document.createElement("img"); el.src = s.photo; el.alt = s.name; el.loading = "lazy"; }
-    else { el = document.createElement("div"); el.className = "pvb-card"; el.style.background = s.color; el.textContent = s.name; }
-    el.classList.add("is-out"); frame.appendChild(el);
-    requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.remove("is-out"); if (old) old.classList.add("is-out"); setTimeout(function () { if (old && old.parentNode) old.parentNode.removeChild(old); }, 220); }); });
-    cap.innerHTML = "<strong></strong><span></span>"; cap.firstChild.textContent = s.name; cap.lastChild.textContent = s.line;
+  function place(el) {  // fractions are stored so the pile re-fits when the screen is resized
+    var W = area.clientWidth, H = area.clientHeight, pw = el.offsetWidth, ph = el.offsetHeight;
+    el.style.left = Math.max(0, (W - pw) * parseFloat(el.dataset.fx)) + "px";
+    el.style.top = Math.max(0, (H - ph) * parseFloat(el.dataset.fy)) + "px";
   }
+  function show(id, delay) {
+    if (!area || area.querySelector('[data-id="' + id + '"]')) return;
+    var s = S[id], el = document.createElement("figure");
+    el.className = "stacked-photo is-drop"; el.dataset.id = id;
+    el.dataset.fx = (0.08 + Math.random() * 0.84).toFixed(3); el.dataset.fy = (0.12 + Math.random() * 0.76).toFixed(3);
+    el.dataset.rot = ((Math.random() * 24) - 12).toFixed(1);  // between -12 and +12 degrees
+    el.style.zIndex = ++zTop;  // newest lands on top
+    var tape = document.createElement("span"); tape.className = "sp-tape"; el.appendChild(tape);
+    var box = document.createElement("div"); box.className = "sp-img";
+    if (s.photo) { var im = document.createElement("img"); im.src = s.photo; im.alt = s.name; im.loading = "lazy"; box.appendChild(im); }
+    else { var c = document.createElement("div"); c.className = "sp-card"; c.style.background = s.color; c.textContent = s.line; box.appendChild(c); }
+    var fc = document.createElement("figcaption"); fc.textContent = s.name;
+    el.appendChild(box); el.appendChild(fc); area.appendChild(el);
+    place(el);
+    el.style.transform = "rotate(" + (parseFloat(el.dataset.rot) + (Math.random() < .5 ? -14 : 14)) + "deg) scale(1.12)";
+    area.classList.add("has-photos");
+    function land() { el.classList.remove("is-drop"); el.style.transform = "rotate(" + el.dataset.rot + "deg)"; }
+    if (still) land(); else setTimeout(function () { requestAnimationFrame(function () { requestAnimationFrame(land); }); }, delay || 0);
+  }
+  function hide(id) {
+    var el = area && area.querySelector('[data-id="' + id + '"]'); if (!el) return;
+    function done() { if (el.parentNode) el.parentNode.removeChild(el); if (!area.querySelector(".stacked-photo")) area.classList.remove("has-photos"); }
+    if (still) { done(); return; }
+    el.classList.add("is-gone"); setTimeout(done, 300);
+  }
+  window.addEventListener("resize", function () { if (area) [].forEach.call(area.querySelectorAll(".stacked-photo"), place); });
   function state() {
     var ids = ORDER.filter(function (id) { return on[id]; }), stops = ids.map(function (id) { return S[id]; });
     var sm = stops.reduce(function (a, s) { return a + s.min; }, 0) + 60, dm = 0, prev = null;
@@ -133,18 +157,18 @@ LEFT_JS = r"""<script>
     return st;
   }
   function publish() {
-    var st = state(); window.MWPV = window.MWPV || {}; window.MWPV.state = st; window.MWPV.remove = function (id) { on[id] = false; sync(); };
+    var st = state(); window.MWPV = window.MWPV || {}; window.MWPV.state = st; window.MWPV.remove = function (id) { on[id] = false; hide(id); sync(); };
     try { window.dispatchEvent(new CustomEvent("mwpv", { detail: st })); } catch (e) {}
   }
   function sync() { pills.forEach(function (p) { p.setAttribute("aria-pressed", on[p.dataset.id] ? "true" : "false"); }); publish(); }
   pills.forEach(function (p) {
     p.addEventListener("click", function () {
       var id = p.dataset.id; on[id] = !on[id];
-      if (on[id]) { last = id; show(id); }
+      if (on[id]) { last = id; show(id); } else hide(id);
       sync();
     });
   });
-  if (last) show(last);
+  ORDER.filter(function (id) { return on[id]; }).forEach(function (id, i) { show(id, 150 + i * 220); });
   sync();
 })();
 </script>
@@ -160,11 +184,10 @@ def left_html(lang):
     js_data = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     return f"""<!-- ==============================================================================
      MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LA, YOUR WAY - ITINERARY BUILDER (LEFT COLUMN). Built by page-embeds/build_home_private.py
-     Oct 17, 2026 (Marlon via Gemini): pills + one big Polaroid that follows the latest pick. The estimate lives in home-private-calc.html (right column).
+     Oct 17, 2026 (Marlon via Gemini): pills + a Polaroid Stack (Oct 18: photos drop onto a messy pile, tap again to remove). The estimate lives in home-private-calc.html (right column).
      ============================================================================== -->
 <div class="mw-offer pvb" id="private-tours">
-  <figure class="pvb-pol"><span class="pvb-tape"></span><div class="pvb-frame" id="pvb-frame"><div class="pvb-card" style="background:#FFF6E6">{esc(t["cap0"])}</div></div>
-    <figcaption class="pvb-cap" id="pvb-cap" aria-live="polite"><strong>{esc(t["cap0"])}</strong></figcaption></figure>
+  <div class="polaroid-stack-area" id="polaroid-stack-area" role="group" aria-label="{esc(t['h'])}"><p class="pvb-empty">{esc(t["cap0"])}</p></div>
   <h3 class="pvb-h">{t["h"]}</h3>
   <p class="pvb-hint">{t["hint"]}</p>
   <div class="pvb-pills" role="group" aria-label="{t["h"]}">{pills("la")}</div>
