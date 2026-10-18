@@ -139,14 +139,12 @@ def build(lang):
     def hs(uid, top, bottom, icon, year, ink, rot, seed, bold=False):
         return stamps.stamp(uid, top, bottom, icon, year, ink, rot, seed, "", bold)
     CH = 'RETO' if es else 'CHALLENGE'
-    # Oct 18, 2026 (Marlon): five stamps, always visible. They sit in one tidy strip along the bottom of the hero (never in the side margins, never hidden):
-    # the three tours, then two challenges.
+    # Oct 18, 2026 (Marlon): four stamps spread across the hero, always visible: the three tours, then one challenge.
     HERO_STAMPS = ('<div class="mwh-stamps" aria-hidden="true">'
                    + hs('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -8, 3)
                    + hs('hsb', 'WALT DISNEY CONCERT HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'wdch', 'EST. 2003', '#D6479B', 7, 6)
                    + hs('hsc', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9)
                    + hs('hsd', CH, 'COME TACOS DE CALLE' if es else 'EAT LA STREET TACOS', 'taco', '', '#D6452F', 8, 12, True)
-                   + hs('hse', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', -7, 18, True)
                    + '</div>')
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
@@ -341,10 +339,15 @@ def build(lang):
   .mwh-cbtn {{ font-size: 1.2rem; padding: 13px 26px; }}
   /* Oct 17, 2026: the skyline silhouette is replaced by two ink stamps */
   .mwh-wrap::before {{ content: none !important; }}
-  /* five stamps in one strip along the bottom: same layout at every width, they just get smaller (about 66px on a phone, 112px on desktop) */
-  .mwh-stamps {{ position: relative; z-index: 1; display: flex; justify-content: center; align-items: flex-start; padding: 0 20px 38px; margin-top: -30px; pointer-events: none; }}
-  .mwh-stamps svg.stamp {{ position: static; flex: 0 1 auto; width: clamp(62px, 17vw, 112px); height: auto; margin: 0 -3px; }}
-  .mwh-stamps svg.stamp:nth-child(even) {{ margin-top: 16px; }}
+  /* Oct 18, 2026 (Marlon): four stamps spread across the page along the bottom edge, tilted and overlapping the airmail border like postmarks; the layout gives them their own room under the content so they never cover text */
+  .mwh-wrap {{ padding-bottom: 150px !important; }}
+  .mwh-stamps {{ position: absolute; left: 0; right: 0; bottom: 0; height: 0; z-index: 3; pointer-events: none; }}
+  .mwh-stamps svg.stamp {{ position: absolute; bottom: 26px; width: clamp(62px, 8.6vw, 106px); height: auto; margin: 0; }}
+  .mwh-stamps svg.stamp:nth-child(1) {{ left: 4%; }}
+  .mwh-stamps svg.stamp:nth-child(2) {{ left: 30%; bottom: 40px; }}
+  .mwh-stamps svg.stamp:nth-child(3) {{ left: 60%; }}
+  .mwh-stamps svg.stamp:nth-child(4) {{ left: auto; right: 4%; bottom: 40px; }}
+  @media (max-width: 520px) {{ .mwh-wrap {{ padding-bottom: 118px !important; }} .mwh-stamps svg.stamp:nth-child(2), .mwh-stamps svg.stamp:nth-child(4) {{ bottom: 34px; }} .mwh-stamps svg.stamp:nth-child(2) {{ left: 28%; }} .mwh-stamps svg.stamp:nth-child(3) {{ left: 52%; }} }}
   @media (max-width: 767px) {{ .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
 
