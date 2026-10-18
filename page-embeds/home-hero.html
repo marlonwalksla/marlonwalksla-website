@@ -231,6 +231,10 @@
   .mwh-stamps svg.stamp:nth-child(3) { left: 60%; }
   .mwh-stamps svg.stamp:nth-child(4) { left: auto; right: 4%; bottom: 54px; }
   @media (max-width: 520px) { .mwh-wrap { padding-bottom: 132px !important; } .mwh-stamps svg.stamp:nth-child(2), .mwh-stamps svg.stamp:nth-child(4) { bottom: 48px; } .mwh-stamps svg.stamp:nth-child(2) { left: 28%; } .mwh-stamps svg.stamp:nth-child(3) { left: 52%; } }
+  /* Oct 18, 2026: on the live test site Webflow's paragraph style forces Lilita One here, and weight 700 gets faux-bolded (smeared). The sentence is short glanceable text, so it is Fredoka (real 500/600 weights). The callout gets room from Ernesto's feet. */
+  .mwh .mwh-line, .mwh .mwh-hl { font-family: "Fredoka", system-ui, sans-serif !important; font-weight: 500 !important; letter-spacing: 0 !important; text-shadow: none !important; }
+  .mwh .mwh-hl { font-weight: 600 !important; }
+  .mwh .mwh-hand { margin-top: 12px; }
   /* Oct 18, 2026 (Marlon: "stamps across the page, not at the bottom"): on wide screens the four stamps are scattered over the card like real postmarks: top-left corner, top between the columns, lower left under the text, lower right under the photo. On phones they stay in one small row. */
   @media (min-width: 1150px) {
     .mwh-wrap { padding-bottom: 76px !important; }
