@@ -19,7 +19,7 @@ T = {
     "en": dict(
         eyebrow="Downtown LA walking tours",
         h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon</span>', hand="&amp; Ernesto!",
-        line="Free walking tours, team outings and private days, in English and Spanish.",
+        line="Explore Los Angeles on a free tour, a team outing or a private day.",
         btn="Book a Team Outing", btn_href="#team", btn2="Design a Private Tour", btn2_href="#private", freeL="Or join a free tour &rarr;", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
@@ -34,7 +34,7 @@ T = {
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
         h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span>', hand="&iexcl;y Ernesto!",
-        line="Free tours, tours para equipos y d&iacute;as privados, en espa&ntilde;ol e ingl&eacute;s.",
+        line="Explora Los &Aacute;ngeles en un free tour, una salida de equipo o un d&iacute;a privado.",
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
@@ -52,19 +52,19 @@ T = {
 # Oct 17, 2026 (Marlon's sketch): one framed Polaroid that rotates Team, Free, Private. Caption, headline line and the ONE button change with it.
 SLIDES = {
  "en": [
-  dict(tab="Team", key="team", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="#team",
+  dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="#team",
        line="Team outings for 5 to 30 people. Everyone takes home a photo.", alt="Kara's birthday group at the Grand Central Market sign"),
-  dict(tab="Free", key="free", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
+  dict(tab="Free", key="free", tone="yellow", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
        line="Free walking tours of Downtown LA, in English and Spanish. Tip what you like.", alt="Free tour guests posing together at the Avila Adobe garden"),
-  dict(tab="Private", key="priv", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="#private",
+  dict(tab="Private", key="priv", tone="blue", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="#private",
        line="Pick your stops. We pick you up and drop you off.", alt="Private tour guests with their Polaroid"),
  ],
  "es": [
-  dict(tab="Equipos", key="team", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="#team",
+  dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="#team",
        line="Salidas de equipo para 5 a 30 personas. Todos se llevan una foto.", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
-  dict(tab="Free", key="free", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
+  dict(tab="Free", key="free", tone="yellow", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
        line="Tours a pie gratis por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Das la propina que quieras.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
-  dict(tab="Privado", key="priv", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="#private",
+  dict(tab="Privado", key="priv", tone="blue", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="#private",
        line="Elige tus paradas. Te recogemos y te llevamos de vuelta.", alt="Invitados de un tour privado con su Polaroid"),
  ],
 }
@@ -134,20 +134,20 @@ def build(lang):
                 f'    </a>\n')
     PAPER_HERO = paper.rule('.mwh::before').replace('{', '{{').replace('}', '}}')
     es = lang == 'es'
-    HERO_STAMPS = (stamps.stamp('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
-                   + stamps.stamp('hsb', 'WALT DISNEY CONCERT HALL', 'LOS ANGELES', 'wdch', 'EST. 2003', '#D6479B', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"')
-                   + stamps.stamp('hsc', 'ATARDECER EN CALIFORNIA' if es else 'CALIFORNIA SUNSET', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'sunset', '', '#E8742A', 6, 9).replace('class="stamp"', 'class="stamp stamp-c"'))
+    HERO_STAMPS = (stamps.stamp('hsa', 'RETO' if es else 'CHALLENGE', 'COME TACOS DE CALLE' if es else 'EAT LA STREET TACOS', 'taco', '', '#D6452F', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
+                   + stamps.stamp('hsb', 'RETO' if es else 'CHALLENGE', 'SUBE A ANGELS FLIGHT' if es else 'RIDE ANGELS FLIGHT', 'angels', '', '#2890B6', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"')
+                   + stamps.stamp('hsc', 'RETO' if es else 'CHALLENGE', 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 6, 9).replace('class="stamp"', 'class="stamp stamp-c"'))
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
     PREV = "Previous tour" if lang == "en" else "Tour anterior"
     NEXT = "Next tour" if lang == "en" else "Tour siguiente"
     SLIDE_HTML = "".join(
-        f'            <div class="mwh-slide{" is-on" if n == 0 else ""}" data-line="{x["line"]}" data-btn="{x["btn"]}" data-href="{x["href"]}">\n'
+        f'            <div class="mwh-slide{" is-on" if n == 0 else ""}" data-tone="{x["tone"]}" data-btn="{x["btn"]}" data-href="{x["href"]}">\n'
         f'              <a class="mwh-photo" href="{x["href"]}" tabindex="{0 if n == 0 else -1}">\n'
         f'                <span class="mwh-tape" style="background:{x["tape"]}"></span>\n'
         f'                <img src="{x["img"]}" alt="{x["alt"]}" loading="eager">\n'
         f'              </a>\n'
-        f'              <p class="mwh-cap"><strong>{x["title"]}</strong><em>{x["eyebrow"]}</em></p>\n'
+        f'              <p class="mwh-cap"><strong>{x["title"]}</strong><em class="mwh-tag" data-tone="{x["tone"]}">{x["eyebrow"]}</em></p>\n'
         f'            </div>\n' for n, x in enumerate(SL))
     TAB_HTML = "".join(
         f'<button type="button" class="mwh-tab"{" aria-current=\"true\"" if n == 0 else ""}>{x["tab"]}</button>' for n, x in enumerate(SL))
@@ -167,12 +167,12 @@ def build(lang):
       <h1 class="mwh-h1">{t["h1"]}</h1>
       <div class="mwh-lang" role="group" aria-label="Language / Idioma">
         <span class="mwh-ernwrap"><img class="mwh-ern" src="{ERNESTO}" alt="{t["ern_alt"]}" width="90" height="108">
-          <span class="mwh-hand" lang="{lang}">{t["hand"]}<svg class="mwh-arrow" viewBox="0 0 70 56" aria-hidden="true" focusable="false"><path d="M64 6 C 40 2, 14 14, 10 40" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><path d="M2 31 L10 44 L22 33" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          <span class="mwh-hand" lang="{lang}">{t["hand"]}</span></span>
         <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en"{cur_en}>English</a>
         <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es"{cur_es}>Espa&ntilde;ol</a>
       </div>
-      <p class="mwh-line" id="mwh-line">{SL[0]["line"]}</p>
-      <a class="mwh-btn mwh-cbtn" id="mwh-cbtn" href="{SL[0]["href"]}">{SL[0]["btn"]}</a>
+      <p class="mwh-line" id="mwh-line">{t["line"]}</p>
+      <a class="mwh-btn mwh-cbtn" id="mwh-cbtn" data-tone="{SL[0]["tone"]}" href="{SL[0]["href"]}">{SL[0]["btn"]}</a>
     </div>
     <div class="mwh-right">
       <div class="mwh-car" role="region" aria-roledescription="carousel" aria-label="{CAR_LABEL}">
@@ -203,6 +203,11 @@ def build(lang):
   .mwh-mark {{ background: linear-gradient(transparent 62%, #FFD43B 62%, #FFD43B 92%, transparent 92%); padding: 0 4px; }}
   .mwh-line {{ font-size: 1.15rem; line-height: 1.55; max-width: 34ch; margin: 0 0 22px; color: #3B4440; }}
   .mwh-btn {{ display: inline-block; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 14px 30px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }}
+  /* Oct 18, 2026 (Marlon): each tour has its own color: Team green, Free yellow, Private blue (light tones, dark text, same outline and shadow) */
+  .mwh-cbtn[data-tone="green"] {{ background: #86D69E; }}
+  .mwh-cbtn[data-tone="yellow"] {{ background: #FFD43B; }}
+  .mwh-cbtn[data-tone="blue"] {{ background: #8CCBE8; }}
+  .mwh-cbtn {{ transition: background-color 0.2s ease-out, transform 0.15s ease-out, box-shadow 0.15s ease-out; }}
   .mwh-btn:hover {{ transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }}
   .mwh-btn:active {{ transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }}
   .mwh-btn:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 4px; }}
@@ -253,8 +258,7 @@ def build(lang):
   /* Oct 18, 2026 (Marlon via Gemini): the headline says only "Explore LA with Marlon"; Ernesto gets a handwritten callout with a hand-drawn arrow */
   .mwh-lang {{ margin-top: 50px; }}
   .mwh-ernwrap {{ position: relative; display: inline-block; line-height: 0; }}
-  .mwh-hand {{ position: absolute; left: 58px; bottom: 92px; white-space: nowrap; font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 2.1rem; line-height: 1; color: #E8412F; transform: rotate(-7deg); transform-origin: left bottom; pointer-events: none; }}
-  .mwh-arrow {{ position: absolute; left: -40px; top: 26px; width: 52px; height: auto; transform: rotate(-4deg); }}
+  .mwh-hand {{ position: absolute; left: 72px; bottom: 96px; white-space: nowrap; font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 2.1rem; line-height: 1; color: #E8412F; transform: rotate(-7deg); transform-origin: left bottom; pointer-events: none; }}
   .mwh-lb {{ position: relative; font-family: "Lilita One", sans-serif; font-size: 1.15rem; line-height: 1; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2.5px solid #27302E; border-radius: 12px; padding: 12px 20px; min-height: 44px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }}
   .mwh-lb::before {{ content: ""; position: absolute; top: -9px; left: 50%; width: 46px; height: 15px; background: rgba(40,144,182,.45); transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; }}
   .mwh-lb2::before {{ background: rgba(255,0,255,.4); transform: translateX(-50%) rotate(3deg); }}
@@ -306,6 +310,10 @@ def build(lang):
   .mwh-slide .mwh-photo:hover, .mwh-slide .mwh-photo:focus-visible {{ transform: rotate(0deg); }}
   .mwh-cap {{ margin: 14px auto 0; display: flex; flex-direction: column; align-items: center; text-align: center; }}
   .mwh-cap strong {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.5rem; line-height: 1.1; color: #27302E; }}
+  .mwh-tag[data-tone="green"] {{ --tone: #86D69E; }}
+  .mwh-tag[data-tone="yellow"] {{ --tone: #FFD43B; }}
+  .mwh-tag[data-tone="blue"] {{ --tone: #8CCBE8; }}
+  .mwh-cap em.mwh-tag {{ margin-top: 6px; padding: 1px 12px 2px; font-weight: 600; font-size: 1rem; color: #27302E; background: linear-gradient(transparent 38%, var(--tone) 38%, var(--tone) 94%, transparent 94%); }}
   .mwh-cap em {{ font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; color: #4D5551; }}
   .mwh-nav {{ width: 46px; height: 46px; border-radius: 50%; border: 2.5px solid #27302E; background: #fff; color: #27302E; font-size: 1.7rem; line-height: 1; padding: 0 0 4px; cursor: pointer; box-shadow: 2px 2px 0 #27302E; transition: transform 0.15s ease-out; }}
   .mwh-nav:hover {{ transform: translateY(-2px); }}
@@ -428,7 +436,7 @@ CAR_JS = """<script>
     i = (n + slides.length) % slides.length;
     slides.forEach(function (s, k) { var on = k === i; s.classList.toggle("is-on", on); s.setAttribute("aria-hidden", on ? "false" : "true"); s.querySelector("a").tabIndex = on ? 0 : -1; });
     tabs.forEach(function (t, k) { if (k === i) t.setAttribute("aria-current", "true"); else t.removeAttribute("aria-current"); });
-    var d = slides[i]; line.textContent = d.getAttribute("data-line"); btn.textContent = d.getAttribute("data-btn"); btn.setAttribute("href", d.getAttribute("data-href"));
+    var d = slides[i]; btn.setAttribute("data-tone", d.getAttribute("data-tone")); btn.textContent = d.getAttribute("data-btn"); btn.setAttribute("href", d.getAttribute("data-href"));
   }
   function stop() { stopped = true; if (timer) { clearInterval(timer); timer = null; } }
   function user(n) { stop(); show(n); }

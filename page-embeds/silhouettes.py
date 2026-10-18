@@ -247,6 +247,31 @@ def trio(color="#1B8A8F", opacity=1):
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 
+def taco(color="#D6452F", opacity=1):
+    """Challenge stamp: a street taco seen from the side: a folded crescent shell with fillings spilling out the top."""
+    d = '<path d="M92 96 Q260 300 428 96 Q260 168 92 96 Z"/>'
+    d += '<path d="M116 98 Q150 68 178 90 Q196 54 232 76 Q258 40 288 74 Q322 50 340 84 Q372 70 404 98 Q260 140 116 98 Z"/>'
+    for x, y in ((170, 70), (232, 54), (304, 58), (362, 72)):
+        d += f'<circle cx="{x}" cy="{y}" r="11"/>'
+    d += '<rect x="120" y="206" width="280" height="9" rx="4"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def angels_flight(color="#2890B6", opacity=1):
+    """Challenge stamp: Angels Flight, two little cars on the short incline railway between two arched gates."""
+    import math
+    d = '<path d="M120 196 L400 64" stroke="%s" stroke-width="10" fill="none"/><path d="M142 206 L422 74" stroke="%s" stroke-width="10" fill="none"/>' % (color, color)
+    ang = math.degrees(math.atan2(-132, 280))
+    for t in (0.30, 0.72):
+        x = 130 + 280 * t; y = 201 - 132 * t
+        d += f'<g transform="translate({x:.0f} {y:.0f}) rotate({ang:.1f}) scale(1.25)"><rect x="-34" y="-34" width="68" height="34" rx="4"/><rect x="-24" y="-26" width="14" height="14" fill="#fff"/><rect x="-5" y="-26" width="14" height="14" fill="#fff"/><rect x="14" y="-26" width="12" height="14" fill="#fff"/></g>'
+    # top and bottom gates
+    d += '<path d="M400 74 V30 a22 22 0 0 1 44 0 V84 H430 V36 a8 8 0 0 0 -16 0 V74 Z"/>'
+    d += '<path d="M96 206 V162 a22 22 0 0 1 44 0 V206 H126 V168 a8 8 0 0 0 -16 0 V206 Z"/>'
+    d += '<rect x="70" y="206" width="400" height="8"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
 if __name__ == "__main__":
     import sys
     out = sys.argv[1]
