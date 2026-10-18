@@ -16,7 +16,7 @@ Every embed below holds ONE line (replace `NAME` with the section):
 | Home `/` | a1c51e49-c58b-035e-874c-7a7b24095f8b | home-team |
 | Home `/` | 31fa31d5-a9b6-fb51-2386-a5946c0efc5c | home-team-card |
 | Home `/` | 6cd423ec-8fea-fac1-c803-c74e55d93d64 | home-book |
-| Home `/` | 48906d05-b82d-8615-1893-70ff9206bf30 | home-routebreak (See the Route banner, between Team and Private) |
+| Home `/` | 48906d05-b82d-8615-1893-70ff9206bf30 | home-routebreak (LA Recommendations Map banner: text, button to /maps, pointing Ernesto; between Team and Private) |
 | Home `/` | 7c8ed06c-5570-e5d3-c87f-b1db627c75bd | home-head-priv-en |
 | Home `/` | 949fabfc-ee51-3076-1c49-ca4d16682326 | home-meet (Meet Your Local Guide, after Private) |
 | Home `/` | 754980d4-c34f-c5a0-ac89-1d8149e55fe5 | home-faq (accordion, after Free tour) |
