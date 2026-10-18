@@ -54,15 +54,17 @@ for (sec, lang), (title, alt, badges) in T.items():
     pm1, pm2 = PM[lang]
     # Oct 17, 2026 (Marlon): no From/To address lines in any section header (Team shows one building: Grand Central Market).
     es = lang == "es"
-    # Oct 18, 2026 (Marlon): two stamps per header, in inks that stand out from the card color (green, blue)
+    # Oct 18, 2026 (Marlon): the FIRST stamp of each section is the section's own stamp (same as the hero); then two landmark stamps.
     LA = "LOS &Aacute;NGELES" if es else "LOS ANGELES"
     if sec == "team":
-        s1 = stamps.stamp("stt", "GRAND CENTRAL MARKET", LA, "gcm", "EST. 1917", "#D6452F", -8, 3)
-        s2 = stamps.stamp("stt2", "POLAROID DE EQUIPO" if es else "TEAM POLAROID", "FOTO INSTANT&Aacute;NEA" if es else "INSTANT PHOTO", "polaroid", "", "#6A4C93", 9, 11, "s2")
+        ST = [stamps.stamp("stt", "FUERA DE LA OFICINA" if es else "OUT OF OFFICE", "SALIDAS DE EQUIPO" if es else "TEAM OUTINGS", "palms3", "", "#C2352A", -8, 3),
+              stamps.stamp("stt2", "TOMA UNA FOTO INSTANT&Aacute;NEA" if es else "TAKE AN INSTANT PHOTO", "POLAROID DE EQUIPO" if es else "TEAM POLAROID", "polaroid", "", "#6A4C93", 9, 11, "s2"),
+              stamps.stamp("stt3", "ALMUERZO EN" if es else "LUNCH AT", "GRAND CENTRAL MARKET", "gcm", "EST. 1917", "#E2662A", -6, 4, "s3")]
     else:
-        s1 = stamps.stamp("stp", "OBSERVATORIO GRIFFITH" if es else "GRIFFITH OBSERVATORY", LA, "observatory", "EST. 1935", "#E2662A", 7, 5)
-        s2 = stamps.stamp("stp2", "MUELLE DE SANTA M&Oacute;NICA" if es else "SANTA MONICA PIER", "CALIFORNIA", "pier", "EST. 1909", "#B8326E", -9, 13, "s2")
-    addr = "  " + s1 + s2 + "\n"
+        ST = [stamps.stamp("stp", "ATARDECER EN CALIFORNIA" if es else "CALIFORNIA SUNSET", "TOURS PRIVADOS" if es else "PRIVATE TOURS", "sunset", "", "#E8742A", 7, 5),
+              stamps.stamp("stp2", "MUELLE DE SANTA M&Oacute;NICA" if es else "SANTA MONICA PIER", "CALIFORNIA", "pier", "EST. 1909", "#B8326E", -9, 13, "s2"),
+              stamps.stamp("stp3", "OBSERVATORIO GRIFFITH" if es else "GRIFFITH OBSERVATORY", LA, "obs", "EST. 1935", "#C2352A", 6, 15, "s3")]
+    addr = "  " + "".join(ST) + "\n"
     b_html = "".join(
         f'<li class="pc-badge"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}>{ic}<span>{tx}</span></li>'
         for ic, tx, lbl in badges)

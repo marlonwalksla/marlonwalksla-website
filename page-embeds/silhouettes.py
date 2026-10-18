@@ -184,6 +184,47 @@ def sunset(color="#E8742A", opacity=1):
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 
+def palms3(color="#2E9E57", opacity=1):
+    """Out of Office stamp: three palm trees of different heights (Marlon: 'more palm trees')."""
+    d = _palm(176, 214, 140, 12, 1.0) + _palm(262, 214, 204, -6, 1.15) + _palm(348, 214, 124, -12, .95)
+    d += '<rect x="110" y="214" width="300" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def observatory_clean(color="#C2352A", opacity=1):
+    """Griffith Observatory stamp: the building alone (no hill) so the domes and the long facade read clearly."""
+    t = 150
+    d = f'<rect x="130" y="{t}" width="260" height="10"/><rect x="146" y="{t-14}" width="228" height="14"/>'
+    d += f'<rect x="170" y="{t-40}" width="180" height="26"/>'
+    d += f'<path d="M222 {t-40} a38 38 0 0 1 76 0 Z"/><rect x="258" y="{t-96}" width="4" height="18"/>'
+    d += f'<path d="M158 {t-14} a22 22 0 0 1 44 0 Z"/><path d="M318 {t-14} a22 22 0 0 1 44 0 Z"/>'
+    for i in range(7):
+        d += f'<rect x="{184+i*24}" y="{t-32}" width="9" height="16" fill="#fff"/>'
+    d += f'<rect x="246" y="{t-14}" width="28" height="14" fill="#fff"/>'
+    d += f'<rect x="110" y="{t+10}" width="300" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def trio(color="#1B8A8F", opacity=1):
+    """Free tour stamp: three landmarks side by side: Walt Disney Concert Hall, Bradbury Building, Placita Olvera kiosko."""
+    b = 214
+    sails = ["M70 190 C80 130 130 88 200 76 C192 118 176 156 158 190 Z", "M150 190 C172 114 246 54 338 40 C326 92 296 146 274 190 Z",
+             "M262 190 C292 106 356 70 438 82 C418 124 388 160 376 190 Z", "M360 190 C396 150 438 138 478 150 L478 190 Z"]
+    d = '<g transform="translate(-35 119) scale(.5)">' + "".join(f'<path d="{p}" stroke="#fff" stroke-width="6"/>' for p in sails) + '</g>'
+    holes = ""
+    for r in range(4):
+        for c in range(4):
+            holes += f" M{206+c*28} {b-92+r*22} h14 v14 h-14 Z"
+    holes += f" M246 {b} V{b-30} q10 -16 20 0 V{b} Z"
+    d += f'<path fill-rule="evenodd" d="M196 {b} V{b-104} H336 V{b} Z{holes}"/><rect x="190" y="{b-112}" width="152" height="10"/><rect x="226" y="{b-124}" width="80" height="12"/>'
+    k = f'<rect x="150" y="{b-26}" width="150" height="26"/><rect x="160" y="{b-40}" width="130" height="14"/>'
+    for i in range(6):
+        k += f'<rect x="{168+i*22}" y="{b-110}" width="6" height="70"/>'
+    k += f'<rect x="156" y="{b-118}" width="138" height="10"/><path d="M150 {b-118} L225 {b-176} L300 {b-118} Z"/><rect x="222" y="{b-196}" width="6" height="26"/><circle cx="225" cy="{b-198}" r="6"/>'
+    d += f'<g transform="translate(206 0)">{k}</g><rect x="0" y="{b}" width="520" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
 if __name__ == "__main__":
     import sys
     out = sys.argv[1]

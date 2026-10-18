@@ -134,8 +134,8 @@ def build(lang):
                 f'    </a>\n')
     PAPER_HERO = paper.rule('.mwh::before').replace('{', '{{').replace('}', '}}')
     es = lang == 'es'
-    HERO_STAMPS = (stamps.stamp('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palm', '', '#2E9E57', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
-                   + stamps.stamp('hsb', 'PLACITA OLVERA', 'EL PUEBLO DE LOS &Aacute;NGELES' if es else 'EL PUEBLO DE LOS ANGELES', 'kiosko', 'EST. 1781', '#D6479B', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"')
+    HERO_STAMPS = (stamps.stamp('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
+                   + stamps.stamp('hsb', 'TOUR GRATIS' if es else 'FREE TOUR', 'CENTRO DE LA' if es else 'DOWNTOWN LA', 'trio', '', '#D6479B', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"')
                    + stamps.stamp('hsc', 'ATARDECER EN CALIFORNIA' if es else 'CALIFORNIA SUNSET', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'sunset', '', '#E8742A', 6, 9).replace('class="stamp"', 'class="stamp stamp-c"'))
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
@@ -390,6 +390,8 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   svg.stamp { display: block; width: 150px; height: auto; mix-blend-mode: multiply; opacity: .93; transform: rotate(var(--r, -8deg)); pointer-events: none; }
   #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { position: absolute; top: 6px; right: 26px; z-index: 0; }
   #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { top: 44px; right: 156px; }
+  #team.mwsh > svg.stamp.s3, #private.mwsh > svg.stamp.s3 { top: 6px; right: 286px; }
+  @media (max-width: 1150px) { #team.mwsh > svg.stamp.s3, #private.mwsh > svg.stamp.s3 { display: none; } }
   @media (max-width: 1000px) { #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { display: none; } }
   @media (max-width: 700px) { #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { display: none; } }
   #team.mwsh > *, #private.mwsh > *, .mwla-book-head > * { position: relative; z-index: 1; }

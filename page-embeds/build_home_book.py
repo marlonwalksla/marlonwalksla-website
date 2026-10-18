@@ -49,8 +49,7 @@ pols = "".join(
   f'</figure>'
   for i,((img,yr,tape,alt),r) in enumerate(zip(POLS,["-2.5deg","2deg","-1.5deg"]),1))
 
-STAMP_FREE = (stamps.stamp("stf", "OLVERA STREET", "EL PUEBLO DE LOS ANGELES", "kiosko", "EST. 1781", "#1B8A8F", -7, 8)
-              + stamps.stamp("stf2", "WALT DISNEY CONCERT HALL", "LOS ANGELES", "wdch", "EST. 2003", "#2B4F9E", 8, 14, "s2"))  # Oct 18, 2026: two stamps, inks that stand out from the pink card  # Oct 17, 2026: ink stamp replaces the silhouette
+STAMP_FREE = stamps.stamp("stf", "FREE TOUR", "DOWNTOWN LA", "trio", "", "#1B8A8F", -7, 8)  # Oct 18, 2026: one stamp with three landmarks (Walt Disney Concert Hall, Bradbury Building, Placita Olvera)
 html = f'''<!-- ==============================================================================
      MARLONWALKSLA - BOOK A FREE TOUR (CAL.COM INLINE CALENDARS, EN + ES)
      Built by page-embeds/build_home_book.py. Same embed on Home (/) and /es.
