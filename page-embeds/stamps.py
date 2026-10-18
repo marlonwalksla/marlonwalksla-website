@@ -6,7 +6,10 @@ import silhouettes as SIL
 
 
 def _inner(svg):
-    return re.sub(r"^<svg[^>]*>|</svg>$", "", svg)
+    s = re.sub(r"^<svg[^>]*>|</svg>$", "", svg)
+    # Oct 18, 2026 (Marlon: "they all have that line in the middle"): the flat ground line under each icon is left over from the old
+    # silhouettes. Drop it, so the icon can be bigger. (Sunset keeps its water lines; they are part of that picture.)
+    return re.sub(r'<rect x="[\d.]+" y="(?:19\d|2[0-2]\d)" width="(?:2[89]\d|[3-9]\d\d)" height="(?:6|8|9)"(?: rx="\d")?/>', "", s)
 
 
 def icon(name, ink):
@@ -31,7 +34,7 @@ def icon(name, ink):
     raise ValueError(name)
 
 
-def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra=""):
+def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra="", bold=False):
     import html as _h
     n = len(_h.unescape(top)); tsz, tls = (13, 1.2) if n <= 21 else (11, 0.5)
     bn = len(_h.unescape(bottom)); bsz, bls = (12.5, 1.8) if bn <= 20 else (10.5, 0.8)
@@ -39,6 +42,7 @@ def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra=""):
     w, h = dims[0], dims[1]
     vb = dims[2] if len(dims) > 2 else f"0 0 {w} {h}"
     iw = float(dims[3]) if len(dims) > 3 else 112.0; ih = iw * h / w
+    ih = min(ih * 1.14, 98.0); iw = ih * w / h
     ix, iy = 100 - iw / 2, 96 - ih / 2
     yr = f'<text x="100" y="{min(iy + ih + 14, 146):.0f}" text-anchor="middle" font-size="11" letter-spacing="2">{year}</text>' if year else ""
     return (f'<svg class="stamp{(" " + extra) if extra else ""}" viewBox="0 0 200 200" role="img" aria-label="{top}" style="--r:{rot}deg" xmlns="http://www.w3.org/2000/svg">'
@@ -51,6 +55,6 @@ def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra=""):
             f'<path id="{uid}-t" d="M 38.0 122.6 A 66 66 0 1 1 162.0 122.6"/><path id="{uid}-b" d="M 18 100 A 82 82 0 0 0 182 100"/></defs>'
             f'<g filter="url(#{uid}-f)" fill="{ink}" stroke="none" font-family="Fredoka, Lilita One, sans-serif" font-weight="700" style="color:{ink}">'
             f'<circle cx="100" cy="100" r="96" fill="none" stroke="{ink}" stroke-width="4"/><circle cx="100" cy="100" r="89" fill="none" stroke="{ink}" stroke-width="1.5"/>'
-            f'<text font-size="{tsz}" letter-spacing="{tls}" text-anchor="middle"><textPath href="#{uid}-t" startOffset="50%">{top}</textPath></text>'
+            f'<text font-size="{tsz + (1.5 if bold else 0)}" letter-spacing="{tls + (0.6 if bold else 0)}" text-anchor="middle"{(" stroke=" + chr(34) + ink + chr(34) + " stroke-width=" + chr(34) + "0.9" + chr(34) + " stroke-linejoin=" + chr(34) + "round" + chr(34)) if bold else ""}><textPath href="#{uid}-t" startOffset="50%">{top}</textPath></text>'
             f'<text font-size="{bsz}" letter-spacing="{bls}" text-anchor="middle"><textPath href="#{uid}-b" startOffset="50%">{bottom}</textPath></text>'
             f'<svg x="{ix:.1f}" y="{iy:.1f}" width="{iw}" height="{ih:.1f}" viewBox="{vb}" fill="{ink}">{body}</svg>{yr}</g></svg>')

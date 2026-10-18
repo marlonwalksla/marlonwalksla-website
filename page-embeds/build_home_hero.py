@@ -134,9 +134,17 @@ def build(lang):
                 f'    </a>\n')
     PAPER_HERO = paper.rule('.mwh::before').replace('{', '{{').replace('}', '}}')
     es = lang == 'es'
-    HERO_STAMPS = (stamps.stamp('hsa', 'RETO' if es else 'CHALLENGE', 'COME TACOS DE CALLE' if es else 'EAT LA STREET TACOS', 'taco', '', '#D6452F', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
-                   + stamps.stamp('hsb', 'RETO' if es else 'CHALLENGE', 'SUBE A ANGELS FLIGHT' if es else 'RIDE ANGELS FLIGHT', 'angels', '', '#2890B6', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"')
-                   + stamps.stamp('hsc', 'RETO' if es else 'CHALLENGE', 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 6, 9).replace('class="stamp"', 'class="stamp stamp-c"'))
+    # Oct 18, 2026 (Marlon): six stamps. Left of the text: the three tours. Right of the carousel: three challenges. They sit in the side margins,
+    # anchored to the text column's edge, so they follow it at any width and may run off the screen edge instead of covering text.
+    def hs(uid, cls, top, bottom, icon, year, ink, rot, seed, bold=False):
+        return stamps.stamp(uid, top, bottom, icon, year, ink, rot, seed, cls, bold)
+    CH = 'RETO' if es else 'CHALLENGE'
+    HERO_STAMPS = (hs('hsa', 'hs-a', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -9, 3)
+                   + hs('hsb', 'hs-b', 'WALT DISNEY CONCERT HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'wdch', 'EST. 2003', '#D6479B', 8, 6)
+                   + hs('hsc', 'hs-c', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9)
+                   + hs('hsd', 'hs-d', CH, 'COME TACOS DE CALLE' if es else 'EAT LA STREET TACOS', 'taco', '', '#D6452F', 7, 12, True)
+                   + hs('hse', 'hs-e', CH, 'SUBE A ANGELS FLIGHT' if es else 'RIDE ANGELS FLIGHT', 'angels', '', '#2E7BB0', -8, 15, True)
+                   + hs('hsf', 'hs-f', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 6, 18, True))
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
     PREV = "Previous tour" if lang == "en" else "Tour anterior"
@@ -329,10 +337,16 @@ def build(lang):
   /* Oct 17, 2026: the skyline silhouette is replaced by two ink stamps */
   .mwh-wrap::before {{ content: none !important; }}
   .mwh > svg.stamp {{ position: absolute; z-index: 1; }}
-  .mwh > .stamp-a {{ left: calc(50% - 250px); bottom: 26px; width: 130px; }}
-  .mwh > .stamp-b {{ right: max(44px, calc(50% - 560px)); bottom: 34px; width: 120px; }}
-  .mwh > .stamp-c {{ right: max(44px, calc(50% - 560px)); top: 34px; width: 120px; }}
-  @media (max-width: 1100px) {{ .mwh > .stamp-b, .mwh > .stamp-c {{ display: none; }} }}
+  /* stamp size follows the screen (about 100px at 1235 wide, 130px from 1630 up); left stamps end 18px before the text column, right ones start 16px after the carousel arrows */
+  .mwh {{ --sw: clamp(88px, 8vw, 130px); }}
+  .mwh > svg.stamp {{ width: var(--sw); }}
+  .mwh > .hs-a {{ left: calc(50% - 531px - var(--sw) - 12px); top: 30px; }}
+  .mwh > .hs-b {{ left: calc(50% - 531px - var(--sw) * .86); top: 214px; width: calc(var(--sw) * .86); }}
+  .mwh > .hs-c {{ left: calc(50% - 531px - var(--sw) - 6px); bottom: 24px; }}
+  .mwh > .hs-d {{ left: calc(50% + 482px); top: 30px; }}
+  .mwh > .hs-e {{ left: calc(50% + 490px); top: 230px; width: calc(var(--sw) * .86); }}
+  .mwh > .hs-f {{ left: calc(50% + 482px); bottom: 24px; }}
+  @media (max-width: 1100px) {{ .mwh > svg.stamp {{ display: none; }} }}
   @media (max-width: 767px) {{ .mwh > svg.stamp {{ display: none; }} .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
 
