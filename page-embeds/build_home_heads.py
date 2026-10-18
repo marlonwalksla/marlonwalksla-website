@@ -9,9 +9,9 @@ PERSON = ('<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" 
 # title = the line that sells it; badges = quick facts (person icon + group size, camera + film pics, car + pickup)
 T = {
  ("team", "en"): ("Celebrate Your Team", "Ernesto with his Polaroid camera",
-   [(PERSON, "5-30", "5 to 30 guests"), ("&#128247;", "20 film pics", None)]),
+   [(PERSON, "5-30", "5 to 30 guests"), ("&#128247;", "20 photos per team", None), ("&#127860;", "Lunch not included", None)]),
  ("team", "es"): ("Celebra a tu equipo", "Ernesto con su c&aacute;mara Polaroid",
-   [(PERSON, "5-30", "5 a 30 personas"), ("&#128247;", "20 fotos de pel&iacute;cula", None)]),
+   [(PERSON, "5-30", "5 a 30 personas"), ("&#128247;", "20 fotos por equipo", None), ("&#127860;", "Almuerzo no incluido", None)]),
  ("priv", "en"): ("LA, Your Way", "Ernesto ready for a hike",
    [(PERSON, "1-4", "1 to 4 guests"), ("&#128663;", "Pick up / drop off", None)]),
  ("priv", "es"): ("LA a tu manera", "Ernesto listo para una caminata",
@@ -36,6 +36,7 @@ TEAM_CSS = """<style>
   #team-split .mw-offer { padding-top: 0; }
   #team-split .private-specs-grid { margin-bottom: 16px; padding: 16px 18px; }
   #team-split .mw-route { margin-top: 0; }
+  #team.mwsh { min-height: 190px; }
   #team-split .mw-offer-links { margin-top: 10px; gap: 4px 22px; }
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
 </style>
@@ -50,6 +51,12 @@ PM = {"en": ("LOS ANGELES", "CA"), "es": ("LOS &Aacute;NGELES", "CA")}
 for (sec, lang), (title, alt, badges) in T.items():
     to_lbl, to_txt = TO[(sec, lang)]
     pm1, pm2 = PM[lang]
+    # Oct 17, 2026 (Marlon): Team header = one building (Grand Central Market), no From/To text. Private keeps its address lines.
+    addr = "" if sec == "team" else f'''  <div class="pc-addr">
+    <p class="pc-from">{FROM[lang]}</p>
+    <p class="pc-to"><span>{to_lbl}</span> {to_txt}</p>
+  </div>
+'''
     b_html = "".join(
         f'<li class="pc-badge"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}>{ic}<span>{tx}</span></li>'
         for ic, tx, lbl in badges)
@@ -61,11 +68,7 @@ for (sec, lang), (title, alt, badges) in T.items():
     <p class="pc-line">{LINES[(sec, lang)]}</p>
     <ul class="pc-badges">{b_html}</ul>
   </div>
-  <div class="pc-addr">
-    <p class="pc-from">{FROM[lang]}</p>
-    <p class="pc-to"><span>{to_lbl}</span> {to_txt}</p>
-  </div>
-</div>
+{addr}</div>
 {CSS}
 {TEAM_CSS if sec == "team" else ""}"""
     open(f"home-head-{sec}-{lang}.html", "w", encoding="utf-8").write(html)

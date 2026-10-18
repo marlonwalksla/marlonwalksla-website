@@ -1,41 +1,29 @@
-<!-- MARLONWALKSLA - HOME: LA RECOMMENDATIONS MAP banner. Built by page-embeds/build_home_routebreak.py. Oct 17, 2026 (Marlon via Gemini): sits between Team and Private; same route map as the Team page. -->
+<!-- MARLONWALKSLA - HOME: LA RECOMMENDATIONS MAP banner. Built by page-embeds/build_home_routebreak.py. Oct 17, 2026 (Marlon's sketch): text, one button to /maps, Ernesto pointing. -->
 <section class="rm" aria-label="LA Recommendations Map">
   <div class="rm-wrap">
-    <div class="rm-head">
-    <div>
+    <div class="rm-text">
       <h2 class="rm-title">LA Recommendations Map</h2>
-      <p class="rm-sub">Tap a stop and Ernesto walks there. Explore a sample day, then build your own.</p>
-      <div class="rm-ctarow"><a class="rm-cta" href="/maps">Build Your Own LA Itinerary</a><img class="rm-mascot" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87cf6d715b4e53c40aaf8d_Pointing%20(Left).avif" alt="" aria-hidden="true" loading="lazy"></div>
+      <p class="rm-line">Don't know where to go? Need ideas?</p>
+      <p class="rm-line">Food, shopping and more, all on one map.</p>
+      <a class="rm-cta" href="/maps">Explore the Map</a>
     </div>
-    </div>
-    <div class="rm-map"><div class="ra" data-label="Sample team day route map" data-compact data-ernesto="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"><script type="application/json" class="ra-data">{"mode": "walk", "areas": [{"name": "Bunker Hill", "lat": 34.0538, "lng": -118.2528}, {"name": "Historic Core", "lat": 34.0478, "lng": -118.247}, {"name": "Civic Center", "lat": 34.0519, "lng": -118.2418}], "stops": [{"name": "Grand Central Market", "desc": "Meet at the Hill St entrance for coffee and hellos.", "lat": 34.0508, "lng": -118.2494}, {"name": "Angels Flight", "desc": "Ride the 1901 railway up Bunker Hill. The fare is included.", "lat": 34.0516, "lng": -118.2505}, {"name": "The Broad", "desc": "Free contemporary art on Grand Avenue.", "lat": 34.0544, "lng": -118.2505}, {"name": "Walt Disney Concert Hall", "desc": "Frank Gehry's steel landmark and its rooftop garden.", "lat": 34.0553, "lng": -118.2498}, {"name": "Dorothy Chandler Pavilion", "desc": "The Music Center stage that hosted the Oscars.", "lat": 34.0575, "lng": -118.2482}, {"name": "Grand Park and the courthouses", "desc": "Green space from the Music Center down to City Hall, past LA's courthouses.", "lat": 34.056, "lng": -118.2455}, {"name": "City Hall", "desc": "The 1928 tower at the heart of LA's government.", "lat": 34.0537, "lng": -118.2427}, {"name": "The Evolution of Los Angeles", "desc": "LA's story on one mural.", "lat": 34.0517, "lng": -118.2466}, {"name": "Bradbury Building", "desc": "The 1893 landmark from the movies.", "lat": 34.0505, "lng": -118.2478}, {"name": "Lunch at Grand Central Market", "desc": "30+ food stalls for every taste. Time to hand out the photos. Lunch is not included in the price.", "lat": 34.0503, "lng": -118.2487}]}</script></div></div>
+    <img class="rm-mascot" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87cf6d715b4e53c40aaf8d_Pointing%20(Left).avif" alt="" aria-hidden="true" loading="lazy">
   </div>
 </section>
 <style>
-  .rm { position: relative; width: 100%; box-sizing: border-box; padding: 40px 20px; background-color: #FFF6E6; background-image: linear-gradient(#F1E4CB 1px, transparent 1px), linear-gradient(90deg, #F1E4CB 1px, transparent 1px); background-size: 26px 26px; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }
+  .rm { position: relative; width: 100%; box-sizing: border-box; padding: 44px 20px 40px; background-color: #FFF6E6; background-image: linear-gradient(#F1E4CB 1px, transparent 1px), linear-gradient(90deg, #F1E4CB 1px, transparent 1px); background-size: 26px 26px; color: #27302E; font-family: "Nunito", system-ui, sans-serif; overflow: hidden; }
   .rm *, .rm *::before { box-sizing: border-box; }
   .rm::before { content: ""; display: block; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px) top / 100% 14px no-repeat, linear-gradient(to top, rgba(39,48,46,.22) 0, rgba(39,48,46,.22) 1px, rgba(255,255,255,.7) 1px, rgba(255,255,255,.7) 3px, rgba(39,48,46,.10) 3px, rgba(39,48,46,0) 14px) bottom / 100% 14px no-repeat; pointer-events: none; z-index: 3; }
   .rm > * { position: relative; z-index: 2; }
-  .rm-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
-  .rm-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 32px; }
-  .rm-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.1rem, 4.6vw, 3.2rem); line-height: 1; margin: 0 0 10px; color: #27302E; }
-  .rm-sub { margin: 0 0 14px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.4; color: #3B4440; max-width: 34ch; }
-  .rm-ctarow { display: flex; align-items: flex-end; gap: 0; margin-top: 6px; }
-  .rm-cta { display: inline-block; flex: 0 1 auto; font-family: "Lilita One", sans-serif; font-size: 1.2rem; letter-spacing: 0.01em; line-height: 1.2; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 12px 22px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; margin-bottom: 8px; position: relative; z-index: 1; }
+  .rm-wrap { max-width: 820px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 12px 28px; }
+  .rm-text { flex: 0 1 auto; }
+  .rm-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.1rem, 4.6vw, 3.2rem); line-height: 1.02; margin: 0 0 12px; color: #27302E; }
+  .rm-line { margin: 0 0 4px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.15rem; line-height: 1.4; color: #3B4440; }
+  .rm-cta { display: inline-block; margin-top: 16px; font-family: "Lilita One", sans-serif; font-size: 1.25rem; letter-spacing: 0.01em; line-height: 1.2; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 13px 28px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
   .rm-cta:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
   .rm-cta:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
   .rm-cta:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
-  .rm-mascot { flex: none; height: 118px; width: auto; margin-left: -14px; position: relative; z-index: 2; pointer-events: none; }
+  .rm-mascot { flex: none; height: 190px; width: auto; display: block; pointer-events: none; }
   @media (prefers-reduced-motion: reduce) { .rm-cta { transition: none; } }
-  .rm-map { min-width: 0; background: #fff; border: 2.5px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; padding: 10px 12px 12px; }
-  @media (max-width: 820px) { .rm { padding: 30px 16px; } .rm-mascot { height: 100px; } }
+  @media (max-width: 640px) { .rm { padding: 34px 20px 30px; } .rm-wrap { flex-direction: column; align-items: flex-start; } .rm-mascot { height: 150px; align-self: flex-end; margin-top: -70px; } }
 </style>
-<script>
-(function () {
-  var B = "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/";
-  if (!document.querySelector('link[href*="route-anim.css"]')) { var l = document.createElement("link"); l.rel = "stylesheet"; l.href = B + "route-anim.css?v=1"; document.head.appendChild(l); }
-  function go() { if (window.MWRouteAnim) { if (!document.querySelector(".rm .ra-wrap")) window.MWRouteAnim.init(); } }
-  if (window.MWRouteAnim) { go(); return; }
-  var s = document.createElement("script"); s.src = B + "route-anim.js?v=1"; s.onload = go; document.head.appendChild(s);
-})();
-</script>

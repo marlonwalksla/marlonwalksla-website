@@ -97,3 +97,24 @@ if __name__ == "__main__":
     for name, fn, col in (("skyline", skyline, "#27302E"), ("cityhall", city_hall, "#2E9E57"), ("kiosko", kiosko, "#D6479B"), ("observatory", observatory, "#2890B6")):
         open(f"{out}/{name}.svg", "w").write(fn(col))
     print("ok")
+
+def gcm(color="#2E9E57", opacity=1):
+    """Team (Oct 17, 2026, Marlon): ONE building, Grand Central Market on Broadway: wide 1897 facade, arched entrance, and the tall vertical blade sign."""
+    b = 220
+    outer = f"M100 {b} V{b-120} H420 V{b} Z"
+    holes = ""
+    for row_y in (b-104, b-66):
+        for i in range(7):
+            x = 112 + i * 43
+            if row_y == b-66 and 3 <= i <= 3:
+                continue
+            holes += f" M{x} {row_y} h24 v26 h-24 Z"
+    holes += f" M246 {b} V{b-52} q14 -22 28 0 V{b} Z"  # arched entrance
+    d = f'<path fill-rule="evenodd" d="{outer}{holes}"/>'
+    d += f'<rect x="94" y="{b-130}" width="332" height="10"/><rect x="232" y="{b-150}" width="56" height="20"/><rect x="254" y="{b-162}" width="12" height="12"/>'
+    d += f'<rect x="70" y="{b-196}" width="20" height="170"/><rect x="66" y="{b-204}" width="28" height="10"/>'
+    d += f'<rect x="108" y="{b-30}" width="124" height="8"/><rect x="288" y="{b-30}" width="124" height="8"/>'
+    blocks = [(6,70,32),(42,104,26),(436,86,30),(470,64,34)]
+    d += ''.join(f'<rect x="{x}" y="{b-h}" width="{w}" height="{h}"/>' for x, h, w in blocks)
+    ground = f'<rect x="0" y="{b-6}" width="520" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 {b}" fill="{color}" opacity="{opacity}">{d}{ground}</svg>'

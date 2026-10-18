@@ -47,6 +47,27 @@ T = {
 }
 
 
+# Oct 17, 2026 (Marlon's sketch): one framed Polaroid that rotates Team, Free, Private. Caption, headline line and the ONE button change with it.
+SLIDES = {
+ "en": [
+  dict(tab="Team", key="team", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="#team",
+       line="Team outings for 5 to 30 people. Everyone takes home a photo.", alt="Kara's birthday group at the Grand Central Market sign"),
+  dict(tab="Free", key="free", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
+       line="Free walking tours of Downtown LA, in English and Spanish. Tip what you like.", alt="Free tour guests posing together at the Avila Adobe garden"),
+  dict(tab="Private", key="priv", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="#private",
+       line="Pick your stops. We pick you up and drop you off.", alt="Private tour guests with their Polaroid"),
+ ],
+ "es": [
+  dict(tab="Equipos", key="team", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="#team",
+       line="Salidas de equipo para 5 a 30 personas. Todos se llevan una foto.", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
+  dict(tab="Free", key="free", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
+       line="Tours a pie gratis por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Das la propina que quieras.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
+  dict(tab="Privado", key="priv", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="#private",
+       line="Elige tus paradas. Te recogemos y te llevamos de vuelta.", alt="Invitados de un tour privado con su Polaroid"),
+ ],
+}
+
+
 def svg_uri(svg):
     return "url(\"data:image/svg+xml," + urllib.parse.quote(svg, safe=" =:/;,'\"") + "\")"
 
@@ -109,6 +130,20 @@ def build(lang):
                 f'      <img src="{img}" alt="{alt}" loading="eager">\n'
                 f'      <span class="mwh-label"><strong>{title}</strong><em>{sub}</em><span class="mwh-go">{t["go"]}</span></span>\n'
                 f'    </a>\n')
+    SL = SLIDES[lang]
+    CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
+    PREV = "Previous tour" if lang == "en" else "Tour anterior"
+    NEXT = "Next tour" if lang == "en" else "Tour siguiente"
+    SLIDE_HTML = "".join(
+        f'            <div class="mwh-slide{" is-on" if n == 0 else ""}" data-line="{x["line"]}" data-btn="{x["btn"]}" data-href="{x["href"]}">\n'
+        f'              <a class="mwh-photo" href="{x["href"]}" tabindex="{0 if n == 0 else -1}">\n'
+        f'                <span class="mwh-tape" style="background:{x["tape"]}"></span>\n'
+        f'                <img src="{x["img"]}" alt="{x["alt"]}" loading="eager">\n'
+        f'              </a>\n'
+        f'              <p class="mwh-cap"><strong>{x["title"]}</strong><em>{x["eyebrow"]}</em></p>\n'
+        f'            </div>\n' for n, x in enumerate(SL))
+    TAB_HTML = "".join(
+        f'<button type="button" class="mwh-tab"{" aria-current=\"true\"" if n == 0 else ""}>{x["tab"]}</button>' for n, x in enumerate(SL))
     html = f'''<!-- ==============================================================================
      MARLONWALKSLA - HOME HERO ({lang.upper()})  Oct 16, 2026 redesign
      Built by page-embeds/build_home_hero.py. Full-width grid paper (no trail),
@@ -127,28 +162,31 @@ def build(lang):
         <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en"{cur_en}>English</a>
         <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es"{cur_es}>Espa&ntilde;ol</a>
       </div>
-      <p class="mwh-line">{t["line"]}</p>
-      <div class="mwh-cta">
-        <a class="mwh-btn" href="{t["btn_href"]}">{t["btn"]}</a>
-        <a class="mwh-btn mwh-btn2" href="{t["btn2_href"]}">{t["btn2"]}</a>
-      </div>
-      <a class="mwh-free" href="#book">{t["freeL"]}</a>
+      <p class="mwh-line" id="mwh-line">{SL[0]["line"]}</p>
+      <a class="mwh-btn mwh-cbtn" id="mwh-cbtn" href="{SL[0]["href"]}">{SL[0]["btn"]}</a>
     </div>
     <div class="mwh-right">
-    <div class="mwh-photos">
-{card("team", "mwh-p1", "rgba(96,200,96,.6)")}{card("free", "mwh-p3", "rgba(255,0,255,.45)")}{card("priv", "mwh-p2", "rgba(40,144,182,.45)")}    </div>
+      <div class="mwh-car" role="region" aria-roledescription="carousel" aria-label="{CAR_LABEL}">
+        <button type="button" class="mwh-nav mwh-prev" aria-label="{PREV}">&lsaquo;</button>
+        <div class="mwh-pol">
+          <div class="mwh-slides">
+{SLIDE_HTML}          </div>
+        </div>
+        <button type="button" class="mwh-nav mwh-next" aria-label="{NEXT}">&rsaquo;</button>
+      </div>
+      <div class="mwh-tabs" role="group" aria-label="{CAR_LABEL}">{TAB_HTML}</div>
     </div>
   </div>
 </section>
 <style>
   /* Let the old hero section and column get out of the way */
-  .section.max-height_100vh_desktop {{ max-height: none !important; min-height: 0 !important; overflow: visible !important; padding: 0 !important; display: block !important; background-color: #FFF6E6 !important; background-image: linear-gradient(#F1E4CB 1px, transparent 1px), linear-gradient(90deg, #F1E4CB 1px, transparent 1px) !important; background-size: 26px 26px !important; }}
+  .section.max-height_100vh_desktop {{ max-height: none !important; min-height: 0 !important; overflow: visible !important; padding: 0 !important; display: block !important; background-color: #FFF6E6 !important; background-image: none !important; }}
   .hero-left-col {{ width: 100% !important; max-width: none !important; flex: none !important; padding: 0 !important; margin: 0 !important; height: auto !important; }}
   .hero-right-col {{ display: none !important; }}
 
   /* Full width: the grid paper runs edge to edge even inside Webflow's centered container */
   body {{ overflow-x: clip; }}
-  .mwh {{ position: relative; overflow: hidden; width: var(--mwh-w, 100vw); margin-left: calc(50% - var(--mwh-w, 100vw) / 2); {GRID}; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }}
+  .mwh {{ position: relative; overflow: hidden; width: var(--mwh-w, 100vw); margin-left: calc(50% - var(--mwh-w, 100vw) / 2); background-color: #FFF6E6; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }}
   .mwh *, .mwh *::before {{ box-sizing: border-box; }}
   .mwh-wrap {{ position: relative; max-width: 1140px; margin: 0 auto; padding: 56px 56px 76px; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 28px; align-items: center; }}
   .mwh-h1 {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.7rem, 5.4vw, 4.4rem); line-height: 0.98; letter-spacing: 0.005em; margin: 0 0 16px; color: #27302E; }}
@@ -243,17 +281,44 @@ def build(lang):
   @media (max-width: 520px) {{ .mwh-cta .mwh-btn {{ flex: 1 1 100%; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-btn, .mwh-photo {{ transition: none; }} }}
 
+  /* Oct 17, 2026 (Marlon's sketch): one framed Polaroid that rotates Team, Free, Private. One button, and the headline line changes with it. No grid paper on the hero. */
+  .mwh-right {{ justify-items: center; gap: 14px; }}
+  .mwh-car {{ display: grid; grid-template-columns: 46px minmax(0, 340px) 46px; align-items: center; gap: 10px; width: 100%; justify-content: center; }}
+  .mwh-pol {{ position: relative; grid-column: 2; padding: 14px 8px 0; }}
+  .mwh-slides {{ display: grid; }}
+  .mwh-slide {{ grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity 0.25s ease-out, visibility 0s linear 0.25s; }}
+  .mwh-slide.is-on {{ opacity: 1; visibility: visible; transition: opacity 0.25s ease-out; }}
+  .mwh-slide .mwh-photo {{ transform: rotate(-2deg); }}
+  .mwh-slide .mwh-photo:hover, .mwh-slide .mwh-photo:focus-visible {{ transform: rotate(0deg); }}
+  .mwh-cap {{ margin: 14px auto 0; display: flex; flex-direction: column; align-items: center; text-align: center; }}
+  .mwh-cap strong {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.5rem; line-height: 1.1; color: #27302E; }}
+  .mwh-cap em {{ font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; color: #4D5551; }}
+  .mwh-nav {{ width: 46px; height: 46px; border-radius: 50%; border: 2.5px solid #27302E; background: #fff; color: #27302E; font-size: 1.7rem; line-height: 1; padding: 0 0 4px; cursor: pointer; box-shadow: 2px 2px 0 #27302E; transition: transform 0.15s ease-out; }}
+  .mwh-nav:hover {{ transform: translateY(-2px); }}
+  .mwh-nav:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 3px; }}
+  .mwh-prev {{ grid-column: 1; grid-row: 1; }} .mwh-next {{ grid-column: 3; grid-row: 1; }}
+  .mwh-tabs {{ display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }}
+  .mwh-tab {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; color: #27302E; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 0 16px; min-height: 44px; cursor: pointer; }}
+  .mwh-tab[aria-current="true"] {{ background: #FFD43B; box-shadow: 2px 2px 0 #27302E; }}
+  .mwh-tab:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 3px; }}
+  .mwh-cbtn {{ font-size: 1.2rem; padding: 13px 26px; }}
+  /* bigger, clearer LA silhouettes along the bottom */
+  .mwh-wrap::before {{ height: 300px; opacity: 1; }}
+  @media (max-width: 991px) {{ .mwh-wrap::before {{ height: 200px; }} }}
+  @media (max-width: 767px) {{ .mwh-wrap::before {{ height: 150px; }} .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
+  @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
+
   {POSTCARD}
 </style>
 '''
-    html += PC_JS
+    html += PC_JS + CAR_JS
     if lang == "es":
         html += ("<script>\n  /* Spanish Home: page language for browsers and the booking calendar in Spanish */\n"
                  "  document.documentElement.setAttribute('lang', 'es');\n"
                  "  document.addEventListener('DOMContentLoaded', function () { if (typeof window.mwlaBookSet === 'function') window.mwlaBookSet('es'); });\n"
                  "</script>\n")
-    html = (html.replace("__SKYLINE__", SIL.svg_uri(SIL.skyline("#27302E", 0.07)))
-                .replace("__SIL_TEAM__", SIL.svg_uri(SIL.city_hall("#2E9E57", 0.22)))
+    html = (html.replace("__SKYLINE__", SIL.svg_uri(SIL.skyline("#27302E", 0.14)))
+                .replace("__SIL_TEAM__", SIL.svg_uri(SIL.gcm("#2E9E57", 0.28)))
                 .replace("__SIL_PRIV__", SIL.svg_uri(SIL.observatory("#2890B6", 0.22)))
                 .replace("__SIL_FREE__", SIL.svg_uri(SIL.kiosko("#D6479B", 0.18))))
     return html
@@ -328,6 +393,33 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
     .mw-bg-book::after { inset: 6px; border-width: 22px; border-image-slice: 40; border-image-width: 22px; }
   }
 '''
+CAR_JS = """<script>
+(function () {
+  var car = document.querySelector(".mwh-car"); if (!car) return;
+  var slides = [].slice.call(car.querySelectorAll(".mwh-slide")), tabs = [].slice.call(document.querySelectorAll(".mwh-tab"));
+  var line = document.getElementById("mwh-line"), btn = document.getElementById("mwh-cbtn"), i = 0, timer = null, stopped = false;
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function (s, k) { var on = k === i; s.classList.toggle("is-on", on); s.setAttribute("aria-hidden", on ? "false" : "true"); s.querySelector("a").tabIndex = on ? 0 : -1; });
+    tabs.forEach(function (t, k) { if (k === i) t.setAttribute("aria-current", "true"); else t.removeAttribute("aria-current"); });
+    var d = slides[i]; line.textContent = d.getAttribute("data-line"); btn.textContent = d.getAttribute("data-btn"); btn.setAttribute("href", d.getAttribute("data-href"));
+  }
+  function stop() { stopped = true; if (timer) { clearInterval(timer); timer = null; } }
+  function user(n) { stop(); show(n); }
+  car.querySelector(".mwh-prev").addEventListener("click", function () { user(i - 1); });
+  car.querySelector(".mwh-next").addEventListener("click", function () { user(i + 1); });
+  tabs.forEach(function (t, k) { t.addEventListener("click", function () { user(k); }); });
+  var x0 = null; car.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+  car.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1)); x0 = null; });
+  ["mouseenter", "focusin"].forEach(function (ev) { document.querySelector(".mwh").addEventListener(ev, stop); });
+  // slow autoplay (7s) until anyone hovers, touches or focuses; never with reduced motion
+  if (!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+    timer = setInterval(function () { if (!document.hidden && !stopped) show(i + 1); }, 7000);
+  }
+})();
+</script>
+"""
+
 PC_JS = ("<script>\n" + open("postcard-forms.js", encoding="utf-8").read() + "</script>\n"  # Ernesto next to the form send buttons
          + "<script>\n/* Full-width hero: use the width WITHOUT the scrollbar so the airmail edge is not cut at the screen sides */\n"
          "(function(){var h=document.querySelector('.mwh');if(!h)return;function f(){h.style.setProperty('--mwh-w',document.documentElement.clientWidth+'px');}f();window.addEventListener('resize',f);document.addEventListener('DOMContentLoaded',f);})();\n</script>\n")
