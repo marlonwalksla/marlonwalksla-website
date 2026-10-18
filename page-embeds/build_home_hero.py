@@ -176,8 +176,7 @@ def build(lang):
     <div class="mwh-text">
       <h1 class="mwh-h1">{t["h1"]}</h1>
       <div class="mwh-lang" role="group" aria-label="Language / Idioma">
-        <span class="mwh-ernwrap"><img class="mwh-ern" src="{ERNESTO}" alt="{t["ern_alt"]}" width="90" height="108">
-          <span class="mwh-hand" lang="{lang}">{t["hand"]}</span></span>
+        <span class="mwh-hand" lang="{lang}">{t["hand"]}</span>
         <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en"{cur_en}>English</a>
         <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es"{cur_es}>Espa&ntilde;ol</a>
       </div>
@@ -265,11 +264,10 @@ def build(lang):
   /* Oct 17, 2026 (Marlon, via Gemini round 2): back to one border per section; the hero keeps its own airmail edge (inset 12px) */
   .mwh-wrap {{ padding-top: 64px; }}
   .mwh-lang {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 18px; }}
-  .mwh-lang .mwh-ern {{ height: 96px; margin: 0 4px 0 0; }}
   /* Oct 18, 2026 (Marlon via Gemini): the headline says only "Explore LA with Marlon"; Ernesto gets a handwritten callout with a hand-drawn arrow */
-  .mwh-lang {{ margin-top: 50px; }}
-  .mwh-ernwrap {{ position: relative; display: inline-block; line-height: 0; }}
-  .mwh-hand {{ position: absolute; left: 72px; bottom: 96px; white-space: nowrap; font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 2.1rem; line-height: 1; color: #E8412F; transform: rotate(-7deg); transform-origin: left bottom; pointer-events: none; }}
+  .mwh-lang {{ margin-top: 62px; }}
+  .mwh-lang {{ position: relative; }}
+  .mwh-hand {{ position: absolute; left: 8px; bottom: calc(100% + 10px); white-space: nowrap; font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 2.1rem; line-height: 1; color: #E8412F; transform: rotate(-5deg); transform-origin: left bottom; pointer-events: none; }}
   .mwh-lb {{ position: relative; font-family: "Lilita One", sans-serif; font-size: 1.15rem; line-height: 1; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2.5px solid #27302E; border-radius: 12px; padding: 12px 20px; min-height: 44px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }}
   .mwh-lb::before {{ content: ""; position: absolute; top: -9px; left: 50%; width: 46px; height: 15px; background: rgba(40,144,182,.45); transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; }}
   .mwh-lb2::before {{ background: rgba(255,0,255,.4); transform: translateX(-50%) rotate(3deg); }}
@@ -301,7 +299,6 @@ def build(lang):
     .mwh-tape {{ width: 44px; height: 14px; top: -7px; }}
     .mwh-text {{ display: flex; flex-direction: column; align-items: flex-start; }}
     .mwh-cta {{ align-self: stretch; }}
-    .mwh-lang .mwh-ern {{ height: 76px; }}
     .mwh-lb {{ font-size: 1.05rem; padding: 11px 16px; }}
     .mwh-wrap::before {{ height: 120px; }}
     .mwh::after {{ inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }}
