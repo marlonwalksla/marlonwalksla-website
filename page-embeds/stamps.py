@@ -10,13 +10,14 @@ def _inner(svg):
 
 
 def icon(name, ink):
-    if name == "gcm": return _inner(SIL.gcm(ink)), (520, 220)
+    if name == "gcm": return _inner(SIL.gcm(ink)), (390, 216, "58 8 390 216", 126)
     if name == "observatory": return _inner(SIL.observatory(ink)), (520, 220)
     if name == "kiosko": return _inner(SIL.kiosko(ink)), (520, 220)
     if name == "city_tower": return _inner(SIL.city_tower(ink)), (160, 220, "180 0 160 220", 60)
-    if name == "palm": return _inner(SIL.palm(ink)), (220, 220, "150 0 220 220", 88)
+    if name == "palm": return _inner(SIL.palm(ink)), (220, 220, "150 0 220 220", 100)
+    if name == "sunset": return _inner(SIL.sunset(ink)), (320, 170, "100 40 320 170", 124)
     if name == "sun": return _inner(SIL.sun(ink)), (280, 160, "120 50 280 160", 108)
-    if name == "polaroid": return _inner(SIL.polaroid(ink)), (520, 220)
+    if name == "polaroid": return _inner(SIL.polaroid(ink)), (262, 186, "142 16 262 186", 118)
     if name == "pier": return _inner(SIL.pier(ink)), (520, 220)
     if name == "wdch": return _inner(SIL.wdch(ink)), (520, 220)
     if name == "city_hall": return _inner(SIL.city_hall(ink)), (520, 220)

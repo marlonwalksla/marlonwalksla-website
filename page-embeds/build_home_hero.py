@@ -134,9 +134,9 @@ def build(lang):
                 f'    </a>\n')
     PAPER_HERO = paper.rule('.mwh::before').replace('{', '{{').replace('}', '}}')
     es = lang == 'es'
-    HERO_STAMPS = (stamps.stamp('hsa', 'CENTRO DE LOS &Aacute;NGELES' if es else 'DOWNTOWN LOS ANGELES', 'EXPLORADO' if es else 'EXPLORED', 'palm', '', '#E8412F', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
-                   + stamps.stamp('hsb', 'CITY HALL', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'city_tower', 'EST. 1928', '#2890B6', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"')
-                   + stamps.stamp('hsc', 'SOL DE CALIFORNIA' if es else 'CALIFORNIA SUNSHINE', 'LOS &Aacute;NGELES' if es else 'LOS ANGELES', 'sun', '', '#E27B1A', 6, 9).replace('class="stamp"', 'class="stamp stamp-c"'))
+    HERO_STAMPS = (stamps.stamp('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palm', '', '#2E9E57', -9, 3).replace('class="stamp"', 'class="stamp stamp-a"')
+                   + stamps.stamp('hsb', 'PLACITA OLVERA', 'EL PUEBLO DE LOS &Aacute;NGELES' if es else 'EL PUEBLO DE LOS ANGELES', 'kiosko', 'EST. 1781', '#D6479B', 8, 6).replace('class="stamp"', 'class="stamp stamp-b"')
+                   + stamps.stamp('hsc', 'ATARDECER EN CALIFORNIA' if es else 'CALIFORNIA SUNSET', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'sunset', '', '#E8742A', 6, 9).replace('class="stamp"', 'class="stamp stamp-c"'))
     SL = SLIDES[lang]
     CAR_LABEL = "Tour types" if lang == "en" else "Tipos de tour"
     PREV = "Previous tour" if lang == "en" else "Tour anterior"
@@ -321,9 +321,9 @@ def build(lang):
   /* Oct 17, 2026: the skyline silhouette is replaced by two ink stamps */
   .mwh-wrap::before {{ content: none !important; }}
   .mwh > svg.stamp {{ position: absolute; z-index: 1; }}
-  .mwh > .stamp-a {{ left: calc(50% - 262px); bottom: 20px; width: 182px; }}
-  .mwh > .stamp-b {{ right: max(48px, calc(50% - 570px)); bottom: 38px; width: 168px; }}
-  .mwh > .stamp-c {{ right: max(48px, calc(50% - 570px)); top: 38px; width: 150px; }}
+  .mwh > .stamp-a {{ left: calc(50% - 250px); bottom: 26px; width: 130px; }}
+  .mwh > .stamp-b {{ right: max(44px, calc(50% - 560px)); bottom: 34px; width: 120px; }}
+  .mwh > .stamp-c {{ right: max(44px, calc(50% - 560px)); top: 34px; width: 120px; }}
   @media (max-width: 1100px) {{ .mwh > .stamp-b, .mwh > .stamp-c {{ display: none; }} }}
   @media (max-width: 767px) {{ .mwh > svg.stamp {{ display: none; }} .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-cbtn {{ align-self: stretch; text-align: center; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}
@@ -387,10 +387,10 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   /* Oct 17, 2026 (Marlon): LA silhouettes fill the white space of each postcard back, like the example postcards */
   #team.mwsh, #private.mwsh, .mwla-book-head { position: relative; }
   /* Oct 17, 2026 (Marlon): ink stamps (passport style) replace the pale silhouettes; they fill the white space on the right of each header */
-  svg.stamp { display: block; width: 210px; height: auto; mix-blend-mode: multiply; opacity: .93; transform: rotate(var(--r, -8deg)); pointer-events: none; }
+  svg.stamp { display: block; width: 150px; height: auto; mix-blend-mode: multiply; opacity: .93; transform: rotate(var(--r, -8deg)); pointer-events: none; }
   #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { position: absolute; top: 6px; right: 26px; z-index: 0; }
-  #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { top: 50px; right: 232px; }
-  @media (max-width: 1100px) { #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { display: none; } }
+  #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { top: 44px; right: 156px; }
+  @media (max-width: 1000px) { #team.mwsh > svg.stamp.s2, #private.mwsh > svg.stamp.s2, .mwla-book-head > svg.stamp.s2 { display: none; } }
   @media (max-width: 700px) { #team.mwsh > svg.stamp, #private.mwsh > svg.stamp, .mwla-book-head > svg.stamp { display: none; } }
   #team.mwsh > *, #private.mwsh > *, .mwla-book-head > * { position: relative; z-index: 1; }
   /* badges: small facts, not buttons */

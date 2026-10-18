@@ -102,8 +102,7 @@ def polaroid(color="#6A4C93", opacity=1):
         return f'<g transform="translate({x} {y}) rotate({rot})">{frame}{ppl}</g>'
     d = pol(150, 34, -9, [(34, 50, 9), (62, 44, 10), (90, 52, 8)])
     d += pol(270, 30, 8, [(38, 52, 9), (66, 46, 10), (92, 54, 8)])
-    ground = '<rect x="0" y="214" width="520" height="6"/>'
-    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}{ground}</svg>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 
 def pier(color="#B8326E", opacity=1):
@@ -167,6 +166,21 @@ def sun(color="#E27B1A", opacity=1):
         x2, y2 = cx - (r + 44) * math.cos(a), cy - (r + 44) * math.sin(a)
         d += f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{color}" stroke-width="9" stroke-linecap="round"/>'
     d += '<rect x="120" y="176" width="280" height="8"/><rect x="170" y="194" width="180" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def sunset(color="#E8742A", opacity=1):
+    """Hero stamp (Private): a half sun sinking into the horizon, short rays above, water lines below."""
+    import math
+    cx, cy, r = 260, 140, 58
+    d = f'<path d="M{cx-r} {cy} A{r} {r} 0 0 1 {cx+r} {cy} Z"/>'
+    for i in range(1, 7):
+        a = math.pi * i / 7
+        x1, y1 = cx - (r + 12) * math.cos(a), cy - (r + 12) * math.sin(a)
+        x2, y2 = cx - (r + 34) * math.cos(a), cy - (r + 34) * math.sin(a)
+        d += f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{color}" stroke-width="9" stroke-linecap="round"/>'
+    for k, (w, y) in enumerate(((300, 154), (230, 172), (160, 190))):
+        d += f'<rect x="{cx - w/2:.0f}" y="{y}" width="{w}" height="8" rx="4"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 

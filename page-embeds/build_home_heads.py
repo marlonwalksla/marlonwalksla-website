@@ -37,7 +37,7 @@ TEAM_CSS = """<style>
   #team-split .mw-offer { padding-top: 0; }
   #team-split .private-specs-grid { margin-bottom: 16px; padding: 16px 18px; }
   #team-split .mw-route { margin-top: 0; }
-  #team.mwsh, #private.mwsh { min-height: 262px; }
+  #team.mwsh { min-height: 190px; }
   #team-split .mw-offer-links { margin-top: 10px; gap: 4px 22px; }
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
 </style>
