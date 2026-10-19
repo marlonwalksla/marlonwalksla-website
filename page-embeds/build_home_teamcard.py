@@ -26,7 +26,11 @@ T = {
    proof="La prueba está en las Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google (en inglés)"),
 }
+CEL = {"en": ("What are you celebrating?", [("birthday", "Birthday"), ("milestone", "Milestone"), ("retirement", "Retirement"), ("offsite", "Offsite"), ("just-because", "Just because")]),
+       "es": ("&iquest;Qu&eacute; celebran?", [("birthday", "Cumplea&ntilde;os"), ("milestone", "Un logro"), ("retirement", "Jubilaci&oacute;n"), ("offsite", "Retiro de empresa"), ("just-because", "Porque s&iacute;")])}
 for lang, t in T.items():
+    cel_h, cel_opts = CEL[lang]
+    cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="false">{v}</button>' for k, v in cel_opts)
     pics = "".join(
         f'<span class="tq-pol" style="--r:{r}"><img src="{src}" alt="{alt}" loading="lazy"></span>' for src, alt, r in PICS)
     note = f'<p class="tq-btnnote">{t["btn_note"]}</p>' if t["btn_note"] else ""
@@ -35,6 +39,7 @@ for lang, t in T.items():
      The Team page keeps the calendar (team-cal.html). Rates match the Team page slider. -->
 <div class="tq" id="tq">
   <h3 class="tq-title">{t["title"]}</h3>
+  <div class="tq-cel" role="group" aria-label="{cel_h}"><p class="tq-cel-h">{cel_h}</p><div class="tq-chips">{cel}</div></div>
   <label class="tq-label" for="tq-range">{t["label"]} <strong id="tq-n">15</strong></label>
   <input class="tq-range" id="tq-range" type="range" min="5" max="30" step="1" value="15" aria-describedby="tq-out">
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span></div>
@@ -52,7 +57,6 @@ for lang, t in T.items():
   .mw-form-card:has(.tq) > .w-form {{ display: none !important; }}
   .mw-form-card:has(.tq) {{ margin-top: 0; padding: 22px 22px 20px; }}
   /* Oct 17, 2026: the card is short now, so it stays in view while the photos and map scroll */
-  @media (min-width: 992px) {{ .mw-form-card:has(.tq) {{ position: sticky; top: 90px; }} }}
   .tq {{ font-family: "Nunito", system-ui, sans-serif; color: #27302E; }}
   .tq-title {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.5rem; line-height: 1.15; margin: 0 0 10px; color: #27302E; }}
   .tq-label {{ display: block; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.02rem; margin-bottom: 4px; }}
@@ -94,7 +98,14 @@ for lang, t in T.items():
   .tq-q blockquote {{ margin: 0; font-size: 0.95rem; line-height: 1.45; color: #3B4440; }}
   .tq-q figcaption {{ margin-top: 4px; font-size: 0.82rem; color: #5B6663; }}
   .tq-q figcaption span {{ color: #E89B00; letter-spacing: 1px; margin-right: 4px; }}
-  @media (prefers-reduced-motion: reduce) {{ .tq-btn {{ transition: none; }} }}
+  .tq-cel {{ margin: 0 0 16px; }}
+  .tq-cel-h {{ margin: 0 0 8px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; color: #27302E; }}
+  .tq-chips {{ display: flex; flex-wrap: wrap; gap: 8px; }}
+  .tq-chip {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; line-height: 1.2; color: #27302E; background: #fff; border: 1.5px solid #27302E; border-radius: 999px; padding: 7px 14px; min-height: 36px; cursor: pointer; transition: background-color 0.15s ease-out, transform 0.15s ease-out; }}
+  .tq-chip:hover {{ background: #E3F6D8; }}
+  .tq-chip[aria-pressed="true"] {{ background: #94E059; box-shadow: 2px 2px 0 #27302E; font-weight: 600; }}
+  .tq-chip:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 2px; }}
+  @media (prefers-reduced-motion: reduce) {{ .tq-btn, .tq-chip {{ transition: none; }} }}
 </style>
 <script>
 (function () {{
@@ -110,6 +121,15 @@ for lang, t in T.items():
     document.getElementById("tq-total").textContent = "$" + t.toLocaleString("en-US");
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
   }}
+  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", chips = root.querySelectorAll(".tq-chip");
+  chips.forEach(function (c) {{
+    c.addEventListener("click", function () {{
+      var on = c.getAttribute("aria-pressed") !== "true";
+      chips.forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
+      c.setAttribute("aria-pressed", on ? "true" : "false");
+      if (btn) btn.setAttribute("href", on ? base + "?celebrating=" + c.getAttribute("data-c") : base);
+    }});
+  }});
   r.addEventListener("input", upd); upd();
 }})();
 </script>

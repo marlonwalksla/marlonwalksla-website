@@ -19,7 +19,7 @@ T = {
     "en": dict(
         eyebrow="Downtown LA walking tours",
         h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon</span>', hand="&amp; Ernesto!",
-        line='Explore LA on a <button type="button" class="mwh-hl" data-tone="green" data-i="0">team tour</button>, a <button type="button" class="mwh-hl" data-tone="orange" data-i="1">private tour</button> or a <button type="button" class="mwh-hl" data-tone="pink" data-i="2">free tour</button>, in English or Spanish.',
+        line='Explore LA on a <button type="button" class="mwh-hl" data-tone="green" data-i="0">team tour</button>, a <button type="button" class="mwh-hl" data-tone="orange" data-i="1">private tour</button> or a <button type="button" class="mwh-hl" data-tone="pink" data-i="2">free tour</button>.',
         btn="Book a Team Outing", btn_href="#team", btn2="Design a Private Tour", btn2_href="#private", freeL="Or join a free tour &rarr;", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
@@ -35,7 +35,7 @@ T = {
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
         h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span>', hand="&iexcl;y Ernesto!",
-        line='Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="orange" data-i="1">tour privado</button> o un <button type="button" class="mwh-hl" data-tone="pink" data-i="2">free tour</button>, en espa&ntilde;ol o ingl&eacute;s.',
+        line='Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="orange" data-i="1">tour privado</button> o un <button type="button" class="mwh-hl" data-tone="pink" data-i="2">free tour</button>.',
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
@@ -55,19 +55,19 @@ T = {
 SLIDES = {
  "en": [
   dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="#team",
-       line="Team outings for 5 to 30 people. Everyone takes home a photo.", alt="Kara's birthday group at the Grand Central Market sign"),
+       line="Come walk, eat, and celebrate! Everyone takes home a photo!", alt="Kara's birthday group at the Grand Central Market sign"),
   dict(tab="Private", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="#private",
-       line="Pick your stops. We pick you up and drop you off.", alt="Private tour guests with their Polaroid"),
+       line="Pick your stops. We'll handle the rest!", alt="Private tour guests with their Polaroid"),
   dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
-       line="Free walking tours of Downtown LA, in English and Spanish. Tip what you like.", alt="Free tour guests posing together at the Avila Adobe garden"),
+       line="Tip-based walking tours of Downtown LA, in English and Spanish.", alt="Free tour guests posing together at the Avila Adobe garden"),
  ],
  "es": [
   dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="#team",
-       line="Salidas de equipo para 5 a 30 personas. Todos se llevan una foto.", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
+       line="&iexcl;Ven a caminar, comer y celebrar! &iexcl;Todos se llevan una foto!", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
   dict(tab="Privado", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="#private",
-       line="Elige tus paradas. Te recogemos y te llevamos de vuelta.", alt="Invitados de un tour privado con su Polaroid"),
+       line="Elige tus paradas. &iexcl;Nosotros nos encargamos del resto!", alt="Invitados de un tour privado con su Polaroid"),
   dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
-       line="Tours a pie gratis por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Das la propina que quieras.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
+       line="Tours a pie por el centro de LA, en espa&ntilde;ol e ingl&eacute;s, con propina.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
  ],
 }
 

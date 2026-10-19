@@ -42,7 +42,7 @@ TEAM_CSS = """<style>
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
 </style>
 """
-LINES = {('team', 'en'): 'Explore Downtown LA together and take home a photo of your favorite people.', ('team', 'es'): 'Explora el centro de LA en equipo y ll&eacute;vate una foto de tu gente favorita.', ('priv', 'en'): 'Pick your stops and explore LA at your pace, door to door.', ('priv', 'es'): 'Elige tus paradas y explora LA a tu ritmo, de puerta a puerta.'}
+LINES = {('team', 'en'): 'Get out of the office and explore Downtown LA together with your team. Learn some local history, breathe in some fresh air, and break bread at Grand Central Market.', ('team', 'es'): 'Sal de la oficina y explora el centro de LA con tu equipo. Aprende algo de historia local, respira aire fresco y comparte una comida en Grand Central Market.', ('priv', 'en'): 'Pick your stops and we\'ll handle the rest. Tell me where you want to go and we\'ll design your group\'s best day in LA together.', ('priv', 'es'): 'Elige tus paradas y nosotros nos encargamos del resto. Cu&eacute;ntame a d&oacute;nde quieres ir y dise&ntilde;amos juntos el mejor d&iacute;a de tu grupo en LA.'}
 FROM = {"en": "From: Marlon &middot; MarlonWalksLA, Los Angeles", "es": "De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles"}
 TO = {("team", "en"): ("To:", "your team &middot; Grand Central Market, 317 S Broadway"),
       ("team", "es"): ("Para:", "tu equipo &middot; Grand Central Market, 317 S Broadway"),

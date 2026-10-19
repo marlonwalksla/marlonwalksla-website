@@ -200,7 +200,6 @@ CALC_CSS = """<style>
   /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
   .mw-form-card:has(.pcq) { margin-top: 0; padding: 24px 24px 20px; box-shadow: 6px 6px 0 #27302E; }
-  @media (min-width: 992px) { .mw-form-card:has(.pcq) { position: sticky; top: 20px; } }
   .pcq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
   .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.8rem; line-height: 1.1; margin: 0 0 6px; color: #27302E; }
   .pcq-hint { margin: 0 0 14px; font-size: 0.95rem; line-height: 1.45; color: #4D5551; }

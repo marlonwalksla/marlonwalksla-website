@@ -19,7 +19,7 @@ text = {
         "sub":"Walk back in time through 240 years of Los Angeles history with a local guide. Booking takes under a minute.",
         "wa":"\U0001F4AC Questions? WhatsApp Marlon",
         "back":"Walk backwards through LA history",
-        "tip":"Tip-based","line":"Explore Downtown LA with Marlon and tip what feels right.",
+        "tip":"Tip-based","line":"Come walk LA's historic downtown. Start at Bunker Hill, home of LA's arts buildings, then walk backwards in time to Placita Olvera, where the Spanish and Mexican pueblo began.",
         "qt":"Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.","qwho":"Angel · Google (in Spanish)",
         "p1n":"Walt Disney Concert Hall","p1l":"Where we meet",
         "p2n":"City Hall","p2l":"The 1928 tower",
@@ -33,7 +33,7 @@ text = {
         "sub":"Viaja hacia atrás en el tiempo por 240 años de historia de Los Ángeles con un guía local. Reservar toma menos de un minuto.",
         "wa":"\U0001F4AC ¿Preguntas? Escríbele a Marlon por WhatsApp",
         "back":"Camina hacia atrás en la historia de LA",
-        "tip":"Con propina","line":"Explora el centro de LA con Marlon y deja la propina que creas justa.",
+        "tip":"Con propina","line":"Ven a caminar por el centro histórico de LA. Empezamos en Bunker Hill, donde están los edificios de las artes de LA, y retrocedemos en el tiempo hasta la Placita Olvera, donde nació el pueblo español y mexicano.",
         "qt":"Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.","qwho":"Angel · Google",
         "p1n":"Walt Disney Concert Hall","p1l":"Punto de encuentro",
         "p2n":"City Hall","p2l":"La torre de 1928",
@@ -82,11 +82,10 @@ html = f'''<!-- ================================================================
       <div class="mwla-lang-switch" role="group" aria-label="Tour language / Idioma del tour">
         <span class="mwla-lang-label">Tour language &middot; Idioma del tour</span>
         <div class="mwla-lang-pill">
-          <button type="button" class="mwla-lang-opt is-active" id="mwla-lang-en" onclick="mwlaBookSet('en')" aria-pressed="true">English</button>
-          <button type="button" class="mwla-lang-opt" id="mwla-lang-es" onclick="mwlaBookSet('es')" aria-pressed="false">Espa&ntilde;ol</button>
+          <button type="button" class="mwla-lang-opt is-active" id="mwla-lang-en" onclick="mwlaBookSet('en')" aria-pressed="true"><span class="mwla-lang-name">English</span><span class="mwla-lang-time">12:30 PM</span></button>
+          <button type="button" class="mwla-lang-opt" id="mwla-lang-es" onclick="mwlaBookSet('es')" aria-pressed="false"><span class="mwla-lang-name">Espa&ntilde;ol</span><span class="mwla-lang-time">9:30 AM</span></button>
         </div>
       </div>
-      <p class="mwla-meet" data-i18n="meet">{text["en"]["meet"]}</p>
       <div class="mwla-book-cals">
         <div class="mwla-book-cal" id="mwla-cal-en"></div>
         <div class="mwla-book-cal" id="mwla-cal-es" style="display:none"></div>
@@ -123,12 +122,12 @@ html = f'''<!-- ================================================================
   .mwla-map {{ margin-top: 22px; min-width: 0; background: #fff; border: 2.5px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; padding: 10px; }}
   .mwla-map img {{ display: block; width: 100%; max-width: 100%; height: auto; border-radius: 8px; }}
   .mwla-fcard {{ background: #ffffff; border-radius: 18px; padding: 20px 18px 18px; box-shadow: 0 12px 30px -18px rgba(39, 48, 46, 0.55); }}
-  @media (min-width: 992px) {{ .mwla-fcard {{ position: sticky; top: 90px; }} }}
   .mwla-card-h {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.45rem; color: #27302E; margin: 0 0 12px; }}
-  .mwla-lang-switch {{ display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin: 0 0 12px; }}
-  .mwla-lang-label {{ font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #27302E; }}
-  .mwla-lang-pill {{ display: inline-flex; background: #FFF6E6; border: 2px solid #f3e3b5; border-radius: 50px; padding: 4px; gap: 4px; }}
-  .mwla-lang-opt {{ font: inherit; font-size: 1rem; font-weight: 800; color: #475569; background: transparent; border: none; border-radius: 50px; padding: 9px 22px; cursor: pointer; transition: background 0.15s ease-out, color 0.15s ease-out; }}
+  .mwla-lang-switch {{ display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 0 0 14px; }}
+  .mwla-lang-label {{ text-align: center; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #27302E; }}
+  .mwla-lang-pill {{ display: flex; justify-content: center; background: #FFF6E6; border: 2px solid #f3e3b5; border-radius: 50px; padding: 4px; gap: 4px; }}
+  .mwla-lang-opt {{ font: inherit; font-size: 1.25rem; font-weight: 800; color: #475569; background: transparent; border: none; border-radius: 50px; padding: 12px 30px; display: flex; flex-direction: column; align-items: center; gap: 2px; line-height: 1.15; cursor: pointer; transition: background 0.15s ease-out, color 0.15s ease-out; }}
+  .mwla-lang-time {{ font-size: 0.85rem; font-weight: 700; }}
   .mwla-lang-opt:hover {{ color: #0f172a; }}
   .mwla-lang-opt.is-active {{ background: #FFD43B; color: #27302E; }}
   .mwla-meet {{ font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; line-height: 1.4; color: #3B4440; margin: 0 0 12px; }}
