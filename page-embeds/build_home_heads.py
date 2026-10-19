@@ -8,15 +8,19 @@ PERSON = ('<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" 
           '<path d="M3 18c0-4.2 3.1-6.6 7-6.6s7 2.4 7 6.6z" fill="#27302E"/></svg>')
 # Oct 17, 2026 (Marlon): postcard headers. Text left, small badges instead of pills. Ernesto lives next to the form buttons, not up here.
 # title = the line that sells it; badges = quick facts (person icon + group size, camera + film pics, car + pickup)
+# Oct 19, 2026 (Marlon): ONE pill system for all three tours. Same icon for the same idea, same order: who, how long, what is included, then what is NOT included.
+# Included pills are solid; "not included" pills are dashed and muted (class pc-no). Icons: people 1F465, clock 23F1, funicular 1F69E, camera 1F4F8, hotel car 1F697, fork and knife 1F374, parking 1F17F.
+# Facts only from Marlon: 20 photos per team (his earlier pill; the brief also says a photo for everyone, to confirm), Private 4/8/12 hours, no food or parking on Private.
+PEOPLE, CLOCK, FLIGHT, CAMERA, CAR, FOOD, PARK = "&#128101;", "&#9201;&#65039;", "&#128670;", "&#128247;", "&#128663;", "&#127860;", "&#127359;&#65039;"
 T = {
  ("team", "en"): ("Celebrate Your Team", "Ernesto with his Polaroid camera",
-   [(PERSON, "5-30", "5 to 30 guests"), ("&#128247;", "20 photos per team", None), ("&#127860;", "Lunch not included", None)]),
+   [(PEOPLE, "5-30 guests", "5 to 30 guests", 0), (CLOCK, "About 5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food not included", None, 1)]),
  ("team", "es"): ("Celebra a tu equipo", "Ernesto con su c&aacute;mara Polaroid",
-   [(PERSON, "5-30", "5 a 30 personas"), ("&#128247;", "20 fotos por equipo", None), ("&#127860;", "Almuerzo no incluido", None)]),
+   [(PEOPLE, "5-30 personas", "5 a 30 personas", 0), (CLOCK, "Unas 5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida no incluida", None, 1)]),
  ("priv", "en"): ("LA, Your Way", "Ernesto ready for a hike",
-   [(PERSON, "1-4", "1 to 4 guests"), ("&#128663;", "Pick up / drop off", None)]),
+   [(PEOPLE, "1-4 guests", "1 to 4 guests", 0), (CLOCK, "4, 8 or 12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food not included", None, 1), (PARK, "Parking not included", None, 1)]),
  ("priv", "es"): ("LA a tu manera", "Ernesto listo para una caminata",
-   [(PERSON, "1-4", "1 a 4 personas"), ("&#128663;", "Te recojo y te llevo", None)]),
+   [(PEOPLE, "1-4 personas", "1 a 4 personas", 0), (CLOCK, "4, 8 o 12 horas", None, 0), (CAR, "Recogida y regreso al hotel", None, 0), (FOOD, "Comida no incluida", None, 1), (PARK, "Estacionamiento no incluido", None, 1)]),
 }
 CSS = """<style>
   .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
@@ -66,8 +70,8 @@ for (sec, lang), (title, alt, badges) in T.items():
               stamps.stamp("stp3", "OBSERVATORIO GRIFFITH" if es else "GRIFFITH OBSERVATORY", LA, "obs", "EST. 1935", "#C2352A", 6, 15, "s3")]
     addr = "  " + "".join(ST) + "\n"
     b_html = "".join(
-        f'<li class="pc-badge"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}>{ic}<span>{tx}</span></li>'
-        for ic, tx, lbl in badges)
+        f'<li class="pc-badge{" pc-no" if no else ""}"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}><span aria-hidden="true">{ic}</span><span>{tx}</span></li>'
+        for ic, tx, lbl, no in badges)
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
      Postcard header: title, one short sentence and badges on the left; the From and To lines on the right (Oct 17, 2026). Address, sentence and badge styles live in home-hero.html. -->
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">

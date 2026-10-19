@@ -19,7 +19,7 @@ text = {
         "sub":"Walk back in time through 240 years of Los Angeles history with a local guide. Booking takes under a minute.",
         "wa":"\U0001F4AC Questions? WhatsApp Marlon",
         "back":"Walk backwards through LA history",
-        "tip":"Tip-based","line":"Come walk LA's historic downtown. Start at Bunker Hill, home of LA's arts buildings, then walk backwards in time to Placita Olvera, where the Spanish and Mexican pueblo began.",
+        "pf1":"About 2 hours","pf2":"English and Spanish","tip":"Tip-based","pf4":"On foot","line":"Come walk LA's historic downtown. Start at Bunker Hill, home of LA's arts buildings, then walk backwards in time to Placita Olvera, where the Spanish and Mexican pueblo began.",
         "qt":"Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.","qwho":"Angel · Google (in Spanish)",
         "p1n":"Walt Disney Concert Hall","p1l":"Where we meet",
         "p2n":"City Hall","p2l":"The 1928 tower",
@@ -33,7 +33,7 @@ text = {
         "sub":"Viaja hacia atrás en el tiempo por 240 años de historia de Los Ángeles con un guía local. Reservar toma menos de un minuto.",
         "wa":"\U0001F4AC ¿Preguntas? Escríbele a Marlon por WhatsApp",
         "back":"Camina hacia atrás en la historia de LA",
-        "tip":"Con propina","line":"Ven a caminar por el centro histórico de LA. Empezamos en Bunker Hill, donde están los edificios de las artes de LA, y retrocedemos en el tiempo hasta la Placita Olvera, donde nació el pueblo español y mexicano.",
+        "pf1":"Unas 2 horas","pf2":"Español e inglés","tip":"Con propina","pf4":"A pie","line":"Ven a caminar por el centro histórico de LA. Empezamos en Bunker Hill, donde están los edificios de las artes de LA, y retrocedemos en el tiempo hasta la Placita Olvera, donde nació el pueblo español y mexicano.",
         "qt":"Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.","qwho":"Angel · Google",
         "p1n":"Walt Disney Concert Hall","p1l":"Punto de encuentro",
         "p2n":"City Hall","p2l":"La torre de 1928",
@@ -65,7 +65,7 @@ html = f'''<!-- ================================================================
     <div class="mwla-book-head-text">
       <h2 class="mwla-book-title" data-pi="title">{text["en"]["title"]}</h2>
       <p class="pc-line" data-pi="line">{text["en"]["line"]}</p>
-      <ul class="pc-badges"><li class="pc-badge"><span aria-hidden="true">&#127758;</span><span>Espa&ntilde;ol &amp; English</span></li><li class="pc-badge"><span aria-hidden="true">&#128155;</span><span data-pi="tip">{text["en"]["tip"]}</span></li></ul>
+      <ul class="pc-badges"><li class="pc-badge"><span aria-hidden="true">&#9201;&#65039;</span><span data-pi="pf1">{text["en"]["pf1"]}</span></li><li class="pc-badge"><span aria-hidden="true">&#128483;&#65039;</span><span data-pi="pf2">{text["en"]["pf2"]}</span></li><li class="pc-badge"><span aria-hidden="true">&#128155;</span><span data-pi="tip">{text["en"]["tip"]}</span></li><li class="pc-badge"><span aria-hidden="true">&#128694;</span><span data-pi="pf4">{text["en"]["pf4"]}</span></li></ul>
       <a class="mwla-book-wa" id="mwla-book-wa" href="{text["en"]["waHref"]}" target="_blank" rel="noopener noreferrer" data-pi="wa">{text["en"]["wa"]}</a>
     </div>
     {STAMP_FREE}
@@ -105,7 +105,10 @@ html = f'''<!-- ================================================================
   .mwla-q figcaption span:first-child {{ color: #E89B00; letter-spacing: 1px; margin-right: 4px; }}
   .mwla-book-title {{ font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #0f172a; margin: 0; }}
   .mwla-book-sub {{ font-size: 1.05rem; line-height: 1.55; color: #475569; margin: 0; max-width: 56ch; }}
-  .mwla-book-wa {{ display: inline-block; margin-top: 10px; font-size: 0.95rem; font-weight: 700; color: #1B6688 !important; text-decoration: underline; text-underline-offset: 3px; }}
+  /* Oct 19, 2026 (Marlon): the WhatsApp link was hard to see on pink; it is now a white outlined button */
+  .mwla-book-wa {{ display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-family: "Fredoka", sans-serif; font-size: 1rem; font-weight: 600; line-height: 1.2; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2.5px solid #27302E; border-radius: 999px; padding: 10px 18px; min-height: 44px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }}
+  .mwla-book-wa:hover {{ transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #27302E; }}
+  .mwla-book-wa:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 3px; }}
 
   /* Two columns, like the Team section */
   .mwla-fgrid {{ display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px; align-items: start; }}

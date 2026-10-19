@@ -14,8 +14,8 @@
       <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf15f429ade21cc6f5_Circle%20Full.webp" alt="Logo de MarlonWalksLA: Ernesto, el burro pi&ntilde;ata, con una tablet y una c&aacute;mara Polaroid" loading="eager" width="512" height="512">
       <span class="mwh-hand" lang="es">&iexcl;y Ernesto!</span>
       <div class="mwh-lang" role="group" aria-label="Language / Idioma">
-        <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en">English</a>
         <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es" aria-current="true">Espa&ntilde;ol</a>
+        <a class="mwh-lb mwh-lb1" href="/" lang="en" hreflang="en">English</a>
       </div>
       <p class="mwh-line" id="mwh-line">Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="orange" data-i="1">tour privado</button> o un <button type="button" class="mwh-hl" data-tone="pink" data-i="2">free tour</button>.</p>
     </div>
@@ -128,14 +128,12 @@
   .mwh-lang { margin-top: 62px; }
   .mwh-lang { position: relative; }
   .mwh-hand { position: absolute; left: 8px; bottom: calc(100% + 10px); white-space: nowrap; font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 2.1rem; line-height: 1; color: #E8412F; transform: rotate(-5deg); transform-origin: left bottom; pointer-events: none; }
-  .mwh-lb { position: relative; font-family: "Lilita One", sans-serif; font-size: 1.15rem; line-height: 1; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2.5px solid #27302E; border-radius: 12px; padding: 12px 20px; min-height: 44px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
-  .mwh-lb::before { content: ""; position: absolute; top: -9px; left: 50%; width: 46px; height: 15px; background: rgba(40,144,182,.45); transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; }
-  .mwh-lb2::before { background: rgba(255,0,255,.4); transform: translateX(-50%) rotate(3deg); }
-  .mwh-lb1 { transform: rotate(-2deg); }
-  .mwh-lb2 { transform: rotate(2deg); }
-  .mwh-lb[aria-current="true"] { background: #FFD43B; }
-  .mwh-lb:hover { transform: rotate(0) translateY(-2px); box-shadow: 5px 5px 0 #27302E; }
-  .mwh-lb:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  /* Oct 19, 2026 (Marlon): the language choice is a two-option pill, same as the calendar's, so it reads as a toggle and not as decoration. Espanol left, English right. */
+  .mwh-lang { display: inline-flex; flex-wrap: nowrap; gap: 4px; padding: 4px; background: #FFFBF1; border: 2px solid #E9D9A8; border-radius: 50px; }
+  .mwh-lb { font-family: "Nunito", system-ui, sans-serif; font-size: 1.15rem; font-weight: 800; line-height: 1.1; color: #475569 !important; text-decoration: none !important; background: transparent; border: 0; border-radius: 50px; padding: 11px 26px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; transition: background 0.18s ease-out, color 0.18s ease-out; }
+  .mwh-lb[aria-current="true"] { background: #FFD43B; color: #27302E !important; }
+  .mwh-lb:hover { color: #0f172a !important; }
+  .mwh-lb:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
   .mwh-btn2 { background: #fff; }
   .mwh-free { display: inline-block; margin-top: 16px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #1B6688 !important; text-decoration: underline !important; text-underline-offset: 3px; padding: 8px 0; }
   .mwh-free:hover { color: #27302E !important; }
@@ -159,7 +157,7 @@
     .mwh-tape { width: 44px; height: 14px; top: -7px; }
     .mwh-text { display: flex; flex-direction: column; align-items: center; }
     .mwh-cta { align-self: stretch; }
-    .mwh-lb { font-size: 1.05rem; padding: 11px 16px; }
+    .mwh-lb { font-size: 1.05rem; padding: 10px 20px; }
     .mwh-wrap::before { height: 120px; }
     .mwh::after { inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
     .mwh-wrap { padding: 40px 30px 40px; }
@@ -257,7 +255,7 @@
      a dotted line down the middle, map on the message side, the booking card on the address side.
      Oct 17, 2026 (latest): happy Ernesto colors per card (Marlon: "happy and joyful like Ernesto"); Polaroids stay in the card. */
   body { background-color: #FFF6E6; }
-  section:has(.rv-banner) { background: #FFF6E6 !important; }
+  section:has(.rv-banner) { background: #FFEFC2 !important; }
   .rv-banner { background: transparent !important; border-top: 0 !important; border-bottom: 0 !important; }
   .mw-bg-team, .mw-bg-book, .mw-bg-private { position: relative; box-shadow: none !important; }
   .mw-bg-team > *, .mw-bg-book > *, .mw-bg-private > * { position: relative; z-index: 2; }
@@ -281,7 +279,7 @@
   .mw-bg-book .mwla-book-sub { color: #3B4440 !important; }
   .mw-bg-book .mwla-lang-label { color: #27302E !important; }
   .mw-bg-book .mwla-meet { color: #3B4440 !important; }
-  .mw-bg-book .mwla-book-wa { color: #1B6688 !important; }
+  .mw-bg-book .mwla-book-wa { color: #27302E !important; }
   .mw-bg-book .mwla-book-facts { display: none !important; }
   .mw-bg-book .mwla-book-cal { background: #ffffff; padding: 8px; box-shadow: 0 10px 24px -14px rgba(39, 48, 46, 0.5); }
   /* return address, the "To" line and the postmark */
@@ -306,6 +304,9 @@
   .pc-badges { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 14px; padding: 0; }
   .pc-badge { display: inline-flex; align-items: center; gap: 7px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.98rem; line-height: 1.2; color: #27302E; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 4px 14px 4px 10px; }
   .pc-badge svg { width: 17px; height: 17px; flex: none; }
+  /* Oct 19, 2026 (Marlon): "not included" pills are dashed and muted so included and not included read at a glance */
+  .pc-badge.pc-no { background: rgba(255, 255, 255, .45); border-style: dashed; color: #5B6663; }
+  .pc-badge.pc-no > span:first-child { filter: grayscale(1); opacity: .65; }
   /* map and stop bar share one box */
   .ra-wrap.ra-nolist { gap: 0; background: #fff; border: 2px solid #27302E; border-radius: 16px; box-shadow: 3px 3px 0 #27302E; }
   .ra-nolist .ra-map { border-radius: 14px 14px 0 0; box-shadow: none; }
