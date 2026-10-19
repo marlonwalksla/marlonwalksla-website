@@ -216,11 +216,8 @@ def build(lang):
   .mwh-mark {{ background: linear-gradient(transparent 62%, #FFD43B 62%, #FFD43B 92%, transparent 92%); padding: 0 4px; }}
   .mwh-line {{ font-size: 1.15rem; line-height: 1.55; max-width: 34ch; margin: 0 0 22px; color: #3B4440; }}
   .mwh-btn {{ display: inline-block; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 14px 30px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }}
-  /* Oct 18, 2026 (Marlon): each tour has its own color: Team green, Free yellow, Private blue (light tones, dark text, same outline and shadow) */
-  .mwh-cbtn[data-tone="green"] {{ background: #86D69E; }}
-  .mwh-cbtn[data-tone="yellow"] {{ background: #FFD43B; }}
-  .mwh-cbtn[data-tone="blue"] {{ background: #8CCBE8; }}
-  .mwh-cbtn {{ transition: background-color 0.2s ease-out, transform 0.15s ease-out, box-shadow 0.15s ease-out; }}
+  /* Oct 18, 2026 round 28 (Marlon): ONE primary button color (yellow) so people learn what clickable means. Tour colors stay on the title highlight, tags and stamps. */
+  .mwh-cbtn {{ transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; }}
   .mwh-btn:hover {{ transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }}
   .mwh-btn:active {{ transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }}
   .mwh-btn:focus-visible {{ outline: 3px solid #2890B6; outline-offset: 4px; }}
