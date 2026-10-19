@@ -19,7 +19,7 @@ T = {
     "en": dict(
         eyebrow="Downtown LA walking tours",
         h1='Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon</span>', hand="&amp; Ernesto!",
-        line='Explore LA on a <button type="button" class="mwh-hl" data-tone="green" data-i="0">team tour</button>, a <button type="button" class="mwh-hl" data-tone="blue" data-i="1">private tour</button> or a <button type="button" class="mwh-hl" data-tone="yellow" data-i="2">free tour</button>, in English or Spanish.',
+        line='Explore LA on a <button type="button" class="mwh-hl" data-tone="green" data-i="0">team tour</button>, a <button type="button" class="mwh-hl" data-tone="orange" data-i="1">private tour</button> or a <button type="button" class="mwh-hl" data-tone="pink" data-i="2">free tour</button>, in English or Spanish.',
         btn="Book a Team Outing", btn_href="#team", btn2="Design a Private Tour", btn2_href="#private", freeL="Or join a free tour &rarr;", go="See dates",
         proof="4.9 stars from 505 reviews", pm="LOS ANGELES",
         frm="From: Marlon &middot; MarlonWalksLA, Los Angeles", toL="To:", to="you &middot; your next trip to LA",
@@ -35,7 +35,7 @@ T = {
     "es": dict(
         eyebrow="Tours a pie por el centro de LA",
         h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span>', hand="&iexcl;y Ernesto!",
-        line='Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="blue" data-i="1">tour privado</button> o un <button type="button" class="mwh-hl" data-tone="yellow" data-i="2">free tour</button>, en espa&ntilde;ol o ingl&eacute;s.',
+        line='Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="orange" data-i="1">tour privado</button> o un <button type="button" class="mwh-hl" data-tone="pink" data-i="2">free tour</button>, en espa&ntilde;ol o ingl&eacute;s.',
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
         proof="4,9 estrellas en 505 opiniones", pm="LOS &Aacute;NGELES",
         frm="De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles", toL="Para:", to="ti &middot; tu pr&oacute;ximo viaje a LA",
@@ -56,17 +56,17 @@ SLIDES = {
  "en": [
   dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="#team",
        line="Team outings for 5 to 30 people. Everyone takes home a photo.", alt="Kara's birthday group at the Grand Central Market sign"),
-  dict(tab="Private", key="priv", tone="blue", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="#private",
+  dict(tab="Private", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="#private",
        line="Pick your stops. We pick you up and drop you off.", alt="Private tour guests with their Polaroid"),
-  dict(tab="Free", key="free", tone="yellow", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
+  dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
        line="Free walking tours of Downtown LA, in English and Spanish. Tip what you like.", alt="Free tour guests posing together at the Avila Adobe garden"),
  ],
  "es": [
   dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="#team",
        line="Salidas de equipo para 5 a 30 personas. Todos se llevan una foto.", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
-  dict(tab="Privado", key="priv", tone="blue", img=P_PRIV, tape="rgba(40,144,182,.45)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="#private",
+  dict(tab="Privado", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="#private",
        line="Elige tus paradas. Te recogemos y te llevamos de vuelta.", alt="Invitados de un tour privado con su Polaroid"),
-  dict(tab="Free", key="free", tone="yellow", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
+  dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
        line="Tours a pie gratis por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Das la propina que quieras.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
  ],
 }
@@ -319,14 +319,14 @@ def build(lang):
   .mwh-cap {{ margin: 14px auto 0; display: flex; flex-direction: column; align-items: center; text-align: center; }}
   .mwh-cap strong {{ font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.5rem; line-height: 1.1; color: #27302E; }}
   .mwh-tag[data-tone="green"] {{ --tone: #86D69E; }}
-  .mwh-tag[data-tone="yellow"] {{ --tone: #FFD43B; }}
-  .mwh-tag[data-tone="blue"] {{ --tone: #8CCBE8; }}
+  .mwh-tag[data-tone="pink"] {{ --tone: #FF9FD0; }}
+  .mwh-tag[data-tone="orange"] {{ --tone: #FFAE63; }}
   /* Oct 18, 2026 (Marlon): the highlight covers the whole height of the word, top to bottom */
   .mwh-cap em.mwh-tag {{ margin-top: 8px; padding: 4px 14px; line-height: 1.25; font-weight: 600; font-size: 1rem; color: #27302E; background: var(--tone); border-radius: 5px; }}
   .mwh-hl {{ padding: 2px 7px; border-radius: 5px; color: #27302E; font-weight: 700; background: var(--tone); -webkit-box-decoration-break: clone; box-decoration-break: clone; }}
   .mwh-hl[data-tone="green"] {{ --tone: #86D69E; }}
-  .mwh-hl[data-tone="yellow"] {{ --tone: #FFD43B; }}
-  .mwh-hl[data-tone="blue"] {{ --tone: #8CCBE8; }}
+  .mwh-hl[data-tone="pink"] {{ --tone: #FF9FD0; }}
+  .mwh-hl[data-tone="orange"] {{ --tone: #FFAE63; }}
   .mwh-cap em {{ font-style: normal; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; color: #4D5551; }}
   .mwh-nav {{ width: 46px; height: 46px; border-radius: 50%; border: 2.5px solid #27302E; background: #fff; color: #27302E; font-size: 1.7rem; line-height: 1; padding: 0 0 4px; cursor: pointer; box-shadow: 2px 2px 0 #27302E; transition: transform 0.15s ease-out; }}
   .mwh-nav:hover {{ transform: translateY(-2px); }}
@@ -369,8 +369,8 @@ def build(lang):
   .mwh .mwh-wrap {{ padding-top: 76px; }}
   /* Oct 18, 2026 (Marlon): the color highlight moves from the small tag to the tour title ("LA, Your Way"); the tag is gone. Highlights are see-through (about 55%) so a stamp behind never fights the words. The sentence gets wider letter, word and line spacing so the picked word has room to grow. */
   .mwh-cap strong[data-tone="green"], .mwh-hl[data-tone="green"] {{ --tone: rgba(134, 214, 158, 0.55); }}
-  .mwh-cap strong[data-tone="yellow"], .mwh-hl[data-tone="yellow"] {{ --tone: rgba(255, 212, 59, 0.55); }}
-  .mwh-cap strong[data-tone="blue"], .mwh-hl[data-tone="blue"] {{ --tone: rgba(140, 203, 232, 0.6); }}
+  .mwh-cap strong[data-tone="pink"], .mwh-hl[data-tone="pink"] {{ --tone: rgba(255, 140, 200, 0.55); }}
+  .mwh-cap strong[data-tone="orange"], .mwh-hl[data-tone="orange"] {{ --tone: rgba(255, 150, 70, 0.6); }}
   .mwh .mwh-cap strong {{ display: inline-block; padding: 4px 16px; line-height: 1.2; border-radius: 6px; background: var(--tone); }}
   .mwh .mwh-hl {{ background: var(--tone) !important; margin: 0 10px; letter-spacing: 0.02em !important; }}
   .mwh .mwh-line {{ letter-spacing: 0.02em !important; word-spacing: 0.08em; line-height: 2.05; max-width: 36ch; }}
@@ -403,7 +403,7 @@ def build(lang):
                  "</script>\n")
     html = (html.replace("__SKYLINE__", SIL.svg_uri(SIL.skyline("#27302E", 0.14)))
                 .replace("__SIL_TEAM__", SIL.svg_uri(SIL.gcm("#2E9E57", 0.28)))
-                .replace("__SIL_PRIV__", SIL.svg_uri(SIL.observatory("#2890B6", 0.22)))
+                .replace("__SIL_PRIV__", SIL.svg_uri(SIL.observatory("#F26B1D", 0.22)))
                 .replace("__SIL_FREE__", SIL.svg_uri(SIL.kiosko("#D6479B", 0.18))))
     return html
 
@@ -422,7 +422,7 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   #private-split { padding-top: 20px; }
   .mw-bg-team { background: #E3F6D8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; --pc-stripes: repeating-linear-gradient(-45deg, #2E9E57 0 16px, transparent 16px 26px, #94E059 26px 42px, transparent 42px 52px); }
   .mw-bg-book { background: #FFE3F1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") !important; }
-  .mw-bg-private { background: #DCEFFA url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .35' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E") !important; background-size: auto !important; --pc-stripes: repeating-linear-gradient(-45deg, #2890B6 0 16px, transparent 16px 26px, #FFD43B 26px 42px, transparent 42px 52px); }
+  .mw-bg-private { background: #FFE6D2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .35' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E") !important; background-size: auto !important; --pc-stripes: repeating-linear-gradient(-45deg, #F26B1D 0 16px, transparent 16px 26px, #FFB36B 26px 42px, transparent 42px 52px); }
   /* the airmail border */
   .mw-bg-team::after, .mw-bg-book::after, .mw-bg-private::after { content: "" !important; display: block !important; position: absolute; inset: 12px; border: 12px solid transparent; border-image: var(--pc-stripes) 12; background: none !important; transform: none !important; outline: 0 !important; box-shadow: none !important; width: auto !important; height: auto !important; pointer-events: none; z-index: 1; }
   /* Oct 17, 2026 (Marlon): paper texture on every card: fibers, soft dark edges, one fold line at a different height per card, fold lines at the top and bottom edges */
