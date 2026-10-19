@@ -33,26 +33,37 @@ S = [
     ("rodeo", "la", "Rodeo Drive", "Rodeo Drive", "A walk down the fanciest street in LA.", "Un paseo por la calle más elegante de LA.", 45, 34.0696, -118.4031, None, "#E6DAF7"),
     ("pier", "la", "Santa Monica Pier", "Muelle de Santa Mónica", "The pier, the beach and the end of Route 66.", "El muelle, la playa y el final de la Ruta 66.", 60, 34.0094, -118.4973, None, "#DCEFFA"),
     ("venice", "la", "Venice Beach and Canals", "Venice Beach y los canales", "The boardwalk, then the quiet canals.", "El malecón y luego los canales tranquilos.", 60, 33.985, -118.4695, None, "#E3F6D8"),
+    # Oct 19, 2026 (Marlon): challenges are their own column. Minutes are PLACEHOLDERS (Marlon to confirm); they sit at the Downtown pickup point so they add no driving, except Angels Flight.
+    ("tacos", "ch", "Eat LA Street Tacos", "Come tacos callejeros de LA", "Taco stand, napkins, big bites.", "Puesto de tacos, servilletas y buenos bocados.", 30, 34.0522, -118.2437, None, "#FFE08A"),
+    ("sunset", "ch", "Chase a Sunset", "Persigue un atardecer", "Golden hour over the city.", "La hora dorada sobre la ciudad.", 45, 34.0522, -118.2437, "6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp", "#FFD2B0"),
+    ("flight", "ch", "Ride Angels Flight", "Sube a Angels Flight", "The 1901 railway down Bunker Hill.", "El tranvía de 1901 por Bunker Hill.", 20, 34.0513, -118.2504, "6ac74a89e44a0b1c364553f8_polaroid-angels-flight-car.webp", "#FFE08A"),
 ]
-DEFAULT_ON = ["sign", "griffith", "urban"]
+# Oct 19, 2026 (Marlon): fewest characters per option. Short label (EN, ES) used on the buttons and in the estimate; the full name stays on the Polaroid caption.
+SHORT = {
+    "sign": ("Hollywood Sign", "Letrero Hollywood"), "griffith": ("Griffith", "Griffith"), "urban": ("Urban Light", "Urban Light"),
+    "grove": ("The Grove", "The Grove"), "bhsign": ("Beverly Hills", "Beverly Hills"), "rodeo": ("Rodeo Drive", "Rodeo Drive"),
+    "pier": ("Santa Monica", "Santa Mónica"), "venice": ("Venice", "Venice"),
+    "tacos": ("Street Tacos", "Tacos"), "sunset": ("Sunset", "Atardecer"), "flight": ("Angels Flight", "Angels Flight"),
+}
+DEFAULT_ON = []  # Oct 19, 2026 (Marlon): nothing pre-picked
 T = {
  "en": dict(
-  h="Pick your places", hint="Tap the places you want. Each one lands on the pile.",
-  g_dt="Downtown, on foot", g_la="Beyond Downtown, by car",
+  h="Pick your places", hint="Great photo spots, zero planning. Tap to add.",
+  g_dt="Downtown, on foot", g_la="Places", g_ch="Challenges",
   cap0="Tap a place and its photo lands here", picked="Your latest pick",
-  ch="Estimate your day", chint="Based on the places you picked. Marlon confirms the final price.",
-  none="Pick at least one place to see your estimate.", yours="Your places", about="About", to="to", hours="hours",
+  ch="Estimate your day", chint="Based on what you picked. Marlon confirms the final price.",
+  none="Pick a place or a challenge to see your estimate.", yours="Your places", about="About", to="to", hours="hours",
   incl="Hotel pickup and drop-off included", fits="Fits a", car="1 to 4 guests, one price per car", over="That is more than one day. Message Marlon and we will plan two.",
-  est="Estimated price", base="Base: pickup, drop-off and driving", cta="Finalize Custom Tour", wait="Choose a place first", note="No payment now. Next you send Marlon your details.",
+  est="Estimated price", base="Base: pickup, drop-off and driving", cta="Finalize Custom Tour", wait="Pick something first", note="No payment now. Next you send Marlon your details.",
   remove="Remove", count="places picked"),
  "es": dict(
-  h="Elige tus lugares", hint="Toca los lugares que quieras. Cada uno cae en la pila.",
-  g_dt="Centro, a pie", g_la="Más allá del centro, en auto",
+  h="Elige tus lugares", hint="Lugares ideales para fotos, sin planear nada. Toca para agregar.",
+  g_dt="Centro, a pie", g_la="Lugares", g_ch="Retos",
   cap0="Toca un lugar y su foto cae aquí", picked="Tu última elección",
-  ch="Calcula tu día", chint="Según los lugares que elegiste. Marlon confirma el precio final.",
-  none="Elige al menos un lugar para ver tu estimado.", yours="Tus lugares", about="Unas", to="a", hours="horas",
+  ch="Calcula tu día", chint="Según lo que elegiste. Marlon confirma el precio final.",
+  none="Elige un lugar o un reto para ver tu estimado.", yours="Tus lugares", about="Unas", to="a", hours="horas",
   incl="Recogida y regreso al hotel incluidos", fits="Cabe en", car="1 a 4 personas, un precio por auto", over="Es más de un día. Escríbele a Marlon y armamos dos.",
-  est="Precio estimado", base="Base: recogida, regreso y manejo", cta="Finalizar mi tour a medida", wait="Elige un lugar primero", note="Sin pago ahora. Después le mandas tus datos a Marlon.",
+  est="Precio estimado", base="Base: recogida, regreso y manejo", cta="Finalizar mi tour a medida", wait="Elige algo primero", note="Sin pago ahora. Después le mandas tus datos a Marlon.",
   remove="Quitar", count="lugares elegidos"),
 }
 
@@ -63,8 +74,8 @@ def esc(x):
 
 def data_for(lang):
     i = 0 if lang == "en" else 1
-    stops = [{"id": s[0], "group": s[1], "name": s[2 + i], "line": s[4 + i], "min": s[6], "lat": s[7], "lng": s[8],
-              "photo": (C + s[9]) if s[9] else None, "color": s[10]} for s in S if s[1] == "la"]  # Oct 17, 2026 (Marlon): no Downtown-on-foot options; private tours are by car
+    stops = [{"id": s[0], "group": s[1], "name": s[2 + i], "short": SHORT[s[0]][i], "line": s[4 + i], "min": s[6], "lat": s[7], "lng": s[8],
+              "photo": (C + s[9]) if s[9] else None, "color": s[10]} for s in S if s[1] in ("la", "ch")]  # Oct 17, 2026 (Marlon): no Downtown-on-foot options; private tours are by car
     return {"lang": lang, "t": T[lang], "stops": stops, "on": DEFAULT_ON, "center": DT_CENTER,
             "packages": [{"label": p[lang], "hours": p["hours"], "price": p["price"]} for p in PACKAGES]}
 
@@ -95,6 +106,13 @@ LEFT_CSS = """<style>
   .pvb-pill[aria-pressed="true"]::before { content: "\\2713"; margin-right: 6px; }
   .pvb-pill:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
   @media (prefers-reduced-motion: reduce) { .pvb-pill, .stacked-photo { transition: none; } }
+  /* Oct 19, 2026 (Marlon): Places and Challenges side by side, the estimate full width below (the Webflow two-column split becomes one column here, and the dashed divider goes) */
+  .mw-split:has(.pvb) { grid-template-columns: minmax(0, 1fr) !important; }
+  @media (min-width: 992px) { .mw-bg-private .mw-split-left { border-right: 0 !important; padding-right: 0 !important; } }
+  .pvb-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px 36px; margin: 0 0 22px; }
+  .pvb-g { margin: 0 0 8px; }
+  .polaroid-stack-area { min-height: 340px; margin: 0; }
+  @media (max-width: 700px) { .pvb-cols { grid-template-columns: 1fr; } .polaroid-stack-area { min-height: 320px; } }
 </style>
 """
 
@@ -148,7 +166,7 @@ LEFT_JS = r"""<script>
       var from = prev || { lat: D.center[0], lng: D.center[1] };  // pickup is Downtown
       dm += drive(from, s); prev = s;
     });
-    var st = { ids: ids, names: stops.map(function (s) { return s.name; }), lang: D.lang, lo: null, hi: null, pkg: null, over: false, t: t, last: last };
+    var st = { ids: ids, names: stops.map(function (s) { return s.short; }), lang: D.lang, lo: null, hi: null, pkg: null, over: false, t: t, last: last };
     if (!ids.length) return st;
     st.lo = (sm + dm * 0.85) / 60; st.hi = (sm + dm * 1.4) / 60;
     var mid = (st.lo + st.hi) / 2;
@@ -180,17 +198,20 @@ def left_html(lang):
     i = 0 if lang == "en" else 1
 
     def pills(group):
-        return "".join(f'<button type="button" class="pvb-pill" data-id="{s[0]}" aria-pressed="false">{esc(s[2 + i])}</button>' for s in S if s[1] == group)
+        return "".join(f'<button type="button" class="pvb-pill" data-id="{s[0]}" aria-pressed="false">{esc(SHORT[s[0]][i])}</button>' for s in S if s[1] == group)
     js_data = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     return f"""<!-- ==============================================================================
      MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LA, YOUR WAY - ITINERARY BUILDER (LEFT COLUMN). Built by page-embeds/build_home_private.py
      Oct 17, 2026 (Marlon via Gemini): pills + a Polaroid Stack (Oct 18: photos drop onto a messy pile, tap again to remove). The estimate lives in home-private-calc.html (right column).
      ============================================================================== -->
 <div class="mw-offer pvb" id="private-tours">
-  <div class="polaroid-stack-area" id="polaroid-stack-area" role="group" aria-label="{esc(t['h'])}"><p class="pvb-empty">{esc(t["cap0"])}</p></div>
   <h3 class="pvb-h">{t["h"]}</h3>
   <p class="pvb-hint">{t["hint"]}</p>
-  <div class="pvb-pills" role="group" aria-label="{t["h"]}">{pills("la")}</div>
+  <div class="pvb-cols">
+    <div class="pvb-col"><p class="pvb-g">{t["g_la"]}</p><div class="pvb-pills" role="group" aria-label="{t["g_la"]}">{pills("la")}</div></div>
+    <div class="pvb-col"><p class="pvb-g">{t["g_ch"]}</p><div class="pvb-pills" role="group" aria-label="{t["g_ch"]}">{pills("ch")}</div></div>
+  </div>
+  <div class="polaroid-stack-area" id="polaroid-stack-area" role="group" aria-label="{esc(t['h'])}"><p class="pvb-empty">{esc(t["cap0"])}</p></div>
 </div>
 <script type="application/json" id="pvb-data">{js_data}</script>
 """ + LEFT_CSS + LEFT_JS
@@ -223,6 +244,8 @@ CALC_CSS = """<style>
   .pcq-ern img { height: 84px; width: auto; flex: none; }
   .pcq-note { margin: 10px 0 0; text-align: center; font-size: 0.88rem; color: #5B6663; }
   @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
+  /* Oct 19, 2026 (Marlon): the estimate sits below the picks, full width: what you picked on the left, the price and button on the right */
+  @media (min-width: 800px) { .pcq { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start; } }
 </style>
 """
 
@@ -274,10 +297,13 @@ def calc_html(lang):
     tj = json.dumps({"remove": t["remove"], "about": t["about"], "to": t["to"], "hours": t["hours"], "fits": t["fits"], "car": t["car"], "over": t["over"], "cta": t["cta"], "wait": t["wait"]}, ensure_ascii=False)
     return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py. Oct 17, 2026 (Marlon via Gemini). Reads the picks from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
+ <div class="pcq-l">
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-hint">{t["chint"]}</p>
   <p class="pcq-none" hidden>{t["none"]}</p>
   <ul class="pcq-list" aria-label="{t["yours"]}" hidden></ul>
+ </div>
+ <div class="pcq-r">
   <div class="pcq-out" aria-live="polite" hidden>
     <span class="pcq-hours"></span>
     <span class="pcq-price"></span>
@@ -287,6 +313,7 @@ def calc_html(lang):
   <p class="pcq-incl">{t["incl"]}</p>
   <div class="pcq-ern"><img src="{ERN}" alt="" aria-hidden="true" loading="lazy"><button type="button" class="pcq-cta" aria-disabled="true">{t["cta"]}</button></div>
   <p class="pcq-note">{t["note"]}</p>
+ </div>
 </div>
 <script type="application/json" id="pcq-t">{tj}</script>
 """ + CALC_CSS + CALC_JS

@@ -413,7 +413,7 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
      a dotted line down the middle, map on the message side, the booking card on the address side.
      Oct 17, 2026 (latest): happy Ernesto colors per card (Marlon: "happy and joyful like Ernesto"); Polaroids stay in the card. */
   body { background-color: #FFF6E6; }
-  section:has(.rv-banner) { background: #D9F5E3 !important; }
+  section:has(.rv-banner) { background: #FFF6E6 !important; }
   .rv-banner { background: transparent !important; border-top: 0 !important; border-bottom: 0 !important; }
   .mw-bg-team, .mw-bg-book, .mw-bg-private { position: relative; box-shadow: none !important; }
   .mw-bg-team > *, .mw-bg-book > *, .mw-bg-private > * { position: relative; z-index: 2; }
@@ -430,7 +430,7 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   __PAPER_PRIVATE__
   /* Oct 17, 2026 (Marlon): papel picado flags are the whole outline of the free tour card (no airmail stripes) */
   __PAPER_BOOK__
-  .mw-bg-book { padding: 14px 52px 6px !important; }
+  .mw-bg-book { padding: 44px 52px 36px !important; }  /* Oct 19, 2026 (Marlon): flags sat too close to the text, more air top and bottom */
   .mw-bg-book::after { inset: 8px; border-width: 44px; border-image: url("__FLAGS__") 40 round; }
   .mw-bg-book .mwla-book-head::after { content: none !important; }
   .mw-bg-book .mwla-book-title { color: #27302E !important; font-family: "Lilita One", sans-serif; font-weight: 400; }
@@ -478,7 +478,7 @@ POSTCARD_CSS = r'''/* ---------- Home = backs of postcards (Oct 17, 2026, late) 
   @media (max-width: 900px) {
     .pc-addr { margin-top: 8px; }
     .mw-bg-team::after, .mw-bg-private::after { inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; }
-    .mw-bg-book { padding: 10px 16px 4px !important; }
+    .mw-bg-book { padding: 30px 24px 28px !important; }
     .mw-bg-book::after { inset: 6px; border-width: 22px; border-image-slice: 40; border-image-width: 22px; }
   }
 '''

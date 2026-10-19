@@ -82,8 +82,8 @@ html = f'''<!-- ================================================================
       <div class="mwla-lang-switch" role="group" aria-label="Tour language / Idioma del tour">
         <span class="mwla-lang-label">Tour language &middot; Idioma del tour</span>
         <div class="mwla-lang-pill">
-          <button type="button" class="mwla-lang-opt is-active" id="mwla-lang-en" onclick="mwlaBookSet('en')" aria-pressed="true"><span class="mwla-lang-name">English</span><span class="mwla-lang-time">12:30 PM</span></button>
           <button type="button" class="mwla-lang-opt" id="mwla-lang-es" onclick="mwlaBookSet('es')" aria-pressed="false"><span class="mwla-lang-name">Espa&ntilde;ol</span><span class="mwla-lang-time">9:30 AM</span></button>
+          <button type="button" class="mwla-lang-opt is-active" id="mwla-lang-en" onclick="mwlaBookSet('en')" aria-pressed="true"><span class="mwla-lang-name">English</span><span class="mwla-lang-time">12:30 PM</span></button>
         </div>
       </div>
       <div class="mwla-book-cals">

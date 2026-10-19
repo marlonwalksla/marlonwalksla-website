@@ -1,9 +1,12 @@
 <!-- MARLONWALKSLA - HOME ES: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py. Oct 17, 2026 (Marlon via Gemini). Reads the picks from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
+ <div class="pcq-l">
   <h3 class="pcq-title">Calcula tu día</h3>
-  <p class="pcq-hint">Según los lugares que elegiste. Marlon confirma el precio final.</p>
-  <p class="pcq-none" hidden>Elige al menos un lugar para ver tu estimado.</p>
+  <p class="pcq-hint">Según lo que elegiste. Marlon confirma el precio final.</p>
+  <p class="pcq-none" hidden>Elige un lugar o un reto para ver tu estimado.</p>
   <ul class="pcq-list" aria-label="Tus lugares" hidden></ul>
+ </div>
+ <div class="pcq-r">
   <div class="pcq-out" aria-live="polite" hidden>
     <span class="pcq-hours"></span>
     <span class="pcq-price"></span>
@@ -13,8 +16,9 @@
   <p class="pcq-incl">Recogida y regreso al hotel incluidos</p>
   <div class="pcq-ern"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><button type="button" class="pcq-cta" aria-disabled="true">Finalizar mi tour a medida</button></div>
   <p class="pcq-note">Sin pago ahora. Después le mandas tus datos a Marlon.</p>
+ </div>
 </div>
-<script type="application/json" id="pcq-t">{"remove": "Quitar", "about": "Unas", "to": "a", "hours": "horas", "fits": "Cabe en", "car": "1 a 4 personas, un precio por auto", "over": "Es más de un día. Escríbele a Marlon y armamos dos.", "cta": "Finalizar mi tour a medida", "wait": "Elige un lugar primero"}</script>
+<script type="application/json" id="pcq-t">{"remove": "Quitar", "about": "Unas", "to": "a", "hours": "horas", "fits": "Cabe en", "car": "1 a 4 personas, un precio por auto", "over": "Es más de un día. Escríbele a Marlon y armamos dos.", "cta": "Finalizar mi tour a medida", "wait": "Elige algo primero"}</script>
 <style>
   /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
@@ -42,6 +46,8 @@
   .pcq-ern img { height: 84px; width: auto; flex: none; }
   .pcq-note { margin: 10px 0 0; text-align: center; font-size: 0.88rem; color: #5B6663; }
   @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
+  /* Oct 19, 2026 (Marlon): the estimate sits below the picks, full width: what you picked on the left, the price and button on the right */
+  @media (min-width: 800px) { .pcq { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start; } }
 </style>
 <script>
 (function () {

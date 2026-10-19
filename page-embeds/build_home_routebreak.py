@@ -14,7 +14,7 @@ T = {
             cta="Explora el mapa", cta_href="/maps?lang=es"),
 }
 CSS = """<style>
-  .rm { position: relative; width: 100%; box-sizing: border-box; padding: 44px 20px 40px; background: #FFF1C9; color: #27302E; font-family: "Nunito", system-ui, sans-serif; overflow: hidden; }
+  .rm { position: relative; width: 100%; box-sizing: border-box; padding: 44px 20px 40px; background: #FFF6E6; color: #27302E; font-family: "Nunito", system-ui, sans-serif; overflow: hidden; }
   .rm *, .rm *::before { box-sizing: border-box; }
   PAPER_RM
   .rm > * { position: relative; z-index: 2; }

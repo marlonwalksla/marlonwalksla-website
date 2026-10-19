@@ -36,7 +36,7 @@ CSS_COMMON = """  .hl { width: 100%; box-sizing: border-box; padding: 44px 20px;
   .hl-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1.02; margin: 0 0 12px; color: #27302E; }
 """
 MEET_CSS = """<style>
-""" + CSS_COMMON + """  .hl-meet { position: relative; background: #FFE9D6; }
+""" + CSS_COMMON + """  .hl-meet { position: relative; background: #FFF6E6; }
   PAPER_MEET
   .hl-meet-wrap { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px 56px; align-items: center; }
   .hl-pol { position: relative; margin: 0; background: #fff; padding: 12px 12px 14px; transform: rotate(-2.5deg); box-shadow: 0 12px 24px -12px rgba(39, 48, 46, 0.5); }
@@ -51,7 +51,7 @@ MEET_CSS = """<style>
 </style>
 """
 FAQ_CSS = """<style>
-""" + CSS_COMMON + """  .hl-faq { position: relative; background: #F1F5D8; scroll-margin-top: 20px; }
+""" + CSS_COMMON + """  .hl-faq { position: relative; background: #FFF6E6; scroll-margin-top: 20px; }
   PAPER_FAQ
   .hl-faq-wrap { max-width: 800px; margin: 0 auto; }
   .hl-sub { margin: 0 0 24px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.1rem; color: #3B4440; }
