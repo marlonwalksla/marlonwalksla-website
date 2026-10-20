@@ -10,7 +10,7 @@ PICS = [
 ]
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="about $", notes="About 5 hours · Angels Flight ride and an instant photo for everyone included · Lunch at the end, not included",
+   pp_pre="about $", notes="5 hours · Angels Flight ride and an instant photo for everyone included · Lunch at the end, not included",
    btn="Learn more", btn_note="", href="/team-building-walking-tour-los-angeles",
    custom="Have a custom request?", mail="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request",
    wa="More than 30 guests? Message Marlon",
@@ -18,7 +18,7 @@ T = {
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="unos $", notes="Unas 5 horas · Incluye Angels Flight y una foto instantánea para cada quien · Almuerzo al final, no incluido",
+   pp_pre="unos $", notes="5 horas · Incluye Angels Flight y una foto instantánea para cada quien · Almuerzo al final, no incluido",
    btn="Más información", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
    wa="¿Más de 30 personas? Escríbeme",
@@ -84,8 +84,11 @@ for lang, t in T.items():
   .tq-label {{ font-size: 1.15rem; }}
   .tq-label strong {{ font-size: 1.7rem; }}
   .tq-range {{ height: 42px; }}
-  .tq-range::-webkit-slider-runnable-track {{ height: 10px; border-radius: 99px; background: #D9CFBC; }}
+  /* Oct 19, 2026 (Marlon): the bar fills with color as you add people (--p is set from the slider value) */
+  .tq-range {{ --p: 38%; }}
+  .tq-range::-webkit-slider-runnable-track {{ height: 10px; border-radius: 99px; background: linear-gradient(to right, #5DB43E 0, #5DB43E var(--p), #D9CFBC var(--p), #D9CFBC 100%); }}
   .tq-range::-moz-range-track {{ height: 10px; border-radius: 99px; background: #D9CFBC; }}
+  .tq-range::-moz-range-progress {{ height: 10px; border-radius: 99px; background: #5DB43E; }}
   .tq-range::-webkit-slider-thumb {{ -webkit-appearance: none; width: 32px; height: 32px; margin-top: -11px; border-radius: 50%; background: #FFD43B; border: 3px solid #27302E; box-shadow: 2px 2px 0 #27302E; }}
   .tq-range::-moz-range-thumb {{ width: 26px; height: 26px; border-radius: 50%; background: #FFD43B; border: 3px solid #27302E; box-shadow: 2px 2px 0 #27302E; }}
   .tq-total {{ font-size: clamp(3rem, 6vw, 3.8rem); }}
@@ -118,6 +121,7 @@ for lang, t in T.items():
   function upd() {{
     var n = parseInt(r.value, 10), t = total(n);
     document.getElementById("tq-n").textContent = n;
+    r.style.setProperty("--p", ((n - 5) / 25 * 100) + "%");
     document.getElementById("tq-total").textContent = "$" + t.toLocaleString("en-US");
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
   }}

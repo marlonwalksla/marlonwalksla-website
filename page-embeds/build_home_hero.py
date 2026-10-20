@@ -54,19 +54,19 @@ T = {
 # Oct 17, 2026 (Marlon's sketch): one framed Polaroid that rotates Team, Free, Private. Caption, headline line and the ONE button change with it.
 SLIDES = {
  "en": [
-  dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="#team",
+  dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="/team-building-walking-tour-los-angeles",
        line="Come walk, eat, and celebrate! Everyone takes home a photo!", alt="Kara's birthday group at the Grand Central Market sign"),
-  dict(tab="Private", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="#private",
+  dict(tab="Private", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="/private-tours-los-angeles",
        line="Pick your stops. We'll handle the rest!", alt="Private tour guests with their Polaroid"),
-  dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="#book",
+  dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="/free-walking-tour-los-angeles",
        line="Tip-based walking tours of Downtown LA, in English and Spanish.", alt="Free tour guests posing together at the Avila Adobe garden"),
  ],
  "es": [
-  dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="#team",
+  dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="/team-building-walking-tour-los-angeles",
        line="&iexcl;Ven a caminar, comer y celebrar! &iexcl;Todos se llevan una foto!", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
-  dict(tab="Privado", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="#private",
+  dict(tab="Privado", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="/private-tours-los-angeles",
        line="Elige tus paradas. &iexcl;Nosotros nos encargamos del resto!", alt="Invitados de un tour privado con su Polaroid"),
-  dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="#book",
+  dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="/free-tour-los-angeles-espanol",
        line="Tours a pie por el centro de LA, en espa&ntilde;ol e ingl&eacute;s, con propina.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),
  ],
 }

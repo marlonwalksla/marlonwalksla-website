@@ -14,17 +14,20 @@ PERSON = ('<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" 
 PEOPLE, CLOCK, FLIGHT, CAMERA, CAR, FOOD, PARK = "&#128101;", "&#9201;&#65039;", "&#128670;", "&#128247;", "&#128663;", "&#127860;", "&#127359;&#65039;"
 T = {
  ("team", "en"): ("Celebrate Your Team", "Ernesto with his Polaroid camera",
-   [(PEOPLE, "5-30 guests", "5 to 30 guests", 0), (CLOCK, "About 5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food not included", None, 1)]),
+   [(PEOPLE, "5-30 guests", "5 to 30 guests", 0), (CLOCK, "5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food", None, 1)]),
  ("team", "es"): ("Celebra a tu equipo", "Ernesto con su c&aacute;mara Polaroid",
-   [(PEOPLE, "5-30 personas", "5 a 30 personas", 0), (CLOCK, "Unas 5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida no incluida", None, 1)]),
+   [(PEOPLE, "5-30 personas", "5 a 30 personas", 0), (CLOCK, "5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida", None, 1)]),
  ("priv", "en"): ("LA, Your Way", "Ernesto ready for a hike",
-   [(PEOPLE, "2-4 guests", "2 to 4 guests", 0), (CLOCK, "2 to 12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food not included", None, 1), (PARK, "Parking not included", None, 1)]),
+   [(PEOPLE, "2-4 guests", "2 to 4 guests", 0), (CLOCK, "2 to 12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food", None, 1), (PARK, "Parking", None, 1)]),
  ("priv", "es"): ("LA a tu manera", "Ernesto listo para una caminata",
-   [(PEOPLE, "2-4 personas", "2 a 4 personas", 0), (CLOCK, "2 a 12 horas", None, 0), (CAR, "Recogida y regreso al hotel", None, 0), (FOOD, "Comida no incluida", None, 1), (PARK, "Estacionamiento no incluido", None, 1)]),
+   [(PEOPLE, "2-4 personas", "2 a 4 personas", 0), (CLOCK, "2 a 12 horas", None, 0), (CAR, "Recogida y regreso al hotel", None, 0), (FOOD, "Comida", None, 1), (PARK, "Estacionamiento", None, 1)]),
 }
 CSS = """<style>
   .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
   .mwsh-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #27302E; margin: 0; }
+  .mwsh .pc-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+  .mwsh .pc-grp .pc-badges { margin: 5px 0; }
+  .mwsh .pc-grpl { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; color: #4D5551; min-width: 104px; }
   @media (max-width: 900px) {
     .mwsh { padding: 14px 28px 0; grid-template-columns: 1fr; }
     .mwsh .pc-addr { justify-self: end; }
@@ -69,16 +72,21 @@ for (sec, lang), (title, alt, badges) in T.items():
               stamps.stamp("stp2", "MUELLE DE SANTA M&Oacute;NICA" if es else "SANTA MONICA PIER", "CALIFORNIA", "pier", "EST. 1909", "#B8326E", -9, 13, "s2"),
               stamps.stamp("stp3", "OBSERVATORIO GRIFFITH" if es else "GRIFFITH OBSERVATORY", LA, "obs", "EST. 1935", "#C2352A", 6, 15, "s3")]
     addr = "  " + "".join(ST) + "\n"
-    b_html = "".join(
-        f'<li class="pc-badge{" pc-no" if no else ""}"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}><span aria-hidden="true">{ic}</span><span>{tx}</span></li>'
-        for ic, tx, lbl, no in badges)
+    def pills(items):
+        return "".join(
+            f'<li class="pc-badge{" pc-no" if no else ""}"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}><span aria-hidden="true">{ic}</span><span>{tx}</span></li>'
+            for ic, tx, lbl, no in items)
+    # Oct 19, 2026 (Marlon): one row for what is included, one row for what is not (labels in front)
+    L_IN, L_OUT = ("Incluido", "No incluido") if es else ("Included", "Not included")
+    b_html = (f'<div class="pc-grp"><span class="pc-grpl">{L_IN}</span><ul class="pc-badges">{pills([b for b in badges if not b[3]])}</ul></div>'
+              + (f'<div class="pc-grp"><span class="pc-grpl">{L_OUT}</span><ul class="pc-badges">{pills([b for b in badges if b[3]])}</ul></div>' if any(b[3] for b in badges) else ''))
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
      Postcard header: title, one short sentence and badges on the left; the From and To lines on the right (Oct 17, 2026). Address, sentence and badge styles live in home-hero.html. -->
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">
   <div class="mwsh-main">
     <h2 class="mwsh-title">{title}</h2>
     <p class="pc-line">{LINES[(sec, lang)]}</p>
-    <ul class="pc-badges">{b_html}</ul>
+    <div class="pc-groups">{b_html}</div>
   </div>
 {addr}</div>
 {CSS}

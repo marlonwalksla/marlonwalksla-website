@@ -11,7 +11,7 @@
     <div><span class="tq-total" id="tq-total">$790</span><span class="tq-cap">estimated total</span></div>
     <div><span class="tq-pp" id="tq-pp">about $53</span><span class="tq-cap">per person</span></div>
   </div>
-  <p class="tq-notes">About 5 hours · Angels Flight ride and an instant photo for everyone included · Lunch at the end, not included</p>
+  <p class="tq-notes">5 hours · Angels Flight ride and an instant photo for everyone included · Lunch at the end, not included</p>
   <div class="pc-cta"><img class="pc-cta-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><a class="tq-btn" href="/team-building-walking-tour-los-angeles">Learn more</a></div>
   
   <a class="tq-wa" href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2030" target="_blank" rel="noopener noreferrer">&#128172; More than 30 guests? Message Marlon</a>
@@ -48,8 +48,11 @@
   .tq-label { font-size: 1.15rem; }
   .tq-label strong { font-size: 1.7rem; }
   .tq-range { height: 42px; }
-  .tq-range::-webkit-slider-runnable-track { height: 10px; border-radius: 99px; background: #D9CFBC; }
+  /* Oct 19, 2026 (Marlon): the bar fills with color as you add people (--p is set from the slider value) */
+  .tq-range { --p: 38%; }
+  .tq-range::-webkit-slider-runnable-track { height: 10px; border-radius: 99px; background: linear-gradient(to right, #5DB43E 0, #5DB43E var(--p), #D9CFBC var(--p), #D9CFBC 100%); }
   .tq-range::-moz-range-track { height: 10px; border-radius: 99px; background: #D9CFBC; }
+  .tq-range::-moz-range-progress { height: 10px; border-radius: 99px; background: #5DB43E; }
   .tq-range::-webkit-slider-thumb { -webkit-appearance: none; width: 32px; height: 32px; margin-top: -11px; border-radius: 50%; background: #FFD43B; border: 3px solid #27302E; box-shadow: 2px 2px 0 #27302E; }
   .tq-range::-moz-range-thumb { width: 26px; height: 26px; border-radius: 50%; background: #FFD43B; border: 3px solid #27302E; box-shadow: 2px 2px 0 #27302E; }
   .tq-total { font-size: clamp(3rem, 6vw, 3.8rem); }
@@ -82,6 +85,7 @@
   function upd() {
     var n = parseInt(r.value, 10), t = total(n);
     document.getElementById("tq-n").textContent = n;
+    r.style.setProperty("--p", ((n - 5) / 25 * 100) + "%");
     document.getElementById("tq-total").textContent = "$" + t.toLocaleString("en-US");
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
   }

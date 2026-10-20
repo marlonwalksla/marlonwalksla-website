@@ -292,7 +292,7 @@ CALC_JS = r"""<script>
     var has = s.ids.length > 0;
     none.hidden = has; out.hidden = !has; list.hidden = !has;
     if (has) {
-      hrs.textContent = t.about + " " + s.range + " " + t.hours;
+      hrs.textContent = s.range + " " + t.hours;
       var q = quote(s);
       if (q) {
         price.textContent = "$" + q.eachLo + (q.eachHi !== q.eachLo ? "-" + q.eachHi : "");
