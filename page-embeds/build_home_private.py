@@ -256,7 +256,7 @@ CAR_CSS = """<style>
   .pvc-nav:hover { background: #FFD43B; }
   .pvc-nav:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
   .pvc-nav[hidden] { display: none; }
-  .pvc-pol { position: relative; margin: 0 auto; width: min(100%, 340px); box-sizing: border-box; background: #fff; padding: 12px 12px 14px; box-shadow: 0 12px 24px -8px rgba(39, 48, 46, 0.55), 0 2px 4px rgba(39, 48, 46, 0.18); transform: rotate(-1.5deg); }
+  .pvc-pol { position: relative; margin: 0 auto; width: min(100%, 250px); box-sizing: border-box; background: #fff; padding: 12px 12px 14px; box-shadow: 0 12px 24px -8px rgba(39, 48, 46, 0.55), 0 2px 4px rgba(39, 48, 46, 0.18); transform: rotate(-1.5deg); }
   .pvc-pol .sp-tape { position: absolute; top: -9px; left: 50%; width: 56px; height: 18px; transform: translateX(-50%) rotate(-4deg); background: rgba(255, 140, 40, .6); mix-blend-mode: multiply; }
   .pvc-img { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #F4EBDD; }
   .pvc-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -267,6 +267,14 @@ CAR_CSS = """<style>
   .pvc-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(39, 48, 46, 0.2); }
   .pvc-dots i.on { background: #27302E; }
   .polaroid-stack-area { display: none; }
+  /* Oct 20, 2026 (Marlon): shorter left column */
+  .pvb .pvb-pill { font-size: 0.88rem; padding: 5px 12px; min-height: 34px; border-width: 1.5px; }
+  .pvb .pvb-pills { gap: 6px; margin-bottom: 10px; }
+  .pvb .pvb-hint { margin-bottom: 10px; }
+  .pvc-pol figcaption { font-size: 0.95rem; margin-top: 6px; }
+  .pvc-dots { margin-top: 8px; }
+  .pvb-story { margin-top: 8px; font-size: 0.92rem; line-height: 1.4; }
+  .pvb-story p { margin-top: 4px; }
 </style>
 """
 

@@ -44,10 +44,10 @@ CEL = {"en": ("What are you celebrating?", [("birthday", "Birthday"), ("mileston
        "es": ("&iquest;Qu&eacute; celebran?", [("birthday", "Cumplea&ntilde;os"), ("milestone", "Un logro"), ("retirement", "Jubilaci&oacute;n"), ("offsite", "Retiro de empresa"), ("just-because", "Porque s&iacute;")])}
 for lang, t in T.items():
     cel_h, cel_opts = CEL[lang]
-    cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="false">{v}</button>' for k, v in cel_opts)
+    cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="{"true" if k == "milestone" else "false"}">{v}</button>' for k, v in cel_opts)
     eat_h, eat_opts, eat_msg = EAT[lang]
-    eat = "".join(f'<button type="button" class="tq-chip" data-e="{k}" aria-pressed="false">{v}</button>' for k, v in eat_opts)
-    sts = "".join(f'<span class="tq-st" data-c="{k}"{"" if k == "offsite" else " hidden"}>' + stamps.stamp("tqs" + k[:3], (v[5] if lang == "es" else v[4]), "SALIDAS DE EQUIPO" if lang == "es" else "TEAM OUTINGS", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
+    eat = "".join(f'<button type="button" class="tq-chip" data-e="{k}" aria-pressed="{"true" if k == "own" else "false"}">{v}</button>' for k, v in eat_opts)
+    sts = "".join(f'<span class="tq-st" data-c="{k}"{"" if k == "milestone" else " hidden"}>' + stamps.stamp("tqs" + k[:3], (v[5] if lang == "es" else v[4]), "SALIDAS DE EQUIPO" if lang == "es" else "TEAM OUTINGS", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
     pics = "".join(
         f'<span class="tq-pol" style="--r:{r}"><img src="{src}" alt="{alt}" loading="lazy"></span>' for src, alt, r in PICS)
     note = f'<p class="tq-btnnote">{t["btn_note"]}</p>' if t["btn_note"] else ""
@@ -141,6 +141,8 @@ for lang, t in T.items():
   .tq-ticks {{ margin-top: -4px; }}
   .tq-out {{ margin: 8px 0 4px; gap: 4px 28px; }}
   .tq-val li.no {{ color: #5B6663; background: transparent; border: 2px dashed #8A918E; }}
+  .tq-val li.no.yes {{ color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; }}
+  .tq-val li.no.yes::before {{ content: "\\2713"; }}
   .tq-val li.no::before {{ content: "\\2715"; }}
   .tq-plus {{ font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.5rem; color: #27302E; }}
   .tq-plus[hidden] {{ display: none; }}
@@ -191,7 +193,7 @@ for lang, t in T.items():
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
     var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); document.getElementById("tq-big").hidden = n < 20; el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }}
-  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "", e: "" }}, plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
+  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "milestone", e: "own" }}, food = root.querySelector(".tq-val li.no"), plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
   function link() {{ var q = []; if (sel.c) q.push("celebrating=" + sel.c); if (sel.e) q.push("eating=" + sel.e); if (btn) btn.setAttribute("href", q.length ? base + "?" + q.join("&") : base); }}
   [].slice.call(root.querySelectorAll(".tq-chip")).forEach(function (c) {{
     c.addEventListener("click", function () {{
@@ -199,13 +201,13 @@ for lang, t in T.items():
       [].slice.call(c.parentNode.children).forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
       c.setAttribute("aria-pressed", on ? "true" : "false"); sel[k] = on ? v : "";
       if (k === "c") {{
-        var key = sel.c || "offsite";
+        var key = sel.c || "milestone";
         [].slice.call(root.querySelectorAll(".tq-st")).forEach(function (st) {{ var show = st.getAttribute("data-c") === key; st.hidden = !show; st.classList.remove("pop"); if (show) {{ void st.offsetWidth; st.classList.add("pop"); }} }});
-      }} else {{ plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; }}
+      }} else {{ plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan"); }}
       link();
     }});
   }});
-  r.addEventListener("input", upd); upd();
+  link(); r.addEventListener("input", upd); upd();
 }})();
 </script>
 """
