@@ -14,7 +14,6 @@ import stamps
 STAMP = {
     "birthday": ("cake", "#D6479B", -7, 6, "HAPPY BIRTHDAY", "FELIZ CUMPLEAÑOS"),
     "milestone": ("trophy", "#E89B00", 8, 9, "MILESTONE", "UN GRAN LOGRO"),
-    "retirement": ("sunset", "#E8742A", -6, 5, "HAPPY RETIREMENT", "FELIZ JUBILACIÓN"),
     "offsite": ("palms3", "#2E9E57", -8, 3, "OUT OF OFFICE", "FUERA DE LA OFICINA"),
     "just-because": ("polaroid", "#6A4C93", 7, 11, "JUST BECAUSE", "PORQUE SÍ"),
 }
@@ -40,8 +39,8 @@ T = {
    proof="La prueba está en las Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google (en inglés)"),
 }
-CEL = {"en": ("What are you celebrating?", [("birthday", "Birthday"), ("milestone", "Milestone"), ("retirement", "Retirement"), ("offsite", "Offsite"), ("just-because", "Just because")]),
-       "es": ("&iquest;Qu&eacute; celebran?", [("birthday", "Cumplea&ntilde;os"), ("milestone", "Un logro"), ("retirement", "Jubilaci&oacute;n"), ("offsite", "Retiro de empresa"), ("just-because", "Porque s&iacute;")])}
+CEL = {"en": ("What are you celebrating?", [("birthday", "Birthday"), ("milestone", "Milestone"), ("offsite", "Offsite"), ("just-because", "Just because")]),
+       "es": ("&iquest;Qu&eacute; celebran?", [("birthday", "Cumplea&ntilde;os"), ("milestone", "Un logro"), ("offsite", "Retiro de empresa"), ("just-because", "Porque s&iacute;")])}
 for lang, t in T.items():
     cel_h, cel_opts = CEL[lang]
     cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="{"true" if k == "milestone" else "false"}">{v}</button>' for k, v in cel_opts)
