@@ -1,83 +1,75 @@
-<!-- MARLONWALKSLA - HOME: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py. Oct 17, 2026 (Marlon via Gemini). Reads the picks from home-private.html through window.MWPV. -->
+<!-- MARLONWALKSLA - HOME: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py.
+     Oct 20, 2026 (Marlon): shows the trip you picked, then how many people, then the price (the biggest number is the full price). No Ernesto. Reads the pick from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
- <div class="pcq-l">
-  <h3 class="pcq-title">Estimate your day</h3>
-  <p class="pcq-hint">Based on what you picked. Marlon confirms the final price.</p>
+  <h3 class="pcq-title">Your estimate</h3>
   <p class="pcq-none" hidden>Pick a trip to see your estimate.</p>
-  <ul class="pcq-list" aria-label="Stops" hidden></ul>
- </div>
- <div class="pcq-r">
-  <div class="pcq-grp" role="group" aria-label="How many of you?"><span class="pcq-grpl">How many of you?</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
+  <p class="pcq-trip" hidden></p>
+  <div class="pcq-row pcq-hrow" role="group" aria-label="How many hours?" hidden><span class="pcq-rowl">How many hours?</span><button type="button" class="pcq-h" data-h="2" aria-pressed="false">2</button><button type="button" class="pcq-h" data-h="4" aria-pressed="true">4</button><button type="button" class="pcq-h" data-h="6" aria-pressed="false">6</button><button type="button" class="pcq-h" data-h="8" aria-pressed="false">8</button><button type="button" class="pcq-h" data-h="10" aria-pressed="false">10</button><button type="button" class="pcq-h" data-h="12" aria-pressed="false">12</button></div>
+  <div class="pcq-row pcq-grow" role="group" aria-label="How many of you?" hidden><span class="pcq-rowl">How many of you?</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
   <div class="pcq-out" aria-live="polite" hidden>
-    <span class="pcq-hours"></span>
-    <span class="pcq-price"></span>
-    <span class="pcq-cap">Estimated price</span>
+    <div class="pcq-price"></div>
+    <p class="pcq-sub"></p>
     <p class="pcq-fit"></p>
+    <ul class="pcq-val" aria-label="Hotel pickup and drop-off included"><li>Hotel pickup and drop-off</li><li>Driving</li><li>Instant photos</li><li class="no">Food</li><li class="no">Parking</li></ul>
   </div>
-  <p class="pcq-incl">Hotel pickup and drop-off included</p>
   <p class="pcq-incl pcq-drop">Took a free tour? Add a short drop-off for $60, even to the airport.</p>
-  <div class="pcq-ern"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><button type="button" class="pcq-cta" aria-disabled="true">Finalize Custom Tour</button></div>
-  <button type="button" class="pcq-alt" hidden></button>
+  <button type="button" class="pcq-cta" aria-disabled="true">Pick something first</button>
+  <button type="button" class="pcq-alt" hidden>Change it, make it yours</button>
   <p class="pcq-note">No payment now. Next you send Marlon your details.</p>
- </div>
 </div>
-<script type="application/json" id="pcq-t">{"remove": "Remove", "about": "About", "to": "to", "hours": "hours", "fits": "Fits a", "car": "1 to 4 guests, one price per car", "over": "That is more than one day. Message Marlon and we will plan two.", "cta": "Finalize Custom Tour", "wait": "Pick something first", "each": "each", "hrsl": "hours", "cta2": "Book this trip", "cta3": "Change it, make it yours", "people": "people", "total": "total", "listp": "List price", "save": "You save", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60}</script>
+<script type="application/json" id="pcq-t">{"hrsl": "hours", "cta2": "Book this trip", "cta3": "Change it, make it yours", "cta4": "Ask Marlon to build it", "wait": "Pick something first", "each": "each", "people": "people", "total": "total", "listp": "List price", "save": "You save", "yourtrip": "Your trip", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60}</script>
 <style>
   /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
-  .mw-form-card:has(.pcq) { margin-top: 0; padding: 24px 24px 20px; box-shadow: 6px 6px 0 #27302E; }
+  .mw-form-card:has(.pcq) { margin-top: 0; padding: 20px 22px 18px; box-shadow: 6px 6px 0 #27302E; }
   .pcq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
-  .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.8rem; line-height: 1.1; margin: 0 0 6px; color: #27302E; }
-  .pcq-hint { margin: 0 0 14px; font-size: 0.95rem; line-height: 1.45; color: #4D5551; }
-  .pcq-list { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-  .pcq-list li { display: inline-flex; align-items: center; gap: 6px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.9rem; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 3px 6px 3px 12px; }
-  .pcq-list button { width: 26px; height: 26px; border-radius: 50%; border: 0; background: #F1E4CB; color: #27302E; font-size: 1rem; line-height: 1; cursor: pointer; }
-  .pcq-list button:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
-  .pcq-none { margin: 0 0 14px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; color: #3B4440; }
-  .pcq-out { margin: 4px 0 8px; }
-  .pcq-cap { display: block; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #5B6663; margin-top: 3px; }
-  .pcq-hours { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
-  .pcq-grp { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; }
-  .pcq-grpl { font-weight: 700; margin-right: 4px; }
-  .pcq-g { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
-  .pcq-g[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
-  .pcq-g:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
-  .pcq-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 700; font-size: 0.85rem; }
-  .pcq-price { white-space: nowrap; font-size: clamp(2.3rem, 4.6vw, 3.1rem) !important; }
-  .pcq-price small { font-family: "Nunito", sans-serif; font-size: 1rem; font-weight: 700; color: #4D5551; }
+  .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.6rem; line-height: 1.1; margin: 0 0 4px; color: #27302E; }
+  .pcq-trip { margin: 0 0 12px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; line-height: 1.25; color: #27302E; }
+  .pcq-trip span { display: inline-block; margin-right: 6px; padding: 1px 10px; border-radius: 99px; background: #FFD43B; border: 2px solid #27302E; font-size: 0.8rem; }
+  .pcq-none { margin: 0 0 12px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; color: #3B4440; }
+  .pcq-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; margin: 0 0 10px; }
+  .pcq-rowl { font-weight: 700; margin-right: 4px; }
+  .pcq-g, .pcq-h { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; min-width: 38px; height: 38px; padding: 0 6px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-out { margin: 4px 0 6px; }
+  .pcq-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .pcq-price small { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; color: #27302E; }
+  .pcq-sub { margin: 6px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; color: #27302E; }
+  .pcq-fit { margin: 4px 0 0; font-size: 0.95rem; line-height: 1.45; color: #27302E; }
   .pcq-fit s { color: #5B6663; }
-  .pcq-price { display: block; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; margin-top: 12px; font-variant-numeric: tabular-nums; }
-  .pcq-fit { margin: 6px 0 0; font-size: 1rem; line-height: 1.45; color: #27302E; }
-  .pcq-incl { margin: 10px 0 16px; font-size: 0.92rem; color: #4D5551; }
-  .pcq-cta { display: block; width: 100%; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 13px 24px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .pcq-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 700; font-size: 0.85rem; }
+  .pcq-val { list-style: none; margin: 8px 0 6px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .pcq-val li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.88rem; line-height: 1.2; color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; border-radius: 999px; padding: 4px 10px; }
+  .pcq-val li::before { content: "\2713"; margin-right: 5px; }
+  .pcq-val li.no { color: #5B6663; background: transparent; border: 2px dashed #8A918E; }
+  .pcq-val li.no::before { content: "\2715"; }
+  .pcq-incl { margin: 6px 0 12px; font-size: 0.88rem; color: #4D5551; }
+  .pcq-cta { display: block; width: 100%; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 11px 24px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
   .pcq-cta:hover:not([aria-disabled="true"]) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
   .pcq-cta:active:not([aria-disabled="true"]) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
   .pcq-cta:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
   .pcq-cta[aria-disabled="true"] { background: #E9E2D2; color: #6B726F; box-shadow: none; cursor: not-allowed; }
-  .pcq-ern { display: flex; align-items: center; gap: 12px; }
-  .pcq-ern img { height: 84px; width: auto; flex: none; }
-  .pcq-note { margin: 10px 0 0; text-align: center; font-size: 0.88rem; color: #5B6663; }
-  @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
-  /* Oct 19, 2026 (Marlon): the estimate sits below the picks, full width: what you picked on the left, the price and button on the right */
-  .pcq-alt { display: block; width: 100%; margin-top: 10px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #27302E; background: transparent; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
+  .pcq-alt { display: block; width: 100%; margin-top: 6px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #27302E; background: transparent; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 40px; }
   .pcq-alt:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
-  .pcq-alt[hidden] { display: none; }
+  .pcq-alt[hidden], .pcq-row[hidden] { display: none; }
+  .pcq-note { margin: 4px 0 0; text-align: center; font-size: 0.85rem; color: #5B6663; }
+  @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
 </style>
 <script>
 (function () {
   var root = document.getElementById("pcq"); if (!root) return;
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
-  var list = root.querySelector(".pcq-list"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out");
-  var hrs = root.querySelector(".pcq-hours"), price = root.querySelector(".pcq-price"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta");
-  var st = null, n = 2, alt = root.querySelector(".pcq-alt");
+  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow");
+  var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
+  var st = null, n = 2;
   function priceAt(g, h) {
     var T = t.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
     return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
   }
   function quote(s) {
-    if (s.lo > 12) return null;
-    var hi = Math.min(s.hi, 12), lo = priceAt(n, s.lo), top = priceAt(n, hi), list = Math.round(t.listRate * n * hi);
-    return { lo: lo, hi: top, eachLo: Math.round(lo / n), eachHi: Math.round(top / n), list: list, pct: Math.round((1 - top / list) * 100) };
+    var h = Math.min(12, s.hi), total = priceAt(n, h), list = Math.round(t.listRate * n * h);
+    return { total: total, each: Math.round(total / n), list: list, pct: Math.round((1 - total / list) * 100) };
   }
   [].slice.call(root.querySelectorAll(".pcq-g")).forEach(function (g) {
     g.addEventListener("click", function () {
@@ -86,40 +78,39 @@
       if (st) render(st);
     });
   });
+  [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (b) {
+    b.addEventListener("click", function () {
+      [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      if (window.MWPV && window.MWPV.setHours) window.MWPV.setHours(+b.dataset.h);
+    });
+  });
   function render(s) {
     st = s; if (!s) return;
-    list.innerHTML = "";
-    s.ids.forEach(function (id, i) {
-    });
-    (s.stops || []).forEach(function (nm) {
-      var li = document.createElement("li"), sp = document.createElement("span"); sp.textContent = nm; li.style.paddingRight = "12px"; li.appendChild(sp); list.appendChild(li);
-    });
     var has = s.ids.length > 0;
-    none.hidden = has; out.hidden = !has; list.hidden = !has;
+    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; hrow.hidden = !(has && s.custom);
     if (has) {
-      hrs.textContent = s.range + " " + t.hrsl;
+      trip.innerHTML = ""; var tg = document.createElement("span"); tg.textContent = t.yourtrip; trip.appendChild(tg); trip.appendChild(document.createTextNode(s.names[0] + (s.custom ? "" : " · " + s.range + " " + t.hrsl)));
       var q = quote(s);
-      if (q) {
-        price.textContent = "$" + q.eachLo + (q.eachHi !== q.eachLo ? "-" + q.eachHi : "");
-        var sm = document.createElement("small"); sm.textContent = " " + t.each; price.appendChild(sm);
-        fit.innerHTML = ""; fit.appendChild(document.createTextNode("$" + q.lo + (q.hi !== q.lo ? " " + t.to + " $" + q.hi : "") + " " + t.total + " (" + n + " " + t.people + ")"));
-        var br = document.createElement("br"), was = document.createElement("s"), bd = document.createElement("span");
-        was.textContent = t.listp + " $" + q.list; bd.className = "pcq-badge"; bd.textContent = t.save + " " + q.pct + "%";
-        fit.appendChild(br); fit.appendChild(was); fit.appendChild(document.createTextNode(" ")); fit.appendChild(bd);
-      } else { price.textContent = "$1,000+"; fit.textContent = t.over; }
+      price.innerHTML = ""; price.appendChild(document.createTextNode("$" + q.total.toLocaleString("en-US")));
+      var sm = document.createElement("small"); sm.textContent = t.total + " · " + s.range + " " + t.hrsl; price.appendChild(sm);
+      sub.textContent = "$" + q.each + " " + t.each + " (" + n + " " + t.people + ")";
+      fit.innerHTML = "";
+      var was = document.createElement("s"), bd = document.createElement("span");
+      was.textContent = t.listp + " $" + q.list.toLocaleString("en-US"); bd.className = "pcq-badge"; bd.textContent = t.save + " " + q.pct + "%";
+      fit.appendChild(was); fit.appendChild(document.createTextNode(" ")); fit.appendChild(bd);
     }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
-    cta.textContent = has ? t.cta2 : t.wait; alt.hidden = !has; alt.textContent = t.cta3;
+    cta.textContent = has ? (s.custom ? t.cta4 : t.cta2) : t.wait; alt.hidden = !has || s.custom; alt.textContent = t.cta3;
   }
   window.addEventListener("mwpv", function (e) { render(e.detail); });
   if (window.MWPV && window.MWPV.state) render(window.MWPV.state);
   else render({ ids: [], names: [] });
   function go(custom) {
     if (!st || !st.ids.length) return;
-    var qt = quote(st);
-    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt ? qt.hi : null, priceLo: qt ? qt.lo : null, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
+    var qt = quote(st); custom = custom || st.custom;
+    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt.total, priceLo: qt.total, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + (qt ? qt.hi : "") + "&lo=" + (qt ? qt.lo : "") + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (custom ? "&custom=1" : "");
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (custom ? "&custom=1" : "");
     window.location.href = "/private-tour?" + q;
   }
   cta.addEventListener("click", function () { go(false); });

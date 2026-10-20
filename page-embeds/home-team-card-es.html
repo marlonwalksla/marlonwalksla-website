@@ -8,15 +8,15 @@
   <label class="tq-label" for="tq-range">¿Cuántas personas? <strong id="tq-n">15</strong></label>
   <input class="tq-range" id="tq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tq-out">
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
-  <div class="tq-cel tq-eat" role="group" aria-label="¿Cómo comemos?"><p class="tq-cel-h">¿Cómo comemos?</p><div class="tq-chips"><button type="button" class="tq-chip" data-e="own" aria-pressed="false">Cada quien compra lo suyo</button><button type="button" class="tq-chip" data-e="plan" aria-pressed="false">Que Marlon lo organice</button></div></div>
+  <div class="tq-cel tq-eat" role="group" aria-label="Plan de almuerzo"><p class="tq-cel-h">Plan de almuerzo</p><div class="tq-chips"><button type="button" class="tq-chip" data-e="own" aria-pressed="false">Comidas individuales</button><button type="button" class="tq-chip" data-e="plan" aria-pressed="false">Comida grupal con catering</button></div></div>
   <div class="tq-big" id="tq-big" hidden><strong>¿Grupo más grande? Escríbeme</strong><a class="tq-wa" href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2020" target="_blank" rel="noopener noreferrer">&#128172; Escríbele a Marlon sobre tu grupo</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
-    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-for">por 5 horas</span></span><span class="tq-cap">total estimado</span></div>
+    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>+ almuerzo</span><span class="tq-for">por 5 horas</span></span><span class="tq-cap" id="tq-cap">total estimado</span></div>
     <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">~$53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">por persona</span></div>
   </div>
   <ul class="tq-val" aria-label="por 5 horas"><li>Guía local todo el camino</li><li>Paseo en Angels Flight</li><li>Foto instantánea para cada quien</li></ul>
-  <p class="tq-add" id="tq-add" hidden></p>
-  <div class="pc-cta"><img class="pc-cta-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><a class="tq-btn" href="/team-building-walking-tour-los-angeles">Más información</a></div>
+  
+  <div class="pc-cta"><a class="tq-btn" href="/team-building-walking-tour-los-angeles">Más información</a></div>
   <p class="tq-btnnote">La página completa está en inglés.</p>
   <a class="tq-custom" href="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo">¿Tienes una solicitud especial?</a>
 </div>
@@ -73,7 +73,26 @@
   @keyframes tqpop { from { opacity: 0; transform: scale(1.5) rotate(-12deg); } to { opacity: 0.92; transform: none; } }
   .tq-title { padding-right: 110px; min-height: 92px; }
   @media (prefers-reduced-motion: reduce) { .tq-st.pop { animation: none; } }
-  .tq-eat { margin-top: 14px; }
+  .tq-eat { margin-top: 10px; }
+  /* Oct 20, 2026 (Marlon): shorter form */
+  .mw-form-card:has(.tq) { padding: 18px 22px 16px; }
+  .tq-stamp { width: 78px; height: 78px; top: -4px; }
+  .tq-title { font-size: 1.6rem; padding-right: 86px; min-height: 0; margin-bottom: 8px; }
+  .tq-cel { margin: 0 0 10px; }
+  .tq-cel-h { margin-bottom: 5px; font-size: 0.9rem; }
+  .tq-chips { gap: 6px; }
+  .tq-chip { font-size: 0.9rem; padding: 4px 12px; min-height: 32px; }
+  .tq-label { font-size: 1.05rem; margin-bottom: 0; }
+  .tq-label strong { font-size: 1.4rem; }
+  .tq-range { height: 34px; }
+  .tq-ticks { margin-top: -4px; }
+  .tq-out { margin: 8px 0 4px; gap: 4px 28px; }
+  .tq-plus { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.5rem; color: #27302E; }
+  .tq-plus[hidden] { display: none; }
+  .tq-val { margin: 2px 0 10px; gap: 6px; }
+  .tq-val li { font-size: 0.86rem; padding: 4px 10px; }
+  .tq-btn { padding: 10px 24px; font-size: 1.15rem; }
+  .tq-big { margin: 0 0 8px; padding: 8px 12px; }
   .tq-ppr { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
   .tq-save { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; }
   .tq-save[hidden] { display: none; }
@@ -117,7 +136,7 @@
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
     var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); document.getElementById("tq-big").hidden = n < 20; el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }
-  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = { c: "", e: "" }, add = document.getElementById("tq-add"), msg = {"own": "El almuerzo no está incluido. Cada quien compra lo suyo en Grand Central Market.", "plan": "Extra: Marlon organiza la comida del grupo con anticipación. Te confirma el precio."};
+  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = { c: "", e: "" }, plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = 'total estimado, Marlon confirma el precio del almuerzo';
   function link() { var q = []; if (sel.c) q.push("celebrating=" + sel.c); if (sel.e) q.push("eating=" + sel.e); if (btn) btn.setAttribute("href", q.length ? base + "?" + q.join("&") : base); }
   [].slice.call(root.querySelectorAll(".tq-chip")).forEach(function (c) {
     c.addEventListener("click", function () {
@@ -127,7 +146,7 @@
       if (k === "c") {
         var key = sel.c || "offsite";
         [].slice.call(root.querySelectorAll(".tq-st")).forEach(function (st) { var show = st.getAttribute("data-c") === key; st.hidden = !show; st.classList.remove("pop"); if (show) { void st.offsetWidth; st.classList.add("pop"); } });
-      } else { add.hidden = !sel.e; add.textContent = sel.e ? msg[sel.e] : ""; }
+      } else { plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; }
       link();
     });
   });

@@ -18,13 +18,13 @@ STAMP = {
     "offsite": ("palms3", "#2E9E57", -8, 3, "OUT OF OFFICE", "FUERA DE LA OFICINA"),
     "just-because": ("polaroid", "#6A4C93", 7, 11, "JUST BECAUSE", "PORQUE SÍ"),
 }
-EAT = {"en": ("How are we eating?", [("own", "Everyone buys their own"), ("plan", "Marlon figures it out")],
+EAT = {"en": ("Lunch plans", [("own", "Individual meals"), ("plan", "Catered group meal")],
               {"own": "Lunch is not included. Everyone buys their own at Grand Central Market.", "plan": "Add-on: Marlon plans the group meal ahead of time. He confirms the price with you."}),
-       "es": ("¿Cómo comemos?", [("own", "Cada quien compra lo suyo"), ("plan", "Que Marlon lo organice")],
+       "es": ("Plan de almuerzo", [("own", "Comidas individuales"), ("plan", "Comida grupal con catering")],
               {"own": "El almuerzo no está incluido. Cada quien compra lo suyo en Grand Central Market.", "plan": "Extra: Marlon organiza la comida del grupo con anticipación. Te confirma el precio."})}
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="~$", save="saved", notes="", for5="for 5 hours", v=["A local guide the whole way", "Angels Flight ride", "Instant photo for everyone"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
+   pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="estimated total, Marlon confirms the lunch price", v=["A local guide the whole way", "Angels Flight ride", "Instant photo for everyone"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
    btn="Learn more", btn_note="", href="/team-building-walking-tour-los-angeles",
    custom="Have a custom request?", mail="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request",
    wa="Message Marlon about your group",
@@ -32,7 +32,7 @@ T = {
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", v=["Guía local todo el camino", "Paseo en Angels Flight", "Foto instantánea para cada quien"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
+   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="total estimado, Marlon confirma el precio del almuerzo", v=["Guía local todo el camino", "Paseo en Angels Flight", "Foto instantánea para cada quien"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
    btn="Más información", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
    wa="Escríbele a Marlon sobre tu grupo",
@@ -51,7 +51,6 @@ for lang, t in T.items():
     pics = "".join(
         f'<span class="tq-pol" style="--r:{r}"><img src="{src}" alt="{alt}" loading="lazy"></span>' for src, alt, r in PICS)
     note = f'<p class="tq-btnnote">{t["btn_note"]}</p>' if t["btn_note"] else ""
-    eat_json = json.dumps(eat_msg, ensure_ascii=False)
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: TEAM PRICE CARD. Built by page-embeds/build_home_teamcard.py.
      Oct 16, 2026: replaces the booking calendar on Home. Lives inside the Webflow .mw-form-card (right column of #team-split).
      The Team page keeps the calendar (team-cal.html). Rates match the Team page slider. -->
@@ -65,12 +64,12 @@ for lang, t in T.items():
   <div class="tq-cel tq-eat" role="group" aria-label="{eat_h}"><p class="tq-cel-h">{eat_h}</p><div class="tq-chips">{eat}</div></div>
   <div class="tq-big" id="tq-big" hidden><strong>{t["big"]}</strong><a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
-    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-for">{t["for5"]}</span></span><span class="tq-cap">{t["est"]}</span></div>
+    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>{t["plus"]}</span><span class="tq-for">{t["for5"]}</span></span><span class="tq-cap" id="tq-cap">{t["est"]}</span></div>
     <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">{t["pp"]}</span></div>
   </div>
   <ul class="tq-val" aria-label="{t["for5"]}">{"".join("<li>" + v + "</li>" for v in t["v"])}</ul>
-  <p class="tq-add" id="tq-add" hidden></p>
-  <div class="pc-cta"><img class="pc-cta-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><a class="tq-btn" href="{t["href"]}">{t["btn"]}</a></div>
+  
+  <div class="pc-cta"><a class="tq-btn" href="{t["href"]}">{t["btn"]}</a></div>
   {note}
   <a class="tq-custom" href="{t["mail"]}">{t["custom"]}</a>
 </div>
@@ -127,7 +126,26 @@ for lang, t in T.items():
   @keyframes tqpop {{ from {{ opacity: 0; transform: scale(1.5) rotate(-12deg); }} to {{ opacity: 0.92; transform: none; }} }}
   .tq-title {{ padding-right: 110px; min-height: 92px; }}
   @media (prefers-reduced-motion: reduce) {{ .tq-st.pop {{ animation: none; }} }}
-  .tq-eat {{ margin-top: 14px; }}
+  .tq-eat {{ margin-top: 10px; }}
+  /* Oct 20, 2026 (Marlon): shorter form */
+  .mw-form-card:has(.tq) {{ padding: 18px 22px 16px; }}
+  .tq-stamp {{ width: 78px; height: 78px; top: -4px; }}
+  .tq-title {{ font-size: 1.6rem; padding-right: 86px; min-height: 0; margin-bottom: 8px; }}
+  .tq-cel {{ margin: 0 0 10px; }}
+  .tq-cel-h {{ margin-bottom: 5px; font-size: 0.9rem; }}
+  .tq-chips {{ gap: 6px; }}
+  .tq-chip {{ font-size: 0.9rem; padding: 4px 12px; min-height: 32px; }}
+  .tq-label {{ font-size: 1.05rem; margin-bottom: 0; }}
+  .tq-label strong {{ font-size: 1.4rem; }}
+  .tq-range {{ height: 34px; }}
+  .tq-ticks {{ margin-top: -4px; }}
+  .tq-out {{ margin: 8px 0 4px; gap: 4px 28px; }}
+  .tq-plus {{ font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.5rem; color: #27302E; }}
+  .tq-plus[hidden] {{ display: none; }}
+  .tq-val {{ margin: 2px 0 10px; gap: 6px; }}
+  .tq-val li {{ font-size: 0.86rem; padding: 4px 10px; }}
+  .tq-btn {{ padding: 10px 24px; font-size: 1.15rem; }}
+  .tq-big {{ margin: 0 0 8px; padding: 8px 12px; }}
   .tq-ppr {{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }}
   .tq-save {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; }}
   .tq-save[hidden] {{ display: none; }}
@@ -171,7 +189,7 @@ for lang, t in T.items():
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
     var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); document.getElementById("tq-big").hidden = n < 20; el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }}
-  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "", e: "" }}, add = document.getElementById("tq-add"), msg = {eat_json};
+  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "", e: "" }}, plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
   function link() {{ var q = []; if (sel.c) q.push("celebrating=" + sel.c); if (sel.e) q.push("eating=" + sel.e); if (btn) btn.setAttribute("href", q.length ? base + "?" + q.join("&") : base); }}
   [].slice.call(root.querySelectorAll(".tq-chip")).forEach(function (c) {{
     c.addEventListener("click", function () {{
@@ -181,7 +199,7 @@ for lang, t in T.items():
       if (k === "c") {{
         var key = sel.c || "offsite";
         [].slice.call(root.querySelectorAll(".tq-st")).forEach(function (st) {{ var show = st.getAttribute("data-c") === key; st.hidden = !show; st.classList.remove("pop"); if (show) {{ void st.offsetWidth; st.classList.add("pop"); }} }});
-      }} else {{ add.hidden = !sel.e; add.textContent = sel.e ? msg[sel.e] : ""; }}
+      }} else {{ plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; }}
       link();
     }});
   }});

@@ -80,6 +80,9 @@ for (sec, lang), (title, alt, badges) in T.items():
     L_IN, L_OUT = ("Incluido", "No incluido") if es else ("Included", "Not included")
     b_html = (f'<div class="pc-grp"><span class="pc-grpl">{L_IN}</span><ul class="pc-badges">{pills([b for b in badges if not b[3]])}</ul></div>'
               + (f'<div class="pc-grp"><span class="pc-grpl">{L_OUT}</span><ul class="pc-badges">{pills([b for b in badges if b[3]])}</ul></div>' if any(b[3] for b in badges) else ''))
+    if sec == "priv":  # Oct 20, 2026 (Marlon): under the sentence, "Best for" instead of the fact pills (the facts moved next to the price)
+        BF = [("&#128145;", "Parejas"), ("&#128106;", "Familias"), ("&#127881;", "Amigos")] if es else [("&#128145;", "Couples"), ("&#128106;", "Families"), ("&#127881;", "Friends")]
+        b_html = f'<div class="pc-grp"><span class="pc-grpl">{"Ideal para" if es else "Best for"}</span><ul class="pc-badges">{pills([(i, x, None, 0) for i, x in BF])}</ul></div>'
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
      Postcard header: title, one short sentence and badges on the left; the From and To lines on the right (Oct 17, 2026). Address, sentence and badge styles live in home-hero.html. -->
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">

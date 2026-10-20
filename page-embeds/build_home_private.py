@@ -106,10 +106,14 @@ TRIPS = [
      ["three-countries-three-locations-01-marlon-hollywood-sign-polaroid", "three-countries-three-locations-02-christy-sunset-polaroid", "three-countries-three-locations-04-the-three-polaroids", "three-countries-three-locations-05-griffith-sunset", "three-countries-three-locations-06-griffith-dusk"]),
 ]
 TRIP_DEFAULT = "sunset"
-T["en"].update(h="Start from a real trip", hint="Past guests, past days. Pick one to see the photos and the price. Tap a photo to bring it to the front. Do it as is, or make it yours.",
+CUSTOM = {"en": ("Customize my own", "Start from a blank page. Tell Marlon where you want to go and for how long, and he builds the day with you.", "Pick your hours below to see the price."),
+          "es": ("Personaliza el mío", "Empieza desde cero. Dile a Marlon a dónde quieres ir y por cuánto tiempo, y él arma el día contigo.", "Elige tus horas abajo para ver el precio.")}
+T["en"].update(prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
+  val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Past guests, past days. Pick one to see the photos and the price. Do it as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(h="Empieza con un viaje real", hint="Huéspedes y días reales. Elige uno para ver las fotos y el precio. Toca una foto para traerla al frente. Hazlo tal cual, o hazlo tuyo.",
+T["es"].update(prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
+  val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Huéspedes y días reales. Elige uno para ver las fotos y el precio. Hazlo tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
 
@@ -122,6 +126,7 @@ def data_for(lang):
     i = 0 if lang == "en" else 1
     trips = [{"id": r[0], "tier": r[1], "hours": r[2], "color": r[3], "name": r[4 + i], "stops": r[6 + i], "story": r[8 + i],
               "photos": [TRIP_IMG + p + ".webp" for p in r[10]]} for r in TRIPS]
+    trips.append({"id": "custom", "tier": "custom", "hours": 4, "color": "#FFF1B8", "name": CUSTOM[lang][0], "stops": [], "story": CUSTOM[lang][1], "photos": []})
     return {"lang": lang, "t": T[lang], "trips": trips, "on": TRIP_DEFAULT, "prices": PRICES, "listRate": LIST_RATE}
 
 
@@ -170,57 +175,49 @@ LEFT_JS = r"""<script>
 (function () {
   var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, TR = {};
   D.trips.forEach(function (r) { TR[r.id] = r; });
-  var area = document.getElementById("polaroid-stack-area"), zTop = 10, still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), story = document.getElementById("pvb-story"), cur = null, timers = [];
-  function place(el) {
-    var W = area.clientWidth, H = area.clientHeight, pw = el.offsetWidth, ph = el.offsetHeight;
-    el.style.left = Math.max(0, (W - pw) * parseFloat(el.dataset.fx)) + "px";
-    el.style.top = Math.max(0, (H - ph) * parseFloat(el.dataset.fy)) + "px";
+  var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), story = document.getElementById("pvb-story"), cur = null, idx = 0;
+  var car = document.getElementById("pvc"), pol = car.querySelector(".pvc-pol"), box = car.querySelector(".pvc-img"), cap = car.querySelector("figcaption"), dots = document.getElementById("pvc-dots");
+  var prev = car.querySelector(".pvc-prev"), next = car.querySelector(".pvc-next");
+  function slides(r) { return r.photos.length ? r.photos : [null]; }
+  function show() {
+    var r = TR[cur], list = slides(r), src = list[idx];
+    box.innerHTML = "";
+    var card = document.createElement("div"); card.className = "pvc-card"; card.style.background = r.color; card.textContent = r.id === "custom" ? r.story : r.name; box.appendChild(card);
+    if (src) { var im = new Image(); im.alt = ""; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = src; }
+    cap.textContent = r.name + (list.length > 1 ? "  ·  " + (idx + 1) + "/" + list.length : "");
+    [].slice.call(dots.children).forEach(function (d, k) { d.classList.toggle("on", k === idx); });
+    var many = list.length > 1; prev.hidden = next.hidden = !many; dots.hidden = !many;
   }
-  function drop(r, src, i, delay) {
-    var el = document.createElement("figure");
-    el.className = "stacked-photo is-drop";
-    el.dataset.fx = (0.06 + Math.random() * 0.88).toFixed(3); el.dataset.fy = (0.08 + Math.random() * 0.84).toFixed(3);
-    el.dataset.rot = ((Math.random() * 24) - 12).toFixed(1);
-    el.style.zIndex = ++zTop;
-    var tape = document.createElement("span"); tape.className = "sp-tape"; el.appendChild(tape);
-    var box = document.createElement("div"); box.className = "sp-img";
-    var card = document.createElement("div"); card.className = "sp-card"; card.style.background = r.color; card.textContent = r.name; box.appendChild(card);
-    var im = new Image(); im.alt = ""; im.loading = "lazy"; im.onload = function () { box.appendChild(im); card.style.display = "none"; };
-    im.src = src;  // a missing photo leaves the colored card
-    el.appendChild(box); area.appendChild(el); place(el);
-    el.tabIndex = 0; el.setAttribute("role", "button"); el.setAttribute("aria-label", r.name + " " + (i + 1));
-    function top() { el.style.zIndex = ++zTop; el.classList.add("is-top"); [].forEach.call(area.querySelectorAll(".is-top"), function (o) { if (o !== el) o.classList.remove("is-top"); }); }
-    el.addEventListener("click", top); el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); top(); } });
-    el.style.transform = "rotate(" + (parseFloat(el.dataset.rot) + (Math.random() < .5 ? -14 : 14)) + "deg) scale(1.12)";
-    function land() { el.classList.remove("is-drop"); el.style.transform = "rotate(" + el.dataset.rot + "deg)"; }
-    if (still) land(); else timers.push(setTimeout(function () { requestAnimationFrame(function () { requestAnimationFrame(land); }); }, delay));
-  }
-  function clearPile() {
-    timers.forEach(clearTimeout); timers = [];
-    [].slice.call(area.querySelectorAll(".stacked-photo")).forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
-  }
-  window.addEventListener("resize", function () { if (area) [].forEach.call(area.querySelectorAll(".stacked-photo"), place); });
+  function go(n) { var len = slides(TR[cur]).length; idx = (n + len) % len; show(); }
+  prev.addEventListener("click", function () { go(idx - 1); });
+  next.addEventListener("click", function () { go(idx + 1); });
+  car.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft") go(idx - 1); else if (e.key === "ArrowRight") go(idx + 1); });
+  var x0 = null;
+  car.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  car.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1)); }, { passive: true });
   function state() {
     var r = cur && TR[cur]; if (!r) return { ids: [], names: [], lang: D.lang, t: t };
-    return { ids: [r.id], names: [r.name], stops: r.stops, lang: D.lang, hours: r.hours, lo: r.hours, hi: r.hours, range: String(r.hours), tier: r.tier, trip: r.id, over: false, t: t };
+    return { ids: [r.id], names: [r.name], stops: r.stops, lang: D.lang, hours: r.hours, lo: r.hours, hi: r.hours, range: String(r.hours), tier: r.tier, trip: r.id, custom: r.id === "custom", over: false, t: t };
   }
   function publish() {
     window.MWPV = window.MWPV || {}; window.MWPV.state = state();
     try { window.dispatchEvent(new CustomEvent("mwpv", { detail: window.MWPV.state })); } catch (e) {}
   }
   function pick(id) {
-    cur = id; var r = TR[id];
+    cur = id; idx = 0; var r = TR[id];
     pills.forEach(function (p) { p.setAttribute("aria-pressed", p.dataset.id === id ? "true" : "false"); });
-    clearPile(); area.classList.add("has-photos");
-    r.photos.forEach(function (src, i) { drop(r, src, i, 80 + i * 200); });
+    dots.innerHTML = ""; slides(r).forEach(function () { dots.appendChild(document.createElement("i")); });
+    show();
     story.innerHTML = "";
-    var tag = document.createElement("span"); tag.className = "pvb-tag"; tag.textContent = (r.tier === "short" ? t.trip_short : t.trip_quest) + " · " + r.hours + " " + t.hrsl;
+    var tag = document.createElement("span"); tag.className = "pvb-tag";
+    tag.textContent = r.id === "custom" ? t.trip_custom : (r.tier === "short" ? t.trip_short : t.trip_quest) + " · " + r.hours + " " + t.hrsl;
     var p = document.createElement("p"); p.textContent = r.story;
     story.appendChild(tag); story.appendChild(p); story.hidden = false;
     publish();
   }
   pills.forEach(function (p) { p.addEventListener("click", function () { pick(p.dataset.id); }); });
+  window.MWPV = window.MWPV || {};
+  window.MWPV.setHours = function (h) { var r = TR[cur]; if (r && r.id === "custom") { r.hours = h; publish(); } };
   pick(D.on);
 })();
 </script>
@@ -233,60 +230,83 @@ def left_html(lang):
     js_data = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     return f"""<!-- ==============================================================================
      MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LA, YOUR WAY - PREVIOUS TRIPS (LEFT COLUMN). Built by page-embeds/build_home_private.py
-     Oct 20, 2026 (Marlon): the place pills and Challenges are gone. Pick a past custom trip: its photos drop on the pile and its story shows.
+     Oct 20, 2026 (Marlon): pick a past custom trip (or "Customize my own"). Its photos are a carousel (arrows, dots, swipe), same idea as the hero.
      The estimate lives in home-private-calc.html (right column) and reads the pick through window.MWPV.
      ============================================================================== -->
 <div class="mw-offer pvb" id="private-tours">
   <h3 class="pvb-h">{t["h"]}</h3>
   <p class="pvb-hint">{t["hint"]}</p>
   <div class="pvb-pills" role="group" aria-label="{esc(t['h'])}">{pills}</div>
-  <div class="polaroid-stack-area" id="polaroid-stack-area" role="group" aria-label="{esc(t['h'])}"><p class="pvb-empty">{esc(t["cap0"])}</p></div>
+  <div class="pvc" id="pvc" role="region" aria-roledescription="carousel" aria-label="{esc(t['h'])}" tabindex="0">
+    <button type="button" class="pvc-nav pvc-prev" aria-label="{t['prev']}">&lsaquo;</button>
+    <figure class="pvc-pol"><span class="sp-tape"></span><div class="pvc-img"></div><figcaption></figcaption></figure>
+    <button type="button" class="pvc-nav pvc-next" aria-label="{t['next']}">&rsaquo;</button>
+  </div>
+  <div class="pvc-dots" id="pvc-dots" aria-hidden="true"></div>
   <div class="pvb-story" id="pvb-story" hidden></div>
 </div>
 <script type="application/json" id="pvb-data">{js_data}</script>
-""" + LEFT_CSS + LEFT_JS
+""" + LEFT_CSS + CAR_CSS + LEFT_JS
 
+
+CAR_CSS = """<style>
+  /* Oct 20, 2026 (Marlon): the trip photos are a carousel, like the hero */
+  .pvc { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; margin: 4px 0 0; outline-offset: 4px; }
+  .pvc-nav { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #27302E; background: #fff; color: #27302E; font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 0 0 3px; box-shadow: 2px 2px 0 #27302E; }
+  .pvc-nav:hover { background: #FFD43B; }
+  .pvc-nav:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
+  .pvc-nav[hidden] { display: none; }
+  .pvc-pol { position: relative; margin: 0 auto; width: min(100%, 340px); box-sizing: border-box; background: #fff; padding: 12px 12px 14px; box-shadow: 0 12px 24px -8px rgba(39, 48, 46, 0.55), 0 2px 4px rgba(39, 48, 46, 0.18); transform: rotate(-1.5deg); }
+  .pvc-pol .sp-tape { position: absolute; top: -9px; left: 50%; width: 56px; height: 18px; transform: translateX(-50%) rotate(-4deg); background: rgba(255, 140, 40, .6); mix-blend-mode: multiply; }
+  .pvc-img { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #F4EBDD; }
+  .pvc-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pvc-card { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.3; color: #27302E; }
+  .pvc-pol figcaption { margin: 10px 2px 0; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.05rem; line-height: 1.15; color: #27302E; }
+  .pvc-dots { display: flex; gap: 8px; justify-content: center; margin: 14px 0 0; }
+  .pvc-dots[hidden] { display: none; }
+  .pvc-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(39, 48, 46, 0.2); }
+  .pvc-dots i.on { background: #27302E; }
+  .polaroid-stack-area { display: none; }
+</style>
+"""
 
 CALC_CSS = """<style>
   /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
-  .mw-form-card:has(.pcq) { margin-top: 0; padding: 24px 24px 20px; box-shadow: 6px 6px 0 #27302E; }
+  .mw-form-card:has(.pcq) { margin-top: 0; padding: 20px 22px 18px; box-shadow: 6px 6px 0 #27302E; }
   .pcq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
-  .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.8rem; line-height: 1.1; margin: 0 0 6px; color: #27302E; }
-  .pcq-hint { margin: 0 0 14px; font-size: 0.95rem; line-height: 1.45; color: #4D5551; }
-  .pcq-list { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-  .pcq-list li { display: inline-flex; align-items: center; gap: 6px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.9rem; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 3px 6px 3px 12px; }
-  .pcq-list button { width: 26px; height: 26px; border-radius: 50%; border: 0; background: #F1E4CB; color: #27302E; font-size: 1rem; line-height: 1; cursor: pointer; }
-  .pcq-list button:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
-  .pcq-none { margin: 0 0 14px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; color: #3B4440; }
-  .pcq-out { margin: 4px 0 8px; }
-  .pcq-cap { display: block; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #5B6663; margin-top: 3px; }
-  .pcq-hours { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
-  .pcq-grp { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; }
-  .pcq-grpl { font-weight: 700; margin-right: 4px; }
-  .pcq-g { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
-  .pcq-g[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
-  .pcq-g:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
-  .pcq-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 700; font-size: 0.85rem; }
-  .pcq-price { white-space: nowrap; font-size: clamp(2.3rem, 4.6vw, 3.1rem) !important; }
-  .pcq-price small { font-family: "Nunito", sans-serif; font-size: 1rem; font-weight: 700; color: #4D5551; }
+  .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.6rem; line-height: 1.1; margin: 0 0 4px; color: #27302E; }
+  .pcq-trip { margin: 0 0 12px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; line-height: 1.25; color: #27302E; }
+  .pcq-trip span { display: inline-block; margin-right: 6px; padding: 1px 10px; border-radius: 99px; background: #FFD43B; border: 2px solid #27302E; font-size: 0.8rem; }
+  .pcq-none { margin: 0 0 12px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; color: #3B4440; }
+  .pcq-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; margin: 0 0 10px; }
+  .pcq-rowl { font-weight: 700; margin-right: 4px; }
+  .pcq-g, .pcq-h { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; min-width: 38px; height: 38px; padding: 0 6px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-out { margin: 4px 0 6px; }
+  .pcq-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .pcq-price small { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; color: #27302E; }
+  .pcq-sub { margin: 6px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; color: #27302E; }
+  .pcq-fit { margin: 4px 0 0; font-size: 0.95rem; line-height: 1.45; color: #27302E; }
   .pcq-fit s { color: #5B6663; }
-  .pcq-price { display: block; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; margin-top: 12px; font-variant-numeric: tabular-nums; }
-  .pcq-fit { margin: 6px 0 0; font-size: 1rem; line-height: 1.45; color: #27302E; }
-  .pcq-incl { margin: 10px 0 16px; font-size: 0.92rem; color: #4D5551; }
-  .pcq-cta { display: block; width: 100%; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 13px 24px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .pcq-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 700; font-size: 0.85rem; }
+  .pcq-val { list-style: none; margin: 8px 0 6px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .pcq-val li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.88rem; line-height: 1.2; color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; border-radius: 999px; padding: 4px 10px; }
+  .pcq-val li::before { content: "\\2713"; margin-right: 5px; }
+  .pcq-val li.no { color: #5B6663; background: transparent; border: 2px dashed #8A918E; }
+  .pcq-val li.no::before { content: "\\2715"; }
+  .pcq-incl { margin: 6px 0 12px; font-size: 0.88rem; color: #4D5551; }
+  .pcq-cta { display: block; width: 100%; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 11px 24px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
   .pcq-cta:hover:not([aria-disabled="true"]) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
   .pcq-cta:active:not([aria-disabled="true"]) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
   .pcq-cta:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
   .pcq-cta[aria-disabled="true"] { background: #E9E2D2; color: #6B726F; box-shadow: none; cursor: not-allowed; }
-  .pcq-ern { display: flex; align-items: center; gap: 12px; }
-  .pcq-ern img { height: 84px; width: auto; flex: none; }
-  .pcq-note { margin: 10px 0 0; text-align: center; font-size: 0.88rem; color: #5B6663; }
-  @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
-  /* Oct 19, 2026 (Marlon): the estimate sits below the picks, full width: what you picked on the left, the price and button on the right */
-  .pcq-alt { display: block; width: 100%; margin-top: 10px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #27302E; background: transparent; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
+  .pcq-alt { display: block; width: 100%; margin-top: 6px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #27302E; background: transparent; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 40px; }
   .pcq-alt:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
-  .pcq-alt[hidden] { display: none; }
+  .pcq-alt[hidden], .pcq-row[hidden] { display: none; }
+  .pcq-note { margin: 4px 0 0; text-align: center; font-size: 0.85rem; color: #5B6663; }
+  @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
 </style>
 """
 
@@ -294,17 +314,16 @@ CALC_JS = r"""<script>
 (function () {
   var root = document.getElementById("pcq"); if (!root) return;
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
-  var list = root.querySelector(".pcq-list"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out");
-  var hrs = root.querySelector(".pcq-hours"), price = root.querySelector(".pcq-price"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta");
-  var st = null, n = 2, alt = root.querySelector(".pcq-alt");
+  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow");
+  var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
+  var st = null, n = 2;
   function priceAt(g, h) {
     var T = t.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
     return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
   }
   function quote(s) {
-    if (s.lo > 12) return null;
-    var hi = Math.min(s.hi, 12), lo = priceAt(n, s.lo), top = priceAt(n, hi), list = Math.round(t.listRate * n * hi);
-    return { lo: lo, hi: top, eachLo: Math.round(lo / n), eachHi: Math.round(top / n), list: list, pct: Math.round((1 - top / list) * 100) };
+    var h = Math.min(12, s.hi), total = priceAt(n, h), list = Math.round(t.listRate * n * h);
+    return { total: total, each: Math.round(total / n), list: list, pct: Math.round((1 - total / list) * 100) };
   }
   [].slice.call(root.querySelectorAll(".pcq-g")).forEach(function (g) {
     g.addEventListener("click", function () {
@@ -313,40 +332,39 @@ CALC_JS = r"""<script>
       if (st) render(st);
     });
   });
+  [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (b) {
+    b.addEventListener("click", function () {
+      [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      if (window.MWPV && window.MWPV.setHours) window.MWPV.setHours(+b.dataset.h);
+    });
+  });
   function render(s) {
     st = s; if (!s) return;
-    list.innerHTML = "";
-    s.ids.forEach(function (id, i) {
-    });
-    (s.stops || []).forEach(function (nm) {
-      var li = document.createElement("li"), sp = document.createElement("span"); sp.textContent = nm; li.style.paddingRight = "12px"; li.appendChild(sp); list.appendChild(li);
-    });
     var has = s.ids.length > 0;
-    none.hidden = has; out.hidden = !has; list.hidden = !has;
+    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; hrow.hidden = !(has && s.custom);
     if (has) {
-      hrs.textContent = s.range + " " + t.hrsl;
+      trip.innerHTML = ""; var tg = document.createElement("span"); tg.textContent = t.yourtrip; trip.appendChild(tg); trip.appendChild(document.createTextNode(s.names[0] + (s.custom ? "" : " · " + s.range + " " + t.hrsl)));
       var q = quote(s);
-      if (q) {
-        price.textContent = "$" + q.eachLo + (q.eachHi !== q.eachLo ? "-" + q.eachHi : "");
-        var sm = document.createElement("small"); sm.textContent = " " + t.each; price.appendChild(sm);
-        fit.innerHTML = ""; fit.appendChild(document.createTextNode("$" + q.lo + (q.hi !== q.lo ? " " + t.to + " $" + q.hi : "") + " " + t.total + " (" + n + " " + t.people + ")"));
-        var br = document.createElement("br"), was = document.createElement("s"), bd = document.createElement("span");
-        was.textContent = t.listp + " $" + q.list; bd.className = "pcq-badge"; bd.textContent = t.save + " " + q.pct + "%";
-        fit.appendChild(br); fit.appendChild(was); fit.appendChild(document.createTextNode(" ")); fit.appendChild(bd);
-      } else { price.textContent = "$1,000+"; fit.textContent = t.over; }
+      price.innerHTML = ""; price.appendChild(document.createTextNode("$" + q.total.toLocaleString("en-US")));
+      var sm = document.createElement("small"); sm.textContent = t.total + " · " + s.range + " " + t.hrsl; price.appendChild(sm);
+      sub.textContent = "$" + q.each + " " + t.each + " (" + n + " " + t.people + ")";
+      fit.innerHTML = "";
+      var was = document.createElement("s"), bd = document.createElement("span");
+      was.textContent = t.listp + " $" + q.list.toLocaleString("en-US"); bd.className = "pcq-badge"; bd.textContent = t.save + " " + q.pct + "%";
+      fit.appendChild(was); fit.appendChild(document.createTextNode(" ")); fit.appendChild(bd);
     }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
-    cta.textContent = has ? t.cta2 : t.wait; alt.hidden = !has; alt.textContent = t.cta3;
+    cta.textContent = has ? (s.custom ? t.cta4 : t.cta2) : t.wait; alt.hidden = !has || s.custom; alt.textContent = t.cta3;
   }
   window.addEventListener("mwpv", function (e) { render(e.detail); });
   if (window.MWPV && window.MWPV.state) render(window.MWPV.state);
   else render({ ids: [], names: [] });
   function go(custom) {
     if (!st || !st.ids.length) return;
-    var qt = quote(st);
-    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt ? qt.hi : null, priceLo: qt ? qt.lo : null, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
+    var qt = quote(st); custom = custom || st.custom;
+    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt.total, priceLo: qt.total, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + (qt ? qt.hi : "") + "&lo=" + (qt ? qt.lo : "") + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (custom ? "&custom=1" : "");
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (custom ? "&custom=1" : "");
     window.location.href = "/private-tour?" + q;
   }
   cta.addEventListener("click", function () { go(false); });
@@ -360,29 +378,28 @@ ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
 
 def calc_html(lang):
     t = T[lang]
-    tj = json.dumps({"remove": t["remove"], "about": t["about"], "to": t["to"], "hours": t["hours"], "fits": t["fits"], "car": t["car"], "over": t["over"], "cta": t["cta"], "wait": t["wait"], "each": t["each"], "hrsl": t["hrsl"], "cta2": t["cta2"], "cta3": t["cta3"], "people": t["people"], "total": t["total"], "listp": t["listp"], "save": t["save"], "prices": PRICES, "listRate": LIST_RATE}, ensure_ascii=False)
-    return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py. Oct 17, 2026 (Marlon via Gemini). Reads the picks from home-private.html through window.MWPV. -->
+    keys = ["hrsl", "cta2", "cta3", "cta4", "wait", "each", "people", "total", "listp", "save", "yourtrip"]
+    tj = json.dumps({**{k: t[k] for k in keys}, "prices": PRICES, "listRate": LIST_RATE}, ensure_ascii=False)
+    vin = "".join(f"<li>{esc(x)}</li>" for x in t["val_in"]) + "".join(f'<li class="no">{esc(x)}</li>' for x in t["val_out"])
+    hb = "".join(f'<button type="button" class="pcq-h" data-h="{h}" aria-pressed="{"true" if h == 4 else "false"}">{h}</button>' for h in (2, 4, 6, 8, 10, 12))
+    return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py.
+     Oct 20, 2026 (Marlon): shows the trip you picked, then how many people, then the price (the biggest number is the full price). No Ernesto. Reads the pick from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
- <div class="pcq-l">
   <h3 class="pcq-title">{t["ch"]}</h3>
-  <p class="pcq-hint">{t["chint"]}</p>
   <p class="pcq-none" hidden>{t["none"]}</p>
-  <ul class="pcq-list" aria-label="{t["stopsl"]}" hidden></ul>
- </div>
- <div class="pcq-r">
-  <div class="pcq-grp" role="group" aria-label="{t["groupl"]}"><span class="pcq-grpl">{t["groupl"]}</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
+  <p class="pcq-trip" hidden></p>
+  <div class="pcq-row pcq-hrow" role="group" aria-label="{t["hrsq"]}" hidden><span class="pcq-rowl">{t["hrsq"]}</span>{hb}</div>
+  <div class="pcq-row pcq-grow" role="group" aria-label="{t["groupl"]}" hidden><span class="pcq-rowl">{t["groupl"]}</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
   <div class="pcq-out" aria-live="polite" hidden>
-    <span class="pcq-hours"></span>
-    <span class="pcq-price"></span>
-    <span class="pcq-cap">{t["est"]}</span>
+    <div class="pcq-price"></div>
+    <p class="pcq-sub"></p>
     <p class="pcq-fit"></p>
+    <ul class="pcq-val" aria-label="{t["incl"]}">{vin}</ul>
   </div>
-  <p class="pcq-incl">{t["incl"]}</p>
   <p class="pcq-incl pcq-drop">{t["dropoff"]}</p>
-  <div class="pcq-ern"><img src="{ERN}" alt="" aria-hidden="true" loading="lazy"><button type="button" class="pcq-cta" aria-disabled="true">{t["cta"]}</button></div>
-  <button type="button" class="pcq-alt" hidden></button>
+  <button type="button" class="pcq-cta" aria-disabled="true">{t["wait"]}</button>
+  <button type="button" class="pcq-alt" hidden>{t["cta3"]}</button>
   <p class="pcq-note">{t["note2"]}</p>
- </div>
 </div>
 <script type="application/json" id="pcq-t">{tj}</script>
 """ + CALC_CSS + CALC_JS
