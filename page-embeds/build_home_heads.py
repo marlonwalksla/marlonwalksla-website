@@ -18,9 +18,9 @@ T = {
  ("team", "es"): ("Celebra a tu equipo", "Ernesto con su c&aacute;mara Polaroid",
    [(PEOPLE, "5-30 personas", "5 a 30 personas", 0), (CLOCK, "Unas 5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida no incluida", None, 1)]),
  ("priv", "en"): ("LA, Your Way", "Ernesto ready for a hike",
-   [(PEOPLE, "1-4 guests", "1 to 4 guests", 0), (CLOCK, "4, 8 or 12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food not included", None, 1), (PARK, "Parking not included", None, 1)]),
+   [(PEOPLE, "2-4 guests", "2 to 4 guests", 0), (CLOCK, "2 to 12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food not included", None, 1), (PARK, "Parking not included", None, 1)]),
  ("priv", "es"): ("LA a tu manera", "Ernesto listo para una caminata",
-   [(PEOPLE, "1-4 personas", "1 a 4 personas", 0), (CLOCK, "4, 8 o 12 horas", None, 0), (CAR, "Recogida y regreso al hotel", None, 0), (FOOD, "Comida no incluida", None, 1), (PARK, "Estacionamiento no incluido", None, 1)]),
+   [(PEOPLE, "2-4 personas", "2 a 4 personas", 0), (CLOCK, "2 a 12 horas", None, 0), (CAR, "Recogida y regreso al hotel", None, 0), (FOOD, "Comida no incluida", None, 1), (PARK, "Estacionamiento no incluido", None, 1)]),
 }
 CSS = """<style>
   .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
