@@ -10,18 +10,18 @@ PICS = [
 ]
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="~$", save="saved", notes="5 hours · Angels Flight ride and an instant photo for everyone included · Lunch at the end, not included",
+   pp_pre="~$", save="saved", notes="", for5="for 5 hours", v=["A local guide the whole way", "Angels Flight ride", "Instant photo for everyone"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
    btn="Learn more", btn_note="", href="/team-building-walking-tour-los-angeles",
    custom="Have a custom request?", mail="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request",
-   wa="More than 20 guests? Message Marlon directly",
+   wa="Message Marlon about your group",
    wa_href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2020",
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="~$", save="de ahorro", notes="5 horas · Incluye Angels Flight y una foto instantánea para cada quien · Almuerzo al final, no incluido",
+   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", v=["Guía local todo el camino", "Paseo en Angels Flight", "Foto instantánea para cada quien"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
    btn="Más información", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
-   wa="¿Más de 20 personas? Escríbele a Marlon directo",
+   wa="Escríbele a Marlon sobre tu grupo",
    wa_href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2020",
    proof="La prueba está en las Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google (en inglés)"),
@@ -43,14 +43,15 @@ for lang, t in T.items():
   <label class="tq-label" for="tq-range">{t["label"]} <strong id="tq-n">15</strong></label>
   <input class="tq-range" id="tq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tq-out">
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
+  <div class="tq-big" id="tq-big" hidden><strong>{t["big"]}</strong><a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
-    <div><span class="tq-total" id="tq-total">$790</span><span class="tq-cap">{t["est"]}</span></div>
+    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-for">{t["for5"]}</span></span><span class="tq-cap">{t["est"]}</span></div>
     <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">{t["pp"]}</span></div>
   </div>
-  <p class="tq-notes">{t["notes"]}</p>
+  <ul class="tq-val" aria-label="{t["for5"]}">{"".join("<li>" + v + "</li>" for v in t["v"])}</ul>
+  <p class="tq-add">{t["addon"]}</p>
   <div class="pc-cta"><img class="pc-cta-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><a class="tq-btn" href="{t["href"]}">{t["btn"]}</a></div>
   {note}
-  <a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a>
   <a class="tq-custom" href="{t["mail"]}">{t["custom"]}</a>
 </div>
 <style>
@@ -86,6 +87,17 @@ for lang, t in T.items():
   .tq-range {{ height: 42px; }}
   /* Oct 19, 2026 (Marlon): the bar fills with color as you add people (--p is set from the slider value) */
   .tq-range {{ --p: 38%; }}
+  .tq-tr {{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }}
+  .tq-for {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; color: #27302E; }}
+  .tq-val {{ list-style: none; margin: 4px 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }}
+  .tq-val li {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.2; color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; border-radius: 999px; padding: 7px 14px; }}
+  .tq-val li::before {{ content: "\\2713"; margin-right: 6px; }}
+  .tq-add {{ margin: 0 0 14px; font-size: 0.95rem; line-height: 1.4; color: #3B4440; }}
+  .tq-big {{ margin: 0 0 12px; padding: 12px 16px; border-radius: 14px; background: #FFF1B8; border: 2px solid #27302E; text-align: center; animation: tqdrop 0.3s ease-out; }}
+  .tq-big[hidden] {{ display: none; }}
+  .tq-big .tq-wa {{ margin-top: 2px; }}
+  @keyframes tqdrop {{ from {{ opacity: 0; transform: translateY(-8px); }} to {{ opacity: 1; transform: none; }} }}
+  @media (prefers-reduced-motion: reduce) {{ .tq-big {{ animation: none; }} }}
   .tq-ppr {{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }}
   .tq-save {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; }}
   .tq-save[hidden] {{ display: none; }}
@@ -127,7 +139,7 @@ for lang, t in T.items():
     r.style.setProperty("--p", ((n - 5) / 15 * 100) + "%");
     document.getElementById("tq-total").textContent = "$" + t.toLocaleString("en-US");
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
-    var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
+    var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); document.getElementById("tq-big").hidden = n < 20; el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }}
   var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", chips = root.querySelectorAll(".tq-chip");
   chips.forEach(function (c) {{
