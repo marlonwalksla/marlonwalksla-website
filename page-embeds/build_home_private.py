@@ -106,10 +106,10 @@ TRIPS = [
      ["three-countries-three-locations-01-marlon-hollywood-sign-polaroid", "three-countries-three-locations-02-christy-sunset-polaroid", "three-countries-three-locations-04-the-three-polaroids", "three-countries-three-locations-05-griffith-sunset", "three-countries-three-locations-06-griffith-dusk"]),
 ]
 TRIP_DEFAULT = "sunset"
-T["en"].update(h="Start from a real trip", hint="Past guests, past days. Pick one to see the photos and the price. Do it as is, or make it yours.",
+T["en"].update(h="Start from a real trip", hint="Past guests, past days. Pick one to see the photos and the price. Tap a photo to bring it to the front. Do it as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(h="Empieza con un viaje real", hint="Huéspedes y días reales. Elige uno para ver las fotos y el precio. Hazlo tal cual, o hazlo tuyo.",
+T["es"].update(h="Empieza con un viaje real", hint="Huéspedes y días reales. Elige uno para ver las fotos y el precio. Toca una foto para traerla al frente. Hazlo tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
 
@@ -131,6 +131,9 @@ LEFT_CSS = """<style>
   .polaroid-stack-area { position: relative; width: 100%; min-height: 400px; margin: 0 0 18px; --pw: 210px; }
   .stacked-photo { position: absolute; width: var(--pw); box-sizing: border-box; background: #fff; padding: 10px 10px 12px; box-shadow: 0 10px 22px -8px rgba(39, 48, 46, 0.55), 0 2px 4px rgba(39, 48, 46, 0.18);
     transition: all 0.3s ease-out; will-change: transform, opacity; }
+  .stacked-photo { cursor: pointer; }
+  .stacked-photo:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
+  .stacked-photo.is-top { box-shadow: 0 16px 30px -8px rgba(39, 48, 46, 0.6), 0 2px 4px rgba(39, 48, 46, 0.18); }
   .stacked-photo.is-drop { opacity: 0; margin-top: -46px; }
   .stacked-photo.is-gone { opacity: 0; margin-top: 18px; }
   .stacked-photo .sp-img { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #F4EBDD; }
@@ -186,6 +189,9 @@ LEFT_JS = r"""<script>
     var im = new Image(); im.alt = ""; im.loading = "lazy"; im.onload = function () { box.appendChild(im); card.style.display = "none"; };
     im.src = src;  // a missing photo leaves the colored card
     el.appendChild(box); area.appendChild(el); place(el);
+    el.tabIndex = 0; el.setAttribute("role", "button"); el.setAttribute("aria-label", r.name + " " + (i + 1));
+    function top() { el.style.zIndex = ++zTop; el.classList.add("is-top"); [].forEach.call(area.querySelectorAll(".is-top"), function (o) { if (o !== el) o.classList.remove("is-top"); }); }
+    el.addEventListener("click", top); el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); top(); } });
     el.style.transform = "rotate(" + (parseFloat(el.dataset.rot) + (Math.random() < .5 ? -14 : 14)) + "deg) scale(1.12)";
     function land() { el.classList.remove("is-drop"); el.style.transform = "rotate(" + el.dataset.rot + "deg)"; }
     if (still) land(); else timers.push(setTimeout(function () { requestAnimationFrame(function () { requestAnimationFrame(land); }); }, delay));
@@ -382,7 +388,8 @@ def calc_html(lang):
 """ + CALC_CSS + CALC_JS
 
 
-for lang, suf in (("en", ""), ("es", "-es")):
-    open(f"home-private{suf}.html", "w", encoding="utf-8").write(left_html(lang))
-    open(f"home-private-calc{suf}.html", "w", encoding="utf-8").write(calc_html(lang))
-    print("wrote", lang)
+if __name__ == "__main__":
+    for lang, suf in (("en", ""), ("es", "-es")):
+        open(f"home-private{suf}.html", "w", encoding="utf-8").write(left_html(lang))
+        open(f"home-private-calc{suf}.html", "w", encoding="utf-8").write(calc_html(lang))
+        print("wrote", lang)

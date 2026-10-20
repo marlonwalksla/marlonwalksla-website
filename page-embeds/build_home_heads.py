@@ -14,9 +14,9 @@ PERSON = ('<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" 
 PEOPLE, CLOCK, FLIGHT, CAMERA, CAR, FOOD, PARK = "&#128101;", "&#9201;&#65039;", "&#128670;", "&#128247;", "&#128663;", "&#127860;", "&#127359;&#65039;"
 T = {
  ("team", "en"): ("Celebrate Your Team", "Ernesto with his Polaroid camera",
-   [(PEOPLE, "5-30 guests", "5 to 30 guests", 0), (CLOCK, "5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food", None, 1)]),
+   [(PEOPLE, "5-20 guests", "5 to 20 guests", 0), (CLOCK, "5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food", None, 1)]),
  ("team", "es"): ("Celebra a tu equipo", "Ernesto con su c&aacute;mara Polaroid",
-   [(PEOPLE, "5-30 personas", "5 a 30 personas", 0), (CLOCK, "5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida", None, 1)]),
+   [(PEOPLE, "5-20 personas", "5 a 20 personas", 0), (CLOCK, "5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida", None, 1)]),
  ("priv", "en"): ("LA, Your Way", "Ernesto ready for a hike",
    [(PEOPLE, "2-4 guests", "2 to 4 guests", 0), (CLOCK, "2 to 12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food", None, 1), (PARK, "Parking", None, 1)]),
  ("priv", "es"): ("LA a tu manera", "Ernesto listo para una caminata",

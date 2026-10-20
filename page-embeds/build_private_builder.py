@@ -2,7 +2,7 @@
 # (replaces the old "Pick a starting point" cards and the pricing row).
 # Oct 17, 2026. Prices, stop times and drive speeds are Claude's ESTIMATES for Marlon to adjust:
 # edit PRICES / STOPS / PICKUPS below and re-run. Price depends on group size (2 to 4) and hours.
-import json, re
+import json, urllib.parse, re
 
 # Oct 19, 2026 pricing (Marlon): list $60 per person per hour. Group rates $40 / $30 / $25 per person per hour for 2 / 3 / 4 guests,
 # and each extra 2-hour block is about 7% cheaper (12 hours costs the same as 10). Totals are for the WHOLE group at 2, 4, 6, 8, 10, 12 hours.
@@ -10,6 +10,25 @@ import json, re
 PRICES = {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}
 LIST_RATE = 60
 DROPOFF = 60
+from build_home_private import TRIPS  # the six past trips (hours assumed for Venice Canals and Beach and Tacos)
+
+
+def price_at(n, h):
+    T = PRICES[str(n)]; x = min(12, max(2, h)); i = min(4, int((x - 2) // 2)); f = (x - 2 - i * 2) / 2
+    return int((T[i] + (T[i + 1] - T[i]) * f) / 10 + 0.5) * 10 - 1
+
+
+def trip_cards():
+    out = []
+    for r in TRIPS:
+        tier = "Short Journey" if r[1] == "short" else "Quest"
+        rows = "".join(f'<p><span class="price">${int(price_at(n, r[2]) / n + 0.5)}</span> each for {n} &middot; ${price_at(n, r[2])} total</p>' for n in (2, 3, 4))
+        was = int(LIST_RATE * 2 * r[2])
+        sv = round((1 - price_at(4, r[2]) / (LIST_RATE * 4 * r[2])) * 100)
+        msg = "Hi Marlon! I would like to do this trip from your site: " + r[4]
+        img = f'<img src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/{r[10][0]}.webp" alt="" loading="lazy" onerror="this.remove()" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;margin-bottom:10px">'
+        out.append(f'<div class="tp-card tp-center">{img}<h3 class="tp-h3">{r[4]}</h3><p><strong>{tier} &middot; {r[2]} hours</strong></p><p>{r[6][0] if False else ", ".join(r[6])}</p>{rows}<p><span class="pcq-badge" style="background:#DFF5E3;color:#1E6B3A;padding:2px 10px;border-radius:99px;font-weight:700">Up to {sv}% off list price</span></p><p>{r[8]}</p><a class="tp-btn yellow" href="https://wa.me/12692670410?text={urllib.parse.quote(msg)}" target="_blank" rel="noopener">Ask about this trip</a></div>')
+    return "".join(out)
 # id, name, area, minutes at the stop, lat, lng, one line
 STOPS = [
     ("griffith", "Griffith Observatory", "Hollywood", 60, 34.1184, -118.3004, "The best view of the city and the Hollywood Sign."),
@@ -165,7 +184,16 @@ SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/b
 
   <section class="tp-section">
     <div class="tp-wrap">
-      <h2 class="tp-h2">Simple pricing: more of you, less each</h2>
+      <h2 class="tp-h2">Trips we have done, with prices</h2>
+      <p class="tp-sub">Real days with real guests. Pick one and Marlon runs it again for you, or changes it to fit. Prices are for 2, 3 or 4 guests. Hotel pickup, drop-off, driving and instant photos are included.</p>
+      <div class="tp-grid-3 tp-price-row">${trip_cards()}</div>
+      <p style="margin-top:18px;text-align:center"><a class="tp-btn yellow" href="https://wa.me/12692670410?text=Hi%20Marlon!%20Which%20trip%20do%20you%20recommend%3F%20Or%20I%20want%20to%20customize%20my%20own." target="_blank" rel="noopener">Tell Marlon which trip you want, or customize your own</a></p>
+    </div>
+  </section>
+
+  <section class="tp-section">
+    <div class="tp-wrap">
+      <h2 class="tp-h2">Or build your own: more of you, less each</h2>
       <p class="tp-sub">List price is $60 per person per hour. Every extra person gets a better rate, and so does every extra 2 hours. Hotel pickup and drop-off, driving and instant photos are included.</p>
       <div class="tp-grid-3 tp-price-row">
         <div class="tp-card tp-center"><h3 class="tp-h3">Half day &middot; about 4 hours</h3><p><s>$60 each per hour</s></p>

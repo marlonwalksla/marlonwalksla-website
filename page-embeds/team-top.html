@@ -22,7 +22,7 @@
         <h1 class="tp-h1">Team Building Tours in DTLA</h1>
         <p class="tp-lead">Not another indoor team building exercise. Walk Downtown LA, share lunch at Grand Central Market, and take home photos of your favorite people. Birthdays, product launches and company offsites welcome.</p>
         <ul class="tp-chips">
-          <li>&#128101; 5 to 30 guests</li>
+          <li>&#128101; 5 to 20 guests</li>
           <li>&#9201; About 5 hours</li>
           <li>&#128205; Starts and ends at Grand Central Market</li>
           <li>&#128248; Instant camera, a print for everyone</li>
@@ -70,18 +70,18 @@
       <p class="tp-sub">Drag to your group size. The bigger the group, the less each person pays.</p>
       <div class="tp-card tpq" id="tpq">
         <label class="tpq-label" for="tpq-range">How many people? <strong id="tpq-n">15</strong></label>
-        <input class="tpq-range" id="tpq-range" type="range" min="5" max="30" step="1" value="15" aria-describedby="tpq-out">
-        <div class="tpq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span></div>
+        <input class="tpq-range" id="tpq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tpq-out">
+        <div class="tpq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
         <div class="tpq-out" id="tpq-out" aria-live="polite">
           <div><span class="tpq-total" id="tpq-total">$790</span><span class="tpq-cap">estimated total</span></div>
-          <div><span class="tpq-pp" id="tpq-pp">about $53</span><span class="tpq-cap">per person</span></div>
+          <div><span class="tpq-pp" id="tpq-pp">~$53</span><span class="tpq-cap">per person</span></div>
         </div>
         <ul class="tpq-notes">
           <li>About 5 hours, with the Angels Flight ride and film for everyone</li>
           <li>Lunch at Grand Central Market is not included</li>
-          <li>Minimum 5 guests. More than 30? <a href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2030" target="_blank" rel="noopener">Message Marlon</a></li>
+          <li>Minimum 5 guests. More than 20? Contact Marlon directly: <a href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2020" target="_blank" rel="noopener">Message Marlon</a></li>
         </ul>
-        <details class="tpq-how"><summary>How the price works</summary><p>The first 5 guests are $60 each, the next 5 are $52.50, then $45, $37.50, $30 and $22.50 for guests 26 to 30. Totals are rounded to the nearest $5.</p></details>
+        <details class="tpq-how"><summary>How the price works</summary><p>The first 5 guests are $60 each, the next 5 are $52.50, then $45 and $37.50 for guests 16 to 20. Totals are rounded to the nearest $5.</p></details>
       </div>
       <style>
         .tpq { margin-top: 16px; padding: 22px 24px; }
@@ -108,7 +108,7 @@
             var n = parseInt(r.value, 10), t = total(n);
             document.getElementById('tpq-n').textContent = n;
             document.getElementById('tpq-total').textContent = '$' + t.toLocaleString('en-US');
-            document.getElementById('tpq-pp').textContent = 'about $' + Math.round(t / n);
+            document.getElementById('tpq-pp').textContent = '~$' + Math.round(t / n) + ' (' + Math.round((1 - t / n / 60) * 100) + '% saved)';
           }
           r.addEventListener('input', upd); upd();
         })();

@@ -10,19 +10,19 @@ PICS = [
 ]
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="about $", notes="5 hours · Angels Flight ride and an instant photo for everyone included · Lunch at the end, not included",
+   pp_pre="~$", save="saved", notes="5 hours · Angels Flight ride and an instant photo for everyone included · Lunch at the end, not included",
    btn="Learn more", btn_note="", href="/team-building-walking-tour-los-angeles",
    custom="Have a custom request?", mail="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request",
-   wa="More than 30 guests? Message Marlon",
-   wa_href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2030",
+   wa="More than 20 guests? Message Marlon directly",
+   wa_href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2020",
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="unos $", notes="5 horas · Incluye Angels Flight y una foto instantánea para cada quien · Almuerzo al final, no incluido",
+   pp_pre="~$", save="de ahorro", notes="5 horas · Incluye Angels Flight y una foto instantánea para cada quien · Almuerzo al final, no incluido",
    btn="Más información", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
-   wa="¿Más de 30 personas? Escríbeme",
-   wa_href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2030",
+   wa="¿Más de 20 personas? Escríbele a Marlon directo",
+   wa_href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2020",
    proof="La prueba está en las Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google (en inglés)"),
 }
@@ -41,11 +41,11 @@ for lang, t in T.items():
   <h3 class="tq-title">{t["title"]}</h3>
   <div class="tq-cel" role="group" aria-label="{cel_h}"><p class="tq-cel-h">{cel_h}</p><div class="tq-chips">{cel}</div></div>
   <label class="tq-label" for="tq-range">{t["label"]} <strong id="tq-n">15</strong></label>
-  <input class="tq-range" id="tq-range" type="range" min="5" max="30" step="1" value="15" aria-describedby="tq-out">
-  <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span></div>
+  <input class="tq-range" id="tq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tq-out">
+  <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
     <div><span class="tq-total" id="tq-total">$790</span><span class="tq-cap">{t["est"]}</span></div>
-    <div><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-cap">{t["pp"]}</span></div>
+    <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">{t["pp"]}</span></div>
   </div>
   <p class="tq-notes">{t["notes"]}</p>
   <div class="pc-cta"><img class="pc-cta-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><a class="tq-btn" href="{t["href"]}">{t["btn"]}</a></div>
@@ -86,10 +86,13 @@ for lang, t in T.items():
   .tq-range {{ height: 42px; }}
   /* Oct 19, 2026 (Marlon): the bar fills with color as you add people (--p is set from the slider value) */
   .tq-range {{ --p: 38%; }}
-  .tq-range::-webkit-slider-runnable-track {{ height: 10px; border-radius: 99px; background: linear-gradient(to right, #5DB43E 0, #5DB43E var(--p), #D9CFBC var(--p), #D9CFBC 100%); }}
-  .tq-range::-moz-range-track {{ height: 10px; border-radius: 99px; background: #D9CFBC; }}
-  .tq-range::-moz-range-progress {{ height: 10px; border-radius: 99px; background: #5DB43E; }}
-  .tq-range::-webkit-slider-thumb {{ -webkit-appearance: none; width: 32px; height: 32px; margin-top: -11px; border-radius: 50%; background: #FFD43B; border: 3px solid #27302E; box-shadow: 2px 2px 0 #27302E; }}
+  .tq-ppr {{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }}
+  .tq-save {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; }}
+  .tq-save[hidden] {{ display: none; }}
+  .tq-range::-webkit-slider-runnable-track {{ height: 14px; border-radius: 99px; background: linear-gradient(to right, #5DB43E 0, #5DB43E var(--p), #D9CFBC var(--p), #D9CFBC 100%); }}
+  .tq-range::-moz-range-track {{ height: 14px; border-radius: 99px; background: #D9CFBC; }}
+  .tq-range::-moz-range-progress {{ height: 14px; border-radius: 99px; background: #5DB43E; }}
+  .tq-range::-webkit-slider-thumb {{ -webkit-appearance: none; width: 32px; height: 32px; margin-top: -9px; border-radius: 50%; background: #FFD43B; border: 3px solid #27302E; box-shadow: 2px 2px 0 #27302E; }}
   .tq-range::-moz-range-thumb {{ width: 26px; height: 26px; border-radius: 50%; background: #FFD43B; border: 3px solid #27302E; box-shadow: 2px 2px 0 #27302E; }}
   .tq-total {{ font-size: clamp(3rem, 6vw, 3.8rem); }}
   .tq-proof {{ margin-top: 14px; padding-top: 14px; border-top: 1.5px dashed #D5DCE0; }}
@@ -116,14 +119,15 @@ for lang, t in T.items():
   if (!root || !r) return;
   var card = root.closest(".mw-form-card"), oldForm = card && card.querySelector(".w-form");
   if (oldForm) oldForm.style.display = "none";
-  var rates = [60, 52.5, 45, 37.5, 30, 22.5], pre = {t["pp_pre"]!r};
+  var rates = [60, 52.5, 45, 37.5, 30, 22.5], pre = {t["pp_pre"]!r}, saveWord = {t["save"]!r};
   function total(n) {{ var t = 0; for (var i = 0; i < n; i++) t += rates[Math.min(Math.floor(i / 5), rates.length - 1)]; return Math.round(t / 5) * 5; }}
   function upd() {{
     var n = parseInt(r.value, 10), t = total(n);
     document.getElementById("tq-n").textContent = n;
-    r.style.setProperty("--p", ((n - 5) / 25 * 100) + "%");
+    r.style.setProperty("--p", ((n - 5) / 15 * 100) + "%");
     document.getElementById("tq-total").textContent = "$" + t.toLocaleString("en-US");
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
+    var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }}
   var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", chips = root.querySelectorAll(".tq-chip");
   chips.forEach(function (c) {{
