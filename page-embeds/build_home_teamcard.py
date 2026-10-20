@@ -1,3 +1,4 @@
+import json
 # Builds the Team price card for Home (/) and /es: home-team-card.html and home-team-card-es.html.
 # Oct 16, 2026: replaces the booking calendar in the Team section. Home sells, the Team page books.
 # Price slider (same rates as the Team page), a Learn more button, three mini Polaroids and one quote.
@@ -8,6 +9,19 @@ PICS = [
     (CDN + "6ac75117841a7417a042bd51_polaroid-konzi-kike.webp", "Two guests with their Polaroid", "1.8deg"),
     (CDN + "6ac751174bd6ed04e690b33a_polaroid-alejandra-blue-ribbon.webp", "Guest with her Polaroid at the Blue Ribbon Garden", "-1.2deg"),
 ]
+import stamps
+# Oct 20, 2026 (Marlon): a different ink stamp for each celebration. key: (icon, ink, rotation, seed, EN top, ES top)
+STAMP = {
+    "birthday": ("cake", "#D6479B", -7, 6, "HAPPY BIRTHDAY", "FELIZ CUMPLEAÑOS"),
+    "milestone": ("trophy", "#E89B00", 8, 9, "MILESTONE", "UN GRAN LOGRO"),
+    "retirement": ("sunset", "#E8742A", -6, 5, "HAPPY RETIREMENT", "FELIZ JUBILACIÓN"),
+    "offsite": ("palms3", "#2E9E57", -8, 3, "OUT OF OFFICE", "FUERA DE LA OFICINA"),
+    "just-because": ("polaroid", "#6A4C93", 7, 11, "JUST BECAUSE", "PORQUE SÍ"),
+}
+EAT = {"en": ("How are we eating?", [("own", "Everyone buys their own"), ("plan", "Marlon figures it out")],
+              {"own": "Lunch is not included. Everyone buys their own at Grand Central Market.", "plan": "Add-on: Marlon plans the group meal ahead of time. He confirms the price with you."}),
+       "es": ("¿Cómo comemos?", [("own", "Cada quien compra lo suyo"), ("plan", "Que Marlon lo organice")],
+              {"own": "El almuerzo no está incluido. Cada quien compra lo suyo en Grand Central Market.", "plan": "Extra: Marlon organiza la comida del grupo con anticipación. Te confirma el precio."})}
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
    pp_pre="~$", save="saved", notes="", for5="for 5 hours", v=["A local guide the whole way", "Angels Flight ride", "Instant photo for everyone"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
@@ -31,25 +45,31 @@ CEL = {"en": ("What are you celebrating?", [("birthday", "Birthday"), ("mileston
 for lang, t in T.items():
     cel_h, cel_opts = CEL[lang]
     cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="false">{v}</button>' for k, v in cel_opts)
+    eat_h, eat_opts, eat_msg = EAT[lang]
+    eat = "".join(f'<button type="button" class="tq-chip" data-e="{k}" aria-pressed="false">{v}</button>' for k, v in eat_opts)
+    sts = "".join(f'<span class="tq-st" data-c="{k}"{"" if k == "offsite" else " hidden"}>' + stamps.stamp("tqs" + k[:3], (v[5] if lang == "es" else v[4]), "SALIDAS DE EQUIPO" if lang == "es" else "TEAM OUTINGS", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
     pics = "".join(
         f'<span class="tq-pol" style="--r:{r}"><img src="{src}" alt="{alt}" loading="lazy"></span>' for src, alt, r in PICS)
     note = f'<p class="tq-btnnote">{t["btn_note"]}</p>' if t["btn_note"] else ""
+    eat_json = json.dumps(eat_msg, ensure_ascii=False)
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: TEAM PRICE CARD. Built by page-embeds/build_home_teamcard.py.
      Oct 16, 2026: replaces the booking calendar on Home. Lives inside the Webflow .mw-form-card (right column of #team-split).
      The Team page keeps the calendar (team-cal.html). Rates match the Team page slider. -->
 <div class="tq" id="tq">
+  <div class="tq-stamp" aria-hidden="true">{sts}</div>
   <h3 class="tq-title">{t["title"]}</h3>
   <div class="tq-cel" role="group" aria-label="{cel_h}"><p class="tq-cel-h">{cel_h}</p><div class="tq-chips">{cel}</div></div>
   <label class="tq-label" for="tq-range">{t["label"]} <strong id="tq-n">15</strong></label>
   <input class="tq-range" id="tq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tq-out">
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
+  <div class="tq-cel tq-eat" role="group" aria-label="{eat_h}"><p class="tq-cel-h">{eat_h}</p><div class="tq-chips">{eat}</div></div>
   <div class="tq-big" id="tq-big" hidden><strong>{t["big"]}</strong><a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
     <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-for">{t["for5"]}</span></span><span class="tq-cap">{t["est"]}</span></div>
     <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">{t["pp"]}</span></div>
   </div>
   <ul class="tq-val" aria-label="{t["for5"]}">{"".join("<li>" + v + "</li>" for v in t["v"])}</ul>
-  <p class="tq-add">{t["addon"]}</p>
+  <p class="tq-add" id="tq-add" hidden></p>
   <div class="pc-cta"><img class="pc-cta-ern" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><a class="tq-btn" href="{t["href"]}">{t["btn"]}</a></div>
   {note}
   <a class="tq-custom" href="{t["mail"]}">{t["custom"]}</a>
@@ -98,6 +118,16 @@ for lang, t in T.items():
   .tq-big .tq-wa {{ margin-top: 2px; }}
   @keyframes tqdrop {{ from {{ opacity: 0; transform: translateY(-8px); }} to {{ opacity: 1; transform: none; }} }}
   @media (prefers-reduced-motion: reduce) {{ .tq-big {{ animation: none; }} }}
+  .tq {{ position: relative; }}
+  .tq-stamp {{ position: absolute; top: 0; right: 0; width: 100px; height: 100px; pointer-events: none; z-index: 2; }}
+  .tq-st {{ position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0.92; }}
+  .tq-st[hidden] {{ display: none; }}
+  .tq-st svg {{ width: 100%; height: 100%; transform: rotate(var(--r)); overflow: visible; }}
+  .tq-st.pop {{ animation: tqpop 0.35s cubic-bezier(.2, 1.4, .4, 1); }}
+  @keyframes tqpop {{ from {{ opacity: 0; transform: scale(1.5) rotate(-12deg); }} to {{ opacity: 0.92; transform: none; }} }}
+  .tq-title {{ padding-right: 110px; min-height: 92px; }}
+  @media (prefers-reduced-motion: reduce) {{ .tq-st.pop {{ animation: none; }} }}
+  .tq-eat {{ margin-top: 14px; }}
   .tq-ppr {{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }}
   .tq-save {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; }}
   .tq-save[hidden] {{ display: none; }}
@@ -141,13 +171,18 @@ for lang, t in T.items():
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
     var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); document.getElementById("tq-big").hidden = n < 20; el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }}
-  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", chips = root.querySelectorAll(".tq-chip");
-  chips.forEach(function (c) {{
+  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "", e: "" }}, add = document.getElementById("tq-add"), msg = {eat_json};
+  function link() {{ var q = []; if (sel.c) q.push("celebrating=" + sel.c); if (sel.e) q.push("eating=" + sel.e); if (btn) btn.setAttribute("href", q.length ? base + "?" + q.join("&") : base); }}
+  [].slice.call(root.querySelectorAll(".tq-chip")).forEach(function (c) {{
     c.addEventListener("click", function () {{
-      var on = c.getAttribute("aria-pressed") !== "true";
-      chips.forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
-      c.setAttribute("aria-pressed", on ? "true" : "false");
-      if (btn) btn.setAttribute("href", on ? base + "?celebrating=" + c.getAttribute("data-c") : base);
+      var k = c.hasAttribute("data-c") ? "c" : "e", v = c.getAttribute("data-c") || c.getAttribute("data-e"), on = c.getAttribute("aria-pressed") !== "true";
+      [].slice.call(c.parentNode.children).forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
+      c.setAttribute("aria-pressed", on ? "true" : "false"); sel[k] = on ? v : "";
+      if (k === "c") {{
+        var key = sel.c || "offsite";
+        [].slice.call(root.querySelectorAll(".tq-st")).forEach(function (st) {{ var show = st.getAttribute("data-c") === key; st.hidden = !show; st.classList.remove("pop"); if (show) {{ void st.offsetWidth; st.classList.add("pop"); }} }});
+      }} else {{ add.hidden = !sel.e; add.textContent = sel.e ? msg[sel.e] : ""; }}
+      link();
     }});
   }});
   r.addEventListener("input", upd); upd();

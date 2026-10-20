@@ -299,3 +299,18 @@ def gcm(color="#2E9E57", opacity=1):
     d += ''.join(f'<rect x="{x}" y="{b-h}" width="{w}" height="{h}"/>' for x, h, w in blocks)
     ground = f'<rect x="0" y="{b-6}" width="520" height="6"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 {b}" fill="{color}" opacity="{opacity}">{d}{ground}</svg>'
+
+
+def cake(color="#D6479B", opacity=1):
+    """Team stamp icon (Oct 20, 2026): a two-layer birthday cake with three lit candles."""
+    d = '<rect x="150" y="200" width="220" height="9" rx="4"/><rect x="170" y="140" width="180" height="54" rx="8"/><rect x="200" y="94" width="120" height="40" rx="8"/>'
+    for x in (226, 256, 286):
+        d += f'<rect x="{x}" y="62" width="9" height="28" rx="3"/><path d="M{x+4.5} 26 Q{x+15} 42 {x+4.5} 54 Q{x-6} 42 {x+4.5} 26 Z"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def trophy(color="#E89B00", opacity=1):
+    """Team stamp icon (Oct 20, 2026): a trophy cup with handles, for milestones."""
+    d = '<path d="M205 36 H315 V92 Q315 140 260 150 Q205 140 205 92 Z"/><rect x="247" y="150" width="26" height="30"/><rect x="212" y="180" width="96" height="18" rx="5"/><rect x="196" y="198" width="128" height="10" rx="4"/>'
+    d += f'<path d="M205 52 Q160 52 164 88 Q168 112 208 116" fill="none" stroke="{color}" stroke-width="11" stroke-linecap="round"/><path d="M315 52 Q360 52 356 88 Q352 112 312 116" fill="none" stroke="{color}" stroke-width="11" stroke-linecap="round"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'

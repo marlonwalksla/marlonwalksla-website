@@ -13,6 +13,8 @@ def _inner(svg):
 
 
 def icon(name, ink):
+    if name == "cake": return _inner(SIL.cake(ink)), (260, 190, "130 20 260 190", 110)
+    if name == "trophy": return _inner(SIL.trophy(ink)), (220, 190, "150 26 220 190", 110)
     if name == "gcm": return _inner(SIL.gcm(ink)), (390, 216, "58 8 390 216", 112)
     if name == "observatory": return _inner(SIL.observatory(ink)), (520, 220)
     if name == "kiosko": return _inner(SIL.kiosko(ink)), (520, 220, "0 0 520 220", 126)
