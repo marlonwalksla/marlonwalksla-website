@@ -24,16 +24,16 @@ EAT = {"en": ("Lunch plans", [("own", "Individual meals"), ("plan", "Catered gro
               {"own": "El almuerzo no está incluido. Cada quien compra lo suyo en Grand Central Market.", "plan": "Extra: Marlon organiza la comida del grupo con anticipación. Te confirma el precio."})}
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="estimated total, Marlon confirms the lunch price", v=["A local guide the whole way", "Angels Flight ride", "Instant photo for everyone"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
-   btn="Learn more", btn_note="", href="/team-building-walking-tour-los-angeles",
+   pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="estimated total, Marlon confirms the lunch price", v=["5 hours", "Angels Flight tix", "20 photos", "Local guide"], vno=["Food"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
+   btn="Schedule Your Team", btn_note="", href="/team-building-walking-tour-los-angeles",
    custom="Have a custom request?", mail="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request",
    wa="Message Marlon about your group",
    wa_href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2020",
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="total estimado, Marlon confirma el precio del almuerzo", v=["Guía local todo el camino", "Paseo en Angels Flight", "Foto instantánea para cada quien"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
-   btn="Más información", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
+   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="total estimado, Marlon confirma el precio del almuerzo", v=["5 horas", "Boletos de Angels Flight", "20 fotos", "Guía local"], vno=["Comida"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
+   btn="Agenda a tu equipo", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
    wa="Escríbele a Marlon sobre tu grupo",
    wa_href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2020",
@@ -64,10 +64,10 @@ for lang, t in T.items():
   <div class="tq-cel tq-eat" role="group" aria-label="{eat_h}"><p class="tq-cel-h">{eat_h}</p><div class="tq-chips">{eat}</div></div>
   <div class="tq-big" id="tq-big" hidden><strong>{t["big"]}</strong><a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
-    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>{t["plus"]}</span><span class="tq-for">{t["for5"]}</span></span><span class="tq-cap" id="tq-cap">{t["est"]}</span></div>
+    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>{t["plus"]}</span></span><span class="tq-cap" id="tq-cap">{t["est"]}</span></div>
     <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">{t["pp"]}</span></div>
   </div>
-  <ul class="tq-val" aria-label="{t["for5"]}">{"".join("<li>" + v + "</li>" for v in t["v"])}</ul>
+  <ul class="tq-val" aria-label="{t["for5"]}">{"".join("<li>" + v + "</li>" for v in t["v"])}{"".join("<li class=" + chr(34) + "no" + chr(34) + ">" + v + "</li>" for v in t["vno"])}</ul>
   
   <div class="pc-cta"><a class="tq-btn" href="{t["href"]}">{t["btn"]}</a></div>
   {note}
@@ -140,6 +140,8 @@ for lang, t in T.items():
   .tq-range {{ height: 34px; }}
   .tq-ticks {{ margin-top: -4px; }}
   .tq-out {{ margin: 8px 0 4px; gap: 4px 28px; }}
+  .tq-val li.no {{ color: #5B6663; background: transparent; border: 2px dashed #8A918E; }}
+  .tq-val li.no::before {{ content: "\\2715"; }}
   .tq-plus {{ font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.5rem; color: #27302E; }}
   .tq-plus[hidden] {{ display: none; }}
   .tq-val {{ margin: 2px 0 10px; gap: 6px; }}

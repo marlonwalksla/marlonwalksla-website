@@ -11,12 +11,12 @@
   <div class="tq-cel tq-eat" role="group" aria-label="Plan de almuerzo"><p class="tq-cel-h">Plan de almuerzo</p><div class="tq-chips"><button type="button" class="tq-chip" data-e="own" aria-pressed="false">Comidas individuales</button><button type="button" class="tq-chip" data-e="plan" aria-pressed="false">Comida grupal con catering</button></div></div>
   <div class="tq-big" id="tq-big" hidden><strong>¿Grupo más grande? Escríbeme</strong><a class="tq-wa" href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2020" target="_blank" rel="noopener noreferrer">&#128172; Escríbele a Marlon sobre tu grupo</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
-    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>+ almuerzo</span><span class="tq-for">por 5 horas</span></span><span class="tq-cap" id="tq-cap">total estimado</span></div>
+    <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>+ almuerzo</span></span><span class="tq-cap" id="tq-cap">total estimado</span></div>
     <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">~$53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">por persona</span></div>
   </div>
-  <ul class="tq-val" aria-label="por 5 horas"><li>Guía local todo el camino</li><li>Paseo en Angels Flight</li><li>Foto instantánea para cada quien</li></ul>
+  <ul class="tq-val" aria-label="por 5 horas"><li>5 horas</li><li>Boletos de Angels Flight</li><li>20 fotos</li><li>Guía local</li><li class="no">Comida</li></ul>
   
-  <div class="pc-cta"><a class="tq-btn" href="/team-building-walking-tour-los-angeles">Más información</a></div>
+  <div class="pc-cta"><a class="tq-btn" href="/team-building-walking-tour-los-angeles">Agenda a tu equipo</a></div>
   <p class="tq-btnnote">La página completa está en inglés.</p>
   <a class="tq-custom" href="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo">¿Tienes una solicitud especial?</a>
 </div>
@@ -87,6 +87,8 @@
   .tq-range { height: 34px; }
   .tq-ticks { margin-top: -4px; }
   .tq-out { margin: 8px 0 4px; gap: 4px 28px; }
+  .tq-val li.no { color: #5B6663; background: transparent; border: 2px dashed #8A918E; }
+  .tq-val li.no::before { content: "\2715"; }
   .tq-plus { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.5rem; color: #27302E; }
   .tq-plus[hidden] { display: none; }
   .tq-val { margin: 2px 0 10px; gap: 6px; }
