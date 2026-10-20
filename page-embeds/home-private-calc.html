@@ -7,6 +7,7 @@
   <ul class="pcq-list" aria-label="Your places" hidden></ul>
  </div>
  <div class="pcq-r">
+  <div class="pcq-grp" role="group" aria-label="How many of you?"><span class="pcq-grpl">How many of you?</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
   <div class="pcq-out" aria-live="polite" hidden>
     <span class="pcq-hours"></span>
     <span class="pcq-price"></span>
@@ -18,7 +19,7 @@
   <p class="pcq-note">No payment now. Next you send Marlon your details.</p>
  </div>
 </div>
-<script type="application/json" id="pcq-t">{"remove": "Remove", "about": "About", "to": "to", "hours": "hours", "fits": "Fits a", "car": "1 to 4 guests, one price per car", "over": "That is more than one day. Message Marlon and we will plan two.", "cta": "Finalize Custom Tour", "wait": "Pick something first"}</script>
+<script type="application/json" id="pcq-t">{"remove": "Remove", "about": "About", "to": "to", "hours": "hours", "fits": "Fits a", "car": "1 to 4 guests, one price per car", "over": "That is more than one day. Message Marlon and we will plan two.", "cta": "Finalize Custom Tour", "wait": "Pick something first", "each": "each", "people": "people", "total": "total", "listp": "List price", "save": "You save", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60}</script>
 <style>
   /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
@@ -34,6 +35,15 @@
   .pcq-out { margin: 4px 0 8px; }
   .pcq-cap { display: block; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #5B6663; margin-top: 3px; }
   .pcq-hours { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+  .pcq-grp { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; }
+  .pcq-grpl { font-weight: 700; margin-right: 4px; }
+  .pcq-g { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pcq-g[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pcq-g:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 700; font-size: 0.85rem; }
+  .pcq-price { white-space: nowrap; font-size: clamp(2.3rem, 4.6vw, 3.1rem) !important; }
+  .pcq-price small { font-family: "Nunito", sans-serif; font-size: 1rem; font-weight: 700; color: #4D5551; }
+  .pcq-fit s { color: #5B6663; }
   .pcq-price { display: block; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; margin-top: 12px; font-variant-numeric: tabular-nums; }
   .pcq-fit { margin: 6px 0 0; font-size: 1rem; line-height: 1.45; color: #27302E; }
   .pcq-incl { margin: 10px 0 16px; font-size: 0.92rem; color: #4D5551; }
@@ -55,7 +65,23 @@
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
   var list = root.querySelector(".pcq-list"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out");
   var hrs = root.querySelector(".pcq-hours"), price = root.querySelector(".pcq-price"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta");
-  var st = null;
+  var st = null, n = 2;
+  function priceAt(g, h) {
+    var T = t.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
+    return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
+  }
+  function quote(s) {
+    if (s.lo > 12) return null;
+    var hi = Math.min(s.hi, 12), lo = priceAt(n, s.lo), top = priceAt(n, hi), list = Math.round(t.listRate * n * hi);
+    return { lo: lo, hi: top, eachLo: Math.round(lo / n), eachHi: Math.round(top / n), list: list, pct: Math.round((1 - top / list) * 100) };
+  }
+  [].slice.call(root.querySelectorAll(".pcq-g")).forEach(function (g) {
+    g.addEventListener("click", function () {
+      n = +g.dataset.n;
+      [].slice.call(root.querySelectorAll(".pcq-g")).forEach(function (o) { o.setAttribute("aria-pressed", o === g ? "true" : "false"); });
+      if (st) render(st);
+    });
+  });
   function render(s) {
     st = s; if (!s) return;
     list.innerHTML = "";
@@ -69,8 +95,15 @@
     none.hidden = has; out.hidden = !has; list.hidden = !has;
     if (has) {
       hrs.textContent = t.about + " " + s.range + " " + t.hours;
-      if (s.pkg) { price.textContent = "$" + s.pkg.price; fit.innerHTML = ""; fit.appendChild(document.createTextNode(t.fits + " ")); var sg = document.createElement("strong"); sg.textContent = s.pkg.label; fit.appendChild(sg); fit.appendChild(document.createTextNode(", " + t.car + ".")); }
-      else { price.textContent = "$499+"; fit.textContent = t.over; }
+      var q = quote(s);
+      if (q) {
+        price.textContent = "$" + q.eachLo + (q.eachHi !== q.eachLo ? "-" + q.eachHi : "");
+        var sm = document.createElement("small"); sm.textContent = " " + t.each; price.appendChild(sm);
+        fit.innerHTML = ""; fit.appendChild(document.createTextNode("$" + q.lo + (q.hi !== q.lo ? " " + t.to + " $" + q.hi : "") + " " + t.total + " (" + n + " " + t.people + ")"));
+        var br = document.createElement("br"), was = document.createElement("s"), bd = document.createElement("span");
+        was.textContent = t.listp + " $" + q.list; bd.className = "pcq-badge"; bd.textContent = t.save + " " + q.pct + "%";
+        fit.appendChild(br); fit.appendChild(was); fit.appendChild(document.createTextNode(" ")); fit.appendChild(bd);
+      } else { price.textContent = "$1,000+"; fit.textContent = t.over; }
     }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
     cta.textContent = has ? t.cta : t.wait;
@@ -80,9 +113,10 @@
   else render({ ids: [], names: [] });
   cta.addEventListener("click", function () {
     if (!st || !st.ids.length) return;
-    var plan = { v: 1, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, pkg: st.pkg ? st.pkg.label : "", price: st.pkg ? st.pkg.price : null, over: !!st.over, saved: new Date().toISOString() };
+    var qt = quote(st);
+    var plan = { v: 2, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt ? qt.hi : null, priceLo: qt ? qt.lo : null, over: !!st.over, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&est=" + (st.pkg ? st.pkg.price : "") + "&pkg=" + encodeURIComponent(plan.pkg) + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang;
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + (qt ? qt.hi : "") + "&lo=" + (qt ? qt.lo : "") + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang;
     window.location.href = "/private-tour?" + q;
   });
 })();

@@ -47,7 +47,7 @@
   <section class="tp-section" id="build">
     <div class="tp-wrap">
       <h2 class="tp-h2">Build your day</h2>
-      <p class="tp-sub">Tap the stops you want. You&rsquo;ll see about how long the day takes, with driving, and which day fits. One price for your whole car, 1 to 4 guests.</p>
+      <p class="tp-sub">Tap the stops you want. You&rsquo;ll see about how long the day takes, with driving, and what it costs. The more of you, the less each of you pays.</p>
       <div class="pb">
         <div class="pb-left">
           <label class="pb-pick">Pickup from <select id="pb-pickup"><option value="dtla">Downtown LA</option><option value="hollywood">Hollywood</option><option value="weho">West Hollywood or Beverly Hills</option><option value="sm">Santa Monica or Venice</option></select></label>
@@ -57,7 +57,7 @@
           <h3 class="pb-sum-h">Your day</h3>
           <ol class="pb-list" id="pb-list"><li class="pb-empty">Pick a stop or two to start.</li></ol>
           <div class="pb-total"><span id="pb-hours">0 hours</span><small id="pb-drive">with driving</small></div>
-          <div class="pb-pkgs"><div class="pb-pkg" data-h="4"><span class="pb-pkg-h">Half day</span><span class="pb-pkg-t">up to 4 hours</span><span class="pb-pkg-p">$249</span></div><div class="pb-pkg" data-h="8"><span class="pb-pkg-h">Full day</span><span class="pb-pkg-t">up to 8 hours</span><span class="pb-pkg-p">$399</span></div><div class="pb-pkg" data-h="12"><span class="pb-pkg-h">Long day</span><span class="pb-pkg-t">up to 12 hours</span><span class="pb-pkg-p">$499</span></div></div>
+          <div class="pb-grp" role="group" aria-label="How many of you?"><span class="pb-grpl">How many of you?</span><button type="button" class="pb-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pb-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pb-g" data-n="4" aria-pressed="false">4</button></div>
           <p class="pb-fit" id="pb-fit"></p>
           <a class="pb-btn" id="pb-send" href="https://wa.me/12692670410" target="_blank" rel="noopener">Send me this day</a>
           <a class="pb-form" href="#private-inquiry">or use the form below</a>
@@ -65,7 +65,7 @@
         </aside>
       </div>
     </div>
-    <script type="application/json" id="pb-data">{"packages":[{"label":"Half day","hours":4,"price":249},{"label":"Full day","hours":8,"price":399},{"label":"Long day","hours":12,"price":499}],"stops":[{"id":"griffith","name":"Griffith Observatory","area":"Hollywood","min":60,"lat":34.1184,"lng":-118.3004},{"id":"sign","name":"Hollywood Sign viewpoint","area":"Hollywood","min":30,"lat":34.1265,"lng":-118.3297},{"id":"urban","name":"Urban Light","area":"Mid-City","min":20,"lat":34.0629,"lng":-118.3593},{"id":"grove","name":"The Grove and Farmers Market","area":"Mid-City","min":60,"lat":34.072,"lng":-118.3576},{"id":"bhsign","name":"Beverly Hills sign","area":"Beverly Hills","min":15,"lat":34.0717,"lng":-118.4045},{"id":"rodeo","name":"Rodeo Drive","area":"Beverly Hills","min":45,"lat":34.0696,"lng":-118.4031},{"id":"pier","name":"Santa Monica Pier","area":"Coast","min":60,"lat":34.0094,"lng":-118.4973},{"id":"venice","name":"Venice Beach and Canals","area":"Coast","min":60,"lat":33.985,"lng":-118.4695}],"pickups":[{"id":"dtla","name":"Downtown LA","lat":34.0522,"lng":-118.2437},{"id":"hollywood","name":"Hollywood","lat":34.1016,"lng":-118.3267},{"id":"weho","name":"West Hollywood or Beverly Hills","lat":34.0736,"lng":-118.387},{"id":"sm","name":"Santa Monica or Venice","lat":34.0195,"lng":-118.4912}]}</script>
+    <script type="application/json" id="pb-data">{"prices":{"2":[159,309,449,579,699,799],"3":[179,349,499,649,779,899],"4":[199,389,559,719,869,999]},"listRate":60,"stops":[{"id":"griffith","name":"Griffith Observatory","area":"Hollywood","min":60,"lat":34.1184,"lng":-118.3004},{"id":"sign","name":"Hollywood Sign viewpoint","area":"Hollywood","min":30,"lat":34.1265,"lng":-118.3297},{"id":"urban","name":"Urban Light","area":"Mid-City","min":20,"lat":34.0629,"lng":-118.3593},{"id":"grove","name":"The Grove and Farmers Market","area":"Mid-City","min":60,"lat":34.072,"lng":-118.3576},{"id":"bhsign","name":"Beverly Hills sign","area":"Beverly Hills","min":15,"lat":34.0717,"lng":-118.4045},{"id":"rodeo","name":"Rodeo Drive","area":"Beverly Hills","min":45,"lat":34.0696,"lng":-118.4031},{"id":"pier","name":"Santa Monica Pier","area":"Coast","min":60,"lat":34.0094,"lng":-118.4973},{"id":"venice","name":"Venice Beach and Canals","area":"Coast","min":60,"lat":33.985,"lng":-118.4695}],"pickups":[{"id":"dtla","name":"Downtown LA","lat":34.0522,"lng":-118.2437},{"id":"hollywood","name":"Hollywood","lat":34.1016,"lng":-118.3267},{"id":"weho","name":"West Hollywood or Beverly Hills","lat":34.0736,"lng":-118.387},{"id":"sm","name":"Santa Monica or Venice","lat":34.0195,"lng":-118.4912}]}</script>
     <style>
       .pb { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px; align-items: start; margin-top: 18px; }
       .pb-pick { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 14px; }
@@ -89,6 +89,13 @@
       .pb-total { display: flex; align-items: baseline; gap: 8px; margin: 6px 0 12px; }
       .pb-total span { font-size: 1.45rem; font-weight: 900; color: #27302E; }
       .pb-total small { color: #64748b; }
+      .pb-grp { display: flex; align-items: center; gap: 8px; margin: 4px 0 8px; }
+      .pb-grpl { font-weight: 800; font-size: 0.92rem; margin-right: 4px; }
+      .pb-g { font: inherit; font-weight: 800; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; background: #fff; color: #27302E; border: 2px solid #E4DCCB; }
+      .pb-g[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+      .pb-each { font-size: 1.7rem; font-weight: 900; color: #27302E; }
+      .pb-was { text-decoration: line-through; color: #64748b; }
+      .pb-badge { display: inline-block; margin-left: 6px; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 800; font-size: 0.82rem; }
       .pb-pkgs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
       .pb-pkg { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 10px 6px; border: 1.5px solid #E4DCCB; border-radius: 10px; color: #64748b; }
       .pb-pkg.is-fit { border-color: #C9A54B; background: #FBF5E4; color: #27302E; box-shadow: 0 0 0 2px #C9A54B; }
@@ -116,6 +123,14 @@
       function drive(a, b) { return km(a, b) * 1.35 / 25 * 60 + 5; }
       function routeMin(start, list) { var t = 0, at = start; list.forEach(function (s) { t += drive(at, s); at = s; }); return t + (list.length ? drive(at, start) - 5 : 0); }
       function fmt(h) { return (Math.round(h * 2) / 2).toString().replace(".5", "&frac12;"); }
+      var n = 2;
+      function priceAt(g, h) {
+        var T = D.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
+        return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
+      }
+      document.querySelectorAll(".pb-g").forEach(function (g) { g.addEventListener("click", function () {
+        n = +g.dataset.n; document.querySelectorAll(".pb-g").forEach(function (o) { o.setAttribute("aria-pressed", o === g ? "true" : "false"); }); upd();
+      }); });
       function upd() {
         var start = D.pickups.filter(function (p) { return p.id === pick.value; })[0];
         var chosen = D.stops.filter(function (s) { return document.querySelector('.pb-card input[value="' + s.id + '"]').checked; });
@@ -127,17 +142,15 @@
         list.innerHTML = order.length ? order.map(function (s) { return "<li>" + s.name + "</li>"; }).join("") : '<li class="pb-empty">Pick a stop or two to start.</li>';
         document.getElementById("pb-hours").innerHTML = order.length ? "about " + fmt(lo) + " to " + fmt(hi) + " hours" : "0 hours";
         document.getElementById("pb-drive").textContent = order.length ? "with about " + Math.round(driveMin / 5) * 5 + " min of driving" : "with driving";
-        var fit = null;
-        document.querySelectorAll(".pb-pkg").forEach(function (el) { el.classList.remove("is-fit"); });
-        if (order.length) { for (var i = 0; i < D.packages.length; i++) { if ((lo + hi) / 2 <= D.packages[i].hours) { fit = D.packages[i]; break; } } }
-        var fitEl = document.getElementById("pb-fit"), send = document.getElementById("pb-send");
-        if (fit) {
-          document.querySelector('.pb-pkg[data-h="' + fit.hours + '"]').classList.add("is-fit");
-          fitEl.innerHTML = "This fits a <strong>" + fit.label.toLowerCase() + "</strong>: $" + fit.price + " for your whole car.";
+        var fitEl = document.getElementById("pb-fit"), send = document.getElementById("pb-send"), q = null;
+        if (order.length && lo <= 12) {
+          var hh = Math.min(hi, 12), pl = priceAt(n, lo), ph = priceAt(n, hh), list = Math.round(D.listRate * n * hh), pct = Math.round((1 - ph / list) * 100);
+          q = { lo: pl, hi: ph };
+          fitEl.innerHTML = '<span class="pb-each">$' + Math.round(pl / n) + (ph !== pl ? "&ndash;" + Math.round(ph / n) : "") + '</span> each &middot; $' + pl + (ph !== pl ? " to $" + ph : "") + " total for " + n + ' people<br><span class="pb-was">List price $' + list + '</span><span class="pb-badge">You save ' + pct + '%</span>';
         } else if (order.length) {
           fitEl.textContent = "That's more than one day. Pick fewer stops, or message me and we'll plan two days.";
         } else { fitEl.textContent = ""; }
-        var msg = "Hi Marlon, I'd like a private tour. Pickup: " + start.name + ". Stops: " + order.map(function (s) { return s.name; }).join(", ") + (fit ? ". " + fit.label + " ($" + fit.price + ")." : ".");
+        var msg = "Hi Marlon, I'd like a private tour. Pickup: " + start.name + ". Stops: " + order.map(function (s) { return s.name; }).join(", ") + ". " + n + " people" + (q ? ", about $" + q.hi + "." : ".");
         send.href = "https://wa.me/12692670410?text=" + encodeURIComponent(msg);
         send.setAttribute("aria-disabled", order.length ? "false" : "true");
       }
@@ -151,13 +164,23 @@
 
   <section class="tp-section">
     <div class="tp-wrap">
-      <h2 class="tp-h2">Simple pricing, for your whole car</h2>
+      <h2 class="tp-h2">Simple pricing: more of you, less each</h2>
+      <p class="tp-sub">List price is $60 per person per hour. Every extra person gets a better rate, and so does every extra 2 hours. Hotel pickup and drop-off, driving and instant photos are included.</p>
       <div class="tp-grid-3 tp-price-row">
-        <div class="tp-card tp-center"><h3 class="tp-h3">Half day &middot; up to 4 hours</h3><div class="price">$249</div><p>One or two areas, done well.</p></div>
-        <div class="tp-card tp-center"><h3 class="tp-h3">Full day &middot; up to 8 hours</h3><div class="price">$399</div><p>LA in a day, from the Hollywood Sign to the beach.</p></div>
-        <div class="tp-card tp-center"><h3 class="tp-h3">Long day &middot; up to 12 hours</h3><div class="price">$499</div><p>The whole day, from the beach to the city lights.</p></div>
+        <div class="tp-card tp-center"><h3 class="tp-h3">Half day &middot; about 4 hours</h3><p><s>$60 each per hour</s></p>
+          <p><span class="price">$155</span> each for 2 &middot; $309 total</p>
+          <p><span class="price">$116</span> each for 3 &middot; $349 total</p>
+          <p><span class="price">$97</span> each for 4 &middot; $389 total</p>
+          <p>One or two areas, done well.</p></div>
+        <div class="tp-card tp-center"><h3 class="tp-h3">Full day &middot; 9am to 9pm</h3><p><s>$60 each per hour</s></p>
+          <p><span class="price">$400</span> each for 2 &middot; $799 total</p>
+          <p><span class="price">$300</span> each for 3 &middot; $899 total</p>
+          <p><span class="price">$250</span> each for 4 &middot; $999 total</p>
+          <p>LA in a day, from the Hollywood Sign to the beach. 12 hours cost the same as 10.</p></div>
+        <div class="tp-card tp-center"><h3 class="tp-h3">Short drop-off</h3><p>For guests who took a free tour</p><div class="price">$60</div>
+          <p>One stop plus a drop-off, about 1 to 2 hours. Airport included: watch the planes land at the In-N-Out by LAX, or see the Hollywood Sign and get dropped at Griffith Observatory.</p></div>
       </div>
-      <p style="margin-top:12px;color:#475569">One price for 1 to 4 guests, with hotel pickup and drop-off, driving and instant photos included. Parking and tickets at stops aren&rsquo;t included.</p>
+      <p style="margin-top:12px;color:#475569">Other lengths are in between: use the builder above. Parking and tickets at stops aren&rsquo;t included. Marlon confirms the final price.</p>
     </div>
   </section>
 

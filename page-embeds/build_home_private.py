@@ -8,11 +8,11 @@
 import json
 
 C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-PACKAGES = [
-    {"en": "Half day", "es": "Medio día", "hours": 4, "price": 249},
-    {"en": "Full day", "es": "Día completo", "hours": 8, "price": 399},
-    {"en": "Long day", "es": "Día largo", "hours": 12, "price": 499},
-]
+# Oct 19, 2026 pricing (Marlon): list $60 per person per hour. Group rates $40 / $30 / $25 per person per hour for 2 / 3 / 4 guests,
+# and each extra 2-hour block is about 7% cheaper (12 hours costs the same as 10). Totals are for the WHOLE group at 2, 4, 6, 8, 10, 12 hours.
+# Same table lives in build_private_builder.py and private-tour-plan.html. Edit them together.
+PRICES = {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}
+LIST_RATE = 60
 DT_CENTER = (34.0522, -118.2437)
 # id: (group, EN name, ES name, EN line, ES line, minutes, lat, lng, photo file or None, placeholder color)
 S = [
@@ -53,7 +53,7 @@ T = {
   cap0="Tap a place and its photo lands here", picked="Your latest pick",
   ch="Estimate your day", chint="Based on what you picked. Marlon confirms the final price.",
   none="Pick a place or a challenge to see your estimate.", yours="Your places", about="About", to="to", hours="hours",
-  incl="Hotel pickup and drop-off included", fits="Fits a", car="1 to 4 guests, one price per car", over="That is more than one day. Message Marlon and we will plan two.",
+  incl="Hotel pickup and drop-off included", groupl="How many of you?", people="people", each="each", total="total", listp="List price", save="You save", fits="Fits a", car="1 to 4 guests, one price per car", over="That is more than one day. Message Marlon and we will plan two.",
   est="Estimated price", base="Base: pickup, drop-off and driving", cta="Finalize Custom Tour", wait="Pick something first", note="No payment now. Next you send Marlon your details.",
   remove="Remove", count="places picked"),
  "es": dict(
@@ -62,7 +62,7 @@ T = {
   cap0="Toca un lugar y su foto cae aquí", picked="Tu última elección",
   ch="Calcula tu día", chint="Según lo que elegiste. Marlon confirma el precio final.",
   none="Elige un lugar o un reto para ver tu estimado.", yours="Tus lugares", about="Unas", to="a", hours="horas",
-  incl="Recogida y regreso al hotel incluidos", fits="Cabe en", car="1 a 4 personas, un precio por auto", over="Es más de un día. Escríbele a Marlon y armamos dos.",
+  incl="Recogida y regreso al hotel incluidos", groupl="¿Cuántos son?", people="personas", each="c/u", total="total", listp="Precio de lista", save="Ahorras", fits="Cabe en", car="1 a 4 personas, un precio por auto", over="Es más de un día. Escríbele a Marlon y armamos dos.",
   est="Precio estimado", base="Base: recogida, regreso y manejo", cta="Finalizar mi tour a medida", wait="Elige algo primero", note="Sin pago ahora. Después le mandas tus datos a Marlon.",
   remove="Quitar", count="lugares elegidos"),
 }
@@ -77,7 +77,7 @@ def data_for(lang):
     stops = [{"id": s[0], "group": s[1], "name": s[2 + i], "short": SHORT[s[0]][i], "line": s[4 + i], "min": s[6], "lat": s[7], "lng": s[8],
               "photo": (C + s[9]) if s[9] else None, "color": s[10]} for s in S if s[1] in ("la", "ch")]  # Oct 17, 2026 (Marlon): no Downtown-on-foot options; private tours are by car
     return {"lang": lang, "t": T[lang], "stops": stops, "on": DEFAULT_ON, "center": DT_CENTER,
-            "packages": [{"label": p[lang], "hours": p["hours"], "price": p["price"]} for p in PACKAGES]}
+            "prices": PRICES, "listRate": LIST_RATE}
 
 
 LEFT_CSS = """<style>
@@ -170,8 +170,7 @@ LEFT_JS = r"""<script>
     if (!ids.length) return st;
     st.lo = (sm + dm * 0.85) / 60; st.hi = (sm + dm * 1.4) / 60;
     var mid = (st.lo + st.hi) / 2;
-    for (var k = 0; k < D.packages.length; k++) if (mid <= D.packages[k].hours) { st.pkg = D.packages[k]; break; }
-    st.over = !st.pkg; st.range = fmt(st.lo) === fmt(st.hi) ? fmt(st.lo) : fmt(st.lo) + " " + t.to + " " + fmt(st.hi);
+    st.over = st.lo > 12; st.range = fmt(st.lo) === fmt(st.hi) ? fmt(st.lo) : fmt(st.lo) + " " + t.to + " " + fmt(st.hi);
     return st;
   }
   function publish() {
@@ -232,6 +231,15 @@ CALC_CSS = """<style>
   .pcq-out { margin: 4px 0 8px; }
   .pcq-cap { display: block; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.85rem; color: #5B6663; margin-top: 3px; }
   .pcq-hours { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+  .pcq-grp { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; }
+  .pcq-grpl { font-weight: 700; margin-right: 4px; }
+  .pcq-g { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pcq-g[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pcq-g:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 700; font-size: 0.85rem; }
+  .pcq-price { white-space: nowrap; font-size: clamp(2.3rem, 4.6vw, 3.1rem) !important; }
+  .pcq-price small { font-family: "Nunito", sans-serif; font-size: 1rem; font-weight: 700; color: #4D5551; }
+  .pcq-fit s { color: #5B6663; }
   .pcq-price { display: block; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; margin-top: 12px; font-variant-numeric: tabular-nums; }
   .pcq-fit { margin: 6px 0 0; font-size: 1rem; line-height: 1.45; color: #27302E; }
   .pcq-incl { margin: 10px 0 16px; font-size: 0.92rem; color: #4D5551; }
@@ -255,7 +263,23 @@ CALC_JS = r"""<script>
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
   var list = root.querySelector(".pcq-list"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out");
   var hrs = root.querySelector(".pcq-hours"), price = root.querySelector(".pcq-price"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta");
-  var st = null;
+  var st = null, n = 2;
+  function priceAt(g, h) {
+    var T = t.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
+    return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
+  }
+  function quote(s) {
+    if (s.lo > 12) return null;
+    var hi = Math.min(s.hi, 12), lo = priceAt(n, s.lo), top = priceAt(n, hi), list = Math.round(t.listRate * n * hi);
+    return { lo: lo, hi: top, eachLo: Math.round(lo / n), eachHi: Math.round(top / n), list: list, pct: Math.round((1 - top / list) * 100) };
+  }
+  [].slice.call(root.querySelectorAll(".pcq-g")).forEach(function (g) {
+    g.addEventListener("click", function () {
+      n = +g.dataset.n;
+      [].slice.call(root.querySelectorAll(".pcq-g")).forEach(function (o) { o.setAttribute("aria-pressed", o === g ? "true" : "false"); });
+      if (st) render(st);
+    });
+  });
   function render(s) {
     st = s; if (!s) return;
     list.innerHTML = "";
@@ -269,8 +293,15 @@ CALC_JS = r"""<script>
     none.hidden = has; out.hidden = !has; list.hidden = !has;
     if (has) {
       hrs.textContent = t.about + " " + s.range + " " + t.hours;
-      if (s.pkg) { price.textContent = "$" + s.pkg.price; fit.innerHTML = ""; fit.appendChild(document.createTextNode(t.fits + " ")); var sg = document.createElement("strong"); sg.textContent = s.pkg.label; fit.appendChild(sg); fit.appendChild(document.createTextNode(", " + t.car + ".")); }
-      else { price.textContent = "$499+"; fit.textContent = t.over; }
+      var q = quote(s);
+      if (q) {
+        price.textContent = "$" + q.eachLo + (q.eachHi !== q.eachLo ? "-" + q.eachHi : "");
+        var sm = document.createElement("small"); sm.textContent = " " + t.each; price.appendChild(sm);
+        fit.innerHTML = ""; fit.appendChild(document.createTextNode("$" + q.lo + (q.hi !== q.lo ? " " + t.to + " $" + q.hi : "") + " " + t.total + " (" + n + " " + t.people + ")"));
+        var br = document.createElement("br"), was = document.createElement("s"), bd = document.createElement("span");
+        was.textContent = t.listp + " $" + q.list; bd.className = "pcq-badge"; bd.textContent = t.save + " " + q.pct + "%";
+        fit.appendChild(br); fit.appendChild(was); fit.appendChild(document.createTextNode(" ")); fit.appendChild(bd);
+      } else { price.textContent = "$1,000+"; fit.textContent = t.over; }
     }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
     cta.textContent = has ? t.cta : t.wait;
@@ -280,9 +311,10 @@ CALC_JS = r"""<script>
   else render({ ids: [], names: [] });
   cta.addEventListener("click", function () {
     if (!st || !st.ids.length) return;
-    var plan = { v: 1, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, pkg: st.pkg ? st.pkg.label : "", price: st.pkg ? st.pkg.price : null, over: !!st.over, saved: new Date().toISOString() };
+    var qt = quote(st);
+    var plan = { v: 2, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt ? qt.hi : null, priceLo: qt ? qt.lo : null, over: !!st.over, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&est=" + (st.pkg ? st.pkg.price : "") + "&pkg=" + encodeURIComponent(plan.pkg) + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang;
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + (qt ? qt.hi : "") + "&lo=" + (qt ? qt.lo : "") + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang;
     window.location.href = "/private-tour?" + q;
   });
 })();
@@ -294,7 +326,7 @@ ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
 
 def calc_html(lang):
     t = T[lang]
-    tj = json.dumps({"remove": t["remove"], "about": t["about"], "to": t["to"], "hours": t["hours"], "fits": t["fits"], "car": t["car"], "over": t["over"], "cta": t["cta"], "wait": t["wait"]}, ensure_ascii=False)
+    tj = json.dumps({"remove": t["remove"], "about": t["about"], "to": t["to"], "hours": t["hours"], "fits": t["fits"], "car": t["car"], "over": t["over"], "cta": t["cta"], "wait": t["wait"], "each": t["each"], "people": t["people"], "total": t["total"], "listp": t["listp"], "save": t["save"], "prices": PRICES, "listRate": LIST_RATE}, ensure_ascii=False)
     return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py. Oct 17, 2026 (Marlon via Gemini). Reads the picks from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
  <div class="pcq-l">
@@ -304,6 +336,7 @@ def calc_html(lang):
   <ul class="pcq-list" aria-label="{t["yours"]}" hidden></ul>
  </div>
  <div class="pcq-r">
+  <div class="pcq-grp" role="group" aria-label="{t["groupl"]}"><span class="pcq-grpl">{t["groupl"]}</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
   <div class="pcq-out" aria-live="polite" hidden>
     <span class="pcq-hours"></span>
     <span class="pcq-price"></span>

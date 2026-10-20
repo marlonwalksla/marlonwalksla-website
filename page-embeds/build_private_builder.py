@@ -1,14 +1,15 @@
 # Builds the "Build your day" section for the Private Tours page and splices it into private-top.html
 # (replaces the old "Pick a starting point" cards and the pricing row).
 # Oct 17, 2026. Prices, stop times and drive speeds are Claude's ESTIMATES for Marlon to adjust:
-# edit PACKAGES / STOPS / PICKUPS below and re-run. Price is per car (1 to 4 guests).
+# edit PRICES / STOPS / PICKUPS below and re-run. Price depends on group size (2 to 4) and hours.
 import json, re
 
-PACKAGES = [  # (label, hours, price)
-    ("Half day", 4, 249),
-    ("Full day", 8, 399),
-    ("Long day", 12, 499),
-]
+# Oct 19, 2026 pricing (Marlon): list $60 per person per hour. Group rates $40 / $30 / $25 per person per hour for 2 / 3 / 4 guests,
+# and each extra 2-hour block is about 7% cheaper (12 hours costs the same as 10). Totals are for the WHOLE group at 2, 4, 6, 8, 10, 12 hours.
+# Same table in build_home_private.py and private-tour-plan.html. Edit them together.
+PRICES = {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}
+LIST_RATE = 60
+DROPOFF = 60
 # id, name, area, minutes at the stop, lat, lng, one line
 STOPS = [
     ("griffith", "Griffith Observatory", "Hollywood", 60, 34.1184, -118.3004, "The best view of the city and the Hollywood Sign."),
@@ -29,7 +30,7 @@ PICKUPS = [
 AREA_COLORS = {"Hollywood": "#C9A54B", "Mid-City": "#2890B6", "Beverly Hills": "#B5527E", "Coast": "#3A9B8C"}
 
 data = {
-    "packages": [{"label": l, "hours": h, "price": p} for l, h, p in PACKAGES],
+    "prices": PRICES, "listRate": LIST_RATE,
     "stops": [{"id": i, "name": n, "area": a, "min": m, "lat": la, "lng": ln} for i, n, a, m, la, ln, _ in STOPS],
     "pickups": [{"id": i, "name": n, "lat": la, "lng": ln} for i, n, la, ln in PICKUPS],
 }
@@ -41,15 +42,13 @@ for i, n, a, m, la, ln, line in STOPS:
         f'<span class="pb-band">{a}</span><span class="pb-name">{n}</span><span class="pb-line">{line}</span>'
         f'<span class="pb-time">about {m} min</span><span class="pb-check" aria-hidden="true"></span></label>')
 pick_opts = "".join(f'<option value="{i}">{n}</option>' for i, n, _, _ in PICKUPS)
-pkg_cards = "".join(
-    f'<div class="pb-pkg" data-h="{h}"><span class="pb-pkg-h">{l}</span><span class="pb-pkg-t">up to {h} hours</span><span class="pb-pkg-p">${p}</span></div>'
-    for l, h, p in PACKAGES)
+grp_btns = "".join(f'<button type="button" class="pb-g" data-n="{n}" aria-pressed="{"true" if n == 2 else "false"}">{n}</button>' for n in (2, 3, 4))
 
 SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/build_private_builder.py. Prices and times are estimates for Marlon to confirm. ===== -->
   <section class="tp-section" id="build">
     <div class="tp-wrap">
       <h2 class="tp-h2">Build your day</h2>
-      <p class="tp-sub">Tap the stops you want. You&rsquo;ll see about how long the day takes, with driving, and which day fits. One price for your whole car, 1 to 4 guests.</p>
+      <p class="tp-sub">Tap the stops you want. You&rsquo;ll see about how long the day takes, with driving, and what it costs. The more of you, the less each of you pays.</p>
       <div class="pb">
         <div class="pb-left">
           <label class="pb-pick">Pickup from <select id="pb-pickup">{pick_opts}</select></label>
@@ -59,7 +58,7 @@ SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/b
           <h3 class="pb-sum-h">Your day</h3>
           <ol class="pb-list" id="pb-list"><li class="pb-empty">Pick a stop or two to start.</li></ol>
           <div class="pb-total"><span id="pb-hours">0 hours</span><small id="pb-drive">with driving</small></div>
-          <div class="pb-pkgs">{pkg_cards}</div>
+          <div class="pb-grp" role="group" aria-label="How many of you?"><span class="pb-grpl">How many of you?</span>{grp_btns}</div>
           <p class="pb-fit" id="pb-fit"></p>
           <a class="pb-btn" id="pb-send" href="https://wa.me/12692670410" target="_blank" rel="noopener">Send me this day</a>
           <a class="pb-form" href="#private-inquiry">or use the form below</a>
@@ -91,6 +90,13 @@ SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/b
       .pb-total {{ display: flex; align-items: baseline; gap: 8px; margin: 6px 0 12px; }}
       .pb-total span {{ font-size: 1.45rem; font-weight: 900; color: #27302E; }}
       .pb-total small {{ color: #64748b; }}
+      .pb-grp {{ display: flex; align-items: center; gap: 8px; margin: 4px 0 8px; }}
+      .pb-grpl {{ font-weight: 800; font-size: 0.92rem; margin-right: 4px; }}
+      .pb-g {{ font: inherit; font-weight: 800; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; background: #fff; color: #27302E; border: 2px solid #E4DCCB; }}
+      .pb-g[aria-pressed="true"] {{ background: #FFD43B; border-color: #27302E; }}
+      .pb-each {{ font-size: 1.7rem; font-weight: 900; color: #27302E; }}
+      .pb-was {{ text-decoration: line-through; color: #64748b; }}
+      .pb-badge {{ display: inline-block; margin-left: 6px; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 800; font-size: 0.82rem; }}
       .pb-pkgs {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }}
       .pb-pkg {{ display: flex; flex-direction: column; align-items: center; text-align: center; padding: 10px 6px; border: 1.5px solid #E4DCCB; border-radius: 10px; color: #64748b; }}
       .pb-pkg.is-fit {{ border-color: #C9A54B; background: #FBF5E4; color: #27302E; box-shadow: 0 0 0 2px #C9A54B; }}
@@ -118,6 +124,14 @@ SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/b
       function drive(a, b) {{ return km(a, b) * 1.35 / 25 * 60 + 5; }}
       function routeMin(start, list) {{ var t = 0, at = start; list.forEach(function (s) {{ t += drive(at, s); at = s; }}); return t + (list.length ? drive(at, start) - 5 : 0); }}
       function fmt(h) {{ return (Math.round(h * 2) / 2).toString().replace(".5", "&frac12;"); }}
+      var n = 2;
+      function priceAt(g, h) {{
+        var T = D.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
+        return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
+      }}
+      document.querySelectorAll(".pb-g").forEach(function (g) {{ g.addEventListener("click", function () {{
+        n = +g.dataset.n; document.querySelectorAll(".pb-g").forEach(function (o) {{ o.setAttribute("aria-pressed", o === g ? "true" : "false"); }}); upd();
+      }}); }});
       function upd() {{
         var start = D.pickups.filter(function (p) {{ return p.id === pick.value; }})[0];
         var chosen = D.stops.filter(function (s) {{ return document.querySelector('.pb-card input[value="' + s.id + '"]').checked; }});
@@ -129,17 +143,15 @@ SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/b
         list.innerHTML = order.length ? order.map(function (s) {{ return "<li>" + s.name + "</li>"; }}).join("") : '<li class="pb-empty">Pick a stop or two to start.</li>';
         document.getElementById("pb-hours").innerHTML = order.length ? "about " + fmt(lo) + " to " + fmt(hi) + " hours" : "0 hours";
         document.getElementById("pb-drive").textContent = order.length ? "with about " + Math.round(driveMin / 5) * 5 + " min of driving" : "with driving";
-        var fit = null;
-        document.querySelectorAll(".pb-pkg").forEach(function (el) {{ el.classList.remove("is-fit"); }});
-        if (order.length) {{ for (var i = 0; i < D.packages.length; i++) {{ if ((lo + hi) / 2 <= D.packages[i].hours) {{ fit = D.packages[i]; break; }} }} }}
-        var fitEl = document.getElementById("pb-fit"), send = document.getElementById("pb-send");
-        if (fit) {{
-          document.querySelector('.pb-pkg[data-h="' + fit.hours + '"]').classList.add("is-fit");
-          fitEl.innerHTML = "This fits a <strong>" + fit.label.toLowerCase() + "</strong>: $" + fit.price + " for your whole car.";
+        var fitEl = document.getElementById("pb-fit"), send = document.getElementById("pb-send"), q = null;
+        if (order.length && lo <= 12) {{
+          var hh = Math.min(hi, 12), pl = priceAt(n, lo), ph = priceAt(n, hh), list = Math.round(D.listRate * n * hh), pct = Math.round((1 - ph / list) * 100);
+          q = {{ lo: pl, hi: ph }};
+          fitEl.innerHTML = '<span class="pb-each">$' + Math.round(pl / n) + (ph !== pl ? "&ndash;" + Math.round(ph / n) : "") + '</span> each &middot; $' + pl + (ph !== pl ? " to $" + ph : "") + " total for " + n + ' people<br><span class="pb-was">List price $' + list + '</span><span class="pb-badge">You save ' + pct + '%</span>';
         }} else if (order.length) {{
           fitEl.textContent = "That's more than one day. Pick fewer stops, or message me and we'll plan two days.";
         }} else {{ fitEl.textContent = ""; }}
-        var msg = "Hi Marlon, I'd like a private tour. Pickup: " + start.name + ". Stops: " + order.map(function (s) {{ return s.name; }}).join(", ") + (fit ? ". " + fit.label + " ($" + fit.price + ")." : ".");
+        var msg = "Hi Marlon, I'd like a private tour. Pickup: " + start.name + ". Stops: " + order.map(function (s) {{ return s.name; }}).join(", ") + ". " + n + " people" + (q ? ", about $" + q.hi + "." : ".");
         send.href = "https://wa.me/12692670410?text=" + encodeURIComponent(msg);
         send.setAttribute("aria-disabled", order.length ? "false" : "true");
       }}
@@ -153,13 +165,23 @@ SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/b
 
   <section class="tp-section">
     <div class="tp-wrap">
-      <h2 class="tp-h2">Simple pricing, for your whole car</h2>
+      <h2 class="tp-h2">Simple pricing: more of you, less each</h2>
+      <p class="tp-sub">List price is $60 per person per hour. Every extra person gets a better rate, and so does every extra 2 hours. Hotel pickup and drop-off, driving and instant photos are included.</p>
       <div class="tp-grid-3 tp-price-row">
-        <div class="tp-card tp-center"><h3 class="tp-h3">Half day &middot; up to 4 hours</h3><div class="price">${PACKAGES[0][2]}</div><p>One or two areas, done well.</p></div>
-        <div class="tp-card tp-center"><h3 class="tp-h3">Full day &middot; up to 8 hours</h3><div class="price">${PACKAGES[1][2]}</div><p>LA in a day, from the Hollywood Sign to the beach.</p></div>
-        <div class="tp-card tp-center"><h3 class="tp-h3">Long day &middot; up to 12 hours</h3><div class="price">${PACKAGES[2][2]}</div><p>The whole day, from the beach to the city lights.</p></div>
+        <div class="tp-card tp-center"><h3 class="tp-h3">Half day &middot; about 4 hours</h3><p><s>$60 each per hour</s></p>
+          <p><span class="price">${int(PRICES["2"][1] / 2 + 0.5)}</span> each for 2 &middot; ${PRICES["2"][1]} total</p>
+          <p><span class="price">${int(PRICES["3"][1] / 3 + 0.5)}</span> each for 3 &middot; ${PRICES["3"][1]} total</p>
+          <p><span class="price">${int(PRICES["4"][1] / 4 + 0.5)}</span> each for 4 &middot; ${PRICES["4"][1]} total</p>
+          <p>One or two areas, done well.</p></div>
+        <div class="tp-card tp-center"><h3 class="tp-h3">Full day &middot; 9am to 9pm</h3><p><s>$60 each per hour</s></p>
+          <p><span class="price">${int(PRICES["2"][5] / 2 + 0.5)}</span> each for 2 &middot; ${PRICES["2"][5]} total</p>
+          <p><span class="price">${int(PRICES["3"][5] / 3 + 0.5)}</span> each for 3 &middot; ${PRICES["3"][5]} total</p>
+          <p><span class="price">${int(PRICES["4"][5] / 4 + 0.5)}</span> each for 4 &middot; ${PRICES["4"][5]} total</p>
+          <p>LA in a day, from the Hollywood Sign to the beach. 12 hours cost the same as 10.</p></div>
+        <div class="tp-card tp-center"><h3 class="tp-h3">Short drop-off</h3><p>For guests who took a free tour</p><div class="price">${DROPOFF}</div>
+          <p>One stop plus a drop-off, about 1 to 2 hours. Airport included: watch the planes land at the In-N-Out by LAX, or see the Hollywood Sign and get dropped at Griffith Observatory.</p></div>
       </div>
-      <p style="margin-top:12px;color:#475569">One price for 1 to 4 guests, with hotel pickup and drop-off, driving and instant photos included. Parking and tickets at stops aren&rsquo;t included.</p>
+      <p style="margin-top:12px;color:#475569">Other lengths are in between: use the builder above. Parking and tickets at stops aren&rsquo;t included. Marlon confirms the final price.</p>
     </div>
   </section>
 '''

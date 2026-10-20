@@ -29,12 +29,12 @@
     es: { disney: "Walt Disney Concert Hall", broad: "The Broad", angels: "Angels Flight", gcm: "Grand Central Market", bradbury: "Bradbury Building", mural: "Mural La Evolución de LA", cityhall: "City Hall", courts: "Los juzgados", olvera: "Calle Olvera", sign: "Mirador del letrero de Hollywood", griffith: "Observatorio Griffith", urban: "Urban Light", grove: "The Grove y el Farmers Market", bhsign: "Letrero de Beverly Hills", rodeo: "Rodeo Drive", pier: "Muelle de Santa Mónica", venice: "Venice Beach y los canales" }
   };
   var TX = {
-    en: { h: "Your custom tour", sub: "Here is what you picked. Send Marlon your details below and he will confirm the final plan and price.", est: "Estimated price: $", about: "About", hrs: "hours", note: "Estimate only. Flat price per car, 1 to 4 guests, hotel pickup and drop-off included. Marlon confirms the final price.", edit: "Change my places", msg: "Hi Marlon! I built a custom tour on your site.\nPlaces: ", msg2: "\nEstimate: ", none: "No places yet. Pick some on the home page." },
-    es: { h: "Tu tour a medida", sub: "Esto es lo que elegiste. Mándale tus datos a Marlon abajo y él confirma el plan y el precio final.", est: "Precio estimado: $", about: "Unas", hrs: "horas", note: "Solo un estimado. Precio fijo por auto, 1 a 4 personas, con recogida y regreso al hotel. Marlon confirma el precio final.", edit: "Cambiar mis lugares", msg: "¡Hola Marlon! Armé un tour a medida en tu sitio.\nLugares: ", msg2: "\nEstimado: ", none: "Todavía no hay lugares. Elige algunos en la página de inicio." }
+    en: { h: "Your custom tour", sub: "Here is what you picked. Send Marlon your details below and he will confirm the final plan and price.", est: "Estimated price: $", ppl: "people", to: "to", about: "About", hrs: "hours", note: "Estimate only. The price depends on how many of you there are and how many hours. Hotel pickup and drop-off included. Marlon confirms the final price.", edit: "Change my places", msg: "Hi Marlon! I built a custom tour on your site.\nPlaces: ", msg2: "\nEstimate: ", none: "No places yet. Pick some on the home page." },
+    es: { h: "Tu tour a medida", sub: "Esto es lo que elegiste. Mándale tus datos a Marlon abajo y él confirma el plan y el precio final.", est: "Precio estimado: $", ppl: "personas", to: "a", about: "Unas", hrs: "horas", note: "Solo un estimado. El precio depende de cuántos son y cuántas horas. Recogida y regreso al hotel incluidos. Marlon confirma el precio final.", edit: "Cambiar mis lugares", msg: "¡Hola Marlon! Armé un tour a medida en tu sitio.\nLugares: ", msg2: "\nEstimado: ", none: "Todavía no hay lugares. Elige algunos en la página de inicio." }
   };
   var q = new URLSearchParams(location.search), plan = null;
-  if (q.get("stops")) plan = { ids: q.get("stops").split(",").filter(Boolean), price: q.get("est"), pkg: q.get("pkg") || "", h: q.get("h") || "", lang: q.get("lang") };
-  else { try { var s = JSON.parse(localStorage.getItem("mwla-private-plan") || "null"); if (s) plan = { ids: s.ids, price: s.price, pkg: s.pkg, h: s.hours, lang: s.lang }; } catch (e) {} }
+  if (q.get("stops")) plan = { ids: q.get("stops").split(",").filter(Boolean), price: q.get("est"), lo: q.get("lo") || "", n: q.get("n") || "", h: q.get("h") || "", lang: q.get("lang") };
+  else { try { var s = JSON.parse(localStorage.getItem("mwla-private-plan") || "null"); if (s) plan = { ids: s.ids, price: s.price, lo: s.priceLo || "", n: s.n || "", h: s.hours, lang: s.lang }; } catch (e) {} }
   var root = document.getElementById("pt-plan"); if (!plan || !plan.ids || !plan.ids.length) return;
   var lang = (plan.lang === "es" || /^\/es/.test(location.pathname)) ? "es" : "en", t = TX[lang], N = NAMES[lang];
   var names = plan.ids.filter(function (id) { return N[id]; }).map(function (id) { return N[id]; });
@@ -44,13 +44,15 @@
   var ul = root.querySelector(".pt-list");
   names.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
   var est = root.querySelector(".pt-est"), line = "";
-  if (plan.price) line += t.est + plan.price + (plan.pkg ? " (" + plan.pkg + ")" : "");
+  function money() { return plan.lo && plan.lo !== plan.price ? plan.lo + " " + t.to + " $" + plan.price : plan.price; }
+  function who() { return plan.n ? " (" + plan.n + " " + t.ppl + ")" : ""; }
+  if (plan.price) line += t.est + money() + who();
   if (plan.h) line += (line ? " · " : "") + t.about + " " + plan.h.replace(/[^0-9½ .a-zA-Z]/g, "") + " " + t.hrs;
   est.textContent = line; est.hidden = !line;
   root.querySelector(".pt-note").textContent = t.note;
   var a = root.querySelector(".pt-edit"); a.textContent = t.edit; a.href = (lang === "es" ? "/es" : "/") + "#private-tours";
   root.hidden = false;
-  var text = t.msg + names.join(", ") + (plan.price ? t.msg2 + "$" + plan.price + (plan.pkg ? " (" + plan.pkg + ")" : "") : "");
+  var text = t.msg + names.join(", ") + (plan.price ? t.msg2 + "$" + money() + who() : "");
   function fill() { var m = document.getElementById("priv-msg"); if (m && !m.value) { m.value = text; m.dispatchEvent(new Event("input", { bubbles: true })); return true; } return !!m; }
   if (!fill()) { var n = 0, iv = setInterval(function () { if (fill() || ++n > 20) clearInterval(iv); }, 500); }
 })();
