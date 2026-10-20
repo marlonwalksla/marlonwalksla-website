@@ -68,16 +68,61 @@ T = {
 }
 
 
+# Oct 20, 2026 (Marlon): LA, Your Way shows PREVIOUS CUSTOM TRIPS (named adventures with photos) instead of single places. Pick one, see its photos
+# and its price for 2/3/4 guests, then book it as is or change it. Hours are real where Marlon said so; "assumed" ones need his OK.
+# Photos load from TRIP_IMG (img/trips/ in the repo or a Webflow upload). Missing photos fall back to a colored card. Guest photos only with permission.
+TRIP_IMG = "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/"
+# id, tier, hours, color, EN title, ES title, EN stops, ES stops, EN story, ES story, photo file stems (with captions in EN, ES)
+TRIPS = [
+    ("sunset", "quest", 5, "#FFD6A5", "Date Night: Sunset Hike", "Cita: Caminata al atardecer",
+     ["Donuts", "Hollywood Sign", "Griffith sunset", "Rodeo Drive", "Urban Light"], ["Donas", "Letrero de Hollywood", "Atardecer en Griffith", "Rodeo Drive", "Urban Light"],
+     "A couple on their first vacation in 10 years. He wanted her birthday to be special. Donuts first, then the Hollywood Sign, sunset at the Observatory, and Urban Light.",
+     "Una pareja en sus primeras vacaciones en 10 años. Él quería un cumpleaños especial para ella. Primero donas, luego el letrero de Hollywood, el atardecer en el Observatorio y Urban Light.",
+     ["hollywood-sign-griffith-urban-light-01-donut-stop", "hollywood-sign-griffith-urban-light-03-sunset-hike", "hollywood-sign-griffith-urban-light-02-griffith-skyline", "hollywood-sign-griffith-urban-light-06-rodeo-drive", "hollywood-sign-griffith-urban-light-07-urban-light", "hollywood-sign-griffith-urban-light-08-polaroid-urban-light"]),
+    ("echo", "quest", 5, "#F6C6DF", "Echo Park and Angels Point", "Echo Park y Angels Point",
+     ["Echo Park Lake", "Angels Point", "Sunset", "Observatory"], ["Lago Echo Park", "Angels Point", "Atardecer", "Observatorio"],
+     "Parents and their son-in-law, while the daughter was at work. We had more time, so we went to these spots and traded photos. Fun for me too.",
+     "Unos papás y su yerno, mientras la hija trabajaba. Teníamos más tiempo, así que fuimos a estos lugares y nos tomamos fotos unos a otros. También fue divertido para mí.",
+     ["echo-park-and-angels-point-01-echo-park-lake", "echo-park-and-angels-point-02-polaroid-echo-park-the-two", "echo-park-and-angels-point-03-the-three-at-sunset", "echo-park-and-angels-point-04-photographer-at-sunset", "echo-park-and-angels-point-05-polaroid-angels-point", "echo-park-and-angels-point-07-observatory-night"]),
+    ("getty", "short", 4, "#DCEFFA", "Explore Getty Museum", "Explora el Museo Getty",
+     ["Getty Museum", "Sunset view"], ["Museo Getty", "Vista al atardecer"],
+     "An Israeli couple in their 80s on a world cruise. The Getty was the one thing she wanted to see. We made sure they had a beautiful sunset before they sailed. Getty parking is not included.",
+     "Una pareja israelí de más de 80 años en un crucero por el mundo. El Getty era lo único que ella quería ver. Nos aseguramos de que vieran un atardecer hermoso antes de zarpar. El estacionamiento del Getty no está incluido.",
+     ["the-getty-at-sunset-01-the-three-of-us", "the-getty-at-sunset-02-getty-garden", "the-getty-at-sunset-03-sunset-view", "the-getty-at-sunset-04-polaroid-the-couple"]),
+    ("canals", "quest", 4, "#E3F6D8", "Date Night: Venice Canals", "Cita: Canales de Venice",
+     ["Venice Canals", "The white bridge"], ["Canales de Venice", "El puente blanco"],
+     "A date for two. She had seen this bridge in a movie, so we went to find it.",
+     "Una cita para dos. Ella había visto este puente en una película, así que fuimos a buscarlo.",
+     ["venice-canals-date-01-canal-walk", "venice-canals-date-02-white-bridge", "venice-canals-date-03-her-on-the-bridge", "venice-canals-date-04-marlon-at-the-canal"]),
+    ("tacos", "quest", 4, "#FFE08A", "Beach and Tacos", "Playa y tacos",
+     ["Mexican food", "Santa Monica Pier"], ["Comida mexicana", "Muelle de Santa Mónica"],
+     "A honeymoon couple on their last stop before flying home. They wanted Mexican food and Santa Monica. Done.",
+     "Una pareja de luna de miel en su última parada antes de volar a casa. Querían comida mexicana y Santa Mónica. Listo.",
+     ["santa-monica-and-tacos-02-tacos-together", "santa-monica-and-tacos-01-pier-at-night"]),
+    ("three", "quest", 9, "#D9F5E3", "Three Countries, Three Locations", "Tres países, tres lugares",
+     ["Downtown", "Hollywood Sign", "Griffith sunset", "Santa Monica"], ["Centro", "Letrero de Hollywood", "Atardecer en Griffith", "Santa Mónica"],
+     "A Canadian, a Mexican and an American. We did the whole three countries together, from the Hollywood Sign to a sunset at the Observatory.",
+     "Un canadiense, una mexicana y un estadounidense. Hicimos los tres países juntos, del letrero de Hollywood a un atardecer en el Observatorio.",
+     ["three-countries-three-locations-01-marlon-hollywood-sign-polaroid", "three-countries-three-locations-02-christy-sunset-polaroid", "three-countries-three-locations-04-the-three-polaroids", "three-countries-three-locations-05-griffith-sunset", "three-countries-three-locations-06-griffith-dusk"]),
+]
+TRIP_DEFAULT = "sunset"
+T["en"].update(h="Start from a real trip", hint="Past guests, past days. Pick one to see the photos and the price. Do it as is, or make it yours.",
+  trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
+  none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
+T["es"].update(h="Empieza con un viaje real", hint="Huéspedes y días reales. Elige uno para ver las fotos y el precio. Hazlo tal cual, o hazlo tuyo.",
+  trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
+  none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
+
+
 def esc(x):
     return x.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 def data_for(lang):
     i = 0 if lang == "en" else 1
-    stops = [{"id": s[0], "group": s[1], "name": s[2 + i], "short": SHORT[s[0]][i], "line": s[4 + i], "min": s[6], "lat": s[7], "lng": s[8],
-              "photo": (C + s[9]) if s[9] else None, "color": s[10]} for s in S if s[1] in ("la", "ch")]  # Oct 17, 2026 (Marlon): no Downtown-on-foot options; private tours are by car
-    return {"lang": lang, "t": T[lang], "stops": stops, "on": DEFAULT_ON, "center": DT_CENTER,
-            "prices": PRICES, "listRate": LIST_RATE}
+    trips = [{"id": r[0], "tier": r[1], "hours": r[2], "color": r[3], "name": r[4 + i], "stops": r[6 + i], "story": r[8 + i],
+              "photos": [TRIP_IMG + p + ".webp" for p in r[10]]} for r in TRIPS]
+    return {"lang": lang, "t": T[lang], "trips": trips, "on": TRIP_DEFAULT, "prices": PRICES, "listRate": LIST_RATE}
 
 
 LEFT_CSS = """<style>
@@ -107,86 +152,70 @@ LEFT_CSS = """<style>
   .pvb-pill:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
   @media (prefers-reduced-motion: reduce) { .pvb-pill, .stacked-photo { transition: none; } }
   /* Oct 19, 2026 (Marlon): Places and Challenges side by side, the estimate full width below (the Webflow two-column split becomes one column here, and the dashed divider goes) */
-  .mw-split:has(.pvb) { grid-template-columns: minmax(0, 1fr) !important; }
-  @media (min-width: 992px) { .mw-bg-private .mw-split-left { border-right: 0 !important; padding-right: 0 !important; } }
-  .pvb-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px 36px; margin: 0 0 22px; }
   .pvb-g { margin: 0 0 8px; }
   .polaroid-stack-area { min-height: 340px; margin: 0; }
+  .pvb-pills { margin: 0 0 14px; }
+  .pvb-story { margin: 14px 0 0; font-size: 1rem; line-height: 1.5; color: #27302E; }
+  .pvb-story p { margin: 6px 0 0; }
+  .pvb-tag { display: inline-block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.85rem; padding: 2px 12px; border-radius: 99px; background: #FFD43B; border: 2px solid #27302E; }
+  .polaroid-stack-area { min-height: 380px; }
   @media (max-width: 700px) { .pvb-cols { grid-template-columns: 1fr; } .polaroid-stack-area { min-height: 320px; } }
 </style>
 """
 
 LEFT_JS = r"""<script>
 (function () {
-  var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, S = {}, ORDER = [];
-  D.stops.forEach(function (s) { S[s.id] = s; ORDER.push(s.id); });
+  var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, TR = {};
+  D.trips.forEach(function (r) { TR[r.id] = r; });
   var area = document.getElementById("polaroid-stack-area"), zTop = 10, still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), on = {}, last = null;
-  D.on.forEach(function (id) { on[id] = true; last = id; });
-  function km(a, b) { var R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLn = (b.lng - a.lng) * r;
-    var h = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLn / 2) * Math.sin(dLn / 2);
-    return 2 * R * Math.asin(Math.sqrt(h)); }
-  function drive(a, b) { return km(a, b) * 1.35 / 25 * 60 + 5; }  // road about 1.35x the straight line, 25 km/h, 5 min to park
-  function fmt(h) { return (Math.round(h * 2) / 2).toString().replace(".5", "½"); }
-  function place(el) {  // fractions are stored so the pile re-fits when the screen is resized
+  var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), story = document.getElementById("pvb-story"), cur = null, timers = [];
+  function place(el) {
     var W = area.clientWidth, H = area.clientHeight, pw = el.offsetWidth, ph = el.offsetHeight;
     el.style.left = Math.max(0, (W - pw) * parseFloat(el.dataset.fx)) + "px";
     el.style.top = Math.max(0, (H - ph) * parseFloat(el.dataset.fy)) + "px";
   }
-  function show(id, delay) {
-    if (!area || area.querySelector('[data-id="' + id + '"]')) return;
-    var s = S[id], el = document.createElement("figure");
-    el.className = "stacked-photo is-drop"; el.dataset.id = id;
-    el.dataset.fx = (0.08 + Math.random() * 0.84).toFixed(3); el.dataset.fy = (0.12 + Math.random() * 0.76).toFixed(3);
-    el.dataset.rot = ((Math.random() * 24) - 12).toFixed(1);  // between -12 and +12 degrees
-    el.style.zIndex = ++zTop;  // newest lands on top
+  function drop(r, src, i, delay) {
+    var el = document.createElement("figure");
+    el.className = "stacked-photo is-drop";
+    el.dataset.fx = (0.06 + Math.random() * 0.88).toFixed(3); el.dataset.fy = (0.08 + Math.random() * 0.84).toFixed(3);
+    el.dataset.rot = ((Math.random() * 24) - 12).toFixed(1);
+    el.style.zIndex = ++zTop;
     var tape = document.createElement("span"); tape.className = "sp-tape"; el.appendChild(tape);
     var box = document.createElement("div"); box.className = "sp-img";
-    if (s.photo) { var im = document.createElement("img"); im.src = s.photo; im.alt = s.name; im.loading = "lazy"; box.appendChild(im); }
-    else { var c = document.createElement("div"); c.className = "sp-card"; c.style.background = s.color; c.textContent = s.line; box.appendChild(c); }
-    var fc = document.createElement("figcaption"); fc.textContent = s.name;
-    el.appendChild(box); el.appendChild(fc); area.appendChild(el);
-    place(el);
+    var card = document.createElement("div"); card.className = "sp-card"; card.style.background = r.color; card.textContent = r.name; box.appendChild(card);
+    var im = new Image(); im.alt = ""; im.loading = "lazy"; im.onload = function () { box.appendChild(im); card.style.display = "none"; };
+    im.src = src;  // a missing photo leaves the colored card
+    el.appendChild(box); area.appendChild(el); place(el);
     el.style.transform = "rotate(" + (parseFloat(el.dataset.rot) + (Math.random() < .5 ? -14 : 14)) + "deg) scale(1.12)";
-    area.classList.add("has-photos");
     function land() { el.classList.remove("is-drop"); el.style.transform = "rotate(" + el.dataset.rot + "deg)"; }
-    if (still) land(); else setTimeout(function () { requestAnimationFrame(function () { requestAnimationFrame(land); }); }, delay || 0);
+    if (still) land(); else timers.push(setTimeout(function () { requestAnimationFrame(function () { requestAnimationFrame(land); }); }, delay));
   }
-  function hide(id) {
-    var el = area && area.querySelector('[data-id="' + id + '"]'); if (!el) return;
-    function done() { if (el.parentNode) el.parentNode.removeChild(el); if (!area.querySelector(".stacked-photo")) area.classList.remove("has-photos"); }
-    if (still) { done(); return; }
-    el.classList.add("is-gone"); setTimeout(done, 300);
+  function clearPile() {
+    timers.forEach(clearTimeout); timers = [];
+    [].slice.call(area.querySelectorAll(".stacked-photo")).forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
   }
   window.addEventListener("resize", function () { if (area) [].forEach.call(area.querySelectorAll(".stacked-photo"), place); });
   function state() {
-    var ids = ORDER.filter(function (id) { return on[id]; }), stops = ids.map(function (id) { return S[id]; });
-    var sm = stops.reduce(function (a, s) { return a + s.min; }, 0) + 60, dm = 0, prev = null;
-    stops.forEach(function (s) {
-      var from = prev || { lat: D.center[0], lng: D.center[1] };  // pickup is Downtown
-      dm += drive(from, s); prev = s;
-    });
-    var st = { ids: ids, names: stops.map(function (s) { return s.short; }), lang: D.lang, lo: null, hi: null, pkg: null, over: false, t: t, last: last };
-    if (!ids.length) return st;
-    st.lo = (sm + dm * 0.85) / 60; st.hi = (sm + dm * 1.4) / 60;
-    var mid = (st.lo + st.hi) / 2;
-    st.over = st.lo > 12; st.range = fmt(st.lo) === fmt(st.hi) ? fmt(st.lo) : fmt(st.lo) + " " + t.to + " " + fmt(st.hi);
-    return st;
+    var r = cur && TR[cur]; if (!r) return { ids: [], names: [], lang: D.lang, t: t };
+    return { ids: [r.id], names: [r.name], stops: r.stops, lang: D.lang, hours: r.hours, lo: r.hours, hi: r.hours, range: String(r.hours), tier: r.tier, trip: r.id, over: false, t: t };
   }
   function publish() {
-    var st = state(); window.MWPV = window.MWPV || {}; window.MWPV.state = st; window.MWPV.remove = function (id) { on[id] = false; hide(id); sync(); };
-    try { window.dispatchEvent(new CustomEvent("mwpv", { detail: st })); } catch (e) {}
+    window.MWPV = window.MWPV || {}; window.MWPV.state = state();
+    try { window.dispatchEvent(new CustomEvent("mwpv", { detail: window.MWPV.state })); } catch (e) {}
   }
-  function sync() { pills.forEach(function (p) { p.setAttribute("aria-pressed", on[p.dataset.id] ? "true" : "false"); }); publish(); }
-  pills.forEach(function (p) {
-    p.addEventListener("click", function () {
-      var id = p.dataset.id; on[id] = !on[id];
-      if (on[id]) { last = id; show(id); } else hide(id);
-      sync();
-    });
-  });
-  ORDER.filter(function (id) { return on[id]; }).forEach(function (id, i) { show(id, 150 + i * 220); });
-  sync();
+  function pick(id) {
+    cur = id; var r = TR[id];
+    pills.forEach(function (p) { p.setAttribute("aria-pressed", p.dataset.id === id ? "true" : "false"); });
+    clearPile(); area.classList.add("has-photos");
+    r.photos.forEach(function (src, i) { drop(r, src, i, 80 + i * 200); });
+    story.innerHTML = "";
+    var tag = document.createElement("span"); tag.className = "pvb-tag"; tag.textContent = (r.tier === "short" ? t.trip_short : t.trip_quest) + " · " + r.hours + " " + t.hrsl;
+    var p = document.createElement("p"); p.textContent = r.story;
+    story.appendChild(tag); story.appendChild(p); story.hidden = false;
+    publish();
+  }
+  pills.forEach(function (p) { p.addEventListener("click", function () { pick(p.dataset.id); }); });
+  pick(D.on);
 })();
 </script>
 """
@@ -194,23 +223,19 @@ LEFT_JS = r"""<script>
 
 def left_html(lang):
     t = T[lang]; data = data_for(lang)
-    i = 0 if lang == "en" else 1
-
-    def pills(group):
-        return "".join(f'<button type="button" class="pvb-pill" data-id="{s[0]}" aria-pressed="false">{esc(SHORT[s[0]][i])}</button>' for s in S if s[1] == group)
+    pills = "".join(f'<button type="button" class="pvb-pill" data-id="{r["id"]}" aria-pressed="false">{esc(r["name"])}</button>' for r in data["trips"])
     js_data = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     return f"""<!-- ==============================================================================
-     MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LA, YOUR WAY - ITINERARY BUILDER (LEFT COLUMN). Built by page-embeds/build_home_private.py
-     Oct 17, 2026 (Marlon via Gemini): pills + a Polaroid Stack (Oct 18: photos drop onto a messy pile, tap again to remove). The estimate lives in home-private-calc.html (right column).
+     MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LA, YOUR WAY - PREVIOUS TRIPS (LEFT COLUMN). Built by page-embeds/build_home_private.py
+     Oct 20, 2026 (Marlon): the place pills and Challenges are gone. Pick a past custom trip: its photos drop on the pile and its story shows.
+     The estimate lives in home-private-calc.html (right column) and reads the pick through window.MWPV.
      ============================================================================== -->
 <div class="mw-offer pvb" id="private-tours">
   <h3 class="pvb-h">{t["h"]}</h3>
   <p class="pvb-hint">{t["hint"]}</p>
-  <div class="pvb-cols">
-    <div class="pvb-col"><p class="pvb-g">{t["g_la"]}</p><div class="pvb-pills" role="group" aria-label="{t["g_la"]}">{pills("la")}</div></div>
-    <div class="pvb-col"><p class="pvb-g">{t["g_ch"]}</p><div class="pvb-pills" role="group" aria-label="{t["g_ch"]}">{pills("ch")}</div></div>
-  </div>
+  <div class="pvb-pills" role="group" aria-label="{esc(t['h'])}">{pills}</div>
   <div class="polaroid-stack-area" id="polaroid-stack-area" role="group" aria-label="{esc(t['h'])}"><p class="pvb-empty">{esc(t["cap0"])}</p></div>
+  <div class="pvb-story" id="pvb-story" hidden></div>
 </div>
 <script type="application/json" id="pvb-data">{js_data}</script>
 """ + LEFT_CSS + LEFT_JS
@@ -253,7 +278,9 @@ CALC_CSS = """<style>
   .pcq-note { margin: 10px 0 0; text-align: center; font-size: 0.88rem; color: #5B6663; }
   @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
   /* Oct 19, 2026 (Marlon): the estimate sits below the picks, full width: what you picked on the left, the price and button on the right */
-  @media (min-width: 800px) { .pcq { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start; } }
+  .pcq-alt { display: block; width: 100%; margin-top: 10px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #27302E; background: transparent; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
+  .pcq-alt:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-alt[hidden] { display: none; }
 </style>
 """
 
@@ -263,7 +290,7 @@ CALC_JS = r"""<script>
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
   var list = root.querySelector(".pcq-list"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out");
   var hrs = root.querySelector(".pcq-hours"), price = root.querySelector(".pcq-price"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta");
-  var st = null, n = 2;
+  var st = null, n = 2, alt = root.querySelector(".pcq-alt");
   function priceAt(g, h) {
     var T = t.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
     return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
@@ -284,15 +311,14 @@ CALC_JS = r"""<script>
     st = s; if (!s) return;
     list.innerHTML = "";
     s.ids.forEach(function (id, i) {
-      var li = document.createElement("li"), sp = document.createElement("span"), b = document.createElement("button");
-      sp.textContent = s.names[i]; b.type = "button"; b.textContent = "×"; b.setAttribute("aria-label", t.remove + " " + s.names[i]);
-      b.addEventListener("click", function () { if (window.MWPV && window.MWPV.remove) window.MWPV.remove(id); });
-      li.appendChild(sp); li.appendChild(b); list.appendChild(li);
+    });
+    (s.stops || []).forEach(function (nm) {
+      var li = document.createElement("li"), sp = document.createElement("span"); sp.textContent = nm; li.style.paddingRight = "12px"; li.appendChild(sp); list.appendChild(li);
     });
     var has = s.ids.length > 0;
     none.hidden = has; out.hidden = !has; list.hidden = !has;
     if (has) {
-      hrs.textContent = s.range + " " + t.hours;
+      hrs.textContent = s.range + " " + t.hrsl;
       var q = quote(s);
       if (q) {
         price.textContent = "$" + q.eachLo + (q.eachHi !== q.eachLo ? "-" + q.eachHi : "");
@@ -304,19 +330,21 @@ CALC_JS = r"""<script>
       } else { price.textContent = "$1,000+"; fit.textContent = t.over; }
     }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
-    cta.textContent = has ? t.cta : t.wait;
+    cta.textContent = has ? t.cta2 : t.wait; alt.hidden = !has; alt.textContent = t.cta3;
   }
   window.addEventListener("mwpv", function (e) { render(e.detail); });
   if (window.MWPV && window.MWPV.state) render(window.MWPV.state);
   else render({ ids: [], names: [] });
-  cta.addEventListener("click", function () {
+  function go(custom) {
     if (!st || !st.ids.length) return;
     var qt = quote(st);
-    var plan = { v: 2, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt ? qt.hi : null, priceLo: qt ? qt.lo : null, over: !!st.over, saved: new Date().toISOString() };
+    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt ? qt.hi : null, priceLo: qt ? qt.lo : null, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + (qt ? qt.hi : "") + "&lo=" + (qt ? qt.lo : "") + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang;
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + (qt ? qt.hi : "") + "&lo=" + (qt ? qt.lo : "") + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (custom ? "&custom=1" : "");
     window.location.href = "/private-tour?" + q;
-  });
+  }
+  cta.addEventListener("click", function () { go(false); });
+  alt.addEventListener("click", function () { go(true); });
 })();
 </script>
 """
@@ -326,14 +354,14 @@ ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
 
 def calc_html(lang):
     t = T[lang]
-    tj = json.dumps({"remove": t["remove"], "about": t["about"], "to": t["to"], "hours": t["hours"], "fits": t["fits"], "car": t["car"], "over": t["over"], "cta": t["cta"], "wait": t["wait"], "each": t["each"], "people": t["people"], "total": t["total"], "listp": t["listp"], "save": t["save"], "prices": PRICES, "listRate": LIST_RATE}, ensure_ascii=False)
+    tj = json.dumps({"remove": t["remove"], "about": t["about"], "to": t["to"], "hours": t["hours"], "fits": t["fits"], "car": t["car"], "over": t["over"], "cta": t["cta"], "wait": t["wait"], "each": t["each"], "hrsl": t["hrsl"], "cta2": t["cta2"], "cta3": t["cta3"], "people": t["people"], "total": t["total"], "listp": t["listp"], "save": t["save"], "prices": PRICES, "listRate": LIST_RATE}, ensure_ascii=False)
     return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py. Oct 17, 2026 (Marlon via Gemini). Reads the picks from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
  <div class="pcq-l">
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-hint">{t["chint"]}</p>
   <p class="pcq-none" hidden>{t["none"]}</p>
-  <ul class="pcq-list" aria-label="{t["yours"]}" hidden></ul>
+  <ul class="pcq-list" aria-label="{t["stopsl"]}" hidden></ul>
  </div>
  <div class="pcq-r">
   <div class="pcq-grp" role="group" aria-label="{t["groupl"]}"><span class="pcq-grpl">{t["groupl"]}</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
@@ -346,7 +374,8 @@ def calc_html(lang):
   <p class="pcq-incl">{t["incl"]}</p>
   <p class="pcq-incl pcq-drop">{t["dropoff"]}</p>
   <div class="pcq-ern"><img src="{ERN}" alt="" aria-hidden="true" loading="lazy"><button type="button" class="pcq-cta" aria-disabled="true">{t["cta"]}</button></div>
-  <p class="pcq-note">{t["note"]}</p>
+  <button type="button" class="pcq-alt" hidden></button>
+  <p class="pcq-note">{t["note2"]}</p>
  </div>
 </div>
 <script type="application/json" id="pcq-t">{tj}</script>

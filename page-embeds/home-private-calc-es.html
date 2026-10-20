@@ -3,7 +3,7 @@
  <div class="pcq-l">
   <h3 class="pcq-title">Calcula tu día</h3>
   <p class="pcq-hint">Según lo que elegiste. Marlon confirma el precio final.</p>
-  <p class="pcq-none" hidden>Elige un lugar o un reto para ver tu estimado.</p>
+  <p class="pcq-none" hidden>Elige un viaje para ver tu estimado.</p>
   <ul class="pcq-list" aria-label="Tus lugares" hidden></ul>
  </div>
  <div class="pcq-r">
@@ -17,10 +17,11 @@
   <p class="pcq-incl">Recogida y regreso al hotel incluidos</p>
   <p class="pcq-incl pcq-drop">¿Hiciste un free tour? Agrega un traslado corto por $60, incluso al aeropuerto.</p>
   <div class="pcq-ern"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif" alt="" aria-hidden="true" loading="lazy"><button type="button" class="pcq-cta" aria-disabled="true">Finalizar mi tour a medida</button></div>
+  <button type="button" class="pcq-alt" hidden></button>
   <p class="pcq-note">Sin pago ahora. Después le mandas tus datos a Marlon.</p>
  </div>
 </div>
-<script type="application/json" id="pcq-t">{"remove": "Quitar", "about": "Unas", "to": "a", "hours": "horas", "fits": "Cabe en", "car": "1 a 4 personas, un precio por auto", "over": "Es más de un día. Escríbele a Marlon y armamos dos.", "cta": "Finalizar mi tour a medida", "wait": "Elige algo primero", "each": "c/u", "people": "personas", "total": "total", "listp": "Precio de lista", "save": "Ahorras", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60}</script>
+<script type="application/json" id="pcq-t">{"remove": "Quitar", "about": "Unas", "to": "a", "hours": "horas", "fits": "Cabe en", "car": "1 a 4 personas, un precio por auto", "over": "Es más de un día. Escríbele a Marlon y armamos dos.", "cta": "Finalizar mi tour a medida", "wait": "Elige algo primero", "each": "c/u", "hrsl": "horas", "cta2": "Reservar este viaje", "cta3": "Cámbialo, hazlo tuyo", "people": "personas", "total": "total", "listp": "Precio de lista", "save": "Ahorras", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60}</script>
 <style>
   /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
@@ -58,7 +59,9 @@
   .pcq-note { margin: 10px 0 0; text-align: center; font-size: 0.88rem; color: #5B6663; }
   @media (prefers-reduced-motion: reduce) { .pcq-cta { transition: none; } }
   /* Oct 19, 2026 (Marlon): the estimate sits below the picks, full width: what you picked on the left, the price and button on the right */
-  @media (min-width: 800px) { .pcq { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start; } }
+  .pcq-alt { display: block; width: 100%; margin-top: 10px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #27302E; background: transparent; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
+  .pcq-alt:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-alt[hidden] { display: none; }
 </style>
 <script>
 (function () {
@@ -66,7 +69,7 @@
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
   var list = root.querySelector(".pcq-list"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out");
   var hrs = root.querySelector(".pcq-hours"), price = root.querySelector(".pcq-price"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta");
-  var st = null, n = 2;
+  var st = null, n = 2, alt = root.querySelector(".pcq-alt");
   function priceAt(g, h) {
     var T = t.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
     return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
@@ -87,15 +90,14 @@
     st = s; if (!s) return;
     list.innerHTML = "";
     s.ids.forEach(function (id, i) {
-      var li = document.createElement("li"), sp = document.createElement("span"), b = document.createElement("button");
-      sp.textContent = s.names[i]; b.type = "button"; b.textContent = "×"; b.setAttribute("aria-label", t.remove + " " + s.names[i]);
-      b.addEventListener("click", function () { if (window.MWPV && window.MWPV.remove) window.MWPV.remove(id); });
-      li.appendChild(sp); li.appendChild(b); list.appendChild(li);
+    });
+    (s.stops || []).forEach(function (nm) {
+      var li = document.createElement("li"), sp = document.createElement("span"); sp.textContent = nm; li.style.paddingRight = "12px"; li.appendChild(sp); list.appendChild(li);
     });
     var has = s.ids.length > 0;
     none.hidden = has; out.hidden = !has; list.hidden = !has;
     if (has) {
-      hrs.textContent = s.range + " " + t.hours;
+      hrs.textContent = s.range + " " + t.hrsl;
       var q = quote(s);
       if (q) {
         price.textContent = "$" + q.eachLo + (q.eachHi !== q.eachLo ? "-" + q.eachHi : "");
@@ -107,18 +109,20 @@
       } else { price.textContent = "$1,000+"; fit.textContent = t.over; }
     }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
-    cta.textContent = has ? t.cta : t.wait;
+    cta.textContent = has ? t.cta2 : t.wait; alt.hidden = !has; alt.textContent = t.cta3;
   }
   window.addEventListener("mwpv", function (e) { render(e.detail); });
   if (window.MWPV && window.MWPV.state) render(window.MWPV.state);
   else render({ ids: [], names: [] });
-  cta.addEventListener("click", function () {
+  function go(custom) {
     if (!st || !st.ids.length) return;
     var qt = quote(st);
-    var plan = { v: 2, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt ? qt.hi : null, priceLo: qt ? qt.lo : null, over: !!st.over, saved: new Date().toISOString() };
+    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt ? qt.hi : null, priceLo: qt ? qt.lo : null, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + (qt ? qt.hi : "") + "&lo=" + (qt ? qt.lo : "") + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang;
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + (qt ? qt.hi : "") + "&lo=" + (qt ? qt.lo : "") + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (custom ? "&custom=1" : "");
     window.location.href = "/private-tour?" + q;
-  });
+  }
+  cta.addEventListener("click", function () { go(false); });
+  alt.addEventListener("click", function () { go(true); });
 })();
 </script>

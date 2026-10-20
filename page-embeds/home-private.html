@@ -1,17 +1,16 @@
 <!-- ==============================================================================
-     MARLONWALKSLA - HOME: LA, YOUR WAY - ITINERARY BUILDER (LEFT COLUMN). Built by page-embeds/build_home_private.py
-     Oct 17, 2026 (Marlon via Gemini): pills + a Polaroid Stack (Oct 18: photos drop onto a messy pile, tap again to remove). The estimate lives in home-private-calc.html (right column).
+     MARLONWALKSLA - HOME: LA, YOUR WAY - PREVIOUS TRIPS (LEFT COLUMN). Built by page-embeds/build_home_private.py
+     Oct 20, 2026 (Marlon): the place pills and Challenges are gone. Pick a past custom trip: its photos drop on the pile and its story shows.
+     The estimate lives in home-private-calc.html (right column) and reads the pick through window.MWPV.
      ============================================================================== -->
 <div class="mw-offer pvb" id="private-tours">
-  <h3 class="pvb-h">Pick your places</h3>
-  <p class="pvb-hint">Great photo spots, zero planning. Tap to add.</p>
-  <div class="pvb-cols">
-    <div class="pvb-col"><p class="pvb-g">Places</p><div class="pvb-pills" role="group" aria-label="Places"><button type="button" class="pvb-pill" data-id="sign" aria-pressed="false">Hollywood Sign</button><button type="button" class="pvb-pill" data-id="griffith" aria-pressed="false">Griffith</button><button type="button" class="pvb-pill" data-id="urban" aria-pressed="false">Urban Light</button><button type="button" class="pvb-pill" data-id="grove" aria-pressed="false">The Grove</button><button type="button" class="pvb-pill" data-id="bhsign" aria-pressed="false">Beverly Hills</button><button type="button" class="pvb-pill" data-id="rodeo" aria-pressed="false">Rodeo Drive</button><button type="button" class="pvb-pill" data-id="pier" aria-pressed="false">Santa Monica</button><button type="button" class="pvb-pill" data-id="venice" aria-pressed="false">Venice</button></div></div>
-    <div class="pvb-col"><p class="pvb-g">Challenges</p><div class="pvb-pills" role="group" aria-label="Challenges"><button type="button" class="pvb-pill" data-id="tacos" aria-pressed="false">Street Tacos</button><button type="button" class="pvb-pill" data-id="sunset" aria-pressed="false">Sunset</button><button type="button" class="pvb-pill" data-id="flight" aria-pressed="false">Angels Flight</button></div></div>
-  </div>
-  <div class="polaroid-stack-area" id="polaroid-stack-area" role="group" aria-label="Pick your places"><p class="pvb-empty">Tap a place and its photo lands here</p></div>
+  <h3 class="pvb-h">Start from a real trip</h3>
+  <p class="pvb-hint">Past guests, past days. Pick one to see the photos and the price. Do it as is, or make it yours.</p>
+  <div class="pvb-pills" role="group" aria-label="Start from a real trip"><button type="button" class="pvb-pill" data-id="sunset" aria-pressed="false">Date Night: Sunset Hike</button><button type="button" class="pvb-pill" data-id="echo" aria-pressed="false">Echo Park and Angels Point</button><button type="button" class="pvb-pill" data-id="getty" aria-pressed="false">Explore Getty Museum</button><button type="button" class="pvb-pill" data-id="canals" aria-pressed="false">Date Night: Venice Canals</button><button type="button" class="pvb-pill" data-id="tacos" aria-pressed="false">Beach and Tacos</button><button type="button" class="pvb-pill" data-id="three" aria-pressed="false">Three Countries, Three Locations</button></div>
+  <div class="polaroid-stack-area" id="polaroid-stack-area" role="group" aria-label="Start from a real trip"><p class="pvb-empty">Tap a trip and its photos land here</p></div>
+  <div class="pvb-story" id="pvb-story" hidden></div>
 </div>
-<script type="application/json" id="pvb-data">{"lang": "en", "t": {"h": "Pick your places", "hint": "Great photo spots, zero planning. Tap to add.", "g_dt": "Downtown, on foot", "g_la": "Places", "g_ch": "Challenges", "cap0": "Tap a place and its photo lands here", "picked": "Your latest pick", "ch": "Estimate your day", "chint": "Based on what you picked. Marlon confirms the final price.", "none": "Pick a place or a challenge to see your estimate.", "yours": "Your places", "about": "About", "to": "to", "hours": "hours", "incl": "Hotel pickup and drop-off included", "groupl": "How many of you?", "dropoff": "Took a free tour? Add a short drop-off for $60, even to the airport.", "people": "people", "each": "each", "total": "total", "listp": "List price", "save": "You save", "fits": "Fits a", "car": "1 to 4 guests, one price per car", "over": "That is more than one day. Message Marlon and we will plan two.", "est": "Estimated price", "base": "Base: pickup, drop-off and driving", "cta": "Finalize Custom Tour", "wait": "Pick something first", "note": "No payment now. Next you send Marlon your details.", "remove": "Remove", "count": "places picked"}, "stops": [{"id": "sign", "group": "la", "name": "Hollywood Sign viewpoint", "short": "Hollywood Sign", "line": "Photos with the sign from Lake Hollywood Park.", "min": 30, "lat": 34.1265, "lng": -118.3297, "photo": "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88eac936a211a2bc6c_polaroid-hollywood-sign.webp", "color": "#FFE08A"}, {"id": "griffith", "group": "la", "name": "Griffith Observatory", "short": "Griffith", "line": "Views over all of Los Angeles.", "min": 60, "lat": 34.1184, "lng": -118.3004, "photo": "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp", "color": "#FFD2B0"}, {"id": "urban", "group": "la", "name": "Urban Light", "short": "Urban Light", "line": "The 202 street lamps at LACMA.", "min": 20, "lat": 34.0629, "lng": -118.3593, "photo": "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ef17ffc941f06a81_polaroid-urban-lights.webp", "color": "#BFE3F2"}, {"id": "grove", "group": "la", "name": "The Grove and Farmers Market", "short": "The Grove", "line": "Shops, snacks and the 1934 market.", "min": 60, "lat": 34.072, "lng": -118.3576, "photo": null, "color": "#F6C6DF"}, {"id": "bhsign", "group": "la", "name": "Beverly Hills sign", "short": "Beverly Hills", "line": "The lily pond and the famous sign.", "min": 15, "lat": 34.0717, "lng": -118.4045, "photo": null, "color": "#D9F5E3"}, {"id": "rodeo", "group": "la", "name": "Rodeo Drive", "short": "Rodeo Drive", "line": "A walk down the fanciest street in LA.", "min": 45, "lat": 34.0696, "lng": -118.4031, "photo": null, "color": "#E6DAF7"}, {"id": "pier", "group": "la", "name": "Santa Monica Pier", "short": "Santa Monica", "line": "The pier, the beach and the end of Route 66.", "min": 60, "lat": 34.0094, "lng": -118.4973, "photo": null, "color": "#DCEFFA"}, {"id": "venice", "group": "la", "name": "Venice Beach and Canals", "short": "Venice", "line": "The boardwalk, then the quiet canals.", "min": 60, "lat": 33.985, "lng": -118.4695, "photo": null, "color": "#E3F6D8"}, {"id": "tacos", "group": "ch", "name": "Eat LA Street Tacos", "short": "Street Tacos", "line": "Taco stand, napkins, big bites.", "min": 30, "lat": 34.0522, "lng": -118.2437, "photo": null, "color": "#FFE08A"}, {"id": "sunset", "group": "ch", "name": "Chase a Sunset", "short": "Sunset", "line": "Golden hour over the city.", "min": 45, "lat": 34.0522, "lng": -118.2437, "photo": "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp", "color": "#FFD2B0"}, {"id": "flight", "group": "ch", "name": "Ride Angels Flight", "short": "Angels Flight", "line": "The 1901 railway down Bunker Hill.", "min": 20, "lat": 34.0513, "lng": -118.2504, "photo": "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a89e44a0b1c364553f8_polaroid-angels-flight-car.webp", "color": "#FFE08A"}], "on": [], "center": [34.0522, -118.2437], "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60}</script>
+<script type="application/json" id="pvb-data">{"lang": "en", "t": {"h": "Start from a real trip", "hint": "Past guests, past days. Pick one to see the photos and the price. Do it as is, or make it yours.", "g_dt": "Downtown, on foot", "g_la": "Places", "g_ch": "Challenges", "cap0": "Tap a trip and its photos land here", "picked": "Your latest pick", "ch": "Estimate your day", "chint": "Based on what you picked. Marlon confirms the final price.", "none": "Pick a trip to see your estimate.", "yours": "Your places", "about": "About", "to": "to", "hours": "hours", "incl": "Hotel pickup and drop-off included", "groupl": "How many of you?", "dropoff": "Took a free tour? Add a short drop-off for $60, even to the airport.", "people": "people", "each": "each", "total": "total", "listp": "List price", "save": "You save", "fits": "Fits a", "car": "1 to 4 guests, one price per car", "over": "That is more than one day. Message Marlon and we will plan two.", "est": "Estimated price", "base": "Base: pickup, drop-off and driving", "cta": "Finalize Custom Tour", "wait": "Pick something first", "note": "No payment now. Next you send Marlon your details.", "remove": "Remove", "count": "places picked", "trip_short": "Short Journey", "trip_quest": "Quest", "stopsl": "Stops", "hrsl": "hours", "cta2": "Book this trip", "cta3": "Change it, make it yours", "note2": "No payment now. Next you send Marlon your details."}, "trips": [{"id": "sunset", "tier": "quest", "hours": 5, "color": "#FFD6A5", "name": "Date Night: Sunset Hike", "stops": ["Donuts", "Hollywood Sign", "Griffith sunset", "Rodeo Drive", "Urban Light"], "story": "A couple on their first vacation in 10 years. He wanted her birthday to be special. Donuts first, then the Hollywood Sign, sunset at the Observatory, and Urban Light.", "photos": ["https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/hollywood-sign-griffith-urban-light-01-donut-stop.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/hollywood-sign-griffith-urban-light-03-sunset-hike.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/hollywood-sign-griffith-urban-light-02-griffith-skyline.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/hollywood-sign-griffith-urban-light-06-rodeo-drive.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/hollywood-sign-griffith-urban-light-07-urban-light.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/hollywood-sign-griffith-urban-light-08-polaroid-urban-light.webp"]}, {"id": "echo", "tier": "quest", "hours": 5, "color": "#F6C6DF", "name": "Echo Park and Angels Point", "stops": ["Echo Park Lake", "Angels Point", "Sunset", "Observatory"], "story": "Parents and their son-in-law, while the daughter was at work. We had more time, so we went to these spots and traded photos. Fun for me too.", "photos": ["https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/echo-park-and-angels-point-01-echo-park-lake.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/echo-park-and-angels-point-02-polaroid-echo-park-the-two.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/echo-park-and-angels-point-03-the-three-at-sunset.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/echo-park-and-angels-point-04-photographer-at-sunset.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/echo-park-and-angels-point-05-polaroid-angels-point.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/echo-park-and-angels-point-07-observatory-night.webp"]}, {"id": "getty", "tier": "short", "hours": 4, "color": "#DCEFFA", "name": "Explore Getty Museum", "stops": ["Getty Museum", "Sunset view"], "story": "An Israeli couple in their 80s on a world cruise. The Getty was the one thing she wanted to see. We made sure they had a beautiful sunset before they sailed. Getty parking is not included.", "photos": ["https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/the-getty-at-sunset-01-the-three-of-us.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/the-getty-at-sunset-02-getty-garden.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/the-getty-at-sunset-03-sunset-view.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/the-getty-at-sunset-04-polaroid-the-couple.webp"]}, {"id": "canals", "tier": "quest", "hours": 4, "color": "#E3F6D8", "name": "Date Night: Venice Canals", "stops": ["Venice Canals", "The white bridge"], "story": "A date for two. She had seen this bridge in a movie, so we went to find it.", "photos": ["https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/venice-canals-date-01-canal-walk.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/venice-canals-date-02-white-bridge.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/venice-canals-date-03-her-on-the-bridge.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/venice-canals-date-04-marlon-at-the-canal.webp"]}, {"id": "tacos", "tier": "quest", "hours": 4, "color": "#FFE08A", "name": "Beach and Tacos", "stops": ["Mexican food", "Santa Monica Pier"], "story": "A honeymoon couple on their last stop before flying home. They wanted Mexican food and Santa Monica. Done.", "photos": ["https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/santa-monica-and-tacos-02-tacos-together.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/santa-monica-and-tacos-01-pier-at-night.webp"]}, {"id": "three", "tier": "quest", "hours": 9, "color": "#D9F5E3", "name": "Three Countries, Three Locations", "stops": ["Downtown", "Hollywood Sign", "Griffith sunset", "Santa Monica"], "story": "A Canadian, a Mexican and an American. We did the whole three countries together, from the Hollywood Sign to a sunset at the Observatory.", "photos": ["https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/three-countries-three-locations-01-marlon-hollywood-sign-polaroid.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/three-countries-three-locations-02-christy-sunset-polaroid.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/three-countries-three-locations-04-the-three-polaroids.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/three-countries-three-locations-05-griffith-sunset.webp", "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@test/img/trips/three-countries-three-locations-06-griffith-dusk.webp"]}], "on": "sunset", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60}</script>
 <style>
   .pvb { font-family: "Nunito", system-ui, sans-serif; color: #27302E; overflow-x: clip; }
   /* Oct 18, 2026 (Marlon via Gemini): Polaroid Stack. Tapping a place tosses its photo onto the pile; tapping again takes it off. */
@@ -39,83 +38,67 @@
   .pvb-pill:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
   @media (prefers-reduced-motion: reduce) { .pvb-pill, .stacked-photo { transition: none; } }
   /* Oct 19, 2026 (Marlon): Places and Challenges side by side, the estimate full width below (the Webflow two-column split becomes one column here, and the dashed divider goes) */
-  .mw-split:has(.pvb) { grid-template-columns: minmax(0, 1fr) !important; }
-  @media (min-width: 992px) { .mw-bg-private .mw-split-left { border-right: 0 !important; padding-right: 0 !important; } }
-  .pvb-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px 36px; margin: 0 0 22px; }
   .pvb-g { margin: 0 0 8px; }
   .polaroid-stack-area { min-height: 340px; margin: 0; }
+  .pvb-pills { margin: 0 0 14px; }
+  .pvb-story { margin: 14px 0 0; font-size: 1rem; line-height: 1.5; color: #27302E; }
+  .pvb-story p { margin: 6px 0 0; }
+  .pvb-tag { display: inline-block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.85rem; padding: 2px 12px; border-radius: 99px; background: #FFD43B; border: 2px solid #27302E; }
+  .polaroid-stack-area { min-height: 380px; }
   @media (max-width: 700px) { .pvb-cols { grid-template-columns: 1fr; } .polaroid-stack-area { min-height: 320px; } }
 </style>
 <script>
 (function () {
-  var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, S = {}, ORDER = [];
-  D.stops.forEach(function (s) { S[s.id] = s; ORDER.push(s.id); });
+  var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, TR = {};
+  D.trips.forEach(function (r) { TR[r.id] = r; });
   var area = document.getElementById("polaroid-stack-area"), zTop = 10, still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), on = {}, last = null;
-  D.on.forEach(function (id) { on[id] = true; last = id; });
-  function km(a, b) { var R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLn = (b.lng - a.lng) * r;
-    var h = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLn / 2) * Math.sin(dLn / 2);
-    return 2 * R * Math.asin(Math.sqrt(h)); }
-  function drive(a, b) { return km(a, b) * 1.35 / 25 * 60 + 5; }  // road about 1.35x the straight line, 25 km/h, 5 min to park
-  function fmt(h) { return (Math.round(h * 2) / 2).toString().replace(".5", "½"); }
-  function place(el) {  // fractions are stored so the pile re-fits when the screen is resized
+  var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), story = document.getElementById("pvb-story"), cur = null, timers = [];
+  function place(el) {
     var W = area.clientWidth, H = area.clientHeight, pw = el.offsetWidth, ph = el.offsetHeight;
     el.style.left = Math.max(0, (W - pw) * parseFloat(el.dataset.fx)) + "px";
     el.style.top = Math.max(0, (H - ph) * parseFloat(el.dataset.fy)) + "px";
   }
-  function show(id, delay) {
-    if (!area || area.querySelector('[data-id="' + id + '"]')) return;
-    var s = S[id], el = document.createElement("figure");
-    el.className = "stacked-photo is-drop"; el.dataset.id = id;
-    el.dataset.fx = (0.08 + Math.random() * 0.84).toFixed(3); el.dataset.fy = (0.12 + Math.random() * 0.76).toFixed(3);
-    el.dataset.rot = ((Math.random() * 24) - 12).toFixed(1);  // between -12 and +12 degrees
-    el.style.zIndex = ++zTop;  // newest lands on top
+  function drop(r, src, i, delay) {
+    var el = document.createElement("figure");
+    el.className = "stacked-photo is-drop";
+    el.dataset.fx = (0.06 + Math.random() * 0.88).toFixed(3); el.dataset.fy = (0.08 + Math.random() * 0.84).toFixed(3);
+    el.dataset.rot = ((Math.random() * 24) - 12).toFixed(1);
+    el.style.zIndex = ++zTop;
     var tape = document.createElement("span"); tape.className = "sp-tape"; el.appendChild(tape);
     var box = document.createElement("div"); box.className = "sp-img";
-    if (s.photo) { var im = document.createElement("img"); im.src = s.photo; im.alt = s.name; im.loading = "lazy"; box.appendChild(im); }
-    else { var c = document.createElement("div"); c.className = "sp-card"; c.style.background = s.color; c.textContent = s.line; box.appendChild(c); }
-    var fc = document.createElement("figcaption"); fc.textContent = s.name;
-    el.appendChild(box); el.appendChild(fc); area.appendChild(el);
-    place(el);
+    var card = document.createElement("div"); card.className = "sp-card"; card.style.background = r.color; card.textContent = r.name; box.appendChild(card);
+    var im = new Image(); im.alt = ""; im.loading = "lazy"; im.onload = function () { box.appendChild(im); card.style.display = "none"; };
+    im.src = src;  // a missing photo leaves the colored card
+    el.appendChild(box); area.appendChild(el); place(el);
     el.style.transform = "rotate(" + (parseFloat(el.dataset.rot) + (Math.random() < .5 ? -14 : 14)) + "deg) scale(1.12)";
-    area.classList.add("has-photos");
     function land() { el.classList.remove("is-drop"); el.style.transform = "rotate(" + el.dataset.rot + "deg)"; }
-    if (still) land(); else setTimeout(function () { requestAnimationFrame(function () { requestAnimationFrame(land); }); }, delay || 0);
+    if (still) land(); else timers.push(setTimeout(function () { requestAnimationFrame(function () { requestAnimationFrame(land); }); }, delay));
   }
-  function hide(id) {
-    var el = area && area.querySelector('[data-id="' + id + '"]'); if (!el) return;
-    function done() { if (el.parentNode) el.parentNode.removeChild(el); if (!area.querySelector(".stacked-photo")) area.classList.remove("has-photos"); }
-    if (still) { done(); return; }
-    el.classList.add("is-gone"); setTimeout(done, 300);
+  function clearPile() {
+    timers.forEach(clearTimeout); timers = [];
+    [].slice.call(area.querySelectorAll(".stacked-photo")).forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
   }
   window.addEventListener("resize", function () { if (area) [].forEach.call(area.querySelectorAll(".stacked-photo"), place); });
   function state() {
-    var ids = ORDER.filter(function (id) { return on[id]; }), stops = ids.map(function (id) { return S[id]; });
-    var sm = stops.reduce(function (a, s) { return a + s.min; }, 0) + 60, dm = 0, prev = null;
-    stops.forEach(function (s) {
-      var from = prev || { lat: D.center[0], lng: D.center[1] };  // pickup is Downtown
-      dm += drive(from, s); prev = s;
-    });
-    var st = { ids: ids, names: stops.map(function (s) { return s.short; }), lang: D.lang, lo: null, hi: null, pkg: null, over: false, t: t, last: last };
-    if (!ids.length) return st;
-    st.lo = (sm + dm * 0.85) / 60; st.hi = (sm + dm * 1.4) / 60;
-    var mid = (st.lo + st.hi) / 2;
-    st.over = st.lo > 12; st.range = fmt(st.lo) === fmt(st.hi) ? fmt(st.lo) : fmt(st.lo) + " " + t.to + " " + fmt(st.hi);
-    return st;
+    var r = cur && TR[cur]; if (!r) return { ids: [], names: [], lang: D.lang, t: t };
+    return { ids: [r.id], names: [r.name], stops: r.stops, lang: D.lang, hours: r.hours, lo: r.hours, hi: r.hours, range: String(r.hours), tier: r.tier, trip: r.id, over: false, t: t };
   }
   function publish() {
-    var st = state(); window.MWPV = window.MWPV || {}; window.MWPV.state = st; window.MWPV.remove = function (id) { on[id] = false; hide(id); sync(); };
-    try { window.dispatchEvent(new CustomEvent("mwpv", { detail: st })); } catch (e) {}
+    window.MWPV = window.MWPV || {}; window.MWPV.state = state();
+    try { window.dispatchEvent(new CustomEvent("mwpv", { detail: window.MWPV.state })); } catch (e) {}
   }
-  function sync() { pills.forEach(function (p) { p.setAttribute("aria-pressed", on[p.dataset.id] ? "true" : "false"); }); publish(); }
-  pills.forEach(function (p) {
-    p.addEventListener("click", function () {
-      var id = p.dataset.id; on[id] = !on[id];
-      if (on[id]) { last = id; show(id); } else hide(id);
-      sync();
-    });
-  });
-  ORDER.filter(function (id) { return on[id]; }).forEach(function (id, i) { show(id, 150 + i * 220); });
-  sync();
+  function pick(id) {
+    cur = id; var r = TR[id];
+    pills.forEach(function (p) { p.setAttribute("aria-pressed", p.dataset.id === id ? "true" : "false"); });
+    clearPile(); area.classList.add("has-photos");
+    r.photos.forEach(function (src, i) { drop(r, src, i, 80 + i * 200); });
+    story.innerHTML = "";
+    var tag = document.createElement("span"); tag.className = "pvb-tag"; tag.textContent = (r.tier === "short" ? t.trip_short : t.trip_quest) + " · " + r.hours + " " + t.hrsl;
+    var p = document.createElement("p"); p.textContent = r.story;
+    story.appendChild(tag); story.appendChild(p); story.hidden = false;
+    publish();
+  }
+  pills.forEach(function (p) { p.addEventListener("click", function () { pick(p.dataset.id); }); });
+  pick(D.on);
 })();
 </script>
