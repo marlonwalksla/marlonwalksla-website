@@ -83,7 +83,7 @@ for (sec, lang), (title, alt, badges) in T.items():
     if sec == "team":  # Oct 20, 2026 (Marlon): "Best for" the celebrations; the facts moved next to the price in the card
         BT = ([("&#127874;", "Cumpleaños"), ("&#127942;", "Logros"), ("&#127796;", "Retiros de empresa"), ("&#127881;", "Porque sí")] if es
               else [("&#127874;", "Birthdays"), ("&#127942;", "Milestones"), ("&#127796;", "Offsites"), ("&#127881;", "Just because")])
-        b_html = f'<div class="pc-grp"><span class="pc-grpl">{"Ideal para" if es else "Best for"}</span><ul class="pc-badges">{pills([(i, x, None, 0) for i, x in BT])}</ul></div>'
+        b_html = ""  # Oct 21, 2026 (Marlon): no pills under the intro text
     if sec == "priv":  # Oct 20, 2026 (Marlon): under the sentence, "Best for" instead of the fact pills (the facts moved next to the price)
         BF = [("&#128145;", "Parejas"), ("&#128106;", "Familias"), ("&#127881;", "Amigos")] if es else [("&#128145;", "Couples"), ("&#128106;", "Families"), ("&#127881;", "Friends")]
         b_html = ""  # Oct 21, 2026 (Marlon): Couples / Families / Friends moved into the estimate card, before "How many of you?" (build_home_private.py)
