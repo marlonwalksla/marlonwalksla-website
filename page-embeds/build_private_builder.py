@@ -20,7 +20,7 @@ def price_at(n, h):
 
 def trip_cards():
     out = []
-    for r in TRIPS:
+    for r in [x for x in TRIPS if x[12]]:  # card = shown on the Private page (skips trips that reuse another trip's photos)
         rows = "".join(f'<p><span class="price">${int(price_at(n, r[2]) / n + 0.5)}</span> each for {n} &middot; ${price_at(n, r[2])} total</p>' for n in (2, 3, 4))
         was = int(LIST_RATE * 2 * r[2])
         sv = round((1 - price_at(4, r[2]) / (LIST_RATE * 4 * r[2])) * 100)

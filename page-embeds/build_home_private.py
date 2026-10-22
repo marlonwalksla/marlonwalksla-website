@@ -74,46 +74,65 @@ T = {
 TRIP_IMG = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"  # Oct 21, 2026: real photos from Webflow Assets; each entry is "assetId_name|object-position"
 # id, tier, hours, color, EN title, ES title, EN stops, ES stops, EN story, ES story, photo file stems (with captions in EN, ES)
 TRIPS = [
+    # ---- Couples ----
     ("sunset", "quest", 5, "#FFD6A5", "Date Night: Sunset Hike", "Cita: Caminata al atardecer",
      ["Donuts", "Hollywood Sign", "Griffith sunset", "Rodeo Drive", "Urban Light"], ["Donas", "Letrero de Hollywood", "Atardecer en Griffith", "Rodeo Drive", "Urban Light"],
      "A couple on their first vacation in 10 years. He wanted her birthday to be special. Donuts first, then the Hollywood Sign, sunset at the Observatory, and Urban Light.",
      "Una pareja en sus primeras vacaciones en 10 años. Él quería un cumpleaños especial para ella. Primero donas, luego el letrero de Hollywood, el atardecer en el Observatorio y Urban Light.",
-     ["6ad929e02eb98d1ee52bd0c0_place-hollywood-sign-02|80% 50%", "6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04|50% 50%", "6ad92fe3bfe591314e397347_art-griffith-park-and-observatory-02|50% 50%", "6ad92fc8bdb0490f2eabadee_place-beverly-hills-02|50% 60%", "6ad92ff6b2db7b6c094918fa_place-lacma-urban-light-03|50% 50%"]),
-    ("echo", "quest", 5, "#F6C6DF", "Echo Park and Angels Point", "Echo Park y Angels Point",
-     ["Echo Park Lake", "Angels Point", "Sunset", "Observatory"], ["Lago Echo Park", "Angels Point", "Atardecer", "Observatorio"],
-     "Parents and their son-in-law, while the daughter was at work. We had more time, so we went to these spots and traded photos. Fun for me too.",
-     "Unos papás y su yerno, mientras la hija trabajaba. Teníamos más tiempo, así que fuimos a estos lugares y nos tomamos fotos unos a otros. También fue divertido para mí.",
-     ["6ad92a15fd77e7c927622751_place-echo-park-lake-01|50% 50%", "6ad92c5db637fc8c5f9e0570_guest-echo-park-lake-01|50% 50%", "6ad92a15bb9f2b81fb009b26_place-echo-park-lake-02|50% 50%", "6ad92fd00bb99231ec104ab0_place-echo-park-lake-03|35% 50%", "6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 40%", "6ad92a2e4c83370c9caa0a28_place-griffith-park-and-observatory-01|50% 50%"]),
-    ("getty", "short", 4, "#DCEFFA", "Explore Getty Museum", "Explora el Museo Getty",
-     ["Getty Museum", "Sunset view"], ["Museo Getty", "Vista al atardecer"],
-     "An Israeli couple in their 80s on a world cruise. The Getty was the one thing she wanted to see. We made sure they had a beautiful sunset before they sailed. Getty parking is not included.",
-     "Una pareja israelí de más de 80 años en un crucero por el mundo. El Getty era lo único que ella quería ver. Nos aseguramos de que vieran un atardecer hermoso antes de zarpar. El estacionamiento del Getty no está incluido.",
-     ["6ad929daefa7590f943caa69_guest-getty-center-01|50% 40%", "6ad929db59b1d5ccebe76dc4_place-getty-center-01|50% 50%", "6ad929dbc3398f1383c28856_art-getty-center-01|50% 50%"]),
+     ["6ad929e02eb98d1ee52bd0c0_place-hollywood-sign-02|50% 50%", "6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04|50% 50%", "6ad92fe3bfe591314e397347_art-griffith-park-and-observatory-02|50% 50%", "6ad92fc8bdb0490f2eabadee_place-beverly-hills-02|50% 50%", "6ad92ff6b2db7b6c094918fa_place-lacma-urban-light-03|50% 50%"], "couples", True),
     ("canals", "quest", 4, "#E3F6D8", "Date Night: Venice Canals", "Cita: Canales de Venice",
      ["Venice Canals", "The white bridge"], ["Canales de Venice", "El puente blanco"],
      "A date for two. She had seen this bridge in a movie, so we went to find it.",
      "Una cita para dos. Ella había visto este puente en una película, así que fuimos a buscarlo.",
-     ["6ad929ec9a56d0d159649ffd_place-venice-canals-01|30% 50%", "6ad929ec3eeaaffdbe379a12_guest-venice-canals-01|85% 50%"]),
-    ("tacos", "quest", 4, "#FFE08A", "Beach and Tacos", "Playa y tacos",
+     ["6ad929ec9a56d0d159649ffd_place-venice-canals-01|50% 50%", "6ad929ec3eeaaffdbe379a12_guest-venice-canals-01|50% 50%"], "couples", True),
+    ("tacos", "quest", 4, "#FFE08A", "Date Night: Beach and Tacos", "Cita: Playa y tacos",
      ["Mexican food", "Santa Monica Pier"], ["Comida mexicana", "Muelle de Santa Mónica"],
      "A honeymoon couple on their last stop before flying home. They wanted Mexican food and Santa Monica. Done.",
      "Una pareja de luna de miel en su última parada antes de volar a casa. Querían comida mexicana y Santa Mónica. Listo.",
-     ["6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|55% 40%", "6ad92fc1763e80ce77ca4c78_archive-avenue-26-tacos-01|50% 55%", "6ad929e61c74efa5d6a35519_guest-santa-monica-01|35% 50%", "6ad929e6fd77e7c927620ea9_place-santa-monica-01|50% 60%", "6ad93007add8991e78413dd1_place-santa-monica-03|50% 50%"]),
-    ("three", "quest", 9, "#D9F5E3", "Three Countries, Three Locations", "Tres países, tres lugares",
+     ["6ad929e61c74efa5d6a35519_guest-santa-monica-01|50% 50%", "6ad929e6fd77e7c927620ea9_place-santa-monica-01|50% 50%", "6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|50% 50%", "6ad93007add8991e78413dd1_place-santa-monica-03|50% 50%"], "couples", False),
+    # ---- Families ----
+    ("fgetty", "short", 4, "#DCEFFA", "Family Day: The Getty", "Día en familia: El Getty",
+     ["Getty Museum", "Sunset view"], ["Museo Getty", "Vista al atardecer"],
+     "Gardens, art and a big view of the city. Easy walking with room to roam, and a sunset to finish. Getty parking is not included.",
+     "Jardines, arte y una gran vista de la ciudad. Se camina fácil, hay espacio para andar y un atardecer para cerrar. El estacionamiento del Getty no está incluido.",
+     ["6ad929daefa7590f943caa69_guest-getty-center-01|50% 50%", "6ad929db59b1d5ccebe76dc4_place-getty-center-01|50% 50%", "6ad929dbc3398f1383c28856_art-getty-center-01|50% 50%"], "families", True),
+    ("fdowntown", "quest", 4, "#FFD6A5", "Family Day: Downtown Discovery", "Día en familia: Descubre el centro",
+     ["Olvera Street", "Avila Adobe", "Angels Flight"], ["Calle Olvera", "Casa Avila Adobe", "Angels Flight"],
+     "Short walks, color and the oldest street in LA. Along the way, kids hunt for Ernesto stickers and win a signed Polaroid.",
+     "Caminatas cortas, color y la calle más antigua de LA. En el camino, los niños buscan calcomanías de Ernesto y ganan una Polaroid firmada.",
+     ["6ad92a45a6c79d9f41578212_place-olvera-street-and-avila-adobe-02|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%", "6ad92a43a6c79d9f415781bd_ernesto-olvera-street-and-avila-adobe-01|50% 50%", "6ad929f3c0b148baa5f114ec_place-angels-flight-01|50% 50%", "6ad929f3d1848d20e07c479a_ernesto-angels-flight-01|50% 50%"], "families", True),
+    ("fpier", "quest", 4, "#FFE08A", "Family Day: Pier and Tacos", "Día en familia: Muelle y tacos",
+     ["Mexican food", "Santa Monica Pier"], ["Comida mexicana", "Muelle de Santa Mónica"],
+     "Tacos first, then the Santa Monica Pier and the beach. Easy for all ages.",
+     "Primero tacos, luego el muelle de Santa Mónica y la playa. Fácil para todas las edades.",
+     ["6ad929e6fd77e7c927620ea9_place-santa-monica-01|50% 50%", "6ad93007add8991e78413dd1_place-santa-monica-03|50% 50%", "6ad92fc1763e80ce77ca4c78_archive-avenue-26-tacos-01|50% 50%", "6ad929e61c74efa5d6a35519_guest-santa-monica-01|50% 50%"], "families", False),
+    # ---- Friends ----
+    ("echo", "quest", 5, "#F6C6DF", "Friends: Echo Park and Angels Point", "Amigos: Echo Park y Angels Point",
+     ["Echo Park Lake", "Angels Point", "Sunset", "Observatory"], ["Lago Echo Park", "Angels Point", "Atardecer", "Observatorio"],
+     "Lake, skyline views and a sunset at the Observatory. We trade photos along the way, so everyone ends up in some.",
+     "Lago, vistas del horizonte y un atardecer en el Observatorio. Nos turnamos las fotos en el camino, así que todos salen en algunas.",
+     ["6ad92a15fd77e7c927622751_place-echo-park-lake-01|50% 50%", "6ad92c5db637fc8c5f9e0570_guest-echo-park-lake-01|50% 50%", "6ad92a15bb9f2b81fb009b26_place-echo-park-lake-02|50% 50%", "6ad92fd00bb99231ec104ab0_place-echo-park-lake-03|50% 50%", "6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad92a2e4c83370c9caa0a28_place-griffith-park-and-observatory-01|50% 50%"], "friends", True),
+    ("ftacos", "quest", 4, "#FFE08A", "Friends: Taco Crawl", "Amigos: Ruta de tacos",
+     ["Avenue 26 tacos", "Grand Central Market"], ["Tacos de Avenue 26", "Grand Central Market"],
+     "Al pastor, market bites and a lot of tacos. Come hungry.",
+     "Al pastor, bocados del mercado y muchos tacos. Ven con hambre.",
+     ["6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|50% 50%", "6ad92fc1763e80ce77ca4c78_archive-avenue-26-tacos-01|50% 50%", "6ad92fdd7fd6d8671dbceb66_guest-grand-central-market-02|50% 50%"], "friends", False),
+    ("three", "quest", 9, "#D9F5E3", "Friends: The Big Day", "Amigos: El gran día",
      ["Downtown", "Hollywood Sign", "Griffith sunset", "Santa Monica"], ["Centro", "Letrero de Hollywood", "Atardecer en Griffith", "Santa Mónica"],
-     "A Canadian, a Mexican and an American. We did the whole three countries together, from the Hollywood Sign to a sunset at the Observatory.",
-     "Un canadiense, una mexicana y un estadounidense. Hicimos los tres países juntos, del letrero de Hollywood a un atardecer en el Observatorio.",
-     ["6ad92fef59b1d5ccebe9ec9a_guest-hollywood-sign-03|50% 35%", "6ad92ff02cbe8250c0b65033_guest-hollywood-sign-04|50% 50%", "6ad92fe30bed1f1ae6022809_art-griffith-park-and-observatory-01|50% 50%", "6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02|50% 50%", "6ad929e6cc8517d84352c6fe_art-santa-monica-01|50% 50%"]),
+     "A Canadian, a Mexican and an American did all three countries in one day, from the Hollywood Sign to a sunset at the Observatory. One full day, one crew.",
+     "Un canadiense, una mexicana y un estadounidense hicieron los tres países en un día, del letrero de Hollywood a un atardecer en el Observatorio. Un día completo, un solo grupo.",
+     ["6ad92fef59b1d5ccebe9ec9a_guest-hollywood-sign-03|50% 50%", "6ad92ff02cbe8250c0b65033_guest-hollywood-sign-04|50% 50%", "6ad92fe30bed1f1ae6022809_art-griffith-park-and-observatory-01|50% 50%", "6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02|50% 50%", "6ad929e6cc8517d84352c6fe_art-santa-monica-01|50% 50%"], "friends", True),
 ]
 TRIP_DEFAULT = "sunset"
+CUSTOM_PHOTO = "6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%"  # filler image for "Customize my own"
 CUSTOM = {"en": ("Customize my own", "Start from a blank page. Tell Marlon where you want to go and for how long, and he builds the day with you.", "Pick your hours below to see the price."),
           "es": ("Personaliza el mío", "Empieza desde cero. Dile a Marlon a dónde quieres ir y por cuánto tiempo, y él arma el día contigo.", "Elige tus horas abajo para ver el precio.")}
-T["en"].update(whol="Who is coming?", who=[("couples", "&#128145;", "Couples"), ("families", "&#128106;", "Families"), ("friends", "&#127881;", "Friends")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
-  val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Past guests, past days. Pick one to see the photos and the price. Do it as is, or make it yours.",
+T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Who is coming?", who=[("couples", "&#128145;", "Couples"), ("families", "&#128106;", "Families"), ("friends", "&#127881;", "Friends")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
+  val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Pick a trip to see the photos and the price. Do it as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(whol="¿Quiénes vienen?", who=[("couples", "&#128145;", "Parejas"), ("families", "&#128106;", "Familias"), ("friends", "&#127881;", "Amigos")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
-  val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Huéspedes y días reales. Elige uno para ver las fotos y el precio. Hazlo tal cual, o hazlo tuyo.",
+T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="¿Quiénes vienen?", who=[("couples", "&#128145;", "Parejas"), ("families", "&#128106;", "Familias"), ("friends", "&#127881;", "Amigos")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
+  val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Elige un viaje para ver las fotos y el precio. Hazlo tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
 
@@ -124,9 +143,9 @@ def esc(x):
 
 def data_for(lang):
     i = 0 if lang == "en" else 1
-    trips = [{"id": r[0], "tier": r[1], "hours": r[2], "color": r[3], "name": r[4 + i], "stops": r[6 + i], "story": r[8 + i],
+    trips = [{"id": r[0], "tier": r[1], "hours": r[2], "color": r[3], "name": r[4 + i], "stops": r[6 + i], "story": r[8 + i], "who": r[11],
               "photos": [TRIP_IMG + p.split("|")[0] + ".webp|" + p.split("|")[1] for p in r[10]]} for r in TRIPS]
-    trips.append({"id": "custom", "tier": "custom", "hours": 4, "color": "#FFF1B8", "name": CUSTOM[lang][0], "stops": [], "story": CUSTOM[lang][1], "photos": []})
+    trips.append({"id": "custom", "tier": "custom", "hours": 4, "color": "#FFF1B8", "name": CUSTOM[lang][0], "stops": [], "story": CUSTOM[lang][1], "who": "", "photos": [TRIP_IMG + CUSTOM_PHOTO.split("|")[0] + ".webp|" + CUSTOM_PHOTO.split("|")[1]]})
     return {"lang": lang, "t": T[lang], "trips": trips, "on": TRIP_DEFAULT, "prices": PRICES, "listRate": LIST_RATE}
 
 
@@ -165,6 +184,7 @@ LEFT_CSS = """<style>
   .pvb-pills { margin: 0 0 14px; }
   .pvb-story { margin: 14px 0 0; font-size: 1rem; line-height: 1.5; color: #27302E; }
   .pvb-story p { margin: 6px 0 0; }
+  .pvb-pill[hidden] { display: none; }
   .pvb-tag { display: inline-block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.85rem; padding: 2px 12px; border-radius: 99px; background: #FFD43B; border: 2px solid #27302E; }
   .polaroid-stack-area { min-height: 380px; }
   @media (max-width: 700px) { .pvb-cols { grid-template-columns: 1fr; } .polaroid-stack-area { min-height: 320px; } }
@@ -183,8 +203,7 @@ LEFT_JS = r"""<script>
     var r = TR[cur], list = slides(r), src = list[idx];
     box.innerHTML = "";
     var card = document.createElement("div"); card.className = "pvc-card"; card.style.background = r.color; card.textContent = r.id === "custom" ? r.story : r.name; box.appendChild(card);
-    pol.style.background = r.color;
-    if (src) { var sp = src.split("|"); var im = new Image(); im.alt = ""; im.style.objectPosition = sp[1] || "50% 50%"; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
+    if (src) { var sp = src.split("|"); var im = new Image(); im.alt = ""; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
     cap.textContent = r.name + (list.length > 1 ? "  ·  " + (idx + 1) + "/" + list.length : "");
     [].slice.call(dots.children).forEach(function (d, k) { d.classList.toggle("on", k === idx); });
     var many = list.length > 1; prev.hidden = next.hidden = !many; dots.hidden = !many;
@@ -210,16 +229,21 @@ LEFT_JS = r"""<script>
     dots.innerHTML = ""; slides(r).forEach(function () { dots.appendChild(document.createElement("i")); });
     show();
     story.innerHTML = "";
-    var tag = document.createElement("span"); tag.className = "pvb-tag";
-    tag.textContent = r.id === "custom" ? t.trip_custom : r.hours + " " + t.hrsl;
     var p = document.createElement("p"); p.textContent = r.story;
-    story.appendChild(tag); story.appendChild(p); story.hidden = false;
+    story.appendChild(p); story.hidden = false;
     publish();
   }
   pills.forEach(function (p) { p.addEventListener("click", function () { pick(p.dataset.id); }); });
   window.MWPV = window.MWPV || {};
   window.MWPV.setHours = function (h) { var r = TR[cur]; if (r && r.id === "custom") { r.hours = h; publish(); } };
-  pick(D.on);
+  /* Oct 21, 2026 (Marlon): trips are listed per group (Couples, Families, Friends); the estimate card sets the group through window.MWPV.who */
+  function applyWho(w, force) {
+    var first = null;
+    pills.forEach(function (p) { var r = TR[p.dataset.id], ok = !r.who || r.who === w; p.hidden = !ok; if (ok && r.who && !first) first = p.dataset.id; });
+    if (force || !cur || (TR[cur].who && TR[cur].who !== w)) pick(first || D.on);
+  }
+  window.addEventListener("mwwho", function (e) { applyWho(e.detail, true); });
+  applyWho((window.MWPV && window.MWPV.who) || "couples", true);
 })();
 </script>
 """
@@ -240,7 +264,7 @@ def left_html(lang):
   <div class="pvb-pills" role="group" aria-label="{esc(t['h'])}">{pills}</div>
   <div class="pvc" id="pvc" role="region" aria-roledescription="carousel" aria-label="{esc(t['h'])}" tabindex="0">
     <button type="button" class="pvc-nav pvc-prev" aria-label="{t['prev']}">&lsaquo;</button>
-    <figure class="pvc-pol"><span class="sp-tape"></span><div class="pvc-img"></div><figcaption></figcaption></figure>
+    <figure class="pvc-pol"><div class="pvc-img"></div><figcaption></figcaption></figure>
     <button type="button" class="pvc-nav pvc-next" aria-label="{t['next']}">&rsaquo;</button>
   </div>
   <div class="pvc-dots" id="pvc-dots" aria-hidden="true"></div>
@@ -257,11 +281,10 @@ CAR_CSS = """<style>
   .pvc-nav:hover { background: #FFD43B; }
   .pvc-nav:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
   .pvc-nav[hidden] { display: none; }
-  .pvc-pol { position: relative; margin: 0 auto; width: min(100%, 250px); box-sizing: border-box; background: #fff; transition: background .25s; padding: 12px 12px 14px; box-shadow: 0 12px 24px -8px rgba(39, 48, 46, 0.55), 0 2px 4px rgba(39, 48, 46, 0.18); transform: rotate(-1.5deg); }
-  .pvc-pol .sp-tape { position: absolute; top: -9px; left: 50%; width: 56px; height: 18px; transform: translateX(-50%) rotate(-4deg); background: rgba(255, 140, 40, .6); mix-blend-mode: multiply; }
-  .pvc-img { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #F4EBDD; }
-  .pvc-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-  .pvc-card { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.3; color: #27302E; }
+  .pvc-pol { position: relative; margin: 0 auto; width: 100%; max-width: 360px; box-sizing: border-box; }
+  .pvc-img { position: relative; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; }
+  .pvc-img img { display: block; width: auto; height: auto; max-width: 100%; max-height: 300px; border-radius: 10px; box-shadow: 0 10px 22px -10px rgba(39, 48, 46, 0.5); }
+  .pvc-card { position: absolute; inset: 0; border-radius: 10px; display: grid; place-items: center; padding: 16px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.3; color: #27302E; }
   .pvc-pol figcaption { margin: 10px 2px 0; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.05rem; line-height: 1.15; color: #27302E; }
   .pvc-dots { display: flex; gap: 8px; justify-content: center; margin: 14px 0 0; }
   .pvc-dots[hidden] { display: none; }
@@ -293,7 +316,9 @@ CALC_CSS = """<style>
   .pcq-g, .pcq-h { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; min-width: 38px; height: 38px; padding: 0 6px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
   .pcq-w { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; height: 38px; padding: 0 12px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
   .pcq-w:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
-  .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"], .pcq-w[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pcq-d { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; height: 38px; padding: 0 14px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pcq-d:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"], .pcq-w[aria-pressed="true"], .pcq-d[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
   .pcq-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; font-variant-numeric: tabular-nums; }
@@ -325,15 +350,18 @@ CALC_JS = r"""<script>
 (function () {
   var root = document.getElementById("pcq"); if (!root) return;
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
-  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow"), wrow = root.querySelector(".pcq-wrow");
+  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), drow = root.querySelector(".pcq-drow"), grow = root.querySelector(".pcq-grow"), wrow = root.querySelector(".pcq-wrow");
   var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
-  var st = null, n = 2, who = "";
+  var st = null, n = 2, who = "couples", dur = "half", oh = 6, last = null;
+  function hrs() { return dur === "half" ? 4 : dur === "full" ? 8 : oh; }
+  function press(sel, attr, val) { [].slice.call(root.querySelectorAll(sel)).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset[attr] === String(val) ? "true" : "false"); }); }
+  window.MWPV = window.MWPV || {}; window.MWPV.who = who;
   function priceAt(g, h) {
     var T = t.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
     return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
   }
   function quote(s) {
-    var h = Math.min(12, s.hi), total = priceAt(n, h), list = Math.round(t.listRate * n * h);
+    var h = Math.min(12, hrs()), total = priceAt(n, h), list = Math.round(t.listRate * n * h);
     return { total: total, each: Math.round(total / n), list: list, pct: Math.round((1 - total / list) * 100) };
   }
   [].slice.call(root.querySelectorAll(".pcq-g")).forEach(function (g) {
@@ -345,25 +373,26 @@ CALC_JS = r"""<script>
   });
   [].slice.call(root.querySelectorAll(".pcq-w")).forEach(function (b) {
     b.addEventListener("click", function () {
-      who = who === b.dataset.w ? "" : b.dataset.w;
-      [].slice.call(root.querySelectorAll(".pcq-w")).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset.w === who ? "true" : "false"); });
+      who = b.dataset.w; window.MWPV = window.MWPV || {}; window.MWPV.who = who; press(".pcq-w", "w", who);
+      try { window.dispatchEvent(new CustomEvent("mwwho", { detail: who })); } catch (e) {}
     });
   });
+  [].slice.call(root.querySelectorAll(".pcq-d")).forEach(function (b) {
+    b.addEventListener("click", function () { dur = b.dataset.d; press(".pcq-d", "d", dur); if (st) render(st); });
+  });
   [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (b) {
-    b.addEventListener("click", function () {
-      [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
-      if (window.MWPV && window.MWPV.setHours) window.MWPV.setHours(+b.dataset.h);
-    });
+    b.addEventListener("click", function () { oh = +b.dataset.h; press(".pcq-h", "h", oh); if (st) render(st); });
   });
   function render(s) {
     st = s; if (!s) return;
     var has = s.ids.length > 0;
-    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; wrow.hidden = !has; hrow.hidden = !(has && s.custom);
+    if (has && s.trip !== last) { last = s.trip; dur = s.custom || s.hours <= 5 ? "half" : "full"; press(".pcq-d", "d", dur); }
+    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; wrow.hidden = !has; drow.hidden = !has; hrow.hidden = !(has && dur === "other");
     if (has) {
-      trip.innerHTML = ""; var tg = document.createElement("span"); tg.textContent = t.yourtrip; trip.appendChild(tg); trip.appendChild(document.createTextNode(s.names[0] + (s.custom ? "" : " · " + s.range + " " + t.hrsl)));
+      trip.innerHTML = ""; var tg = document.createElement("span"); tg.textContent = t.yourtrip; trip.appendChild(tg); trip.appendChild(document.createTextNode(s.names[0]));
       var q = quote(s);
       price.innerHTML = ""; price.appendChild(document.createTextNode("$" + q.total.toLocaleString("en-US")));
-      var sm = document.createElement("small"); sm.textContent = t.total + " · " + s.range + " " + t.hrsl; price.appendChild(sm);
+      var sm = document.createElement("small"); sm.textContent = t.total + " · " + hrs() + " " + t.hrsl; price.appendChild(sm);
       sub.textContent = "$" + q.each + " " + t.each + " (" + n + " " + t.people + ")";
       fit.innerHTML = "";
       var was = document.createElement("s"), bd = document.createElement("span");
@@ -379,9 +408,9 @@ CALC_JS = r"""<script>
   function go(custom) {
     if (!st || !st.ids.length) return;
     var qt = quote(st); custom = custom || st.custom;
-    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt.total, priceLo: qt.total, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
+    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: String(hrs()), n: n, price: qt.total, priceLo: qt.total, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (who ? "&who=" + who : "") + (custom ? "&custom=1" : "");
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + hrs() + "&lang=" + st.lang + (who ? "&who=" + who : "") + (custom ? "&custom=1" : "");
     window.location.href = "/private-tour?" + q;
   }
   cta.addEventListener("click", function () { go(false); });
@@ -398,14 +427,16 @@ def calc_html(lang):
     keys = ["hrsl", "cta2", "cta3", "cta4", "wait", "each", "people", "total", "listp", "save", "yourtrip"]
     tj = json.dumps({**{k: t[k] for k in keys}, "prices": PRICES, "listRate": LIST_RATE}, ensure_ascii=False)
     vin = "".join(f"<li>{esc(x)}</li>" for x in t["val_in"]) + "".join(f'<li class="no">{esc(x)}</li>' for x in t["val_out"])
-    wb = "".join(f'<button type="button" class="pcq-w" data-w="{k}" aria-pressed="false"><span aria-hidden="true">{e}</span> {l}</button>' for k, e, l in t["who"])
-    hb = "".join(f'<button type="button" class="pcq-h" data-h="{h}" aria-pressed="{"true" if h == 4 else "false"}">{h}</button>' for h in (2, 4, 6, 8, 10, 12))
+    wb = "".join(f'<button type="button" class="pcq-w" data-w="{k}" aria-pressed="{"true" if k == "couples" else "false"}"><span aria-hidden="true">{e}</span> {l}</button>' for k, e, l in t["who"])
+    db = "".join(f'<button type="button" class="pcq-d" data-d="{k}" aria-pressed="{"true" if k == "half" else "false"}">{l}</button>' for k, l in t["dur"])
+    hb = "".join(f'<button type="button" class="pcq-h" data-h="{h}" aria-pressed="{"true" if h == 6 else "false"}">{h}</button>' for h in (2, 4, 6, 8, 10, 12))
     return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py.
      Oct 20, 2026 (Marlon): shows the trip you picked, then how many people, then the price (the biggest number is the full price). No Ernesto. Reads the pick from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-none" hidden>{t["none"]}</p>
   <p class="pcq-trip" hidden></p>
+  <div class="pcq-row pcq-drow" role="group" aria-label="{t["durl"]}" hidden><span class="pcq-rowl">{t["durl"]}</span>{db}</div>
   <div class="pcq-row pcq-hrow" role="group" aria-label="{t["hrsq"]}" hidden><span class="pcq-rowl">{t["hrsq"]}</span>{hb}</div>
   <div class="pcq-row pcq-wrow" role="group" aria-label="{t["whol"]}" hidden><span class="pcq-rowl">{t["whol"]}</span>{wb}</div>
   <div class="pcq-row pcq-grow" role="group" aria-label="{t["groupl"]}" hidden><span class="pcq-rowl">{t["groupl"]}</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
@@ -415,7 +446,6 @@ def calc_html(lang):
     <p class="pcq-fit"></p>
     <ul class="pcq-val" aria-label="{t["incl"]}">{vin}</ul>
   </div>
-  <p class="pcq-incl pcq-drop">{t["dropoff"]}</p>
   <button type="button" class="pcq-cta" aria-disabled="true">{t["wait"]}</button>
   <button type="button" class="pcq-alt" hidden>{t["cta3"]}</button>
   <p class="pcq-note">{t["note2"]}</p>
