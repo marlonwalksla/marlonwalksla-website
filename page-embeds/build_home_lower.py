@@ -11,7 +11,7 @@ T = {
  "en": dict(
   meet_title="Meet Your Local Guide", meet_eyebrow="Hi, I'm Marlon",
   meet_body="I was born a few minutes from where my free tour starts, and I grew up speaking Spanish at home. Today I guide walks around Los Angeles in English and Spanish, with my sidekick Ernesto.",
-  meet_more="Read my story", ig="\U0001F4F7 Follow on Instagram", wa="\U0001F4AC WhatsApp Marlon", ph="Marlon's photo goes here", ph_alt="Marlon, your local guide, with Ernesto",
+  meet_more="Read my story", ig="Follow", wa="Contact", ph="Marlon's photo goes here", ph_alt="Marlon, your local guide, with Ernesto",
   faq_title="Good to Know", faq_sub="Quick answers before you book.",
   faq=[("Where do we meet?", "Free tour: Walt Disney Concert Hall, 600 W 1st St. Look for Marlon with a tablet. Team tour: Grand Central Market, 317 S Broadway. Private tour: Marlon picks you up at your hotel."),
        ("What about parking?", "The free tour is on foot, so you only park once. Private tours include hotel pickup, so you do not need to park at all. Want garage tips? Message Marlon."),
@@ -23,7 +23,7 @@ T = {
  "es": dict(
   meet_title="Conoce a tu guía local", meet_eyebrow="Hola, soy Marlon",
   meet_body="Nací a pocos minutos de donde empieza mi free tour y crecí hablando español en casa. Hoy guío caminatas por Los Ángeles en español y en inglés, con mi compañero Ernesto.",
-  meet_more="Lee mi historia", ig="\U0001F4F7 Sígueme en Instagram", wa="\U0001F4AC Escríbeme por WhatsApp", ph="Aquí va la foto de Marlon", ph_alt="Marlon, tu guía local, con Ernesto",
+  meet_more="Lee mi historia", ig="Seguir", wa="Contacto", ph="Aquí va la foto de Marlon", ph_alt="Marlon, tu guía local, con Ernesto",
   faq_title="Bueno saber", faq_sub="Respuestas rápidas antes de reservar.",
   faq=[("¿Dónde nos vemos?", "Free tour: Walt Disney Concert Hall, 600 W 1st St. Busca a Marlon con una tablet. Tour de equipo: Grand Central Market, 317 S Broadway. Tour privado: Marlon te recoge en tu hotel."),
        ("¿Y el estacionamiento?", "El free tour es a pie, así que estacionas una sola vez. Los tours privados incluyen recogida en el hotel, así que no necesitas estacionar. ¿Quieres consejos de garajes? Escríbele a Marlon."),
@@ -83,7 +83,7 @@ for lang, suf in (("en", ""), ("es", "-es")):
     meet = (f"<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: MEET YOUR LOCAL GUIDE banner. Built by page-embeds/build_home_lower.py. Oct 17, 2026 (Marlon via Gemini). Photo is a placeholder until MARLON_PHOTO is set. -->\n"
             f'<section class="hl hl-meet" aria-label="{t["meet_title"]}">\n  <div class="hl-meet-wrap">\n    <figure class="hl-pol"><span class="hl-tape"></span>{photo}</figure>\n'
             f'    <div>\n      <p class="hl-eyebrow">{t["meet_eyebrow"]}</p>\n      <h2 class="hl-title">{t["meet_title"]}</h2>\n      <p class="hl-body">{t["meet_body"]}</p>\n'
-            f'      <a class="hl-more" href="/about">{t["meet_more"]} &rarr;</a>\n      <div class="hl-social"><a class="hl-sbtn" href="{IG}" target="_blank" rel="noopener noreferrer">{t["ig"]}</a><a class="hl-sbtn" href="{WA}" target="_blank" rel="noopener noreferrer">{t["wa"]}</a></div>\n    </div>\n  </div>\n</section>\n' + MEET_CSS.replace("PAPER_MEET", paper.rule(".hl-meet::before", 50)))
+            f'      <a class="hl-more" href="/about">{t["meet_more"]} &rarr;</a>\n      <div class="hl-social"><a class="hl-sbtn" href="{IG}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="#27302E" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="#27302E" stroke="none"/></svg>{t["ig"]}</a><a class="hl-sbtn" href="{WA}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#25D366" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#fff" d="M8.6 7.3c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 5 4.400 2.500 1 3 .8 3.500.7.600-.1 1.800-.7 2-1.400.3-.7.3-1.300.2-1.400l-.5-.3-1.800-.9c-.2-.1-.4-.1-.6.1l-.8 1c-.1.200-.3.200-.5.100-.3-.1-1.100-.4-2.100-1.300-.8-.7-1.300-1.500-1.500-1.800-.1-.3 0-.4.100-.5l.4-.5.3-.4v-.5z"/></svg>{t["wa"]}</a></div>\n    </div>\n  </div>\n</section>\n' + MEET_CSS.replace("PAPER_MEET", paper.rule(".hl-meet::before", 50)))
     qs = "".join(f'<details class="hl-q" style="--r:{ROT[i]};--t:{TAPES[i % 4]}"><summary>{q}</summary><p>{a}</p></details>\n    ' for i, (q, a) in enumerate(t["faq"]))
     faq = (f"<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LOGISTICS FAQ accordion (native details elements). Built by page-embeds/build_home_lower.py. Oct 17, 2026. -->\n"
            f'<section class="hl hl-faq" id="faq" aria-label="{t["faq_title"]}">\n  <div class="hl-faq-wrap">\n    <h2 class="hl-title">{t["faq_title"]}</h2>\n    <p class="hl-sub">{t["faq_sub"]}</p>\n    {qs}'
