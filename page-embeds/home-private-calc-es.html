@@ -5,6 +5,7 @@
   <p class="pcq-none" hidden>Elige un viaje para ver tu estimado.</p>
   <p class="pcq-trip" hidden></p>
   <div class="pcq-row pcq-hrow" role="group" aria-label="¿Cuántas horas?" hidden><span class="pcq-rowl">¿Cuántas horas?</span><button type="button" class="pcq-h" data-h="2" aria-pressed="false">2</button><button type="button" class="pcq-h" data-h="4" aria-pressed="true">4</button><button type="button" class="pcq-h" data-h="6" aria-pressed="false">6</button><button type="button" class="pcq-h" data-h="8" aria-pressed="false">8</button><button type="button" class="pcq-h" data-h="10" aria-pressed="false">10</button><button type="button" class="pcq-h" data-h="12" aria-pressed="false">12</button></div>
+  <div class="pcq-row pcq-wrow" role="group" aria-label="¿Quiénes vienen?" hidden><span class="pcq-rowl">¿Quiénes vienen?</span><button type="button" class="pcq-w" data-w="couples" aria-pressed="false"><span aria-hidden="true">&#128145;</span> Parejas</button><button type="button" class="pcq-w" data-w="families" aria-pressed="false"><span aria-hidden="true">&#128106;</span> Familias</button><button type="button" class="pcq-w" data-w="friends" aria-pressed="false"><span aria-hidden="true">&#127881;</span> Amigos</button></div>
   <div class="pcq-row pcq-grow" role="group" aria-label="¿Cuántos son?" hidden><span class="pcq-rowl">¿Cuántos son?</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
   <div class="pcq-out" aria-live="polite" hidden>
     <div class="pcq-price"></div>
@@ -30,7 +31,9 @@
   .pcq-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; margin: 0 0 10px; }
   .pcq-rowl { font-weight: 700; margin-right: 4px; }
   .pcq-g, .pcq-h { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; min-width: 38px; height: 38px; padding: 0 6px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
-  .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pcq-w { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; height: 38px; padding: 0 12px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pcq-w:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
+  .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"], .pcq-w[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
   .pcq-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; font-variant-numeric: tabular-nums; }
@@ -60,9 +63,9 @@
 (function () {
   var root = document.getElementById("pcq"); if (!root) return;
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
-  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow");
+  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow"), wrow = root.querySelector(".pcq-wrow");
   var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
-  var st = null, n = 2;
+  var st = null, n = 2, who = "";
   function priceAt(g, h) {
     var T = t.prices[g], x = Math.min(12, Math.max(2, h)), i = Math.min(4, Math.floor((x - 2) / 2)), f = (x - 2 - i * 2) / 2;
     return Math.round((T[i] + (T[i + 1] - T[i]) * f) / 10) * 10 - 1;
@@ -78,6 +81,12 @@
       if (st) render(st);
     });
   });
+  [].slice.call(root.querySelectorAll(".pcq-w")).forEach(function (b) {
+    b.addEventListener("click", function () {
+      who = who === b.dataset.w ? "" : b.dataset.w;
+      [].slice.call(root.querySelectorAll(".pcq-w")).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset.w === who ? "true" : "false"); });
+    });
+  });
   [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (b) {
     b.addEventListener("click", function () {
       [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
@@ -87,7 +96,7 @@
   function render(s) {
     st = s; if (!s) return;
     var has = s.ids.length > 0;
-    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; hrow.hidden = !(has && s.custom);
+    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; wrow.hidden = !has; hrow.hidden = !(has && s.custom);
     if (has) {
       trip.innerHTML = ""; var tg = document.createElement("span"); tg.textContent = t.yourtrip; trip.appendChild(tg); trip.appendChild(document.createTextNode(s.names[0] + (s.custom ? "" : " · " + s.range + " " + t.hrsl)));
       var q = quote(s);
@@ -110,7 +119,7 @@
     var qt = quote(st); custom = custom || st.custom;
     var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: st.range, n: n, price: qt.total, priceLo: qt.total, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (custom ? "&custom=1" : "");
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + encodeURIComponent(st.range) + "&lang=" + st.lang + (who ? "&who=" + who : "") + (custom ? "&custom=1" : "");
     window.location.href = "/private-tour?" + q;
   }
   cta.addEventListener("click", function () { go(false); });
