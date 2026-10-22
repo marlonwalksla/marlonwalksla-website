@@ -75,58 +75,67 @@ TRIP_IMG = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"  # Oct
 # id, tier, hours, color, EN title, ES title, EN stops, ES stops, EN story, ES story, photo file stems (with captions in EN, ES)
 TRIPS = [
     # ---- Couples ----
-    ("sunset", "quest", 5, "#FFD6A5", "Date Night: Sunset Hike", "Cita: Caminata al atardecer",
+    ("sunset", "quest", 5, "#FFD6A5", "Sunset Hike", "Caminata al atardecer",
      ["Donuts", "Hollywood Sign", "Griffith sunset", "Rodeo Drive", "Urban Light"], ["Donas", "Letrero de Hollywood", "Atardecer en Griffith", "Rodeo Drive", "Urban Light"],
-     "A couple on their first vacation in 10 years. He wanted her birthday to be special. Donuts first, then the Hollywood Sign, sunset at the Observatory, and Urban Light.",
-     "Una pareja en sus primeras vacaciones en 10 años. Él quería un cumpleaños especial para ella. Primero donas, luego el letrero de Hollywood, el atardecer en el Observatorio y Urban Light.",
-     ["6ad929e02eb98d1ee52bd0c0_place-hollywood-sign-02|50% 50%", "6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04|50% 50%", "6ad92fe3bfe591314e397347_art-griffith-park-and-observatory-02|50% 50%", "6ad92fc8bdb0490f2eabadee_place-beverly-hills-02|50% 50%", "6ad92ff6b2db7b6c094918fa_place-lacma-urban-light-03|50% 50%"], "couples", True),
-    ("canals", "quest", 4, "#E3F6D8", "Date Night: Venice Canals", "Cita: Canales de Venice",
+     "", "",
+     ["6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04|50% 50%", "6ad929e02eb98d1ee52bd0c0_place-hollywood-sign-02|50% 50%", "6ad92fe3bfe591314e397347_art-griffith-park-and-observatory-02|50% 50%", "6ad92fc8bdb0490f2eabadee_place-beverly-hills-02|50% 50%", "6ad92ff6b2db7b6c094918fa_place-lacma-urban-light-03|50% 50%"], "couples", True,
+     "Private sunset hike for two in Los Angeles: the Hollywood Sign, Griffith Observatory at golden hour and Urban Light.",
+     "Caminata privada al atardecer para dos en Los Ángeles: el letrero de Hollywood, el Observatorio Griffith y Urban Light."),
+    ("canals", "quest", 4, "#E3F6D8", "Venice Canals", "Canales de Venice",
      ["Venice Canals", "The white bridge"], ["Canales de Venice", "El puente blanco"],
-     "A date for two. She had seen this bridge in a movie, so we went to find it.",
-     "Una cita para dos. Ella había visto este puente en una película, así que fuimos a buscarlo.",
-     ["6ad929ec9a56d0d159649ffd_place-venice-canals-01|50% 50%", "6ad929ec3eeaaffdbe379a12_guest-venice-canals-01|50% 50%"], "couples", True),
-    ("tacos", "quest", 4, "#FFE08A", "Date Night: Beach and Tacos", "Cita: Playa y tacos",
+     "", "",
+     ["6ad929ec9a56d0d159649ffd_place-venice-canals-01|50% 50%", "6ad929ec3eeaaffdbe379a12_guest-venice-canals-01|50% 50%"], "couples", True,
+     "A private date walk through the Venice Canals in Los Angeles, with the famous white bridge.",
+     "Una caminata privada en pareja por los canales de Venice en Los Ángeles, con el famoso puente blanco."),
+    ("tacos", "quest", 4, "#FFE08A", "Beach and Tacos", "Playa y tacos",
      ["Mexican food", "Santa Monica Pier"], ["Comida mexicana", "Muelle de Santa Mónica"],
-     "A honeymoon couple on their last stop before flying home. They wanted Mexican food and Santa Monica. Done.",
-     "Una pareja de luna de miel en su última parada antes de volar a casa. Querían comida mexicana y Santa Mónica. Listo.",
-     ["6ad929e61c74efa5d6a35519_guest-santa-monica-01|50% 50%", "6ad929e6fd77e7c927620ea9_place-santa-monica-01|50% 50%", "6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|50% 50%", "6ad93007add8991e78413dd1_place-santa-monica-03|50% 50%"], "couples", False),
+     "", "",
+     ["6ad929e61c74efa5d6a35519_guest-santa-monica-01|50% 50%", "6ad929e6fd77e7c927620ea9_place-santa-monica-01|50% 50%", "6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|50% 50%", "6ad93007add8991e78413dd1_place-santa-monica-03|50% 50%"], "couples", False,
+     "A private date in Los Angeles with Mexican food and a sunset at the Santa Monica Pier.",
+     "Una cita privada en Los Ángeles con comida mexicana y un atardecer en el muelle de Santa Mónica."),
     # ---- Families ----
-    ("fgetty", "short", 4, "#DCEFFA", "Family Day: The Getty", "Día en familia: El Getty",
+    ("fgetty", "short", 4, "#DCEFFA", "The Getty", "El Getty",
      ["Getty Museum", "Sunset view"], ["Museo Getty", "Vista al atardecer"],
-     "Gardens, art and a big view of the city. Easy walking with room to roam, and a sunset to finish. Getty parking is not included.",
-     "Jardines, arte y una gran vista de la ciudad. Se camina fácil, hay espacio para andar y un atardecer para cerrar. El estacionamiento del Getty no está incluido.",
-     ["6ad929daefa7590f943caa69_guest-getty-center-01|50% 50%", "6ad929db59b1d5ccebe76dc4_place-getty-center-01|50% 50%", "6ad929dbc3398f1383c28856_art-getty-center-01|50% 50%"], "families", True),
-    ("fdowntown", "quest", 4, "#FFD6A5", "Family Day: Downtown Discovery", "Día en familia: Descubre el centro",
-     ["Olvera Street", "Avila Adobe", "Angels Flight"], ["Calle Olvera", "Casa Avila Adobe", "Angels Flight"],
-     "Short walks, color and the oldest street in LA. Along the way, kids hunt for Ernesto stickers and win a signed Polaroid.",
-     "Caminatas cortas, color y la calle más antigua de LA. En el camino, los niños buscan calcomanías de Ernesto y ganan una Polaroid firmada.",
-     ["6ad92a45a6c79d9f41578212_place-olvera-street-and-avila-adobe-02|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%", "6ad92a43a6c79d9f415781bd_ernesto-olvera-street-and-avila-adobe-01|50% 50%", "6ad929f3c0b148baa5f114ec_place-angels-flight-01|50% 50%", "6ad929f3d1848d20e07c479a_ernesto-angels-flight-01|50% 50%"], "families", True),
-    ("fpier", "quest", 4, "#FFE08A", "Family Day: Pier and Tacos", "Día en familia: Muelle y tacos",
+     "", "",
+     ["6ad929daefa7590f943caa69_guest-getty-center-01|50% 50%", "6ad929db59b1d5ccebe76dc4_place-getty-center-01|50% 50%", "6ad929dbc3398f1383c28856_art-getty-center-01|50% 50%"], "families", True,
+     "A private family trip to the Getty Center in Los Angeles, with gardens, art and a sunset view. Parking is not included.",
+     "Un viaje privado en familia al Getty Center en Los Ángeles, con jardines, arte y una vista al atardecer. El estacionamiento no está incluido."),
+    ("fdowntown", "quest", 4, "#FFD6A5", "Downtown Discovery", "Descubre el centro",
+     ["Placita Olvera", "Grand Central Market", "Angels Flight", "Walt Disney Concert Hall"], ["Placita Olvera", "Grand Central Market", "Angels Flight", "Walt Disney Concert Hall"],
+     "", "",
+     ["6ad92a45a6c79d9f41578212_place-olvera-street-and-avila-adobe-02|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%", "6ad92cab137bdbc510c769a6_place-grand-central-market-01|50% 50%", "6ad929f3c0b148baa5f114ec_place-angels-flight-01|50% 50%", "6ad92a0d4c5d80802552eafc_place-disney-hall-02|50% 50%", "6ad92c76d1848d20e07d636e_guest-disney-hall-02|50% 50%"], "families", True,
+     "A private downtown Los Angeles walking tour from Placita Olvera to Walt Disney Concert Hall, with Grand Central Market and Angels Flight.",
+     "Un tour privado a pie por el centro de Los Ángeles, de Placita Olvera a Walt Disney Concert Hall, con Grand Central Market y Angels Flight."),
+    ("fpier", "quest", 4, "#FFE08A", "Pier and Tacos", "Muelle y tacos",
      ["Mexican food", "Santa Monica Pier"], ["Comida mexicana", "Muelle de Santa Mónica"],
-     "Tacos first, then the Santa Monica Pier and the beach. Easy for all ages.",
-     "Primero tacos, luego el muelle de Santa Mónica y la playa. Fácil para todas las edades.",
-     ["6ad929e6fd77e7c927620ea9_place-santa-monica-01|50% 50%", "6ad93007add8991e78413dd1_place-santa-monica-03|50% 50%", "6ad92fc1763e80ce77ca4c78_archive-avenue-26-tacos-01|50% 50%", "6ad929e61c74efa5d6a35519_guest-santa-monica-01|50% 50%"], "families", False),
+     "", "",
+     ["6ad929e6fd77e7c927620ea9_place-santa-monica-01|50% 50%", "6ad93007add8991e78413dd1_place-santa-monica-03|50% 50%", "6ad92fc1763e80ce77ca4c78_archive-avenue-26-tacos-01|50% 50%", "6ad929e61c74efa5d6a35519_guest-santa-monica-01|50% 50%"], "families", False,
+     "A private family day at the Santa Monica Pier in Los Angeles, with tacos and beach time.",
+     "Un día privado en familia en el muelle de Santa Mónica en Los Ángeles, con tacos y tiempo de playa."),
     # ---- Friends ----
-    ("echo", "quest", 5, "#F6C6DF", "Friends: Echo Park and Angels Point", "Amigos: Echo Park y Angels Point",
+    ("echo", "quest", 5, "#F6C6DF", "Echo Park and Angels Point", "Echo Park y Angels Point",
      ["Echo Park Lake", "Angels Point", "Sunset", "Observatory"], ["Lago Echo Park", "Angels Point", "Atardecer", "Observatorio"],
-     "Lake, skyline views and a sunset at the Observatory. We trade photos along the way, so everyone ends up in some.",
-     "Lago, vistas del horizonte y un atardecer en el Observatorio. Nos turnamos las fotos en el camino, así que todos salen en algunas.",
-     ["6ad92a15fd77e7c927622751_place-echo-park-lake-01|50% 50%", "6ad92c5db637fc8c5f9e0570_guest-echo-park-lake-01|50% 50%", "6ad92a15bb9f2b81fb009b26_place-echo-park-lake-02|50% 50%", "6ad92fd00bb99231ec104ab0_place-echo-park-lake-03|50% 50%", "6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad92a2e4c83370c9caa0a28_place-griffith-park-and-observatory-01|50% 50%"], "friends", True),
-    ("ftacos", "quest", 4, "#FFE08A", "Friends: Taco Crawl", "Amigos: Ruta de tacos",
+     "", "",
+     ["6ad92a15fd77e7c927622751_place-echo-park-lake-01|50% 50%", "6ad92cb5d1848d20e07d8ea2_guest-echo-park-lake-01|50% 50%", "6ad92a15bb9f2b81fb009b26_place-echo-park-lake-02|50% 50%", "6ad92fd00bb99231ec104ab0_place-echo-park-lake-03|50% 50%", "6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad92a2e4c83370c9caa0a28_place-griffith-park-and-observatory-01|50% 50%"], "friends", True,
+     "A private tour for friends at Echo Park Lake and Angels Point in Los Angeles, with a sunset at the Observatory.",
+     "Un tour privado para amigos en el lago Echo Park y Angels Point en Los Ángeles, con atardecer en el Observatorio."),
+    ("ftacos", "quest", 4, "#FFE08A", "Taco Crawl", "Ruta de tacos",
      ["Avenue 26 tacos", "Grand Central Market"], ["Tacos de Avenue 26", "Grand Central Market"],
-     "Al pastor, market bites and a lot of tacos. Come hungry.",
-     "Al pastor, bocados del mercado y muchos tacos. Ven con hambre.",
-     ["6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|50% 50%", "6ad92fc1763e80ce77ca4c78_archive-avenue-26-tacos-01|50% 50%", "6ad92fdd7fd6d8671dbceb66_guest-grand-central-market-02|50% 50%"], "friends", False),
-    ("three", "quest", 9, "#D9F5E3", "Friends: The Big Day", "Amigos: El gran día",
+     "", "",
+     ["6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|50% 50%", "6ad92fc1763e80ce77ca4c78_archive-avenue-26-tacos-01|50% 50%", "6ad92fdd7fd6d8671dbceb66_guest-grand-central-market-02|50% 50%"], "friends", False,
+     "A private taco crawl in Los Angeles, from Avenue 26 to Grand Central Market.",
+     "Una ruta privada de tacos en Los Ángeles, de Avenue 26 a Grand Central Market."),
+    ("three", "quest", 9, "#D9F5E3", "The Big Day", "El gran día",
      ["Downtown", "Hollywood Sign", "Griffith sunset", "Santa Monica"], ["Centro", "Letrero de Hollywood", "Atardecer en Griffith", "Santa Mónica"],
-     "A Canadian, a Mexican and an American did all three countries in one day, from the Hollywood Sign to a sunset at the Observatory. One full day, one crew.",
-     "Un canadiense, una mexicana y un estadounidense hicieron los tres países en un día, del letrero de Hollywood a un atardecer en el Observatorio. Un día completo, un solo grupo.",
-     ["6ad92fef59b1d5ccebe9ec9a_guest-hollywood-sign-03|50% 50%", "6ad92ff02cbe8250c0b65033_guest-hollywood-sign-04|50% 50%", "6ad92fe30bed1f1ae6022809_art-griffith-park-and-observatory-01|50% 50%", "6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02|50% 50%", "6ad929e6cc8517d84352c6fe_art-santa-monica-01|50% 50%"], "friends", True),
+     "", "",
+     ["6ad92fef59b1d5ccebe9ec9a_guest-hollywood-sign-03|50% 50%", "6ad92ff02cbe8250c0b65033_guest-hollywood-sign-04|50% 50%", "6ad92fe30bed1f1ae6022809_art-griffith-park-and-observatory-01|50% 50%", "6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02|50% 50%", "6ad929e6cc8517d84352c6fe_art-santa-monica-01|50% 50%"], "friends", True,
+     "A private full-day tour for friends in Los Angeles: downtown, the Hollywood Sign, a Griffith sunset and Santa Monica.",
+     "Un tour privado de día completo para amigos en Los Ángeles: el centro, el letrero de Hollywood, el atardecer en Griffith y Santa Mónica."),
 ]
 TRIP_DEFAULT = "sunset"
-CUSTOM_PHOTO = "6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%"  # filler image for "Customize my own"
-CUSTOM = {"en": ("Customize my own", "Start from a blank page. Tell Marlon where you want to go and for how long, and he builds the day with you.", "Pick your hours below to see the price."),
-          "es": ("Personaliza el mío", "Empieza desde cero. Dile a Marlon a dónde quieres ir y por cuánto tiempo, y él arma el día contigo.", "Elige tus horas abajo para ver el precio.")}
+CUSTOM_PHOTOS = ["6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad929bf12667b254315c683_place-bunker-hill-01|50% 50%", "6ad929b39a56d0d15964851d_place-broadway-theaters-01|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%"]  # filler images for "Customize my own": downtown is the way in
+CUSTOM = {"en": ("Customize my own", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
+          "es": ("Personaliza el mío", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
 T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Who is coming?", who=[("couples", "&#128145;", "Couples"), ("families", "&#128106;", "Families"), ("friends", "&#127881;", "Friends")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
   val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Pick a trip to see the photos and the price. Do it as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
@@ -143,9 +152,9 @@ def esc(x):
 
 def data_for(lang):
     i = 0 if lang == "en" else 1
-    trips = [{"id": r[0], "tier": r[1], "hours": r[2], "color": r[3], "name": r[4 + i], "stops": r[6 + i], "story": r[8 + i], "who": r[11],
+    trips = [{"id": r[0], "tier": r[1], "hours": r[2], "color": r[3], "name": r[4 + i], "stops": r[6 + i], "story": r[13 + i], "who": r[11],
               "photos": [TRIP_IMG + p.split("|")[0] + ".webp|" + p.split("|")[1] for p in r[10]]} for r in TRIPS]
-    trips.append({"id": "custom", "tier": "custom", "hours": 4, "color": "#FFF1B8", "name": CUSTOM[lang][0], "stops": [], "story": CUSTOM[lang][1], "who": "", "photos": [TRIP_IMG + CUSTOM_PHOTO.split("|")[0] + ".webp|" + CUSTOM_PHOTO.split("|")[1]]})
+    trips.append({"id": "custom", "tier": "custom", "hours": 4, "color": "#FFF1B8", "name": CUSTOM[lang][0], "stops": [], "story": CUSTOM[lang][1], "who": "", "photos": [TRIP_IMG + p.split("|")[0] + ".webp|" + p.split("|")[1] for p in CUSTOM_PHOTOS]})
     return {"lang": lang, "t": T[lang], "trips": trips, "on": TRIP_DEFAULT, "prices": PRICES, "listRate": LIST_RATE}
 
 
@@ -196,15 +205,14 @@ LEFT_JS = r"""<script>
   var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, TR = {};
   D.trips.forEach(function (r) { TR[r.id] = r; });
   var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), story = document.getElementById("pvb-story"), cur = null, idx = 0;
-  var car = document.getElementById("pvc"), pol = car.querySelector(".pvc-pol"), box = car.querySelector(".pvc-img"), cap = car.querySelector("figcaption"), dots = document.getElementById("pvc-dots");
+  var car = document.getElementById("pvc"), pol = car.querySelector(".pvc-pol"), box = car.querySelector(".pvc-img"), dots = document.getElementById("pvc-dots");
   var prev = car.querySelector(".pvc-prev"), next = car.querySelector(".pvc-next");
   function slides(r) { return r.photos.length ? r.photos : [null]; }
   function show() {
     var r = TR[cur], list = slides(r), src = list[idx];
     box.innerHTML = "";
     var card = document.createElement("div"); card.className = "pvc-card"; card.style.background = r.color; card.textContent = r.id === "custom" ? r.story : r.name; box.appendChild(card);
-    if (src) { var sp = src.split("|"); var im = new Image(); im.alt = ""; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
-    cap.textContent = r.name + (list.length > 1 ? "  ·  " + (idx + 1) + "/" + list.length : "");
+    if (src) { var sp = src.split("|"); var im = new Image(); im.alt = r.name; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
     [].slice.call(dots.children).forEach(function (d, k) { d.classList.toggle("on", k === idx); });
     var many = list.length > 1; prev.hidden = next.hidden = !many; dots.hidden = !many;
   }
@@ -264,7 +272,7 @@ def left_html(lang):
   <div class="pvb-pills" role="group" aria-label="{esc(t['h'])}">{pills}</div>
   <div class="pvc" id="pvc" role="region" aria-roledescription="carousel" aria-label="{esc(t['h'])}" tabindex="0">
     <button type="button" class="pvc-nav pvc-prev" aria-label="{t['prev']}">&lsaquo;</button>
-    <figure class="pvc-pol"><div class="pvc-img"></div><figcaption></figcaption></figure>
+    <figure class="pvc-pol"><div class="pvc-img"></div></figure>
     <button type="button" class="pvc-nav pvc-next" aria-label="{t['next']}">&rsaquo;</button>
   </div>
   <div class="pvc-dots" id="pvc-dots" aria-hidden="true"></div>
@@ -281,9 +289,9 @@ CAR_CSS = """<style>
   .pvc-nav:hover { background: #FFD43B; }
   .pvc-nav:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
   .pvc-nav[hidden] { display: none; }
-  .pvc-pol { position: relative; margin: 0 auto; width: 100%; max-width: 360px; box-sizing: border-box; }
-  .pvc-img { position: relative; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; }
-  .pvc-img img { display: block; width: auto; height: auto; max-width: 100%; max-height: 300px; border-radius: 10px; box-shadow: 0 10px 22px -10px rgba(39, 48, 46, 0.5); }
+  .pvc-pol { grid-column: 2; position: relative; margin: 0 auto; width: 100%; max-width: 360px; box-sizing: border-box; }
+  .pvc-img { position: relative; width: 100%; height: 320px; display: flex; align-items: center; justify-content: center; }
+  .pvc-img img { display: block; width: auto; height: auto; max-width: 100%; max-height: 320px; border-radius: 10px; box-shadow: 0 10px 22px -10px rgba(39, 48, 46, 0.5); }
   .pvc-card { position: absolute; inset: 0; border-radius: 10px; display: grid; place-items: center; padding: 16px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.3; color: #27302E; }
   .pvc-pol figcaption { margin: 10px 2px 0; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.05rem; line-height: 1.15; color: #27302E; }
   .pvc-dots { display: flex; gap: 8px; justify-content: center; margin: 14px 0 0; }

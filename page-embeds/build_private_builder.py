@@ -26,7 +26,7 @@ def trip_cards():
         sv = round((1 - price_at(4, r[2]) / (LIST_RATE * 4 * r[2])) * 100)
         msg = "Hi Marlon! I would like to do this trip from your site: " + r[4]
         img = f'<img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/{r[10][0].split("|")[0]}.webp" alt="" loading="lazy" onerror="this.remove()" style="width:100%;aspect-ratio:4/3;object-fit:cover;object-position:{r[10][0].split("|")[1]};border-radius:8px;margin-bottom:10px">'
-        out.append(f'<div class="tp-card tp-center">{img}<h3 class="tp-h3">{r[4]}</h3><p><strong>{r[2]} hours</strong></p><p>{r[6][0] if False else ", ".join(r[6])}</p>{rows}<p><span class="pcq-badge" style="background:#DFF5E3;color:#1E6B3A;padding:2px 10px;border-radius:99px;font-weight:700">Up to {sv}% off list price</span></p><p>{r[8]}</p><a class="tp-btn yellow" href="https://wa.me/12692670410?text={urllib.parse.quote(msg)}" target="_blank" rel="noopener">Ask about this trip</a></div>')
+        out.append(f'<div class="tp-card tp-center">{img}<h3 class="tp-h3">{r[4]}</h3><p><strong>{r[2]} hours</strong></p><p>{r[6][0] if False else ", ".join(r[6])}</p>{rows}<p><span class="pcq-badge" style="background:#DFF5E3;color:#1E6B3A;padding:2px 10px;border-radius:99px;font-weight:700">Up to {sv}% off list price</span></p><p>{r[13]}</p><a class="tp-btn yellow" href="https://wa.me/12692670410?text={urllib.parse.quote(msg)}" target="_blank" rel="noopener">Ask about this trip</a></div>')
     return "".join(out)
 # id, name, area, minutes at the stop, lat, lng, one line
 STOPS = [
