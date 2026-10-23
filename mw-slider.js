@@ -84,7 +84,20 @@
   }
 
   function boot() { [].slice.call(document.querySelectorAll("[data-mws]")).forEach(init); }
-  window.MWS = { init: init, boot: boot };
+  /* Keeps a quote box the same height for every quote, so the page below it never jumps when the photo changes.
+   * MWS.lockQuote(blockquoteEl, ["quote one", "quote two", ...]) measures the tallest and re-measures when the width changes. */
+  function lockQuote(bq, texts) {
+    if (!bq || !texts || !texts.length) return;
+    function run() {
+      var keep = bq.textContent; bq.style.minHeight = "0"; var m = 0;
+      texts.forEach(function (x) { bq.textContent = "\u201C" + x + "\u201D"; m = Math.max(m, bq.offsetHeight); });
+      bq.textContent = keep; bq.style.minHeight = m + "px";
+    }
+    var tm; function later() { clearTimeout(tm); tm = setTimeout(run, 150); }
+    run(); window.addEventListener("resize", later); window.addEventListener("load", later);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
+  }
+  window.MWS = { init: init, boot: boot, lockQuote: lockQuote };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { boot(); window.dispatchEvent(new Event("mws:ready")); });
   else { boot(); window.dispatchEvent(new Event("mws:ready")); }
 })();
