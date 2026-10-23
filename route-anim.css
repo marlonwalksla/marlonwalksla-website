@@ -68,3 +68,10 @@
 .ra-ctrl-num { font-size: 12px; font-weight: 800; color: #5b6461; letter-spacing: 0.04em; }
 .ra-ctrl-name { font-size: 15px; font-weight: 800; color: #27302E; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) { .ra-ctrl-btn { transition: none; } }
+
+/* Oct 23, 2026: optional stop photo (small print on the right of the step) */
+.ra-step.ra-has-img { grid-template-columns: 30px 1fr 84px; }
+.ra-step-photo { display: block; background: #fff; padding: 4px 4px 10px; border: 1px solid #e2e8f0; box-shadow: 0 4px 10px -4px rgba(39, 48, 46, 0.45); transform: rotate(2deg); align-self: center; }
+.ra-step:nth-child(even) .ra-step-photo { transform: rotate(-2deg); }
+.ra-step-photo img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+@media (max-width: 480px) { .ra-step.ra-has-img { grid-template-columns: 30px 1fr 68px; } }

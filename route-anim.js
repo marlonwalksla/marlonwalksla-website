@@ -210,6 +210,12 @@
       // Oct 16, 2026: stop times are no longer shown anywhere (Marlon's call)
       h('strong', 'ra-step-name', body, st.name);
       if (st.desc && !compact) h('span', 'ra-step-desc', body, st.desc);
+      // Oct 23, 2026: optional photo per stop ("img" + "imgAlt" in the stop data), shown as a small taped print
+      if (st.img && !compact) {
+        li.classList.add('ra-has-img');
+        var ph = h('span', 'ra-step-photo', li);
+        var im = h('img', null, ph); im.src = st.img; im.alt = st.imgAlt || st.name; im.loading = 'lazy'; im.decoding = 'async';
+      }
       li.addEventListener('click', function () { jump(i); });
       li.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); jump(i); } });
       return li;
