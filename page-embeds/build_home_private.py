@@ -378,7 +378,7 @@ CAR_CSS = """<style>
   .pvb .pvb-pill { font-size: 0.88rem; padding: 5px 12px; min-height: 34px; border-width: 1.5px; }
   .pvb .pvb-pills { gap: 6px; margin-bottom: 10px; }
   .pvb .pvb-hint { margin-bottom: 10px; }
-  .pvb-q { margin: 14px auto 0; max-width: 420px; padding-left: 14px; border-left: 4px solid #2E9E57; }
+  .pvb-q { margin: 14px auto 0; max-width: 420px; padding-left: 14px; border-left: 4px solid #E8742A; }
   .pvb-q blockquote { margin: 0; font-size: 1rem; line-height: 1.5; color: #3B4440; min-height: 4.5em; }
   .pvb-q figcaption { margin-top: 4px; font-size: 0.85rem; color: #5B6663; }
   .pvb-q figcaption span { color: #E89B00; letter-spacing: 1px; margin-right: 4px; }
@@ -423,7 +423,7 @@ CALC_CSS = """<style>
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
   /* Oct 23, 2026 (Marlon): "Places on this trip" sits in the card, under Pick your plan; the highlighted place follows the photo */
-  .pcq-locwrap { margin: 14px 0 0; padding-left: 14px; border-left: 4px solid #2E9E57; }
+  .pcq-locwrap { margin: 14px 0 0; padding-left: 14px; border-left: 4px solid #E8742A; }
   .pcq-locwrap[hidden] { display: none; }
   .pcq-locl { margin: 0 0 8px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.85rem; color: #5B6663; }
   .pcq-locs { display: flex; flex-wrap: wrap; gap: 6px 8px; }

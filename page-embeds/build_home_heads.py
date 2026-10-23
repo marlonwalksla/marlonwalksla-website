@@ -49,7 +49,7 @@ TEAM_CSS = """<style>
   #team.mwsh { min-height: 0; grid-template-columns: minmax(0, 1fr); }
   #team .pc-line { max-width: none; }
   .mwsh-pills { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #fff; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
+  .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #E3F6D8; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
   .mwsh-pills li::before { content: none; }
   .mwsh-pills li.no { color: #A12B4A; background: #FFE4EA; border-color: #E58AA3; }
   .mwsh-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 10px; }
@@ -58,7 +58,7 @@ TEAM_CSS = """<style>
   .mwsh-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
   .mwsh-grp.out .mwsh-gl { color: #A12B4A; }
   @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } .mwsh-grp .mwsh-pills { gap: 6px; } .mwsh-grp .mwsh-pills li { font-size: 0.8rem; padding: 4px 9px; } }
-  .mwsh-pills li.no.yes { color: #1E6B3A; background: #fff; border-color: #1E6B3A; }
+  .mwsh-pills li.no.yes { color: #1E6B3A; background: #E3F6D8; border-color: #1E6B3A; }
   #team-split .mw-offer-links { margin-top: 10px; gap: 4px 22px; }
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
 </style>
@@ -68,7 +68,7 @@ PRIV_CSS = """<style>
   #private.mwsh { min-height: 0; grid-template-columns: minmax(0, 1fr); }
   #private .pc-line { max-width: none; }
   .mwsh-pills { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #fff; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
+  .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #E3F6D8; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
   .mwsh-pills li::before { content: none; }
   .mwsh-pills li.no { color: #A12B4A; background: #FFE4EA; border-color: #E58AA3; }
   .mwsh-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 10px; }
@@ -80,7 +80,7 @@ PRIV_CSS = """<style>
 </style>
 """
 LINES = {('team', 'en'): 'Get out of the office and explore Downtown LA together with your team on a loop that starts and ends at Grand Central Market. Learn some local history, breathe in some fresh air, and break bread together.', ('team', 'es'): 'Sal de la oficina y explora el centro de LA con tu equipo en un recorrido en c&iacute;rculo que empieza y termina en Grand Central Market. Aprende algo de historia local, respira aire fresco y compartan una comida.', ('priv', 'en'): 'Pick your stops and we\'ll handle the rest. Tell me where you want to go and we\'ll design your group\'s best day in LA together.', ('priv', 'es'): 'Elige tus paradas y nosotros nos encargamos del resto. Cu&eacute;ntame a d&oacute;nde quieres ir y dise&ntilde;amos juntos el mejor d&iacute;a de tu grupo en LA.'}
-SUB = {("team", "en"): '    <p class="mwsh-sub">Celebrate Your Team</p>\n', ("team", "es"): '    <p class="mwsh-sub">Celebra a tu equipo</p>\n', ("priv", "en"): '    <p class="mwsh-sub">LA, Your Way</p>\n', ("priv", "es"): '    <p class="mwsh-sub">LA a tu manera</p>\n'}  # Oct 23, 2026 (Marlon): the section is "Private Tours"; "LA, Your Way" is the subheader
+SUB = {("team", "en"): '    <p class="mwsh-sub" style="color:#1E6B3A">Celebrate Your Team</p>\n', ("team", "es"): '    <p class="mwsh-sub" style="color:#1E6B3A">Celebra a tu equipo</p>\n', ("priv", "en"): '    <p class="mwsh-sub">LA, Your Way</p>\n', ("priv", "es"): '    <p class="mwsh-sub">LA a tu manera</p>\n'}  # Oct 23, 2026 (Marlon): the section is "Private Tours"; "LA, Your Way" is the subheader
 FROM = {"en": "From: Marlon &middot; MarlonWalksLA, Los Angeles", "es": "De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles"}
 TO = {("team", "en"): ("To:", "your team &middot; Grand Central Market, 317 S Broadway"),
       ("team", "es"): ("Para:", "tu equipo &middot; Grand Central Market, 317 S Broadway"),
