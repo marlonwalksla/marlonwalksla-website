@@ -13,9 +13,9 @@ PERSON = ('<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" 
 # Facts only from Marlon: 20 photos per team (his earlier pill; the brief also says a photo for everyone, to confirm), Private 4/8/12 hours, no food or parking on Private.
 PEOPLE, CLOCK, FLIGHT, CAMERA, CAR, FOOD, PARK = "&#128101;", "&#9201;&#65039;", "&#128670;", "&#128247;", "&#128663;", "&#127860;", "&#127359;&#65039;"
 T = {
- ("team", "en"): ("Celebrate Your Team", "Ernesto with his Polaroid camera",
+ ("team", "en"): ("Team Tours", "Ernesto with his Polaroid camera",
    [(PEOPLE, "5-20 guests", "5-20 guests", 0), (CLOCK, "5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food", None, 1)]),
- ("team", "es"): ("Celebra a tu equipo", "Ernesto con su c&aacute;mara Polaroid",
+ ("team", "es"): ("Tours de equipo", "Ernesto con su c&aacute;mara Polaroid",
    [(PEOPLE, "5-20 personas", "5-20 personas", 0), (CLOCK, "5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida", None, 1)]),
  ("priv", "en"): ("Private Tours", "Ernesto ready for a hike",
    [(PEOPLE, "2-4 guests", "2-4 guests", 0), (CLOCK, "2-12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food", None, 1), (PARK, "Parking", None, 1)]),
@@ -80,7 +80,7 @@ PRIV_CSS = """<style>
 </style>
 """
 LINES = {('team', 'en'): 'Get out of the office and explore Downtown LA together with your team on a loop that starts and ends at Grand Central Market. Learn some local history, breathe in some fresh air, and break bread together.', ('team', 'es'): 'Sal de la oficina y explora el centro de LA con tu equipo en un recorrido en c&iacute;rculo que empieza y termina en Grand Central Market. Aprende algo de historia local, respira aire fresco y compartan una comida.', ('priv', 'en'): 'Pick your stops and we\'ll handle the rest. Tell me where you want to go and we\'ll design your group\'s best day in LA together.', ('priv', 'es'): 'Elige tus paradas y nosotros nos encargamos del resto. Cu&eacute;ntame a d&oacute;nde quieres ir y dise&ntilde;amos juntos el mejor d&iacute;a de tu grupo en LA.'}
-SUB = {("priv", "en"): '    <p class="mwsh-sub">LA, Your Way</p>\n', ("priv", "es"): '    <p class="mwsh-sub">LA a tu manera</p>\n'}  # Oct 23, 2026 (Marlon): the section is "Private Tours"; "LA, Your Way" is the subheader
+SUB = {("team", "en"): '    <p class="mwsh-sub">Celebrate Your Team</p>\n', ("team", "es"): '    <p class="mwsh-sub">Celebra a tu equipo</p>\n', ("priv", "en"): '    <p class="mwsh-sub">LA, Your Way</p>\n', ("priv", "es"): '    <p class="mwsh-sub">LA a tu manera</p>\n'}  # Oct 23, 2026 (Marlon): the section is "Private Tours"; "LA, Your Way" is the subheader
 FROM = {"en": "From: Marlon &middot; MarlonWalksLA, Los Angeles", "es": "De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles"}
 TO = {("team", "en"): ("To:", "your team &middot; Grand Central Market, 317 S Broadway"),
       ("team", "es"): ("Para:", "tu equipo &middot; Grand Central Market, 317 S Broadway"),
@@ -134,7 +134,7 @@ for (sec, lang), (title, alt, badges) in T.items():
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">
   <div class="mwsh-main">
     <h2 class="mwsh-title">{title}</h2>
-{SUB[(sec, lang)] if sec == "priv" else ""}    <p class="pc-line">{LINES[(sec, lang)]}</p>
+{SUB[(sec, lang)]}    <p class="pc-line">{LINES[(sec, lang)]}</p>
     <div class="pc-groups">{b_html}</div>
   </div>
 {addr}</div>
