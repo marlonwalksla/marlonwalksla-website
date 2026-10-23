@@ -73,7 +73,7 @@ T = {
 # Photos load from TRIP_IMG (img/trips/ in the repo or a Webflow upload). Missing photos fall back to a colored card. Guest photos only with permission.
 TRIP_IMG = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"  # Oct 21, 2026: real photos from Webflow Assets; each entry is "assetId_name|object-position"
 # id, tier, hours, color, EN title, ES title, EN stops, ES stops, EN story, ES story, photo file stems (with captions in EN, ES)
-TRIPS = [
+TRIPS_ALL = [
     # ---- Couples ----
     ("sunset", "quest", 5, "#FFD6A5", "Sunset Hike", "Caminata al atardecer",
      ["Donuts", "Hollywood Sign", "Griffith sunset", "Rodeo Drive", "Urban Light"], ["Donas", "Letrero de Hollywood", "Atardecer en Griffith", "Rodeo Drive", "Urban Light"],
@@ -85,14 +85,14 @@ TRIPS = [
      ["Venice Canals", "The white bridge"], ["Canales de Venice", "El puente blanco"],
      "", "",
      ["6ad929ec9a56d0d159649ffd_place-venice-canals-01|50% 50%", "6ad929ec3eeaaffdbe379a12_guest-venice-canals-01|50% 50%"], "couples", True,
-     "A private date walk through the Venice Canals in Los Angeles, with the famous white bridge.",
-     "Una caminata privada en pareja por los canales de Venice en Los Ángeles, con el famoso puente blanco."),
+     "A private family walk through the Venice Canals in Los Angeles, with the famous white bridge.",
+     "Una caminata privada en familia por los canales de Venice en Los Ángeles, con el famoso puente blanco."),
     ("tacos", "quest", 4, "#FFE08A", "Beach and Tacos", "Playa y tacos",
      ["Mexican food", "Santa Monica Pier"], ["Comida mexicana", "Muelle de Santa Mónica"],
      "", "",
      ["6ad929e61c74efa5d6a35519_guest-santa-monica-01|50% 50%", "6ad929e6fd77e7c927620ea9_place-santa-monica-01|50% 50%", "6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|50% 50%", "6ad93007add8991e78413dd1_place-santa-monica-03|50% 50%"], "couples", False,
-     "A private date in Los Angeles with Mexican food and a sunset at the Santa Monica Pier.",
-     "Una cita privada en Los Ángeles con comida mexicana y un atardecer en el muelle de Santa Mónica."),
+     "A private day with friends in Los Angeles: Mexican food and a sunset at the Santa Monica Pier.",
+     "Un día privado con amigos en Los Ángeles: comida mexicana y un atardecer en el muelle de Santa Mónica."),
     # ---- Families ----
     ("fgetty", "short", 4, "#DCEFFA", "The Getty", "El Getty",
      ["Getty Museum", "Sunset view"], ["Museo Getty", "Vista al atardecer"],
@@ -132,16 +132,20 @@ TRIPS = [
      "A private full-day tour for friends in Los Angeles: downtown, the Hollywood Sign, a Griffith sunset and Santa Monica.",
      "Un tour privado de día completo para amigos en Los Ángeles: el centro, el letrero de Hollywood, el atardecer en Griffith y Santa Mónica."),
 ]
+# Oct 23, 2026 (Marlon): keep it simple. One example trip per group, wired to the "Who is coming?" toggle in the estimate card:
+# Couples = Sunset Hike, Families = Venice Canals, Friends = Beach and Tacos. Routes and photos get updated later. The other trips stay in TRIPS_ALL (parked).
+WHO_MAP = {"sunset": "couples", "canals": "families", "tacos": "friends"}
+TRIPS = [r[:11] + (WHO_MAP[r[0]],) + r[12:] for r in TRIPS_ALL if r[0] in WHO_MAP]
 TRIP_DEFAULT = "sunset"
 CUSTOM_PHOTOS = ["6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad929bf12667b254315c683_place-bunker-hill-01|50% 50%", "6ad929b39a56d0d15964851d_place-broadway-theaters-01|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%"]  # filler images for "Customize my own": downtown is the way in
 CUSTOM = {"en": ("Customize my own", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
           "es": ("Personaliza el mío", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
 T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Who is coming?", who=[("couples", "&#128145;", "Couples"), ("families", "&#128106;", "Families"), ("friends", "&#127881;", "Friends")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
-  val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Pick a trip to see the photos and the price. Do it as is, or make it yours.",
+  val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Tap Couples, Families or Friends to flip through real trips. Do one as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
 T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="¿Quiénes vienen?", who=[("couples", "&#128145;", "Parejas"), ("families", "&#128106;", "Familias"), ("friends", "&#127881;", "Amigos")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
-  val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Elige un viaje para ver las fotos y el precio. Hazlo tal cual, o hazlo tuyo.",
+  val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Toca Parejas, Familias o Amigos para ver viajes reales. Haz uno tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
 
@@ -251,6 +255,21 @@ LEFT_JS = r"""<script>
     if (force || !cur || (TR[cur].who && TR[cur].who !== w)) pick(first || D.on);
   }
   window.addEventListener("mwwho", function (e) { applyWho(e.detail, true); });
+  /* Oct 23, 2026 (Marlon): on wide screens the estimate card sits on the left and the trip photos on the right (stacked order on phones is unchanged) */
+  function swapCols() {
+    var a = document.getElementById("private-tours"), b = document.querySelector(".mw-form-card .pcq"); if (!a || !b) return false;
+    var card = b.closest(".mw-form-card"), anc = a.parentElement;
+    while (anc && !anc.contains(card)) anc = anc.parentElement;
+    if (!anc) return false;
+    var ca = a, cb = card;
+    while (ca.parentElement !== anc) ca = ca.parentElement;
+    while (cb.parentElement !== anc) cb = cb.parentElement;
+    if (ca === cb) return false;
+    var dsp = getComputedStyle(anc).display; if (dsp.indexOf("flex") < 0 && dsp.indexOf("grid") < 0) return true; // float layout: leave as is
+    anc.classList.add("mwp-swap"); ca.classList.add("mwp-swap-l"); cb.classList.add("mwp-swap-r");
+    return true;
+  }
+  var tries = 0; (function waitSwap() { if (!swapCols() && tries++ < 20) setTimeout(waitSwap, 400); })();
   applyWho((window.MWPV && window.MWPV.who) || "couples", true);
 })();
 </script>
@@ -299,6 +318,7 @@ CAR_CSS = """<style>
   .pvc-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(39, 48, 46, 0.2); }
   .pvc-dots i.on { background: #27302E; }
   .polaroid-stack-area { display: none; }
+  @media (min-width: 992px) { .mwp-swap > .mwp-swap-l { order: 2; } .mwp-swap > .mwp-swap-r { order: 1; } }
   /* Oct 20, 2026 (Marlon): shorter left column */
   .pvb .pvb-pill { font-size: 0.88rem; padding: 5px 12px; min-height: 34px; border-width: 1.5px; }
   .pvb .pvb-pills { gap: 6px; margin-bottom: 10px; }
@@ -337,9 +357,9 @@ CALC_CSS = """<style>
   .pcq-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 700; font-size: 0.85rem; }
   .pcq-val { list-style: none; margin: 8px 0 6px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
   .pcq-val li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.88rem; line-height: 1.2; color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; border-radius: 999px; padding: 4px 10px; }
-  .pcq-val li::before { content: "\\2713"; margin-right: 5px; }
-  .pcq-val li.no { color: #5B6663; background: transparent; border: 2px dashed #8A918E; }
-  .pcq-val li.no::before { content: "\\2715"; }
+  .pcq-val li::before { content: none; }
+  .pcq-val li.no { color: #A12B4A; background: #FFE4EA; border: 2px solid #E58AA3; }
+  .pcq-val li.no::before { content: none; }
   .pcq-incl { margin: 6px 0 12px; font-size: 0.88rem; color: #4D5551; }
   .pcq-cta { display: block; width: 100%; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 11px 24px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
   .pcq-cta:hover:not([aria-disabled="true"]) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
@@ -434,7 +454,8 @@ def calc_html(lang):
     t = T[lang]
     keys = ["hrsl", "cta2", "cta3", "cta4", "wait", "each", "people", "total", "listp", "save", "yourtrip"]
     tj = json.dumps({**{k: t[k] for k in keys}, "prices": PRICES, "listRate": LIST_RATE}, ensure_ascii=False)
-    vin = "".join(f"<li>{esc(x)}</li>" for x in t["val_in"]) + "".join(f'<li class="no">{esc(x)}</li>' for x in t["val_out"])
+    EM_IN = ["&#127976;", "&#128663;", "&#128248;"]; EM_OUT = ["&#127869;&#65039;", "&#127359;"]  # Oct 23, 2026: emoji instead of check and X marks
+    vin = "".join(f"<li>{EM_IN[k]} {esc(x)}</li>" for k, x in enumerate(t["val_in"])) + "".join(f'<li class="no">{EM_OUT[k]} {esc(x)}</li>' for k, x in enumerate(t["val_out"]))
     wb = "".join(f'<button type="button" class="pcq-w" data-w="{k}" aria-pressed="{"true" if k == "couples" else "false"}"><span aria-hidden="true">{e}</span> {l}</button>' for k, e, l in t["who"])
     db = "".join(f'<button type="button" class="pcq-d" data-d="{k}" aria-pressed="{"true" if k == "half" else "false"}">{l}</button>' for k, l in t["dur"])
     hb = "".join(f'<button type="button" class="pcq-h" data-h="{h}" aria-pressed="{"true" if h == 6 else "false"}">{h}</button>' for h in (2, 4, 6, 8, 10, 12))

@@ -12,7 +12,7 @@
     <div class="pcq-price"></div>
     <p class="pcq-sub"></p>
     <p class="pcq-fit"></p>
-    <ul class="pcq-val" aria-label="Hotel pickup and drop-off included"><li>Hotel pickup and drop-off</li><li>Driving</li><li>Instant photos</li><li class="no">Food</li><li class="no">Parking</li></ul>
+    <ul class="pcq-val" aria-label="Hotel pickup and drop-off included"><li>&#127976; Hotel pickup and drop-off</li><li>&#128663; Driving</li><li>&#128248; Instant photos</li><li class="no">&#127869;&#65039; Food</li><li class="no">&#127359; Parking</li></ul>
   </div>
   <button type="button" class="pcq-cta" aria-disabled="true">Pick something first</button>
   <button type="button" class="pcq-alt" hidden>Change it, make it yours</button>
@@ -46,9 +46,9 @@
   .pcq-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: #DFF5E3; color: #1E6B3A; font-weight: 700; font-size: 0.85rem; }
   .pcq-val { list-style: none; margin: 8px 0 6px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
   .pcq-val li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.88rem; line-height: 1.2; color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; border-radius: 999px; padding: 4px 10px; }
-  .pcq-val li::before { content: "\2713"; margin-right: 5px; }
-  .pcq-val li.no { color: #5B6663; background: transparent; border: 2px dashed #8A918E; }
-  .pcq-val li.no::before { content: "\2715"; }
+  .pcq-val li::before { content: none; }
+  .pcq-val li.no { color: #A12B4A; background: #FFE4EA; border: 2px solid #E58AA3; }
+  .pcq-val li.no::before { content: none; }
   .pcq-incl { margin: 6px 0 12px; font-size: 0.88rem; color: #4D5551; }
   .pcq-cta { display: block; width: 100%; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.3rem; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 11px 24px; min-height: 48px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
   .pcq-cta:hover:not([aria-disabled="true"]) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
