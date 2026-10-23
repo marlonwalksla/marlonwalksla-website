@@ -113,7 +113,7 @@
     cur = id; var r = TR[id];
     load(r); setQuote(r);
     story.innerHTML = "";
-    if (r.id === "custom") { var p = document.createElement("p"); p.textContent = r.story; story.appendChild(p); story.hidden = false; } else story.hidden = true;
+    story.hidden = true; /* Oct 23, 2026 (Marlon): no text under the photos for Design Your Day; it moves to the main page */
     publish();
   }
   window.MWPV = window.MWPV || {};
