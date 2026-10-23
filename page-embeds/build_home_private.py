@@ -158,13 +158,13 @@ TRIPS = [
 ]
 TRIP_DEFAULT = "sunset"
 CUSTOM_PHOTOS = ["6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad929bf12667b254315c683_place-bunker-hill-01|50% 50%", "6ad929b39a56d0d15964851d_place-broadway-theaters-01|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%"]  # filler images for "Customize my own": downtown is the way in
-CUSTOM = {"en": ("Customize my own", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
-          "es": ("Personaliza el mío", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
-T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
+CUSTOM = {"en": ("Design Your Day", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
+          "es": ("Diseña tu día", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
+T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
   val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Tap Date Night, Family Outing or Fun with Friends to flip through real trips. Do one as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
+T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
   val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Toca Cita en pareja, Salida en familia o Diversión con amigos para ver viajes reales. Haz uno tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
@@ -228,14 +228,14 @@ LEFT_JS = r"""<script>
 (function () {
   var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, TR = {};
   D.trips.forEach(function (r) { TR[r.id] = r; });
-  var pills = [].slice.call(document.querySelectorAll(".pvb-pill")), story = document.getElementById("pvb-story"), cur = null, idx = 0;
+  var story = document.getElementById("pvb-story"), cur = null, idx = 0;
   var car = document.getElementById("pvc"), pol = car.querySelector(".pvc-pol"), box = car.querySelector(".pvc-img"), dots = document.getElementById("pvc-dots");
   var prev = car.querySelector(".pvc-prev"), next = car.querySelector(".pvc-next");
   function slides(r) { return r.photos.length ? r.photos : [null]; }
   function show() {
     var r = TR[cur], list = slides(r), src = list[idx];
     box.innerHTML = "";
-    var card = document.createElement("div"); card.className = "pvc-card"; card.style.background = r.color; card.textContent = r.id === "custom" ? r.story : r.name; box.appendChild(card);
+    var card = document.createElement("div"); card.className = "pvc-card"; card.style.background = r.color; card.textContent = r.name; box.appendChild(card);
     if (src) { var sp = src.split("|"); var im = new Image(); im.alt = r.name; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
     [].slice.call(dots.children).forEach(function (d, k) { d.classList.toggle("on", k === idx); });
     var many = list.length > 1; prev.hidden = next.hidden = !many; dots.hidden = !many;
@@ -257,7 +257,6 @@ LEFT_JS = r"""<script>
   }
   function pick(id) {
     cur = id; idx = 0; var r = TR[id];
-    pills.forEach(function (p) { p.setAttribute("aria-pressed", p.dataset.id === id ? "true" : "false"); });
     dots.innerHTML = ""; slides(r).forEach(function () { dots.appendChild(document.createElement("i")); });
     show();
     story.innerHTML = "";
@@ -265,14 +264,13 @@ LEFT_JS = r"""<script>
     story.appendChild(p); story.hidden = false;
     publish();
   }
-  pills.forEach(function (p) { p.addEventListener("click", function () { pick(p.dataset.id); }); });
   window.MWPV = window.MWPV || {};
   window.MWPV.setHours = function (h) { var r = TR[cur]; if (r && r.id === "custom") { r.hours = h; publish(); } };
   /* Oct 21, 2026 (Marlon): trips are listed per group (Couples, Families, Friends); the estimate card sets the group through window.MWPV.who */
   function applyWho(w, force) {
-    var first = null;
-    pills.forEach(function (p) { var r = TR[p.dataset.id], ok = !r.who || r.who === w; p.hidden = !ok; if (ok && r.who && !first) first = p.dataset.id; });
-    if (force || !cur || (TR[cur].who && TR[cur].who !== w)) pick(first || D.on);
+    var id = null;
+    if (w === "custom") id = "custom"; else D.trips.forEach(function (r) { if (!id && r.who === w) id = r.id; });
+    if (force || !cur) pick(id || D.on);
   }
   window.addEventListener("mwwho", function (e) { applyWho(e.detail, true); });
   /* Oct 23, 2026 (Marlon): on wide screens the estimate card sits on the left and the trip photos on the right (stacked order on phones is unchanged) */
@@ -298,7 +296,6 @@ LEFT_JS = r"""<script>
 
 def left_html(lang):
     t = T[lang]; data = data_for(lang)
-    pills = "".join(f'<button type="button" class="pvb-pill" data-id="{r["id"]}" aria-pressed="false">{esc(r["name"])}</button>' for r in data["trips"])
     js_data = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     return f"""<!-- ==============================================================================
      MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: LA, YOUR WAY - PREVIOUS TRIPS (LEFT COLUMN). Built by page-embeds/build_home_private.py
@@ -306,9 +303,6 @@ def left_html(lang):
      The estimate lives in home-private-calc.html (right column) and reads the pick through window.MWPV.
      ============================================================================== -->
 <div class="mw-offer pvb" id="private-tours">
-  <h3 class="pvb-h">{t["h"]}</h3>
-  <p class="pvb-hint">{t["hint"]}</p>
-  <div class="pvb-pills" role="group" aria-label="{esc(t['h'])}">{pills}</div>
   <div class="pvc" id="pvc" role="region" aria-roledescription="carousel" aria-label="{esc(t['h'])}" tabindex="0">
     <button type="button" class="pvc-nav pvc-prev" aria-label="{t['prev']}">&lsaquo;</button>
     <figure class="pvc-pol"><div class="pvc-img"></div></figure>
@@ -466,7 +460,7 @@ CALC_JS = r"""<script>
     var qt = quote(st); custom = custom || st.custom;
     var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: String(hrs()), n: n, price: qt.total, priceLo: qt.total, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + hrs() + "&lang=" + st.lang + (who ? "&who=" + who : "") + (custom ? "&custom=1" : "");
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + hrs() + "&lang=" + st.lang + (who && who !== "custom" ? "&who=" + who : "") + (custom ? "&custom=1" : "");
     window.location.href = "/private-tour?" + q;
   }
   cta.addEventListener("click", function () { go(false); });
@@ -483,6 +477,7 @@ STAMP = {
     "couples": ("sunset", "#D6479B", -7, 6, "DATE NIGHT", "CITA EN PAREJA"),
     "families": ("trio", "#1B6688", 7, 9, "FAMILY OUTING", "SALIDA EN FAMILIA"),
     "friends": ("taco", "#E89B00", -8, 3, "FUN WITH FRIENDS", "CON AMIGOS"),
+    "custom": ("sun", "#2E9E57", 7, 4, "DESIGN YOUR DAY", "DISEÑA TU DÍA"),
 }
 
 
