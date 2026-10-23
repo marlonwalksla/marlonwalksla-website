@@ -63,6 +63,9 @@
     var qq = document.querySelector(".mwp-q blockquote"), qb = document.querySelector(".mwp-q .mwp-by"), dq = s.getAttribute("data-q");
     if (qq && qb && dq) { qq.textContent = "\u201C" + dq + "\u201D"; qb.textContent = s.getAttribute("data-by"); }
   });
+  /* the quote box keeps one height for all four quotes, so the price card below never moves */
+  function lock() { if (window.MWS) window.MWS.lockQuote(document.querySelector(".mwp-q blockquote"), [].map.call(car.querySelectorAll(".mws-slide"), function (s) { return s.getAttribute("data-q"); })); }
+  if (window.MWS) lock(); else window.addEventListener("mws:ready", lock);
   /* the occasion chosen in the price card (birthday, milestone, offsite, just because) picks the photo */
   window.addEventListener("mwcel", function (e) {
     var L = car.querySelectorAll(".mws-slide");

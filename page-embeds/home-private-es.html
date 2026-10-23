@@ -88,6 +88,8 @@
     if (!fg) return;
     fg.querySelector("blockquote").textContent = "\u201C" + q[0] + "\u201D"; fg.querySelector(".pvb-by").textContent = q[1];
   }
+  function lockQ() { if (window.MWS) window.MWS.lockQuote(document.querySelector("#pvb-q blockquote"), Object.keys(QUOTES).map(function (k) { return QUOTES[k][0]; })); }
+  if (window.MWS) lockQ(); else window.addEventListener("mws:ready", lockQ);
   function items(r) {
     return r.photos.map(function (p) { var sp = p.split("|"); return { src: sp[0], pos: sp[1], cap: sp[2] || "", alt: sp[2] || r.name, key: sp[3] || "", kind: "photo" }; });
   }

@@ -20,7 +20,7 @@
 .mws-print > img { position: absolute; left: var(--ix, 5.1%); top: var(--iy, 5.6%); width: var(--iw, 89.8%); height: var(--ih, 73%); object-fit: cover; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
 .mws-card { width: 100%; height: 100%; display: grid; place-items: center; padding: 16px; text-align: center; border-radius: 10px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.4rem; color: #27302E; transform: none; }
 .mws-tape { position: absolute; top: -11px; left: 50%; width: 76px; height: 22px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 1; }
-.mws-cap { grid-column: 2; grid-row: 2; margin: 12px 0 0; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.3; color: #3B4440; min-height: 1.5em; }
+.mws-cap { grid-column: 2; grid-row: 2; margin: 12px 0 0; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.3; color: #3B4440; min-height: 2.6em; }
 .mws-dots { grid-column: 2; grid-row: 3; display: flex; justify-content: center; flex-wrap: nowrap; gap: 0; margin-top: 6px; min-height: 30px; }
 .mws-dots[hidden], .mws-nav[hidden] { display: none; }
 .mws-dot { width: 28px; flex: 0 0 28px; height: 30px; border: 0; background: none; cursor: pointer; position: relative; padding: 0; }
