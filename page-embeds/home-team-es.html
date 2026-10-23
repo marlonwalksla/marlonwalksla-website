@@ -37,6 +37,8 @@
   .mwp-q figcaption span { color: #E89B00; letter-spacing: 1px; margin-right: 4px; }
   .mwp-q figcaption .mwp-by { color: inherit; letter-spacing: normal; margin-right: 0; }
   .mwp-q blockquote { min-height: 4.5em; }
+  /* Oct 23, 2026 (Marlon): on phones the quote goes above the photos so the photos sit right above the occasion buttons that control them */
+  @media (max-width: 991px) { .mwp { display: flex; flex-direction: column; } .mwp-q { order: -1; margin: 0 0 16px; } }
   .mw-offer { scroll-margin-top: 90px; padding-top: 8px; }
   .mw-offer-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 50px; margin-bottom: 12px; }
   .mw-eyebrow-blue { color: #1d4ed8; background: #dbeafe; }

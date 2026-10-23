@@ -381,6 +381,8 @@ CAR_CSS = """<style>
   .pvb-q figcaption { margin-top: 4px; font-size: 0.85rem; color: #5B6663; }
   .pvb-q figcaption span { color: #E89B00; letter-spacing: 1px; margin-right: 4px; }
   .pvb-q figcaption .pvb-by { color: inherit; letter-spacing: normal; margin-right: 0; }
+  /* Oct 23, 2026 (Marlon): on phones the quote goes above the photos so the photos sit right above the plan buttons that control them */
+  @media (max-width: 991px) { .pvb { display: flex; flex-direction: column; } .pvb-q { order: -1; margin: 0 auto 16px; } }
   .pvb-story { margin-top: 8px; font-size: 0.92rem; line-height: 1.4; }
   .pvb-story p { margin-top: 4px; }
 </style>
