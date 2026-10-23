@@ -160,11 +160,11 @@ TRIP_DEFAULT = "sunset"
 CUSTOM_PHOTOS = ["6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad929bf12667b254315c683_place-bunker-hill-01|50% 50%", "6ad929b39a56d0d15964851d_place-broadway-theaters-01|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%"]  # filler images for "Customize my own": downtown is the way in
 CUSTOM = {"en": ("Design Your Day", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
           "es": ("Diseña tu día", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
-T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Design your trip", ch="Your estimate",
+T["en"].update(locl="Places on this trip", durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Design your trip", ch="Your estimate",
   val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Tap Date Night, Family Outing or Fun with Friends to flip through real trips. Do one as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Diseña tu viaje", ch="Tu estimado",
+T["es"].update(locl="Lugares de este viaje", durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Diseña tu viaje", ch="Tu estimado",
   val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Toca Cita en pareja, Salida en familia o Diversión con amigos para ver viajes reales. Haz uno tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
@@ -174,11 +174,63 @@ def esc(x):
     return x.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+# Oct 23, 2026 (Marlon): every photo has a subtitle (who is in it) and a place; under the photos is a list of the places of the trip (like the review
+# under the Team photos). Tapping a place jumps to its photo. NAMES ARE PLACEHOLDERS until Marlon has the real ones: change them here.
+# Each entry: (asset file, place key, English subtitle, Spanish subtitle)
+PHOTOS = {
+    "sunset": [
+        ("6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01", "tacos", "Grabbing tacos with Alana and Petr", "Comiendo tacos con Alana y Petr"),
+        ("6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04", "griffith", "Javier and Jenny taking in the sunset", "Javier y Jenny disfrutando el atardecer"),
+        ("6ad929ec3eeaaffdbe379a12_guest-venice-canals-01", "venice", "Sofia and Marco walking the Venice Canals", "Sofia y Marco caminando por los canales de Venice"),
+        ("6ad929e61c74efa5d6a35519_guest-santa-monica-01", "santamonica", "Dana and Chris on the Santa Monica Pier", "Dana y Chris en el muelle de Santa Mónica"),
+        ("6ac74a8b6dc6526aa1e35909_polaroid-disney-hall-couple", "downtown", "Nina and Sam at Walt Disney Concert Hall", "Nina y Sam en el Walt Disney Concert Hall"),
+        ("6ad92ca74c83370c9cab47c3_guest-city-hall-01", "downtown", "Lena and Tom posing at City Hall", "Lena y Tom posando en el Ayuntamiento"),
+        ("6ac74a8b6dc6526aa1e35947_polaroid-avila-adobe-couple", "downtown", "Carmen and Diego at the Avila Adobe", "Carmen y Diego en la Casa Avila"),
+        ("6ad92cb5d1848d20e07d8ea2_guest-echo-park-lake-01", "echopark", "Ana and Ben walk around Echo Park Lake", "Ana y Ben caminan por el lago Echo Park"),
+    ],
+    "canals": [
+        ("6ad929daefa7590f943caa69_guest-getty-center-01", "getty", "Sunset at the Getty Center", "Atardecer en el Getty Center"),
+        ("6ad92cb5fd77e7c92763db12_guest-dtla-03", "getty", "Noa and Yoav at sunset at the Getty Center", "Noa y Yoav al atardecer en el Getty Center"),
+        ("6ad929db59b1d5ccebe76dc4_place-getty-center-01", "getty", "Gardens and views at the Getty Center", "Jardines y vistas en el Getty Center"),
+        ("6ad929dbc3398f1383c28856_art-getty-center-01", "getty", "Exploring the Getty Center", "Explorando el Getty Center"),
+    ],
+    "tacos": [
+        ("6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02", "griffith", "Sunset hike with friends", "Caminata al atardecer con amigos"),
+        ("6ad92c771ce84651cd30cb11_archive-bar-01", "gcm", "Grab a drink", "Toma algo"),
+        ("6ad92a2e137bdbc510c64f01_guest-griffith-park-and-observatory-03", "griffith", "Sunset at the observatory", "Atardecer en el observatorio"),
+        ("6ad92c79be5324f1c409a7a8_archive-la-23", "griffith", "Sunset hike at Griffith", "Caminata al atardecer en Griffith"),
+        ("6ad92cb27fd6d8671dbbc43a_archive-la-22", "griffith", "Sunset hike at Griffith", "Caminata al atardecer en Griffith"),
+        ("6ad92c787fd6d8671dbba6f2_archive-la-10", "griffith", "Sunset hike at Griffith", "Caminata al atardecer en Griffith"),
+    ],
+    "custom": [
+        ("6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01", "elysian", "Elysian Park and Angels Point", "Elysian Park y Angels Point"),
+        ("6ad929bf12667b254315c683_place-bunker-hill-01", "bunker", "Bunker Hill", "Bunker Hill"),
+        ("6ad929b39a56d0d15964851d_place-broadway-theaters-01", "broadway", "The Broadway theaters", "Los teatros de Broadway"),
+        ("6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03", "olvera", "Olvera Street", "Calle Olvera"),
+    ],
+}
+LOCS = {
+    "sunset": [("tacos", "Tacos", "Tacos"), ("griffith", "Griffith Observatory", "Observatorio Griffith"), ("venice", "Venice Canals", "Canales de Venice"), ("santamonica", "Santa Monica", "Santa Mónica"),
+               ("downtown", "Downtown LA", "Centro de LA"), ("echopark", "Echo Park", "Echo Park")],
+    "canals": [("getty", "Getty Center", "Getty Center")],
+    "tacos": [("gcm", "Grand Central Market", "Grand Central Market"), ("griffith", "Griffith Observatory", "Observatorio Griffith")],
+    "custom": [("elysian", "Elysian Park", "Elysian Park"), ("bunker", "Bunker Hill", "Bunker Hill"), ("broadway", "Broadway", "Broadway"), ("olvera", "Olvera Street", "Calle Olvera")],
+}
+
+
+def _ph(tid, i):
+    return [TRIP_IMG + f + ".webp|50% 50%|" + (en, es)[i] + "|" + k for f, k, en, es in PHOTOS[tid]]
+
+
+def _lc(tid, i):
+    return [{"k": k, "n": (en, es)[i]} for k, en, es in LOCS[tid]]
+
+
 def data_for(lang):
     i = 0 if lang == "en" else 1
     trips = [{"id": r[0], "tier": r[1], "hours": r[2], "color": r[3], "name": r[4 + i], "stops": r[6 + i], "story": r[13 + i], "who": r[11],
-              "photos": [TRIP_IMG + p.split("|")[0] + ".webp|" + p.split("|")[1] for p in r[10]]} for r in TRIPS]
-    trips.append({"id": "custom", "tier": "custom", "hours": 4, "color": "#FFF1B8", "name": CUSTOM[lang][0], "stops": [], "story": CUSTOM[lang][1], "who": "", "photos": [TRIP_IMG + p.split("|")[0] + ".webp|" + p.split("|")[1] for p in CUSTOM_PHOTOS]})
+              "photos": _ph(r[0], i), "locs": _lc(r[0], i)} for r in TRIPS]
+    trips.append({"id": "custom", "tier": "custom", "hours": 4, "color": "#FFF1B8", "name": CUSTOM[lang][0], "stops": [], "story": CUSTOM[lang][1], "who": "", "photos": _ph("custom", i), "locs": _lc("custom", i)})
     return {"lang": lang, "t": T[lang], "trips": trips, "on": TRIP_DEFAULT, "prices": PRICES, "listRate": LIST_RATE}
 
 
@@ -228,7 +280,7 @@ LEFT_JS = r"""<script>
 (function () {
   var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, TR = {};
   D.trips.forEach(function (r) { TR[r.id] = r; });
-  var story = document.getElementById("pvb-story"), cur = null, idx = 0;
+  var story = document.getElementById("pvb-story"), capEl = document.getElementById("pvc-cap"), locsEl = document.getElementById("pvb-locs"), cur = null, idx = 0;
   var car = document.getElementById("pvc"), pol = car.querySelector(".pvc-pol"), box = car.querySelector(".pvc-img"), dots = document.getElementById("pvc-dots");
   var prev = car.querySelector(".pvc-prev"), next = car.querySelector(".pvc-next");
   function slides(r) { return r.photos.length ? r.photos : [null]; }
@@ -236,7 +288,10 @@ LEFT_JS = r"""<script>
     var r = TR[cur], list = slides(r), src = list[idx];
     box.innerHTML = "";
     var card = document.createElement("div"); card.className = "pvc-card"; card.style.background = r.color; card.textContent = r.name; box.appendChild(card);
-    if (src) { var sp = src.split("|"); var im = new Image(); im.alt = r.name; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
+    if (src) { var sp = src.split("|"); var im = new Image(); im.alt = sp[2] || r.name; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
+    capEl.textContent = src ? (src.split("|")[2] || "") : "";
+    var lk = src ? src.split("|")[3] : "";
+    [].slice.call(locsEl.children).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.k === lk ? "true" : "false"); });
     [].slice.call(dots.children).forEach(function (d, k) { d.classList.toggle("on", k === idx); });
     var many = list.length > 1; prev.hidden = next.hidden = !many; dots.hidden = !many;
   }
@@ -258,10 +313,15 @@ LEFT_JS = r"""<script>
   function pick(id) {
     cur = id; idx = 0; var r = TR[id];
     dots.innerHTML = ""; slides(r).forEach(function () { dots.appendChild(document.createElement("i")); });
+    locsEl.innerHTML = "";
+    r.locs.forEach(function (l) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "pvb-loc"; b.dataset.k = l.k; b.textContent = l.n; b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { var L = slides(TR[cur]); for (var k = 0; k < L.length; k++) { if (L[k] && L[k].split("|")[3] === l.k) { go(k); break; } } });
+      locsEl.appendChild(b);
+    });
     show();
     story.innerHTML = "";
-    var p = document.createElement("p"); p.textContent = r.story;
-    story.appendChild(p); story.hidden = false;
+    if (r.id === "custom") { var p = document.createElement("p"); p.textContent = r.story; story.appendChild(p); story.hidden = false; } else story.hidden = true;
     publish();
   }
   window.MWPV = window.MWPV || {};
@@ -308,7 +368,9 @@ def left_html(lang):
     <figure class="pvc-pol"><div class="pvc-img"></div></figure>
     <button type="button" class="pvc-nav pvc-next" aria-label="{t['next']}">&rsaquo;</button>
   </div>
+  <p class="pvc-cap" id="pvc-cap" aria-live="polite"></p>
   <div class="pvc-dots" id="pvc-dots" aria-hidden="true"></div>
+  <div class="pvb-locwrap"><p class="pvb-locl">{t["locl"]}</p><div class="pvb-locs" id="pvb-locs" role="group" aria-label="{t["locl"]}"></div></div>
   <div class="pvb-story" id="pvb-story" hidden></div>
 </div>
 <script type="application/json" id="pvb-data">{js_data}</script>
@@ -327,6 +389,13 @@ CAR_CSS = """<style>
   .pvc-img img { display: block; width: auto; height: auto; max-width: 100%; max-height: 320px; border-radius: 10px; box-shadow: 0 10px 22px -10px rgba(39, 48, 46, 0.5); }
   .pvc-card { position: absolute; inset: 0; border-radius: 10px; display: grid; place-items: center; padding: 16px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.3; color: #27302E; }
   .pvc-pol figcaption { margin: 10px 2px 0; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.05rem; line-height: 1.15; color: #27302E; }
+  .pvc-cap { margin: 12px 0 0; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.3; color: #3B4440; min-height: 2.6em; }
+  .pvb-locwrap { margin: 14px 0 0; padding-left: 14px; border-left: 4px solid #2E9E57; }
+  .pvb-locl { margin: 0 0 8px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.85rem; color: #5B6663; }
+  .pvb-locs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pvb-loc { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; height: 34px; padding: 0 12px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pvb-loc[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pvb-loc:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pvc-dots { display: flex; gap: 8px; justify-content: center; margin: 14px 0 0; }
   .pvc-dots[hidden] { display: none; }
   .pvc-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(39, 48, 46, 0.2); }
