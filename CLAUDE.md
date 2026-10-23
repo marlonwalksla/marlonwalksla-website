@@ -11,6 +11,9 @@ MarlonWalksLA is Marlon Gonzalez's walking-tour business in Los Angeles: free to
 - **Two branches feed the sections:** `test` is what the test site (marlonwalksla.webflow.io) loads, `live` is what marlonwalksla.com loads. `mw.js` picks the branch from the hostname. Edit and push `test`; only after Marlon says OK, `git push origin test:live`. The embeds pin `mw.js` to commit `5b58f07489e770356f3dfa935dc89e76b3cdedc5` ("loader-v2", GitHub blocked creating a tag from here), so the loader never changes by accident. To change the loader, commit a new `mw.js` and update the 25 embeds to the new commit (or tag it as `loader-v3`).
 - CSS and JS files (`global-vars.css`, `map-core.js`, etc.) still load from `@main`, so a push to main reaches the live site. Treat main as live for those files.
 
+- **Crawler text:** each main page has a `<noscript>` copy of its text in the page's footer code in Webflow, built by `tools/build_crawler_text.py` (output in `tools/crawler-text/`). After copy changes in `page-embeds/`, re-run it and re-paste into that page's footer (keep the existing scripts above it).
+- **Section prefetch:** the site head code has a small script with the list of sections per page (same URLs and branch rule as `mw.js`). When a page gets a new or renamed section, update that list too.
+
 ## Key files
 - `global-vars.css`: brand colors and shared components (loaded site-wide)
 - `tour-pages.css`: styles for the tour, About, Privacy and Terms pages. `.tp-todo` = red placeholder for info Marlon still has to fill in.
