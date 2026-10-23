@@ -437,7 +437,7 @@ CALC_CSS = """<style>
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
   /* Oct 23, 2026 (Marlon): the price, the facts and the button live in their own tinted panel, split from the choices by a dashed line */
-  .pcq-res { margin: 18px -22px -18px; padding: 18px 22px 18px; background: #FFE8D4; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }
+  .pcq-res { margin: 18px -22px -18px; padding: 18px 22px 18px; background: #D5EAF6; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }
   .pcq-res .pcq-out { margin: 0 0 14px; }
   .pcq-res .pcq-sub { margin: 10px 0 0; font-family: "Nunito", system-ui, sans-serif; font-weight: 400; font-size: 0.92rem; line-height: 1.4; color: #4D5551; }
   .pcq-res .pcq-val { margin: 14px 0 0; }

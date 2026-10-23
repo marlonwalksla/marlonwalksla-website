@@ -142,7 +142,7 @@ for lang, t in T.items():
   .tq-ticks {{ margin-top: -4px; }}
   .tq-out {{ margin: 8px 0 4px; gap: 4px 28px; }}
   /* Oct 23, 2026 (Marlon): the price, the facts and the button live in their own tinted panel, split from the choices by a dashed line */
-  .tq-res {{ margin: 18px calc(-1 * var(--px, 22px)) calc(-1 * var(--pb, 20px)); padding: 18px var(--px, 22px) 18px; background: #E3F1D4; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }}
+  .tq-res {{ margin: 18px calc(-1 * var(--px, 22px)) calc(-1 * var(--pb, 20px)); padding: 18px var(--px, 22px) 18px; background: #D5EAF6; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }}
   .tq-res .tq-out {{ margin: 0 0 14px; }}
   .tq-res .tq-val {{ margin: 0 0 18px; }}
   .tq-res .tq-val li {{ background: #fff; }}
