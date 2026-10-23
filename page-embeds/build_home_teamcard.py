@@ -128,7 +128,7 @@ for lang, t in T.items():
   .tq-title {{ padding-right: 110px; min-height: 92px; }}
   @media (prefers-reduced-motion: reduce) {{ .tq-st.pop {{ animation: none; }} }}
   .tq-eat {{ margin-top: 16px; }}
-  .tq-eat-note {{ margin: 8px 0 0; font-size: 0.88rem; line-height: 1.45; color: #4D5551; min-height: 2.9em; }}
+  .tq-eat-note {{ margin: 8px 0 0; font-family: "Nunito", system-ui, sans-serif; font-weight: 400; font-size: 0.9rem; line-height: 1.45; color: #4D5551; min-height: 2.9em; }}
   /* Oct 20, 2026 (Marlon): shorter form */
   .mw-form-card:has(.tq) {{ padding: 18px 22px 16px; --px: 22px; --pb: 16px; }}
   .tq-stamp {{ width: 78px; height: 78px; top: -4px; }}
