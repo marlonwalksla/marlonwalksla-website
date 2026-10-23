@@ -38,5 +38,5 @@ for lang, name in (("en", "home-routebreak.html"), ("es", "home-routebreak-es.ht
             f"<section class=\"rm\" aria-label=\"{t['title']}\">\n  <div class=\"rm-wrap\">\n    <div class=\"rm-text\">\n"
             f"      <h2 class=\"rm-title\">{t['title']}</h2>\n      <p class=\"rm-line\">{t['l1']}</p>\n      <p class=\"rm-line\">{t['l2']}</p>\n"
             f"      <a class=\"rm-cta\" href=\"{t['cta_href']}\">{t['cta']}</a>\n    </div>\n"
-            f"    <img class=\"rm-mascot\" src=\"{MASCOT_URL}\" alt=\"\" aria-hidden=\"true\" loading=\"lazy\">\n  </div>\n</section>\n" + CSS)
+            f"    <img class=\"rm-mascot\" src=\"{MASCOT_URL}\" alt=\"{'Ernesto, el burrito de piñata, señalando el mapa' if lang == 'es' else 'Ernesto the piñata donkey pointing to the map'}\" loading=\"lazy\">\n  </div>\n</section>\n" + CSS)
     open(name, "w", encoding="utf-8").write(html); print("wrote", name)
