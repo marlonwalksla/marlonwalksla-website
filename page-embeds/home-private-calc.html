@@ -5,6 +5,7 @@
   <h3 class="pcq-title">Your estimate</h3>
   <p class="pcq-none" hidden>Pick a trip to see your estimate.</p>
   <div class="pcq-row pcq-wrow" role="group" aria-label="Pick your plan" hidden><span class="pcq-rowl">Pick your plan</span><button type="button" class="pcq-w" data-w="couples" aria-pressed="true"><span aria-hidden="true">&#128145;</span> Date Night</button><button type="button" class="pcq-w" data-w="families" aria-pressed="false"><span aria-hidden="true">&#128106;</span> Family Outing</button><button type="button" class="pcq-w" data-w="friends" aria-pressed="false"><span aria-hidden="true">&#127881;</span> Fun with Friends</button><button type="button" class="pcq-w" data-w="custom" aria-pressed="false"><span aria-hidden="true">&#128506;&#65039;</span> Design Your Day</button></div>
+  <div class="pcq-res">
   <div class="pcq-out" aria-live="polite" hidden>
     <div class="pcq-price"></div>
     <p class="pcq-sub"></p>
@@ -13,6 +14,7 @@
   </div>
   <button type="button" class="pcq-cta" aria-disabled="true">Pick something first</button>
   <button type="button" class="pcq-alt" hidden>Change it, make it yours</button>
+  </div>
 </div>
 <script type="application/json" id="pcq-t">{"hrsl": "hours", "pto": "to", "perhr": "per person, per hour", "disc": "Bigger groups and longer tours cost less per person.", "cta2": "Book this trip", "cta3": "Change it, make it yours", "cta4": "Design your trip", "wait": "Pick something first", "each": "each", "people": "people", "total": "total", "listp": "List price", "save": "You save", "yourtrip": "Your trip", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60, "pphLo": 20, "pphHi": 40}</script>
 <style>
@@ -43,6 +45,13 @@
   .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"], .pcq-w[aria-pressed="true"], .pcq-d[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
+  /* Oct 23, 2026 (Marlon): the price, the facts and the button live in their own tinted panel, split from the choices by a dashed line */
+  .pcq-res { margin: 18px -22px -18px; padding: 18px 22px 18px; background: #FFE8D4; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }
+  .pcq-res .pcq-out { margin: 0 0 14px; }
+  .pcq-res .pcq-sub { margin: 10px 0 0; font-family: "Nunito", system-ui, sans-serif; font-weight: 400; font-size: 0.92rem; line-height: 1.4; color: #4D5551; }
+  .pcq-res .pcq-val { margin: 14px 0 0; }
+  .pcq-res .pcq-val li { background: #fff; }
+  .pcq-res .pcq-val li.no { background: #FFE4EA; }
   .pcq-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-family: "Lilita One", sans-serif; font-size: clamp(2.2rem, 5vw, 2.9rem); line-height: 1; font-variant-numeric: tabular-nums; }
   .pcq-price small { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; color: #27302E; }
   .pcq-sub { margin: 6px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; color: #27302E; }

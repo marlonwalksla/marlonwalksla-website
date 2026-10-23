@@ -436,6 +436,13 @@ CALC_CSS = """<style>
   .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"], .pcq-w[aria-pressed="true"], .pcq-d[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
+  /* Oct 23, 2026 (Marlon): the price, the facts and the button live in their own tinted panel, split from the choices by a dashed line */
+  .pcq-res { margin: 18px -22px -18px; padding: 18px 22px 18px; background: #FFE8D4; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }
+  .pcq-res .pcq-out { margin: 0 0 14px; }
+  .pcq-res .pcq-sub { margin: 10px 0 0; font-family: "Nunito", system-ui, sans-serif; font-weight: 400; font-size: 0.92rem; line-height: 1.4; color: #4D5551; }
+  .pcq-res .pcq-val { margin: 14px 0 0; }
+  .pcq-res .pcq-val li { background: #fff; }
+  .pcq-res .pcq-val li.no { background: #FFE4EA; }
   .pcq-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-family: "Lilita One", sans-serif; font-size: clamp(2.2rem, 5vw, 2.9rem); line-height: 1; font-variant-numeric: tabular-nums; }
   .pcq-price small { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; color: #27302E; }
   .pcq-sub { margin: 6px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; color: #27302E; }
@@ -559,6 +566,7 @@ def calc_html(lang):
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-none" hidden>{t["none"]}</p>
   <div class="pcq-row pcq-wrow" role="group" aria-label="{t["whol"]}" hidden><span class="pcq-rowl">{t["whol"]}</span>{wb}</div>
+  <div class="pcq-res">
   <div class="pcq-out" aria-live="polite" hidden>
     <div class="pcq-price"></div>
     <p class="pcq-sub"></p>
@@ -567,6 +575,7 @@ def calc_html(lang):
   </div>
   <button type="button" class="pcq-cta" aria-disabled="true">{t["wait"]}</button>
   <button type="button" class="pcq-alt" hidden>{t["cta3"]}</button>
+  </div>
 </div>
 <script type="application/json" id="pcq-t">{tj}</script>
 """ + CALC_CSS + CALC_JS

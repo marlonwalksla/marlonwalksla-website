@@ -9,6 +9,7 @@
   <input class="tq-range" id="tq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tq-out">
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
   <div class="tq-cel tq-eat" role="group" aria-label="Lunch plans"><p class="tq-cel-h">Lunch plans</p><div class="tq-chips"><button type="button" class="tq-chip" data-e="own" aria-pressed="true">Individual meals</button><button type="button" class="tq-chip" data-e="plan" aria-pressed="false">Catered group meal</button></div></div>
+  <div class="tq-res">
   <div class="tq-big" id="tq-big" hidden><strong>Larger group? Contact me</strong><a class="tq-wa" href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2020" target="_blank" rel="noopener noreferrer">&#128172; Message Marlon about your group</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
     <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>+ lunch</span></span><span class="tq-cap" id="tq-cap">estimated total</span></div>
@@ -19,10 +20,11 @@
   <div class="pc-cta"><a class="tq-btn" href="/team-building-walking-tour-los-angeles">Schedule Your Team</a></div>
   
   <a class="tq-custom" href="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request">Have a custom request?</a>
+  </div>
 </div>
 <style>
   .mw-form-card:has(.tq) > .w-form { display: none !important; }
-  .mw-form-card:has(.tq) { margin-top: 0; padding: 22px 22px 20px; }
+  .mw-form-card:has(.tq) { margin-top: 0; padding: 22px 22px 20px; --px: 22px; --pb: 20px; }
   /* Oct 17, 2026: the card is short now, so it stays in view while the photos and map scroll */
   .tq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
   .tq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.5rem; line-height: 1.15; margin: 0 0 10px; color: #27302E; }
@@ -46,7 +48,7 @@
   .tq-custom { display: block; text-align: center; margin-top: 2px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; color: #4D5551 !important; text-decoration: underline !important; text-underline-offset: 3px; padding: 8px 0; }
   .tq-custom:hover { color: #27302E !important; }
   /* Oct 17, 2026 (Marlon, via Gemini): the slider is the star of the Team section */
-  .mw-form-card:has(.tq) { padding: 26px 26px 20px; box-shadow: 6px 6px 0 #27302E; }
+  .mw-form-card:has(.tq) { padding: 26px 26px 20px; box-shadow: 6px 6px 0 #27302E; --px: 26px; --pb: 20px; }
   .tq-title { font-size: 1.8rem; }
   .tq-label { font-size: 1.15rem; }
   .tq-label strong { font-size: 1.7rem; }
@@ -73,9 +75,9 @@
   @keyframes tqpop { from { opacity: 0; transform: scale(1.5) rotate(-12deg); } to { opacity: 0.92; transform: none; } }
   .tq-title { padding-right: 110px; min-height: 92px; }
   @media (prefers-reduced-motion: reduce) { .tq-st.pop { animation: none; } }
-  .tq-eat { margin-top: 10px; }
+  .tq-eat { margin-top: 16px; }
   /* Oct 20, 2026 (Marlon): shorter form */
-  .mw-form-card:has(.tq) { padding: 18px 22px 16px; }
+  .mw-form-card:has(.tq) { padding: 18px 22px 16px; --px: 22px; --pb: 16px; }
   .tq-stamp { width: 78px; height: 78px; top: -4px; }
   .tq-title { font-size: 1.6rem; padding-right: 86px; min-height: 0; margin-bottom: 8px; }
   .tq-cel { margin: 0 0 10px; }
@@ -87,6 +89,15 @@
   .tq-range { height: 34px; }
   .tq-ticks { margin-top: -4px; }
   .tq-out { margin: 8px 0 4px; gap: 4px 28px; }
+  /* Oct 23, 2026 (Marlon): the price, the facts and the button live in their own tinted panel, split from the choices by a dashed line */
+  .tq-res { margin: 18px calc(-1 * var(--px, 22px)) calc(-1 * var(--pb, 20px)); padding: 18px var(--px, 22px) 18px; background: #E3F1D4; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }
+  .tq-res .tq-out { margin: 0 0 14px; }
+  .tq-res .tq-val { margin: 0 0 18px; }
+  .tq-res .tq-val li { background: #fff; }
+  .tq-res .tq-val li.no { background: #FFE4EA; }
+  .tq-res .tq-val li.no.yes { background: #fff; }
+  .tq-res .tq-cap { color: #4D5551; }
+  .tq-res .tq-save { background: #fff; }
   .tq-val li.no { color: #A12B4A; background: #FFE4EA; border: 2px solid #E58AA3; }
   .tq-val li.no.yes { color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; }
   .tq-val li.no.yes::before { content: none; }
