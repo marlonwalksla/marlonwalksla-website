@@ -98,6 +98,9 @@
 
   @media (max-width: 991px) {
     .mwla-fgrid { grid-template-columns: 1fr; }
+    /* Oct 23, 2026 (Marlon): same as Team and Private: on phones the quote goes above the photos */
+    .mwla-fleft { display: flex; flex-direction: column; }
+    .mwla-fleft .mwla-q { order: -1; margin: 0 0 16px; }
   }
   @media (max-width: 900px) {
     .mwla-book { padding: 40px 16px; }
