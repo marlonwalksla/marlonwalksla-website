@@ -57,7 +57,7 @@ TEAM_CSS = """<style>
   .mwsh-grp .mwsh-pills { margin: 0; }
   .mwsh-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
   .mwsh-grp.out .mwsh-gl { color: #A12B4A; }
-  @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } }
+  @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } .mwsh-grp .mwsh-pills { gap: 6px; } .mwsh-grp .mwsh-pills li { font-size: 0.8rem; padding: 4px 9px; } }
   .mwsh-pills li.no.yes { color: #1E6B3A; background: #fff; border-color: #1E6B3A; }
   #team-split .mw-offer-links { margin-top: 10px; gap: 4px 22px; }
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
@@ -76,7 +76,7 @@ PRIV_CSS = """<style>
   .mwsh-grp .mwsh-pills { margin: 0; }
   .mwsh-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
   .mwsh-grp.out .mwsh-gl { color: #A12B4A; }
-  @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } }
+  @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } .mwsh-grp .mwsh-pills { gap: 6px; } .mwsh-grp .mwsh-pills li { font-size: 0.8rem; padding: 4px 9px; } }
 </style>
 """
 LINES = {('team', 'en'): 'Get out of the office and explore Downtown LA together with your team on a loop that starts and ends at Grand Central Market. Learn some local history, breathe in some fresh air, and break bread together.', ('team', 'es'): 'Sal de la oficina y explora el centro de LA con tu equipo en un recorrido en c&iacute;rculo que empieza y termina en Grand Central Market. Aprende algo de historia local, respira aire fresco y compartan una comida.', ('priv', 'en'): 'Pick your stops and we\'ll handle the rest. Tell me where you want to go and we\'ll design your group\'s best day in LA together.', ('priv', 'es'): 'Elige tus paradas y nosotros nos encargamos del resto. Cu&eacute;ntame a d&oacute;nde quieres ir y dise&ntilde;amos juntos el mejor d&iacute;a de tu grupo en LA.'}
