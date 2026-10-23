@@ -381,10 +381,10 @@ CAR_CSS = """<style>
   .pvc-card { position: absolute; inset: 0; border-radius: 10px; display: grid; place-items: center; padding: 16px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.3; color: #27302E; }
   .pvc-pol figcaption { margin: 10px 2px 0; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.05rem; line-height: 1.15; color: #27302E; }
   .pvc-cap { margin: 12px 0 0; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.3; color: #3B4440; min-height: 2.6em; }
-  .pvc-dots { display: flex; gap: 8px; justify-content: center; margin: 14px 0 0; }
+  .pvc-dots { display: flex; gap: 18px; justify-content: center; margin: 6px 0 0; min-height: 30px; align-items: center; }
   .pvc-dots[hidden] { display: none; }
-  .pvc-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(39, 48, 46, 0.2); }
-  .pvc-dots i.on { background: #27302E; }
+  .pvc-dots i { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #27302E; background: #fff; box-sizing: content-box; margin: 0; }
+  .pvc-dots i.on { background: #FFD43B; }
   .polaroid-stack-area { display: none; }
   @media (min-width: 992px) { .mwp-swap > .mwp-swap-l { order: 2; } .mwp-swap > .mwp-swap-r { order: 1; } }
   /* Oct 20, 2026 (Marlon): shorter left column */

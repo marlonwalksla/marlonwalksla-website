@@ -174,7 +174,7 @@
       var ev = c.getAttribute("data-e"), eon = c.getAttribute("aria-pressed") !== "true";
       [].slice.call(c.parentNode.children).forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
       c.setAttribute("aria-pressed", eon ? "true" : "false"); sel.e = eon ? ev : "";
-      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; var food = document.querySelector(".mwsh-pills li.no"); if (food) food.classList.toggle("yes", sel.e === "plan");
+      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; var food = document.querySelector(".mwsh-pills li.no"), inl = document.getElementById("mwsh-in"), outl = document.getElementById("mwsh-out"); if (food && inl && outl) { var cat = sel.e === "plan"; (cat ? inl : outl).appendChild(food); food.classList.toggle("yes", cat); outl.parentNode.hidden = cat; }
       [].slice.call(root.querySelectorAll(".tq-st2[data-e]")).forEach(function (st) { var show = st.getAttribute("data-e") === sel.e; st.hidden = !show; st.classList.remove("pop"); if (show) { void st.offsetWidth; st.classList.add("pop"); } });
       link();
     });

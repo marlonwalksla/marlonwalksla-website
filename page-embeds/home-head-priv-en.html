@@ -5,7 +5,7 @@
     <h2 class="mwsh-title">Private Tours</h2>
     <p class="mwsh-sub">LA, Your Way</p>
     <p class="pc-line">Pick your stops and we'll handle the rest. Tell me where you want to go and we'll design your group's best day in LA together.</p>
-    <div class="pc-groups"><ul class="mwsh-pills" aria-label="What is included"><li>&#127976; Hotel pickup and drop-off</li><li>&#128663; Driving</li><li>&#128248; Instant photos</li><li class="no">&#127869;&#65039; Food</li><li class="no">&#127359;&#65039; Parking</li></ul></div>
+    <div class="pc-groups"><div class="mwsh-grp"><span class="mwsh-gl">Included</span><ul class="mwsh-pills"><li>&#127976; Hotel pickup and drop-off</li><li>&#128663; Driving</li><li>&#128248; Instant photos</li></ul></div><div class="mwsh-grp out"><span class="mwsh-gl">Not included</span><ul class="mwsh-pills"><li class="no">&#127869;&#65039; Food</li><li class="no">&#127359;&#65039; Parking</li></ul></div></div>
   </div>
 </div>
 <style>
@@ -30,4 +30,10 @@
   .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #fff; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
   .mwsh-pills li::before { content: none; }
   .mwsh-pills li.no { color: #A12B4A; background: #FFE4EA; border-color: #E58AA3; }
+  .mwsh-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 10px; }
+  .mwsh-grp[hidden] { display: none; }
+  .mwsh-grp .mwsh-pills { margin: 0; }
+  .mwsh-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
+  .mwsh-grp.out .mwsh-gl { color: #A12B4A; }
+  @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } }
 </style>

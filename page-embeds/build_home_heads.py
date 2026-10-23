@@ -52,6 +52,12 @@ TEAM_CSS = """<style>
   .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #fff; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
   .mwsh-pills li::before { content: none; }
   .mwsh-pills li.no { color: #A12B4A; background: #FFE4EA; border-color: #E58AA3; }
+  .mwsh-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 10px; }
+  .mwsh-grp[hidden] { display: none; }
+  .mwsh-grp .mwsh-pills { margin: 0; }
+  .mwsh-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
+  .mwsh-grp.out .mwsh-gl { color: #A12B4A; }
+  @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } }
   .mwsh-pills li.no.yes { color: #1E6B3A; background: #fff; border-color: #1E6B3A; }
   #team-split .mw-offer-links { margin-top: 10px; gap: 4px 22px; }
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
@@ -65,6 +71,12 @@ PRIV_CSS = """<style>
   .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #fff; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
   .mwsh-pills li::before { content: none; }
   .mwsh-pills li.no { color: #A12B4A; background: #FFE4EA; border-color: #E58AA3; }
+  .mwsh-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 10px; }
+  .mwsh-grp[hidden] { display: none; }
+  .mwsh-grp .mwsh-pills { margin: 0; }
+  .mwsh-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
+  .mwsh-grp.out .mwsh-gl { color: #A12B4A; }
+  @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } }
 </style>
 """
 LINES = {('team', 'en'): 'Get out of the office and explore Downtown LA together with your team on a loop that starts and ends at Grand Central Market. Learn some local history, breathe in some fresh air, and break bread together.', ('team', 'es'): 'Sal de la oficina y explora el centro de LA con tu equipo en un recorrido en c&iacute;rculo que empieza y termina en Grand Central Market. Aprende algo de historia local, respira aire fresco y compartan una comida.', ('priv', 'en'): 'Pick your stops and we\'ll handle the rest. Tell me where you want to go and we\'ll design your group\'s best day in LA together.', ('priv', 'es'): 'Elige tus paradas y nosotros nos encargamos del resto. Cu&eacute;ntame a d&oacute;nde quieres ir y dise&ntilde;amos juntos el mejor d&iacute;a de tu grupo en LA.'}
@@ -75,6 +87,13 @@ TO = {("team", "en"): ("To:", "your team &middot; Grand Central Market, 317 S Br
       ("priv", "en"): ("To:", "you &middot; anywhere in LA"),
       ("priv", "es"): ("Para:", "ti &middot; cualquier parte de LA")}
 PM = {"en": ("LOS ANGELES", "CA"), "es": ("LOS &Aacute;NGELES", "CA")}
+def grp(kind, uid, es, items, no):
+    """One labeled row of pills: kind 'in' or 'out'."""
+    label = ("No incluido" if es else "Not included") if kind == "out" else ("Incluido" if es else "Included")
+    idat = (' id="%s"' % uid) if uid else ""
+    pills = "".join(('<li class="no">' if no else "<li>") + x + "</li>" for x in items)
+    return '<div class="mwsh-grp%s"><span class="mwsh-gl">%s</span><ul class="mwsh-pills"%s>%s</ul></div>' % (" out" if kind == "out" else "", label, idat, pills)
+
 for (sec, lang), (title, alt, badges) in T.items():
     to_lbl, to_txt = TO[(sec, lang)]
     pm1, pm2 = PM[lang]
@@ -105,11 +124,11 @@ for (sec, lang), (title, alt, badges) in T.items():
               else [("&#127874;", "Birthdays"), ("&#127942;", "Milestones"), ("&#127796;", "Offsites"), ("&#127881;", "Just because")])
         # Oct 23, 2026 (Marlon): the fact pills are back under the intro text (they used to sit in the price card). The Food pill turns green when the card's lunch plan is catering.
         PV = (["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Gu&iacute;a local"], "&#127869;&#65039; Comida") if es else (["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], "&#127869;&#65039; Food")
-        b_html = '<ul class="mwsh-pills" aria-label="' + ("Incluido en el tour" if es else "What is included") + '">' + "".join("<li>" + x + "</li>" for x in PV[0]) + '<li class="no">' + PV[1] + "</li></ul>"
+        b_html = grp("in", "mwsh-in", es, PV[0], False) + grp("out", "mwsh-out", es, [PV[1]], True)  # Oct 23, 2026 (Marlon): two clear rows, "Included" and "Not included". The Food pill moves to the Included row when the lunch plan is catering (see build_home_teamcard.py).
     if sec == "priv":  # Oct 20, 2026 (Marlon): under the sentence, "Best for" instead of the fact pills (the facts moved next to the price)
         BF = [("&#128145;", "Parejas"), ("&#128106;", "Familias"), ("&#127881;", "Amigos")] if es else [("&#128145;", "Couples"), ("&#128106;", "Families"), ("&#127881;", "Friends")]
         PP = (["&#127976; Recogida y regreso al hotel", "&#128663; Manejo", "&#128248; Fotos instant&aacute;neas"], ["&#127869;&#65039; Comida", "&#127359;&#65039; Estacionamiento"]) if es else (["&#127976; Hotel pickup and drop-off", "&#128663; Driving", "&#128248; Instant photos"], ["&#127869;&#65039; Food", "&#127359;&#65039; Parking"])
-        b_html = '<ul class="mwsh-pills" aria-label="' + ("Incluido en el tour" if es else "What is included") + '">' + "".join("<li>" + x + "</li>" for x in PP[0]) + "".join('<li class="no">' + x + "</li>" for x in PP[1]) + "</ul>"  # Oct 23, 2026 (Marlon): the pills moved up from the estimate card, under the intro text. (Oct 21: Couples / Families / Friends moved into the estimate card, before "How many of you?" (build_home_private.py)
+        b_html = grp("in", "", es, PP[0], False) + grp("out", "", es, PP[1], True)  # Oct 23, 2026 (Marlon): same two rows as Team, "Included" and "Not included"
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
      Postcard header: title, one short sentence and badges on the left; the From and To lines on the right (Oct 17, 2026). Address, sentence and badge styles live in home-hero.html. -->
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">

@@ -4,7 +4,7 @@
   <div class="mwsh-main">
     <h2 class="mwsh-title">Celebra a tu equipo</h2>
     <p class="pc-line">Sal de la oficina y explora el centro de LA con tu equipo en un recorrido en c&iacute;rculo que empieza y termina en Grand Central Market. Aprende algo de historia local, respira aire fresco y compartan una comida.</p>
-    <div class="pc-groups"><ul class="mwsh-pills" aria-label="Incluido en el tour"><li>&#9201;&#65039; 5 horas</li><li>&#128673; Boletos de Angels Flight</li><li>&#128248; Foto para todos</li><li>&#129517; Gu&iacute;a local</li><li class="no">&#127869;&#65039; Comida</li></ul></div>
+    <div class="pc-groups"><div class="mwsh-grp"><span class="mwsh-gl">Incluido</span><ul class="mwsh-pills" id="mwsh-in"><li>&#9201;&#65039; 5 horas</li><li>&#128673; Boletos de Angels Flight</li><li>&#128248; Foto para todos</li><li>&#129517; Gu&iacute;a local</li></ul></div><div class="mwsh-grp out"><span class="mwsh-gl">No incluido</span><ul class="mwsh-pills" id="mwsh-out"><li class="no">&#127869;&#65039; Comida</li></ul></div></div>
   </div>
 </div>
 <style>
@@ -35,6 +35,12 @@
   .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #fff; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
   .mwsh-pills li::before { content: none; }
   .mwsh-pills li.no { color: #A12B4A; background: #FFE4EA; border-color: #E58AA3; }
+  .mwsh-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 10px; }
+  .mwsh-grp[hidden] { display: none; }
+  .mwsh-grp .mwsh-pills { margin: 0; }
+  .mwsh-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
+  .mwsh-grp.out .mwsh-gl { color: #A12B4A; }
+  @media (max-width: 600px) { .mwsh-gl { min-width: 100%; } }
   .mwsh-pills li.no.yes { color: #1E6B3A; background: #fff; border-color: #1E6B3A; }
   #team-split .mw-offer-links { margin-top: 10px; gap: 4px 22px; }
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
