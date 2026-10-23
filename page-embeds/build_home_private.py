@@ -54,7 +54,7 @@ T = {
   cap0="Tap a place and its photo lands here", picked="Your latest pick",
   ch="Estimate your day", chint="Based on what you picked. Marlon confirms the final price.",
   none="Pick a place or a challenge to see your estimate.", yours="Your places", about="About", to="to", hours="hours",
-  incl="Hotel pickup and drop-off included", groupl="How many of you?", dropoff="Took a free tour? Add a short drop-off for $60, even to the airport.", people="people", each="each", total="total", listp="List price", save="You save", fits="Fits a", car="1 to 4 guests, one price per car", over="That is more than one day. Message Marlon and we will plan two.",
+  incl="Hotel pickup and drop-off included", groupl="How many of you?", dropoff="Took a free tour? Add a short drop-off for $60, even to the airport.", people="people", each="each", total="total", listp="List price", save="You save", fits="Fits a", car="1-4 guests, one price per car", over="That is more than one day. Message Marlon and we will plan two.",
   est="Estimated price", base="Base: pickup, drop-off and driving", cta="Finalize Custom Tour", wait="Pick something first", note="No payment now. Next you send Marlon your details.",
   remove="Remove", count="places picked"),
  "es": dict(
@@ -63,7 +63,7 @@ T = {
   cap0="Toca un lugar y su foto cae aquí", picked="Tu última elección",
   ch="Calcula tu día", chint="Según lo que elegiste. Marlon confirma el precio final.",
   none="Elige un lugar o un reto para ver tu estimado.", yours="Tus lugares", about="Unas", to="a", hours="horas",
-  incl="Recogida y regreso al hotel incluidos", groupl="¿Cuántos son?", dropoff="¿Hiciste un free tour? Agrega un traslado corto por $60, incluso al aeropuerto.", people="personas", each="c/u", total="total", listp="Precio de lista", save="Ahorras", fits="Cabe en", car="1 a 4 personas, un precio por auto", over="Es más de un día. Escríbele a Marlon y armamos dos.",
+  incl="Recogida y regreso al hotel incluidos", groupl="¿Cuántos son?", dropoff="¿Hiciste un free tour? Agrega un traslado corto por $60, incluso al aeropuerto.", people="personas", each="c/u", total="total", listp="Precio de lista", save="Ahorras", fits="Cabe en", car="1-4 personas, un precio por auto", over="Es más de un día. Escríbele a Marlon y armamos dos.",
   est="Precio estimado", base="Base: recogida, regreso y manejo", cta="Finalizar mi tour a medida", wait="Elige algo primero", note="Sin pago ahora. Después le mandas tus datos a Marlon.",
   remove="Quitar", count="lugares elegidos"),
 }

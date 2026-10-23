@@ -14,13 +14,13 @@ PERSON = ('<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" 
 PEOPLE, CLOCK, FLIGHT, CAMERA, CAR, FOOD, PARK = "&#128101;", "&#9201;&#65039;", "&#128670;", "&#128247;", "&#128663;", "&#127860;", "&#127359;&#65039;"
 T = {
  ("team", "en"): ("Celebrate Your Team", "Ernesto with his Polaroid camera",
-   [(PEOPLE, "5-20 guests", "5 to 20 guests", 0), (CLOCK, "5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food", None, 1)]),
+   [(PEOPLE, "5-20 guests", "5-20 guests", 0), (CLOCK, "5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food", None, 1)]),
  ("team", "es"): ("Celebra a tu equipo", "Ernesto con su c&aacute;mara Polaroid",
-   [(PEOPLE, "5-20 personas", "5 a 20 personas", 0), (CLOCK, "5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida", None, 1)]),
+   [(PEOPLE, "5-20 personas", "5-20 personas", 0), (CLOCK, "5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida", None, 1)]),
  ("priv", "en"): ("Private Tours", "Ernesto ready for a hike",
-   [(PEOPLE, "2-4 guests", "2 to 4 guests", 0), (CLOCK, "2 to 12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food", None, 1), (PARK, "Parking", None, 1)]),
+   [(PEOPLE, "2-4 guests", "2-4 guests", 0), (CLOCK, "2-12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food", None, 1), (PARK, "Parking", None, 1)]),
  ("priv", "es"): ("Tours privados", "Ernesto listo para una caminata",
-   [(PEOPLE, "2-4 personas", "2 a 4 personas", 0), (CLOCK, "2 a 12 horas", None, 0), (CAR, "Recogida y regreso al hotel", None, 0), (FOOD, "Comida", None, 1), (PARK, "Estacionamiento", None, 1)]),
+   [(PEOPLE, "2-4 personas", "2-4 personas", 0), (CLOCK, "2-12 horas", None, 0), (CAR, "Recogida y regreso al hotel", None, 0), (FOOD, "Comida", None, 1), (PARK, "Estacionamiento", None, 1)]),
 }
 CSS = """<style>
   .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
@@ -123,11 +123,11 @@ for (sec, lang), (title, alt, badges) in T.items():
         BT = ([("&#127874;", "Cumpleaños"), ("&#127942;", "Logros"), ("&#127796;", "Retiros de empresa"), ("&#127881;", "Porque sí")] if es
               else [("&#127874;", "Birthdays"), ("&#127942;", "Milestones"), ("&#127796;", "Offsites"), ("&#127881;", "Just because")])
         # Oct 23, 2026 (Marlon): the fact pills are back under the intro text (they used to sit in the price card). The Food pill turns green when the card's lunch plan is catering.
-        PV = (["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Gu&iacute;a local"], "&#127869;&#65039; Comida") if es else (["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], "&#127869;&#65039; Food")
+        PV = (["&#9201;&#65039; 5 horas", "&#128205; Empieza en Grand Central Market", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Gu&iacute;a local"], "&#127869;&#65039; Comida") if es else (["&#9201;&#65039; 5 hours", "&#128205; Starts at Grand Central Market", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], "&#127869;&#65039; Food")
         b_html = grp("in", "mwsh-in", es, PV[0] + ["!" + PV[1]], False)  # Oct 23, 2026 (Marlon): only the "Included" row on Home (Not included is explained on the pages). The Food pill moves to the Included row when the lunch plan is catering (see build_home_teamcard.py).
     if sec == "priv":  # Oct 20, 2026 (Marlon): under the sentence, "Best for" instead of the fact pills (the facts moved next to the price)
         BF = [("&#128145;", "Parejas"), ("&#128106;", "Familias"), ("&#127881;", "Amigos")] if es else [("&#128145;", "Couples"), ("&#128106;", "Families"), ("&#127881;", "Friends")]
-        PP = (["&#127976; Recogida y regreso al hotel", "&#128663; Manejo", "&#128248; Fotos instant&aacute;neas"], ["&#127869;&#65039; Comida", "&#127359;&#65039; Estacionamiento"]) if es else (["&#127976; Hotel pickup and drop-off", "&#128663; Driving", "&#128248; Instant photos"], ["&#127869;&#65039; Food", "&#127359;&#65039; Parking"])
+        PP = (["&#9201;&#65039; 2-12 horas", "&#127976; Recogida y regreso al hotel", "&#128663; Manejo", "&#128248; Fotos instant&aacute;neas"], ["&#127869;&#65039; Comida", "&#127359;&#65039; Estacionamiento"]) if es else (["&#9201;&#65039; 2-12 hours", "&#127976; Hotel pickup and drop-off", "&#128663; Driving", "&#128248; Instant photos"], ["&#127869;&#65039; Food", "&#127359;&#65039; Parking"])
         b_html = grp("in", "", es, PP[0], False)  # Oct 23, 2026 (Marlon): same two rows as Team, "Included" and "Not included"
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
      Postcard header: title, one short sentence and badges on the left; the From and To lines on the right (Oct 17, 2026). Address, sentence and badge styles live in home-hero.html. -->
