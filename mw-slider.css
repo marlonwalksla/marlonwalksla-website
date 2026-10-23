@@ -1,0 +1,35 @@
+/* MarlonWalksLA shared photo slider (Oct 23, 2026). One look for Team, Free tour and Private.
+ * Layout: [prev] [fixed stage] [next], then caption, then ring dots. Arrows are pinned to the stage, so they never move.
+ * Every slide sits inside the same stage and fits naturally in it, centered. Slide kinds (put the class on the .mws-fit element):
+ *   .mws-print  CSS Polaroid. Vars: --pf (frame color), --arn (width/height, default .8224), --ix --iy --iw --ih (photo box in %), --frame (optional background image for a custom frame)
+ *   .mws-raw    an image that already has its own frame (scanned or baked Polaroid). Fits as is. With tape: wrap it in <div class="mws-fit mws-rawbox">tape + img.mws-raw</div>
+ *   .mws-photo  plain photo with rounded corners ("digital photo we pretend to print")
+ *   .mws-card   colored name card (Private trips without photos)
+ * Optional <span class="mws-tape" style="background:..."></span> inside a slide.
+ * Width: --mws-w on the .mws root (default 470px). Stage shape: --mws-ar on the root (default 500 / 608). */
+.mws { --mws-w: 470px; --mws-ar: 500 / 608; position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; column-gap: 4px; width: 100%; max-width: var(--mws-w); box-sizing: border-box; margin: 10px auto 0; outline: none; }
+.mws-stage { grid-column: 2; grid-row: 1; position: relative; width: 100%; aspect-ratio: var(--mws-ar); container-type: size; }
+.mws-slide { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; opacity: 0; visibility: hidden; transition: opacity 0.25s ease-out, visibility 0s linear 0.25s; }
+.mws-slide.is-on { opacity: 1; visibility: visible; transition: opacity 0.25s ease-out; }
+.mws-fit { position: relative; max-width: 100cqw; max-height: 100cqh; transform: rotate(var(--rot, -1.5deg)); box-sizing: border-box; }
+.mws-fit > img { display: block; }
+.mws-rawbox { display: grid; }
+.mws-raw, .mws-photo { display: block; width: auto; height: auto; max-width: 100cqw; max-height: 100cqh; object-fit: contain; box-shadow: 0 14px 26px -12px rgba(39, 48, 46, 0.55); border-radius: 3px; }
+.mws-photo { border-radius: 10px; }
+.mws-print { --arn: 0.8224; width: min(100cqw, calc(100cqh * var(--arn))); aspect-ratio: var(--arn); background: var(--frame, none) center / 100% 100% no-repeat, var(--pf, #fff); border-radius: 4px; box-shadow: 0 14px 26px -12px rgba(39, 48, 46, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.35); }
+.mws-print > img { position: absolute; left: var(--ix, 5.1%); top: var(--iy, 5.6%); width: var(--iw, 89.8%); height: var(--ih, 73%); object-fit: cover; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
+.mws-card { width: 100%; height: 100%; display: grid; place-items: center; padding: 16px; text-align: center; border-radius: 10px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.4rem; color: #27302E; transform: none; }
+.mws-tape { position: absolute; top: -11px; left: 50%; width: 76px; height: 22px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 1; }
+.mws-cap { grid-column: 2; grid-row: 2; margin: 12px 0 0; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.3; color: #3B4440; min-height: 1.5em; }
+.mws-dots { grid-column: 2; grid-row: 3; display: flex; justify-content: center; flex-wrap: nowrap; gap: 0; margin-top: 6px; min-height: 30px; }
+.mws-dots[hidden], .mws-nav[hidden] { display: none; }
+.mws-dot { width: 28px; flex: 0 0 28px; height: 30px; border: 0; background: none; cursor: pointer; position: relative; padding: 0; }
+.mws-dot::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid #27302E; background: #fff; }
+.mws-dot[aria-current="true"]::after { background: #FFD43B; }
+.mws-dot:focus-visible { outline: 3px solid #2890B6; outline-offset: -2px; }
+.mws-nav { grid-row: 1; width: 44px; height: 44px; border-radius: 50%; border: 2.5px solid #27302E; background: #fff; color: #27302E; font-size: 1.5rem; line-height: 1; cursor: pointer; box-shadow: 2px 2px 0 #27302E; padding: 0 0 3px; transition: transform 0.15s ease-out; }
+.mws-nav:hover { transform: translateY(-2px); background: #FFD43B; }
+.mws-nav:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
+.mws-prev { grid-column: 1; } .mws-next { grid-column: 3; }
+@media (max-width: 520px) { .mws { grid-template-columns: 40px minmax(0, 1fr) 40px; } .mws-nav { width: 40px; height: 40px; } }
+@media (prefers-reduced-motion: reduce) { .mws-slide, .mws-slide.is-on, .mws-nav { transition: none; } }

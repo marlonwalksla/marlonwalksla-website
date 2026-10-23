@@ -160,11 +160,11 @@ TRIP_DEFAULT = "sunset"
 CUSTOM_PHOTOS = ["6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad929bf12667b254315c683_place-bunker-hill-01|50% 50%", "6ad929b39a56d0d15964851d_place-broadway-theaters-01|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%"]  # filler images for "Customize my own": downtown is the way in
 CUSTOM = {"en": ("Design Your Day", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
           "es": ("Diseña tu día", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
-T["en"].update(pto="to", perhr="per person, per hour", disc="Bigger groups and longer tours cost less per person.", locl="Places on this trip", durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Design your trip", ch="Your estimate",
+T["en"].update(pto="to", perhr="per person, per hour", disc="Bigger groups and longer tours cost less per person.", locl="Places on this trip", durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", dot="Show photo {n}", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Design your trip", ch="Your estimate",
   val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Tap Date Night, Family Outing or Fun with Friends to flip through real trips. Do one as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(pto="a", perhr="por persona, por hora", disc="Los grupos más grandes y los tours más largos cuestan menos por persona.", locl="Lugares de este viaje", durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Diseña tu viaje", ch="Tu estimado",
+T["es"].update(pto="a", perhr="por persona, por hora", disc="Los grupos más grandes y los tours más largos cuestan menos por persona.", locl="Lugares de este viaje", durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", dot="Ver foto {n}", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Diseña tu viaje", ch="Tu estimado",
   val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Toca Cita en pareja, Salida en familia o Diversión con amigos para ver viajes reales. Haz uno tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
@@ -274,30 +274,22 @@ LEFT_JS = r"""<script>
 (function () {
   var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, TR = {};
   D.trips.forEach(function (r) { TR[r.id] = r; });
-  var story = document.getElementById("pvb-story"), capEl = document.getElementById("pvc-cap"), cur = null, idx = 0;
-  var car = document.getElementById("pvc"), pol = car.querySelector(".pvc-pol"), box = car.querySelector(".pvc-img"), dots = document.getElementById("pvc-dots");
-  var prev = car.querySelector(".pvc-prev"), next = car.querySelector(".pvc-next");
-  function slides(r) { return r.photos.length ? r.photos : [null]; }
-  function show() {
-    var r = TR[cur], list = slides(r), src = list[idx];
-    box.innerHTML = "";
-    var card = document.createElement("div"); card.className = "pvc-card"; card.style.background = r.color; card.textContent = r.name; box.appendChild(card);
-    if (src) { var sp = src.split("|"); var im = new Image(); im.alt = sp[2] || r.name; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
-    capEl.textContent = src ? (src.split("|")[2] || "") : "";
-    var lk = src ? src.split("|")[3] : "";
-    /* Oct 23, 2026 (Marlon): the "Places on this trip" list now lives in the estimate card (under Pick your plan); it hears the current place here */
-    window.MWPV = window.MWPV || {}; window.MWPV.loc = lk;
-    try { window.dispatchEvent(new CustomEvent("mwloc", { detail: lk })); } catch (e) {}
-    [].slice.call(dots.children).forEach(function (d, k) { d.classList.toggle("on", k === idx); });
-    var many = list.length > 1; prev.hidden = next.hidden = !many; dots.hidden = !many;
+  var story = document.getElementById("pvb-story"), cur = null;
+  var car = document.getElementById("pvc");
+  /* Oct 23, 2026: photos use the shared slider (mw-slider.js); this page only gives it the slides and listens for the current one */
+  function items(r) {
+    return r.photos.map(function (p) { var sp = p.split("|"); return { src: sp[0], pos: sp[1], cap: sp[2] || "", alt: sp[2] || r.name, key: sp[3] || "", kind: "photo" }; });
   }
-  function go(n) { var len = slides(TR[cur]).length; idx = (n + len) % len; show(); }
-  prev.addEventListener("click", function () { go(idx - 1); });
-  next.addEventListener("click", function () { go(idx + 1); });
-  car.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft") go(idx - 1); else if (e.key === "ArrowRight") go(idx + 1); });
-  var x0 = null;
-  car.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-  car.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1)); }, { passive: true });
+  function load(r) {
+    if (!car.mws) { if (window.MWS) window.MWS.init(car); else { window.addEventListener("mws:ready", function () { if (cur) load(TR[cur]); }, { once: true }); return; } }
+    if (car.mws) car.mws.load(items(r).length ? items(r) : [{ kind: "card", color: r.color, cap: r.name }]); }
+  document.addEventListener("mws:change", function (e) {
+    if (e.detail.root !== car) return;
+    var lk = e.detail.slide ? e.detail.slide.getAttribute("data-key") || "" : "";
+    /* Oct 23, 2026 (Marlon): the "Places on this trip" list lives in the estimate card (under Pick your plan); it hears the current place here */
+    window.MWPV = window.MWPV || {}; window.MWPV.loc = lk;
+    try { window.dispatchEvent(new CustomEvent("mwloc", { detail: lk })); } catch (x) {}
+  });
   function state() {
     var r = cur && TR[cur]; if (!r) return { ids: [], names: [], lang: D.lang, t: t };
     return { ids: [r.id], names: [r.name], locs: r.locs, stops: r.stops, lang: D.lang, hours: r.hours, lo: r.hours, hi: r.hours, range: String(r.hours), tier: r.tier, trip: r.id, custom: r.id === "custom", over: false, t: t };
@@ -307,9 +299,8 @@ LEFT_JS = r"""<script>
     try { window.dispatchEvent(new CustomEvent("mwpv", { detail: window.MWPV.state })); } catch (e) {}
   }
   function pick(id) {
-    cur = id; idx = 0; var r = TR[id];
-    dots.innerHTML = ""; slides(r).forEach(function () { dots.appendChild(document.createElement("i")); });
-    show();
+    cur = id; var r = TR[id];
+    load(r);
     story.innerHTML = "";
     if (r.id === "custom") { var p = document.createElement("p"); p.textContent = r.story; story.appendChild(p); story.hidden = false; } else story.hidden = true;
     publish();
@@ -324,7 +315,7 @@ LEFT_JS = r"""<script>
   }
   window.addEventListener("mwwho", function (e) { applyWho(e.detail, true); });
   /* a tap on a place chip in the estimate card jumps to that place's first photo */
-  window.addEventListener("mwlocgo", function (e) { var L = slides(TR[cur]); for (var k = 0; k < L.length; k++) { if (L[k] && L[k].split("|")[3] === e.detail) { go(k); break; } } });
+  window.addEventListener("mwlocgo", function (e) { var L = TR[cur].photos; for (var k = 0; k < L.length; k++) { if (L[k].split("|")[3] === e.detail) { if (car.mws) car.mws.set(k); break; } } });
   /* Oct 23, 2026 (Marlon): on wide screens the estimate card sits on the left and the trip photos on the right (stacked order on phones is unchanged) */
   function swapCols() {
     var a = document.getElementById("private-tours"), b = document.querySelector(".mw-form-card .pcq"); if (!a || !b) return false;
@@ -354,14 +345,10 @@ def left_html(lang):
      Oct 20, 2026 (Marlon): pick a past custom trip (or "Customize my own"). Its photos are a carousel (arrows, dots, swipe), same idea as the hero.
      The estimate lives in home-private-calc.html (right column) and reads the pick through window.MWPV.
      ============================================================================== -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/mw-slider.css?v=1">
+<script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/mw-slider.js?v=1" defer></script>
 <div class="mw-offer pvb" id="private-tours">
-  <div class="pvc" id="pvc" role="region" aria-roledescription="carousel" aria-label="{esc(t['h'])}" tabindex="0">
-    <button type="button" class="pvc-nav pvc-prev" aria-label="{t['prev']}">&lsaquo;</button>
-    <figure class="pvc-pol"><div class="pvc-img"></div></figure>
-    <button type="button" class="pvc-nav pvc-next" aria-label="{t['next']}">&rsaquo;</button>
-  </div>
-  <p class="pvc-cap" id="pvc-cap" aria-live="polite"></p>
-  <div class="pvc-dots" id="pvc-dots" aria-hidden="true"></div>
+  <div class="mws" id="pvc" data-mws style="--mws-w: 420px; --mws-ar: 1 / 1" data-prev="{t['prev']}" data-next="{t['next']}" data-dot="{t['dot']}" aria-label="{esc(t['h'])}"><div class="mws-stage"></div></div>
   <div class="pvb-story" id="pvb-story" hidden></div>
 </div>
 <script type="application/json" id="pvb-data">{js_data}</script>
@@ -370,29 +357,12 @@ def left_html(lang):
 
 CAR_CSS = """<style>
   /* Oct 20, 2026 (Marlon): the trip photos are a carousel, like the hero */
-  .pvc { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; margin: 4px 0 0; outline-offset: 4px; }
-  .pvc-nav { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #27302E; background: #fff; color: #27302E; font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 0 0 3px; box-shadow: 2px 2px 0 #27302E; }
-  .pvc-nav:hover { background: #FFD43B; }
-  .pvc-nav:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
-  .pvc-nav[hidden] { display: none; }
-  .pvc-pol { grid-column: 2; position: relative; margin: 0 auto; width: 100%; max-width: 360px; box-sizing: border-box; }
-  .pvc-img { position: relative; width: 100%; height: 320px; display: flex; align-items: center; justify-content: center; }
-  .pvc-img img { display: block; width: auto; height: auto; max-width: 100%; max-height: 320px; border-radius: 10px; box-shadow: 0 10px 22px -10px rgba(39, 48, 46, 0.5); }
-  .pvc-card { position: absolute; inset: 0; border-radius: 10px; display: grid; place-items: center; padding: 16px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.3; color: #27302E; }
-  .pvc-pol figcaption { margin: 10px 2px 0; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.05rem; line-height: 1.15; color: #27302E; }
-  .pvc-cap { margin: 12px 0 0; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.3; color: #3B4440; min-height: 2.6em; }
-  .pvc-dots { display: flex; gap: 18px; justify-content: center; margin: 6px 0 0; min-height: 30px; align-items: center; }
-  .pvc-dots[hidden] { display: none; }
-  .pvc-dots i { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #27302E; background: #fff; box-sizing: content-box; margin: 0; }
-  .pvc-dots i.on { background: #FFD43B; }
   .polaroid-stack-area { display: none; }
   @media (min-width: 992px) { .mwp-swap > .mwp-swap-l { order: 2; } .mwp-swap > .mwp-swap-r { order: 1; } }
   /* Oct 20, 2026 (Marlon): shorter left column */
   .pvb .pvb-pill { font-size: 0.88rem; padding: 5px 12px; min-height: 34px; border-width: 1.5px; }
   .pvb .pvb-pills { gap: 6px; margin-bottom: 10px; }
   .pvb .pvb-hint { margin-bottom: 10px; }
-  .pvc-pol figcaption { font-size: 0.95rem; margin-top: 6px; }
-  .pvc-dots { margin-top: 8px; }
   .pvb-story { margin-top: 8px; font-size: 0.92rem; line-height: 1.4; }
   .pvb-story p { margin-top: 4px; }
 </style>
