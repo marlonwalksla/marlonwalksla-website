@@ -403,14 +403,16 @@ CALC_CSS = """<style>
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
   .mw-form-card:has(.pcq) { margin-top: 0; padding: 20px 22px 18px; box-shadow: 6px 6px 0 #27302E; }
   .pcq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; position: relative; }
-  .pcq-stamp { position: absolute; top: -4px; right: 0; width: 84px; height: 84px; pointer-events: none; z-index: 2; }
-  .pcq-st { position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0.92; }
+  .pcq-st, .pcq-st2 { position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0.92; }
+  .pcq-sum { display: flex; justify-content: center; gap: 10px; margin: 6px 0 14px; }
+  .pcq-slot { position: relative; width: 92px; height: 92px; flex: none; }
+  @media (max-width: 420px) { .pcq-slot { width: 84px; height: 84px; } .pcq-sum { gap: 6px; } }
+  .pcq-st2 svg { width: 100%; height: 100%; transform: rotate(var(--r)); overflow: visible; }
   .pcq-st[hidden] { display: none; }
   .pcq-st svg { width: 100%; height: 100%; transform: rotate(var(--r)); overflow: visible; }
   .pcq-st.pop { animation: pcqpop 0.35s cubic-bezier(.2, 1.4, .4, 1); }
   @keyframes pcqpop { from { opacity: 0; transform: scale(1.5) rotate(-12deg); } to { opacity: 0.92; transform: none; } }
   @media (prefers-reduced-motion: reduce) { .pcq-st.pop { animation: none; } }
-  .pcq-title { padding-right: 90px; }
   .pcq-wrow .pcq-rowl { display: block; width: 100%; margin-bottom: 2px; }
   .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.6rem; line-height: 1.1; margin: 0 0 4px; color: #27302E; }
   .pcq-trip { margin: 0 0 12px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; line-height: 1.25; color: #27302E; }
@@ -529,6 +531,7 @@ CALC_JS = r"""<script>
       var sm = document.createElement("small"); sm.textContent = t.perhr; price.appendChild(sm);
       sub.textContent = t.disc; fit.innerHTML = "";
     }
+    if (has) { var hs = document.getElementById("pcq-hstamp"), ss = document.getElementById("pcq-sstamp"); if (hs) hs.textContent = hrs(); if (ss) ss.textContent = s.ids.length; }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
     cta.textContent = has ? t.cta4 : t.wait; alt.hidden = true;
   }
@@ -571,10 +574,13 @@ def calc_html(lang):
     wb = "".join(f'<button type="button" class="pcq-w" data-w="{k}" aria-pressed="{"true" if k == "couples" else "false"}"><span aria-hidden="true">{e}</span> {l}</button>' for k, e, l in t["who"])
     hb = "".join(f'<button type="button" class="pcq-h" data-h="{h}" aria-pressed="{"true" if h == 4 else "false"}">{h}</button>' for h in (2, 4, 6, 8, 10, 12))
     sts = "".join(f'<span class="pcq-st" data-w="{k}"{"" if k == "couples" else " hidden"}>' + stamps.stamp("pcs" + k[:3], (v[5] if lang == "es" else v[4]), "LA A TU MANERA" if lang == "es" else "LA, YOUR WAY", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
+    es = lang == "es"
+    hrs_st = stamps.num_stamp("pcsh", "DURACI&Oacute;N" if es else "TOUR LENGTH", "HORAS" if es else "HOURS", "#1B6688", "pcq-hstamp", "4", 6, 5)
+    stp_st = stamps.num_stamp("pcsn", "TU RUTA" if es else "YOUR ROUTE", "PARADAS" if es else "STOPS", "#2E9E57", "pcq-sstamp", "3", -6, 8)
+    sum_row = f'<div class="pcq-sum" aria-hidden="true"><div class="pcq-slot">{sts}</div><div class="pcq-slot"><span class="pcq-st2">{hrs_st}</span></div><div class="pcq-slot"><span class="pcq-st2">{stp_st}</span></div></div>'
     return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py.
      Oct 20, 2026 (Marlon): shows the trip you picked, then how many people, then the price (the biggest number is the full price). No Ernesto. Reads the pick from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
-  <div class="pcq-stamp" aria-hidden="true">{sts}</div>
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-none" hidden>{t["none"]}</p>
   <div class="pcq-row pcq-wrow" role="group" aria-label="{t["whol"]}" hidden><span class="pcq-rowl">{t["whol"]}</span>{wb}</div>
@@ -584,7 +590,7 @@ def calc_html(lang):
     <div class="pcq-price"></div>
     <p class="pcq-sub"></p>
     <p class="pcq-fit"></p>
-    <ul class="pcq-val" aria-label="{t["incl"]}">{vin}</ul>
+    {sum_row}
   </div>
   <button type="button" class="pcq-cta" aria-disabled="true">{t["wait"]}</button>
   <button type="button" class="pcq-alt" hidden>{t["cta3"]}</button>

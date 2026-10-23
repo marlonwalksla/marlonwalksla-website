@@ -22,6 +22,8 @@ def icon(name, ink):
     if name == "palm": return _inner(SIL.palm(ink)), (220, 220, "150 0 220 220", 100)
     if name == "sunset": return _inner(SIL.sunset(ink)), (320, 170, "100 40 320 170", 124)
     if name == "sun": return _inner(SIL.sun(ink)), (280, 160, "120 50 280 160", 108)
+    if name == "bag": return _inner(SIL.bag(ink)), (300, 220, "0 0 300 220", 112)
+    if name == "stall": return _inner(SIL.stall(ink)), (300, 220, "0 0 300 220", 112)
     if name == "taco": return _inner(SIL.taco(ink)), (420, 190, "70 20 380 200", 116)
     if name == "angels": return _inner(SIL.angels_flight(ink)), (400, 200, "62 14 400 200", 118)
     if name == "polaroid": return _inner(SIL.polaroid(ink)), (262, 186, "142 16 262 186", 100)
@@ -60,3 +62,20 @@ def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra="", bold=Fals
             f'<text font-size="{tsz + (1.5 if bold else 0)}" letter-spacing="{tls + (0.6 if bold else 0)}" text-anchor="middle"{(" stroke=" + chr(34) + ink + chr(34) + " stroke-width=" + chr(34) + "0.9" + chr(34) + " stroke-linejoin=" + chr(34) + "round" + chr(34)) if bold else ""}><textPath href="#{uid}-t" startOffset="50%">{top}</textPath></text>'
             f'<text font-size="{bsz}" letter-spacing="{bls}" text-anchor="middle"><textPath href="#{uid}-b" startOffset="50%">{bottom}</textPath></text>'
             f'<svg x="{ix:.1f}" y="{iy:.1f}" width="{iw}" height="{ih:.1f}" viewBox="{vb}" fill="{ink}">{body}</svg>{yr}</g></svg>')
+
+
+def num_stamp(uid, top, bottom, ink, nid, text="15", rot=6, seed=5):
+    """Ink stamp with a big number in the middle (Oct 23, 2026): the number element gets id=nid so the card can update it."""
+    return (f'<svg class="stamp" viewBox="0 0 200 200" role="img" aria-label="{top}" style="--r:{rot}deg" xmlns="http://www.w3.org/2000/svg">'
+            f'<defs><filter id="{uid}-f" x="-8%" y="-12%" width="116%" height="124%">'
+            f'<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="{seed}" result="w"/>'
+            f'<feDisplacementMap in="SourceGraphic" in2="w" scale="3.2" result="d"/>'
+            f'<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="{seed + 4}" result="n"/>'
+            f'<feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -5 0 0 0 3.7" result="m"/>'
+            f'<feComposite in="d" in2="m" operator="in"/></filter>'
+            f'<path id="{uid}-t" d="M 38.0 122.6 A 66 66 0 1 1 162.0 122.6"/><path id="{uid}-b" d="M 18 100 A 82 82 0 0 0 182 100"/></defs>'
+            f'<g filter="url(#{uid}-f)" fill="{ink}" stroke="none" font-family="Fredoka, Lilita One, sans-serif" font-weight="700" style="color:{ink}">'
+            f'<circle cx="100" cy="100" r="96" fill="none" stroke="{ink}" stroke-width="4"/><circle cx="100" cy="100" r="89" fill="none" stroke="{ink}" stroke-width="1.5"/>'
+            f'<text font-size="13" letter-spacing="1.2" text-anchor="middle"><textPath href="#{uid}-t" startOffset="50%">{top}</textPath></text>'
+            f'<text font-size="12.5" letter-spacing="1.8" text-anchor="middle"><textPath href="#{uid}-b" startOffset="50%">{bottom}</textPath></text>'
+            f'<text id="{nid}" x="100" y="123" text-anchor="middle" font-size="78" font-family="Lilita One, Fredoka, sans-serif" font-weight="400">{text}</text></g></svg>')

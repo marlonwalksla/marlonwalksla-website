@@ -17,25 +17,13 @@ STAMP = {
     "offsite": ("palms3", "#2E9E57", -8, 3, "OUT OF OFFICE", "FUERA DE LA OFICINA"),
     "just-because": ("polaroid", "#6A4C93", 7, 11, "JUST BECAUSE", "PORQUE SÍ"),
 }
-# Oct 23, 2026 (Marlon): three ink stamps under the price sum up the choices: the celebration (STAMP above), the team size (a number stamp) and the lunch plan.
+# Oct 23, 2026 (Marlon): three ink stamps under the price sum up the choices: the celebration (STAMP above), the team size (a number stamp, stops at 20+) and the lunch plan.
 def count_stamp(uid, top, bottom, ink, rot=6, seed=5):
-    return (f'<svg class="stamp" viewBox="0 0 200 200" role="img" aria-label="{top}" style="--r:{rot}deg" xmlns="http://www.w3.org/2000/svg">'
-            f'<defs><filter id="{uid}-f" x="-8%" y="-12%" width="116%" height="124%">'
-            f'<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="{seed}" result="w"/>'
-            f'<feDisplacementMap in="SourceGraphic" in2="w" scale="3.2" result="d"/>'
-            f'<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="{seed + 4}" result="n"/>'
-            f'<feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -5 0 0 0 3.7" result="m"/>'
-            f'<feComposite in="d" in2="m" operator="in"/></filter>'
-            f'<path id="{uid}-t" d="M 38.0 122.6 A 66 66 0 1 1 162.0 122.6"/><path id="{uid}-b" d="M 18 100 A 82 82 0 0 0 182 100"/></defs>'
-            f'<g filter="url(#{uid}-f)" fill="{ink}" stroke="none" font-family="Fredoka, Lilita One, sans-serif" font-weight="700" style="color:{ink}">'
-            f'<circle cx="100" cy="100" r="96" fill="none" stroke="{ink}" stroke-width="4"/><circle cx="100" cy="100" r="89" fill="none" stroke="{ink}" stroke-width="1.5"/>'
-            f'<text font-size="13" letter-spacing="1.2" text-anchor="middle"><textPath href="#{uid}-t" startOffset="50%">{top}</textPath></text>'
-            f'<text font-size="12.5" letter-spacing="1.8" text-anchor="middle"><textPath href="#{uid}-b" startOffset="50%">{bottom}</textPath></text>'
-            f'<text id="tq-nstamp" x="100" y="123" text-anchor="middle" font-size="78" font-family="Lilita One, Fredoka, sans-serif" font-weight="400">15</text></g></svg>')
+    return stamps.num_stamp(uid, top, bottom, ink, "tq-nstamp", "15", rot, seed)
 # (key, icon, ink, rotation, seed, EN top, EN bottom, ES top, ES bottom)
 LUNCH_ST = {
-    "own": ("gcm", "#E2662A", -6, 4, "EVERYONE BUYS THEIR OWN", "GRAND CENTRAL MARKET", "CADA QUIEN COMPRA LO SUYO", "GRAND CENTRAL MARKET"),
-    "plan": ("taco", "#C2352A", 6, 7, "CATERED LUNCH", "ARRANGED BY MARLON", "ALMUERZO CON CATERING", "ORGANIZA MARLON"),
+    "own": ("stall", "#E2662A", -6, 4, "EVERYONE BUYS THEIR OWN", "GRAND CENTRAL MARKET", "CADA QUIEN COMPRA LO SUYO", "GRAND CENTRAL MARKET"),
+    "plan": ("bag", "#C2352A", 6, 7, "CATERED LUNCH", "ARRANGED BY MARLON", "ALMUERZO CON CATERING", "ORGANIZA MARLON"),
 }
 COUNT_TXT = {"en": ("TEAM OF", "PEOPLE"), "es": ("EQUIPO DE", "PERSONAS")}
 EAT = {"en": ("Lunch plans", [("own", "Everyone buys their own"), ("plan", "Marlon arranges catering")],
@@ -44,7 +32,7 @@ EAT = {"en": ("Lunch plans", [("own", "Everyone buys their own"), ("plan", "Marl
               {"own": "El almuerzo no está incluido. Cada quien elige y paga su comida en Grand Central Market.", "plan": "Marlon reserva un catering para tu grupo y te confirma el precio."})}
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="estimated total, Marlon confirms the lunch price", v=["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], vno=["&#127869;&#65039; Food"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
+   pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="Marlon confirms the lunch price", v=["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], vno=["&#127869;&#65039; Food"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
    btn="Schedule Your Team", btn_note="", href="/team-building-walking-tour-los-angeles",
    custom="Have a custom request?", mail="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request",
    wa="Message Marlon about your group",
@@ -52,7 +40,7 @@ T = {
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="total estimado, Marlon confirma el precio del almuerzo", v=["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Guía local"], vno=["&#127869;&#65039; Comida"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
+   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="Marlon confirma el precio del almuerzo", v=["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Guía local"], vno=["&#127869;&#65039; Comida"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
    btn="Agenda a tu equipo", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
    wa="Escríbele a Marlon sobre tu grupo",
@@ -88,7 +76,6 @@ for lang, t in T.items():
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
   <div class="tq-cel tq-eat" role="group" aria-label="{eat_h}"><p class="tq-cel-h">{eat_h}</p><div class="tq-chips">{eat}</div><p class="tq-eat-note" id="tq-eat-note" aria-live="polite">{eat_msg["own"]}</p></div>
   <div class="tq-res">
-  <div class="tq-big" id="tq-big" hidden><strong>{t["big"]}</strong><a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
     <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>{t["plus"]}</span></span><span class="tq-cap" id="tq-cap">{t["est"]}</span></div>
     <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">{t["pp"]}</span></div>
@@ -113,7 +100,7 @@ for lang, t in T.items():
   .tq-out > div {{ display: flex; flex-direction: column; }}
   .tq-total {{ font-family: "Lilita One", sans-serif; font-size: clamp(2.2rem, 5vw, 2.8rem); line-height: 1; color: #27302E; font-variant-numeric: tabular-nums; }}
   .tq-pp {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.35rem; color: #27302E; font-variant-numeric: tabular-nums; }}
-  .tq-cap {{ font-size: 0.82rem; color: #5B6663; margin-top: 3px; }}
+  .tq-cap {{ font-size: 0.82rem; color: #5B6663; margin-top: 3px; white-space: nowrap; }}
   .tq-notes {{ margin: 8px 0 14px; font-size: 0.92rem; line-height: 1.4; color: #4D5551; }}
   .tq-btn {{ display: block; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.25rem; letter-spacing: 0.01em; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 12px 24px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }}
   .tq-btn:hover {{ transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }}
@@ -228,11 +215,11 @@ for lang, t in T.items():
   function total(n) {{ var t = 0; for (var i = 0; i < n; i++) t += rates[Math.min(Math.floor(i / 5), rates.length - 1)]; return Math.round(t / 5) * 5; }}
   function upd() {{
     var n = parseInt(r.value, 10), t = total(n);
-    document.getElementById("tq-n").textContent = n; var ns = document.getElementById("tq-nstamp"); if (ns) ns.textContent = n;
+    document.getElementById("tq-n").textContent = n; var ns = document.getElementById("tq-nstamp"); if (ns) {{ ns.textContent = n >= 20 ? "20+" : n; ns.setAttribute("font-size", n >= 20 ? "62" : "78"); }}
     r.style.setProperty("--p", ((n - 5) / 15 * 100) + "%");
     document.getElementById("tq-total").textContent = "$" + t.toLocaleString("en-US");
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
-    var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); document.getElementById("tq-big").hidden = n < 20; el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
+    var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }}
   var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "offsite", e: "own" }}, plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
   function link() {{ var q = []; if (sel.c) q.push("celebrating=" + sel.c); if (sel.e) q.push("eating=" + sel.e); if (btn) btn.setAttribute("href", q.length ? base + "?" + q.join("&") : base); }}

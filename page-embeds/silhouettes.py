@@ -314,3 +314,26 @@ def trophy(color="#E89B00", opacity=1):
     d = '<path d="M205 36 H315 V92 Q315 140 260 150 Q205 140 205 92 Z"/><rect x="247" y="150" width="26" height="30"/><rect x="212" y="180" width="96" height="18" rx="5"/><rect x="196" y="198" width="128" height="10" rx="4"/>'
     d += f'<path d="M205 52 Q160 52 164 88 Q168 112 208 116" fill="none" stroke="{color}" stroke-width="11" stroke-linecap="round"/><path d="M315 52 Q360 52 356 88 Q352 112 312 116" fill="none" stroke="{color}" stroke-width="11" stroke-linecap="round"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def bag(color="#C2352A", opacity=1):
+    """Lunch stamp icon (Oct 23, 2026): a paper takeout bag with two handles, a folded top and a white heart, for catered lunch."""
+    d = f'<path d="M112 74 V54 Q112 24 150 24 Q188 24 188 54 V74" fill="none" stroke="{color}" stroke-width="9" stroke-linecap="round"/>'
+    d += '<path d="M66 70 H234 L246 204 H54 Z"/>'
+    d += '<path d="M66 92 H234" stroke="#fff" stroke-width="5" fill="none"/>'
+    d += '<path d="M150 180 C108 152 110 120 134 120 C144 120 150 128 150 128 C150 128 156 120 166 120 C190 120 192 152 150 180 Z" fill="#fff"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def stall(color="#E2662A", opacity=1):
+    """Lunch stamp icon (Oct 23, 2026): a market stall with a striped awning, a counter and a row of fruit, for 'everyone buys their own'."""
+    d = '<path d="M30 104 L62 40 H238 L270 104 Z"/>'
+    for i in range(1, 5):
+        d += f'<path d="M{62 + 35 * i} 40 L{30 + 48 * i} 104" stroke="#fff" stroke-width="5" fill="none"/>'
+    for j in range(5):
+        d += f'<circle cx="{54 + 48 * j}" cy="104" r="24"/>'
+    d += '<rect x="44" y="110" width="9" height="94"/><rect x="247" y="110" width="9" height="94"/>'
+    d += '<rect x="44" y="164" width="212" height="40"/>'
+    for j in range(6):
+        d += f'<circle cx="{82 + 27 * j}" cy="148" r="12"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
