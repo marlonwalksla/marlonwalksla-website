@@ -407,6 +407,8 @@ CALC_CSS = """<style>
   .pcq-sum { display: flex; justify-content: center; gap: 10px; margin: 6px 0 14px; }
   .pcq-slot { position: relative; width: 92px; height: 92px; flex: none; }
   @media (max-width: 420px) { .pcq-slot { width: 84px; height: 84px; } .pcq-sum { gap: 6px; } }
+  .pcq-st2[hidden] { display: none; }
+  .pcq-st.pop, .pcq-st2.pop { animation: pcqpop 0.35s cubic-bezier(.2, 1.4, .4, 1); }
   .pcq-st2 svg { width: 100%; height: 100%; transform: rotate(var(--r)); overflow: visible; }
   .pcq-st[hidden] { display: none; }
   .pcq-st svg { width: 100%; height: 100%; transform: rotate(var(--r)); overflow: visible; }
@@ -506,7 +508,13 @@ CALC_JS = r"""<script>
   [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (b) {
     b.addEventListener("click", function () { oh = +b.dataset.h; press(".pcq-h", "h", oh); if (st) render(st); });
   });
-  function markLoc(k) { [].slice.call(locsEl.children).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.k === k ? "true" : "false"); }); }
+  var lastStamp = null;
+  function markLoc(k) {
+    [].slice.call(locsEl.children).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.k === k ? "true" : "false"); });
+    var key = k || (locsEl.children[0] && locsEl.children[0].dataset.k) || "";
+    [].slice.call(root.querySelectorAll(".pcq-st2[data-l]")).forEach(function (el) { var on = el.getAttribute("data-l") === key; el.hidden = !on; if (on && key !== lastStamp) { el.classList.remove("pop"); void el.offsetWidth; el.classList.add("pop"); } });
+    lastStamp = key;
+  }
   function renderLocs(s, has) {
     var list = has && s.locs ? s.locs : []; locwrap.hidden = !list.length;
     if (s.trip === lastLoc && locsEl.children.length === list.length) { markLoc(window.MWPV && window.MWPV.loc); return; }
@@ -531,7 +539,6 @@ CALC_JS = r"""<script>
       var sm = document.createElement("small"); sm.textContent = t.perhr; price.appendChild(sm);
       sub.textContent = t.disc; fit.innerHTML = "";
     }
-    if (has) { var hs = document.getElementById("pcq-hstamp"), ss = document.getElementById("pcq-sstamp"); if (hs) hs.textContent = hrs(); if (ss) ss.textContent = s.ids.length; }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
     cta.textContent = has ? t.cta4 : t.wait; alt.hidden = true;
   }
@@ -564,6 +571,23 @@ STAMP = {
 }
 
 
+# Oct 23, 2026 (Marlon): second stamp = the place picked in "Places on this trip". key: (icon, ink, rotation, seed, EN top, ES top)
+LOCST = {
+    "tacos": ("taco", "#E89B00", -6, 3, "TACOS", "TACOS"),
+    "griffith": ("obs", "#C2352A", 7, 5, "GRIFFITH OBSERVATORY", "OBSERVATORIO GRIFFITH"),
+    "venice": ("canal", "#2890B6", -8, 7, "VENICE CANALS", "CANALES DE VENICE"),
+    "santamonica": ("pier", "#B8326E", 6, 9, "SANTA MONICA", "SANTA M&Oacute;NICA"),
+    "downtown": ("skyline", "#1B6688", -7, 11, "DOWNTOWN LA", "CENTRO DE LA"),
+    "echopark": ("swan", "#2E9E57", 8, 13, "ECHO PARK", "ECHO PARK"),
+    "getty": ("sun", "#E27B1A", -6, 15, "GETTY CENTER", "GETTY CENTER"),
+    "gcm": ("gcm", "#E2662A", 7, 4, "GRAND CENTRAL MARKET", "GRAND CENTRAL MARKET"),
+    "elysian": ("palm", "#2E9E57", -8, 6, "ELYSIAN PARK", "ELYSIAN PARK"),
+    "bunker": ("wdch", "#2B4F9E", 6, 8, "BUNKER HILL", "BUNKER HILL"),
+    "broadway": ("bradbury", "#C2352A", -7, 10, "BROADWAY", "BROADWAY"),
+    "olvera": ("kiosko", "#D6479B", 8, 12, "OLVERA STREET", "CALLE OLVERA"),
+}
+
+
 def calc_html(lang):
     t = T[lang]
     pp = [PRICES[g][k] / (int(g) * 2 * (k + 1)) for g in PRICES for k in range(6)]  # price per person per hour at every group size and length
@@ -575,9 +599,10 @@ def calc_html(lang):
     hb = "".join(f'<button type="button" class="pcq-h" data-h="{h}" aria-pressed="{"true" if h == 4 else "false"}">{h}</button>' for h in (2, 4, 6, 8, 10, 12))
     sts = "".join(f'<span class="pcq-st" data-w="{k}"{"" if k == "couples" else " hidden"}>' + stamps.stamp("pcs" + k[:3], (v[5] if lang == "es" else v[4]), "LA A TU MANERA" if lang == "es" else "LA, YOUR WAY", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
     es = lang == "es"
-    hrs_st = stamps.num_stamp("pcsh", "DURACI&Oacute;N" if es else "TOUR LENGTH", "HORAS" if es else "HOURS", "#1B6688", "pcq-hstamp", "4", 6, 5)
-    stp_st = stamps.num_stamp("pcsn", "TU RUTA" if es else "YOUR ROUTE", "PARADAS" if es else "STOPS", "#2E9E57", "pcq-sstamp", "3", -6, 8)
-    sum_row = f'<div class="pcq-sum" aria-hidden="true"><div class="pcq-slot">{sts}</div><div class="pcq-slot"><span class="pcq-st2">{hrs_st}</span></div><div class="pcq-slot"><span class="pcq-st2">{stp_st}</span></div></div>'
+    LA = "LOS &Aacute;NGELES" if es else "LOS ANGELES"
+    locs = "".join(f'<span class="pcq-st2" data-l="{k}" hidden>' + stamps.stamp("pcl" + k[:4], (v[5] if es else v[4]), LA, v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in LOCST.items())
+    mine = stamps.stamp("pcsx", "DISE&Ntilde;A TU VIAJE" if es else "DESIGN YOUR TRIP", "HAZLO TUYO" if es else "MAKE IT YOURS", "pin", "", "#6A4C93", -6, 17)
+    sum_row = f'<div class="pcq-sum" aria-hidden="true"><div class="pcq-slot">{sts}</div><div class="pcq-slot">{locs}</div><div class="pcq-slot"><span class="pcq-st2">{mine}</span></div></div>'
     return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py.
      Oct 20, 2026 (Marlon): shows the trip you picked, then how many people, then the price (the biggest number is the full price). No Ernesto. Reads the pick from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">

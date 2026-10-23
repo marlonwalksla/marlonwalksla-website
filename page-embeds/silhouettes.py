@@ -337,3 +337,30 @@ def stall(color="#E2662A", opacity=1):
     for j in range(6):
         d += f'<circle cx="{82 + 27 * j}" cy="148" r="12"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def canal(color="#2890B6", opacity=1):
+    """Location stamp icon (Oct 23, 2026): Venice Canals, a small arched footbridge over the water."""
+    d = '<path d="M30 130 Q150 20 270 130 V152 H238 Q150 66 62 152 H30 Z"/>'
+    for x in (80, 115, 150, 185, 220):
+        d += f'<rect x="{x - 3}" y="{int(72 + 0.0004 * (x - 150) ** 2 * 0 + (abs(x - 150) / 70) * 22)}" width="6" height="26" rx="2"/>'
+    for y in (178, 198):
+        d += f'<path d="M30 {y} Q70 {y - 14} 110 {y} T190 {y} T270 {y}" fill="none" stroke="{color}" stroke-width="8" stroke-linecap="round"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def swan(color="#2E9E57", opacity=1):
+    """Location stamp icon (Oct 23, 2026): Echo Park, a swan pedal boat on the lake."""
+    d = '<path d="M66 152 Q56 122 108 128 Q150 132 192 118 Q204 152 150 166 Q98 172 66 152 Z"/>'
+    d += f'<path d="M178 128 Q214 116 196 88 Q180 62 206 50" fill="none" stroke="{color}" stroke-width="20" stroke-linecap="round"/>'
+    d += '<circle cx="208" cy="46" r="16"/><path d="M220 40 L250 50 L220 58 Z"/>'
+    d += '<path d="M96 142 Q132 150 170 132" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'
+    for y in (188, 206):
+        d += f'<path d="M30 {y} Q70 {y - 14} 110 {y} T190 {y} T270 {y}" fill="none" stroke="{color}" stroke-width="8" stroke-linecap="round"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def pin(color="#6A4C93", opacity=1):
+    """Stamp icon (Oct 23, 2026): a map pin with a white dot, for 'design your trip'."""
+    d = '<path d="M150 14 C98 14 66 54 66 98 C66 142 112 178 150 214 C188 178 234 142 234 98 C234 54 202 14 150 14 Z"/><circle cx="150" cy="96" r="32" fill="#fff"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'

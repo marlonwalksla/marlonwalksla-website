@@ -215,7 +215,7 @@ for lang, t in T.items():
   function total(n) {{ var t = 0; for (var i = 0; i < n; i++) t += rates[Math.min(Math.floor(i / 5), rates.length - 1)]; return Math.round(t / 5) * 5; }}
   function upd() {{
     var n = parseInt(r.value, 10), t = total(n);
-    document.getElementById("tq-n").textContent = n; var ns = document.getElementById("tq-nstamp"); if (ns) {{ ns.textContent = n >= 20 ? "20+" : n; ns.setAttribute("font-size", n >= 20 ? "62" : "78"); }}
+    document.getElementById("tq-n").textContent = n; var ns = document.getElementById("tq-nstamp"); if (ns) {{ ns.textContent = n >= 20 ? "20+" : n; ns.setAttribute("font-size", n >= 20 ? "62" : "78"); ns.setAttribute("y", n >= 20 ? "122" : "127"); }}
     r.style.setProperty("--p", ((n - 5) / 15 * 100) + "%");
     document.getElementById("tq-total").textContent = "$" + t.toLocaleString("en-US");
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
