@@ -160,11 +160,11 @@ TRIP_DEFAULT = "sunset"
 CUSTOM_PHOTOS = ["6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad929bf12667b254315c683_place-bunker-hill-01|50% 50%", "6ad929b39a56d0d15964851d_place-broadway-theaters-01|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%"]  # filler images for "Customize my own": downtown is the way in
 CUSTOM = {"en": ("Design Your Day", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
           "es": ("Diseña tu día", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
-T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
+T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Design your trip", ch="Your estimate",
   val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Tap Date Night, Family Outing or Fun with Friends to flip through real trips. Do one as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
+T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Diseña tu viaje", ch="Tu estimado",
   val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Toca Cita en pareja, Salida en familia o Diversión con amigos para ver viajes reales. Haz uno tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
@@ -372,7 +372,7 @@ CALC_CSS = """<style>
   .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"], .pcq-w[aria-pressed="true"], .pcq-d[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
-  .pcq-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-family: "Lilita One", sans-serif; font-size: clamp(3rem, 6vw, 3.8rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .pcq-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-family: "Lilita One", sans-serif; font-size: clamp(2.2rem, 5vw, 2.9rem); line-height: 1; font-variant-numeric: tabular-nums; }
   .pcq-price small { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; color: #27302E; }
   .pcq-sub { margin: 6px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; color: #27302E; }
   .pcq-fit { margin: 4px 0 0; font-size: 0.95rem; line-height: 1.45; color: #27302E; }
@@ -401,11 +401,11 @@ CALC_JS = r"""<script>
 (function () {
   var root = document.getElementById("pcq"); if (!root) return;
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
-  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow"), wrow = root.querySelector(".pcq-wrow");
+  var none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow"), wrow = root.querySelector(".pcq-wrow");
   var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
   var st = null, n = 2, who = "couples", oh = 4, last = null;
   /* Oct 23, 2026 (Marlon): no more Half day / Full day / Other. An example trip uses its own hours; only "Customize my own" asks for hours. */
-  function hrs() { return st && !st.custom && st.hours ? st.hours : oh; }
+  function hrs() { return oh; }
   function press(sel, attr, val) { [].slice.call(root.querySelectorAll(sel)).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset[attr] === String(val) ? "true" : "false"); }); }
   window.MWPV = window.MWPV || {}; window.MWPV.who = who;
   function priceAt(g, h) {
@@ -414,7 +414,9 @@ CALC_JS = r"""<script>
   }
   function quote(s) {
     var h = Math.min(12, hrs()), total = priceAt(n, h), list = Math.round(t.listRate * n * h);
-    return { total: total, each: Math.round(total / n), list: list, pct: Math.round((1 - total / list) * 100) };
+    /* Oct 22, 2026 (Marlon): hours and people are the two multipliers; the range runs from the hours picked to one more hour (tours can run long) */
+    var hi = priceAt(n, Math.min(12, h + 1)); if (hi < total) hi = total;
+    return { total: total, hi: hi, each: Math.round(total / n), eachHi: Math.round(hi / n), list: list, pct: Math.round((1 - total / list) * 100) };
   }
   [].slice.call(root.querySelectorAll(".pcq-g")).forEach(function (g) {
     g.addEventListener("click", function () {
@@ -436,21 +438,20 @@ CALC_JS = r"""<script>
   function render(s) {
     st = s; if (!s) return;
     var has = s.ids.length > 0;
-    if (has && s.trip !== last) { last = s.trip; }
-    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; wrow.hidden = !has; hrow.hidden = !(has && s.custom);
+    if (has && s.trip !== last) { last = s.trip; if (!s.custom && s.hours) { oh = s.hours; press(".pcq-h", "h", oh); } }
+    none.hidden = has; out.hidden = !has; grow.hidden = !has; wrow.hidden = !has; hrow.hidden = !has;
     if (has) {
-      trip.innerHTML = ""; var tg = document.createElement("span"); tg.textContent = t.yourtrip; trip.appendChild(tg); trip.appendChild(document.createTextNode(s.names[0]));
       var q = quote(s);
-      price.innerHTML = ""; price.appendChild(document.createTextNode("$" + q.total.toLocaleString("en-US")));
+      price.innerHTML = ""; price.appendChild(document.createTextNode("$" + q.total.toLocaleString("en-US") + (q.hi > q.total ? " to $" + q.hi.toLocaleString("en-US") : "")));
       var sm = document.createElement("small"); sm.textContent = t.total + " · " + hrs() + " " + t.hrsl; price.appendChild(sm);
-      sub.textContent = "$" + q.each + " " + t.each + " (" + n + " " + t.people + ")";
+      sub.textContent = "$" + q.each + (q.eachHi > q.each ? " to $" + q.eachHi : "") + " " + t.each + " (" + n + " " + t.people + ")";
       fit.innerHTML = "";
       var was = document.createElement("s"), bd = document.createElement("span");
       was.textContent = t.listp + " $" + q.list.toLocaleString("en-US"); bd.className = "pcq-badge"; bd.textContent = t.save + " " + q.pct + "%";
       fit.appendChild(was); fit.appendChild(document.createTextNode(" ")); fit.appendChild(bd);
     }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
-    cta.textContent = has ? (s.custom ? t.cta4 : t.cta2) : t.wait; alt.hidden = !has || s.custom; alt.textContent = t.cta3;
+    cta.textContent = has ? t.cta4 : t.wait; alt.hidden = true;
   }
   window.addEventListener("mwpv", function (e) { render(e.detail); });
   if (window.MWPV && window.MWPV.state) render(window.MWPV.state);
@@ -458,12 +459,12 @@ CALC_JS = r"""<script>
   function go(custom) {
     if (!st || !st.ids.length) return;
     var qt = quote(st); custom = custom || st.custom;
-    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: String(hrs()), n: n, price: qt.total, priceLo: qt.total, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
+    var plan = { v: 3, lang: st.lang, ids: st.ids, names: st.names, hours: String(hrs()), n: n, price: qt.total, priceLo: qt.total, priceHi: qt.hi, trip: st.trip, custom: !!custom, saved: new Date().toISOString() };
     try { localStorage.setItem("mwla-private-plan", JSON.stringify(plan)); } catch (e) {}
-    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&h=" + hrs() + "&lang=" + st.lang + (who && who !== "custom" ? "&who=" + who : "") + (custom ? "&custom=1" : "");
+    var q = "stops=" + encodeURIComponent(st.ids.join(",")) + "&n=" + n + "&est=" + qt.total + "&lo=" + qt.total + "&hi=" + qt.hi + "&h=" + hrs() + "&lang=" + st.lang + (who && who !== "custom" ? "&who=" + who : "") + (custom ? "&custom=1" : "");
     window.location.href = "/private-tour?" + q;
   }
-  cta.addEventListener("click", function () { go(false); });
+  cta.addEventListener("click", function () { go(st && st.custom); });
   alt.addEventListener("click", function () { go(true); });
 })();
 </script>
@@ -496,9 +497,8 @@ def calc_html(lang):
   <div class="pcq-stamp" aria-hidden="true">{sts}</div>
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-none" hidden>{t["none"]}</p>
-  <p class="pcq-trip" hidden></p>
-  <div class="pcq-row pcq-hrow" role="group" aria-label="{t["hrsq"]}" hidden><span class="pcq-rowl">{t["hrsq"]}</span>{hb}</div>
   <div class="pcq-row pcq-wrow" role="group" aria-label="{t["whol"]}" hidden><span class="pcq-rowl">{t["whol"]}</span>{wb}</div>
+  <div class="pcq-row pcq-hrow" role="group" aria-label="{t["hrsq"]}" hidden><span class="pcq-rowl">{t["hrsq"]}</span>{hb}</div>
   <div class="pcq-row pcq-grow" role="group" aria-label="{t["groupl"]}" hidden><span class="pcq-rowl">{t["groupl"]}</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
   <div class="pcq-out" aria-live="polite" hidden>
     <div class="pcq-price"></div>
@@ -508,7 +508,6 @@ def calc_html(lang):
   </div>
   <button type="button" class="pcq-cta" aria-disabled="true">{t["wait"]}</button>
   <button type="button" class="pcq-alt" hidden>{t["cta3"]}</button>
-  <p class="pcq-note">{t["note2"]}</p>
 </div>
 <script type="application/json" id="pcq-t">{tj}</script>
 """ + CALC_CSS + CALC_JS
