@@ -87,8 +87,8 @@ FACTS = {
 def build(page):
     es = page.endswith("-es"); F = FACTS["es" if es else "en"]; secs = PAGES[page]
     sx = "-es" if es else ""
-    team = pick("home-head-team-" + ("es" if es else "en"), "p"); priv = max([x for t, x in extract("home-head-priv-" + ("es" if es else "en")) if t == "p"], key=len)
-    free = pick("home-book", "p")
+    team = pick("home-head-team-" + ("es" if es else "en"), "p", 1); priv = max([x for t, x in extract("home-head-priv-" + ("es" if es else "en")) if t == "p"], key=len)
+    free = pick("home-book", "p", 1)
     if es:  # the shared Free tour section holds its Spanish text in a JS table
         import json; free = json.loads(re.search(r"const T = (\{.*?\});\n", open(os.path.join(PE, "home-book.html"), encoding="utf-8").read(), re.S).group(1))["es"]["line"]
     meet = [x for t, x in extract("home-meet" + sx) if t == "p"][1:3]
