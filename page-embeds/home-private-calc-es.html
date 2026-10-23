@@ -5,6 +5,7 @@
   <h3 class="pcq-title">Tu estimado</h3>
   <p class="pcq-none" hidden>Elige un viaje para ver tu estimado.</p>
   <div class="pcq-row pcq-wrow" role="group" aria-label="Elige tu plan" hidden><span class="pcq-rowl">Elige tu plan</span><button type="button" class="pcq-w" data-w="couples" aria-pressed="true"><span aria-hidden="true">&#128145;</span> Cita en pareja</button><button type="button" class="pcq-w" data-w="families" aria-pressed="false"><span aria-hidden="true">&#128106;</span> Salida en familia</button><button type="button" class="pcq-w" data-w="friends" aria-pressed="false"><span aria-hidden="true">&#127881;</span> Diversión con amigos</button><button type="button" class="pcq-w" data-w="custom" aria-pressed="false"><span aria-hidden="true">&#128506;&#65039;</span> Diseña tu día</button></div>
+  <div class="pcq-locwrap" hidden><p class="pcq-locl">Lugares de este viaje</p><div class="pcq-locs" id="pcq-locs" role="group" aria-label="Lugares de este viaje"></div></div>
   <div class="pcq-res">
   <div class="pcq-out" aria-live="polite" hidden>
     <div class="pcq-price"></div>
@@ -16,7 +17,7 @@
   <button type="button" class="pcq-alt" hidden>Cámbialo, hazlo tuyo</button>
   </div>
 </div>
-<script type="application/json" id="pcq-t">{"hrsl": "horas", "pto": "a", "perhr": "por persona, por hora", "disc": "Los grupos más grandes y los tours más largos cuestan menos por persona.", "cta2": "Reservar este viaje", "cta3": "Cámbialo, hazlo tuyo", "cta4": "Diseña tu viaje", "wait": "Elige algo primero", "each": "c/u", "people": "personas", "total": "total", "listp": "Precio de lista", "save": "Ahorras", "yourtrip": "Tu viaje", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60, "pphLo": 20, "pphHi": 40}</script>
+<script type="application/json" id="pcq-t">{"locl": "Lugares de este viaje", "hrsl": "horas", "pto": "a", "perhr": "por persona, por hora", "disc": "Los grupos más grandes y los tours más largos cuestan menos por persona.", "cta2": "Reservar este viaje", "cta3": "Cámbialo, hazlo tuyo", "cta4": "Diseña tu viaje", "wait": "Elige algo primero", "each": "c/u", "people": "personas", "total": "total", "listp": "Precio de lista", "save": "Ahorras", "yourtrip": "Tu viaje", "prices": {"2": [159, 309, 449, 579, 699, 799], "3": [179, 349, 499, 649, 779, 899], "4": [199, 389, 559, 719, 869, 999]}, "listRate": 60, "pphLo": 20, "pphHi": 40}</script>
 <style>
   /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
@@ -45,6 +46,14 @@
   .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"], .pcq-w[aria-pressed="true"], .pcq-d[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
+  /* Oct 23, 2026 (Marlon): "Places on this trip" sits in the card, under Pick your plan; the highlighted place follows the photo */
+  .pcq-locwrap { margin: 14px 0 0; padding-left: 14px; border-left: 4px solid #2E9E57; }
+  .pcq-locwrap[hidden] { display: none; }
+  .pcq-locl { margin: 0 0 8px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.85rem; color: #5B6663; }
+  .pcq-locs { display: flex; flex-wrap: wrap; gap: 6px 8px; }
+  .pcq-loc { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.88rem; height: 34px; padding: 0 12px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pcq-loc[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pcq-loc:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   /* Oct 23, 2026 (Marlon): the price, the facts and the button live in their own tinted panel, split from the choices by a dashed line */
   .pcq-res { margin: 18px -22px -18px; padding: 18px 22px 18px; background: #D5EAF6; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }
   .pcq-res .pcq-out { margin: 0 0 14px; }
@@ -81,7 +90,7 @@
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
   var none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), wrow = root.querySelector(".pcq-wrow");
   var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
-  var st = null, n = 2, who = "couples", oh = 4, last = null;
+  var st = null, n = 2, who = "couples", oh = 4, last = null, locwrap = root.querySelector(".pcq-locwrap"), locsEl = document.getElementById("pcq-locs"), lastLoc = null;
   /* Oct 23, 2026 (Marlon): no more Half day / Full day / Other. An example trip uses its own hours; only "Customize my own" asks for hours. */
   function hrs() { return oh; }
   function press(sel, attr, val) { [].slice.call(root.querySelectorAll(sel)).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset[attr] === String(val) ? "true" : "false"); }); }
@@ -113,9 +122,23 @@
   [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (b) {
     b.addEventListener("click", function () { oh = +b.dataset.h; press(".pcq-h", "h", oh); if (st) render(st); });
   });
+  function markLoc(k) { [].slice.call(locsEl.children).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.k === k ? "true" : "false"); }); }
+  function renderLocs(s, has) {
+    var list = has && s.locs ? s.locs : []; locwrap.hidden = !list.length;
+    if (s.trip === lastLoc && locsEl.children.length === list.length) { markLoc(window.MWPV && window.MWPV.loc); return; }
+    lastLoc = s.trip; locsEl.innerHTML = "";
+    list.forEach(function (l) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "pcq-loc"; b.dataset.k = l.k; b.textContent = l.n; b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { try { window.dispatchEvent(new CustomEvent("mwlocgo", { detail: l.k })); } catch (e) {} });
+      locsEl.appendChild(b);
+    });
+    markLoc(window.MWPV && window.MWPV.loc);
+  }
+  window.addEventListener("mwloc", function (e) { markLoc(e.detail); });
   function render(s) {
     st = s; if (!s) return;
     var has = s.ids.length > 0;
+    renderLocs(s, has);
     if (has && s.trip !== last) { last = s.trip; if (!s.custom && s.hours) { oh = s.hours; press(".pcq-h", "h", oh); } }
     none.hidden = has; out.hidden = !has; wrow.hidden = !has;
     if (has) {

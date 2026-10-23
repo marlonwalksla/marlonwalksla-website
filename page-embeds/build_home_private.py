@@ -188,14 +188,13 @@ PHOTOS = {
     ],
     "canals": [
         ("6ad929daefa7590f943caa69_guest-getty-center-01", "getty", "Sunset at the Getty Center", "Atardecer en el Getty Center"),
-        ("6ad92cb5fd77e7c92763db12_guest-dtla-03", "getty", "Noa and Yoav at sunset at the Getty Center", "Noa y Yoav al atardecer en el Getty Center"),
         ("6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02", "griffith", "Brother and sister hiking together with their family", "Hermano y hermana de caminata con su familia"),
-        ("6ad929db59b1d5ccebe76dc4_place-getty-center-01", "getty", "Gardens and views at the Getty Center", "Jardines y vistas en el Getty Center"),
-        ("6ad929dbc3398f1383c28856_art-getty-center-01", "getty", "Exploring the Getty Center", "Explorando el Getty Center"),
     ],
     "tacos": [
+        ("6ad92c771ce84651cd30cb11_archive-bar-01", "gcm", "Cheers with Alejandro at Grand Central Market", "Salud con Alejandro en Grand Central Market"),
+        ("6ad92cb38aa41f8f19cfc336_guest-bulleit-neon-01", "gcm", "The crew under the neon lights at Grand Central Market", "El grupo bajo las luces de neón en Grand Central Market"),
+        ("6ad92fddd1848d20e07ee8cd_guest-grand-central-market-01", "gcm", "Lunch break at Grand Central Market", "Pausa para comer en Grand Central Market"),
         ("6ad92a2e137bdbc510c64f01_guest-griffith-park-and-observatory-03", "griffith", "Sunset at the observatory", "Atardecer en el observatorio"),
-        ("6ad92c771ce84651cd30cb11_archive-bar-01", "gcm", "Grab a drink", "Toma algo"),
     ],
     "custom": [
         ("6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01", "elysian", "Elysian Park and Angels Point", "Elysian Park y Angels Point"),
@@ -208,7 +207,7 @@ LOCS = {
     "sunset": [("tacos", "Tacos", "Tacos"), ("griffith", "Griffith Observatory", "Observatorio Griffith"), ("venice", "Venice Canals", "Canales de Venice"), ("santamonica", "Santa Monica", "Santa Mónica"),
                ("downtown", "Downtown LA", "Centro de LA"), ("echopark", "Echo Park", "Echo Park")],
     "canals": [("getty", "Getty Center", "Getty Center"), ("griffith", "Griffith Observatory", "Observatorio Griffith")],
-    "tacos": [("griffith", "Griffith Observatory", "Observatorio Griffith"), ("gcm", "Grand Central Market", "Grand Central Market")],
+    "tacos": [("gcm", "Grand Central Market", "Grand Central Market"), ("griffith", "Griffith Observatory", "Observatorio Griffith")],
     "custom": [("elysian", "Elysian Park", "Elysian Park"), ("bunker", "Bunker Hill", "Bunker Hill"), ("broadway", "Broadway", "Broadway"), ("olvera", "Olvera Street", "Calle Olvera")],
 }
 
@@ -275,7 +274,7 @@ LEFT_JS = r"""<script>
 (function () {
   var D = JSON.parse(document.getElementById("pvb-data").textContent), t = D.t, TR = {};
   D.trips.forEach(function (r) { TR[r.id] = r; });
-  var story = document.getElementById("pvb-story"), capEl = document.getElementById("pvc-cap"), locsEl = document.getElementById("pvb-locs"), cur = null, idx = 0;
+  var story = document.getElementById("pvb-story"), capEl = document.getElementById("pvc-cap"), cur = null, idx = 0;
   var car = document.getElementById("pvc"), pol = car.querySelector(".pvc-pol"), box = car.querySelector(".pvc-img"), dots = document.getElementById("pvc-dots");
   var prev = car.querySelector(".pvc-prev"), next = car.querySelector(".pvc-next");
   function slides(r) { return r.photos.length ? r.photos : [null]; }
@@ -286,7 +285,9 @@ LEFT_JS = r"""<script>
     if (src) { var sp = src.split("|"); var im = new Image(); im.alt = sp[2] || r.name; im.onload = function () { box.innerHTML = ""; box.appendChild(im); }; im.src = sp[0]; }
     capEl.textContent = src ? (src.split("|")[2] || "") : "";
     var lk = src ? src.split("|")[3] : "";
-    [].slice.call(locsEl.children).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.k === lk ? "true" : "false"); });
+    /* Oct 23, 2026 (Marlon): the "Places on this trip" list now lives in the estimate card (under Pick your plan); it hears the current place here */
+    window.MWPV = window.MWPV || {}; window.MWPV.loc = lk;
+    try { window.dispatchEvent(new CustomEvent("mwloc", { detail: lk })); } catch (e) {}
     [].slice.call(dots.children).forEach(function (d, k) { d.classList.toggle("on", k === idx); });
     var many = list.length > 1; prev.hidden = next.hidden = !many; dots.hidden = !many;
   }
@@ -299,7 +300,7 @@ LEFT_JS = r"""<script>
   car.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1)); }, { passive: true });
   function state() {
     var r = cur && TR[cur]; if (!r) return { ids: [], names: [], lang: D.lang, t: t };
-    return { ids: [r.id], names: [r.name], stops: r.stops, lang: D.lang, hours: r.hours, lo: r.hours, hi: r.hours, range: String(r.hours), tier: r.tier, trip: r.id, custom: r.id === "custom", over: false, t: t };
+    return { ids: [r.id], names: [r.name], locs: r.locs, stops: r.stops, lang: D.lang, hours: r.hours, lo: r.hours, hi: r.hours, range: String(r.hours), tier: r.tier, trip: r.id, custom: r.id === "custom", over: false, t: t };
   }
   function publish() {
     window.MWPV = window.MWPV || {}; window.MWPV.state = state();
@@ -308,12 +309,6 @@ LEFT_JS = r"""<script>
   function pick(id) {
     cur = id; idx = 0; var r = TR[id];
     dots.innerHTML = ""; slides(r).forEach(function () { dots.appendChild(document.createElement("i")); });
-    locsEl.innerHTML = "";
-    r.locs.forEach(function (l) {
-      var b = document.createElement("button"); b.type = "button"; b.className = "pvb-loc"; b.dataset.k = l.k; b.textContent = l.n; b.setAttribute("aria-pressed", "false");
-      b.addEventListener("click", function () { var L = slides(TR[cur]); for (var k = 0; k < L.length; k++) { if (L[k] && L[k].split("|")[3] === l.k) { go(k); break; } } });
-      locsEl.appendChild(b);
-    });
     show();
     story.innerHTML = "";
     if (r.id === "custom") { var p = document.createElement("p"); p.textContent = r.story; story.appendChild(p); story.hidden = false; } else story.hidden = true;
@@ -328,6 +323,8 @@ LEFT_JS = r"""<script>
     if (force || !cur) pick(id || D.on);
   }
   window.addEventListener("mwwho", function (e) { applyWho(e.detail, true); });
+  /* a tap on a place chip in the estimate card jumps to that place's first photo */
+  window.addEventListener("mwlocgo", function (e) { var L = slides(TR[cur]); for (var k = 0; k < L.length; k++) { if (L[k] && L[k].split("|")[3] === e.detail) { go(k); break; } } });
   /* Oct 23, 2026 (Marlon): on wide screens the estimate card sits on the left and the trip photos on the right (stacked order on phones is unchanged) */
   function swapCols() {
     var a = document.getElementById("private-tours"), b = document.querySelector(".mw-form-card .pcq"); if (!a || !b) return false;
@@ -365,7 +362,6 @@ def left_html(lang):
   </div>
   <p class="pvc-cap" id="pvc-cap" aria-live="polite"></p>
   <div class="pvc-dots" id="pvc-dots" aria-hidden="true"></div>
-  <div class="pvb-locwrap"><p class="pvb-locl">{t["locl"]}</p><div class="pvb-locs" id="pvb-locs" role="group" aria-label="{t["locl"]}"></div></div>
   <div class="pvb-story" id="pvb-story" hidden></div>
 </div>
 <script type="application/json" id="pvb-data">{js_data}</script>
@@ -385,12 +381,6 @@ CAR_CSS = """<style>
   .pvc-card { position: absolute; inset: 0; border-radius: 10px; display: grid; place-items: center; padding: 16px; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.05rem; line-height: 1.3; color: #27302E; }
   .pvc-pol figcaption { margin: 10px 2px 0; text-align: center; font-family: "Lilita One", sans-serif; font-size: 1.05rem; line-height: 1.15; color: #27302E; }
   .pvc-cap { margin: 12px 0 0; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.3; color: #3B4440; min-height: 2.6em; }
-  .pvb-locwrap { margin: 14px 0 0; padding-left: 14px; border-left: 4px solid #2E9E57; }
-  .pvb-locl { margin: 0 0 8px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.85rem; color: #5B6663; }
-  .pvb-locs { display: flex; flex-wrap: wrap; gap: 8px; }
-  .pvb-loc { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9rem; height: 34px; padding: 0 12px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
-  .pvb-loc[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
-  .pvb-loc:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pvc-dots { display: flex; gap: 8px; justify-content: center; margin: 14px 0 0; }
   .pvc-dots[hidden] { display: none; }
   .pvc-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(39, 48, 46, 0.2); }
@@ -436,6 +426,14 @@ CALC_CSS = """<style>
   .pcq-g[aria-pressed="true"], .pcq-h[aria-pressed="true"], .pcq-w[aria-pressed="true"], .pcq-d[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
   .pcq-g:focus-visible, .pcq-h:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   .pcq-out { margin: 4px 0 6px; }
+  /* Oct 23, 2026 (Marlon): "Places on this trip" sits in the card, under Pick your plan; the highlighted place follows the photo */
+  .pcq-locwrap { margin: 14px 0 0; padding-left: 14px; border-left: 4px solid #2E9E57; }
+  .pcq-locwrap[hidden] { display: none; }
+  .pcq-locl { margin: 0 0 8px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.85rem; color: #5B6663; }
+  .pcq-locs { display: flex; flex-wrap: wrap; gap: 6px 8px; }
+  .pcq-loc { font: inherit; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.88rem; height: 34px; padding: 0 12px; border-radius: 99px; cursor: pointer; background: #FFFDF8; color: #27302E; border: 2px solid #D9CFBC; }
+  .pcq-loc[aria-pressed="true"] { background: #FFD43B; border-color: #27302E; }
+  .pcq-loc:focus-visible { outline: 3px solid #2890B6; outline-offset: 2px; }
   /* Oct 23, 2026 (Marlon): the price, the facts and the button live in their own tinted panel, split from the choices by a dashed line */
   .pcq-res { margin: 18px -22px -18px; padding: 18px 22px 18px; background: #D5EAF6; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }
   .pcq-res .pcq-out { margin: 0 0 14px; }
@@ -474,7 +472,7 @@ CALC_JS = r"""<script>
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
   var none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), wrow = root.querySelector(".pcq-wrow");
   var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
-  var st = null, n = 2, who = "couples", oh = 4, last = null;
+  var st = null, n = 2, who = "couples", oh = 4, last = null, locwrap = root.querySelector(".pcq-locwrap"), locsEl = document.getElementById("pcq-locs"), lastLoc = null;
   /* Oct 23, 2026 (Marlon): no more Half day / Full day / Other. An example trip uses its own hours; only "Customize my own" asks for hours. */
   function hrs() { return oh; }
   function press(sel, attr, val) { [].slice.call(root.querySelectorAll(sel)).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset[attr] === String(val) ? "true" : "false"); }); }
@@ -506,9 +504,23 @@ CALC_JS = r"""<script>
   [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (b) {
     b.addEventListener("click", function () { oh = +b.dataset.h; press(".pcq-h", "h", oh); if (st) render(st); });
   });
+  function markLoc(k) { [].slice.call(locsEl.children).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.k === k ? "true" : "false"); }); }
+  function renderLocs(s, has) {
+    var list = has && s.locs ? s.locs : []; locwrap.hidden = !list.length;
+    if (s.trip === lastLoc && locsEl.children.length === list.length) { markLoc(window.MWPV && window.MWPV.loc); return; }
+    lastLoc = s.trip; locsEl.innerHTML = "";
+    list.forEach(function (l) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "pcq-loc"; b.dataset.k = l.k; b.textContent = l.n; b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { try { window.dispatchEvent(new CustomEvent("mwlocgo", { detail: l.k })); } catch (e) {} });
+      locsEl.appendChild(b);
+    });
+    markLoc(window.MWPV && window.MWPV.loc);
+  }
+  window.addEventListener("mwloc", function (e) { markLoc(e.detail); });
   function render(s) {
     st = s; if (!s) return;
     var has = s.ids.length > 0;
+    renderLocs(s, has);
     if (has && s.trip !== last) { last = s.trip; if (!s.custom && s.hours) { oh = s.hours; press(".pcq-h", "h", oh); } }
     none.hidden = has; out.hidden = !has; wrow.hidden = !has;
     if (has) {
@@ -552,7 +564,7 @@ STAMP = {
 def calc_html(lang):
     t = T[lang]
     pp = [PRICES[g][k] / (int(g) * 2 * (k + 1)) for g in PRICES for k in range(6)]  # price per person per hour at every group size and length
-    keys = ["hrsl", "pto", "perhr", "disc", "cta2", "cta3", "cta4", "wait", "each", "people", "total", "listp", "save", "yourtrip"]
+    keys = ["locl", "hrsl", "pto", "perhr", "disc", "cta2", "cta3", "cta4", "wait", "each", "people", "total", "listp", "save", "yourtrip"]
     tj = json.dumps({**{k: t[k] for k in keys}, "prices": PRICES, "listRate": LIST_RATE, "pphLo": int(round(min(pp) / 5.0) * 5), "pphHi": int(round(max(pp) / 5.0) * 5)}, ensure_ascii=False)
     EM_IN = ["&#127976;", "&#128663;", "&#128248;"]; EM_OUT = ["&#127869;&#65039;", "&#127359;"]  # Oct 23, 2026: emoji instead of check and X marks
     vin = "".join(f"<li>{EM_IN[k]} {esc(x)}</li>" for k, x in enumerate(t["val_in"])) + "".join(f'<li class="no">{EM_OUT[k]} {esc(x)}</li>' for k, x in enumerate(t["val_out"]))
@@ -566,6 +578,7 @@ def calc_html(lang):
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-none" hidden>{t["none"]}</p>
   <div class="pcq-row pcq-wrow" role="group" aria-label="{t["whol"]}" hidden><span class="pcq-rowl">{t["whol"]}</span>{wb}</div>
+  <div class="pcq-locwrap" hidden><p class="pcq-locl">{t["locl"]}</p><div class="pcq-locs" id="pcq-locs" role="group" aria-label="{t["locl"]}"></div></div>
   <div class="pcq-res">
   <div class="pcq-out" aria-live="polite" hidden>
     <div class="pcq-price"></div>
