@@ -48,8 +48,8 @@ T = {
    proof="La prueba está en las Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google (en inglés)"),
 }
-CEL = {"en": ("What are you celebrating?", [("offsite", "Offsite"), ("birthday", "Birthday"), ("milestone", "Milestone"), ("just-because", "Just because")]),
-       "es": ("&iquest;Qu&eacute; celebran?", [("offsite", "Retiro de empresa"), ("birthday", "Cumplea&ntilde;os"), ("milestone", "Un logro"), ("just-because", "Porque s&iacute;")])}
+CEL = {"en": ("What are you celebrating?", [("offsite", "&#127796; Offsite"), ("birthday", "&#127874; Birthday"), ("milestone", "&#127942; Milestone"), ("just-because", "&#127881; Just because")]),
+       "es": ("&iquest;Qu&eacute; celebran?", [("offsite", "&#127796; Retiro de empresa"), ("birthday", "&#127874; Cumplea&ntilde;os"), ("milestone", "&#127942; Un logro"), ("just-because", "&#127881; Porque s&iacute;")])}
 for lang, t in T.items():
     cel_h, cel_opts = CEL[lang]
     cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="{"true" if k == "offsite" else "false"}">{v}</button>' for k, v in cel_opts)
@@ -241,7 +241,7 @@ for lang, t in T.items():
       var ev = c.getAttribute("data-e"), eon = c.getAttribute("aria-pressed") !== "true";
       [].slice.call(c.parentNode.children).forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
       c.setAttribute("aria-pressed", eon ? "true" : "false"); sel.e = eon ? ev : "";
-      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; var food = document.querySelector(".mwsh-pills li.no"), inl = document.getElementById("mwsh-in"), outl = document.getElementById("mwsh-out"); if (food && inl && outl) {{ var cat = sel.e === "plan"; (cat ? inl : outl).appendChild(food); food.classList.toggle("yes", cat); outl.parentNode.hidden = cat; }}
+      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; var food = document.getElementById("mwsh-food"); if (food) food.hidden = sel.e !== "plan";
       [].slice.call(root.querySelectorAll(".tq-st2[data-e]")).forEach(function (st) {{ var show = st.getAttribute("data-e") === sel.e; st.hidden = !show; st.classList.remove("pop"); if (show) {{ void st.offsetWidth; st.classList.add("pop"); }} }});
       link();
     }});

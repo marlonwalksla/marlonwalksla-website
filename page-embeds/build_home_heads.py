@@ -91,7 +91,7 @@ def grp(kind, uid, es, items, no):
     """One labeled row of pills: kind 'in' or 'out'."""
     label = ("No incluido" if es else "Not included") if kind == "out" else ("Incluido" if es else "Included")
     idat = (' id="%s"' % uid) if uid else ""
-    pills = "".join(('<li class="no">' if no else "<li>") + x + "</li>" for x in items)
+    pills = "".join(('<li id="mwsh-food" hidden>' + x[1:] + "</li>") if x[:1] == "!" else (('<li class="no">' if no else "<li>") + x + "</li>") for x in items)
     return '<div class="mwsh-grp%s"><span class="mwsh-gl">%s</span><ul class="mwsh-pills"%s>%s</ul></div>' % (" out" if kind == "out" else "", label, idat, pills)
 
 for (sec, lang), (title, alt, badges) in T.items():
@@ -124,11 +124,11 @@ for (sec, lang), (title, alt, badges) in T.items():
               else [("&#127874;", "Birthdays"), ("&#127942;", "Milestones"), ("&#127796;", "Offsites"), ("&#127881;", "Just because")])
         # Oct 23, 2026 (Marlon): the fact pills are back under the intro text (they used to sit in the price card). The Food pill turns green when the card's lunch plan is catering.
         PV = (["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Gu&iacute;a local"], "&#127869;&#65039; Comida") if es else (["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], "&#127869;&#65039; Food")
-        b_html = grp("in", "mwsh-in", es, PV[0], False) + grp("out", "mwsh-out", es, [PV[1]], True)  # Oct 23, 2026 (Marlon): two clear rows, "Included" and "Not included". The Food pill moves to the Included row when the lunch plan is catering (see build_home_teamcard.py).
+        b_html = grp("in", "mwsh-in", es, PV[0] + ["!" + PV[1]], False)  # Oct 23, 2026 (Marlon): only the "Included" row on Home (Not included is explained on the pages). The Food pill moves to the Included row when the lunch plan is catering (see build_home_teamcard.py).
     if sec == "priv":  # Oct 20, 2026 (Marlon): under the sentence, "Best for" instead of the fact pills (the facts moved next to the price)
         BF = [("&#128145;", "Parejas"), ("&#128106;", "Familias"), ("&#127881;", "Amigos")] if es else [("&#128145;", "Couples"), ("&#128106;", "Families"), ("&#127881;", "Friends")]
         PP = (["&#127976; Recogida y regreso al hotel", "&#128663; Manejo", "&#128248; Fotos instant&aacute;neas"], ["&#127869;&#65039; Comida", "&#127359;&#65039; Estacionamiento"]) if es else (["&#127976; Hotel pickup and drop-off", "&#128663; Driving", "&#128248; Instant photos"], ["&#127869;&#65039; Food", "&#127359;&#65039; Parking"])
-        b_html = grp("in", "", es, PP[0], False) + grp("out", "", es, PP[1], True)  # Oct 23, 2026 (Marlon): same two rows as Team, "Included" and "Not included"
+        b_html = grp("in", "", es, PP[0], False)  # Oct 23, 2026 (Marlon): same two rows as Team, "Included" and "Not included"
     html = f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: {'TEAM' if sec == 'team' else 'PRIVATE'} SECTION BANNER. Built by page-embeds/build_home_heads.py.
      Postcard header: title, one short sentence and badges on the left; the From and To lines on the right (Oct 17, 2026). Address, sentence and badge styles live in home-hero.html. -->
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">

@@ -143,6 +143,7 @@ def build(lang):
     CH = 'RETO' if es else 'CHALLENGE'
     # Oct 18, 2026 (Marlon): four stamps spread across the hero, always visible: the three tours, then one challenge.
     HERO_STAMPS = ('<div class="mwh-stamps" aria-hidden="true">'
++ hs('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -8, 3, True)
 + hs('hsc', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9, True)
 + hs('hsb', 'PLACITA OLVERA', 'FREE TOUR' if not es else 'FREE TOUR', 'kiosko', 'EST. 1781', '#7A3FA0', 7, 6, True)
 + hs('hsd', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 8, 12, True)
@@ -380,9 +381,10 @@ def build(lang):
   @media (min-width: 992px) {{ .mwh-stamps svg.stamp:nth-child(1) {{ right: 22px; top: 22px; width: 96px; }} }}
   @media (min-width: 1180px) {{
     .mwh-stamps svg.stamp {{ display: block; width: clamp(104px, 8.8vw, 120px); }}
-    .mwh-stamps svg.stamp:nth-child(1) {{ right: 24px; top: 26px; }}
-    .mwh-stamps svg.stamp:nth-child(2) {{ left: 46%; bottom: 28px; }}
-    .mwh-stamps svg.stamp:nth-child(3) {{ right: 24px; bottom: 28px; }}
+    .mwh-stamps svg.stamp:nth-child(1) {{ left: 24px; right: auto; top: 26px; }}
+    .mwh-stamps svg.stamp:nth-child(2) {{ right: 24px; top: 26px; }}
+    .mwh-stamps svg.stamp:nth-child(3) {{ left: 46%; bottom: 28px; }}
+    .mwh-stamps svg.stamp:nth-child(4) {{ right: 24px; bottom: 28px; }}
   }}
   @media (max-width: 767px) {{ .mwh-car {{ grid-template-columns: 40px minmax(0, 300px) 40px; gap: 6px; }} .mwh-nav {{ width: 40px; height: 40px; }} .mwh-nav {{ margin-top: 150px; }} }}
   @media (prefers-reduced-motion: reduce) {{ .mwh-slide, .mwh-slide.is-on, .mwh-nav {{ transition: none; }} }}

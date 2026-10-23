@@ -13,7 +13,7 @@
     <div class="mwla-book-head-text">
       <h2 class="mwla-book-title" data-pi="title">Join a Free Tour!</h2>
       <p class="pc-line" data-pi="line">Come walk LA's historic downtown. Start at Bunker Hill, home of LA's arts buildings, then walk backwards in time to Placita Olvera, where the Spanish and Mexican pueblo began.</p>
-      <ul class="mwla-inc-pills"><li class="yes"><span aria-hidden="true">&#9201;&#65039;</span> <span data-es="2 a 2.5 horas">2 to 2.5 hours</span></li><li class="yes"><span aria-hidden="true">&#128694;</span> <span data-es="2.9 km a pie">1.8 mi / 2.9 km</span></li><li class="yes"><span aria-hidden="true">&#128483;&#65039;</span> <span data-es="Inglés o español">English or Spanish</span></li><li class="yes"><span aria-hidden="true">&#127873;</span> <span data-es="Calcomanía de Ernesto gratis">Free Ernesto sticker</span></li><li class="yes"><span aria-hidden="true">&#128155;</span> <span data-es="Con propina">Tip-based</span></li><li class="no"><span aria-hidden="true">&#127869;&#65039;</span> <span data-es="Comida y bebidas">Food and drinks</span></li><li class="no"><span aria-hidden="true">&#127359;</span> <span data-es="Estacionamiento">Parking</span></li></ul>
+      <div class="mwla-inc-grp"><span class="mwla-inc-gl" data-es="Incluido">Included</span><ul class="mwla-inc-pills"><li class="yes"><span aria-hidden="true">&#9201;&#65039;</span> <span data-es="2 a 2.5 horas">2 to 2.5 hours</span></li><li class="yes"><span aria-hidden="true">&#128694;</span> <span data-es="2.9 km a pie">1.8 mi / 2.9 km</span></li><li class="yes"><span aria-hidden="true">&#128483;&#65039;</span> <span data-es="Inglés o español">English or Spanish</span></li><li class="yes"><span aria-hidden="true">&#127873;</span> <span data-es="Calcomanía de Ernesto gratis">Free Ernesto sticker</span></li><li class="yes"><span aria-hidden="true">&#128155;</span> <span data-es="Con propina">Tip-based</span></li></ul></div>
     </div>
   </div>
 
@@ -78,6 +78,10 @@
   .mwla-inc-pills li { display: inline-flex; align-items: center; gap: 6px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; padding: 6px 14px; margin: 0; border-radius: 99px; }
   .mwla-inc-pills li::before { content: none; }
   .mwla-inc-pills li.yes { background: #fff; color: #1E6B3A; border: 2px solid #1E6B3A; }
+  .mwla-inc-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 14px; }
+  .mwla-inc-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
+  .mwla-inc-grp .mwla-inc-pills { margin: 0; }
+  @media (max-width: 600px) { .mwla-inc-gl { min-width: 100%; } .mwla-inc-grp .mwla-inc-pills { gap: 6px; } .mwla-inc-pills li { font-size: 0.8rem; padding: 4px 9px; } }
   .mwla-inc-pills li.no { background: #FFE4EA; color: #A12B4A; border: 2px solid #E58AA3; }
   .mwla-fcard { background: #ffffff; border-radius: 18px; padding: 20px 18px 18px; box-shadow: 0 12px 30px -18px rgba(39, 48, 46, 0.55); }
   .mwla-card-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.45rem; color: #27302E; margin: 0 0 12px; }

@@ -3,7 +3,7 @@
      The Team page keeps the calendar (team-cal.html). Rates match the Team page slider. -->
 <div class="tq" id="tq">
   <h3 class="tq-title">Price your team day</h3>
-  <div class="tq-cel" role="group" aria-label="What are you celebrating?"><p class="tq-cel-h">What are you celebrating?</p><div class="tq-chips"><button type="button" class="tq-chip" data-c="offsite" aria-pressed="true">Offsite</button><button type="button" class="tq-chip" data-c="birthday" aria-pressed="false">Birthday</button><button type="button" class="tq-chip" data-c="milestone" aria-pressed="false">Milestone</button><button type="button" class="tq-chip" data-c="just-because" aria-pressed="false">Just because</button></div></div>
+  <div class="tq-cel" role="group" aria-label="What are you celebrating?"><p class="tq-cel-h">What are you celebrating?</p><div class="tq-chips"><button type="button" class="tq-chip" data-c="offsite" aria-pressed="true">&#127796; Offsite</button><button type="button" class="tq-chip" data-c="birthday" aria-pressed="false">&#127874; Birthday</button><button type="button" class="tq-chip" data-c="milestone" aria-pressed="false">&#127942; Milestone</button><button type="button" class="tq-chip" data-c="just-because" aria-pressed="false">&#127881; Just because</button></div></div>
   <label class="tq-label" for="tq-range">How many people? <strong id="tq-n">15</strong></label>
   <input class="tq-range" id="tq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tq-out">
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
@@ -174,7 +174,7 @@
       var ev = c.getAttribute("data-e"), eon = c.getAttribute("aria-pressed") !== "true";
       [].slice.call(c.parentNode.children).forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
       c.setAttribute("aria-pressed", eon ? "true" : "false"); sel.e = eon ? ev : "";
-      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; var food = document.querySelector(".mwsh-pills li.no"), inl = document.getElementById("mwsh-in"), outl = document.getElementById("mwsh-out"); if (food && inl && outl) { var cat = sel.e === "plan"; (cat ? inl : outl).appendChild(food); food.classList.toggle("yes", cat); outl.parentNode.hidden = cat; }
+      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; var food = document.getElementById("mwsh-food"); if (food) food.hidden = sel.e !== "plan";
       [].slice.call(root.querySelectorAll(".tq-st2[data-e]")).forEach(function (st) { var show = st.getAttribute("data-e") === sel.e; st.hidden = !show; st.classList.remove("pop"); if (show) { void st.offsetWidth; st.classList.add("pop"); } });
       link();
     });

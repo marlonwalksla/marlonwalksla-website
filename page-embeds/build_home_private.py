@@ -277,6 +277,18 @@ LEFT_JS = r"""<script>
   var story = document.getElementById("pvb-story"), cur = null;
   var car = document.getElementById("pvc");
   /* Oct 23, 2026: photos use the shared slider (mw-slider.js); this page only gives it the slides and listens for the current one */
+  /* Oct 23, 2026 (Marlon): a real review under the photos, one per group. All five-star reviews from the review sheet; swap in private-tour ones when they arrive. */
+  var QUOTES = {
+    couples: ["He was so friendly and patient, my husband loved the little game\u2026", "Dilek K. \u00B7 FreeTour.com"],
+    families: ["It has been a wonderful tour\u2026 my family and I have enjoyed a lot.", "Bel\u00E9n L. \u00B7 FreeTour.com"],
+    friends: ["Marlon was the best walking tour I have been on (I've done 10+ total). He was extremely knowledgeable about the city of LA, and was very fun and flexible.", "Nayen V. \u00B7 Google"],
+    custom: ["Marlon was flexible, I had to reschedule and he was very open to it. He is very knowledgeable, he shared so much and went over time.", "Beatrice \u00B7 Google"]
+  };
+  function setQuote(r) {
+    var q = QUOTES[r.id === "custom" ? "custom" : r.who] || QUOTES.custom, fg = document.getElementById("pvb-q");
+    if (!fg) return;
+    fg.querySelector("blockquote").textContent = "\u201C" + q[0] + "\u201D"; fg.querySelector(".pvb-by").textContent = q[1];
+  }
   function items(r) {
     return r.photos.map(function (p) { var sp = p.split("|"); return { src: sp[0], pos: sp[1], cap: sp[2] || "", alt: sp[2] || r.name, key: sp[3] || "", kind: "photo" }; });
   }
@@ -300,7 +312,7 @@ LEFT_JS = r"""<script>
   }
   function pick(id) {
     cur = id; var r = TR[id];
-    load(r);
+    load(r); setQuote(r);
     story.innerHTML = "";
     if (r.id === "custom") { var p = document.createElement("p"); p.textContent = r.story; story.appendChild(p); story.hidden = false; } else story.hidden = true;
     publish();
@@ -349,6 +361,7 @@ def left_html(lang):
 <script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/mw-slider.js?v=1" defer></script>
 <div class="mw-offer pvb" id="private-tours">
   <div class="mws" id="pvc" data-mws style="--mws-w: 420px; --mws-ar: 1 / 1" data-prev="{t['prev']}" data-next="{t['next']}" data-dot="{t['dot']}" aria-label="{esc(t['h'])}"><div class="mws-stage"></div></div>
+  <figure class="pvb-q" id="pvb-q"><blockquote></blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="pvb-by"></span></figcaption></figure>
   <div class="pvb-story" id="pvb-story" hidden></div>
 </div>
 <script type="application/json" id="pvb-data">{js_data}</script>
@@ -363,6 +376,11 @@ CAR_CSS = """<style>
   .pvb .pvb-pill { font-size: 0.88rem; padding: 5px 12px; min-height: 34px; border-width: 1.5px; }
   .pvb .pvb-pills { gap: 6px; margin-bottom: 10px; }
   .pvb .pvb-hint { margin-bottom: 10px; }
+  .pvb-q { margin: 14px auto 0; max-width: 420px; padding-left: 14px; border-left: 4px solid #2E9E57; }
+  .pvb-q blockquote { margin: 0; font-size: 1rem; line-height: 1.5; color: #3B4440; min-height: 4.5em; }
+  .pvb-q figcaption { margin-top: 4px; font-size: 0.85rem; color: #5B6663; }
+  .pvb-q figcaption span { color: #E89B00; letter-spacing: 1px; margin-right: 4px; }
+  .pvb-q figcaption .pvb-by { color: inherit; letter-spacing: normal; margin-right: 0; }
   .pvb-story { margin-top: 8px; font-size: 0.92rem; line-height: 1.4; }
   .pvb-story p { margin-top: 4px; }
 </style>
