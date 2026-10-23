@@ -17,7 +17,7 @@ MarlonWalksLA is Marlon Gonzalez's walking-tour business in Los Angeles: free to
 - **Shared photo slider:** `mw-slider.css` and `mw-slider.js` (on `main`) run every image slider (Team, Free tour, Private). Slide kinds: `.mws-print` (CSS Polaroid, optional custom `--frame`), `.mws-raw` (already framed), `.mws-photo`, `.mws-card`. Details in the CSS header. Each embed loads the two files itself.
 
 ## Consistency rule
-- **Home has three parallel sections: Team, Private and Free tour (plus /es).** When Marlon asks for a change to one of them (pills, sliders, quotes, mobile order, captions, spacing, copy style), check the other two and apply the same change, or tell him why it does not apply. Check mobile (375px) too. Say in the reply which sections changed.
+- **Home has three parallel sections: Team, Private and Free tour (plus /es).** When Marlon asks for a change to one of them (pills, sliders, quotes, mobile order, captions, spacing, copy style), check the other two and apply the same change, or tell him why it does not apply. Check phone widths too (a few, for example 360, 390 and 430px, plus a tablet), not one fixed number. Say in the reply which sections changed.
 
 ## Key files
 - `global-vars.css`: brand colors and shared components (loaded site-wide)
