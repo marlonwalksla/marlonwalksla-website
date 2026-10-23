@@ -14,6 +14,8 @@ MarlonWalksLA is Marlon Gonzalez's walking-tour business in Los Angeles: free to
 - **Crawler text:** each main page has a `<noscript>` copy of its text in the page's footer code in Webflow, built by `tools/build_crawler_text.py` (output in `tools/crawler-text/`). After copy changes in `page-embeds/`, re-run it and re-paste into that page's footer (keep the existing scripts above it).
 - **Section prefetch:** the site head code has a small script with the list of sections per page (same URLs and branch rule as `mw.js`). When a page gets a new or renamed section, update that list too.
 
+- **Shared photo slider:** `mw-slider.css` and `mw-slider.js` (on `main`) run every image slider (Team, Free tour, Private). Slide kinds: `.mws-print` (CSS Polaroid, optional custom `--frame`), `.mws-raw` (already framed), `.mws-photo`, `.mws-card`. Details in the CSS header. Each embed loads the two files itself.
+
 ## Key files
 - `global-vars.css`: brand colors and shared components (loaded site-wide)
 - `tour-pages.css`: styles for the tour, About, Privacy and Terms pages. `.tp-todo` = red placeholder for info Marlon still has to fill in.
