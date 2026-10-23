@@ -39,8 +39,8 @@ T = {
    proof="La prueba está en las Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google (en inglés)"),
 }
-CEL = {"en": ("What are you celebrating?", [("birthday", "Birthday"), ("milestone", "Milestone"), ("offsite", "Offsite"), ("just-because", "Just because")]),
-       "es": ("&iquest;Qu&eacute; celebran?", [("birthday", "Cumplea&ntilde;os"), ("milestone", "Un logro"), ("offsite", "Retiro de empresa"), ("just-because", "Porque s&iacute;")])}
+CEL = {"en": ("What are you celebrating?", [("offsite", "Offsite"), ("birthday", "Birthday"), ("milestone", "Milestone"), ("just-because", "Just because")]),
+       "es": ("&iquest;Qu&eacute; celebran?", [("offsite", "Retiro de empresa"), ("birthday", "Cumplea&ntilde;os"), ("milestone", "Un logro"), ("just-because", "Porque s&iacute;")])}
 for lang, t in T.items():
     cel_h, cel_opts = CEL[lang]
     cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="{"true" if k == "offsite" else "false"}">{v}</button>' for k, v in cel_opts)
@@ -194,19 +194,30 @@ for lang, t in T.items():
   }}
   var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "offsite", e: "own" }}, food = root.querySelector(".tq-val li.no"), plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
   function link() {{ var q = []; if (sel.c) q.push("celebrating=" + sel.c); if (sel.e) q.push("eating=" + sel.e); if (btn) btn.setAttribute("href", q.length ? base + "?" + q.join("&") : base); }}
+  function applyCel(key) {{
+    var key2 = key || "offsite";
+    [].slice.call(root.querySelectorAll(".tq-chip[data-c]")).forEach(function (o) {{ o.setAttribute("aria-pressed", key && o.getAttribute("data-c") === key ? "true" : "false"); }});
+    sel.c = key || "";
+    [].slice.call(root.querySelectorAll(".tq-st")).forEach(function (st) {{ var show = st.getAttribute("data-c") === key2; st.hidden = !show; st.classList.remove("pop"); if (show) {{ void st.offsetWidth; st.classList.add("pop"); }} }});
+    link();
+  }}
   [].slice.call(root.querySelectorAll(".tq-chip")).forEach(function (c) {{
     c.addEventListener("click", function () {{
-      var k = c.hasAttribute("data-c") ? "c" : "e", v = c.getAttribute("data-c") || c.getAttribute("data-e"), on = c.getAttribute("aria-pressed") !== "true";
+      if (c.hasAttribute("data-c")) {{
+        var v = c.getAttribute("data-c"), on = c.getAttribute("aria-pressed") !== "true";
+        applyCel(on ? v : "");
+        try {{ window.dispatchEvent(new CustomEvent("mwcel", {{ detail: on ? v : "offsite" }})); }} catch (e) {{}}  /* Oct 23, 2026: the photo slider on the left follows the occasion */
+        return;
+      }}
+      var ev = c.getAttribute("data-e"), eon = c.getAttribute("aria-pressed") !== "true";
       [].slice.call(c.parentNode.children).forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
-      c.setAttribute("aria-pressed", on ? "true" : "false"); sel[k] = on ? v : "";
-      if (k === "c") {{
-        var key = sel.c || "offsite";
-        [].slice.call(root.querySelectorAll(".tq-st")).forEach(function (st) {{ var show = st.getAttribute("data-c") === key; st.hidden = !show; st.classList.remove("pop"); if (show) {{ void st.offsetWidth; st.classList.add("pop"); }} }});
-        try {{ window.dispatchEvent(new CustomEvent("mwcel", {{ detail: key }})); }} catch (e) {{}}  /* Oct 23, 2026: the photo slider on the left follows the occasion */
-      }} else {{ plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan"); }}
+      c.setAttribute("aria-pressed", eon ? "true" : "false"); sel.e = eon ? ev : "";
+      plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan");
       link();
     }});
   }});
+  /* Oct 23, 2026 (Marlon): flipping the photo arrows on the left also moves the occasion chips */
+  window.addEventListener("mwcel2", function (e) {{ if (e.detail) applyCel(e.detail); }});
   link(); r.addEventListener("input", upd); upd();
 }})();
 </script>

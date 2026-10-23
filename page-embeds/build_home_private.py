@@ -160,11 +160,11 @@ TRIP_DEFAULT = "sunset"
 CUSTOM_PHOTOS = ["6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad929bf12667b254315c683_place-bunker-hill-01|50% 50%", "6ad929b39a56d0d15964851d_place-broadway-theaters-01|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%"]  # filler images for "Customize my own": downtown is the way in
 CUSTOM = {"en": ("Design Your Day", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
           "es": ("Diseña tu día", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
-T["en"].update(locl="Places on this trip", durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Design your trip", ch="Your estimate",
+T["en"].update(pto="to", perhr="per person, per hour", disc="Bigger groups and longer tours cost less per person.", locl="Places on this trip", durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends"), ("custom", "&#128506;&#65039;", "Design Your Day")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Design your trip", ch="Your estimate",
   val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Tap Date Night, Family Outing or Fun with Friends to flip through real trips. Do one as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(locl="Lugares de este viaje", durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Diseña tu viaje", ch="Tu estimado",
+T["es"].update(pto="a", perhr="por persona, por hora", disc="Los grupos más grandes y los tours más largos cuestan menos por persona.", locl="Lugares de este viaje", durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos"), ("custom", "&#128506;&#65039;", "Diseña tu día")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Diseña tu viaje", ch="Tu estimado",
   val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Toca Cita en pareja, Salida en familia o Diversión con amigos para ver viajes reales. Haz uno tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
@@ -183,24 +183,19 @@ PHOTOS = {
         ("6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04", "griffith", "Javier and Jenny taking in the sunset", "Javier y Jenny disfrutando el atardecer"),
         ("6ad929ec3eeaaffdbe379a12_guest-venice-canals-01", "venice", "Sofia and Marco walking the Venice Canals", "Sofia y Marco caminando por los canales de Venice"),
         ("6ad929e61c74efa5d6a35519_guest-santa-monica-01", "santamonica", "Dana and Chris on the Santa Monica Pier", "Dana y Chris en el muelle de Santa Mónica"),
-        ("6ac74a8b6dc6526aa1e35909_polaroid-disney-hall-couple", "downtown", "Nina and Sam at Walt Disney Concert Hall", "Nina y Sam en el Walt Disney Concert Hall"),
         ("6ad92ca74c83370c9cab47c3_guest-city-hall-01", "downtown", "Lena and Tom posing at City Hall", "Lena y Tom posando en el Ayuntamiento"),
-        ("6ac74a8b6dc6526aa1e35947_polaroid-avila-adobe-couple", "downtown", "Carmen and Diego at the Avila Adobe", "Carmen y Diego en la Casa Avila"),
         ("6ad92cb5d1848d20e07d8ea2_guest-echo-park-lake-01", "echopark", "Ana and Ben walk around Echo Park Lake", "Ana y Ben caminan por el lago Echo Park"),
     ],
     "canals": [
         ("6ad929daefa7590f943caa69_guest-getty-center-01", "getty", "Sunset at the Getty Center", "Atardecer en el Getty Center"),
         ("6ad92cb5fd77e7c92763db12_guest-dtla-03", "getty", "Noa and Yoav at sunset at the Getty Center", "Noa y Yoav al atardecer en el Getty Center"),
+        ("6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02", "griffith", "Brother and sister hiking together with their family", "Hermano y hermana de caminata con su familia"),
         ("6ad929db59b1d5ccebe76dc4_place-getty-center-01", "getty", "Gardens and views at the Getty Center", "Jardines y vistas en el Getty Center"),
         ("6ad929dbc3398f1383c28856_art-getty-center-01", "getty", "Exploring the Getty Center", "Explorando el Getty Center"),
     ],
     "tacos": [
-        ("6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02", "griffith", "Sunset hike with friends", "Caminata al atardecer con amigos"),
-        ("6ad92c771ce84651cd30cb11_archive-bar-01", "gcm", "Grab a drink", "Toma algo"),
         ("6ad92a2e137bdbc510c64f01_guest-griffith-park-and-observatory-03", "griffith", "Sunset at the observatory", "Atardecer en el observatorio"),
-        ("6ad92c79be5324f1c409a7a8_archive-la-23", "griffith", "Sunset hike at Griffith", "Caminata al atardecer en Griffith"),
-        ("6ad92cb27fd6d8671dbbc43a_archive-la-22", "griffith", "Sunset hike at Griffith", "Caminata al atardecer en Griffith"),
-        ("6ad92c787fd6d8671dbba6f2_archive-la-10", "griffith", "Sunset hike at Griffith", "Caminata al atardecer en Griffith"),
+        ("6ad92c771ce84651cd30cb11_archive-bar-01", "gcm", "Grab a drink", "Toma algo"),
     ],
     "custom": [
         ("6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01", "elysian", "Elysian Park and Angels Point", "Elysian Park y Angels Point"),
@@ -212,8 +207,8 @@ PHOTOS = {
 LOCS = {
     "sunset": [("tacos", "Tacos", "Tacos"), ("griffith", "Griffith Observatory", "Observatorio Griffith"), ("venice", "Venice Canals", "Canales de Venice"), ("santamonica", "Santa Monica", "Santa Mónica"),
                ("downtown", "Downtown LA", "Centro de LA"), ("echopark", "Echo Park", "Echo Park")],
-    "canals": [("getty", "Getty Center", "Getty Center")],
-    "tacos": [("gcm", "Grand Central Market", "Grand Central Market"), ("griffith", "Griffith Observatory", "Observatorio Griffith")],
+    "canals": [("getty", "Getty Center", "Getty Center"), ("griffith", "Griffith Observatory", "Observatorio Griffith")],
+    "tacos": [("griffith", "Griffith Observatory", "Observatorio Griffith"), ("gcm", "Grand Central Market", "Grand Central Market")],
     "custom": [("elysian", "Elysian Park", "Elysian Park"), ("bunker", "Bunker Hill", "Bunker Hill"), ("broadway", "Broadway", "Broadway"), ("olvera", "Olvera Street", "Calle Olvera")],
 }
 
@@ -470,7 +465,7 @@ CALC_JS = r"""<script>
 (function () {
   var root = document.getElementById("pcq"); if (!root) return;
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
-  var none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow"), wrow = root.querySelector(".pcq-wrow");
+  var none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), wrow = root.querySelector(".pcq-wrow");
   var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
   var st = null, n = 2, who = "couples", oh = 4, last = null;
   /* Oct 23, 2026 (Marlon): no more Half day / Full day / Other. An example trip uses its own hours; only "Customize my own" asks for hours. */
@@ -508,16 +503,12 @@ CALC_JS = r"""<script>
     st = s; if (!s) return;
     var has = s.ids.length > 0;
     if (has && s.trip !== last) { last = s.trip; if (!s.custom && s.hours) { oh = s.hours; press(".pcq-h", "h", oh); } }
-    none.hidden = has; out.hidden = !has; grow.hidden = !has; wrow.hidden = !has; hrow.hidden = !has;
+    none.hidden = has; out.hidden = !has; wrow.hidden = !has;
     if (has) {
-      var q = quote(s);
-      price.innerHTML = ""; price.appendChild(document.createTextNode("$" + q.total.toLocaleString("en-US") + (q.hi > q.total ? " to $" + q.hi.toLocaleString("en-US") : "")));
-      var sm = document.createElement("small"); sm.textContent = t.total + " · " + hrs() + " " + t.hrsl; price.appendChild(sm);
-      sub.textContent = "$" + q.each + (q.eachHi > q.each ? " to $" + q.eachHi : "") + " " + t.each + " (" + n + " " + t.people + ")";
-      fit.innerHTML = "";
-      var was = document.createElement("s"), bd = document.createElement("span");
-      was.textContent = t.listp + " $" + q.list.toLocaleString("en-US"); bd.className = "pcq-badge"; bd.textContent = t.save + " " + q.pct + "%";
-      fit.appendChild(was); fit.appendChild(document.createTextNode(" ")); fit.appendChild(bd);
+      /* Oct 23, 2026 (Marlon): the card gives one rule-of-thumb number; the real estimate (people, hours, discounts) is on the booking page */
+      price.innerHTML = ""; price.appendChild(document.createTextNode("$" + t.pphLo + " " + t.pto + " $" + t.pphHi));
+      var sm = document.createElement("small"); sm.textContent = t.perhr; price.appendChild(sm);
+      sub.textContent = t.disc; fit.innerHTML = "";
     }
     cta.setAttribute("aria-disabled", has ? "false" : "true");
     cta.textContent = has ? t.cta4 : t.wait; alt.hidden = true;
@@ -553,8 +544,9 @@ STAMP = {
 
 def calc_html(lang):
     t = T[lang]
-    keys = ["hrsl", "cta2", "cta3", "cta4", "wait", "each", "people", "total", "listp", "save", "yourtrip"]
-    tj = json.dumps({**{k: t[k] for k in keys}, "prices": PRICES, "listRate": LIST_RATE}, ensure_ascii=False)
+    pp = [PRICES[g][k] / (int(g) * 2 * (k + 1)) for g in PRICES for k in range(6)]  # price per person per hour at every group size and length
+    keys = ["hrsl", "pto", "perhr", "disc", "cta2", "cta3", "cta4", "wait", "each", "people", "total", "listp", "save", "yourtrip"]
+    tj = json.dumps({**{k: t[k] for k in keys}, "prices": PRICES, "listRate": LIST_RATE, "pphLo": int(round(min(pp) / 5.0) * 5), "pphHi": int(round(max(pp) / 5.0) * 5)}, ensure_ascii=False)
     EM_IN = ["&#127976;", "&#128663;", "&#128248;"]; EM_OUT = ["&#127869;&#65039;", "&#127359;"]  # Oct 23, 2026: emoji instead of check and X marks
     vin = "".join(f"<li>{EM_IN[k]} {esc(x)}</li>" for k, x in enumerate(t["val_in"])) + "".join(f'<li class="no">{EM_OUT[k]} {esc(x)}</li>' for k, x in enumerate(t["val_out"]))
     wb = "".join(f'<button type="button" class="pcq-w" data-w="{k}" aria-pressed="{"true" if k == "couples" else "false"}"><span aria-hidden="true">{e}</span> {l}</button>' for k, e, l in t["who"])
@@ -567,8 +559,6 @@ def calc_html(lang):
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-none" hidden>{t["none"]}</p>
   <div class="pcq-row pcq-wrow" role="group" aria-label="{t["whol"]}" hidden><span class="pcq-rowl">{t["whol"]}</span>{wb}</div>
-  <div class="pcq-row pcq-hrow" role="group" aria-label="{t["hrsq"]}" hidden><span class="pcq-rowl">{t["hrsq"]}</span>{hb}</div>
-  <div class="pcq-row pcq-grow" role="group" aria-label="{t["groupl"]}" hidden><span class="pcq-rowl">{t["groupl"]}</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>
   <div class="pcq-out" aria-live="polite" hidden>
     <div class="pcq-price"></div>
     <p class="pcq-sub"></p>

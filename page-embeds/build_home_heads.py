@@ -17,14 +17,15 @@ T = {
    [(PEOPLE, "5-20 guests", "5 to 20 guests", 0), (CLOCK, "5 hours", None, 0), (FLIGHT, "Angels Flight ride", None, 0), (CAMERA, "20 photos per team", None, 0), (FOOD, "Food", None, 1)]),
  ("team", "es"): ("Celebra a tu equipo", "Ernesto con su c&aacute;mara Polaroid",
    [(PEOPLE, "5-20 personas", "5 a 20 personas", 0), (CLOCK, "5 horas", None, 0), (FLIGHT, "Paseo en Angels Flight", None, 0), (CAMERA, "20 fotos por equipo", None, 0), (FOOD, "Comida", None, 1)]),
- ("priv", "en"): ("LA, Your Way", "Ernesto ready for a hike",
+ ("priv", "en"): ("Private Tours", "Ernesto ready for a hike",
    [(PEOPLE, "2-4 guests", "2 to 4 guests", 0), (CLOCK, "2 to 12 hours", None, 0), (CAR, "Hotel pickup and drop-off", None, 0), (FOOD, "Food", None, 1), (PARK, "Parking", None, 1)]),
- ("priv", "es"): ("LA a tu manera", "Ernesto listo para una caminata",
+ ("priv", "es"): ("Tours privados", "Ernesto listo para una caminata",
    [(PEOPLE, "2-4 personas", "2 a 4 personas", 0), (CLOCK, "2 a 12 horas", None, 0), (CAR, "Recogida y regreso al hotel", None, 0), (FOOD, "Comida", None, 1), (PARK, "Estacionamiento", None, 1)]),
 }
 CSS = """<style>
   .mwsh { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 30px; padding: 28px 24px 0; box-sizing: border-box; scroll-margin-top: 70px; font-family: "Nunito", system-ui, sans-serif; text-align: left; }
   .mwsh-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #27302E; margin: 0; }
+  .mwsh-sub { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: clamp(1.1rem, 2.4vw, 1.4rem); line-height: 1.2; color: #E8742A; margin: 2px 0 8px; }
   .mwsh .pc-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
   .mwsh .pc-grp .pc-badges { margin: 5px 0; }
   .mwsh .pc-grpl { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; color: #4D5551; min-width: 104px; }
@@ -49,7 +50,8 @@ TEAM_CSS = """<style>
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
 </style>
 """
-LINES = {('team', 'en'): 'Get out of the office and explore Downtown LA together with your team. Learn some local history, breathe in some fresh air, and break bread at Grand Central Market.', ('team', 'es'): 'Sal de la oficina y explora el centro de LA con tu equipo. Aprende algo de historia local, respira aire fresco y comparte una comida en Grand Central Market.', ('priv', 'en'): 'Pick your stops and we\'ll handle the rest. Tell me where you want to go and we\'ll design your group\'s best day in LA together.', ('priv', 'es'): 'Elige tus paradas y nosotros nos encargamos del resto. Cu&eacute;ntame a d&oacute;nde quieres ir y dise&ntilde;amos juntos el mejor d&iacute;a de tu grupo en LA.'}
+LINES = {('team', 'en'): 'Get out of the office and explore Downtown LA together with your team on a loop that starts and ends at Grand Central Market. Learn some local history, breathe in some fresh air, and break bread together.', ('team', 'es'): 'Sal de la oficina y explora el centro de LA con tu equipo en un recorrido en c&iacute;rculo que empieza y termina en Grand Central Market. Aprende algo de historia local, respira aire fresco y compartan una comida.', ('priv', 'en'): 'Pick your stops and we\'ll handle the rest. Tell me where you want to go and we\'ll design your group\'s best day in LA together.', ('priv', 'es'): 'Elige tus paradas y nosotros nos encargamos del resto. Cu&eacute;ntame a d&oacute;nde quieres ir y dise&ntilde;amos juntos el mejor d&iacute;a de tu grupo en LA.'}
+SUB = {("priv", "en"): '    <p class="mwsh-sub">LA, Your Way</p>\n', ("priv", "es"): '    <p class="mwsh-sub">LA a tu manera</p>\n'}  # Oct 23, 2026 (Marlon): the section is "Private Tours"; "LA, Your Way" is the subheader
 FROM = {"en": "From: Marlon &middot; MarlonWalksLA, Los Angeles", "es": "De: Marlon &middot; MarlonWalksLA, Los &Aacute;ngeles"}
 TO = {("team", "en"): ("To:", "your team &middot; Grand Central Market, 317 S Broadway"),
       ("team", "es"): ("Para:", "tu equipo &middot; Grand Central Market, 317 S Broadway"),
@@ -92,7 +94,7 @@ for (sec, lang), (title, alt, badges) in T.items():
 <div class="mwsh" id="{'team' if sec == 'team' else 'private'}">
   <div class="mwsh-main">
     <h2 class="mwsh-title">{title}</h2>
-    <p class="pc-line">{LINES[(sec, lang)]}</p>
+{SUB[(sec, lang)] if sec == "priv" else ""}    <p class="pc-line">{LINES[(sec, lang)]}</p>
     <div class="pc-groups">{b_html}</div>
   </div>
 {addr}</div>
