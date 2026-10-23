@@ -17,6 +17,27 @@ STAMP = {
     "offsite": ("palms3", "#2E9E57", -8, 3, "OUT OF OFFICE", "FUERA DE LA OFICINA"),
     "just-because": ("polaroid", "#6A4C93", 7, 11, "JUST BECAUSE", "PORQUE SÍ"),
 }
+# Oct 23, 2026 (Marlon): three ink stamps under the price sum up the choices: the celebration (STAMP above), the team size (a number stamp) and the lunch plan.
+def count_stamp(uid, top, bottom, ink, rot=6, seed=5):
+    return (f'<svg class="stamp" viewBox="0 0 200 200" role="img" aria-label="{top}" style="--r:{rot}deg" xmlns="http://www.w3.org/2000/svg">'
+            f'<defs><filter id="{uid}-f" x="-8%" y="-12%" width="116%" height="124%">'
+            f'<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="{seed}" result="w"/>'
+            f'<feDisplacementMap in="SourceGraphic" in2="w" scale="3.2" result="d"/>'
+            f'<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="{seed + 4}" result="n"/>'
+            f'<feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -5 0 0 0 3.7" result="m"/>'
+            f'<feComposite in="d" in2="m" operator="in"/></filter>'
+            f'<path id="{uid}-t" d="M 38.0 122.6 A 66 66 0 1 1 162.0 122.6"/><path id="{uid}-b" d="M 18 100 A 82 82 0 0 0 182 100"/></defs>'
+            f'<g filter="url(#{uid}-f)" fill="{ink}" stroke="none" font-family="Fredoka, Lilita One, sans-serif" font-weight="700" style="color:{ink}">'
+            f'<circle cx="100" cy="100" r="96" fill="none" stroke="{ink}" stroke-width="4"/><circle cx="100" cy="100" r="89" fill="none" stroke="{ink}" stroke-width="1.5"/>'
+            f'<text font-size="13" letter-spacing="1.2" text-anchor="middle"><textPath href="#{uid}-t" startOffset="50%">{top}</textPath></text>'
+            f'<text font-size="12.5" letter-spacing="1.8" text-anchor="middle"><textPath href="#{uid}-b" startOffset="50%">{bottom}</textPath></text>'
+            f'<text id="tq-nstamp" x="100" y="123" text-anchor="middle" font-size="78" font-family="Lilita One, Fredoka, sans-serif" font-weight="400">15</text></g></svg>')
+# (key, icon, ink, rotation, seed, EN top, EN bottom, ES top, ES bottom)
+LUNCH_ST = {
+    "own": ("gcm", "#E2662A", -6, 4, "EVERYONE BUYS THEIR OWN", "GRAND CENTRAL MARKET", "CADA QUIEN COMPRA LO SUYO", "GRAND CENTRAL MARKET"),
+    "plan": ("taco", "#C2352A", 6, 7, "CATERED LUNCH", "ARRANGED BY MARLON", "ALMUERZO CON CATERING", "ORGANIZA MARLON"),
+}
+COUNT_TXT = {"en": ("TEAM OF", "PEOPLE"), "es": ("EQUIPO DE", "PERSONAS")}
 EAT = {"en": ("Lunch plans", [("own", "Everyone buys their own"), ("plan", "Marlon arranges catering")],
               {"own": "Lunch is not included. Everyone picks and pays for their own food at Grand Central Market.", "plan": "Marlon books a catered meal for your group and confirms the price with you."}),
        "es": ("Plan de almuerzo", [("own", "Cada quien compra lo suyo"), ("plan", "Marlon organiza el catering")],
@@ -47,6 +68,12 @@ for lang, t in T.items():
     eat_h, eat_opts, eat_msg = EAT[lang]
     eat = "".join(f'<button type="button" class="tq-chip" data-e="{k}" data-note="{eat_msg[k]}" aria-pressed="{"true" if k == "own" else "false"}">{v}</button>' for k, v in eat_opts)
     sts = "".join(f'<span class="tq-st" data-c="{k}"{"" if k == "offsite" else " hidden"}>' + stamps.stamp("tqs" + k[:3], (v[5] if lang == "es" else v[4]), "SALIDAS DE EQUIPO" if lang == "es" else "TEAM OUTINGS", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
+    ct, cb = COUNT_TXT[lang]
+    esl = lang == "es"
+    lunch = "".join(f'<span class="tq-st2" data-e="{k}"{"" if k == "own" else " hidden"}>' + stamps.stamp("tqe" + k[:2], (v[6] if esl else v[4]), (v[7] if esl else v[5]), v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in LUNCH_ST.items())
+    sum_row = (f'<div class="tq-sum" aria-hidden="true"><div class="tq-slot"><div class="tq-stamp-in">{sts}</div></div>'
+               f'<div class="tq-slot"><span class="tq-st2">{count_stamp("tqn", ct, cb, "#1B6688")}</span></div>'
+               f'<div class="tq-slot">{lunch}</div></div>')
     pics = "".join(
         f'<span class="tq-pol" style="--r:{r}"><img src="{src}" alt="{alt}" loading="lazy"></span>' for src, alt, r in PICS)
     note = f'<p class="tq-btnnote">{t["btn_note"]}</p>' if t["btn_note"] else ""
@@ -54,7 +81,6 @@ for lang, t in T.items():
      Oct 16, 2026: replaces the booking calendar on Home. Lives inside the Webflow .mw-form-card (right column of #team-split).
      The Team page keeps the calendar (team-cal.html). Rates match the Team page slider. -->
 <div class="tq" id="tq">
-  <div class="tq-stamp" aria-hidden="true">{sts}</div>
   <h3 class="tq-title">{t["title"]}</h3>
   <div class="tq-cel" role="group" aria-label="{cel_h}"><p class="tq-cel-h">{cel_h}</p><div class="tq-chips">{cel}</div></div>
   <label class="tq-label" for="tq-range">{t["label"]} <strong id="tq-n">15</strong></label>
@@ -67,8 +93,7 @@ for lang, t in T.items():
     <div><span class="tq-tr"><span class="tq-total" id="tq-total">$790</span><span class="tq-plus" id="tq-plus" hidden>{t["plus"]}</span></span><span class="tq-cap" id="tq-cap">{t["est"]}</span></div>
     <div><span class="tq-ppr"><span class="tq-pp" id="tq-pp">{t["pp_pre"]}53</span><span class="tq-save" id="tq-save" hidden></span></span><span class="tq-cap">{t["pp"]}</span></div>
   </div>
-  <ul class="tq-val" aria-label="{t["for5"]}">{"".join("<li>" + v + "</li>" for v in t["v"])}{"".join("<li class=" + chr(34) + "no" + chr(34) + ">" + v + "</li>" for v in t["vno"])}</ul>
-  
+  {sum_row}
   <div class="pc-cta"><a class="tq-btn" href="{t["href"]}">{t["btn"]}</a></div>
   {note}
   <a class="tq-custom" href="{t["mail"]}">{t["custom"]}</a>
@@ -119,20 +144,25 @@ for lang, t in T.items():
   @keyframes tqdrop {{ from {{ opacity: 0; transform: translateY(-8px); }} to {{ opacity: 1; transform: none; }} }}
   @media (prefers-reduced-motion: reduce) {{ .tq-big {{ animation: none; }} }}
   .tq {{ position: relative; }}
-  .tq-stamp {{ position: absolute; top: 0; right: 0; width: 100px; height: 100px; pointer-events: none; z-index: 2; }}
-  .tq-st {{ position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0.92; }}
+  .tq-stamp-in {{ position: absolute; inset: 0; }}
+  .tq-st, .tq-st2 {{ position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0.92; }}
+  .tq-st2[hidden] {{ display: none; }}
+  .tq-st2 svg {{ width: 100%; height: 100%; transform: rotate(var(--r)); overflow: visible; }}
+  .tq-st2.pop {{ animation: tqpop 0.35s cubic-bezier(.2, 1.4, .4, 1); }}
+  /* the three stamps under the price: celebration, team size, lunch plan */
+  .tq-sum {{ display: flex; justify-content: center; gap: 10px; margin: 2px 0 14px; }}
+  .tq-slot {{ position: relative; width: 92px; height: 92px; flex: none; }}
+  @media (max-width: 420px) {{ .tq-slot {{ width: 84px; height: 84px; }} .tq-sum {{ gap: 6px; }} }}
   .tq-st[hidden] {{ display: none; }}
   .tq-st svg {{ width: 100%; height: 100%; transform: rotate(var(--r)); overflow: visible; }}
   .tq-st.pop {{ animation: tqpop 0.35s cubic-bezier(.2, 1.4, .4, 1); }}
   @keyframes tqpop {{ from {{ opacity: 0; transform: scale(1.5) rotate(-12deg); }} to {{ opacity: 0.92; transform: none; }} }}
-  .tq-title {{ padding-right: 110px; min-height: 92px; }}
-  @media (prefers-reduced-motion: reduce) {{ .tq-st.pop {{ animation: none; }} }}
+  @media (prefers-reduced-motion: reduce) {{ .tq-st.pop, .tq-st2.pop {{ animation: none; }} }}
   .tq-eat {{ margin-top: 16px; }}
   .tq-eat-note {{ margin: 8px 0 0; font-family: "Nunito", system-ui, sans-serif; font-weight: 400; font-size: 0.9rem; line-height: 1.45; color: #4D5551; min-height: 2.9em; }}
   /* Oct 20, 2026 (Marlon): shorter form */
   .mw-form-card:has(.tq) {{ padding: 18px 22px 16px; --px: 22px; --pb: 16px; }}
-  .tq-stamp {{ width: 78px; height: 78px; top: -4px; }}
-  .tq-title {{ font-size: 1.6rem; padding-right: 86px; min-height: 0; margin-bottom: 8px; }}
+  .tq-title {{ font-size: 1.6rem; margin-bottom: 8px; }}
   .tq-cel {{ margin: 0 0 10px; }}
   .tq-cel-h {{ margin-bottom: 5px; font-size: 0.9rem; }}
   .tq-chips {{ gap: 6px; }}
@@ -144,7 +174,7 @@ for lang, t in T.items():
   .tq-out {{ margin: 8px 0 4px; gap: 4px 28px; }}
   /* Oct 23, 2026 (Marlon): the price, the facts and the button live in their own tinted panel, split from the choices by a dashed line */
   .tq-res {{ margin: 18px calc(-1 * var(--px, 22px)) calc(-1 * var(--pb, 20px)); padding: 18px var(--px, 22px) 18px; background: #D5EAF6; border-top: 2px dashed rgba(39, 48, 46, 0.3); border-radius: 0 0 14px 14px; }}
-  .tq-res .tq-out {{ margin: 0 0 14px; }}
+  .tq-res .tq-out {{ margin: 0 0 8px; }}
   .tq-res .tq-val {{ margin: 0 0 18px; }}
   .tq-res .tq-val li {{ background: #fff; }}
   .tq-res .tq-val li.no {{ background: #FFE4EA; }}
@@ -198,13 +228,13 @@ for lang, t in T.items():
   function total(n) {{ var t = 0; for (var i = 0; i < n; i++) t += rates[Math.min(Math.floor(i / 5), rates.length - 1)]; return Math.round(t / 5) * 5; }}
   function upd() {{
     var n = parseInt(r.value, 10), t = total(n);
-    document.getElementById("tq-n").textContent = n;
+    document.getElementById("tq-n").textContent = n; var ns = document.getElementById("tq-nstamp"); if (ns) ns.textContent = n;
     r.style.setProperty("--p", ((n - 5) / 15 * 100) + "%");
     document.getElementById("tq-total").textContent = "$" + t.toLocaleString("en-US");
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
     var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); document.getElementById("tq-big").hidden = n < 20; el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }}
-  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "offsite", e: "own" }}, food = root.querySelector(".tq-val li.no"), plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
+  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "offsite", e: "own" }}, plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
   function link() {{ var q = []; if (sel.c) q.push("celebrating=" + sel.c); if (sel.e) q.push("eating=" + sel.e); if (btn) btn.setAttribute("href", q.length ? base + "?" + q.join("&") : base); }}
   function applyCel(key) {{
     var key2 = key || "offsite";
@@ -224,7 +254,8 @@ for lang, t in T.items():
       var ev = c.getAttribute("data-e"), eon = c.getAttribute("aria-pressed") !== "true";
       [].slice.call(c.parentNode.children).forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
       c.setAttribute("aria-pressed", eon ? "true" : "false"); sel.e = eon ? ev : "";
-      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan");
+      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; var food = document.querySelector(".mwsh-pills li.no"); if (food) food.classList.toggle("yes", sel.e === "plan");
+      [].slice.call(root.querySelectorAll(".tq-st2[data-e]")).forEach(function (st) {{ var show = st.getAttribute("data-e") === sel.e; st.hidden = !show; st.classList.remove("pop"); if (show) {{ void st.offsetWidth; st.classList.add("pop"); }} }});
       link();
     }});
   }});

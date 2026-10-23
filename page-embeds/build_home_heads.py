@@ -45,7 +45,14 @@ TEAM_CSS = """<style>
   #team-split .mw-offer { padding-top: 0; }
   #team-split .private-specs-grid { margin-bottom: 16px; padding: 16px 18px; }
   #team-split .mw-route { margin-top: 0; }
-  #team.mwsh { min-height: 190px; }
+  /* Oct 23, 2026 (Marlon): on desktop the intro runs the full width; the stamps moved into the price card, so there is no stamp column or min height */
+  #team.mwsh { min-height: 0; grid-template-columns: minmax(0, 1fr); }
+  #team .pc-line { max-width: none; }
+  .mwsh-pills { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .mwsh-pills li { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: #1E6B3A; background: #fff; border: 2px solid #1E6B3A; border-radius: 999px; padding: 6px 14px; margin: 0; }
+  .mwsh-pills li::before { content: none; }
+  .mwsh-pills li.no { color: #A12B4A; background: #FFE4EA; border-color: #E58AA3; }
+  .mwsh-pills li.no.yes { color: #1E6B3A; background: #fff; border-color: #1E6B3A; }
   #team-split .mw-offer-links { margin-top: 10px; gap: 4px 22px; }
   @media (max-width: 991px) { #team-split { padding-top: 20px; padding-bottom: 32px; } }
 </style>
@@ -74,6 +81,7 @@ for (sec, lang), (title, alt, badges) in T.items():
               stamps.stamp("stp2", "MUELLE DE SANTA M&Oacute;NICA" if es else "SANTA MONICA PIER", "CALIFORNIA", "pier", "EST. 1909", "#B8326E", -9, 13, "s2"),
               stamps.stamp("stp3", "OBSERVATORIO GRIFFITH" if es else "GRIFFITH OBSERVATORY", LA, "obs", "EST. 1935", "#C2352A", 6, 15, "s3")]
     addr = "  " + "".join(ST) + "\n"
+    if sec == "team": addr = ""  # Oct 23, 2026 (Marlon): the three stamps moved into the price card, next to the button
     def pills(items):
         return "".join(
             f'<li class="pc-badge{" pc-no" if no else ""}"{(" aria-label=" + chr(34) + lbl + chr(34)) if lbl else ""}><span aria-hidden="true">{ic}</span><span>{tx}</span></li>'
@@ -85,7 +93,9 @@ for (sec, lang), (title, alt, badges) in T.items():
     if sec == "team":  # Oct 20, 2026 (Marlon): "Best for" the celebrations; the facts moved next to the price in the card
         BT = ([("&#127874;", "Cumpleaños"), ("&#127942;", "Logros"), ("&#127796;", "Retiros de empresa"), ("&#127881;", "Porque sí")] if es
               else [("&#127874;", "Birthdays"), ("&#127942;", "Milestones"), ("&#127796;", "Offsites"), ("&#127881;", "Just because")])
-        b_html = ""  # Oct 21, 2026 (Marlon): no pills under the intro text
+        # Oct 23, 2026 (Marlon): the fact pills are back under the intro text (they used to sit in the price card). The Food pill turns green when the card's lunch plan is catering.
+        PV = (["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Gu&iacute;a local"], "&#127869;&#65039; Comida") if es else (["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], "&#127869;&#65039; Food")
+        b_html = '<ul class="mwsh-pills" aria-label="' + ("Incluido en el tour" if es else "What is included") + '">' + "".join("<li>" + x + "</li>" for x in PV[0]) + '<li class="no">' + PV[1] + "</li></ul>"
     if sec == "priv":  # Oct 20, 2026 (Marlon): under the sentence, "Best for" instead of the fact pills (the facts moved next to the price)
         BF = [("&#128145;", "Parejas"), ("&#128106;", "Familias"), ("&#127881;", "Amigos")] if es else [("&#128145;", "Couples"), ("&#128106;", "Families"), ("&#127881;", "Friends")]
         b_html = ""  # Oct 21, 2026 (Marlon): Couples / Families / Friends moved into the estimate card, before "How many of you?" (build_home_private.py)
