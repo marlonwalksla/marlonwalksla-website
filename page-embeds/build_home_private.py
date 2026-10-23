@@ -6,6 +6,7 @@
 # PACKAGES prices are PLACEHOLDER estimates (see build_private_builder.py). The Polaroid for places without a photo is a colored card.
 # Finalize saves the plan to localStorage ("mwla-private-plan") and opens /private-tour?stops=...&est=... (page-embeds/private-tour-plan.html).
 import json
+import stamps
 
 C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 # Oct 19, 2026 pricing (Marlon): list $60 per person per hour. Group rates $40 / $30 / $25 per person per hour for 2 / 3 / 4 guests,
@@ -132,20 +133,39 @@ TRIPS_ALL = [
      "A private full-day tour for friends in Los Angeles: downtown, the Hollywood Sign, a Griffith sunset and Santa Monica.",
      "Un tour privado de día completo para amigos en Los Ángeles: el centro, el letrero de Hollywood, el atardecer en Griffith y Santa Mónica."),
 ]
-# Oct 23, 2026 (Marlon): keep it simple. One example trip per group, wired to the "Who is coming?" toggle in the estimate card:
-# Couples = Sunset Hike, Families = Venice Canals, Friends = Beach and Tacos. Routes and photos get updated later. The other trips stay in TRIPS_ALL (parked).
-WHO_MAP = {"sunset": "couples", "canals": "families", "tacos": "friends"}
-TRIPS = [r[:11] + (WHO_MAP[r[0]],) + r[12:] for r in TRIPS_ALL if r[0] in WHO_MAP]
+# Oct 23, 2026 (Marlon): one example trip per group, wired to the "Who is coming?" toggle in the estimate card (now named Date Night, Family Outing,
+# Fun with Friends). Photos: Date Night = different couples at different places, first the tacos with the German couple; Family Outing = the Getty trio;
+# Fun with Friends = the Griffith Observatory sunset polaroids. Routes get updated later. The other trips stay in TRIPS_ALL (parked).
+TRIPS = [
+    ("sunset", "quest", 5, "#FFD6A5", "Date Night", "Cita en pareja",
+     ["Tacos", "Griffith sunset", "Venice Canals", "Santa Monica"], ["Tacos", "Atardecer en Griffith", "Canales de Venice", "Santa Mónica"],
+     "", "",
+     ["6ad929f90bb99231ec0dacf2_guest-avenue-26-tacos-01|50% 50%", "6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04|50% 50%", "6ad929ec3eeaaffdbe379a12_guest-venice-canals-01|50% 50%", "6ad929e61c74efa5d6a35519_guest-santa-monica-01|50% 50%", "6ac74a8b6dc6526aa1e35909_polaroid-disney-hall-couple|50% 50%", "6ac74a8b6dc6526aa1e35947_polaroid-avila-adobe-couple|50% 50%"], "couples", True,
+     "A private date night in Los Angeles with Marlon: tacos, golden hour at Griffith Observatory and a stroll through the Venice Canals.",
+     "Una cita privada en Los Ángeles con Marlon: tacos, la hora dorada en el Observatorio Griffith y un paseo por los canales de Venice."),
+    ("canals", "quest", 4, "#E3F6D8", "Family Outing", "Salida en familia",
+     ["Getty Center"], ["Getty Center"],
+     "", "",
+     ["6ad929daefa7590f943caa69_guest-getty-center-01|50% 50%", "6ad929db59b1d5ccebe76dc4_place-getty-center-01|50% 50%", "6ad929dbc3398f1383c28856_art-getty-center-01|50% 50%"], "families", True,
+     "A private family outing in Los Angeles with Marlon: art, gardens and a sunset view at the Getty Center. Parking is not included.",
+     "Una salida privada en familia en Los Ángeles con Marlon: arte, jardines y una vista al atardecer en el Getty Center. El estacionamiento no está incluido."),
+    ("tacos", "quest", 4, "#FFE08A", "Fun with Friends", "Diversión con amigos",
+     ["Griffith sunset"], ["Atardecer en Griffith"],
+     "", "",
+     ["6ad92a2e1ce84651cd2f933d_guest-griffith-park-and-observatory-02|50% 50%", "6ad92c79be5324f1c409a7a8_archive-la-23|50% 50%", "6ad92cb27fd6d8671dbbc43a_archive-la-22|50% 50%", "6ad92c787fd6d8671dbba6f2_archive-la-10|50% 50%"], "friends", False,
+     "A private sunset hike with friends at Griffith Observatory in Los Angeles.",
+     "Una caminata privada al atardecer con amigos en el Observatorio Griffith en Los Ángeles."),
+]
 TRIP_DEFAULT = "sunset"
 CUSTOM_PHOTOS = ["6ad92a1cad4eddc60c1bf588_place-elysian-park-and-angels-point-01|50% 50%", "6ad929bf12667b254315c683_place-bunker-hill-01|50% 50%", "6ad929b39a56d0d15964851d_place-broadway-theaters-01|50% 50%", "6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03|50% 50%"]  # filler images for "Customize my own": downtown is the way in
 CUSTOM = {"en": ("Customize my own", "Design your own private Los Angeles tour. Start with downtown, then tell Marlon where you want to go and for how long.", "Pick your hours below to see the price."),
           "es": ("Personaliza el mío", "Diseña tu propio tour privado en Los Ángeles. Empieza por el centro y dile a Marlon a dónde quieres ir y por cuánto tiempo.", "Elige tus horas abajo para ver el precio.")}
-T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Who is coming?", who=[("couples", "&#128145;", "Couples"), ("families", "&#128106;", "Families"), ("friends", "&#127881;", "Friends")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
-  val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Tap Couples, Families or Friends to flip through real trips. Do one as is, or make it yours.",
+T["en"].update(durl="How long?", dur=[("half", "Half day"), ("full", "Full day"), ("other", "Other")], whol="Pick your plan", who=[("couples", "&#128145;", "Date Night"), ("families", "&#128106;", "Family Outing"), ("friends", "&#127881;", "Fun with Friends")], prev="Previous photo", next="Next photo", trip_custom="Your way", hrsq="How many hours?", yourtrip="Your trip", cta4="Ask Marlon to build it", ch="Your estimate",
+  val_in=["Hotel pickup and drop-off", "Driving", "Instant photos"], val_out=["Food", "Parking"], h="Start from a real trip", hint="Tap Date Night, Family Outing or Fun with Friends to flip through real trips. Do one as is, or make it yours.",
   trip_short="Short Journey", trip_quest="Quest", cap0="Tap a trip and its photos land here", stopsl="Stops", hrsl="hours",
   none="Pick a trip to see your estimate.", cta2="Book this trip", cta3="Change it, make it yours", note2="No payment now. Next you send Marlon your details.")
-T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="¿Quiénes vienen?", who=[("couples", "&#128145;", "Parejas"), ("families", "&#128106;", "Familias"), ("friends", "&#127881;", "Amigos")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
-  val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Toca Parejas, Familias o Amigos para ver viajes reales. Haz uno tal cual, o hazlo tuyo.",
+T["es"].update(durl="¿Cuánto tiempo?", dur=[("half", "Medio día"), ("full", "Día completo"), ("other", "Otro")], whol="Elige tu plan", who=[("couples", "&#128145;", "Cita en pareja"), ("families", "&#128106;", "Salida en familia"), ("friends", "&#127881;", "Diversión con amigos")], prev="Foto anterior", next="Foto siguiente", trip_custom="A tu manera", hrsq="¿Cuántas horas?", yourtrip="Tu viaje", cta4="Pídele a Marlon que lo arme", ch="Tu estimado",
+  val_in=["Recogida y regreso al hotel", "Manejo", "Fotos instantáneas"], val_out=["Comida", "Estacionamiento"], h="Empieza con un viaje real", hint="Toca Cita en pareja, Salida en familia o Diversión con amigos para ver viajes reales. Haz uno tal cual, o hazlo tuyo.",
   trip_short="Viaje corto", trip_quest="Aventura", cap0="Toca un viaje y sus fotos caen aquí", stopsl="Paradas", hrsl="horas",
   none="Elige un viaje para ver tu estimado.", cta2="Reservar este viaje", cta3="Cámbialo, hazlo tuyo", note2="Sin pago ahora. Después le mandas tus datos a Marlon.")
 
@@ -334,7 +354,16 @@ CALC_CSS = """<style>
   /* the native "Private Tour Inquiry" form stays in Webflow (and on the Private page) but is hidden on Home: the calculator replaces it */
   .mw-form-card:has(.pcq) > *:not(.w-embed) { display: none !important; }
   .mw-form-card:has(.pcq) { margin-top: 0; padding: 20px 22px 18px; box-shadow: 6px 6px 0 #27302E; }
-  .pcq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
+  .pcq { font-family: "Nunito", system-ui, sans-serif; color: #27302E; position: relative; }
+  .pcq-stamp { position: absolute; top: -4px; right: 0; width: 84px; height: 84px; pointer-events: none; z-index: 2; }
+  .pcq-st { position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0.92; }
+  .pcq-st[hidden] { display: none; }
+  .pcq-st svg { width: 100%; height: 100%; transform: rotate(var(--r)); overflow: visible; }
+  .pcq-st.pop { animation: pcqpop 0.35s cubic-bezier(.2, 1.4, .4, 1); }
+  @keyframes pcqpop { from { opacity: 0; transform: scale(1.5) rotate(-12deg); } to { opacity: 0.92; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .pcq-st.pop { animation: none; } }
+  .pcq-title { padding-right: 90px; }
+  .pcq-wrow .pcq-rowl { display: block; width: 100%; margin-bottom: 2px; }
   .pcq-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.6rem; line-height: 1.1; margin: 0 0 4px; color: #27302E; }
   .pcq-trip { margin: 0 0 12px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem; line-height: 1.25; color: #27302E; }
   .pcq-trip span { display: inline-block; margin-right: 6px; padding: 1px 10px; border-radius: 99px; background: #FFD43B; border: 2px solid #27302E; font-size: 0.8rem; }
@@ -378,10 +407,11 @@ CALC_JS = r"""<script>
 (function () {
   var root = document.getElementById("pcq"); if (!root) return;
   var t = JSON.parse(document.getElementById("pcq-t").textContent);
-  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), drow = root.querySelector(".pcq-drow"), grow = root.querySelector(".pcq-grow"), wrow = root.querySelector(".pcq-wrow");
+  var trip = root.querySelector(".pcq-trip"), none = root.querySelector(".pcq-none"), out = root.querySelector(".pcq-out"), hrow = root.querySelector(".pcq-hrow"), grow = root.querySelector(".pcq-grow"), wrow = root.querySelector(".pcq-wrow");
   var price = root.querySelector(".pcq-price"), sub = root.querySelector(".pcq-sub"), fit = root.querySelector(".pcq-fit"), cta = root.querySelector(".pcq-cta"), alt = root.querySelector(".pcq-alt"), vals = root.querySelector(".pcq-val");
-  var st = null, n = 2, who = "couples", dur = "half", oh = 6, last = null;
-  function hrs() { return dur === "half" ? 4 : dur === "full" ? 8 : oh; }
+  var st = null, n = 2, who = "couples", oh = 4, last = null;
+  /* Oct 23, 2026 (Marlon): no more Half day / Full day / Other. An example trip uses its own hours; only "Customize my own" asks for hours. */
+  function hrs() { return st && !st.custom && st.hours ? st.hours : oh; }
   function press(sel, attr, val) { [].slice.call(root.querySelectorAll(sel)).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset[attr] === String(val) ? "true" : "false"); }); }
   window.MWPV = window.MWPV || {}; window.MWPV.who = who;
   function priceAt(g, h) {
@@ -402,11 +432,9 @@ CALC_JS = r"""<script>
   [].slice.call(root.querySelectorAll(".pcq-w")).forEach(function (b) {
     b.addEventListener("click", function () {
       who = b.dataset.w; window.MWPV = window.MWPV || {}; window.MWPV.who = who; press(".pcq-w", "w", who);
+      [].slice.call(root.querySelectorAll(".pcq-st")).forEach(function (el) { var on = el.getAttribute("data-w") === who; el.hidden = !on; el.classList.remove("pop"); if (on) { void el.offsetWidth; el.classList.add("pop"); } });
       try { window.dispatchEvent(new CustomEvent("mwwho", { detail: who })); } catch (e) {}
     });
-  });
-  [].slice.call(root.querySelectorAll(".pcq-d")).forEach(function (b) {
-    b.addEventListener("click", function () { dur = b.dataset.d; press(".pcq-d", "d", dur); if (st) render(st); });
   });
   [].slice.call(root.querySelectorAll(".pcq-h")).forEach(function (b) {
     b.addEventListener("click", function () { oh = +b.dataset.h; press(".pcq-h", "h", oh); if (st) render(st); });
@@ -414,8 +442,8 @@ CALC_JS = r"""<script>
   function render(s) {
     st = s; if (!s) return;
     var has = s.ids.length > 0;
-    if (has && s.trip !== last) { last = s.trip; dur = s.custom || s.hours <= 5 ? "half" : "full"; press(".pcq-d", "d", dur); }
-    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; wrow.hidden = !has; drow.hidden = !has; hrow.hidden = !(has && dur === "other");
+    if (has && s.trip !== last) { last = s.trip; }
+    none.hidden = has; out.hidden = !has; trip.hidden = !has; grow.hidden = !has; wrow.hidden = !has; hrow.hidden = !(has && s.custom);
     if (has) {
       trip.innerHTML = ""; var tg = document.createElement("span"); tg.textContent = t.yourtrip; trip.appendChild(tg); trip.appendChild(document.createTextNode(s.names[0]));
       var q = quote(s);
@@ -450,6 +478,14 @@ CALC_JS = r"""<script>
 ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
 
 
+# Oct 23, 2026 (Marlon): an ink stamp in the corner of the estimate card, one per plan. key: (icon, ink, rotation, seed, EN top, ES top)
+STAMP = {
+    "couples": ("sunset", "#D6479B", -7, 6, "DATE NIGHT", "CITA EN PAREJA"),
+    "families": ("trio", "#1B6688", 7, 9, "FAMILY OUTING", "SALIDA EN FAMILIA"),
+    "friends": ("taco", "#E89B00", -8, 3, "FUN WITH FRIENDS", "CON AMIGOS"),
+}
+
+
 def calc_html(lang):
     t = T[lang]
     keys = ["hrsl", "cta2", "cta3", "cta4", "wait", "each", "people", "total", "listp", "save", "yourtrip"]
@@ -457,15 +493,15 @@ def calc_html(lang):
     EM_IN = ["&#127976;", "&#128663;", "&#128248;"]; EM_OUT = ["&#127869;&#65039;", "&#127359;"]  # Oct 23, 2026: emoji instead of check and X marks
     vin = "".join(f"<li>{EM_IN[k]} {esc(x)}</li>" for k, x in enumerate(t["val_in"])) + "".join(f'<li class="no">{EM_OUT[k]} {esc(x)}</li>' for k, x in enumerate(t["val_out"]))
     wb = "".join(f'<button type="button" class="pcq-w" data-w="{k}" aria-pressed="{"true" if k == "couples" else "false"}"><span aria-hidden="true">{e}</span> {l}</button>' for k, e, l in t["who"])
-    db = "".join(f'<button type="button" class="pcq-d" data-d="{k}" aria-pressed="{"true" if k == "half" else "false"}">{l}</button>' for k, l in t["dur"])
-    hb = "".join(f'<button type="button" class="pcq-h" data-h="{h}" aria-pressed="{"true" if h == 6 else "false"}">{h}</button>' for h in (2, 4, 6, 8, 10, 12))
+    hb = "".join(f'<button type="button" class="pcq-h" data-h="{h}" aria-pressed="{"true" if h == 4 else "false"}">{h}</button>' for h in (2, 4, 6, 8, 10, 12))
+    sts = "".join(f'<span class="pcq-st" data-w="{k}"{"" if k == "couples" else " hidden"}>' + stamps.stamp("pcs" + k[:3], (v[5] if lang == "es" else v[4]), "LA A TU MANERA" if lang == "es" else "LA, YOUR WAY", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
     return f"""<!-- MARLONWALKSLA - HOME{' ES' if lang == 'es' else ''}: ESTIMATE CALCULATOR (right column, inside the Webflow .mw-form-card). Built by page-embeds/build_home_private.py.
      Oct 20, 2026 (Marlon): shows the trip you picked, then how many people, then the price (the biggest number is the full price). No Ernesto. Reads the pick from home-private.html through window.MWPV. -->
 <div class="pcq" id="pcq">
+  <div class="pcq-stamp" aria-hidden="true">{sts}</div>
   <h3 class="pcq-title">{t["ch"]}</h3>
   <p class="pcq-none" hidden>{t["none"]}</p>
   <p class="pcq-trip" hidden></p>
-  <div class="pcq-row pcq-drow" role="group" aria-label="{t["durl"]}" hidden><span class="pcq-rowl">{t["durl"]}</span>{db}</div>
   <div class="pcq-row pcq-hrow" role="group" aria-label="{t["hrsq"]}" hidden><span class="pcq-rowl">{t["hrsq"]}</span>{hb}</div>
   <div class="pcq-row pcq-wrow" role="group" aria-label="{t["whol"]}" hidden><span class="pcq-rowl">{t["whol"]}</span>{wb}</div>
   <div class="pcq-row pcq-grow" role="group" aria-label="{t["groupl"]}" hidden><span class="pcq-rowl">{t["groupl"]}</span><button type="button" class="pcq-g" data-n="2" aria-pressed="true">2</button><button type="button" class="pcq-g" data-n="3" aria-pressed="false">3</button><button type="button" class="pcq-g" data-n="4" aria-pressed="false">4</button></div>

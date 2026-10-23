@@ -23,7 +23,7 @@ EAT = {"en": ("Lunch plans", [("own", "Individual meals"), ("plan", "Catered gro
               {"own": "El almuerzo no está incluido. Cada quien compra lo suyo en Grand Central Market.", "plan": "Extra: Marlon organiza la comida del grupo con anticipación. Te confirma el precio."})}
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
-   pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="estimated total, Marlon confirms the lunch price", v=["5 hours", "Angels Flight tix", "20 photos", "Local guide"], vno=["Food"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
+   pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="estimated total, Marlon confirms the lunch price", v=["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], vno=["&#127869;&#65039; Food"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
    btn="Schedule Your Team", btn_note="", href="/team-building-walking-tour-los-angeles",
    custom="Have a custom request?", mail="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request",
    wa="Message Marlon about your group",
@@ -31,7 +31,7 @@ T = {
    proof="The proof is in the Polaroids",
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Calcula el precio de tu equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
-   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="total estimado, Marlon confirma el precio del almuerzo", v=["5 horas", "Boletos de Angels Flight", "20 fotos", "Guía local"], vno=["Comida"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
+   pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="total estimado, Marlon confirma el precio del almuerzo", v=["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Guía local"], vno=["&#127869;&#65039; Comida"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
    btn="Agenda a tu equipo", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
    wa="Escríbele a Marlon sobre tu grupo",
@@ -43,10 +43,10 @@ CEL = {"en": ("What are you celebrating?", [("birthday", "Birthday"), ("mileston
        "es": ("&iquest;Qu&eacute; celebran?", [("birthday", "Cumplea&ntilde;os"), ("milestone", "Un logro"), ("offsite", "Retiro de empresa"), ("just-because", "Porque s&iacute;")])}
 for lang, t in T.items():
     cel_h, cel_opts = CEL[lang]
-    cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="{"true" if k == "milestone" else "false"}">{v}</button>' for k, v in cel_opts)
+    cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="{"true" if k == "offsite" else "false"}">{v}</button>' for k, v in cel_opts)
     eat_h, eat_opts, eat_msg = EAT[lang]
     eat = "".join(f'<button type="button" class="tq-chip" data-e="{k}" aria-pressed="{"true" if k == "own" else "false"}">{v}</button>' for k, v in eat_opts)
-    sts = "".join(f'<span class="tq-st" data-c="{k}"{"" if k == "milestone" else " hidden"}>' + stamps.stamp("tqs" + k[:3], (v[5] if lang == "es" else v[4]), "SALIDAS DE EQUIPO" if lang == "es" else "TEAM OUTINGS", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
+    sts = "".join(f'<span class="tq-st" data-c="{k}"{"" if k == "offsite" else " hidden"}>' + stamps.stamp("tqs" + k[:3], (v[5] if lang == "es" else v[4]), "SALIDAS DE EQUIPO" if lang == "es" else "TEAM OUTINGS", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
     pics = "".join(
         f'<span class="tq-pol" style="--r:{r}"><img src="{src}" alt="{alt}" loading="lazy"></span>' for src, alt, r in PICS)
     note = f'<p class="tq-btnnote">{t["btn_note"]}</p>' if t["btn_note"] else ""
@@ -109,7 +109,7 @@ for lang, t in T.items():
   .tq-for {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; color: #27302E; }}
   .tq-val {{ list-style: none; margin: 4px 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }}
   .tq-val li {{ font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.2; color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; border-radius: 999px; padding: 7px 14px; }}
-  .tq-val li::before {{ content: "\\2713"; margin-right: 6px; }}
+  .tq-val li::before {{ content: none; }}
   .tq-add {{ margin: 0 0 14px; font-size: 0.95rem; line-height: 1.4; color: #3B4440; }}
   .tq-big {{ margin: 0 0 12px; padding: 12px 16px; border-radius: 14px; background: #FFF1B8; border: 2px solid #27302E; text-align: center; animation: tqdrop 0.3s ease-out; }}
   .tq-big[hidden] {{ display: none; }}
@@ -139,10 +139,10 @@ for lang, t in T.items():
   .tq-range {{ height: 34px; }}
   .tq-ticks {{ margin-top: -4px; }}
   .tq-out {{ margin: 8px 0 4px; gap: 4px 28px; }}
-  .tq-val li.no {{ color: #5B6663; background: transparent; border: 2px dashed #8A918E; }}
+  .tq-val li.no {{ color: #A12B4A; background: #FFE4EA; border: 2px solid #E58AA3; }}
   .tq-val li.no.yes {{ color: #1E6B3A; background: #DFF5E3; border: 2px solid #1E6B3A; }}
-  .tq-val li.no.yes::before {{ content: "\\2713"; }}
-  .tq-val li.no::before {{ content: "\\2715"; }}
+  .tq-val li.no.yes::before {{ content: none; }}
+  .tq-val li.no::before {{ content: none; }}
   .tq-plus {{ font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.5rem; color: #27302E; }}
   .tq-plus[hidden] {{ display: none; }}
   .tq-val {{ margin: 2px 0 10px; gap: 6px; }}
@@ -192,7 +192,7 @@ for lang, t in T.items():
     document.getElementById("tq-pp").textContent = pre + Math.round(t / n);
     var sv = Math.round((1 - t / n / 60) * 100), el = document.getElementById("tq-save"); document.getElementById("tq-big").hidden = n < 20; el.hidden = sv < 1; el.textContent = sv + "% " + saveWord;
   }}
-  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "milestone", e: "own" }}, food = root.querySelector(".tq-val li.no"), plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
+  var btn = root.querySelector(".tq-btn"), base = btn ? btn.getAttribute("href") : "", sel = {{ c: "offsite", e: "own" }}, food = root.querySelector(".tq-val li.no"), plus = document.getElementById("tq-plus"), capEl = document.getElementById("tq-cap"), est = capEl.textContent, capp = {t["capp"]!r};
   function link() {{ var q = []; if (sel.c) q.push("celebrating=" + sel.c); if (sel.e) q.push("eating=" + sel.e); if (btn) btn.setAttribute("href", q.length ? base + "?" + q.join("&") : base); }}
   [].slice.call(root.querySelectorAll(".tq-chip")).forEach(function (c) {{
     c.addEventListener("click", function () {{
@@ -200,8 +200,9 @@ for lang, t in T.items():
       [].slice.call(c.parentNode.children).forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
       c.setAttribute("aria-pressed", on ? "true" : "false"); sel[k] = on ? v : "";
       if (k === "c") {{
-        var key = sel.c || "milestone";
+        var key = sel.c || "offsite";
         [].slice.call(root.querySelectorAll(".tq-st")).forEach(function (st) {{ var show = st.getAttribute("data-c") === key; st.hidden = !show; st.classList.remove("pop"); if (show) {{ void st.offsetWidth; st.classList.add("pop"); }} }});
+        try {{ window.dispatchEvent(new CustomEvent("mwcel", {{ detail: key }})); }} catch (e) {{}}  /* Oct 23, 2026: the photo slider on the left follows the occasion */
       }} else {{ plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan"); }}
       link();
     }});
