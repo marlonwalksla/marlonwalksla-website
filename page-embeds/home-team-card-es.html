@@ -8,7 +8,7 @@
   <label class="tq-label" for="tq-range">¿Cuántas personas? <strong id="tq-n">15</strong></label>
   <input class="tq-range" id="tq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tq-out">
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
-  <div class="tq-cel tq-eat" role="group" aria-label="Plan de almuerzo"><p class="tq-cel-h">Plan de almuerzo</p><div class="tq-chips"><button type="button" class="tq-chip" data-e="own" aria-pressed="true">Comidas individuales</button><button type="button" class="tq-chip" data-e="plan" aria-pressed="false">Comida grupal con catering</button></div></div>
+  <div class="tq-cel tq-eat" role="group" aria-label="Plan de almuerzo"><p class="tq-cel-h">Plan de almuerzo</p><div class="tq-chips"><button type="button" class="tq-chip" data-e="own" data-note="El almuerzo no está incluido. Cada quien elige y paga su comida en Grand Central Market." aria-pressed="true">Cada quien compra lo suyo</button><button type="button" class="tq-chip" data-e="plan" data-note="Marlon reserva un catering para tu grupo y te confirma el precio." aria-pressed="false">Marlon organiza el catering</button></div><p class="tq-eat-note" id="tq-eat-note" aria-live="polite">El almuerzo no está incluido. Cada quien elige y paga su comida en Grand Central Market.</p></div>
   <div class="tq-res">
   <div class="tq-big" id="tq-big" hidden><strong>¿Grupo más grande? Escríbeme</strong><a class="tq-wa" href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2020" target="_blank" rel="noopener noreferrer">&#128172; Escríbele a Marlon sobre tu grupo</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
@@ -76,6 +76,7 @@
   .tq-title { padding-right: 110px; min-height: 92px; }
   @media (prefers-reduced-motion: reduce) { .tq-st.pop { animation: none; } }
   .tq-eat { margin-top: 16px; }
+  .tq-eat-note { margin: 8px 0 0; font-size: 0.88rem; line-height: 1.45; color: #4D5551; min-height: 2.9em; }
   /* Oct 20, 2026 (Marlon): shorter form */
   .mw-form-card:has(.tq) { padding: 18px 22px 16px; --px: 22px; --pb: 16px; }
   .tq-stamp { width: 78px; height: 78px; top: -4px; }
@@ -171,7 +172,7 @@
       var ev = c.getAttribute("data-e"), eon = c.getAttribute("aria-pressed") !== "true";
       [].slice.call(c.parentNode.children).forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
       c.setAttribute("aria-pressed", eon ? "true" : "false"); sel.e = eon ? ev : "";
-      plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan");
+      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan");
       link();
     });
   });

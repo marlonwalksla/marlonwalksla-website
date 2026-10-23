@@ -67,7 +67,8 @@
   .mwf-slides { display: grid; }
   .mwf-slide { grid-area: 1 / 1; margin: 0; position: relative; opacity: 0; visibility: hidden; transition: opacity 0.25s ease-out, visibility 0s linear 0.25s; transform: rotate(-1.5deg); }
   .mwf-slide.is-on { opacity: 1; visibility: visible; transition: opacity 0.25s ease-out; }
-  .mwf-slide img { display: block; width: 100%; height: auto; border-radius: 3px; box-shadow: 0 14px 26px -12px rgba(39, 48, 46, 0.55); }
+  /* Oct 23: tall photos (Instax, portraits) keep their shape but stop at a max height, so the slider never gets taller than a screen */
+  .mwf-slide img { display: block; width: auto; max-width: 100%; height: auto; max-height: min(68vh, 520px); margin: 0 auto; border-radius: 3px; box-shadow: 0 14px 26px -12px rgba(39, 48, 46, 0.55); }
   .mwf-dig { align-self: center; }
   .mwf-dig img { border-radius: 10px; }
   .mwf-tape { position: absolute; top: -11px; left: 50%; width: 76px; height: 22px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 1; }

@@ -17,10 +17,10 @@ STAMP = {
     "offsite": ("palms3", "#2E9E57", -8, 3, "OUT OF OFFICE", "FUERA DE LA OFICINA"),
     "just-because": ("polaroid", "#6A4C93", 7, 11, "JUST BECAUSE", "PORQUE SÍ"),
 }
-EAT = {"en": ("Lunch plans", [("own", "Individual meals"), ("plan", "Catered group meal")],
-              {"own": "Lunch is not included. Everyone buys their own at Grand Central Market.", "plan": "Add-on: Marlon plans the group meal ahead of time. He confirms the price with you."}),
-       "es": ("Plan de almuerzo", [("own", "Comidas individuales"), ("plan", "Comida grupal con catering")],
-              {"own": "El almuerzo no está incluido. Cada quien compra lo suyo en Grand Central Market.", "plan": "Extra: Marlon organiza la comida del grupo con anticipación. Te confirma el precio."})}
+EAT = {"en": ("Lunch plans", [("own", "Everyone buys their own"), ("plan", "Marlon arranges catering")],
+              {"own": "Lunch is not included. Everyone picks and pays for their own food at Grand Central Market.", "plan": "Marlon books a catered meal for your group and confirms the price with you."}),
+       "es": ("Plan de almuerzo", [("own", "Cada quien compra lo suyo"), ("plan", "Marlon organiza el catering")],
+              {"own": "El almuerzo no está incluido. Cada quien elige y paga su comida en Grand Central Market.", "plan": "Marlon reserva un catering para tu grupo y te confirma el precio."})}
 T = {
  "en": dict(lang="en", title="Price your team day", label="How many people?", est="estimated total", pp="per person",
    pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="estimated total, Marlon confirms the lunch price", v=["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], vno=["&#127869;&#65039; Food"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
@@ -45,7 +45,7 @@ for lang, t in T.items():
     cel_h, cel_opts = CEL[lang]
     cel = "".join(f'<button type="button" class="tq-chip" data-c="{k}" aria-pressed="{"true" if k == "offsite" else "false"}">{v}</button>' for k, v in cel_opts)
     eat_h, eat_opts, eat_msg = EAT[lang]
-    eat = "".join(f'<button type="button" class="tq-chip" data-e="{k}" aria-pressed="{"true" if k == "own" else "false"}">{v}</button>' for k, v in eat_opts)
+    eat = "".join(f'<button type="button" class="tq-chip" data-e="{k}" data-note="{eat_msg[k]}" aria-pressed="{"true" if k == "own" else "false"}">{v}</button>' for k, v in eat_opts)
     sts = "".join(f'<span class="tq-st" data-c="{k}"{"" if k == "offsite" else " hidden"}>' + stamps.stamp("tqs" + k[:3], (v[5] if lang == "es" else v[4]), "SALIDAS DE EQUIPO" if lang == "es" else "TEAM OUTINGS", v[0], "", v[1], v[2], v[3]) + "</span>" for k, v in STAMP.items())
     pics = "".join(
         f'<span class="tq-pol" style="--r:{r}"><img src="{src}" alt="{alt}" loading="lazy"></span>' for src, alt, r in PICS)
@@ -60,7 +60,7 @@ for lang, t in T.items():
   <label class="tq-label" for="tq-range">{t["label"]} <strong id="tq-n">15</strong></label>
   <input class="tq-range" id="tq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tq-out">
   <div class="tq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
-  <div class="tq-cel tq-eat" role="group" aria-label="{eat_h}"><p class="tq-cel-h">{eat_h}</p><div class="tq-chips">{eat}</div></div>
+  <div class="tq-cel tq-eat" role="group" aria-label="{eat_h}"><p class="tq-cel-h">{eat_h}</p><div class="tq-chips">{eat}</div><p class="tq-eat-note" id="tq-eat-note" aria-live="polite">{eat_msg["own"]}</p></div>
   <div class="tq-res">
   <div class="tq-big" id="tq-big" hidden><strong>{t["big"]}</strong><a class="tq-wa" href="{t["wa_href"]}" target="_blank" rel="noopener noreferrer">&#128172; {t["wa"]}</a></div>
   <div class="tq-out" id="tq-out" aria-live="polite">
@@ -128,6 +128,7 @@ for lang, t in T.items():
   .tq-title {{ padding-right: 110px; min-height: 92px; }}
   @media (prefers-reduced-motion: reduce) {{ .tq-st.pop {{ animation: none; }} }}
   .tq-eat {{ margin-top: 16px; }}
+  .tq-eat-note {{ margin: 8px 0 0; font-size: 0.88rem; line-height: 1.45; color: #4D5551; min-height: 2.9em; }}
   /* Oct 20, 2026 (Marlon): shorter form */
   .mw-form-card:has(.tq) {{ padding: 18px 22px 16px; --px: 22px; --pb: 16px; }}
   .tq-stamp {{ width: 78px; height: 78px; top: -4px; }}
@@ -223,7 +224,7 @@ for lang, t in T.items():
       var ev = c.getAttribute("data-e"), eon = c.getAttribute("aria-pressed") !== "true";
       [].slice.call(c.parentNode.children).forEach(function (o) {{ o.setAttribute("aria-pressed", "false"); }});
       c.setAttribute("aria-pressed", eon ? "true" : "false"); sel.e = eon ? ev : "";
-      plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan");
+      var nt = document.getElementById("tq-eat-note"); if (nt) nt.textContent = eon ? c.getAttribute("data-note") : ""; plus.hidden = sel.e !== "plan"; capEl.textContent = sel.e === "plan" ? capp : est; if (food) food.classList.toggle("yes", sel.e === "plan");
       link();
     }});
   }});
