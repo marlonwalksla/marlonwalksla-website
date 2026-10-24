@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "notes": "Stamps with a 'spot' share the main map visited list (localStorage marlon_visited_spots). Stamps with onMainMap=false use their own list (marlon_stamps). Fallback icon: generic Ernesto silhouette tinted by passport ink. One stamp per place, earned by going.",
+  "collections": [
+    {
+      "id": "la-tourist",
+      "name": {
+        "en": "LA Tourist",
+        "es": "Turista en LA"
+      },
+      "ink": "#1D6F8F",
+      "stamps": [
+        {
+          "id": "griffith-observatory",
+          "label": {
+            "en": "Griffith Observatory",
+            "es": "Observatorio Griffith"
+          },
+          "spot": "griffith-observatory"
+        },
+        {
+          "id": "hollywood-walk-of-fame",
+          "label": {
+            "en": "Hollywood Walk of Fame",
+            "es": "Paseo de la Fama de Hollywood"
+          },
+          "spot": "hollywood-walk-of-fame"
+        },
+        {
+          "id": "hollywood-sign",
+          "label": {
+            "en": "Hollywood Sign view",
+            "es": "Vista del letrero de Hollywood"
+          },
+          "spot": "hollywood-sign-viewpoint-lake-hollywood-park"
+        },
+        {
+          "id": "tcl-chinese-theatre",
+          "label": {
+            "en": "TCL Chinese Theatre",
+            "es": "Teatro Chino TCL"
+          },
+          "spot": "tcl-chinese-theatre"
+        },
+        {
+          "id": "santa-monica-pier",
+          "label": {
+            "en": "Santa Monica Pier",
+            "es": "Muelle de Santa Monica"
+          },
+          "spot": "santa-monica-pier"
+        },
+        {
+          "id": "venice-beach",
+          "label": {
+            "en": "Venice Beach Boardwalk",
+            "es": "Malecon de Venice Beach"
+          },
+          "spot": "venice-beach-boardwalk"
+        },
+        {
+          "id": "the-getty-center",
+          "label": {
+            "en": "The Getty Center",
+            "es": "El Getty Center"
+          },
+          "spot": "the-getty-center"
+        },
+        {
+          "id": "rodeo-drive",
+          "label": {
+            "en": "Rodeo Drive",
+            "es": "Rodeo Drive"
+          },
+          "spot": "rodeo-drive"
+        },
+        {
+          "id": "walt-disney-concert-hall",
+          "label": {
+            "en": "Walt Disney Concert Hall",
+            "es": "Sala de Conciertos Walt Disney"
+          },
+          "spot": "walt-disney-concert-hall"
+        },
+        {
+          "id": "the-broad",
+          "label": {
+            "en": "The Broad",
+            "es": "The Broad"
+          },
+          "spot": "the-broad"
+        },
+        {
+          "id": "grand-central-market",
+          "label": {
+            "en": "Grand Central Market",
+            "es": "Mercado Grand Central"
+          },
+          "spot": "grand-central-market"
+        },
+        {
+          "id": "olvera-street",
+          "label": {
+            "en": "Olvera Street",
+            "es": "Calle Olvera"
+          },
+          "spot": "olvera-street-and-el-pueblo"
+        }
+      ],
+      "defaultMapFilter": true
+    },
+    {
+      "id": "downtown-classic",
+      "name": {
+        "en": "Downtown Classic",
+        "es": "Clasico del Centro"
+      },
+      "ink": "#7A2A6A",
+      "stamps": [
+        {
+          "id": "walt-disney-concert-hall",
+          "label": {
+            "en": "Disney Hall",
+            "es": "Sala Disney"
+          },
+          "spot": "walt-disney-concert-hall"
+        },
+        {
+          "id": "the-broad",
+          "label": {
+            "en": "The Broad",
+            "es": "The Broad"
+          },
+          "spot": "the-broad"
+        },
+        {
+          "id": "angels-flight",
+          "label": {
+            "en": "Angels Flight",
+            "es": "Angels Flight"
+          },
+          "spot": "angels-flight-railway"
+        },
+        {
+          "id": "grand-central-market",
+          "label": {
+            "en": "Grand Central Market",
+            "es": "Mercado Grand Central"
+          },
+          "spot": "grand-central-market"
+        },
+        {
+          "id": "bradbury-building",
+          "label": {
+            "en": "Bradbury Building",
+            "es": "Edificio Bradbury"
+          },
+          "spot": "bradbury-building"
+        },
+        {
+          "id": "evolution-of-la-mural",
+          "label": {
+            "en": "Evolution of LA mural",
+            "es": "Mural Evolucion de LA"
+          },
+          "location": {
+            "coordinates": [
+              -118.2464,
+              34.052
+            ],
+            "address": "200 block of S Broadway"
+          },
+          "onMainMap": false
+        },
+        {
+          "id": "la-city-hall",
+          "label": {
+            "en": "City Hall",
+            "es": "Ayuntamiento"
+          },
+          "spot": "la-city-hall"
+        },
+        {
+          "id": "hall-of-justice",
+          "label": {
+            "en": "Hall of Justice",
+            "es": "Palacio de Justicia"
+          },
+          "location": {
+            "coordinates": [
+              -118.2422,
+              34.0556
+            ],
+            "address": "Civic Center"
+          },
+          "onMainMap": false
+        },
+        {
+          "id": "olvera-street",
+          "label": {
+            "en": "Olvera Street",
+            "es": "Calle Olvera"
+          },
+          "spot": "olvera-street-and-el-pueblo"
+        }
+      ]
+    },
+    {
+      "id": "la-tacos",
+      "name": {
+        "en": "LA Tacos",
+        "es": "Tacos de LA"
+      },
+      "ink": "#B84A00",
+      "status": "coming-soon",
+      "stamps": []
+    }
+  ]
+}
