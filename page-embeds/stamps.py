@@ -5,6 +5,11 @@ import re
 import json, os
 import silhouettes as SIL
 _BB = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon_bbox.json")))
+# Oct 24, 2026 (Marlon: icons look off-center): icon_center.json = where the ink's weight sits inside each icon's box (fractions, 0.5 = middle),
+# measured by rendering each icon. Boxes are centered, but base-heavy drawings (buildings, skylines) looked low. OPTICAL is how far toward the
+# weight center we move (0 = box center, 1 = weight center).
+_CEN = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon_center.json")))
+OPTICAL = 0.6
 
 
 def _inner(svg):
@@ -58,9 +63,13 @@ def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra="", bold=Fals
     EA, EB = (68.0, 50.0) if year else (76.0, 60.0)  # free area is an ellipse: wide and short icons may run closer to the sides
     sc = 1.0 / (((bw / 2 / EA) ** 2 + (bh / 2 / EB) ** 2) ** 0.5)
     sc = min(sc, 140.0 / bw)
-    iw, ih = bw * sc, bh * sc
     cy = 90.0 if year else 100.0
-    ix, iy = 100 - iw / 2, cy - ih / 2
+    fx, fy = _CEN.get(name, (0.5, 0.5))
+    while True:  # shift toward the ink's weight center, then shrink a little if a corner would leave the free area
+        iw, ih = bw * sc, bh * sc
+        ix, iy = 100 - iw / 2 + (0.5 - fx) * iw * OPTICAL, cy - ih / 2 + (0.5 - fy) * ih * OPTICAL
+        if all(((x - 100) / EA) ** 2 + ((y - cy) / EB) ** 2 <= 1.1 for x in (ix, ix + iw) for y in (iy, iy + ih)) or sc < 0.2: break
+        sc *= 0.98
     vb = f"{bx:.1f} {by:.1f} {bw:.1f} {bh:.1f}"
     yr = f'<text x="100" y="{iy + ih + 14:.0f}" text-anchor="middle" font-size="11" letter-spacing="2">{year}</text>' if year else ""
     return (f'<svg class="stamp{(" " + extra) if extra else ""}" viewBox="0 0 200 200" role="img" aria-label="{top}" style="--r:{rot}deg" xmlns="http://www.w3.org/2000/svg">'
