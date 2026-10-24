@@ -557,9 +557,9 @@ ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
 # Oct 23, 2026 (Marlon): an ink stamp in the corner of the estimate card, one per plan. key: (icon, ink, rotation, seed, EN top, ES top)
 STAMP = {
     "couples": ("sunset", "#D6479B", -7, 6, "DATE NIGHT", "CITA EN PAREJA"),
-    "families": ("trio", "#1B6688", 7, 9, "FAMILY OUTING", "SALIDA EN FAMILIA"),
+    "families": ("polaroid", "#1B6688", 7, 9, "FAMILY OUTING", "SALIDA EN FAMILIA"),
     "friends": ("taco", "#E89B00", -8, 3, "FUN WITH FRIENDS", "CON AMIGOS"),
-    "custom": ("sun", "#2E9E57", 7, 4, "DESIGN YOUR DAY", "DISEÑA TU DÍA"),
+    "custom": ("pin", "#2E9E57", 7, 4, "DESIGN YOUR DAY", "DISEÑA TU DÍA"),
 }
 
 
@@ -567,16 +567,16 @@ STAMP = {
 LOCST = {
     "tacos": ("taco", "#E89B00", -6, 3, "TACOS", "TACOS"),
     "griffith": ("obs", "#C2352A", 7, 5, "GRIFFITH OBSERVATORY", "OBSERVATORIO GRIFFITH"),
-    "venice": ("canal", "#2890B6", -8, 7, "VENICE CANALS", "CANALES DE VENICE"),
+    "venice": ("venice_beach", "#2890B6", -8, 7, "VENICE BEACH", "VENICE BEACH"),
     "santamonica": ("pier", "#B8326E", 6, 9, "SANTA MONICA", "SANTA M&Oacute;NICA"),
     "downtown": ("skyline", "#1B6688", -7, 11, "DOWNTOWN LA", "CENTRO DE LA"),
     "echopark": ("swan", "#2E9E57", 8, 13, "ECHO PARK", "ECHO PARK"),
-    "getty": ("sun", "#E27B1A", -6, 15, "GETTY CENTER", "GETTY CENTER"),
-    "gcm": ("gcm", "#E2662A", 7, 4, "GRAND CENTRAL MARKET", "GRAND CENTRAL MARKET"),
-    "elysian": ("palm", "#2E9E57", -8, 6, "ELYSIAN PARK", "ELYSIAN PARK"),
+    "getty": ("sunset", "#E27B1A", -6, 15, "GETTY CENTER", "GETTY CENTER"),
+    "gcm": ("stall", "#E2662A", 7, 4, "GRAND CENTRAL MARKET", "GRAND CENTRAL MARKET"),
+    "elysian": ("palms3", "#2E9E57", -8, 6, "ELYSIAN PARK", "ELYSIAN PARK"),
     "bunker": ("wdch", "#2B4F9E", 6, 8, "BUNKER HILL", "BUNKER HILL"),
     "broadway": ("bradbury", "#C2352A", -7, 10, "BROADWAY", "BROADWAY"),
-    "olvera": ("kiosko", "#D6479B", 8, 12, "OLVERA STREET", "CALLE OLVERA"),
+    "olvera": ("papel", "#D6479B", 8, 12, "OLVERA STREET", "CALLE OLVERA"),
 }
 
 

@@ -6,10 +6,10 @@ import urllib.parse
 def svg_uri(svg):
     return "data:image/svg+xml," + urllib.parse.quote(svg.strip().replace("\n", ""), safe="/:=,;()' ")
 
-def _palm(x, base, h, lean=0, s=1.0):
+def _palm(x, base, h, lean=0, s=1.0, tw=3):
     """A palm tree: curved trunk and a fan of drooping fronds. x = trunk foot, base = ground y, h = trunk height."""
     tx, ty = x + lean, base - h
-    trunk = f'<path d="M{x-3*s} {base} Q{x+lean*0.2} {base-h*0.5} {tx-1.5*s} {ty} L{tx+1.5*s} {ty} Q{x+lean*0.2+4*s} {base-h*0.5} {x+3*s} {base} Z"/>'
+    trunk = f'<path d="M{x-tw*s} {base} Q{x+lean*0.2} {base-h*0.5} {tx-tw*0.5*s} {ty} L{tx+tw*0.5*s} {ty} Q{x+lean*0.2+(tw+1)*s} {base-h*0.5} {x+tw*s} {base} Z"/>'
     fronds = ""
     for dx, dy, cx, cy in [(-34, 6, -22, -16), (-30, 22, -22, -4), (34, 6, 22, -16), (30, 22, 22, -4), (-10, -22, -8, -30), (12, -22, 10, -30), (0, -30, 0, -34)]:
         dx, dy, cx, cy = dx*s, dy*s, cx*s, cy*s
@@ -106,22 +106,19 @@ def polaroid(color="#6A4C93", opacity=1):
 
 
 def pier(color="#B8326E", opacity=1):
-    """Private stamp icon: Santa Monica Pier, Ferris wheel on the deck, pilings, a palm."""
-    cx, cy, r = 290, 92, 70
-    d = f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" stroke-width="6"/><circle cx="{cx}" cy="{cy}" r="{r-22}" fill="none" stroke="{color}" stroke-width="3"/>'
+    """Private stamp icon: Santa Monica Pier. Oct 24, 2026 (Marlon): just the Ferris wheel and the pier deck with its pilings (no palm, no huts, no stray line)."""
     import math
+    cx, cy, r = 260, 90, 74
+    d = f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" stroke-width="6"/><circle cx="{cx}" cy="{cy}" r="{r-22}" fill="none" stroke="{color}" stroke-width="3"/>'
     for i in range(12):
         a = i * math.pi / 6
         x, y = cx + r * math.cos(a), cy + r * math.sin(a)
         d += f'<line x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}" stroke="{color}" stroke-width="3"/><circle cx="{x:.1f}" cy="{y:.1f}" r="8"/>'
-    d += f'<circle cx="{cx}" cy="{cy}" r="9"/><path d="M{cx-34} 176 L{cx} {cy} L{cx+34} 176" fill="none" stroke="{color}" stroke-width="6"/>'
-    d += '<rect x="40" y="168" width="440" height="12"/>'
-    for i in range(15):
-        d += f'<rect x="{50+i*30}" y="180" width="6" height="34"/>'
-    d += '<rect x="60" y="136" width="86" height="32"/><path d="M52 136 L103 108 L154 136 Z"/><rect x="392" y="146" width="62" height="22"/><path d="M392 146 Q423 118 454 146 Z"/>'
-    d += _palm(190, 168, 100, 8, .8)
+    d += f'<circle cx="{cx}" cy="{cy}" r="9"/><path d="M{cx-38} 176 L{cx} {cy} L{cx+38} 176" fill="none" stroke="{color}" stroke-width="6"/>'
+    d += '<rect x="150" y="168" width="220" height="12"/>'
+    for i in range(8):
+        d += f'<rect x="{158+i*29}" y="180" width="6" height="30"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
-
 
 def wdch(color="#2B4F9E", opacity=1):
     """Walt Disney Concert Hall (Frank Gehry, 2003): angular, leaning, folded stainless-steel panels, NOT round sails (those are the Sydney Opera House)."""
@@ -207,11 +204,9 @@ def sunset(color="#E8742A", opacity=1):
 
 
 def palms3(color="#2E9E57", opacity=1):
-    """Out of Office stamp: three palm trees of different heights (Marlon: 'more palm trees')."""
-    d = _palm(176, 214, 140, 12, 1.0) + _palm(262, 214, 204, -6, 1.15) + _palm(348, 214, 124, -12, .95)
-    d += '<rect x="110" y="214" width="300" height="6"/>'
+    """Out of Office stamp: three palm trees of different heights. Oct 24, 2026 (Marlon): wider, with thick trunks you can actually see."""
+    d = _palm(150, 214, 96, 12, 1.2, 12) + _palm(260, 214, 132, -4, 1.4, 14) + _palm(372, 214, 80, -12, 1.15, 11)
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
-
 
 def observatory_clean(color="#C2352A", opacity=1):
     """Griffith Observatory stamp: the building alone (no hill) so the domes and the long facade read clearly."""
@@ -248,13 +243,17 @@ def trio(color="#1B8A8F", opacity=1):
 
 
 def taco(color="#D6452F", opacity=1):
-    """Challenge stamp: a street taco in the classic shape: a thick half-disc shell, lettuce and fillings piled on its flat top, a fold line inside."""
-    G = 'stroke="#fff" stroke-width="5" stroke-linejoin="round"'
-    d = '<path d="M96 112 H424 A164 104 0 0 1 96 112 Z"/>'                                                   # shell: half disc
-    d += '<path d="M128 150 A132 70 0 0 0 392 150" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'   # fold line
-    d += f'<path d="M104 112 Q112 70 146 84 Q158 46 196 62 Q218 30 252 54 Q286 28 310 60 Q346 42 360 80 Q398 68 416 112 Z" {G}/>'  # lettuce pile
-    d += f'<circle cx="210" cy="86" r="16" {G}/><circle cx="286" cy="90" r="14" {G}/><circle cx="346" cy="98" r="11" {G}/>'
-    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+    """Oct 24, 2026 (Marlon: the old one was bulky): a street taco tipped a little: a slim folded shell with a white crease, ruffled lettuce and tomato spilling out of the top."""
+    W = 'stroke="#fff" stroke-width="6" stroke-linejoin="round"'
+    d = '<g transform="rotate(-10 190 120)">'
+    d += '<path d="M40 120 A150 78 0 0 0 340 120 Q190 134 40 120 Z"/>'
+    d += '<path d="M72 128 A118 54 0 0 0 308 128" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'
+    top = "M46 124 Q30 98 54 92 Q50 72 74 74 Q74 52 98 58 Q104 36 126 48 Q138 26 158 44 Q176 22 192 44 Q210 26 226 46 Q246 32 256 54 Q278 44 286 66 Q308 62 306 84 Q330 88 322 108 Q338 116 334 126 Q190 140 46 124 Z"
+    d += f'<path d="{top}" {W}/>'
+    d += '<path d="M72 102 q14 -14 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>'
+    d += '<circle cx="124" cy="76" r="12" fill="#fff"/><circle cx="214" cy="72" r="10" fill="#fff"/>'
+    d += '</g>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 
 def angels_flight(color="#2890B6", opacity=1):
@@ -339,24 +338,39 @@ def stall(color="#E2662A", opacity=1):
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 
-def canal(color="#2890B6", opacity=1):
-    """Location stamp icon (Oct 23, 2026): Venice Canals, a small arched footbridge over the water."""
-    d = '<path d="M30 130 Q150 20 270 130 V152 H238 Q150 66 62 152 H30 Z"/>'
-    for x in (80, 115, 150, 185, 220):
-        d += f'<rect x="{x - 3}" y="{int(72 + 0.0004 * (x - 150) ** 2 * 0 + (abs(x - 150) / 70) * 22)}" width="6" height="26" rx="2"/>'
-    for y in (178, 198):
-        d += f'<path d="M30 {y} Q70 {y - 14} 110 {y} T190 {y} T270 {y}" fill="none" stroke="{color}" stroke-width="8" stroke-linecap="round"/>'
+def venice_beach(color="#2890B6", opacity=1):
+    """Oct 24, 2026 (Marlon, replaces the Venice Canals stamp): Venice Beach. A lifeguard tower on stilts with a flag, a palm, and waves."""
+    d = '<path d="M88 112 L140 78 L192 112 Z"/>'
+    d += '<rect x="102" y="112" width="76" height="40"/><rect x="116" y="124" width="22" height="18" fill="#fff"/><rect x="148" y="124" width="16" height="18" fill="#fff"/>'
+    d += '<rect x="106" y="152" width="8" height="40"/><rect x="166" y="152" width="8" height="40"/><path d="M112 160 L168 188 M168 160 L112 188" stroke="%s" stroke-width="5" fill="none"/>' % color
+    d += '<rect x="139" y="44" width="4" height="36"/><path d="M143 44 L172 54 L143 64 Z"/>'
+    d += _palm(236, 192, 108, 10, .85, 4.5)
+    d += '<rect x="44" y="190" width="212" height="6" rx="3"/>'
+    d += f'<path d="M30 210 Q60 198 90 210 T150 210 T210 210 T270 210" fill="none" stroke="{color}" stroke-width="7" stroke-linecap="round"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def papel(color="#D6479B", opacity=1):
+    """Oct 24, 2026: papel picado, the cut-paper flags strung across Olvera Street (replaces the kiosko stamp)."""
+    d = '<path d="M20 56 Q150 116 280 56" fill="none" stroke="%s" stroke-width="4"/>' % color
+    d += '<path d="M20 126 Q150 186 280 126" fill="none" stroke="%s" stroke-width="4"/>' % color
+    for y0 in (56, 126):
+        for i in range(6):
+            t = (i + 0.5) / 6
+            x = 20 + 260 * t
+            y = y0 + 120 * t * (1 - t) - 2
+            d += f'<path d="M{x-17:.1f} {y:.1f} h34 v40 l-6 -7 l-6 7 l-5 -7 l-6 7 l-5 -7 l-6 7 z"/>'
+            d += f'<path d="M{x:.1f} {y+8:.1f} l6 9 l-6 9 l-6 -9 z" fill="#fff"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 
 def swan(color="#2E9E57", opacity=1):
-    """Location stamp icon (Oct 23, 2026): Echo Park, a swan pedal boat on the lake."""
-    d = '<path d="M66 152 Q56 122 108 128 Q150 132 192 118 Q204 152 150 166 Q98 172 66 152 Z"/>'
-    d += f'<path d="M178 128 Q214 116 196 88 Q180 62 206 50" fill="none" stroke="{color}" stroke-width="20" stroke-linecap="round"/>'
-    d += '<circle cx="208" cy="46" r="16"/><path d="M220 40 L250 50 L220 58 Z"/>'
-    d += '<path d="M96 142 Q132 150 170 132" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'
-    for y in (188, 206):
-        d += f'<path d="M30 {y} Q70 {y - 14} 110 {y} T190 {y} T270 {y}" fill="none" stroke="{color}" stroke-width="8" stroke-linecap="round"/>'
+    """Oct 24, 2026 (Marlon: hard to even tell it was an animal): a swan in side view, a long S-curved neck, round head, beak, an eye and a folded wing."""
+    d = '<path d="M30 88 Q58 118 110 118 Q160 118 186 104 Q216 122 198 150 Q172 180 110 176 Q54 172 40 132 Q34 112 30 88 Z"/>'
+    d += f'<path d="M184 114 C224 104 228 70 206 58 C188 46 196 22 222 24" fill="none" stroke="{color}" stroke-width="17" stroke-linecap="round"/>'
+    d += '<circle cx="222" cy="24" r="14"/><path d="M232 19 L258 28 L232 35 Z"/><circle cx="224" cy="21" r="4" fill="#fff"/>'
+    d += '<path d="M62 136 Q108 102 154 132 Q122 166 80 152 Z" fill="none" stroke="#fff" stroke-width="6" stroke-linejoin="round"/><path d="M92 132 Q116 124 136 134" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>'
+    d += f'<path d="M30 202 Q60 190 90 202 T150 202 T210 202 T270 202" fill="none" stroke="{color}" stroke-width="7" stroke-linecap="round"/>'
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 

@@ -10,6 +10,7 @@ _BB = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "i
 # weight center we move (0 = box center, 1 = weight center).
 _CEN = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon_center.json")))
 OPTICAL = 0.6
+_SIZE = {"stall": 0.9}  # Oct 24, 2026 (Marlon): the market stall was a little too big, 90%
 
 
 def _inner(svg):
@@ -22,28 +23,20 @@ def _inner(svg):
 def icon(name, ink):
     if name == "cake": return _inner(SIL.cake(ink)), (260, 190, "130 20 260 190", 110)
     if name == "trophy": return _inner(SIL.trophy(ink)), (220, 190, "150 26 220 190", 110)
-    if name == "gcm": return _inner(SIL.gcm(ink)), (390, 216, "58 8 390 216", 112)
-    if name == "observatory": return _inner(SIL.observatory(ink)), (520, 220)
-    if name == "kiosko": return _inner(SIL.kiosko(ink)), (520, 220, "0 0 520 220", 126)
-    if name == "city_tower": return _inner(SIL.city_tower(ink)), (160, 220, "180 0 160 220", 60)
-    if name == "palm": return _inner(SIL.palm(ink)), (220, 220, "150 0 220 220", 100)
     if name == "sunset": return _inner(SIL.sunset(ink)), (320, 170, "100 40 320 170", 124)
-    if name == "sun": return _inner(SIL.sun(ink)), (280, 160, "120 50 280 160", 108)
     if name == "bag": return _inner(SIL.bag(ink)), (300, 220, "0 0 300 220", 112)
     if name == "stall": return _inner(SIL.stall(ink)), (300, 220, "0 0 300 220", 112)
-    if name == "canal": return _inner(SIL.canal(ink)), (300, 220, "30 72 240 133", 112)
-    if name == "swan": return _inner(SIL.swan(ink)), (300, 220, "30 30 240 183", 112)
+    if name == "swan": return _inner(SIL.swan(ink)), (300, 220, "30 30 250 183", 112)
+    if name == "taco": return _inner(SIL.taco(ink)), (380, 220, "30 10 320 200", 120)
+    if name == "venice_beach": return _inner(SIL.venice_beach(ink)), (300, 220, "30 40 240 183", 112)
+    if name == "papel": return _inner(SIL.papel(ink)), (300, 220, "20 40 260 160", 112)
     if name == "pin": return _inner(SIL.pin(ink)), (300, 220, "66 14 168 200", 112)
-    if name == "taco": return _inner(SIL.taco(ink)), (420, 190, "70 20 380 200", 116)
-    if name == "angels": return _inner(SIL.angels_flight(ink)), (400, 200, "62 14 400 200", 118)
     if name == "polaroid": return _inner(SIL.polaroid(ink)), (262, 186, "142 16 262 186", 100)
-    if name == "pier": return _inner(SIL.pier(ink)), (460, 210, "30 10 460 210", 138)
-    if name == "palms3": return _inner(SIL.palms3(ink)), (320, 220, "100 0 320 220", 146)
+    if name == "pier": return _inner(SIL.pier(ink)), (520, 220, "140 10 240 210", 138)
+    if name == "palms3": return _inner(SIL.palms3(ink)), (520, 220, "60 0 400 220", 146)
     if name == "obs": return _inner(SIL.observatory_clean(ink)), (300, 130, "110 50 300 130", 140)
-    if name == "trio": return _inner(SIL.trio(ink)), (520, 220, "0 10 520 210", 134)
     if name == "wdch": return _inner(SIL.wdch(ink)), (440, 210, "46 20 440 210", 138)
     if name == "bradbury": return _inner(SIL.bradbury(ink)), (300, 220, "110 6 300 220", 112)
-    if name == "city_hall": return _inner(SIL.city_hall(ink)), (520, 220)
     if name == "skyline": return _inner(SIL.skyline(ink)), (440, 200, "400 0 440 200")
     raise ValueError(name)
 
@@ -62,7 +55,7 @@ def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra="", bold=Fals
         if x1 - x0 > 10: bx, bw = x0, x1 - x0
     EA, EB = (68.0, 50.0) if year else (76.0, 60.0)  # free area is an ellipse: wide and short icons may run closer to the sides
     sc = 1.0 / (((bw / 2 / EA) ** 2 + (bh / 2 / EB) ** 2) ** 0.5)
-    sc = min(sc, 140.0 / bw)
+    sc = min(sc, 140.0 / bw) * _SIZE.get(name, 1.0)
     cy = 90.0 if year else 100.0
     fx, fy = _CEN.get(name, (0.5, 0.5))
     while True:  # shift toward the ink's weight center, then shrink a little if a corner would leave the free area

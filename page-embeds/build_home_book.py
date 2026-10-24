@@ -51,7 +51,7 @@ pols = "".join(
 
 STAMP_FREE = (stamps.stamp("stf", "WALT DISNEY CONCERT HALL", "LOS ANGELES", "wdch", "EST. 2003", "#2B4F9E", -7, 8)
               + stamps.stamp("stf2", "BRADBURY BUILDING", "LOS ANGELES", "bradbury", "EST. 1893", "#1B8A8F", 8, 14, "s2")
-              + stamps.stamp("stf3", "PLACITA OLVERA", "EL PUEBLO DE LOS ANGELES", "kiosko", "EST. 1781", "#7A3FA0", -5, 17, "s3"))  # Oct 18, 2026: one stamp per building, the first is where the tour starts
+              + stamps.stamp("stf3", "PLACITA OLVERA", "EL PUEBLO DE LOS ANGELES", "papel", "EST. 1781", "#7A3FA0", -5, 17, "s3"))  # Oct 18, 2026: one stamp per building, the first is where the tour starts
 html = f'''<!-- ==============================================================================
      MARLONWALKSLA - BOOK A FREE TOUR (CAL.COM INLINE CALENDARS, EN + ES)
      Built by page-embeds/build_home_book.py. Same embed on Home (/) and /es.

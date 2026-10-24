@@ -104,7 +104,7 @@ for (sec, lang), (title, alt, badges) in T.items():
     if sec == "team":
         ST = [stamps.stamp("stt", "FUERA DE LA OFICINA" if es else "OUT OF OFFICE", "SALIDAS DE EQUIPO" if es else "TEAM OUTINGS", "palms3", "", "#C2352A", -8, 3),
               stamps.stamp("stt2", "TOMA UNA FOTO INSTANT&Aacute;NEA" if es else "TAKE AN INSTANT PHOTO", "POLAROID DE EQUIPO" if es else "TEAM POLAROID", "polaroid", "", "#6A4C93", 9, 11, "s2"),
-              stamps.stamp("stt3", "ALMUERZO EN" if es else "LUNCH AT", "GRAND CENTRAL MARKET", "gcm", "EST. 1917", "#E2662A", -6, 4, "s3")]
+              stamps.stamp("stt3", "ALMUERZO EN" if es else "LUNCH AT", "GRAND CENTRAL MARKET", "stall", "EST. 1917", "#E2662A", -6, 4, "s3")]
     else:
         ST = [stamps.stamp("stp", "ATARDECER EN CALIFORNIA" if es else "CALIFORNIA SUNSET", "TOURS PRIVADOS" if es else "PRIVATE TOURS", "sunset", "", "#E8742A", 7, 5),
               stamps.stamp("stp2", "MUELLE DE SANTA M&Oacute;NICA" if es else "SANTA MONICA PIER", "CALIFORNIA", "pier", "EST. 1909", "#B8326E", -9, 13, "s2"),

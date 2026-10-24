@@ -145,7 +145,7 @@ def build(lang):
     HERO_STAMPS = ('<div class="mwh-stamps" aria-hidden="true">'
 + hs('hsa', 'FUERA DE LA OFICINA' if es else 'OUT OF OFFICE', 'SALIDAS DE EQUIPO' if es else 'TEAM OUTINGS', 'palms3', '', '#2E9E57', -8, 3, True)
 + hs('hsc', 'MUELLE DE SANTA M&Oacute;NICA' if es else 'SANTA MONICA PIER', 'TOURS PRIVADOS' if es else 'PRIVATE TOURS', 'pier', 'EST. 1909', '#2890B6', -6, 9, True)
-+ hs('hsb', 'PLACITA OLVERA', 'FREE TOUR' if not es else 'FREE TOUR', 'kiosko', 'EST. 1781', '#7A3FA0', 7, 6, True)
++ hs('hsb', 'WALT DISNEY CONCERT HALL', 'FREE TOUR', 'wdch', 'EST. 2003', '#7A3FA0', 7, 6, True)
 + hs('hsd', CH, 'PERSIGUE UN ATARDECER' if es else 'CHASE A SUNSET', 'sunset', '', '#E8742A', 8, 12, True)
                    + '</div>')
     SL = SLIDES[lang]
