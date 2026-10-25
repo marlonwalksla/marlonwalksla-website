@@ -73,10 +73,14 @@
 #fp .pp-head small{display:block;font-family:'Fredoka',sans-serif;font-weight:500;font-size:12px;letter-spacing:1.6px;text-transform:uppercase}
 #fp .pp-head b{font-family:'Lilita One',sans-serif;font-weight:400;font-size:28px;line-height:1.05}
 #fp .pol{position:relative;width:78%;margin:14px auto 6px;background:#fff;padding:9px 9px 34px;border-radius:3px;box-shadow:0 4px 10px rgba(0,0,0,.25);transform:rotate(2deg);cursor:pointer}
-#fp .pol .tape{position:absolute;left:50%;top:-12px;width:78px;height:22px;margin-left:-39px;background:rgba(255,190,140,.8);background:color-mix(in srgb,var(--b) 55%,#fff);opacity:.9;transform:rotate(-3deg)}
+#fp .pol .tape{position:absolute;left:50%;top:-12px;width:78px;height:22px;margin-left:-39px;background:rgba(255,190,140,.8);background:color-mix(in srgb,var(--a) 55%,#fff);opacity:.9;transform:rotate(-3deg)}
 #fp .pol-img{aspect-ratio:1/1;background:color-mix(in srgb,var(--b) 25%,#fff) 0 0/cover no-repeat;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Fredoka',sans-serif;font-weight:500;font-size:15px;color:var(--muted);padding:10px}
 #fp .pol-img.has{cursor:grab;touch-action:none}
-#fp .pctl{display:flex;flex-wrap:wrap;align-items:center;gap:0 14px;margin-top:6px}
+#fp .pctl{margin-top:12px;background:#fff;border:2px solid var(--olive);border-radius:16px;padding:10px 12px 8px;position:relative}
+#fp .pctl:after{content:"";position:absolute;left:50%;bottom:-9px;width:14px;height:14px;margin-left:-7px;background:#fff;border-right:2px solid var(--olive);border-bottom:2px solid var(--olive);transform:rotate(45deg)}
+#fp .pctl-h{font-family:'Fredoka',sans-serif;font-weight:500;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+#fp .pctl-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:4px}
+#fp .pbtn{min-height:40px;padding:6px 16px;border-radius:999px;border:2px solid var(--olive);background:#FFDD55;color:var(--olive);font-family:'Fredoka',sans-serif;font-weight:500;font-size:15px;cursor:pointer}
 #fp .zm{display:flex;align-items:center;gap:8px;font-family:'Fredoka',sans-serif;font-size:14px;color:var(--muted);flex:1 1 150px}
 #fp .zm input{flex:1;min-width:80px;accent-color:var(--t)}
 #fp .post{position:absolute;right:-38px;top:-26px;width:104px;transform:rotate(-8deg);pointer-events:none}
@@ -99,6 +103,20 @@
 #fp .route div{display:flex;align-items:center;gap:14px;min-height:52px;border-top:2px solid var(--olive);font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px}
 #fp .route div:last-of-type{border-bottom:2px solid var(--olive)}
 #fp .route b{flex:0 0 32px;height:32px;border-radius:50%;background:var(--olive);color:var(--peach);display:flex;align-items:center;justify-content:center;font-family:'Lilita One',sans-serif;font-weight:400;font-size:16px}
+@media (min-width:860px){
+ #fp{max-width:940px}
+ #fp .cover{flex-basis:270px}
+ #fp .grid{max-width:560px;margin:0 auto}
+ #fp .sheet #fp-sh-tips{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+ #fp .sheet .btn{max-width:420px}
+ #fp .paper{display:grid;grid-template-columns:1.05fr 1fr;grid-template-areas:"head pol" "fr pol" "tt pol" "msg pol" "ft ft";column-gap:40px;padding:40px 44px 22px;align-items:start}
+ #fp .paper>.pp-head{grid-area:head}#fp .paper>.pol{grid-area:pol;width:88%;margin:6px auto 0}
+ #fp .paper>.fr{grid-area:fr}#fp .paper>.tt{grid-area:tt}#fp .paper>.pp-msg{grid-area:msg;min-height:170px}#fp .paper>.pp-ft{grid-area:ft;margin-top:18px}
+ #fp .pp-head b{font-size:44px}
+ #fp .post{width:130px;right:-44px;top:-34px}
+ #fp .pcb{padding:18px 20px 22px}
+ #fp .btn{max-width:420px;margin-left:auto;margin-right:auto}
+}
 #fp :focus-visible{outline:3px solid var(--olive);outline-offset:2px;border-radius:12px}
 @media (prefers-reduced-motion:reduce){#fp .st svg,#fp .face,#fp .flip{transition:none}#fp .sheet{animation:none}}
 </style>
@@ -128,12 +146,15 @@
           <button type="button" class="lnk" id="fp-pc-back"></button>
           <select id="fp-pc-place" aria-label="Place"></select>
         </div>
-        <div class="pctl">
-          <button type="button" class="lnk" id="fp-chg"></button>
-          <label class="zm"><span id="fp-zl"></span><input type="range" id="fp-zoom" min="1" max="3" step="0.02" value="1"></label>
-          <button type="button" class="lnk" id="fp-dflt" hidden></button>
+        <div class="pctl" role="group" aria-labelledby="fp-pctl-h">
+          <div class="pctl-h" id="fp-pctl-h"></div>
+          <div class="pctl-row">
+            <button type="button" class="pbtn" id="fp-chg"></button>
+            <button type="button" class="lnk" id="fp-dflt" hidden></button>
+            <label class="zm"><span id="fp-zl"></span><input type="range" id="fp-zoom" min="1" max="3" step="0.02" value="1"></label>
+          </div>
+          <p class="note" id="fp-phint" style="text-align:left;margin:2px 0 0"></p>
         </div>
-        <p class="note" id="fp-phint" style="text-align:left;margin:0 0 4px"></p>
         <div class="paper">
           <div class="pp-head"><small id="fp-pv-gr"></small><b id="fp-pv-place"></b></div>
           <div class="pol" id="fp-pol" role="button" tabindex="0">
@@ -142,8 +163,8 @@
             <div class="post" id="fp-post" aria-hidden="true"></div>
           </div>
           <input id="fp-pc-file" type="file" accept="image/*">
-          <div class="pp-line"><span id="fp-l-from"></span><input id="fp-pc-from" type="text" maxlength="40" autocomplete="given-name"></div>
-          <div class="pp-line"><span id="fp-l-to"></span><input id="fp-pc-to" type="text" maxlength="40" autocomplete="off"></div>
+          <div class="pp-line fr"><span id="fp-l-from"></span><input id="fp-pc-from" type="text" maxlength="40" autocomplete="given-name"></div>
+          <div class="pp-line tt"><span id="fp-l-to"></span><input id="fp-pc-to" type="text" maxlength="40" autocomplete="off"></div>
           <textarea class="pp-msg" id="fp-pc-msg" maxlength="200" aria-label="Message"></textarea>
           <div class="pp-ft"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf15f429ade21cc6f5_Circle%20Full.webp" alt="" crossorigin="anonymous"><span><em id="fp-and"></em>MarlonWalksLA &middot; @marlonwalksla<br>WhatsApp +1 269 267 0410 &middot; marlonwalksla.com</span></div>
         </div>
@@ -190,7 +211,7 @@
     of:'de 9',save:'Guardado en este teléfono. Sin cuenta.',
     pcgo:'Enviar una postal',cn0:'Toca un sello cuando llegues. Cada parada trae cosas por hacer y una postal.',cn1:'Cada sello abre una postal.',
     chip:'Sello ganado',todo:'Qué hacer aquí',card:'Enviar una postal desde aquí',dir:'Cómo llegar',rm:'Quitar este sello',
-    back:'← Volver al pasaporte',gr:'Saludos desde',from:'De',to:'Para',and:'¡y Ernesto!',up:'Toca para agregar tu foto',chg:'Cambiar foto',zl:'Zoom',dflt:'Usar la foto de la parada',hint:'Arrastra la foto para moverla. \u00bfFoto de una Polaroid? Haz zoom hasta que solo la imagen llene el marco.',
+    back:'← Volver al pasaporte',gr:'Saludos desde',from:'De',to:'Para',and:'¡y Ernesto!',up:'Toca para agregar tu foto',pht:'Tu foto \u2193',chg:'Cambiar foto',zl:'Zoom',dflt:'Usar la foto de la parada',hint:'Arrastra la foto para moverla. \u00bfFoto de una Polaroid? Haz zoom hasta que solo la imagen llene el marco.',
     def:function(p){return 'Estoy explorando '+p+' con Marlon y Ernesto. ¡Ojalá estuvieras aquí!'},
     send:'Enviar mi postal',pcsave:'Guardar la imagen',priv:'Tu foto se queda en tu teléfono hasta que la envíes.',
     go:'Ver la ruta de hoy',rvh:'¿Qué tal la caminata?',rvp:'Una reseña honesta ayuda a otros viajeros a encontrar un tour como este.',rv:'Dejar una reseña en Google',rvn:'Toma unos 30 segundos. Necesitas iniciar sesión en Google.',
@@ -202,7 +223,7 @@
     of:'of 9',save:'Saved on this phone. No account.',
     pcgo:'Send a postcard',cn0:'Tap a stamp when you get there. Every stop comes with things to do and a postcard.',cn1:'Every stamp opens a postcard.',
     chip:'Stamp earned',todo:'Things to do here',card:'Send a postcard from here',dir:'Directions',rm:'Remove this stamp',
-    back:'← Back to my passport',gr:'Greetings from',from:'From',to:'To',and:'& Ernesto!',up:'Tap to add your photo',chg:'Change photo',zl:'Zoom',dflt:'Use the stop photo',hint:'Drag the photo to move it. Photo of a Polaroid? Zoom in until only the picture fills the frame.',
+    back:'← Back to my passport',gr:'Greetings from',from:'From',to:'To',and:'& Ernesto!',up:'Tap to add your photo',pht:'Your photo \u2193',chg:'Change photo',zl:'Zoom',dflt:'Use the stop photo',hint:'Drag the photo to move it. Photo of a Polaroid? Zoom in until only the picture fills the frame.',
     def:function(p){return "I'm exploring "+p+' with Marlon and Ernesto. Wish you were here!'},
     send:'Send my postcard',pcsave:'Save the image',priv:'Your photo stays on your phone until you send it.',
     go:"See today's route",rvh:'How was the walk?',rvp:'However it went, an honest review helps other travelers find a walk like this.',rv:'Leave a Google review',rvn:'Takes about 30 seconds. You need to be signed in to Google.',
@@ -214,9 +235,10 @@
   // [directions url, things to do EN, things to do ES] per stop (from tour-dtla.js)
   var G=[["https://maps.google.com/?q=Walt+Disney+Concert+Hall+Los+Angeles", [["Hidden Rooftop Garden", "Climb the outdoor stairs on the Hope Street side to find the elevated Blue Ribbon Garden, featuring a mosaic rose fountain built from broken blue-and-white Delft china in honor of Lillian Disney."], ["The Glare Modification", "Shortly after opening, select exterior panels were so reflective that they heated nearby sidewalks and condos; Gehry had the high-gloss panels lightly sanded down to a soft matte finish."]], [["Jardín Secreto en la Azotea", "Sube las escaleras de Hope St hacia el jardín elevado para ver la fuente de rosas hecha con porcelana azul rota de Delft en honor a Lillian Disney."], ["El Ajuste del Brillo Exterior", "Al inaugurarse, algunos paneles reflejaban tanta luz solar que calentaban la banqueta; Gehry mandó lijar suavemente el acero para darle un acabado mate."]]], ["https://maps.google.com/?q=The+Broad+Los+Angeles", [["Yayoi Kusama Infinity Rooms", "Requires a separate free timed reservation at the kiosk inside the lobby due to high international visitor demand."], ["Free Admission Secret", "General admission is 100% free. Reserving a free timed-entry ticket online in advance lets you bypass the outdoor general standby line."]], [["Salas de Espejos de Kusama", "Requiere un registro gratuito adicional en las pantallas táctiles del vestíbulo debido a su alta demanda."], ["Entrada Gratuita", "La entrada es gratis. Reservar turno con anticipación en su sitio web permite saltarse la fila general en la banqueta."]]], ["https://maps.google.com/?q=Angels+Flight+Railway+Los+Angeles", [["Fare & Operating Hours", "$1.00 each way (only 50¢ if you tap a Metro TAP card). Open 365 days a year from 6:45 AM to 10:00 PM."], ["The La La Land Permit", "When La La Land was filmed, the railway had been shut down for years; the movie's international success created the political momentum to fund safety upgrades and reopen the ride in 2017."]], [["Tarifa y Horarios", "$1.00 por trayecto (50¢ con tarjeta TAP de Metro). Abierto los 365 días del año de 6:45 AM a 10:00 PM."], ["El Permiso de La La Land", "Cuando se filmó la película el funicular estaba cerrado; la atención mundial motivó a la ciudad a financiar las obras de seguridad para reabrirlo en 2017."]]], ["https://maps.google.com/?q=Grand+Central+Market+Los+Angeles", [["What to Eat on Your Visit", "<ul><li><strong>Roast To Go (1952):<\/strong> Carnitas tacos simmered in traditional copper pots.<\/li><li><strong>Sarita’s Pupusería:<\/strong> Salvadoran handmade pupusas (featured in <em>La La Land<\/em>).<\/li><li><strong>China Cafe (1959):<\/strong> Classic wonton soup under vintage neon.<\/li><\/ul>"], ["Quick Refreshment Tip", "Grab a fresh agua fresca from <em>La Huerta<\/em> or an iced cold brew from <em>G&B Coffee<\/em> near the Hill Street entrance."]], [["Qué Probar en el Mercado", "<ul><li><strong>Roast To Go (1952):<\/strong> Tacos de carnitas en cazo de cobre tradicional.<\/li><li><strong>Sarita's Pupusería:<\/strong> Pupusas salvadoreñas hechas a mano (vistas en <em>La La Land<\/em>).<\/li><li><strong>China Cafe (1959):<\/strong> Sopa wonton clásica en la barra de madera.<\/li><\/ul>"], ["Bebida Rápida", "Pide una fresca agua de frutas en <em>La Huerta<\/em> o un café frío en <em>G&B Coffee<\/em> junto a la salida de Hill Street."]]], ["https://maps.google.com/?q=Bradbury+Building+Los+Angeles", [["The French Ironwork", "The intricate wrought-iron elevator cages and railings were fabricated in France and displayed at the 1893 Chicago World's Fair before being shipped to LA."]], [["Herrería de la Feria de Chicago", "Las rejas de hierro forjado y las jaulas de los elevadores fueron forjadas en Francia y exhibidas en la Feria Mundial de Chicago de 1893."]]], ["https://maps.google.com/?q=200+S+Broadway+Los+Angeles", [["The Sister Sculpture", "On the opposite side of this parking structure facing Spring Street, Tony Sheets sculpted a companion relief titled <em>The Evolution of Printing<\/em>."]], [["La Escultura Gemela", "Del otro lado de este estacionamiento sobre Spring Street, Tony Sheets esculpió el relieve complementario <em>La Evolución de la Imprenta<\/em>."]]], ["https://maps.google.com/?q=Los+Angeles+City+Hall", [["Free 27th-Floor Observation Deck", "The 27th-floor Tom Bradley Room is open free to the public on weekdays, offering 360° panoramic views across the entire Los Angeles basin to the ocean."]], [["Mirador Gratuito Piso 27", "El piso 27 (Sala Tom Bradley) abre gratis entre semana ofreciendo vistas panorámicas de 360° de toda la metrópoli hasta el océano Pacífico."]]], ["https://maps.google.com/?q=Hall+of+Justice+Los+Angeles", [["The 1994 Earthquake Retrofit", "The heavy top-floor jail cells made the building twist during the 1994 Northridge quake; it was red-tagged for 20 years before a $231M seismic retrofit reopened it as sheriff/DA headquarters."]], [["El Terremoto de 1994", "El peso de las celdas superiores hizo torcer el edificio en el sismo de 1994; estuvo abandonado 20 años hasta una restauración antisísmica de $231 millones."]]], ["https://maps.google.com/?q=Olvera+Street+Los+Angeles", [["Legendary Avocado Taquitos", "Grab crispy fried beef taquitos drenched in green avocado sauce at <em>Cielito Lindo<\/em> (operating at the top of Olvera Street since 1934)."], ["Historic Union Station", "Walk across Alameda Street to explore the grand 1939 Mission Revival and Art Deco architecture of <strong>Union Station<\/strong> and connect directly to the Metro A, B, or D lines."]], [["Taquitos con Aguacate de Cielito Lindo", "Prueba los famosos taquitos dorados con salsa verde de aguacate en <em>Cielito Lindo<\/em> (abierto desde 1934 al final del callejón)."], ["Estación Unión (Union Station)", "Cruza Alameda Street para admirar la hermosa arquitectura de 1939 de <strong>Union Station<\/strong> y conectar directamente con el Metro."]]]];
   // postcard look per stop: paper tint, edge color 1, edge color 2, text accent
-  var PAL=[["#E8EEF9", "#2B4F9E", "#E8A33D", "#2B4F9E"], ["#FBE9E4", "#C2352A", "#2A8C8C", "#B02A20"], ["#E1F1F8", "#2890B6", "#F08A3C", "#1B6F8E"], ["#FFEBD6", "#E2662A", "#1B8A8F", "#B84A14"], ["#DDF1EF", "#1B8A8F", "#E2A13A", "#146B6F"], ["#FFF1C9", "#E89B00", "#7A3FA0", "#8A5A00"], ["#E3F3E4", "#2E9E57", "#E8412F", "#1F7A41"], ["#F9E3EE", "#B8326E", "#3B6FB6", "#9A2658"], ["#EFE5F7", "#7A3FA0", "#2E9E57", "#6A3390"]];
+  var PAL=[["#E8EEF4", "#8794A3", "#2F7FC9", "#2A5E92"], ["#EEF0EE", "#2B2B2B", "#B7BEC4", "#2B2B2B"], ["#FFF2E3", "#E8672A", "#2A2A28", "#B8480F"], ["#FFF1DC", "#D8362A", "#F0B323", "#B0261C"], ["#F3E1CC", "#C96A2B", "#8E3B26", "#8E3B26"], ["#E3EAF1", "#4F86BD", "#8B9096", "#35597F"], ["#F6DCC4", "#E8782E", "#FFFFFF", "#B85410"], ["#EDE8DC", "#9C8B6E", "#1F3A5F", "#1F3A5F"], ["#FFF1DE", "#D6336C", "#1BA5A0", "#B02558"]];
   // default photo per stop
-  var PH=["https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cb5f3e5720d0c56cc46_place-disney-hall-01.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a57763e80ce77c7b7f9_place-the-broad-01.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cb3add8991e783fc5d8_guest-angels-flight-02.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad9a9756669a1ba934f62af_WhatsApp%20Image%202026-10-21%20at%2011.12.36%20PM.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad929ff382eda62d72912d0_place-bradbury-building-02.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cb571259b0be160b001_guest-la-07.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92fccefa7590f943fa69d_guest-city-hall-and-grand-park-01.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ada9a382938eba77644cf07_hall%20of%20justice.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a443eeaaffdbe37b476_guest-olvera-street-and-avila-adobe-14.webp"];
+  var PH=["https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a0d4c5d80802552eafc_place-disney-hall-02.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a57763e80ce77c7b7f9_place-the-broad-01.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad929f3c0b148baa5f114ec_place-angels-flight-01.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad9a9756669a1ba934f62af_WhatsApp%20Image%202026-10-21%20at%2011.12.36%20PM.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad929ff1c74efa5d6a36134_place-bradbury-building-01.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cb571259b0be160b001_guest-la-07.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a060bb99231ec0db030_place-city-hall-and-grand-park-02.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ada9a382938eba77644cf07_hall%20of%20justice.webp", "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03.webp"];
+  var VW=[[1, 0.5, 0.4], [1, 0.5, 0.5], [1, 0.5, 0.25], [1.18, 0.5, 0.3], [1, 0.5, 0], [2, 0.64, 0.11], [1, 0.5, 0.2], [1.18, 0.5, 0.28], [1, 0.15, 0.5]];
   var ERN='https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf15f429ade21cc6f5_Circle%20Full.webp';
   var root=document.getElementById('fp');if(es)root.classList.add('is-es');
   function rd(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
@@ -294,8 +316,8 @@
     var s=el.clientWidth,iw=photo.naturalWidth,ih=photo.naturalHeight,r=Math.max(s/iw,s/ih)*z,w=iw*r,h=ih*r;
     el.style.backgroundSize=w+'px '+h+'px';el.style.backgroundPosition=((s-w)*px)+'px '+((s-h)*py)+'px';
   }
-  function setPhoto(im,src,ok,isCustom){
-    photo=im;photoOk=ok;custom=isCustom;z=1;px=.5;py=.5;$('fp-zoom').value=1;$('fp-zoom').disabled=!im;
+  function setPhoto(im,src,ok,isCustom,v){
+    v=v||[1,.5,.5];photo=im;photoOk=ok;custom=isCustom;z=v[0];px=v[1];py=v[2];$('fp-zoom').value=z;$('fp-zoom').disabled=!im;
     $('fp-pv-ph').style.backgroundImage=im?'url("'+src+'")':'none';$('fp-pv-empty').textContent=im?'':T.up;
     $('fp-dflt').hidden=!isCustom;lay();fit();
   }
@@ -304,7 +326,7 @@
     loadImg(src,true).then(function(im){
       if(im)return [im,true];
       return loadImg(src,false).then(function(i2){return [i2,false]}); // shows on screen, left off the image if the CDN blocks canvas use
-    }).then(function(r){if(my!==tok)return;setPhoto(r[0],src,r[1],false)});
+    }).then(function(r){if(my!==tok)return;setPhoto(r[0],src,r[1],false,VW[i])});
   }
   $('fp-zoom').addEventListener('input',function(){z=+this.value;lay()});
   $('fp-pol').onclick=function(e){if(!photo)$('fp-pc-file').click()};
@@ -390,7 +412,7 @@
   $('fp-kick').textContent=T.kick;$('fp-of').textContent=T.of;$('fp-save').textContent=T.save;
   $('fp-go').textContent=T.go;
   $('fp-pc-back').textContent=T.back;$('fp-pv-empty').textContent=T.up;$('fp-l-from').textContent=T.from+':';$('fp-l-to').textContent=T.to+':';$('fp-and').textContent=T.and;
-  $('fp-chg').textContent=T.chg;$('fp-zl').textContent=T.zl;$('fp-dflt').textContent=T.dflt;$('fp-phint').textContent=T.hint;$('fp-pc-send').textContent=T.send;$('fp-pc-save').textContent=T.pcsave;$('fp-pc-priv').textContent=T.priv;
+  $('fp-pctl-h').textContent=T.pht;$('fp-chg').textContent=T.chg;$('fp-zl').textContent=T.zl;$('fp-dflt').textContent=T.dflt;$('fp-phint').textContent=T.hint;$('fp-pc-send').textContent=T.send;$('fp-pc-save').textContent=T.pcsave;$('fp-pc-priv').textContent=T.priv;
   $('fp-rv-h').textContent=T.rvh;$('fp-rv-p').textContent=T.rvp;$('fp-rv-n').textContent=T.rvn;
   var rv=$('fp-rv');rv.textContent=T.rv;rv.href=REVIEW_URL||'https://www.google.com/search?q=MarlonWalksLA+reviews';
   $('fp-route-h').textContent=T.route;
