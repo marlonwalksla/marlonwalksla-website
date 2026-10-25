@@ -38,6 +38,11 @@ def icon(name, ink):
     if name == "wdch": return _inner(SIL.wdch(ink)), (440, 210, "46 20 440 210", 138)
     if name == "bradbury": return _inner(SIL.bradbury(ink)), (300, 220, "110 6 300 220", 112)
     if name == "skyline": return _inner(SIL.skyline(ink)), (440, 200, "400 0 440 200")
+    if name == "angels": return _inner(SIL.angels_flight(ink)), (520, 220, "96 8 348 198", 138)
+    if name == "city_tower": return _inner(SIL.city_tower(ink)), (520, 220, "0 0 520 220", 112)
+    if name == "broad": return _inner(SIL.broad(ink)), (520, 220, "110 60 300 152", 130)
+    if name == "mural": return _inner(SIL.mural(ink)), (520, 220, "130 14 260 198", 112)
+    if name == "justice": return _inner(SIL.justice(ink)), (520, 232, "120 0 280 220", 112)
     raise ValueError(name)
 
 
