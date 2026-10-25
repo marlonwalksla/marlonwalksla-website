@@ -1,0 +1,137 @@
+<!-- Free tour passport (Downtown Classic). Self-contained embed: no account, saved in this browser only.
+     URLs: ?mode=start (QR 1, welcome)  ?mode=end (QR 2, auto-stamps + thank you)  ?lang=es (Spanish; /es paths too)
+     Stamps with a pin slug share the map's visited list (localStorage marlon_visited_spots);
+     stamps without a pin use marlon_stamps. Data mirrors passport-collections.json (downtown-classic). -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Lilita+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+#fp{--peach:#FFEDE2;--sage:#DFE8C0;--olive:#30312B;--cream:#FDFCDF;--ink:#7A2A6A;--muted:#4A4B43;max-width:560px;margin:0 auto;padding:0 16px 40px;color:var(--olive);font-family:'Nunito',system-ui,sans-serif;font-size:16px;line-height:1.5;box-sizing:border-box}
+#fp *{box-sizing:border-box}
+#fp h1,#fp h2{font-family:'Lilita One',sans-serif;font-weight:400;margin:0;line-height:1.05}
+#fp h1{font-size:40px}#fp h2{font-size:28px;margin-bottom:10px}
+#fp .fr{font-family:'Fredoka',sans-serif}
+#fp .hero{background:var(--sage);border-radius:20px;padding:24px 16px;text-align:center;margin-top:16px}
+#fp .hero p{margin:8px 0 0;font-family:'Fredoka',sans-serif;font-size:18px;color:var(--muted);line-height:1.3}
+#fp .card{background:var(--cream);border:3px solid var(--olive);border-radius:20px;padding:16px 8px;margin-top:20px}
+#fp .count{font-family:'Lilita One',sans-serif;font-size:24px;text-align:center;margin-bottom:10px}
+#fp .grid{display:flex;flex-wrap:wrap;gap:12px 0}
+#fp .st{flex:0 0 33.33%;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;padding:4px;cursor:pointer;color:inherit;font:inherit;min-height:44px}
+#fp .st:focus-visible,#fp a:focus-visible,#fp button:focus-visible{outline:3px solid var(--olive);outline-offset:2px}
+#fp .dot{width:64px;height:64px;border-radius:50%;border:4px dashed #6B6B63;color:#6B6B63;display:flex;align-items:center;justify-content:center;font-family:'Lilita One',sans-serif;font-size:20px;transition:transform .25s}
+#fp .st.on .dot{border:4px solid var(--ink);color:var(--ink);background:var(--peach);transform:rotate(var(--r,-4deg)) scale(1.04)}
+#fp .lb{font-family:'Fredoka',sans-serif;font-weight:500;font-size:14px;line-height:1.1;text-align:center}
+#fp .btn{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px;border-radius:999px;text-decoration:none;text-align:center;font-family:'Lilita One',sans-serif;font-size:22px;border:2px solid var(--olive);cursor:pointer;margin-top:12px;width:100%}
+#fp .btn.main{background:var(--olive);color:var(--peach)}
+#fp .btn.yel{background:#FFDD55;color:var(--olive)}
+#fp .btn.line{background:none;color:var(--olive);font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px}
+#fp .note{font-family:'Fredoka',sans-serif;font-size:14px;color:var(--muted);text-align:center;margin:8px 0 0}
+#fp .dark{background:var(--olive);color:var(--peach);border-radius:20px;padding:20px;margin-top:20px}
+#fp .dark p{margin:0 0 4px;font-family:'Fredoka',sans-serif;line-height:1.35}
+#fp .route{margin-top:20px}
+#fp .route div{display:flex;align-items:center;gap:14px;min-height:52px;border-top:2px solid var(--olive);font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px}
+#fp .route div:last-child{border-bottom:2px solid var(--olive)}
+#fp .route b{flex:0 0 32px;height:32px;border-radius:50%;background:var(--olive);color:var(--peach);display:flex;align-items:center;justify-content:center;font-family:'Lilita One',sans-serif;font-weight:400;font-size:16px}
+#fp [hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){#fp .dot{transition:none}}
+</style>
+<div id="fp" aria-live="polite">
+  <div class="hero">
+    <h1 id="fp-h"></h1>
+    <p id="fp-sub"></p>
+  </div>
+  <div class="card">
+    <div class="count" id="fp-count"></div>
+    <div class="grid" id="fp-grid"></div>
+    <p class="note" id="fp-save"></p>
+  </div>
+  <div id="fp-start" hidden>
+    <a class="btn main" id="fp-go" href="#fp-route"></a>
+  </div>
+  <div id="fp-end" hidden>
+    <div class="dark">
+      <h2 id="fp-rv-h" style="color:var(--peach)"></h2>
+      <p id="fp-rv-p"></p>
+      <a class="btn yel" id="fp-rv" target="_blank" rel="noopener"></a>
+      <p class="note" id="fp-rv-n" style="color:var(--peach);opacity:.9"></p>
+    </div>
+  </div>
+  <div class="route" id="fp-route"><h2 id="fp-route-h"></h2></div>
+  <a class="btn line" id="fp-map" href="/maps"></a>
+  <a class="btn line" id="fp-ig" href="https://www.instagram.com/marlonwalksla/" target="_blank" rel="noopener"></a>
+  <a class="btn line" id="fp-wa" href="https://wa.me/12692670410" target="_blank" rel="noopener"></a>
+  <button class="btn line" id="fp-reset" type="button" style="border-color:transparent;font-size:14px;min-height:44px"></button>
+</div>
+<script>
+(function(){
+  // TODO Marlon: paste your Google review link here (Google Business Profile > Ask for reviews). Fallback is a search for your reviews.
+  var REVIEW_URL='';
+  var P=new URLSearchParams(location.search);
+  var es=P.get('lang')==='es'||/^\/es(\/|$)/.test(location.pathname);
+  var mode=P.get('mode');
+  var T=es?{
+    h:{start:'Bienvenidos. Vamos a explorar el centro.',end:'9 sellos. Lo lograste.',def:'Tu pasaporte Clásico del Centro'},
+    sub:{start:'Toca cada sello cuando llegues a cada parada.',end:'El Clásico del Centro está completo.',def:'9 sellos para ganar caminando.'},
+    count:function(n){return n+' de 9 sellos'},save:'Guardado en este teléfono. Sin cuenta.',
+    go:'Ver la ruta de hoy',rvh:'¿Qué tal la caminata?',rvp:'Una reseña honesta ayuda a otros viajeros a encontrar un tour como este.',rv:'Dejar una reseña en Google',rvn:'Toma unos 30 segundos. Necesitas iniciar sesión en Google.',
+    route:'Ruta de hoy',map:'Abrir el mapa de LA',ig:'Sigue a @marlonwalksla',wa:'Escribe a Marlon por WhatsApp',reset:'Borrar mis sellos del pasaporte',
+    confirm:'¿Borrar todos los sellos de este pasaporte?'
+  }:{
+    h:{start:"Welcome. Let's explore downtown.",end:'9 stamps. You did it.',def:'Your Downtown Classic passport'},
+    sub:{start:'Tap each stamp when you reach each stop.',end:'Downtown Classic is complete.',def:'9 stamps to earn on foot.'},
+    count:function(n){return n+' of 9 stamps'},save:'Saved on this phone. No account.',
+    go:"See today's route",rvh:'How was the walk?',rvp:'However it went, an honest review helps other travelers find a walk like this.',rv:'Leave a Google review',rvn:'Takes about 30 seconds. You need to be signed in to Google.',
+    route:"Today's route",map:'Open the LA map',ig:'Follow @marlonwalksla',wa:'Message Marlon on WhatsApp',reset:'Clear my passport stamps',
+    confirm:'Clear all stamps on this passport?'
+  };
+  // id, abbr, EN label, ES label, pin slug (or null = own list)
+  var S=[
+    ['walt-disney-concert-hall','WD','Disney Hall','Sala Disney','walt-disney-concert-hall'],
+    ['the-broad','TB','The Broad','The Broad','the-broad'],
+    ['angels-flight','AF','Angels Flight','Angels Flight','angels-flight-railway'],
+    ['grand-central-market','GC','Grand Central','Grand Central','grand-central-market'],
+    ['bradbury-building','BB','Bradbury','Bradbury','bradbury-building'],
+    ['evolution-of-la-mural','EM','LA mural','Mural de LA',null],
+    ['la-city-hall','CH','City Hall','Ayuntamiento','la-city-hall'],
+    ['hall-of-justice','HJ','Hall of Justice','Palacio de Justicia',null],
+    ['olvera-street','OS','Olvera Street','Calle Olvera','olvera-street-and-el-pueblo']
+  ];
+  var FULL=es?['Sala de Conciertos Walt Disney','The Broad','Angels Flight','Mercado Grand Central','Edificio Bradbury','Mural Evolución de LA','Ayuntamiento de LA','Palacio de Justicia','Calle Olvera y El Pueblo']
+             :['Walt Disney Concert Hall','The Broad','Angels Flight','Grand Central Market','Bradbury Building','Evolution of LA mural','LA City Hall','Hall of Justice','Olvera Street and El Pueblo'];
+  function rd(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
+  function wr(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  function has(s){return s[4]?rd('marlon_visited_spots').indexOf(s[4])>-1:rd('marlon_stamps').indexOf(s[0])>-1}
+  function set(s,on){
+    var k=s[4]?'marlon_visited_spots':'marlon_stamps',id=s[4]||s[0],a=rd(k),i=a.indexOf(id);
+    if(on&&i<0)a.push(id);if(!on&&i>-1)a.splice(i,1);wr(k,a);
+  }
+  var $=function(i){return document.getElementById(i)};
+  function done(){return S.filter(has).length}
+  function render(){
+    var n=done(),m=mode==='start'||mode==='end'?mode:'def';
+    $('fp-h').textContent=T.h[m]; $('fp-sub').textContent=(m==='def'&&n===9)?T.sub.end:T.sub[m];
+    $('fp-count').textContent=T.count(n);
+    var g=$('fp-grid');g.innerHTML='';
+    S.forEach(function(s,i){
+      var b=document.createElement('button');b.type='button';b.className='st'+(has(s)?' on':'');
+      b.style.setProperty('--r',(((i*7)%15)-7)+'deg');
+      b.setAttribute('aria-pressed',has(s)?'true':'false');
+      b.setAttribute('aria-label',FULL[i]);
+      b.innerHTML='<span class="dot" aria-hidden="true">'+s[1]+'</span><span class="lb">'+(es?s[3]:s[2])+'</span>';
+      b.onclick=function(){set(s,!has(s));render()};
+      g.appendChild(b);
+    });
+  }
+  $('fp-save').textContent=T.save;
+  $('fp-go').textContent=T.go;
+  $('fp-rv-h').textContent=T.rvh;$('fp-rv-p').textContent=T.rvp;$('fp-rv-n').textContent=T.rvn;
+  var rv=$('fp-rv');rv.textContent=T.rv;rv.href=REVIEW_URL||'https://www.google.com/search?q=MarlonWalksLA+reviews';
+  $('fp-route-h').textContent=T.route;
+  FULL.forEach(function(name,i){var d=document.createElement('div');d.innerHTML='<b>'+(i+1)+'</b><span>'+name+'</span>';$('fp-route').appendChild(d)});
+  $('fp-map').textContent=T.map;$('fp-map').href=es?'/maps?lang=es':'/maps';
+  $('fp-ig').textContent=T.ig;$('fp-wa').textContent=T.wa;
+  $('fp-reset').textContent=T.reset;
+  $('fp-reset').onclick=function(){if(confirm(T.confirm)){S.forEach(function(s){set(s,false)});render()}};
+  $('fp-start').hidden=mode!=='start';$('fp-end').hidden=mode!=='end';
+  if(mode==='end')S.forEach(function(s){set(s,true)}); // QR 2: everyone who finished the walk gets all 9
+  render();
+})();
+</script>
