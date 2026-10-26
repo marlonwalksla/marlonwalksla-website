@@ -195,7 +195,7 @@ SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/b
   <section class="tp-section">
     <div class="tp-wrap">
       <h2 class="tp-h2">Or build your own: more of you, less each</h2>
-      <p class="tp-sub">The rate starts at $60 per person per hour. Every extra person gets a better rate, and so does every extra 2 hours. Hotel pickup and drop-off, driving and instant photos are included.</p>
+      <p class="tp-sub">$20 to $40 per person, per hour. Bigger groups and longer tours cost less per person. Hotel pickup and drop-off, driving and instant photos are included.</p>
       <div class="tp-grid-3 tp-price-row">
         <div class="tp-card tp-center"><h3 class="tp-h3">Half day &middot; about 4 hours</h3><p><s>$60 each per hour</s></p>
           <p><span class="price">${int(PRICES["2"][1] / 2 + 0.5)}</span> each for 2 &middot; ${PRICES["2"][1]} total</p>
