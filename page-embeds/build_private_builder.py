@@ -89,8 +89,9 @@ SECTION = f'''  <!-- ===== Build your day (Oct 17, 2026). Built by page-embeds/b
     <script type="application/json" id="pb-data">{json.dumps(data, separators=(",", ":"))}</script>
     <style>
       .pb {{ display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px; align-items: start; margin-top: 18px; }}
-      .pb-pick {{ display: inline-flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 14px; }}
-      .pb-pick select {{ font: inherit; font-weight: 600; padding: 8px 12px; border: 2px solid #27302E; border-radius: 10px; background: #fff; }}
+      .pb-left {{ min-width: 0; }}
+      .pb-pick {{ display: inline-flex; flex-wrap: wrap; max-width: 100%; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 14px; }}
+      .pb-pick select {{ max-width: 100%; min-width: 0; font: inherit; font-weight: 600; padding: 8px 12px; border: 2px solid #27302E; border-radius: 10px; background: #fff; }}
       .pb-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }}
       .pb-card {{ position: relative; display: flex; flex-direction: column; gap: 3px; padding: 12px 14px 12px; background: #FFFDF8; border: 1.5px solid #E4DCCB; border-top: 6px solid var(--c); border-radius: 6px; cursor: pointer; box-shadow: 0 6px 14px -10px rgba(39, 48, 46, 0.5); transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; }}
       .pb-card:hover {{ transform: translateY(-2px); }}
