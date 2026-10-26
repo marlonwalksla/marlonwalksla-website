@@ -106,9 +106,15 @@
     var esPages = ['/es', '/free-tour-los-angeles-espanol', '/ernesto-es', '/salidas-de-equipo-los-angeles', '/tours-privados-los-angeles', '/mapa-los-angeles', '/historia-de-los-angeles'];
     var isEs = esPages.indexOf(path) > -1;
     var enHref = '/', esHref = '/es';
+    // Blog stories: /blog/<slug> (English) and /historias/<slug> (Spanish)
+    var STORIES = { 'walt-disney-concert-hall': 'walt-disney-concert-hall', 'the-broad': 'the-broad', 'angels-flight': 'angels-flight', 'city-hall': 'city-hall', 'olvera-street': 'calle-olvera' };
+    var bm = path.match(/^\/blog\/([^\/]+)$/), hm = path.match(/^\/historias\/([^\/]+)$/), storyEn = null, storyEs = null;
+    if (bm && STORIES[bm[1]]) { storyEn = path; storyEs = '/historias/' + STORIES[bm[1]]; }
+    if (hm) { for (var k in STORIES) { if (STORIES[k] === hm[1]) { storyEn = '/blog/' + k; storyEs = path; } } if (storyEs) isEs = true; }
     for (var i = 0; i < pairs.length; i++) {
       if (path === pairs[i][0] || path === pairs[i][1]) { enHref = pairs[i][0]; esHref = pairs[i][1]; }
     }
+    if (storyEn) { enHref = storyEn; esHref = storyEs; }
     var en = document.getElementById('mwhd-en'), es = document.getElementById('mwhd-es');
     var home = document.getElementById('mwhd-home');
     if (en) { en.href = enHref; if (!isEs) en.setAttribute('aria-current', 'true'); }
