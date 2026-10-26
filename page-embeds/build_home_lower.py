@@ -3,7 +3,7 @@ import paper
 #   home-meet(.es).html  = "Meet Your Local Guide" banner (between Private and Free tour)
 #   home-faq(.es).html   = "Good to Know" accordion (below the Free tour)
 # Marlon's photo is a placeholder until he sends one: set MARLON_PHOTO to its URL and rebuild.
-MARLON_PHOTO = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92ff02cbe8250c0b64f0d_bts-hollywood-sign-02.webp"  # e.g. "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/<file>.webp"
+MARLON_PHOTO = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92ff02cbe8250c0b64f0d_bts-hollywood-sign-02.avif"  # e.g. "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/<file>.webp"
 WA = "https://wa.me/12692670410"
 IG = "https://www.instagram.com/marlonwalksla/"  # Oct 19, 2026: only Instagram and WhatsApp are confirmed; add TikTok, YouTube etc. to SOCIALS when Marlon gives the links
 

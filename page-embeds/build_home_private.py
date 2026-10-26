@@ -8,6 +8,9 @@
 import json
 import stamps
 
+# Oct 26, 2026: these Webflow assets were compressed to AVIF (same name, .avif). Builders must link .avif for them.
+_AVIF = set(['6a5138c2a894bfc036a1417c', '6ac74a8b6dc6526aa1e35947', '6ad929b39a56d0d15964851d', '6ad929bf12667b254315c683', '6ad929db59b1d5ccebe76dc4', '6ad929dbc3398f1383c28856', '6ad929e61c74efa5d6a35519', '6ad929e6fd77e7c927620ea9', '6ad929ec3eeaaffdbe379a12', '6ad929ec9a56d0d159649ffd', '6ad929f3c0b148baa5f114ec', '6ad929f90bb99231ec0dacf2', '6ad929ff1c74efa5d6a36134', '6ad929ff382eda62d72912d0', '6ad929ffc027d0e6e95a8a41', '6ad92a060bb99231ec0db030', '6ad92a15bb9f2b81fb009b26', '6ad92a15fd77e7c927622751', '6ad92a443eeaaffdbe37b476', '6ad92a45a6c79d9f41578212', '6ad92c5db637fc8c5f9e0570', '6ad92ca74c83370c9cab47c3', '6ad92caa8bbf326c91e4750f', '6ad92cab137bdbc510c769a6', '6ad92cb38aa41f8f19cfc336', '6ad92cb3add8991e783fc5d8', '6ad92cb5d1848d20e07d8ea2', '6ad92fbdcc8517d84355a504', '6ad92fc1763e80ce77ca4c78', '6ad92fc8bdb0490f2eabadee', '6ad92fccefa7590f943fa69d', '6ad92fd00bb99231ec104ab0', '6ad92fe30bed1f1ae6022809', '6ad92ff02cbe8250c0b64f0d', '6ad92ff02cbe8250c0b65033', '6ad92ff6b2db7b6c094918fa', '6ad93001aaac111f9e725c08', '6ad930022cbe8250c0b65665'])
+
 C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 # Oct 19, 2026 pricing (Marlon): list $60 per person per hour. Group rates $40 / $30 / $25 per person per hour for 2 / 3 / 4 guests,
 # and each extra 2-hour block is about 7% cheaper (12 hours costs the same as 10). Totals are for the WHOLE group at 2, 4, 6, 8, 10, 12 hours.
@@ -213,7 +216,7 @@ LOCS = {
 
 
 def _ph(tid, i):
-    return [TRIP_IMG + f + ".webp|50% 50%|" + (en, es)[i] + "|" + k for f, k, en, es in PHOTOS[tid]]
+    return [TRIP_IMG + f + (".avif" if f.split("_")[0] in _AVIF else ".webp") + "|50% 50%|" + (en, es)[i] + "|" + k for f, k, en, es in PHOTOS[tid]]
 
 
 def _lc(tid, i):
