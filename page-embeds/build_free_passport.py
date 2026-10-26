@@ -34,10 +34,10 @@ PAL = [("#E8EEF4","#8794A3","#2F7FC9","#2A5E92"),   # Disney Hall: brushed steel
        ("#FFF1DE","#D6336C","#1BA5A0","#B02558")]   # Olvera: papel picado pink, turquoise
 # default postcard photo per stop, same order as STOPS (photo-only digital shots from the Free tour pages)
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-PHOTOS = ["6ad92a0d4c5d80802552eafc_place-disney-hall-02.webp","6adf932d9543169e00f4e0ef_8b35da2d8c93c2a149526206a4e635dc_the-broad-01.webp","6ad929f3c0b148baa5f114ec_place-angels-flight-01.webp",
-          "6ad9a9756669a1ba934f62af_WhatsApp%20Image%202026-10-21%20at%2011.12.36%20PM.webp","6ad929ff1c74efa5d6a36134_place-bradbury-building-01.webp",
-          "6ad92cb571259b0be160b001_guest-la-07.webp","6ad92a060bb99231ec0db030_place-city-hall-and-grand-park-02.webp",
-          "6ada9a382938eba77644cf07_hall%20of%20justice.webp","6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03.webp"]
+PHOTOS = ["6ad92a0d4c5d80802552eafc_place-disney-hall-02.webp","6adf932d9543169e00f4e0ef_8b35da2d8c93c2a149526206a4e635dc_the-broad-01.webp","6ad929f3c0b148baa5f114ec_place-angels-flight-01.avif",
+          "6ad9a9756669a1ba934f62af_WhatsApp%20Image%202026-10-21%20at%2011.12.36%20PM.webp","6ad929ff1c74efa5d6a36134_place-bradbury-building-01.avif",
+          "6ad92cb571259b0be160b001_guest-la-07.webp","6ad92a060bb99231ec0db030_place-city-hall-and-grand-park-02.avif",
+          "6ada9a382938eba77644cf07_hall%20of%20justice.webp","6ad93001aaac111f9e725c08_place-olvera-street-and-avila-adobe-03.avif"]
 # crop per default photo: [zoom, x, y]. Scans with a baked Instax/Polaroid border or people in a corner are cropped in.
 VIEWS = [[1,.5,.4],[1,.5,.5],[1,.5,.25],[1.18,.5,.3],[1,.5,0],[2,.64,.11],[1,.5,.2],[1.18,.5,.28],[1,.15,.5]]
 # One bonus ("level 2") per stop, Oct 25 2026 (Marlon): "do activity A at location 1". None = no bonus (murals and Hall of Justice have nothing more to do).
