@@ -32,7 +32,8 @@
     var box = document.getElementById("tcal-inline"); box.innerHTML = "";
     Cal("init", "group-tours", { origin: "https://app.cal.com" });
     var celeb = (new URLSearchParams(location.search).get("celebrating") || "").toLowerCase(), celebNames = { "birthday": "a birthday", "milestone": "a milestone", "retirement": "a retirement", "offsite": "a company offsite", "just-because": "just because" };
-    var calCfg = { layout: "month_view", theme: "light" }; if (celebNames[celeb]) calCfg.notes = "We are celebrating " + celebNames[celeb] + ".";
+    var celebEs = { "birthday": "un cumplea\u00f1os", "milestone": "un logro importante", "retirement": "una jubilaci\u00f3n", "offsite": "un retiro de la empresa", "just-because": "porque s\u00ed" };
+    var calCfg = { layout: "month_view", theme: "light" }; if (celebNames[celeb]) calCfg.notes = es ? "Estamos celebrando " + celebEs[celeb] + "." : "We are celebrating " + celebNames[celeb] + ".";
     Cal.ns["group-tours"]("inline", { elementOrSelector: "#tcal-inline", config: calCfg, calLink: "marlonwalksla/group-tours" });
     Cal.ns["group-tours"]("ui", { theme: "light", hideEventTypeDetails: true, layout: "month_view" }); // Oct 16, 2026: no title/length/location/time zone panel, the page already says it
   }
