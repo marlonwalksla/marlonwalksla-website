@@ -54,16 +54,16 @@ T = {
 # Oct 17, 2026 (Marlon's sketch): one framed Polaroid that rotates Team, Free, Private. Caption, headline line and the ONE button change with it.
 SLIDES = {
  "en": [
-  dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="/team-building-walking-tour-los-angeles",
-       line="Team building in Downtown LA. Walk. Eat. Celebrate. Everyone takes home a photo!", alt="Kara's birthday group at the Grand Central Market sign"),
+  dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="/team-outings-los-angeles",
+       line="Team outings in Downtown LA. Walk. Eat. Celebrate. Everyone takes home a photo!", alt="Kara's birthday group at the Grand Central Market sign"),
   dict(tab="Private", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="/private-tours",
        line="Private tours of Los Angeles. Pick your stops and we'll handle the rest!", alt="Private tour guests with their Polaroid"),
   dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="/free-walking-tour-los-angeles",
        line="Free walking tour of Downtown LA, in English and Spanish. Tip-based.", alt="Free tour guests posing together at the Avila Adobe garden"),
  ],
  "es": [
-  dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="/team-building-walking-tour-los-angeles",
-       line="Team building en el centro de LA. Camina. Come. Celebra. &iexcl;Todos se llevan una foto!", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
+  dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="/team-outings-los-angeles",
+       line="Salidas de equipo en el centro de LA. Camina. Come. Celebra. &iexcl;Todos se llevan una foto!", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
   dict(tab="Privado", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="/private-tours",
        line="Tours privados por Los &Aacute;ngeles. Elige tus paradas y nosotros nos encargamos del resto.", alt="Invitados de un tour privado con su Polaroid"),
   dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="/free-tour-los-angeles-espanol",
