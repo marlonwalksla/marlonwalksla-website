@@ -271,6 +271,51 @@ def angels_flight(color="#2890B6", opacity=1):
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
 
 
+def broad(color="#C2352A", opacity=1):
+    """The Broad (2015): a boxy museum wrapped in a honeycomb veil, with the angled opening cut into one corner. Original drawing."""
+    b = 206
+    holes = ""
+    for r in range(7):
+        for c in range(12):
+            cx = 148 + c * 20 + (10 if r % 2 else 0); cy = b - 118 + r * 16
+            if cx > 372: continue
+            holes += f" M{cx} {cy-6} l7 6 l-7 6 l-7 -6 Z"
+    d = f'<path fill-rule="evenodd" d="M130 {b} V{b-136} H390 V{b} Z{holes}"/>'
+    d += f'<path fill="#fff" d="M130 {b} V{b-60} L196 {b-30} V{b} Z"/><path d="M130 {b-60} L196 {b-30} L196 {b-40} L130 {b-72} Z"/>'
+    d += '<rect x="110" y="206" width="300" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def mural(color="#E89B00", opacity=1):
+    """The Evolution of Los Angeles relief: a tall concrete panel carved with an oil derrick, an orange tree, aqueduct arches and waves. Original drawing."""
+    b = 206
+    cut = ""
+    cut += f" M170 {b-120} l22 -50 l22 50 l-10 0 l-12 -28 l-12 28 Z M180 {b-120} h24 v6 h-24 Z"  # derrick
+    cut += f" M262 {b-150} a22 22 0 1 0 0.1 0 Z"  # sun / orange
+    cut += f" M238 {b-70} h8 v-26 h8 v26 h8 v-26 h8 v26 h8 v-26 h8 v26 h8 v8 h-96 Z"  # tree trunks and rail line
+    for i in range(4):
+        cut += f" M{176+i*46} {b-24} v-22 a12 12 0 0 1 24 0 v22 Z"  # aqueduct arches
+    cut += f" M170 {b-6} q16 -10 32 0 t32 0 t32 0 t32 0 t32 0 v4 q-16 -8 -32 0 t-32 0 t-32 0 t-32 0 t-32 0 Z"
+    d = f'<path fill-rule="evenodd" d="M150 {b+2} V{b-186} H370 V{b+2} Z{cut}"/>'
+    d += '<rect x="130" y="206" width="260" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
+def justice(color="#B8326E", opacity=1):
+    """Hall of Justice (1925): a tall courthouse with a row of columns, a heavy entablature and a stepped tower. Original drawing."""
+    b = 206
+    d = f'<rect x="150" y="{b-40}" width="220" height="40"/>'  # base
+    for i in range(7):
+        d += f'<rect x="{164+i*30}" y="{b-110}" width="12" height="{70}"/>'  # columns
+    d += f'<rect x="150" y="{b-124}" width="220" height="14"/><rect x="140" y="{b-134}" width="240" height="10"/>'  # entablature
+    d += f'<rect x="196" y="{b-166}" width="128" height="32"/><rect x="214" y="{b-190}" width="92" height="24"/>'  # upper blocks
+    d += f'<rect x="236" y="{b-204}" width="48" height="14"/><path d="M240 {b-204} L260 {b-224} L280 {b-204} Z"/>'
+    for i in range(3):
+        d += f'<rect x="{210+i*34}" y="{b-160}" width="14" height="20" fill="#fff"/>'
+    d += '<rect x="120" y="206" width="280" height="6"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 232" fill="{color}" opacity="{opacity}">{d}</svg>'
+
+
 if __name__ == "__main__":
     import sys
     out = sys.argv[1]

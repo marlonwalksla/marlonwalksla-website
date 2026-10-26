@@ -38,10 +38,15 @@ def icon(name, ink):
     if name == "wdch": return _inner(SIL.wdch(ink)), (440, 210, "46 20 440 210", 138)
     if name == "bradbury": return _inner(SIL.bradbury(ink)), (300, 220, "110 6 300 220", 112)
     if name == "skyline": return _inner(SIL.skyline(ink)), (440, 200, "400 0 440 200")
+    if name == "angels": return _inner(SIL.angels_flight(ink)), (520, 220, "96 8 348 198", 138)
+    if name == "city_tower": return _inner(SIL.city_tower(ink)), (520, 220, "0 0 520 220", 112)
+    if name == "broad": return _inner(SIL.broad(ink)), (520, 220, "110 60 300 152", 130)
+    if name == "mural": return _inner(SIL.mural(ink)), (520, 220, "130 14 260 198", 112)
+    if name == "justice": return _inner(SIL.justice(ink)), (520, 232, "120 0 280 220", 112)
     raise ValueError(name)
 
 
-def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra="", bold=False):
+def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra="", bold=False, cy_year=90.0):
     import html as _h
     n = len(_h.unescape(top)); tsz, tls = (13, 1.2) if n <= 21 else (11, 0.5)
     bn = len(_h.unescape(bottom)); bsz, bls = (12.5, 1.8) if bn <= 20 else (10.5, 0.8)
@@ -56,7 +61,7 @@ def stamp(uid, top, bottom, name, year, ink, rot=-8, seed=3, extra="", bold=Fals
     EA, EB = (68.0, 50.0) if year else (76.0, 60.0)  # free area is an ellipse: wide and short icons may run closer to the sides
     sc = 1.0 / (((bw / 2 / EA) ** 2 + (bh / 2 / EB) ** 2) ** 0.5)
     sc = min(sc, 140.0 / bw) * _SIZE.get(name, 1.0)
-    cy = 90.0 if year else 100.0
+    cy = cy_year if year else 100.0
     fx, fy = _CEN.get(name, (0.5, 0.5))
     while True:  # shift toward the ink's weight center, then shrink a little if a corner would leave the free area
         iw, ih = bw * sc, bh * sc
