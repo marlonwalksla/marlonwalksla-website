@@ -57,6 +57,8 @@
 .tp-polaroid img { width: 100%; height: 300px; object-fit: cover; display: block; border-radius: 3px; }
 .tp-polaroid .cap { font-size: 0.9rem; font-weight: 700; color: #334155; text-align: center; margin-top: 10px; }
 .tp-ernesto { position: absolute; width: 120px; right: -22px; top: -46px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12)); }
+/* Oct 26: between phone and wide desktop the -22px overhang pushed the page 2px sideways; pull him in a bit there. */
+@media (min-width: 641px) and (max-width: 1100px) { .tp-ernesto { right: -8px; } }
 
 /* ---------- Headings / text ---------- */
 .tp-h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; font-weight: 900; letter-spacing: -0.01em; margin: 0 0 10px; }

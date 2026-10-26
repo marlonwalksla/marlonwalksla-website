@@ -6,11 +6,13 @@
 // Oct 26, 2026: mark the live domain so tour-pages.css can hide draft marks there (test site keeps them).
 try { if (/^(www\.)?marlonwalksla\.com$/i.test(location.hostname)) document.documentElement.classList.add('mw-live'); } catch (e) {}
 
-// Oct 26, 2026: the Private page moved to /private-tours. Webflow's footer still links the old address, so fix it on every page
-// until the footer link is updated in the Designer.
+// Oct 26, 2026: the Private page is now /private-tour-los-angeles. Webflow's footer and the About page still link the older
+// addresses (/private-tours and /private-tours-los-angeles), so point them at the new one on every page.
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('a[href*="/private-tours-los-angeles"]').forEach((a) => {
-    a.setAttribute('href', a.getAttribute('href').replace('/private-tours-los-angeles', '/private-tours'));
+  document.querySelectorAll('a[href]').forEach((a) => {
+    const h = a.getAttribute('href');
+    const m = h.match(/^((?:https?:\/\/(?:www\.)?marlonwalksla\.com)?)\/private-tours(?:-los-angeles)?(\/?(?:[?#].*)?)$/i);
+    if (m) a.setAttribute('href', m[1] + '/private-tour-los-angeles' + m[2]);
   });
 });
 
