@@ -33,7 +33,7 @@ EAT = {"en": ("Lunch plans", [("own", "Everyone buys their own"), ("plan", "Marl
 T = {
  "en": dict(lang="en", title="Your team day", label="How many people?", est="estimated total", pp="per person",
    pp_pre="~$", save="saved", notes="", for5="for 5 hours", plus="+ lunch", capp="Marlon confirms the lunch price", v=["&#9201;&#65039; 5 hours", "&#128673; Angels Flight tix", "&#128248; Photo for everyone", "&#129517; Local guide"], vno=["&#127869;&#65039; Food"], addon="Add-on: we plan your group meal ahead of time. Ask Marlon.", big="Larger group? Contact me",
-   btn="Schedule Your Team", btn_note="", href="/team-building-walking-tour-los-angeles",
+   btn="Schedule Your Team", btn_note="", href="/team-outings-los-angeles",
    custom="Have a custom request?", mail="mailto:marlonwalksla@gmail.com?subject=Custom%20team%20outing%20request",
    wa="Message Marlon about your group",
    wa_href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2020",
@@ -41,7 +41,7 @@ T = {
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Tu d&iacute;a de equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
    pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="Marlon confirma el precio del almuerzo", v=["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Guía local"], vno=["&#127869;&#65039; Comida"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
-   btn="Agenda a tu equipo", btn_note="La página completa está en inglés.", href="/team-building-walking-tour-los-angeles",
+   btn="Agenda a tu equipo", btn_note="La página completa está en inglés.", href="/team-outings-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
    wa="Escríbele a Marlon sobre tu grupo",
    wa_href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2020",
