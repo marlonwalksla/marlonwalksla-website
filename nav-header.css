@@ -295,3 +295,13 @@
     font-size: 0.76rem !important;
   }
 }
+
+/* Story pages: let the CTA buttons wrap on phones (legacy .button-group rule above forces nowrap) */
+@media (max-width: 640px) {
+  .header .button-group,
+  .header.is-align-center .button-group {
+    flex-wrap: wrap !important;
+    white-space: normal !important;
+    max-width: 100% !important;
+  }
+}
