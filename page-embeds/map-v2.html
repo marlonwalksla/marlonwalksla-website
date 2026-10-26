@@ -56,7 +56,7 @@
 #pmx .pmx-pin{width:34px;height:34px;border-radius:50%;background:#fff;border:3px solid var(--ink);color:var(--ink);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
 #pmx .pmx-pin.on{background:var(--ink);color:#fff}
 #pmx .pmx-pin.sel{transform:scale(1.25)}
-#pmx .pmx-card{position:absolute;top:12px;left:12px;width:340px;max-height:calc(100% - 24px);overflow-y:auto;background:#fff;border:2.5px solid #27302E;border-radius:18px;box-shadow:5px 5px 0 #27302E;padding:16px 16px 14px;z-index:5}
+#pmx .pmx-card{grid-area:map;align-self:start;justify-self:start;margin:12px;position:relative;width:340px;max-height:calc(100vh - var(--top) - 24px);max-height:calc(100dvh - var(--top) - 24px);overflow-y:auto;background:#fff;border:2.5px solid #27302E;border-radius:18px;box-shadow:5px 5px 0 #27302E;padding:16px 16px 14px;z-index:5}
 #pmx .pmx-x{position:absolute;top:8px;right:10px;border:0;background:none;font-size:22px;line-height:1;cursor:pointer;color:#27302E}
 #pmx .pmx-type{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#fff;background:var(--c);border-radius:99px;padding:3px 10px}
 #pmx .pmx-card h3{font-family:"Lilita One",sans-serif;font-weight:400;font-size:1.45rem;line-height:1.15;margin:8px 0 2px;padding-right:20px}
@@ -74,18 +74,13 @@
 #pmx .pmx-b.quiet{border:0;padding:4px 0;text-decoration:underline !important;font-weight:600;background:none}
 #pmx .pmx-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;color:#475569}
 @media (max-width:899px){
-  #pmx .pmx-wrap{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"top" "map" "body";height:auto;min-height:0}
+  #pmx .pmx-wrap{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;grid-template-areas:"top" "map" "card" "body";height:auto;min-height:0}
   #pmx .pmx-top,#pmx .pmx-body{border-right:0}
   #pmx .pmx-top{padding:14px 14px 6px}
   #pmx .pmx-body{overflow:visible;padding:12px 14px 28px}
   #pmx .pmx-mapbox{height:60vh;height:60svh;min-height:340px;border-top:2.5px solid #27302E;border-bottom:2.5px solid #27302E}
-  #pmx .pmx-card{top:auto;bottom:8px;left:8px;right:8px;width:auto;max-height:68%;padding:12px 14px 10px;box-shadow:3px 3px 0 #27302E}
-  #pmx .pmx-card h3{font-size:1.2rem;margin:6px 0 0}
-  #pmx .pmx-card p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:.86rem;margin:6px 0 8px}
-  #pmx .pmx-stamp{padding:6px 8px;margin:2px 0 8px}
-  #pmx .pmx-seal{width:30px;height:30px;font-size:14px;border-width:2.5px}
-  #pmx .pmx-b.main{margin-bottom:6px;padding:8px 12px}
-  #pmx .pmx-b{padding:7px 12px;font-size:.84rem}
+  #pmx .pmx-card{grid-area:card;justify-self:stretch;width:auto;max-height:none;margin:12px 12px 0;padding:14px 14px 12px;box-shadow:3px 3px 0 #27302E}
+  #pmx .pmx-card h3{font-size:1.3rem}
   #pmx .pmx-tab{padding:6px 11px;font-size:.84rem}
   #pmx h1{font-size:1.4rem}
 }
@@ -101,8 +96,8 @@
     <div class="pmx-mapbox">
       <div id="pmx-map"></div>
       <div class="pmx-load" id="pmx-load">Loading the map...</div>
-      <div class="pmx-card" id="pmx-card" hidden></div>
     </div>
+    <div class="pmx-card" id="pmx-card" hidden></div>
     <div class="pmx-body">
       <div id="pmx-pp"></div>
       <div id="pmx-all" hidden>
@@ -368,7 +363,7 @@
     if (st && st.location) openCard({ key: key, name: L(st.label), cat: 'landmarks', city: st.location.address || '', desc: '', coords: st.location.coordinates });
   }
 
-  function openCard(o) {
+  function openCard(o, still) {
     card = o;
     var c = cat(o.cat), st = o.st || stampObj(o.key), members = memberOf(o.key), on = st ? stamped(st) : false;
     var ink = (members[0] && members[0].ink) || '#27302E';
@@ -389,7 +384,13 @@
       (st && on ? '<button type="button" class="pmx-b quiet" data-stamp="0">' + esc(T.unstamp) + '</button>' : '');
     var el = $('pmx-card'); el.innerHTML = h; el.hidden = false; el.scrollTop = 0;
     var phone = window.innerWidth < 900;
-    map.easeTo({ center: o.coords, zoom: Math.max(map.getZoom(), 14), offset: phone ? [0, -Math.round($('pmx-map').clientHeight * 0.3)] : [180, 0], duration: 600 });
+    map.easeTo({ center: o.coords, zoom: Math.max(map.getZoom(), 14), offset: phone ? [0, 0] : [180, 0], duration: 600 });
+    /* phones: the card sits under the map; scroll so the pin and the card are both in view */
+    if (phone && !still) {
+      var r = el.getBoundingClientRect(), m = $('pmx-map').getBoundingClientRect(), pinY = m.top + m.height / 2;
+      var dy = Math.min(r.bottom - window.innerHeight + 12, pinY - 90);
+      if (Math.abs(dy) > 4) window.scrollBy({ top: dy, behavior: 'smooth' });
+    }
     if (mode !== 'all') renderPassport();
   }
 
@@ -406,11 +407,10 @@
       var st = card.st || stampObj(card.key); if (!st) return;
       setStamp(st, b.getAttribute('data-stamp') === '1');
       renderTabs(); if (mode === 'all') renderAll();
-      openCard(card); return;
+      openCard(card, true); return;
     }
     if (b.hasAttribute('data-key')) {
       openByKey(b.getAttribute('data-key'));
-      if (window.innerWidth < 900) { try { $('pmx-map').scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }
     }
   });
   var qt;
