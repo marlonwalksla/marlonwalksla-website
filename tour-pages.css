@@ -24,6 +24,12 @@
 .tp-todo { color: #c81e1e !important; background: #fde8e8; border: 1px dashed #f05252; border-radius: 6px; padding: 0 6px; font-weight: 700; }
 .tp-todo-box { color: #c81e1e; background: #fde8e8; border: 2px dashed #f05252; border-radius: 16px; padding: 18px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 160px; line-height: 1.4; }
 .tp-draft-bar { background: #c81e1e; color: #fff; text-align: center; font-size: 0.85rem; font-weight: 700; padding: 8px 16px; }
+/* Oct 26, 2026 (audit): hide draft marks on marlonwalksla.com only. nav-header.js adds .mw-live to <html> there; the test site keeps showing them. */
+.mw-live .tp-draft-bar, .mw-live .tp-todo, .mw-live .tp-todo-box { display: none !important; }
+
+/* Oct 26, 2026 (audit): Webflow has its own class "tp" (the tape strip on the Polaroid wall: absolute, 70px wide, rotated).
+   It squeezed every tour page into a 70px strip. The page wrapper always sits directly inside a Webflow embed, so reset it there. */
+.w-embed > .tp { position: static; width: auto; height: auto; margin-left: 0; top: auto; left: auto; transform: none; background-color: transparent; z-index: auto; }
 
 /* ---------- Hero ---------- */
 .tp-hero { padding: 56px 0 40px; }
