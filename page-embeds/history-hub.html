@@ -2,7 +2,8 @@
      MARLONWALKSLA - LA HISTORY HUB  /history
      Oct 26, 2026. Loaded into <div id="fp-host"> by the page footer code (same branch rule as mw.js).
      Styles: tour-pages.css. The wrapper resets Webflow's own "tp" class inline.
-     Add a card here every time a new post goes live in the Blogs collection.
+     Round 96: cards are built from the CMS by story-cards.js (main) via the page's hidden
+     Collection List. The cards below are only a fallback; a new story needs no edit here.
      ============================================================================== -->
 <style>
 .hh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; margin-top: 22px; }
@@ -30,7 +31,7 @@
     <div class="tp-wrap">
       <h2 class="tp-h2">Stops on the free tour</h2>
       <p class="tp-sub">In route order, from Bunker Hill down to where the city began in 1781.</p>
-      <div class="hh-grid">
+      <div class="hh-grid" data-hh="stops">
         <a class="hh-card" href="/blog/walt-disney-concert-hall"><img src="https://cdn.prod.website-files.com/6a516a44ad462676ba76d689/6a5b341ce99bd9dbb02bd8bb_WDCH%20400x400.webp" alt="Walt Disney Concert Hall in Downtown Los Angeles" loading="lazy"><div class="hh-body"><span class="hh-stop">Stop 1</span><h3>Walt Disney Concert Hall</h3><p>A $50 million gift, 16 years of work and LA's silver landmark.</p></div></a>
         <a class="hh-card" href="/blog/the-broad"><img src="https://cdn.prod.website-files.com/6a516a44ad462676ba76d689/6a5b34091bc958a523049993_Broad%20400x400.webp" alt="The Broad museum in Downtown Los Angeles" loading="lazy"><div class="hh-body"><span class="hh-stop">Stop 2</span><h3>The Broad</h3><p>Free contemporary art inside a white honeycomb.</p></div></a>
         <a class="hh-card" href="/blog/angels-flight"><img src="https://cdn.prod.website-files.com/6a516a44ad462676ba76d689/6a5c64e63a372fa8a1ca7e80_AF%20400x400.webp" alt="Angels Flight railway in Downtown Los Angeles" loading="lazy"><div class="hh-body"><span class="hh-stop">Stop 3</span><h3>Angels Flight</h3><p>The world's shortest railway: tickets, hours and its 1901 story.</p></div></a>
@@ -44,10 +45,18 @@
     <div class="tp-wrap">
       <h2 class="tp-h2">The big stories</h2>
       <p class="tp-sub">How Los Angeles got its water and learned to move.</p>
-      <div class="hh-grid">
-        <a class="hh-card hh-big" href="/la-history-of-water"><div class="hh-body"><span class="hh-stop">Water</span><h3>Liquid Empire</h3><p>Over 200 years of LA water, from the Zanja Madre to the Owens Valley water wars and the concrete river.</p></div></a>
-        <a class="hh-card hh-big" href="/la-history-of-transportation"><div class="hh-body"><span class="hh-stop">Transportation</span><h3>How LA Learned to Move</h3><p>Trade paths, rail wars, the Red Cars, the freeway boom and the Metro.</p></div></a>
+      <div class="hh-grid" data-hh="big">
+        <a class="hh-card hh-big" href="/blog/la-history-of-water"><div class="hh-body"><span class="hh-stop">Water</span><h3>Liquid Empire</h3><p>Over 200 years of LA water, from the Zanja Madre to the Owens Valley water wars and the concrete river.</p></div></a>
+        <a class="hh-card hh-big" href="/blog/la-history-of-transportation"><div class="hh-body"><span class="hh-stop">Transportation</span><h3>How LA Learned to Move</h3><p>Trade paths, rail wars, the Red Cars, the freeway boom and the Metro.</p></div></a>
       </div>
+    </div>
+  </section>
+
+  <section class="tp-section" hidden>
+    <div class="tp-wrap">
+      <h2 class="tp-h2">More LA stories</h2>
+      <p class="tp-sub">Neighborhoods, film locations and more.</p>
+      <div class="hh-grid" data-hh="more"></div>
     </div>
   </section>
 
