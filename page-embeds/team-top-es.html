@@ -1,0 +1,169 @@
+<style>
+/* Oct 18, 2026 (round 28): one primary button style site-wide (yellow, dark outline, offset shadow). Tour colors stay on backgrounds, tags and highlights. */
+.tp-btn.yellow { background: #FFD43B; color: #27302E !important; border: 2.5px solid #27302E; border-radius: 999px; box-shadow: 4px 4px 0 #27302E; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.15rem; padding: 13px 26px; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+.tp-btn.yellow:hover { background: #FFD43B; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+.tp-btn.yellow:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
+/* round 29: Team = lime green */
+.tp-bg-team { background: #E3F6D8; }
+.tp-eyebrow.blue { color: #14532D; background: #C9ECC0; }
+</style>
+<!-- ==============================================================================
+     MARLONWALKSLA - TEAM TOURS PAGE, TOP  /salidas-de-equipo-los-angeles
+     Oct 2026 draft. Styles: tour-pages.css + route-anim.css/js. RED (.tp-todo) = Marlon to fill in.
+     The inquiry form below is the native Webflow form "Team Tour Inquiry".
+     ============================================================================== -->
+<div class="tp">
+  <div class="tp-draft-bar">BORRADOR &middot; Texto en rojo = informaci&oacute;n que Marlon todav&iacute;a debe completar</div>
+
+  <section class="tp-hero tp-bg-team">
+    <div class="tp-wrap tp-hero-grid">
+      <div>
+        <span class="tp-eyebrow blue">Tours de equipo &middot; Centro de LA</span>
+        <h1 class="tp-h1">Salidas de equipo en el centro de Los &Aacute;ngeles</h1>
+        <p class="tp-lead">No es otra din&aacute;mica de integraci&oacute;n en una sala. Caminen por el centro de LA, almuercen en Grand Central Market y l&eacute;vense fotos con la gente que m&aacute;s quieren. Cumplea&ntilde;os, lanzamientos y retiros de la empresa son bienvenidos.</p>
+        <ul class="tp-chips">
+          <li>&#128101; De 5 a 35 personas</li>
+          <li>&#9201; Unas 5 horas</li>
+          <li>&#128205; Empieza y termina en Grand Central Market</li>
+          <li>&#128248; C&aacute;mara instant&aacute;nea, una foto para cada quien</li>
+          <li>&#127758; En espa&ntilde;ol o en ingl&eacute;s</li>
+        </ul>
+        <div class="tp-btns">
+          <a class="tp-btn yellow" href="#team-inquiry">Planea la caminata de tu equipo</a>
+          <a class="tp-btn ghost" href="https://wa.me/12692670410?text=Hola%20Marlon,%20estoy%20planeando%20una%20salida%20de%20equipo" target="_blank" rel="noopener">&#128172; Escr&iacute;bele a Marlon por WhatsApp</a>
+        </div>
+      </div>
+      <div class="tp-hero-visual">
+        <div class="tp-polaroid">
+          <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92c5f69fe7d4636c85840_guest-olvera-street-09.webp" alt="Un grupo de cinco posando en el kiosco de la Calle Olvera">
+          <div class="cap">Foto de grupo en el kiosco de Olvera</div>
+        </div>
+        <img class="tp-ernesto" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce800a9b9169f06d40de_Polaroid%20Photographer.avif" alt="Ernesto con una c&aacute;mara Polaroid">
+      </div>
+    </div>
+  </section>
+
+  <section class="tp-section">
+    <div class="tp-wrap">
+      <h2 class="tp-h2">Por qu&eacute; funciona una caminata de equipo</h2>
+      <p class="tp-sub">Una caminata de equipo logra lo que una sala de juntas no puede.</p>
+      <div class="tp-grid-3">
+        <div class="tp-card"><span class="icon">&#128694;</span><h3 class="tp-h3">La gente s&iacute; conversa</h3><p>Al caminar lado a lado, quienes nunca se sientan juntos terminan platicando por horas.</p></div>
+        <div class="tp-card"><span class="icon">&#127942;</span><h3 class="tp-h3">Una peque&ntilde;a sorpresa</h3><p>Hay un juego en el camino. Los detalles son una sorpresa hasta el d&iacute;a del tour.</p></div>
+        <div class="tp-card"><span class="icon">&#128248;</span><h3 class="tp-h3">Una foto para cada quien</h3><p>Pasen la c&aacute;mara instant&aacute;nea todo el d&iacute;a. Todos se van con una foto impresa, y el equipo se lleva la prueba de un gran d&iacute;a.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tp-section tp-route-sec">
+    <div class="tp-wrap">
+      <span class="tp-eyebrow blue">Mira el plan</span>
+      <h2 class="tp-h2">Un d&iacute;a de equipo de 5 horas</h2>
+      <p class="tp-sub">Sigue a Ernesto por el recorrido, o toca una parada para ir directo. Empezamos y terminamos en Grand Central Market, con el almuerzo como &uacute;ltima parada.</p>
+      <div class="ra" data-ernesto="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"><script type="application/json" class="ra-data">{"mode":"walk","areas":[{"name":"Bunker Hill","lat":34.0538,"lng":-118.2528},{"name":"Centro hist\u00f3rico","lat":34.0478,"lng":-118.247},{"name":"Centro c\u00edvico","lat":34.0519,"lng":-118.2418}],"stops":[{"name":"Grand Central Market","desc":"Nos vemos en la entrada de Hill St para un caf\u00e9 y los saludos.","lat":34.0508,"lng":-118.2494},{"name":"Angels Flight","desc":"Subimos Bunker Hill en el funicular de 1901. El boleto est\u00e1 incluido.","lat":34.0516,"lng":-118.2505},{"name":"The Broad","desc":"Arte contempor\u00e1neo gratis en Grand Avenue.","lat":34.0544,"lng":-118.2505},{"name":"Walt Disney Concert Hall","desc":"El edificio de acero de Frank Gehry y su jard\u00edn en la azotea.","lat":34.0553,"lng":-118.2498},{"name":"Dorothy Chandler Pavilion","desc":"El escenario del Music Center que fue sede de los Oscar.","lat":34.0575,"lng":-118.2482},{"name":"Grand Park y los juzgados","desc":"\u00c1reas verdes desde el Music Center hasta City Hall, pasando por los juzgados de LA.","lat":34.056,"lng":-118.2455},{"name":"City Hall","desc":"La torre de 1928 en el coraz\u00f3n del gobierno de LA.","lat":34.0537,"lng":-118.2427},{"name":"La evoluci\u00f3n de Los \u00c1ngeles (mural)","desc":"La historia de LA en un solo mural.","lat":34.0517,"lng":-118.2466},{"name":"Bradbury Building","desc":"El edificio de 1893 que sale en el cine.","lat":34.0505,"lng":-118.2478},{"name":"Almuerzo en Grand Central Market","desc":"M\u00e1s de 30 puestos para todos los gustos. Es hora de repartir las fotos. El almuerzo no est\u00e1 incluido en el precio.","lat":34.0503,"lng":-118.2487}]}</script></div>
+    </div>
+  </section>
+
+  <section class="tp-section">
+    <div class="tp-wrap">
+      <h2 class="tp-h2">Precio</h2>
+      <p class="tp-sub">Mueve la barra al tama&ntilde;o de tu grupo. Mientras m&aacute;s grande el grupo, menos paga cada persona.</p>
+      <div class="tp-card tpq" id="tpq">
+        <label class="tpq-label" for="tpq-range">&iquest;Cu&aacute;ntas personas? <strong id="tpq-n">15</strong></label>
+        <input class="tpq-range" id="tpq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tpq-out">
+        <div class="tpq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
+        <div class="tpq-out" id="tpq-out" aria-live="polite">
+          <div><span class="tpq-total" id="tpq-total">$790</span><span class="tpq-cap">total estimado</span></div>
+          <div><span class="tpq-pp" id="tpq-pp">~$53</span><span class="tpq-cap">por persona</span></div>
+        </div>
+        <ul class="tpq-notes">
+          <li>Unas 5 horas, con el viaje en Angels Flight y pel&iacute;cula para todos</li>
+          <li>El almuerzo en Grand Central Market no est&aacute; incluido</li>
+          <li>M&iacute;nimo 5 personas. &iquest;De 21 a 35? Marlon acuerda contigo un mejor precio por persona: <a href="https://wa.me/12692670410?text=Hola%20Marlon,%20tenemos%20un%20grupo%20de%20m%C3%A1s%20de%2020" target="_blank" rel="noopener">Escr&iacute;bele a Marlon</a></li>
+        </ul>
+        <details class="tpq-how"><summary>C&oacute;mo se calcula el precio</summary><p>Las primeras 5 personas pagan $60 cada una, las siguientes 5 pagan $52.50, luego $45 y $37.50 de la persona 16 a la 20. Los totales se redondean a los $5 m&aacute;s cercanos. Precios en d&oacute;lares de EE. UU.</p></details>
+      </div>
+      <style>
+        .tpq { margin-top: 16px; padding: 22px 24px; }
+        .tpq-label { display: block; font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
+        .tpq-label strong { color: #2563eb; font-size: 1.3rem; margin-left: 6px; }
+        .tpq-range { width: 100%; height: 32px; accent-color: #2563eb; cursor: pointer; }
+        .tpq-ticks { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; padding: 0 4px; }
+        .tpq-out { display: flex; flex-wrap: wrap; gap: 12px 40px; align-items: baseline; margin: 18px 0 8px; }
+        .tpq-out > div { display: flex; flex-direction: column; }
+        .tpq-total { font-size: clamp(2.2rem, 6vw, 3rem); font-weight: 900; line-height: 1; color: #0f172a; font-variant-numeric: tabular-nums; }
+        .tpq-pp { font-size: 1.4rem; font-weight: 800; color: #0f172a; font-variant-numeric: tabular-nums; }
+        .tpq-cap { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+        .tpq-notes { margin: 10px 0 0; padding-left: 18px; color: #475569; display: grid; gap: 4px; }
+        .tpq-how { margin-top: 12px; color: #475569; }
+        .tpq-how summary { cursor: pointer; font-weight: 700; color: #2563eb; }
+      </style>
+      <script>
+        (function () {
+          var rates = [60, 52.5, 45, 37.5, 30, 22.5];
+          function total(n) { var t = 0; for (var i = 0; i < n; i++) t += rates[Math.min(Math.floor(i / 5), rates.length - 1)]; return Math.round(t / 5) * 5; }
+          var r = document.getElementById('tpq-range');
+          if (!r) return;
+          function upd() {
+            var n = parseInt(r.value, 10), t = total(n);
+            document.getElementById('tpq-n').textContent = n;
+            document.getElementById('tpq-total').textContent = '$' + t.toLocaleString('en-US');
+            document.getElementById('tpq-pp').textContent = '~$' + Math.round(t / n) + ' (' + Math.round((1 - t / n / 60) * 100) + '% de ahorro)';
+          }
+          r.addEventListener('input', upd); upd();
+        })();
+      </script>
+      <p style="margin-top:14px;color:#475569">Facturaci&oacute;n para empresas, recibos detallados y formulario W-9 disponibles.</p>
+    </div>
+  </section>
+
+  <section class="tp-section">
+    <div class="tp-wrap">
+      <h2 class="tp-h2">Las Polaroids son la prueba</h2>
+      <p class="tp-sub">Fotos reales de tours reales.</p>
+      <!-- Oct 17, 2026: Kara's birthday story (Kara gave permission to use her post, review and photos) -->
+      <div class="ts">
+        <figure class="ts-print"><img src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@86623607f23cfb73364cf83160390215e4e89875/img/stories/kara-bday-group-print.webp" alt="Kara y sus amigos en su foto de grupo del tour, con un sticker de Ernesto en el marco" loading="lazy" width="900" height="1200"></figure>
+        <div class="ts-body">
+          <span class="tp-eyebrow blue">Una celebraci&oacute;n de verdad</span>
+          <h3 class="ts-title">El cumplea&ntilde;os de Kara: turista en su propia ciudad</h3>
+          <blockquote class="ts-q">&ldquo;Decid&iacute; que este a&ntilde;o, para mi cumplea&ntilde;os, iba a hacer de turista en mi propia ciudad&hellip; Fue divertido conocer un lugar que he conocido toda mi vida con una mirada nueva, junto a gente que ayud&oacute; a formar esa mirada.&rdquo;</blockquote>
+          <p class="ts-who">Kara F. &middot; Instagram (traducido del ingl&eacute;s)</p>
+          <div class="ts-minis">
+            <p><q>Lo contrat&eacute; para un tour de cumplea&ntilde;os para m&iacute; y mis amigos, y dio mucho m&aacute;s de lo esperado.</q> <span>Kara F. &middot; Google (traducido del ingl&eacute;s)</span></p>
+            <p><q>Somos de aqu&iacute; y aun as&iacute; aprendimos un mont&oacute;n.</q> <span>Addison R. &middot; Google, del grupo de Kara (traducido del ingl&eacute;s)</span></p>
+          </div>
+          <div class="ts-strip">
+            <img src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@86623607f23cfb73364cf83160390215e4e89875/img/stories/kara-bday-overlook.webp" alt="Dos amigos riendo en un mirador del centro" loading="lazy" width="700" height="933">
+            <img src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@86623607f23cfb73364cf83160390215e4e89875/img/stories/kara-bday-disney-dusk.webp" alt="Walt Disney Concert Hall al atardecer" loading="lazy" width="700" height="933">
+            <img src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@86623607f23cfb73364cf83160390215e4e89875/img/stories/kara-bday-grand-park.webp" alt="Grand Park con palmeras y los juzgados" loading="lazy" width="700" height="933">
+          </div>
+        </div>
+      </div>
+      <style>
+        .ts { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 28px; align-items: center; margin: 18px 0 30px; padding: 22px; background: #fff; border-radius: 18px; box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06); }
+        .ts-print { margin: 0; }
+        .ts-print img { display: block; width: 100% !important; height: auto !important; border-radius: 12px; }
+        .ts-title { font-size: 1.45rem; line-height: 1.2; margin: 10px 0 12px; }
+        .ts-q { margin: 0; font-size: 1.08rem; line-height: 1.55; color: #27302E; border-left: 4px solid #FFD43B; padding-left: 14px; }
+        .ts-who { margin: 6px 0 14px; font-size: 0.88rem; color: #64748b; }
+        .ts-minis { display: grid; gap: 8px; margin-bottom: 16px; }
+        .ts-minis p { margin: 0; font-size: 0.95rem; color: #475569; }
+        .ts-minis span { display: block; font-size: 0.82rem; color: #64748b; }
+        .ts-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+        .ts-strip img { display: block; width: 100% !important; height: 170px !important; max-width: none; object-fit: cover; object-position: center 25%; border-radius: 10px; }
+        @media (max-width: 767px) { .ts { grid-template-columns: 1fr; padding: 16px; gap: 18px; } .ts-print { max-width: 320px; margin: 0 auto; } }
+      </style>
+      <div class="tp-grid-3" style="gap:14px">
+        <div class="tp-polaroid"><img style="height:200px" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92c51d1848d20e07d4a6f_guest-grand-central-market-02.webp" alt="Cuatro amigos con una pi&ntilde;ata en Grand Central Market"><div class="cap">Almuerzo en Grand Central Market</div></div>
+        <div class="tp-polaroid" style="transform:rotate(2deg)"><img style="height:200px" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92c51a6c79d9f4158a39d_guest-olvera-street-01.webp" alt="Cuatro amigos posando con su Polaroid en la Calle Olvera"><div class="cap">Equipo Ernesto en la Calle Olvera</div></div>
+        <div class="tp-polaroid" style="transform:rotate(-1.5deg)"><img style="height:200px" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a0512667b254315f08c_ernesto-city-hall-and-grand-park-01.webp" alt="Sticker de Ernesto en el barandal frente al City Hall de Los &Aacute;ngeles"><div class="cap">Ernesto se esconde por todo el centro</div></div>
+      </div>
+      <div class="tp-reviews" style="margin-top:20px">
+        <div class="tp-review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><q>Tambi&eacute;n organiz&oacute; juegos divertidos que mantuvieron a todos animados y compitiendo</q><div class="who">Addison R. &middot; Google (traducido del ingl&eacute;s)</div></div>
+        <div class="tp-review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><q>Marlon fue un gran gu&iacute;a: compart&iacute;a muchos datos e interactuaba con todo el grupo.</q><div class="who">Stacey F. &middot; Google (traducido del ingl&eacute;s)</div></div>
+        <div class="tp-review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><q>Marlon es un gu&iacute;a divertido. Como vive en LA de toda la vida, sabe mucho de la historia y la geograf&iacute;a de la ciudad. Tambi&eacute;n pone juegos divertidos.</q><div class="who">Phil G. &middot; Google (traducido del ingl&eacute;s)</div></div>
+      </div>
+    </div>
+  </section>
+</div>

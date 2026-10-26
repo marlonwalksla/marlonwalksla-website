@@ -41,7 +41,7 @@ T = {
    quote="He also set up fun games that kept everyone engaged and frenzied in competition", who="Addison R. · Google"),
  "es": dict(lang="es", title="Tu d&iacute;a de equipo", label="¿Cuántas personas?", est="total estimado", pp="por persona",
    pp_pre="~$", save="de ahorro", notes="", for5="por 5 horas", plus="+ almuerzo", capp="Marlon confirma el precio del almuerzo", v=["&#9201;&#65039; 5 horas", "&#128673; Boletos de Angels Flight", "&#128248; Foto para todos", "&#129517; Guía local"], vno=["&#127869;&#65039; Comida"], addon="Extra: planeamos la comida de tu grupo con anticipación. Pregúntale a Marlon.", big="¿Grupo más grande? Escríbeme",
-   btn="Agenda a tu equipo", btn_note="La página completa está en inglés.", href="/team-outings-los-angeles",
+   btn="Agenda a tu equipo", btn_note="", href="/salidas-de-equipo-los-angeles",
    custom="¿Tienes una solicitud especial?", mail="mailto:marlonwalksla@gmail.com?subject=Solicitud%20especial%20para%20mi%20equipo",
    wa="Escríbele a Marlon sobre tu grupo",
    wa_href="https://wa.me/12692670410?text=Hola%20Marlon,%20somos%20un%20grupo%20de%20m%C3%A1s%20de%2020",

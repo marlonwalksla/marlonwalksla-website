@@ -33,7 +33,7 @@ T = {
               "Private tour guests with their Polaroid"),
     ),
     "es": dict(
-        eyebrow="Tours a pie por el centro de LA",
+        eyebrow="Excursiones y tours a pie por el centro de LA",
         h1='Explora <span class="mwh-blue">LA</span><br><span class="mwh-mark">con Marlon</span>', hand="&iexcl;y Ernesto!",
         line='Explora LA en un <button type="button" class="mwh-hl" data-tone="green" data-i="0">tour de equipo</button>, un <button type="button" class="mwh-hl" data-tone="orange" data-i="1">tour privado</button> o un <button type="button" class="mwh-hl" data-tone="pink" data-i="2">free tour</button>.',
         btn="Reserva una salida de equipo", btn_href="#team", btn2="Dise&ntilde;a un tour privado", btn2_href="#private", freeL="O &uacute;nete a un free tour &rarr;", go="Ver fechas",
@@ -62,9 +62,9 @@ SLIDES = {
        line="Free walking tour of Downtown LA, in English and Spanish. Tip-based.", alt="Free tour guests posing together at the Avila Adobe garden"),
  ],
  "es": [
-  dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="/team-outings-los-angeles",
+  dict(tab="Equipos", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Tours de Equipo", title="Celebra a tu equipo", btn="Reserva una salida de equipo", href="/salidas-de-equipo-los-angeles",
        line="Salidas de equipo en el centro de LA. Camina. Come. Celebra. &iexcl;Todos se llevan una foto!", alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market"),
-  dict(tab="Privado", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="/private-tours",
+  dict(tab="Privado", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Tours Privados", title="LA a tu manera", btn="Dise&ntilde;a un tour privado", href="/tours-privados-los-angeles",
        line="Tours privados por Los &Aacute;ngeles. Elige tus paradas y nosotros nos encargamos del resto.", alt="Invitados de un tour privado con su Polaroid"),
   dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="&iexcl;&Uacute;nete a un Free Tour!", btn="&Uacute;nete a un free tour", href="/free-tour-los-angeles-espanol",
        line="Free tour a pie por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Con propina.", alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila"),

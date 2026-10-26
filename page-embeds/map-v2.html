@@ -120,7 +120,7 @@
   root.setAttribute('data-ready', '1');
 
   var Q = new URLSearchParams(location.search);
-  var ES = (Q.get('lang') || '').toLowerCase().indexOf('es') === 0;
+  var ES = (Q.get('lang') || '').toLowerCase().indexOf('es') === 0 || /^\/mapa-/.test(location.pathname);
   var T = ES ? {
     title: 'Explora LA, un pasaporte a la vez', sub: 'Elige un pasaporte, ve a cada lugar y séllalo. Tus sellos se guardan en este teléfono.',
     all: 'Todos los lugares', soon: 'pronto', of: function (d, t) { return d + ' de ' + t + ' sellos'; }, open: 'Abrir mi pasaporte',
