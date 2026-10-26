@@ -12,7 +12,7 @@ MarlonWalksLA is Marlon Gonzalez's walking-tour business in Los Angeles: free to
 - `global-vars.css`: brand colors and shared components (loaded site-wide)
 - `tour-pages.css`: styles for the tour, About, Privacy and Terms pages. `.tp-todo` = red placeholder for info Marlon still has to fill in.
 - Map: `map-core.js`, `spots.geojson` (master list of ~232 spots), `spot-groups.js` (regions, locations, moods), `ui-view-explore-v2.js` (filters and quiz), `storage-manager.js` (trip planner, browser storage only)
-- Self-guided tours: `tour-dtla.js`, `tour-hollywood.js`. History stories: `history-water.js`, `history-transportation.js`.
+- Self-guided tours: `tour-dtla.js` (Hollywood tour retired Oct 25, 2026; content in the project doc `claude/hollywood-tour-content.md`). History stories: `history-water.js`, `history-transportation.js`.
 
 ## Rules
 - **Never publish to the live domain (marlonwalksla.com) without Marlon's explicit OK.** Publish to the test site only: Webflow `publish_site` with `customDomains: []` and `publishToWebflowSubdomain: true` (marlonwalksla.webflow.io).
