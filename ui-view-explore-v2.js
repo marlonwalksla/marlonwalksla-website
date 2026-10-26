@@ -22,13 +22,28 @@
           reset: 'Reset', spots: n => `${n} spot${n === 1 ? '' : 's'}`, none: 'No places match. Try removing a filter.',
           quiz: 'Help me choose', q1: 'Where are you staying?', q1b: 'Which part?', q2: 'What are you in the mood for?', q2hint: 'Pick as many as you like',
           q3: 'Anything else?', notSure: 'Not sure / anywhere', next: 'Next', back: 'Back', show: 'Show me', skip: 'Skip',
-          pin: 'Pin to My Trip', visit: 'Mark visited' },
+          pin: 'Pin to My Trip', visit: 'Mark visited',
+          passports: 'Passports', stamped: (n, t) => `${n} of ${t} stamped`, open: 'Open my passport', soon: 'soon', stampedOne: 'Stamped', notYet: 'Not stamped yet' },
     es: { search: 'Busca lugares en LA...', area: 'Dónde', all: r => `Todo ${r}`, anywhereIn: r => `Cualquier parte de ${r}`, mood: 'Con ganas de', free: 'Gratis', hide: 'Ocultar donde ya fui',
           reset: 'Borrar', spots: n => `${n} lugar${n === 1 ? '' : 'es'}`, none: 'No hay lugares. Quita un filtro.',
           quiz: 'Ayúdame a elegir', q1: '¿Dónde te estás quedando?', q1b: '¿En qué parte?', q2: '¿Qué se te antoja?', q2hint: 'Elige los que quieras',
           q3: '¿Algo más?', notSure: 'No sé / cualquier zona', next: 'Siguiente', back: 'Atrás', show: 'Muéstrame', skip: 'Saltar',
-          pin: 'Guardar en mi viaje', visit: 'Marcar visitado' }
+          pin: 'Guardar en mi viaje', visit: 'Marcar visitado',
+          passports: 'Pasaportes', stamped: (n, t) => `${n} de ${t} sellos`, open: 'Abrir mi pasaporte', soon: 'pronto', stampedOne: 'Sellado', notYet: 'Aún sin sello' }
   }[LANG];
+
+  /* ---------- passports (Oct 26, 2026) ----------
+   * Passport chips filter the map to one passport's stops. Stamped stops show as visited:
+   * stamps with a map pin share marlon_visited_spots with the map; stamps without a pin
+   * (Evolution of LA mural, Hall of Justice) use marlon_stamps and get their own markers here.
+   * Link straight to one: /maps?passport=downtown-classic&spot=bradbury-building
+   * Hidden on marlonwalksla.com until Marlon OKs it: set PASSPORTS_LIVE to true. */
+  const PASSPORTS_LIVE = false;
+  const ON_LIVE = /^(www\.)?marlonwalksla\.com$/i.test(window.location.hostname);
+  const PASSPORTS_ON = PASSPORTS_LIVE || !ON_LIVE;
+  const PASSPORT_PAGE = { 'downtown-classic': '/free-tour-passport' };
+  let passports = [];
+  let extraMarkers = [];
 
   const label = item => (LANG === 'es' ? item.es : item.en);
   const slugId = p => (p.Slug || p.Item_ID || p.Name || p.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -41,8 +56,22 @@
     moods: (params.get('mood') || '').split(',').filter(Boolean),
     free: params.get('free') === '1',
     hideVisited: params.get('hide') === 'visited',
-    q: params.get('q') || ''
+    q: params.get('q') || '',
+    passport: PASSPORTS_ON ? (params.get('passport') || '') : ''
   };
+
+  function readArr(k) { try { return JSON.parse(localStorage.getItem(k) || '[]'); } catch (e) { return []; } }
+  function activePassport() { return passports.find(p => p.id === state.passport) || null; }
+  function stampDone(s) { return s.spot ? visitedIds().includes(s.spot) : readArr('marlon_stamps').includes(s.id); }
+  function passportProgress(p) { const all = p.stamps || []; return { done: all.filter(stampDone).length, total: all.length }; }
+
+  function loadPassports() {
+    if (!PASSPORTS_ON) return;
+    fetch('https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/passport-collections.json')
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => { passports = (d && d.collections) || []; apply(); })
+      .catch(() => {});
+  }
 
   /* ---------- data ---------- */
   function enrich(spot) {
@@ -68,7 +97,10 @@
   function filtered() {
     const q = state.q.toLowerCase().trim();
     const visited = state.hideVisited ? new Set(visitedIds()) : null;
+    const pp = activePassport();
+    const ppSet = pp ? new Set((pp.stamps || []).filter(s => s.spot).map(s => s.spot)) : null;
     return allSpots.filter(s =>
+      (!ppSet || ppSet.has(s.id)) &&
       (state.place ? s.place === state.place : (!state.area || s.area === state.area)) &&
       (!state.moods.length || state.moods.some(m => s.moods.includes(m))) &&
       (!state.free || s.free) &&
@@ -88,6 +120,7 @@
       set('free', state.free ? '1' : '');
       set('hide', state.hideVisited ? 'visited' : '');
       set('q', state.q.trim());
+      if (PASSPORTS_ON) set('passport', state.passport);
       window.history.replaceState(null, '', u.toString());
     } catch (e) { /* ignore */ }
   }
@@ -107,6 +140,11 @@
     wrap.className = 'mw-quick-filters';
     wrap.innerHTML = `
       <button type="button" class="mw-quiz-btn">✨ ${T.quiz}</button>
+      <div class="mw-filter-group mw-pp-group" hidden>
+        <div class="mw-filter-label">🎫 ${T.passports}</div>
+        <div class="mw-chip-row" data-group="passport"></div>
+        <div class="mw-pp-bar" hidden></div>
+      </div>
       <div class="mw-filter-group">
         <div class="mw-filter-label">${T.area}</div>
         <div class="mw-chip-row" data-group="area">
@@ -135,7 +173,11 @@
     wrap.addEventListener('click', e => {
       const b = e.target.closest('button');
       if (!b) return;
-      if (b.dataset.area) { state.area = state.area === b.dataset.area ? '' : b.dataset.area; state.place = ''; }
+      if (b.dataset.passport) {
+        state.passport = state.passport === b.dataset.passport ? '' : b.dataset.passport;
+        if (state.passport) { state.area = ''; state.place = ''; state.moods = []; state.free = false; }
+      }
+      else if (b.dataset.area) { state.area = state.area === b.dataset.area ? '' : b.dataset.area; state.place = ''; }
       else if ('place' in b.dataset) { state.place = b.dataset.place; }
       else if (b.dataset.mood) {
         const m = b.dataset.mood;
@@ -155,7 +197,7 @@
   }
 
   function resetAll() {
-    state.area = ''; state.place = ''; state.moods = []; state.free = false; state.hideVisited = false; state.q = '';
+    state.area = ''; state.place = ''; state.moods = []; state.free = false; state.hideVisited = false; state.q = ''; state.passport = '';
     const input = document.querySelector('#search-input');
     if (input) input.value = '';
     apply();
@@ -178,12 +220,78 @@
     const hideBtn = wrap.querySelector('[data-toggle="hide"]');
     hideBtn.setAttribute('aria-pressed', state.hideVisited);
     hideBtn.hidden = visitedIds().length === 0 && !state.hideVisited;
-    const any = state.area || state.place || state.moods.length || state.free || state.hideVisited || state.q.trim();
+    paintPassports(wrap);
+    const any = state.area || state.place || state.moods.length || state.free || state.hideVisited || state.q.trim() || state.passport;
     wrap.querySelector('.mw-reset').hidden = !any;
     const oldReset = document.querySelector('#reset-all-filters-btn');
     if (oldReset) oldReset.style.display = 'none';
     const clear = document.querySelector('#search-clear-btn');
     if (clear) clear.style.display = state.q ? 'block' : 'none';
+  }
+
+  /* Passport chips with stamp progress, and a bar for the selected passport */
+  function paintPassports(wrap) {
+    const g = wrap.querySelector('.mw-pp-group');
+    if (!g) return;
+    if (!PASSPORTS_ON || !passports.length) { g.hidden = true; return; }
+    g.hidden = false;
+    g.querySelector('[data-group="passport"]').innerHTML = passports.map(p => {
+      const soon = p.status === 'coming-soon' || !(p.stamps || []).length;
+      const pr = passportProgress(p);
+      return `<button type="button" class="mw-chip mw-pp-chip" ${soon ? 'disabled' : ''} data-passport="${esc(p.id)}" aria-pressed="${state.passport === p.id}" style="--pp:${esc(p.ink || '#27302E')}"><span class="mw-pp-dot"></span>${esc(label(p.name))} <span class="mw-n">${soon ? T.soon : pr.done + '/' + pr.total}</span></button>`;
+    }).join('');
+    const bar = g.querySelector('.mw-pp-bar');
+    const p = activePassport();
+    if (!p) { bar.hidden = true; bar.innerHTML = ''; return; }
+    const pr = passportProgress(p);
+    const page = PASSPORT_PAGE[p.id];
+    bar.hidden = false;
+    bar.style.setProperty('--pp', p.ink || '#27302E');
+    bar.innerHTML = `<div><b>${esc(label(p.name))}</b> · ${T.stamped(pr.done, pr.total)}</div>` +
+      `<div class="mw-pp-track"><span style="width:${pr.total ? Math.round(pr.done / pr.total * 100) : 0}%"></span></div>` +
+      (page ? `<a class="mw-pp-open" href="${page}${LANG === 'es' ? '?lang=es' : ''}">${T.open} →</a>` : '');
+  }
+
+  /* Markers for passport stamps that are not map pins (shown only while that passport is selected) */
+  function paintExtraMarkers() {
+    extraMarkers.forEach(m => m.remove());
+    extraMarkers = [];
+    const p = activePassport();
+    const map = window.marlonMapInstance;
+    if (!p || !map || !window.mapboxgl) return;
+    (p.stamps || []).filter(s => !s.spot && s.location && s.location.coordinates).forEach(s => {
+      const done = stampDone(s);
+      const el = document.createElement('div');
+      el.className = 'mw-stamp-marker' + (done ? ' is-stamped' : '');
+      el.style.setProperty('--pp', p.ink || '#27302E');
+      el.title = label(s.label);
+      el.innerHTML = '<span>🎫</span>';
+      const pop = new window.mapboxgl.Popup({ offset: 18 }).setHTML(
+        `<div class="mw-stamp-pop"><b>${esc(label(s.label))}</b><br>${esc(s.location.address || '')}<br><small>${done ? '✓ ' + T.stampedOne : T.notYet}</small></div>`);
+      const mk = new window.mapboxgl.Marker({ element: el }).setLngLat(s.location.coordinates).setPopup(pop).addTo(map);
+      mk._mwId = s.id;
+      extraMarkers.push(mk);
+    });
+  }
+
+  function addPassportStyles() {
+    if (!PASSPORTS_ON || document.getElementById('mw-pp-css')) return;
+    const st = document.createElement('style');
+    st.id = 'mw-pp-css';
+    st.textContent = `
+      .mw-pp-chip{display:inline-flex;align-items:center;gap:6px}
+      .mw-pp-chip .mw-pp-dot{width:10px;height:10px;border-radius:50%;background:var(--pp);flex:none}
+      .mw-pp-chip[aria-pressed="true"]{background:var(--pp)!important;color:#fff!important;border-color:var(--pp)!important}
+      .mw-pp-chip[aria-pressed="true"] .mw-pp-dot{background:#fff}
+      .mw-pp-chip:disabled{opacity:.5;cursor:default}
+      .mw-pp-bar{margin-top:8px;padding:10px 12px;border:2px solid var(--pp);border-radius:12px;background:#fff;font-size:.9rem;line-height:1.4}
+      .mw-pp-track{height:8px;border-radius:99px;background:#eee;margin:6px 0;overflow:hidden}
+      .mw-pp-track span{display:block;height:100%;background:var(--pp)}
+      .mw-pp-open{font-weight:700;color:var(--pp);text-decoration:underline}
+      .mw-stamp-marker{width:30px;height:30px;border-radius:50%;border:3px dashed var(--pp);background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+      .mw-stamp-marker.is-stamped{border-style:solid;background:var(--pp)}
+      .mw-stamp-pop{font-size:13px;line-height:1.4}`;
+    document.head.appendChild(st);
   }
 
   /* Locations in a region that actually have spots, with counts */
@@ -212,6 +320,7 @@
     const count = document.querySelector('.mw-result-count');
     if (count) count.textContent = T.spots(list.length);
     if (window.updateMapMarkers) window.updateMapMarkers(list.map(s => s.raw));
+    try { paintExtraMarkers(); } catch (e) { /* ignore */ }
     renderSpotCards(list);
     syncUrl();
   }
@@ -352,8 +461,18 @@
   window.initExploreView = function (geoJsonData) {
     if (!geoJsonData || !geoJsonData.features || !window.MARLON_GROUPS) return;
     allSpots = geoJsonData.features.map(enrich);
+    addPassportStyles();
     buildUI();
     apply();
+    loadPassports();
+    // /maps?passport=...&spot=<slug>: open that spot (or a stamp without a pin) once the map settles
+    const focus = PASSPORTS_ON ? params.get('spot') : '';
+    if (focus) setTimeout(() => {
+      const m = (window.MARLON_ALL_MARKERS || []).find(x => x.id === focus);
+      if (m && m.wrapper) { m.wrapper.click(); return; }
+      const e = extraMarkers.find(x => x._mwId === focus);
+      if (e && window.marlonMapInstance) { window.marlonMapInstance.flyTo({ center: e.getLngLat(), zoom: 15 }); e.togglePopup(); }
+    }, 1800);
     // The map's pin layer is added after the map finishes loading; apply again then
     const map = window.marlonMapInstance;
     if (map && !map.getSource('spots')) map.once('idle', apply);
