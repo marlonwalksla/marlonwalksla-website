@@ -1,0 +1,413 @@
+<!-- ==============================================================================
+     MARLONWALKSLA - PASSPORT MAP (v2)   Oct 26, 2026
+     A fresh map built around passports. Replaces Explore/Trip, pins/visited, the quiz.
+     Loaded into <div id="fp-host"> by the page footer code (test branch on the test site).
+     Data: spots.geojson + passport-collections.json from the repo (@main).
+     Stamps share the passport page's storage: marlon_visited_spots (stamps with a map pin)
+     and marlon_stamps (stamps without a pin), so stamping in one shows in the other.
+     Links: ?passport=la-tourist | downtown-classic | all   &spot=<slug>   &lang=es
+     Classes all start with pmx- (Webflow has its own short class names, see the .tp bug).
+     ============================================================================== -->
+<style>
+#pmx{--top:64px;--ink:#27302E;--cream:#FFF6E6;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#27302E}
+#pmx *{box-sizing:border-box}
+#pmx .pmx-wrap{display:grid;grid-template-columns:390px 1fr;grid-template-rows:auto 1fr;grid-template-areas:"top map" "body map";height:calc(100vh - var(--top));height:calc(100dvh - var(--top));min-height:540px;background:var(--cream)}
+#pmx .pmx-top{grid-area:top;padding:18px 18px 10px;border-right:2.5px solid #27302E}
+#pmx .pmx-body{grid-area:body;overflow-y:auto;padding:4px 18px 24px;border-right:2.5px solid #27302E}
+#pmx .pmx-mapbox{grid-area:map;position:relative;min-height:0}
+#pmx #pmx-map{position:absolute;inset:0}
+#pmx h1{font-family:"Lilita One",sans-serif;font-weight:400;font-size:1.65rem;line-height:1.1;margin:0 0 6px}
+#pmx .pmx-sub{margin:0 0 12px;font-size:.92rem;line-height:1.4;color:#475569}
+#pmx .pmx-tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+#pmx .pmx-tabs::-webkit-scrollbar{display:none}
+#pmx .pmx-tab{flex:none;display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:2px solid #27302E;background:#fff;color:#27302E;font-weight:700;font-size:.9rem;cursor:pointer;white-space:nowrap}
+#pmx .pmx-tab em{font-style:normal;font-weight:600;opacity:.75;font-size:.8rem}
+#pmx .pmx-tab .pmx-dot{width:10px;height:10px;border-radius:50%;background:var(--ink);flex:none}
+#pmx .pmx-tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+#pmx .pmx-tab[aria-pressed="true"] .pmx-dot{background:#fff}
+#pmx .pmx-tab:disabled{opacity:.45;cursor:default}
+#pmx .pmx-prog{border:2.5px solid var(--ink);border-radius:16px;background:#fff;padding:12px 14px;margin:6px 0 12px}
+#pmx .pmx-prog-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+#pmx .pmx-prog-top b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:1.2rem;color:var(--ink)}
+#pmx .pmx-bar{height:9px;border-radius:99px;background:#eee;margin:8px 0 6px;overflow:hidden}
+#pmx .pmx-bar i{display:block;height:100%;background:var(--ink);border-radius:99px;transition:width .4s}
+#pmx .pmx-prog small{display:block;color:#475569}
+#pmx .pmx-open{display:inline-block;margin-top:6px;font-weight:700;color:var(--ink);text-decoration:underline}
+#pmx .pmx-done{background:var(--ink);color:#fff;border-radius:12px;padding:10px 12px;margin:-4px 0 12px;font-weight:700}
+#pmx .pmx-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+#pmx .pmx-list button{width:100%;display:flex;align-items:center;gap:10px;text-align:left;background:#fff;border:1.5px solid #e5dccb;border-radius:12px;padding:8px 10px;cursor:pointer;color:#27302E;font:inherit}
+#pmx .pmx-list button:hover{border-color:#27302E}
+#pmx .pmx-num{flex:none;width:30px;height:30px;border-radius:50%;border:2.5px solid var(--ink);color:var(--ink);background:#fff;font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+#pmx .pmx-num.on{background:var(--ink);color:#fff}
+#pmx .pmx-ic{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;background:var(--c);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--c)}
+#pmx .pmx-li-t{display:flex;flex-direction:column;min-width:0}
+#pmx .pmx-li-t b{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pmx .pmx-li-t small{color:#64748b;font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pmx .pmx-q{width:100%;padding:10px 12px;border:2px solid #27302E;border-radius:12px;font:inherit;margin:4px 0 10px;background:#fff}
+#pmx .pmx-cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+#pmx .pmx-cat{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;border:1.5px solid var(--c);background:#fff;color:#27302E;font-size:.82rem;font-weight:600;cursor:pointer}
+#pmx .pmx-cat[aria-pressed="true"]{background:var(--c);color:#fff}
+#pmx .pmx-count{font-size:.85rem;color:#475569;margin:0 0 8px}
+#pmx .pmx-more{margin-top:10px;width:100%;padding:10px;border-radius:12px;border:2px dashed #27302E;background:none;font-weight:700;cursor:pointer;color:#27302E}
+#pmx .pmx-trust{margin-top:18px;padding-top:12px;border-top:1.5px dashed #d6ccb8;font-size:.82rem;color:#475569;line-height:1.45}
+#pmx .pmx-trust a{color:#27302E;font-weight:700}
+#pmx .pmx-pin{width:34px;height:34px;border-radius:50%;background:#fff;border:3px solid var(--ink);color:var(--ink);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
+#pmx .pmx-pin.on{background:var(--ink);color:#fff}
+#pmx .pmx-pin.sel{transform:scale(1.25)}
+#pmx .pmx-card{position:absolute;top:12px;left:12px;width:340px;max-height:calc(100% - 24px);overflow-y:auto;background:#fff;border:2.5px solid #27302E;border-radius:18px;box-shadow:5px 5px 0 #27302E;padding:16px 16px 14px;z-index:5}
+#pmx .pmx-x{position:absolute;top:8px;right:10px;border:0;background:none;font-size:22px;line-height:1;cursor:pointer;color:#27302E}
+#pmx .pmx-type{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#fff;background:var(--c);border-radius:99px;padding:3px 10px}
+#pmx .pmx-card h3{font-family:"Lilita One",sans-serif;font-weight:400;font-size:1.45rem;line-height:1.15;margin:8px 0 2px;padding-right:20px}
+#pmx .pmx-city{font-size:.85rem;color:#64748b}
+#pmx .pmx-card p{font-size:.92rem;line-height:1.45;margin:8px 0 10px}
+#pmx .pmx-stamp{display:flex;gap:10px;align-items:center;border:2px dashed var(--ink);border-radius:14px;padding:9px 10px;margin:4px 0 10px}
+#pmx .pmx-stamp.on{border-style:solid;background:color-mix(in srgb,var(--ink) 8%,#fff)}
+#pmx .pmx-seal{flex:none;width:40px;height:40px;border-radius:50%;border:3px dashed var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ink);font-weight:800}
+#pmx .pmx-stamp.on .pmx-seal{border-style:solid;background:var(--ink);color:#fff}
+#pmx .pmx-stamp b{display:block;font-size:.9rem}
+#pmx .pmx-stamp small{display:block;font-size:.8rem;color:#64748b}
+#pmx .pmx-acts{display:flex;flex-wrap:wrap;gap:8px}
+#pmx .pmx-b{display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;border-radius:999px;border:2px solid #27302E;background:#fff;color:#27302E !important;font-weight:700;font-size:.88rem;text-decoration:none !important;cursor:pointer}
+#pmx .pmx-b.main{background:#FFD43B;box-shadow:3px 3px 0 #27302E;font-family:"Lilita One",sans-serif;font-weight:400;font-size:1rem;width:100%;margin-bottom:8px}
+#pmx .pmx-b.quiet{border:0;padding:4px 0;text-decoration:underline !important;font-weight:600;background:none}
+#pmx .pmx-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;color:#475569}
+@media (max-width:899px){
+  #pmx .pmx-wrap{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"top" "map" "body";height:auto;min-height:0}
+  #pmx .pmx-top,#pmx .pmx-body{border-right:0}
+  #pmx .pmx-top{padding:14px 14px 6px}
+  #pmx .pmx-body{overflow:visible;padding:12px 14px 28px}
+  #pmx .pmx-mapbox{height:60vh;height:60svh;min-height:340px;border-top:2.5px solid #27302E;border-bottom:2.5px solid #27302E}
+  #pmx .pmx-card{top:auto;bottom:8px;left:8px;right:8px;width:auto;max-height:72%}
+  #pmx h1{font-size:1.4rem}
+}
+</style>
+
+<div id="pmx">
+  <div class="pmx-wrap">
+    <div class="pmx-top">
+      <h1 id="pmx-h"></h1>
+      <p class="pmx-sub" id="pmx-sub"></p>
+      <div class="pmx-tabs" id="pmx-tabs" role="toolbar"></div>
+    </div>
+    <div class="pmx-mapbox">
+      <div id="pmx-map"></div>
+      <div class="pmx-load" id="pmx-load">Loading the map...</div>
+      <div class="pmx-card" id="pmx-card" hidden></div>
+    </div>
+    <div class="pmx-body">
+      <div id="pmx-pp"></div>
+      <div id="pmx-all" hidden>
+        <input class="pmx-q" id="pmx-q" type="search" autocomplete="off">
+        <div class="pmx-cats" id="pmx-cats"></div>
+        <div class="pmx-count" id="pmx-count"></div>
+        <ul class="pmx-list" id="pmx-alist"></ul>
+        <button class="pmx-more" id="pmx-more" type="button" hidden></button>
+      </div>
+      <div class="pmx-trust" id="pmx-trust"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('pmx');
+  if (!root || root.getAttribute('data-ready')) return;
+  root.setAttribute('data-ready', '1');
+
+  var Q = new URLSearchParams(location.search);
+  var ES = (Q.get('lang') || '').toLowerCase().indexOf('es') === 0;
+  var T = ES ? {
+    title: 'Explora LA, un pasaporte a la vez', sub: 'Elige un pasaporte, ve a cada lugar y séllalo. Tus sellos se guardan en este teléfono.',
+    all: 'Todos los lugares', soon: 'pronto', of: function (d, t) { return d + ' de ' + t + ' sellos'; }, open: 'Abrir mi pasaporte',
+    done: '¡Pasaporte completo! Envía una postal desde tu pasaporte.', search: 'Busca entre los lugares', places: function (n) { return n + ' lugares'; },
+    more: 'Ver más', dir: 'Cómo llegar', story: 'Leer la historia', stampIt: 'Estoy aquí: sellar', unstamp: 'Quitar el sello',
+    stampFor: 'Sello para', stampedIn: 'Sellado en', goNote: 'Los sellos se ganan yendo.', stampedNote: 'Ya estuviste aquí.',
+    noPP: 'Aún no está en un pasaporte.', trust: 'Elegido por Marlon, guía local de LA · 4,9 en más de 500 opiniones', about: 'Conoce a Marlon',
+    updated: 'Actualizado en octubre de 2026', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
+  } : {
+    title: 'Explore LA, one passport at a time', sub: 'Pick a passport, go to each place and stamp it. Your stamps are saved on this phone.',
+    all: 'All places', soon: 'soon', of: function (d, t) { return d + ' of ' + t + ' stamped'; }, open: 'Open my passport',
+    done: 'Passport complete! Send a postcard from your passport.', search: 'Search all places', places: function (n) { return n + ' places'; },
+    more: 'Show more', dir: 'Directions', story: 'Read the story', stampIt: "I'm here: stamp it", unstamp: 'Remove stamp',
+    stampFor: 'Stamp for', stampedIn: 'Stamped in', goNote: 'Stamps are earned by going.', stampedNote: "You've been here.",
+    noPP: 'Not in a passport yet.', trust: 'Picked by Marlon, a local LA guide · 4.9 from 500+ reviews', about: 'Meet Marlon',
+    updated: 'Updated October 2026', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
+  };
+
+  var CATS = {
+    landmarks: { e: '🏛️', c: '#D97706', en: 'Landmarks', es: 'Lugares icónicos' },
+    parks: { e: '🌴', c: '#16A34A', en: 'Parks & beaches', es: 'Parques y playas' },
+    dining: { e: '🌮', c: '#DC2626', en: 'Food', es: 'Comida' },
+    arts: { e: '🎨', c: '#2563EB', en: 'Art & museums', es: 'Arte y museos' },
+    entertainment: { e: '🎟️', c: '#4F46E5', en: 'Shows & fun', es: 'Diversión' },
+    shopping: { e: '🛍️', c: '#DB2777', en: 'Shopping', es: 'Compras' },
+    nightlife: { e: '🍸', c: '#7C3AED', en: 'Nightlife', es: 'Vida nocturna' }
+  };
+  var STORY = { 'walt-disney-concert-hall': '/blog/walt-disney-concert-hall', 'the-broad': '/blog/the-broad', 'angels-flight-railway': '/blog/angels-flight', 'la-city-hall': '/blog/city-hall', 'olvera-street-and-el-pueblo': '/blog/olvera-street' };
+  var PPAGE = { 'downtown-classic': '/free-tour-passport' };
+  var BASE = 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/';
+  var TOKEN = 'pk.eyJ1IjoibWFybG9ud2Fsa3NsYSIsImEiOiJjbXM5YWhuOGIwbGVjMzRwbTZ0b2I2emZlIn0.UgW7MpYibACH6Axk1WgoSA';
+
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function L(o) { return !o ? '' : typeof o === 'string' ? o : (ES ? (o.es || o.en) : (o.en || o.es)); }
+  function rd(k) { try { var a = JSON.parse(localStorage.getItem(k) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function wr(k, a) { try { localStorage.setItem(k, JSON.stringify(a)); } catch (e) {} }
+  function cat(k) { return CATS[k] || CATS.landmarks; }
+
+  var spots = [], byId = {}, pps = [], mode = '', map = null, markers = [], cats = {}, query = '', shown = 40, fitFor = '', card = null;
+
+  /* ---------- stamps (shared with the passport page) ---------- */
+  function keyOf(st) { return st.spot || st.id; }
+  function stamped(st) { return st.spot ? rd('marlon_visited_spots').indexOf(st.spot) > -1 : rd('marlon_stamps').indexOf(st.id) > -1; }
+  function setStamp(st, on) {
+    var k = st.spot ? 'marlon_visited_spots' : 'marlon_stamps', id = keyOf(st), a = rd(k), i = a.indexOf(id);
+    if (on && i < 0) a.push(id);
+    if (!on && i > -1) a.splice(i, 1);
+    wr(k, a);
+  }
+  function pp(id) { for (var i = 0; i < pps.length; i++) if (pps[i].id === id) return pps[i]; return null; }
+  function live(p) { return p && p.status !== 'coming-soon' && (p.stamps || []).length; }
+  function prog(p) { var a = p.stamps || []; return { d: a.filter(stamped).length, t: a.length }; }
+  function memberOf(key) { return pps.filter(function (p) { return live(p) && (p.stamps || []).some(function (st) { return keyOf(st) === key; }); }); }
+  function stampObj(key) { var m = memberOf(key); if (!m.length) return null; return m[0].stamps.filter(function (st) { return keyOf(st) === key; })[0]; }
+
+  /* A place as one object, from a spot or from a stamp without a pin */
+  function placeFromSpot(s) { return { key: s.id, name: s.name, cat: s.cat, city: s.city, desc: s.desc, coords: s.coords }; }
+  function stops(p) {
+    return (p.stamps || []).map(function (st, i) {
+      var s = st.spot ? byId[st.spot] : null;
+      var o = s ? placeFromSpot(s) : { key: st.id, name: L(st.label), cat: 'landmarks', city: (st.location && st.location.address) || '', desc: '', coords: st.location && st.location.coordinates };
+      o.name = L(st.label) || o.name;
+      o.n = i + 1; o.st = st;
+      return o;
+    }).filter(function (o) { return o.coords; });
+  }
+
+  /* ---------- loading ---------- */
+  function loadMapbox() {
+    if (window.mapboxgl) return Promise.resolve();
+    return new Promise(function (res, rej) {
+      var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css'; document.head.appendChild(l);
+      var s = document.createElement('script'); s.src = 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s);
+    });
+  }
+  function getJSON(u) { return fetch(u).then(function (r) { if (!r.ok) throw 0; return r.json(); }); }
+
+  function sizeToHeader() {
+    var nav = document.querySelector('.w-nav, .navbar, nav, header');
+    var h = nav ? Math.round(nav.getBoundingClientRect().height) : 64;
+    root.style.setProperty('--top', (h > 20 && h < 160 ? h : 64) + 'px');
+  }
+
+  function start() {
+    sizeToHeader();
+    window.addEventListener('resize', sizeToHeader);
+    $('pmx-h').textContent = T.title; $('pmx-sub').textContent = T.sub; $('pmx-load').textContent = T.loading;
+    $('pmx-q').placeholder = '🔍 ' + T.search;
+    $('pmx-trust').innerHTML = esc(T.trust) + '. <a href="/about">' + esc(T.about) + '</a><br>' + esc(T.updated);
+    Promise.all([getJSON(BASE + 'spots.geojson'), getJSON(BASE + 'passport-collections.json'), loadMapbox()]).then(function (r) {
+      (r[0].features || []).forEach(function (f) {
+        var p = f.properties || {}, c = f.geometry && f.geometry.coordinates;
+        if (!c) return;
+        var id = String(p.Slug || p.Name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        var s = { id: id, name: p.Name || '', city: p.City || '', cat: String(p.Category || 'landmarks').toLowerCase(), desc: p.Description || '', tags: p.Tags || '', coords: [parseFloat(c[0]), parseFloat(c[1])] };
+        if (!CATS[s.cat]) s.cat = 'landmarks';
+        spots.push(s); byId[id] = s;
+      });
+      spots.sort(function (a, b) { return (b.tags.indexOf('must-see') > -1) - (a.tags.indexOf('must-see') > -1) || a.name.localeCompare(b.name); });
+      pps = (r[1].collections || []);
+      var want = Q.get('passport');
+      var def = pps.filter(function (p) { return p.defaultMapFilter && live(p); })[0] || pps.filter(live)[0];
+      mode = want === 'all' ? 'all' : (pp(want) && live(pp(want)) ? want : (def ? def.id : 'all'));
+      initMap();
+    }).catch(function () { $('pmx-load').textContent = T.fail; });
+  }
+
+  /* ---------- map ---------- */
+  function drawIcon(k, done) {
+    var c = cat(k), S = 64, cv = document.createElement('canvas'); cv.width = cv.height = S;
+    var x = cv.getContext('2d');
+    x.beginPath(); x.arc(32, 32, 27, 0, Math.PI * 2); x.fillStyle = '#fff'; x.fill();
+    x.beginPath(); x.arc(32, 32, 23, 0, Math.PI * 2); x.fillStyle = c.c; x.fill();
+    x.font = '26px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.fillText(c.e, 32, 34);
+    if (done) { x.beginPath(); x.arc(50, 14, 12, 0, Math.PI * 2); x.fillStyle = '#27302E'; x.fill(); x.fillStyle = '#fff'; x.font = 'bold 16px sans-serif'; x.fillText('✓', 50, 15); }
+    return x.getImageData(0, 0, S, S);
+  }
+
+  function initMap() {
+    mapboxgl.accessToken = TOKEN;
+    var phone = window.matchMedia('(max-width: 899px)').matches;
+    map = new mapboxgl.Map({ container: 'pmx-map', style: 'mapbox://styles/mapbox/streets-v12', center: [-118.2437, 34.0522], zoom: 10.2, cooperativeGestures: phone, attributionControl: true });
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+    map.addControl(new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true }), 'top-right');
+    map.on('load', function () {
+      $('pmx-load').hidden = true;
+      Object.keys(CATS).forEach(function (k) { map.addImage('pmx-' + k, drawIcon(k, false), { pixelRatio: 2 }); map.addImage('pmx-' + k + '-s', drawIcon(k, true), { pixelRatio: 2 }); });
+      map.addSource('pmx-all', { type: 'geojson', data: { type: 'FeatureCollection', features: [] }, cluster: true, clusterRadius: 44, clusterMaxZoom: 13 });
+      map.addLayer({ id: 'pmx-clusters', type: 'circle', source: 'pmx-all', filter: ['has', 'point_count'],
+        paint: { 'circle-color': '#27302E', 'circle-radius': ['step', ['get', 'point_count'], 15, 10, 19, 30, 24], 'circle-stroke-width': 3, 'circle-stroke-color': '#fff' } });
+      map.addLayer({ id: 'pmx-count', type: 'symbol', source: 'pmx-all', filter: ['has', 'point_count'],
+        layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['DIN Pro Medium', 'Arial Unicode MS Regular'], 'text-size': 13 }, paint: { 'text-color': '#fff' } });
+      map.addLayer({ id: 'pmx-pts', type: 'symbol', source: 'pmx-all', filter: ['!', ['has', 'point_count']],
+        layout: { 'icon-image': ['get', 'ic'], 'icon-allow-overlap': true, 'icon-size': 1 } });
+      map.on('click', 'pmx-clusters', function (e) {
+        var f = e.features[0];
+        map.getSource('pmx-all').getClusterExpansionZoom(f.properties.cluster_id, function (err, z) { if (!err) map.easeTo({ center: f.geometry.coordinates, zoom: z + 0.5 }); });
+      });
+      map.on('click', 'pmx-pts', function (e) { var s = byId[e.features[0].properties.id]; if (s) openCard(placeFromSpot(s)); });
+      ['pmx-clusters', 'pmx-pts'].forEach(function (l) {
+        map.on('mouseenter', l, function () { map.getCanvas().style.cursor = 'pointer'; });
+        map.on('mouseleave', l, function () { map.getCanvas().style.cursor = ''; });
+      });
+      render();
+      var focus = Q.get('spot');
+      if (focus) setTimeout(function () { openByKey(focus); }, 600);
+    });
+  }
+
+  function fit(coords) {
+    if (!coords.length) return;
+    var b = new mapboxgl.LngLatBounds();
+    coords.forEach(function (c) { b.extend(c); });
+    var phone = window.innerWidth < 900;
+    var left = $('pmx-card').hidden ? 60 : 380;
+    map.fitBounds(b, { padding: phone ? 40 : { top: 60, bottom: 60, left: left, right: 60 }, maxZoom: 15, duration: 700 });
+  }
+
+  function clearMarkers() { markers.forEach(function (m) { m.remove(); }); markers = []; }
+
+  /* ---------- render ---------- */
+  function render() {
+    renderTabs();
+    var isAll = mode === 'all';
+    $('pmx-pp').hidden = isAll; $('pmx-all').hidden = !isAll;
+    ['pmx-clusters', 'pmx-count', 'pmx-pts'].forEach(function (l) { if (map.getLayer(l)) map.setLayoutProperty(l, 'visibility', isAll ? 'visible' : 'none'); });
+    if (isAll) { clearMarkers(); renderCats(); renderAll(); } else renderPassport();
+    try { var u = new URL(location.href); u.searchParams.set('passport', mode); history.replaceState(null, '', u.toString()); } catch (e) {}
+  }
+
+  function renderTabs() {
+    $('pmx-tabs').innerHTML = pps.map(function (p) {
+      var ok = live(p), g = prog(p);
+      return '<button type="button" class="pmx-tab" data-mode="' + esc(p.id) + '" aria-pressed="' + (mode === p.id) + '"' + (ok ? '' : ' disabled') + ' style="--ink:' + esc(p.ink || '#27302E') + '"><span class="pmx-dot"></span>' + esc(L(p.name)) + ' <em>' + (ok ? g.d + '/' + g.t : T.soon) + '</em></button>';
+    }).join('') + '<button type="button" class="pmx-tab" data-mode="all" aria-pressed="' + (mode === 'all') + '">🗺️ ' + esc(T.all) + ' <em>' + spots.length + '</em></button>';
+  }
+
+  function renderPassport() {
+    var p = pp(mode); if (!p) return;
+    var ink = p.ink || '#27302E', list = stops(p), g = prog(p), page = PPAGE[p.id];
+    root.style.setProperty('--ink', ink);
+    var h = '<div class="pmx-prog"><div class="pmx-prog-top"><b>' + esc(L(p.name)) + '</b><span>' + g.d + '/' + g.t + '</span></div>' +
+      '<div class="pmx-bar"><i style="width:' + (g.t ? Math.round(g.d / g.t * 100) : 0) + '%"></i></div><small>' + esc(T.of(g.d, g.t)) + '</small>' +
+      (page ? '<a class="pmx-open" href="' + page + (ES ? '?lang=es' : '') + '">' + esc(T.open) + ' →</a>' : '') + '</div>';
+    if (g.t && g.d === g.t) h += '<div class="pmx-done">🎉 ' + esc(T.done) + '</div>';
+    h += '<ol class="pmx-list">' + list.map(function (o) {
+      var on = stamped(o.st), c = cat(o.cat);
+      return '<li><button type="button" data-key="' + esc(o.key) + '"><span class="pmx-num' + (on ? ' on' : '') + '">' + (on ? '✓' : o.n) + '</span><span class="pmx-li-t"><b>' + esc(o.name) + '</b><small>' + c.e + ' ' + esc(L(c)) + (o.city ? ' · ' + esc(o.city) : '') + '</small></span></button></li>';
+    }).join('') + '</ol>';
+    $('pmx-pp').innerHTML = h;
+    clearMarkers();
+    list.forEach(function (o) {
+      var on = stamped(o.st), wrap = document.createElement('div'), pin = document.createElement('div');
+      pin.className = 'pmx-pin' + (on ? ' on' : '') + (card && card.key === o.key ? ' sel' : '');
+      pin.style.setProperty('--ink', ink); pin.textContent = on ? '✓' : o.n; pin.title = o.name;
+      wrap.appendChild(pin);
+      wrap.addEventListener('click', function (e) { e.stopPropagation(); openCard(o); });
+      markers.push(new mapboxgl.Marker({ element: wrap }).setLngLat(o.coords).addTo(map));
+    });
+    if (fitFor !== mode) { fitFor = mode; fit(list.map(function (o) { return o.coords; })); }
+  }
+
+  function renderCats() {
+    var counts = {}; spots.forEach(function (s) { counts[s.cat] = (counts[s.cat] || 0) + 1; });
+    $('pmx-cats').innerHTML = Object.keys(CATS).map(function (k) {
+      var c = CATS[k];
+      return '<button type="button" class="pmx-cat" data-cat="' + k + '" aria-pressed="' + !!cats[k] + '" style="--c:' + c.c + '">' + c.e + ' ' + esc(L(c)) + ' <span style="opacity:.7">' + (counts[k] || 0) + '</span></button>';
+    }).join('');
+  }
+
+  function filteredSpots() {
+    var any = Object.keys(cats).some(function (k) { return cats[k]; }), q = query.trim().toLowerCase();
+    return spots.filter(function (s) {
+      return (!any || cats[s.cat]) && (!q || s.name.toLowerCase().indexOf(q) > -1 || s.city.toLowerCase().indexOf(q) > -1 || s.desc.toLowerCase().indexOf(q) > -1);
+    });
+  }
+
+  function renderAll() {
+    var list = filteredSpots(), vis = rd('marlon_visited_spots'), st = rd('marlon_stamps');
+    map.getSource('pmx-all').setData({ type: 'FeatureCollection', features: list.map(function (s) {
+      var done = vis.indexOf(s.id) > -1;
+      return { type: 'Feature', geometry: { type: 'Point', coordinates: s.coords }, properties: { id: s.id, ic: 'pmx-' + s.cat + (done ? '-s' : '') } };
+    }) });
+    $('pmx-count').textContent = T.places(list.length);
+    $('pmx-alist').innerHTML = list.slice(0, shown).map(function (s) {
+      var c = cat(s.cat);
+      return '<li><button type="button" data-key="' + esc(s.id) + '"><span class="pmx-ic" style="--c:' + c.c + '">' + c.e + '</span><span class="pmx-li-t"><b>' + esc(s.name) + '</b><small>' + esc(L(c)) + ' · ' + esc(s.city) + '</small></span></button></li>';
+    }).join('');
+    $('pmx-more').hidden = list.length <= shown; $('pmx-more').textContent = T.more;
+    if (fitFor !== 'all:' + list.length) { fitFor = 'all:' + list.length; if (list.length && list.length < spots.length) fit(list.map(function (s) { return s.coords; })); else if (fitFor) map.easeTo({ center: [-118.2437, 34.0522], zoom: 9.6, duration: 600 }); }
+  }
+
+  /* ---------- the place card ---------- */
+  function openByKey(key) {
+    if (mode !== 'all') { var o = stops(pp(mode)).filter(function (x) { return x.key === key; })[0]; if (o) return openCard(o); }
+    if (byId[key]) return openCard(placeFromSpot(byId[key]));
+    var st = stampObj(key);
+    if (st && st.location) openCard({ key: key, name: L(st.label), cat: 'landmarks', city: st.location.address || '', desc: '', coords: st.location.coordinates });
+  }
+
+  function openCard(o) {
+    card = o;
+    var c = cat(o.cat), st = o.st || stampObj(o.key), members = memberOf(o.key), on = st ? stamped(st) : false;
+    var ink = (members[0] && members[0].ink) || '#27302E';
+    var names = members.map(function (p) { return L(p.name); }).join(' · ');
+    var dir = 'https://www.google.com/maps/dir/?api=1&destination=' + o.coords[1] + ',' + o.coords[0];
+    var h = '<button type="button" class="pmx-x" data-close aria-label="Close">×</button>' +
+      '<span class="pmx-type" style="--c:' + c.c + '">' + c.e + ' ' + esc(L(c)) + '</span>' +
+      '<h3>' + esc(o.name) + '</h3>' + (o.city ? '<div class="pmx-city">📍 ' + esc(o.city) + '</div>' : '') +
+      (o.desc ? '<p>' + esc(o.desc) + '</p>' : '<div style="height:8px"></div>');
+    if (st) {
+      h += '<div class="pmx-stamp' + (on ? ' on' : '') + '" style="--ink:' + esc(ink) + '"><span class="pmx-seal">' + (on ? '✓' : '🎫') + '</span><div><b>' + esc(on ? T.stampedIn : T.stampFor) + ' ' + esc(names) + '</b><small>' + esc(on ? T.stampedNote : T.goNote) + '</small></div></div>';
+      h += on ? '' : '<button type="button" class="pmx-b main" data-stamp="1">' + esc(T.stampIt) + '</button>';
+    } else {
+      h += '<p style="color:#64748b;font-size:.85rem;margin-top:0">' + esc(T.noPP) + '</p>';
+    }
+    h += '<div class="pmx-acts"><a class="pmx-b" href="' + dir + '" target="_blank" rel="noopener">🚗 ' + esc(T.dir) + '</a>' +
+      (STORY[o.key] ? '<a class="pmx-b" href="' + STORY[o.key] + '">📖 ' + esc(T.story) + '</a>' : '') + '</div>' +
+      (st && on ? '<button type="button" class="pmx-b quiet" data-stamp="0">' + esc(T.unstamp) + '</button>' : '');
+    var el = $('pmx-card'); el.innerHTML = h; el.hidden = false; el.scrollTop = 0;
+    var phone = window.innerWidth < 900;
+    map.easeTo({ center: o.coords, zoom: Math.max(map.getZoom(), 14), offset: phone ? [0, -Math.round($('pmx-map').clientHeight * 0.3)] : [180, 0], duration: 600 });
+    if (mode !== 'all') renderPassport();
+  }
+
+  function closeCard() { card = null; $('pmx-card').hidden = true; if (mode !== 'all') renderPassport(); }
+
+  /* ---------- events ---------- */
+  root.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.hasAttribute('data-mode')) { mode = b.getAttribute('data-mode'); fitFor = ''; closeCard(); shown = 40; render(); return; }
+    if (b.hasAttribute('data-cat')) { var k = b.getAttribute('data-cat'); cats[k] = !cats[k]; shown = 40; renderCats(); renderAll(); return; }
+    if (b.id === 'pmx-more') { shown += 40; renderAll(); return; }
+    if (b.hasAttribute('data-close')) { closeCard(); return; }
+    if (b.hasAttribute('data-stamp') && card) {
+      var st = card.st || stampObj(card.key); if (!st) return;
+      setStamp(st, b.getAttribute('data-stamp') === '1');
+      renderTabs(); if (mode === 'all') renderAll();
+      openCard(card); return;
+    }
+    if (b.hasAttribute('data-key')) {
+      openByKey(b.getAttribute('data-key'));
+      if (window.innerWidth < 900) { try { $('pmx-map').scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }
+    }
+  });
+  var qt;
+  $('pmx-q').addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { query = $('pmx-q').value; shown = 40; renderAll(); }, 150); });
+  window.addEventListener('storage', function (e) { if (e.key === 'marlon_visited_spots' || e.key === 'marlon_stamps') { renderTabs(); if (mode === 'all') renderAll(); else renderPassport(); } });
+
+  start();
+})();
+</script>
