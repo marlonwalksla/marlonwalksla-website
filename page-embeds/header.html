@@ -1,53 +1,94 @@
 <!-- ==============================================================================
-     MARLONWALKSLA - GLOBAL HEADER (inside the HEADER component)
-     Oct 16, 2026: slimmed to logo + Maps + EN | ES switch (Marlon's call).
-     The switch links to the matching page in the other language when one exists
-     (Home <-> /es, free tour EN <-> ES, Ernesto <-> Ernesto ES); other pages
-     switch to the Home page of that language. Tours, team, private and About are
-     reached from the Home photos and the footer.
+     MARLONWALKSLA - GLOBAL HEADER (inside the HEADER component in Webflow)
+     Reference copy: Webflow is the source (component fc979ec1-e8bd-a2a9-3ff2-770d0f3b2408,
+     HtmlEmbed 1b2f48e8-f203-9de1-4fa2-411d036c10f7). Keep in sync.
+     Oct 26, 2026: full menu (Tours dropdown: Free Tour, Team Tours, Private Tours; then Maps, History, About) plus the
+     EN | ES switch. Desktop: links in the bar. Phone (880px and under): logo, EN | ES
+     and a menu button that opens a panel. Spanish pages get Spanish labels and links.
+     The header is hidden on Home and /es by the page instance, not here.
      ============================================================================== -->
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&display=swap" rel="stylesheet">
 <header class="mwhd" role="banner">
   <div class="mwhd-wrap">
     <a href="/" class="mwhd-logo" id="mwhd-home" aria-label="MarlonWalksLA home">
-      <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf6566579c80566562_Circle%20Full.png" alt="MarlonWalksLA logo" width="38" height="38">
+      <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf6566579c80566562_Circle%20Full.png" alt="" width="38" height="38">
       <span>MarlonWalks<b>LA</b></span>
     </a>
-    <nav class="mwhd-nav" aria-label="Main">
-      <a href="/maps" class="mwhd-link mwhd-maps" id="mwhd-maps"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Maps</span></a>
+    <div class="mwhd-right">
+      <nav class="mwhd-nav" id="mwhd-menu" aria-label="Main">
+        <div class="mwhd-dd" id="mwhd-dd">
+          <button type="button" class="mwhd-link mwhd-ddbtn" id="mwhd-ddbtn" aria-expanded="false" aria-haspopup="true"><span>Tours</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="mwhd-ddlist" role="group" aria-label="Tours">
+            <a href="/free-walking-tour-los-angeles" class="mwhd-link" data-k="free">Free Tour</a>
+            <a href="/team-outings-los-angeles" class="mwhd-link" data-k="team">Team Tours</a>
+            <a href="/private-tours" class="mwhd-link" data-k="private">Private Tours</a>
+          </div>
+        </div>
+        <a href="/maps" class="mwhd-link" data-k="maps">Maps</a>
+        <a href="/history" class="mwhd-link" data-k="history">History</a>
+        <a href="/about" class="mwhd-link" data-k="about">About</a>
+      </nav>
       <div class="mwhd-lang" role="group" aria-label="Language / Idioma">
         <a href="/" id="mwhd-en" lang="en" hreflang="en">EN</a>
         <a href="/es" id="mwhd-es" lang="es" hreflang="es">ES</a>
       </div>
-    </nav>
+      <button type="button" class="mwhd-burger" id="mwhd-burger" aria-expanded="false" aria-controls="mwhd-menu" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path class="mwhd-b1" d="M4 7h16M4 12h16M4 17h16"/><path class="mwhd-b2" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 <style>
   .mwhd { background: #27302E; color: #FFF6E6; position: relative; z-index: 999999; font-family: "Fredoka", "Nunito", system-ui, sans-serif; }
   .mwhd *, .mwhd *::before { box-sizing: border-box; }
   .mwhd-wrap { max-width: 1140px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .mwhd-logo { display: flex; align-items: center; gap: 10px; text-decoration: none !important; color: #FFF6E6 !important; }
+  .mwhd-logo { display: flex; align-items: center; gap: 10px; text-decoration: none !important; color: #FFF6E6 !important; flex-shrink: 0; }
   .mwhd-logo img { width: 38px; height: 38px; border-radius: 50%; display: block; }
-  .mwhd-logo span { font-family: "Lilita One", sans-serif; font-size: 1.35rem; letter-spacing: 0.01em; line-height: 1; }
+  .mwhd-logo span { font-family: "Lilita One", sans-serif; font-size: 1.35rem; letter-spacing: 0.01em; line-height: 1; white-space: nowrap; }
   .mwhd-logo b { font-weight: 400; color: #FFD43B; }
-  .mwhd-nav { display: flex; align-items: center; gap: 18px; }
-  .mwhd-link { color: #FFF6E6 !important; text-decoration: none !important; font-weight: 500; font-size: 1.02rem; padding: 10px 4px; }
-  .mwhd-link:hover, .mwhd-link[aria-current="page"] { color: #FFD43B !important; }
-  /* Maps reads as a link: pin icon, underline and a soft outline */
-  .mwhd-maps { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px !important; border: 1.5px solid rgba(255, 246, 230, 0.55); border-radius: 999px; min-height: 40px; }
-  .mwhd-maps span { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
-  .mwhd-maps:hover { border-color: #FFD43B; }
+  .mwhd-right { display: flex; align-items: center; gap: 18px; }
+  .mwhd-nav { display: flex; align-items: center; gap: 6px; }
+  .mwhd-link { color: #FFF6E6 !important; text-decoration: none !important; font-weight: 500; font-size: 1.02rem; padding: 9px 12px; border-radius: 999px; white-space: nowrap; }
+  .mwhd-link:hover { color: #FFD43B !important; }
+  .mwhd-link[aria-current="page"] { color: #27302E !important; background: #FFD43B; }
+  .mwhd-dd { position: relative; }
+  .mwhd-ddbtn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 0; font-family: inherit; cursor: pointer; }
+  .mwhd-ddbtn svg { transition: transform .15s; }
+  .mwhd-dd.is-open .mwhd-ddbtn svg { transform: rotate(180deg); }
+  .mwhd-ddbtn.is-current { color: #FFD43B !important; }
+  .mwhd-ddlist { display: none; position: absolute; top: 100%; left: 0; min-width: 200px; flex-direction: column; gap: 2px; background: #27302E; border: 1.5px solid rgba(255, 246, 230, 0.3); border-radius: 16px; padding: 6px; box-shadow: 0 14px 24px rgba(0, 0, 0, 0.35); }
+  .mwhd-dd.is-open .mwhd-ddlist, .mwhd-dd:hover .mwhd-ddlist, .mwhd-dd:focus-within .mwhd-ddlist { display: flex; }
+  .mwhd-ddlist .mwhd-link { border-radius: 10px; }
   .mwhd-lang { display: inline-flex; border: 1.5px solid rgba(255, 246, 230, 0.55); border-radius: 999px; padding: 3px; }
   .mwhd-lang a { min-width: 44px; text-align: center; padding: 7px 10px; border-radius: 999px; font-weight: 600; font-size: 0.92rem; color: #FFF6E6 !important; text-decoration: none !important; line-height: 1.2; }
   .mwhd-lang a[aria-current="true"] { background: #FFD43B; color: #27302E !important; }
-  .mwhd a:focus-visible { outline: 2px solid #FFD43B; outline-offset: 3px; }
+  .mwhd-burger { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; background: transparent; color: #FFF6E6; border: 1.5px solid rgba(255, 246, 230, 0.55); border-radius: 999px; cursor: pointer; }
+  .mwhd-burger .mwhd-b2 { display: none; }
+  .mwhd-burger[aria-expanded="true"] .mwhd-b1 { display: none; }
+  .mwhd-burger[aria-expanded="true"] .mwhd-b2 { display: block; }
+  .mwhd a:focus-visible, .mwhd button:focus-visible { outline: 2px solid #FFD43B; outline-offset: 3px; }
+  @media (max-width: 880px) {
+    .mwhd-wrap { padding: 8px 14px; gap: 10px; }
+    .mwhd-right { gap: 10px; }
+    .mwhd-burger { display: inline-flex; }
+    .mwhd-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0; background: #27302E; padding: 6px 14px 16px; border-top: 1px solid rgba(255, 246, 230, 0.18); box-shadow: 0 14px 24px rgba(0, 0, 0, 0.35); }
+    .mwhd-nav.is-open { display: flex; }
+    .mwhd-ddbtn { pointer-events: none; font-size: 0.95rem; padding: 14px 12px 4px; min-height: 0; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.06em; }
+    .mwhd-ddbtn svg { display: none; }
+    .mwhd-ddbtn.is-current { color: #FFF6E6 !important; }
+    .mwhd-ddlist, .mwhd-dd:hover .mwhd-ddlist { display: flex; position: static; background: none; border: 0; box-shadow: none; padding: 0 0 8px 12px; min-width: 0; }
+    .mwhd-link { font-size: 1.2rem; padding: 14px 12px; border-radius: 12px; min-height: 48px; display: flex; align-items: center; }
+  }
   @media (max-width: 480px) {
-    .mwhd-wrap { padding: 8px 14px; }
     .mwhd-logo img { width: 32px; height: 32px; }
-    .mwhd-logo span { font-size: 1.12rem; }
-    .mwhd-nav { gap: 10px; }
-    .mwhd-maps { padding: 6px 10px !important; gap: 4px; min-height: 38px; }
-    .mwhd-lang a { min-width: 40px; padding: 7px 8px; }
+    .mwhd-logo span { font-size: 1.05rem; }
+    .mwhd-logo { gap: 8px; }
+    .mwhd-lang a { min-width: 36px; padding: 7px 7px; font-size: 0.86rem; }
+    .mwhd-burger { width: 42px; height: 42px; }
+  }
+  @media (max-width: 370px) {
+    .mwhd-logo span { font-size: 0.95rem; }
+    .mwhd-lang a { min-width: 32px; padding: 7px 6px; }
   }
 </style>
 <script>
@@ -56,22 +97,55 @@
     var pairs = [
       ['/', '/es'],
       ['/free-walking-tour-los-angeles', '/free-tour-los-angeles-espanol'],
-      ['/ernesto', '/ernesto-es']
+      ['/ernesto', '/ernesto-es'],
+      ['/team-outings-los-angeles', '/salidas-de-equipo-los-angeles'],
+      ['/private-tours', '/tours-privados-los-angeles'],
+      ['/maps', '/mapa-los-angeles'],
+      ['/history', '/historia-de-los-angeles']
     ];
-    var esPages = ['/es', '/free-tour-los-angeles-espanol', '/ernesto-es'];
+    var esPages = ['/es', '/free-tour-los-angeles-espanol', '/ernesto-es', '/salidas-de-equipo-los-angeles', '/tours-privados-los-angeles', '/mapa-los-angeles', '/historia-de-los-angeles'];
     var isEs = esPages.indexOf(path) > -1;
     var enHref = '/', esHref = '/es';
     for (var i = 0; i < pairs.length; i++) {
       if (path === pairs[i][0] || path === pairs[i][1]) { enHref = pairs[i][0]; esHref = pairs[i][1]; }
     }
     var en = document.getElementById('mwhd-en'), es = document.getElementById('mwhd-es');
-    var home = document.getElementById('mwhd-home'), maps = document.getElementById('mwhd-maps');
+    var home = document.getElementById('mwhd-home');
     if (en) { en.href = enHref; if (!isEs) en.setAttribute('aria-current', 'true'); }
     if (es) { es.href = esHref; if (isEs) es.setAttribute('aria-current', 'true'); }
+    var ES = {
+      free: ['/free-tour-los-angeles-espanol', 'Free Tour'],
+      team: ['/salidas-de-equipo-los-angeles', 'Tours de equipo'],
+      'private': ['/tours-privados-los-angeles', 'Tours privados'],
+      maps: ['/mapa-los-angeles', 'Mapa'],
+      history: ['/historia-de-los-angeles', 'Historia'],
+      about: ['/about', 'Sobre mí']
+    };
+    var links = document.querySelectorAll('.mwhd-link');
+    for (var j = 0; j < links.length; j++) {
+      var a = links[j];
+      if (isEs && ES[a.getAttribute('data-k')]) { a.href = ES[a.getAttribute('data-k')][0]; a.textContent = ES[a.getAttribute('data-k')][1]; }
+      if ((a.getAttribute('href') || '').replace(/\/+$/, '') === path) a.setAttribute('aria-current', 'page');
+    }
+    var dd = document.getElementById('mwhd-dd'), ddb = document.getElementById('mwhd-ddbtn');
+    if (dd && ddb) {
+      if (dd.querySelector('[aria-current="page"]')) ddb.classList.add('is-current');
+      ddb.addEventListener('click', function (e) { e.stopPropagation(); var o = !dd.classList.contains('is-open'); dd.classList.toggle('is-open', o); ddb.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+      document.addEventListener('click', function (e) { if (!dd.contains(e.target)) { dd.classList.remove('is-open'); ddb.setAttribute('aria-expanded', 'false'); } });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { dd.classList.remove('is-open'); ddb.setAttribute('aria-expanded', 'false'); } });
+    }
     if (isEs) {
       if (home) home.href = '/es';
-      if (maps) { var ms = maps.querySelector('span'); if (ms) ms.textContent = 'Mapa'; maps.href = '/maps?lang=es'; }
+      var b0 = document.getElementById('mwhd-burger'); if (b0) b0.setAttribute('aria-label', 'Menú');
     }
-    if (maps && path === '/maps') maps.setAttribute('aria-current', 'page');
+    var btn = document.getElementById('mwhd-burger'), menu = document.getElementById('mwhd-menu');
+    if (btn && menu) {
+      function setOpen(o) { menu.classList.toggle('is-open', o); btn.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+      btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!menu.classList.contains('is-open')); });
+      menu.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a')) setOpen(false); });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target) && e.target !== btn) setOpen(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setOpen(false); btn.focus(); } });
+      window.addEventListener('resize', function () { if (window.innerWidth > 880) setOpen(false); });
+    }
   })();
 </script>
