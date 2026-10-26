@@ -24,6 +24,8 @@
     '.hh-stop{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#FFC9E4;color:#9D174D;border-radius:99px;padding:2px 10px;margin-bottom:8px}' +
     '.hh-big .hh-stop{background:#D5EAF6;color:#1D4E89}' +
     '.sc-more{text-align:center;margin-top:22px}' +
+    '@media (max-width:640px){#sc-tour .hh-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:22px -20px 0;padding:0 20px 12px;-webkit-overflow-scrolling:touch}' +
+    '#sc-tour .hh-card{flex:0 0 78%;scroll-snap-align:start}#sc-tour .hh-card img{aspect-ratio:4/3}}' +
     '@media (prefers-reduced-motion:reduce){.hh-card{transition:none}.hh-card:hover{transform:none}}';
   var TXT = {
     en: { tour: 'Read the stories before you go', tourSub: 'The places on this walk, and the history behind them.', more: 'All LA history stories', moreHref: '/history' },
@@ -78,6 +80,8 @@
   function tour(feed, list, lang) {
     var f = feed.getAttribute('data-tour-filter');
     var mine = list.filter(function (c) { return c.tour.indexOf(f) !== -1; });
+    // Stop numbers follow the free tour route; other tours show no number.
+    if (f !== 'free') mine = mine.map(function (c) { var o = {}; for (var k in c) o[k] = c[k]; if (/^(stop|parada)\b/i.test(o.label)) o.label = ''; return o; });
     var old = document.getElementById('sc-tour'); if (old) old.remove();
     if (!mine.length) return;
     var T = TXT[lang];
