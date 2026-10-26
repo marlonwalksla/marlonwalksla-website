@@ -67,20 +67,20 @@ FACTS = {
   team_h="Team Outing Walking Tours", team_extra="Pricing for 5 to 20 guests: for example about $790 for 15 people (about $53 per person). The price per person goes down as the group grows. Lunch is either bought by each guest at Grand Central Market, or Marlon arranges catering for your group.",
   team_link=("/team-outings-los-angeles", "Team outing walking tours in Downtown LA"),
   priv_h="Private Tours of Los Angeles", priv_extra="Choose a plan (Date Night, Family Outing, Fun with Friends or design your own day), pick your places and get an estimate. About $20 to $40 per person per hour; bigger groups and longer tours cost less per person. Tours run 2 to 12 hours, for 2 to 4 guests.",
-  priv_link=("/private-tours", "Private tours of Los Angeles"),
+  priv_link=("/private-tour-los-angeles", "Private tours of Los Angeles"),
   rev_h="Reviews", rev_extra="505 reviews across Google, Civitatis, GuruWalk, FreeTour.com and Viator, 4.86 average. Google: 309 reviews, 4.95.",
-  map_link=("/maps", "Interactive LA map and trip planner"), about_link=("/about", "About Marlon"),
+  map_link=("/maps", "Interactive LA map and trip planner"), about_link=("/about", "About Marlon"), hist_link=("/history", "LA history stories"),
   faq_h="Good to Know", meet_h="Meet Your Local Guide"),
  "es": dict(
   h1="Explora LA con Marlon", lede="Tours a pie gratis, para equipos y privados por Los Ángeles con un guía local, en español e inglés.",
   free_h="Free tour a pie por el centro de Los Ángeles", free_extra="Tour en español a las 9:30 AM y en inglés a las 12:30 PM. Punto de encuentro: Walt Disney Concert Hall, 600 W 1st St. Reserva gratis y deja la propina que quieras al final. El recorrido dura de 2 a 2.5 horas y son unos 2.9 km (1.8 millas) a pie. Todos reciben una calcomanía de Ernesto gratis. La comida, las bebidas y el estacionamiento no están incluidos.",
   free_link=("/free-tour-los-angeles-espanol", "Free tour por Los Ángeles en español"), free_link2=("/free-walking-tour-los-angeles", "Free tour in English"),
   team_h="Salidas de equipo a pie", team_extra="Precio para 5 a 20 personas: por ejemplo unos $790 para 15 personas (unos $53 por persona). El precio por persona baja a medida que crece el grupo. El almuerzo lo compra cada quien en Grand Central Market, o Marlon organiza un catering para tu grupo.",
-  team_link=("/team-outings-los-angeles", "Salidas de equipo a pie en el centro de LA"),
+  team_link=("/salidas-de-equipo-los-angeles", "Salidas de equipo a pie en el centro de LA"),
   priv_h="Tours privados por Los Ángeles", priv_extra="Elige un plan (Cita en pareja, Salida en familia, Con amigos o diseña tu día), escoge tus lugares y recibe un estimado. Unos $20 a $40 por persona por hora; los grupos más grandes y los tours más largos cuestan menos por persona. Los tours duran de 2 a 12 horas, para 2 a 4 personas.",
-  priv_link=("/private-tours", "Tours privados por Los Ángeles"),
+  priv_link=("/tours-privados-los-angeles", "Tours privados por Los Ángeles"),
   rev_h="Opiniones", rev_extra="505 opiniones en Google, Civitatis, GuruWalk, FreeTour.com y Viator, promedio de 4,86. Google: 309 opiniones, 4,95.",
-  map_link=("/maps", "Mapa interactivo de LA y planificador de viajes"), about_link=("/about", "Sobre Marlon"),
+  map_link=("/mapa-los-angeles", "Mapa interactivo de LA y pasaportes"), about_link=("/about", "Sobre Marlon"), hist_link=("/historia-de-los-angeles", "Historia de LA"),
   faq_h="Bueno saber", meet_h="Conoce a tu guía local"),
 }
 
@@ -100,7 +100,7 @@ def build(page):
     o += [f"<h2>{esc(F['team_h'])}</h2>", f"<p>{esc(team)}</p>", f"<p>{esc(F['team_extra'])}</p>", f'<p><a href="{F["team_link"][0]}">{esc(F["team_link"][1])}</a></p>']
     o += [f"<h2>{esc(F['priv_h'])}</h2>", f"<p>{esc(priv)}</p>", f"<p>{esc(F['priv_extra'])}</p>", f'<p><a href="{F["priv_link"][0]}">{esc(F["priv_link"][1])}</a></p>']
     o += [f"<h2>{esc(F['rev_h'])}</h2>", f"<p>{esc(F['rev_extra'])}</p>"]
-    o += [f"<h2>{esc(F['meet_h'])}</h2>"] + [f"<p>{esc(m)}</p>" for m in meet] + [f'<p><a href="{F["about_link"][0]}">{esc(F["about_link"][1])}</a> · <a href="{F["map_link"][0]}">{esc(F["map_link"][1])}</a></p>']
+    o += [f"<h2>{esc(F['meet_h'])}</h2>"] + [f"<p>{esc(m)}</p>" for m in meet] + [f'<p><a href="{F["about_link"][0]}">{esc(F["about_link"][1])}</a> · <a href="{F["map_link"][0]}">{esc(F["map_link"][1])}</a> · <a href="{F["hist_link"][0]}">{esc(F["hist_link"][1])}</a></p>']
     o += [f"<h2>{esc(F['faq_h'])}</h2>"]
     faq = [(t, x) for t, x in extract("home-faq" + sx) if t in ("summary", "p")]
     for t, x in faq:
@@ -113,6 +113,8 @@ def build(page):
 OTHER = {
  "free-en": ["free-en"], "free-es": ["free-es"],
  "team": ["team-top", "team-form-intro", "team-bottom"], "private": ["private-top", "private-form-intro", "private-bottom"],
+ "team-es": ["team-top-es", "team-form-intro-es", "team-bottom-es"], "private-es": ["private-top-es", "private-form-intro-es", "private-bottom-es"],
+ "history": ["history-hub"], "history-es": ["history-hub-es"],
 }
 # Text to leave out: placeholders and drafts that still have a question mark for Marlon to answer (see CLAUDE.md, .tp-todo).
 DRAFT = ("Deposit to book?", "how much do you keep?", "included or extra?", "Which areas:", "Loading calendar")

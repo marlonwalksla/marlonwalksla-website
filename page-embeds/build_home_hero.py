@@ -56,7 +56,7 @@ SLIDES = {
  "en": [
   dict(tab="Team", key="team", tone="green", img=P_TEAM, tape="rgba(96,200,96,.6)", eyebrow="Team Tours", title="Celebrate Your Team", btn="Book a Team Outing", href="/team-outings-los-angeles",
        line="Team outings in Downtown LA. Walk. Eat. Celebrate. Everyone takes home a photo!", alt="Kara's birthday group at the Grand Central Market sign"),
-  dict(tab="Private", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="/private-tours",
+  dict(tab="Private", key="priv", tone="orange", img=P_PRIV, tape="rgba(255,140,40,.5)", eyebrow="Private Tours", title="LA, Your Way", btn="Design a Private Tour", href="/private-tour-los-angeles",
        line="Private tours of Los Angeles. Pick your stops and we'll handle the rest!", alt="Private tour guests with their Polaroid"),
   dict(tab="Free", key="free", tone="pink", img=P_FREE, tape="rgba(255,0,255,.45)", eyebrow="Free Tour", title="Join a Free Tour!", btn="Join a Free Tour", href="/free-walking-tour-los-angeles",
        line="Free walking tour of Downtown LA, in English and Spanish. Tip-based.", alt="Free tour guests posing together at the Avila Adobe garden"),
