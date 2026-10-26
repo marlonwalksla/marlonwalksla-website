@@ -2,7 +2,8 @@
      MARLONWALKSLA - LA HISTORY HUB  /history
      Oct 26, 2026. Loaded into <div id="fp-host"> by the page footer code (same branch rule as mw.js).
      Styles: tour-pages.css. The wrapper resets Webflow's own "tp" class inline.
-     Add a card here every time a new post goes live in the Blogs collection.
+     Round 96: cards are built from the CMS by story-cards.js (main) via the page's hidden
+     Collection List. The cards below are only a fallback; a new story needs no edit here.
      ============================================================================== -->
 <style>
 .hh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; margin-top: 22px; }
@@ -30,7 +31,7 @@
     <div class="tp-wrap">
       <h2 class="tp-h2">Paradas del free tour</h2>
       <p class="tp-sub">En orden de ruta, desde Bunker Hill hasta donde naci&oacute; la ciudad en 1781.</p>
-      <div class="hh-grid">
+      <div class="hh-grid" data-hh="stops">
         <a class="hh-card" href="/historias/walt-disney-concert-hall"><img src="https://cdn.prod.website-files.com/6a516a44ad462676ba76d689/6a5b341ce99bd9dbb02bd8bb_WDCH%20400x400.webp" alt="El Walt Disney Concert Hall en el centro de Los &Aacute;ngeles" loading="lazy"><div class="hh-body"><span class="hh-stop">Parada 1</span><h3>Walt Disney Concert Hall</h3><p>Un regalo de 50 millones de d&oacute;lares, 16 a&ntilde;os de obra y el emblema plateado de LA.</p></div></a>
         <a class="hh-card" href="/historias/the-broad"><img src="https://cdn.prod.website-files.com/6a516a44ad462676ba76d689/6a5b34091bc958a523049993_Broad%20400x400.webp" alt="El museo The Broad en el centro de Los &Aacute;ngeles" loading="lazy"><div class="hh-body"><span class="hh-stop">Parada 2</span><h3>The Broad</h3><p>Arte contempor&aacute;neo gratis dentro de un panal blanco.</p></div></a>
         <a class="hh-card" href="/historias/angels-flight"><img src="https://cdn.prod.website-files.com/6a516a44ad462676ba76d689/6a5c64e63a372fa8a1ca7e80_AF%20400x400.webp" alt="El ferrocarril Angels Flight en el centro de Los &Aacute;ngeles" loading="lazy"><div class="hh-body"><span class="hh-stop">Parada 3</span><h3>Angels Flight</h3><p>El ferrocarril m&aacute;s corto del mundo: boletos, horarios y su historia de 1901.</p></div></a>
@@ -44,10 +45,18 @@
     <div class="tp-wrap">
       <h2 class="tp-h2">Las grandes historias</h2>
       <p class="tp-sub">C&oacute;mo Los &Aacute;ngeles consigui&oacute; su agua y aprendi&oacute; a moverse.</p>
-      <div class="hh-grid">
-        <a class="hh-card hh-big" href="/la-history-of-water"><div class="hh-body"><span class="hh-stop">Agua</span><h3>Imperio l&iacute;quido</h3><p>M&aacute;s de 200 a&ntilde;os de agua en LA, de la Zanja Madre a las guerras del agua del Valle de Owens y el r&iacute;o de concreto. (En ingl&eacute;s)</p></div></a>
-        <a class="hh-card hh-big" href="/la-history-of-transportation"><div class="hh-body"><span class="hh-stop">Transporte</span><h3>C&oacute;mo LA aprendi&oacute; a moverse</h3><p>Caminos de comercio, guerras del ferrocarril, los Red Cars, el auge de las autopistas y el Metro. (En ingl&eacute;s)</p></div></a>
+      <div class="hh-grid" data-hh="big">
+        <a class="hh-card hh-big" href="/historias/historia-del-agua-en-los-angeles"><div class="hh-body"><span class="hh-stop">Agua</span><h3>Imperio l&iacute;quido</h3><p>M&aacute;s de 200 a&ntilde;os de agua en LA, de la Zanja Madre a las guerras del agua del Valle de Owens y el r&iacute;o de concreto.</p></div></a>
+        <a class="hh-card hh-big" href="/historias/historia-del-transporte-en-los-angeles"><div class="hh-body"><span class="hh-stop">Transporte</span><h3>C&oacute;mo LA aprendi&oacute; a moverse</h3><p>Caminos de comercio, guerras del ferrocarril, los Red Cars, el auge de las autopistas y el Metro.</p></div></a>
       </div>
+    </div>
+  </section>
+
+  <section class="tp-section" hidden>
+    <div class="tp-wrap">
+      <h2 class="tp-h2">Más historias de LA</h2>
+      <p class="tp-sub">Barrios, lugares de película y más.</p>
+      <div class="hh-grid" data-hh="more"></div>
     </div>
   </section>
 
