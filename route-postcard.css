@@ -1,0 +1,33 @@
+/* Route pages (/routes/*) postcard look. Opt-in, pinned by commit in the Routes Template head.
+   Same system as tour-postcard.css: paper wash + grid, taped paper cards, ink borders, hard shadow. */
+.route-section{
+  --pc-ink:#27302E;--pc-paper:#FFFDF0;
+  position:relative;overflow-x:clip;
+  background-color:#FFE6D2 !important;
+  background-image:linear-gradient(rgba(39,48,46,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(39,48,46,.05) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.route-container .rp-chip{background:var(--pc-paper)}
+.route-container .w-dyn-items{display:grid;grid-template-columns:1fr;gap:18px;padding:8px 6px 4px}
+@media(min-width:760px){.route-container .w-dyn-items{grid-template-columns:1fr 1fr;gap:22px}}
+.route-container .w-dyn-item{margin:0}
+.route-container .stop-row{
+  position:relative;height:100%;box-sizing:border-box;
+  background:var(--pc-paper);border:2px solid var(--pc-ink);border-radius:6px;
+  box-shadow:3px 3px 0 var(--pc-ink);padding:22px 18px 16px;
+}
+.route-container .stop-row::before{
+  content:"";position:absolute;top:-10px;left:50%;width:64px;height:20px;margin-left:-32px;
+  background:rgba(255,212,59,.75);transform:rotate(-3deg);
+}
+.route-container .w-dyn-item:nth-child(even) .stop-row{transform:rotate(.5deg)}
+.route-container .w-dyn-item:nth-child(odd) .stop-row{transform:rotate(-.4deg)}
+.route-container .w-dyn-item:nth-child(3n) .stop-row::before{background:rgba(255,160,200,.7);transform:rotate(2deg)}
+.route-container .stop-row{border-bottom:2px solid var(--pc-ink)}
+.route-container .mws,.route-container .ra-map{filter:none}
+.route-container::after{
+  content:"Marlon & Ernesto!";display:block;margin-top:34px;text-align:right;
+  font-family:'Caveat','Fredoka',cursive;font-size:30px;color:var(--pc-ink);transform:rotate(-3deg);
+}
+:lang(es) .route-container::after{content:"¡Marlon y Ernesto!"}
+@media(prefers-reduced-motion:no-preference){.route-container .stop-row{transition:transform .15s}}
