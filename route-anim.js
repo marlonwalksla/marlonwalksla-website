@@ -64,7 +64,8 @@
     var areas = data.areas || [];
     var mode = data.mode === 'drive' ? 'drive' : 'walk';
     var compact = root.hasAttribute('data-compact');
-    var nolist = root.hasAttribute('data-nolist');
+    var focus = root.hasAttribute('data-focus'); // Oct 28, 2026: map full width, only the current stop's text under it, slower pace
+    var nolist = root.hasAttribute('data-nolist') || focus;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ---- projection ----
@@ -180,13 +181,14 @@
     });
 
     // Map-only maps (Home page) get a bar under the map: stop name + arrows to move Ernesto.
-    var ctrl = null, ctrlName = null, ctrlNum = null;
+    var ctrl = null, ctrlName = null, ctrlNum = null, ctrlDesc = null;
     if (nolist) {
       ctrl = h('div', 'ra-ctrl', wrap);
       var prevB = h('button', 'ra-ctrl-btn', ctrl, '\u2039'); prevB.type = 'button'; prevB.setAttribute('aria-label', 'Previous stop');
       var mid = h('div', 'ra-ctrl-mid', ctrl);
       ctrlNum = h('span', 'ra-ctrl-num', mid);
       ctrlName = h('strong', 'ra-ctrl-name', mid);
+      if (focus) { ctrl.classList.add('ra-ctrl-focus'); ctrlDesc = h('span', 'ra-ctrl-desc', mid); }
       mid.setAttribute('aria-live', 'polite');
       var nextB = h('button', 'ra-ctrl-btn', ctrl, '\u203A'); nextB.type = 'button'; nextB.setAttribute('aria-label', 'Next stop');
       prevB.addEventListener('click', function () { jump((cur - 1 + stops.length) % stops.length); });
@@ -230,7 +232,7 @@
         li.classList.toggle('is-done', k < i);
       });
       bubble.textContent = stops[i].name; // map-only (home page) bubbles show just the stop name, no time
-      if (ctrl) { ctrlNum.textContent = (i + 1) + ' / ' + stops.length; ctrlName.textContent = stops[i].name; }
+      if (ctrl) { ctrlNum.textContent = (i + 1) + ' / ' + stops.length; ctrlName.textContent = stops[i].name; if (ctrlDesc) ctrlDesc.textContent = stops[i].desc || ''; }
       // Oct 28, 2026: let the page follow Ernesto. The /routes/ template links a photo slider to this.
       try { root.dispatchEvent(new CustomEvent('ra:stop', { detail: { index: i, name: stops[i].name, total: stops.length } })); } catch (e) {}
       // keep the bubble inside the map, even for stops near the edge
@@ -246,8 +248,8 @@
     }
 
     var cur = 0, phase = 'dwell', phaseStart = 0, running = false, raf = null, visible = false;
-    var DWELL = 1700, END_DWELL = 3200;
-    function travelTime(k) { return Math.max(1100, Math.min(2600, segs[k].len * 7)); }
+    var DWELL = focus ? 4200 : 1700, END_DWELL = focus ? 5600 : 3200;
+    function travelTime(k) { var t = Math.max(1100, Math.min(2600, segs[k].len * 7)); return focus ? t * 1.5 : t; }
 
     function jump(i) {
       cur = i; phase = 'dwell'; phaseStart = performance.now();

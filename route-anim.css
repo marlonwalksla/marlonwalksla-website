@@ -68,3 +68,11 @@
 .ra-ctrl-num { font-size: 12px; font-weight: 800; color: #5b6461; letter-spacing: 0.04em; }
 .ra-ctrl-name { font-size: 15px; font-weight: 800; color: #27302E; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) { .ra-ctrl-btn { transition: none; } }
+
+/* Oct 28, 2026: data-focus maps. Full-width map, one text card under it with the current stop (name + short text) and the arrows. */
+.ra-ctrl-focus { grid-template-columns: 48px minmax(0, 1fr) 48px; padding: 10px 12px; gap: 14px; }
+.ra-ctrl-focus .ra-ctrl-mid { align-items: flex-start; text-align: left; gap: 2px; min-height: 4.6em; justify-content: center; }
+.ra-ctrl-focus .ra-ctrl-name { font-size: 18px; white-space: normal; overflow: visible; }
+.ra-ctrl-desc { font-size: 15px; line-height: 1.45; font-weight: 600; color: #3B4440; }
+.ra-nolist .ra-map { max-height: none; }
+@media (max-width: 520px) { .ra-ctrl-focus { grid-template-columns: 40px minmax(0, 1fr) 40px; gap: 8px; } .ra-ctrl-focus .ra-ctrl-mid { min-height: 6.2em; } .ra-ctrl-focus .ra-ctrl-btn { width: 40px; height: 40px; } }

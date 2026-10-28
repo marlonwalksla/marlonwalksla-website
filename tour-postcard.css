@@ -74,3 +74,10 @@ body:has(.tp.pc) .tp-cal { background: #fff; border: 2px solid #27302E; border-r
 /* Private booking band (a Webflow section) matches the page color. */
 body:has(.tp.pc-private) .mw-bg-private { background-color: #FFE6D2; background-image: linear-gradient(rgba(39,48,46,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(39,48,46,.045) 1px, transparent 1px); background-size: 28px 28px; }
 .mw-bg-private .tp.pc { background: none; overflow: visible; }
+
+/* Oct 28, 2026 round: photos are shown as they are (no CSS Polaroid frame), trip cards centered, text bar under the route map in paper style. */
+.tp.pc .tp-polaroid { background: none; padding: 0; border-radius: 0; box-shadow: none; transform: rotate(-1deg); }
+.tp.pc .tp-polaroid img { border-radius: 10px; box-shadow: 0 12px 26px -14px rgba(39, 48, 46, 0.6); }
+.tp.pc .tp-polaroid .cap { margin-top: 12px; color: var(--pc-ink); font-weight: 700; }
+@media (min-width: 720px) { .tp.pc .tp-price-row { grid-template-columns: repeat(2, minmax(0, 360px)); justify-content: center; } }
+.tp.pc .ra-ctrl { background: var(--pc-paper); border-color: var(--pc-ink); }
