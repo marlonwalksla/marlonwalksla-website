@@ -4,7 +4,7 @@
 (function () {
   var B = 'https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/';
   var OFFER = {
-    free:    { en: ['Book the free tour', '/free-walking-tour-los-angeles', 'Tip-based, 2 to 2.5 hours, in English'], es: ['Reserva el free tour', '/free-tour-los-angeles-espanol', 'Por propina, de 2 a 2,5 horas, en español'] },
+    free:    { en: ['Book the free tour', '/free-walking-tour-los-angeles', 'Tip-based, in English'], es: ['Reserva el free tour', '/free-tour-los-angeles-espanol', 'Por propina, en español'] },
     team:    { en: ['Plan a team walk', '/team-outings-los-angeles', 'For groups of 5 or more, about 5 hours'], es: ['Planea la caminata de tu equipo', '/salidas-de-equipo-los-angeles', 'Para grupos de 5 o más, unas 5 horas'] },
     private: { en: ['Plan a private tour', '/private-tour-los-angeles', 'Up to 4 guests, 2 to 12 hours'], es: ['Planea tu tour privado', '/tours-privados-los-angeles', 'Hasta 4 personas, de 2 a 12 horas'] }
   };
