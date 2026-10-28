@@ -81,3 +81,4 @@
   .route-container{padding-left:16px;padding-right:16px}
 }
 @media(prefers-reduced-motion:reduce){.rp-btn{transition:none}}
+.route-container .route-title{text-align:left !important}
