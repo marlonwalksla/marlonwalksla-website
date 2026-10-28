@@ -231,6 +231,8 @@
       });
       bubble.textContent = stops[i].name; // map-only (home page) bubbles show just the stop name, no time
       if (ctrl) { ctrlNum.textContent = (i + 1) + ' / ' + stops.length; ctrlName.textContent = stops[i].name; }
+      // Oct 28, 2026: let the page follow Ernesto. The /routes/ template links a photo slider to this.
+      try { root.dispatchEvent(new CustomEvent('ra:stop', { detail: { index: i, name: stops[i].name, total: stops.length } })); } catch (e) {}
       // keep the bubble inside the map, even for stops near the edge
       var mw = mapBox.clientWidth || VBW, bw = bubble.offsetWidth || 0;
       var cx = pts[i].x / VBW * mw;
@@ -280,6 +282,11 @@
       if (!raf) raf = requestAnimationFrame(tick);
     }
     function stop() { running = false; if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+    // Oct 28, 2026: a small API so a page can drive the map instead of only watching it.
+    // raGo(i) moves Ernesto to a stop; raPause/raPlay stop and restart the auto-walk.
+    root.raGo = jump; root.raPause = stop; root.raPlay = start;
+    root.raStops = stops.map(function (s) { return s.name; });
 
     jump(0);
     if (reduce) { setSegs(segs.length); root.classList.add('ra-static'); return; }
