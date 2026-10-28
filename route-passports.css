@@ -1,0 +1,9 @@
+/* Route pages: "Collect these stamps" row. Pairs with route-passports.js. */
+.rp { margin: 24px 0 8px; display: grid; gap: 6px; }
+.rp-title { margin: 0; font-weight: 700; font-size: 1.15rem; }
+.rp-sub { margin: 0; opacity: .8; }
+.rp-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.rp-chip { --ink: currentColor; display: inline-block; padding: 8px 16px; border: 2px dashed var(--ink); border-radius: 999px; color: var(--ink); background: transparent; font-weight: 700; text-decoration: none; transform: rotate(-1.5deg); transition: transform .15s ease, background-color .15s ease; }
+.rp-chip:nth-child(even) { transform: rotate(1.5deg); }
+.rp-chip:hover, .rp-chip:focus-visible { transform: rotate(0deg) scale(1.04); background: color-mix(in srgb, var(--ink) 12%, transparent); }
+@media (prefers-reduced-motion: reduce) { .rp-chip, .rp-chip:nth-child(even) { transform: none; transition: none; } }
