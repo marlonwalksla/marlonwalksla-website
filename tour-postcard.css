@@ -81,3 +81,10 @@ body:has(.tp.pc-private) .mw-bg-private { background-color: #FFE6D2; background-
 .tp.pc .tp-polaroid .cap { margin-top: 12px; color: var(--pc-ink); font-weight: 700; }
 @media (min-width: 720px) { .tp.pc .tp-price-row { grid-template-columns: repeat(2, minmax(0, 360px)); justify-content: center; } }
 .tp.pc .ra-ctrl { background: var(--pc-paper); border-color: var(--pc-ink); }
+
+/* Oct 28 round 3: photos show whole (no crop). The photos are scanned Polaroids already, so they keep their own frame. */
+.tp.pc .tp-polaroid { display: grid; justify-items: center; }
+.tp.pc .tp-polaroid img { height: auto !important; width: auto !important; max-width: 100%; max-height: 340px; object-fit: contain !important; }
+.tp.pc .tp-hero-visual { display: grid; justify-items: center; }
+.tp.pc .tp-hero-visual .tp-polaroid img { max-height: 460px; }
+.tp.pc .tp-hero-visual > img { height: auto !important; width: auto !important; max-width: 100%; max-height: 460px; object-fit: contain !important; }
