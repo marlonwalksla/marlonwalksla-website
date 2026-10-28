@@ -11,8 +11,13 @@ MarlonWalksLA is Marlon Gonzalez's walking-tour business in Los Angeles: free to
 ## Key files
 - `global-vars.css`: brand colors and shared components (loaded site-wide)
 - `tour-pages.css`: styles for the tour, About, Privacy and Terms pages. `.tp-todo` = red placeholder for info Marlon still has to fill in.
-- Map: `map-core.js`, `spots.geojson` (master list of ~232 spots), `spot-groups.js` (regions, locations, moods), `ui-view-explore-v2.js` (filters and quiz), `storage-manager.js` (trip planner, browser storage only)
-- Self-guided tours: `tour-dtla.js` (Hollywood tour retired Oct 25, 2026; content in the project doc `claude/hollywood-tour-content.md`). History stories: `history-water.js`, `history-transportation.js`.
+- Map: `page-embeds/map-v2.html` is the passport-first map served at /maps and /mapa-los-angeles. It reads
+  `spots.geojson` (master list of ~232 spots) and `passport-collections.json` directly. The pre-Oct-26 map
+  code (map-core, spot-groups, storage-manager, ui-view-*) was deleted on Oct 28, 2026; it is in git history.
+- Passport: `page-embeds/free-passport.html` (/free-tour-passport). `free-passport-stops.json` is its source
+  data; the builder that inlines it is NOT in this repo.
+- Self-guided tours are retired (content in `claude/hollywood-tour-content.md`). History stories now live in
+  the Webflow Blogs and Historias (ES) collections, rendered by `story-cards.js`, not in this repo.
 
 ## Rules
 - **Never publish to the live domain (marlonwalksla.com) without Marlon's explicit OK.** Publish to the test site only: Webflow `publish_site` with `customDomains: []` and `publishToWebflowSubdomain: true` (marlonwalksla.webflow.io).
