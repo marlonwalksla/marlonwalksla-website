@@ -14,18 +14,18 @@
     slow:  { en: 'Need a slower pace or a step-free route? Message Marlon before the day.', es: '¿Necesitas ir más despacio o una ruta sin escaleras? Escríbele a Marlon antes del día.' }
   };
   var CFG = {
-    'the-grand-loop': { lang: 'en', twin: 'el-circuito-grand', lunch: true, offers: ['team', 'private'], img: 'cb/6ad92ca90bb99231ec0ee38c_guest-grand-central-market-02.webp',
+    'the-grand-loop': { lang: 'en', twin: 'el-circuito-grand', lunch: true, offers: ['team', 'private'], img: 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/img/stories/kara-bday-group-print.webp',
       eyebrow: 'Walking route', lead: 'A walking loop that starts and ends at Grand Central Market: Angels Flight, The Broad, Walt Disney Concert Hall and City Hall.',
-      cap: 'Grand Central Market, where the loop starts and ends', chips: ['Starts at Grand Central Market', 'About 1.6 miles', 'English or Español'],
+      cap: "Kara's birthday walk at Grand Central Market", chips: ['Starts at Grand Central Market', 'About 1.6 miles', 'English or Español'],
       gtk: ['Start: Grand Central Market, 317 S Broadway (the Hill St entrance). Marlon sends the exact meeting spot when you book.',
             'Time: about 5 hours on a team tour, with lunch as the last stop. Private tours are shaped around your group.', COMMON.shoes.en, COMMON.bring.en,
             'Food: Grand Central Market has many stalls. Lunch is not included in the price, so come hungry.',
             'Angels Flight: the ride is part of the day, and the fare is included.',
             'Getting there: Pershing Square Metro station (B and D lines) is a short walk away. Parking garages are nearby; prices vary.', COMMON.slow.en],
       lunchText: "See what's for lunch at Grand Central Market" },
-    'el-circuito-grand': { lang: 'es', twin: 'the-grand-loop', lunch: true, offers: ['team', 'private'], img: 'cb/6ad92ca90bb99231ec0ee38c_guest-grand-central-market-02.webp',
+    'el-circuito-grand': { lang: 'es', twin: 'the-grand-loop', lunch: true, offers: ['team', 'private'], img: 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/img/stories/kara-bday-group-print.webp',
       eyebrow: 'Ruta a pie', lead: 'Un circuito a pie que empieza y termina en Grand Central Market: Angels Flight, The Broad, el Walt Disney Concert Hall y el Ayuntamiento.',
-      cap: 'Grand Central Market, donde empieza y termina el circuito', chips: ['Empieza en Grand Central Market', 'Unos 2,6 km', 'Español o English'],
+      cap: 'La caminata de cumpleaños de Kara en Grand Central Market', chips: ['Empieza en Grand Central Market', 'Unos 2,6 km', 'Español o English'],
       gtk: ['Inicio: Grand Central Market, 317 S Broadway (entrada de Hill St). Marlon te manda el punto exacto cuando reservas.',
             'Duración: unas 5 horas en un tour de equipo, con el almuerzo como última parada. Los tours privados se arman a la medida de tu grupo.', COMMON.shoes.es, COMMON.bring.es,
             'Comida: Grand Central Market tiene muchos puestos. El almuerzo no está incluido en el precio, así que llega con hambre.',
@@ -70,7 +70,7 @@
     var btns = el('div', 'rp-btns');
     cfg.offers.forEach(function (k, i) { var o = OFFER[k][L]; btns.appendChild(el('a', 'rp-btn' + (i ? ' ghost' : ''), esc(o[0]))).href = o[1]; });
     txt.appendChild(btns);
-    var fig = el('figure', 'rp-hero-img'); var im = el('img'); im.src = B + cfg.img.replace('cb/', ''); im.alt = cfg.cap; fig.appendChild(im); fig.appendChild(el('figcaption', '', esc(cfg.cap)));
+    var fig = el('figure', 'rp-hero-img'); var im = el('img'); im.src = /^http/.test(cfg.img) ? cfg.img : B + cfg.img.replace('cb/', ''); im.alt = cfg.cap; fig.appendChild(im); fig.appendChild(el('figcaption', '', esc(cfg.cap)));
     hero.appendChild(txt); hero.appendChild(fig); c.insertBefore(hero, c.firstChild);
     var vend = c.querySelector('.vendors-link');
     if (vend) { if (cfg.lunch) { vend.classList.add('rp-btn', 'ghost', 'rp-lunch'); vend.textContent = cfg.lunchText; vend.setAttribute('target', '_blank'); vend.setAttribute('rel', 'noopener'); } else { vend.style.display = 'none'; } }

@@ -82,3 +82,8 @@
 }
 @media(prefers-reduced-motion:reduce){.rp-btn{transition:none}}
 .route-container .route-title{text-align:left !important}
+
+/* Photo slider on route pages: the map bar under the map is the one set of arrows, so no arrows, dots or caption here */
+.route-container .mws-nav,.route-container .mws-dots,.route-container .mws-cap{display:none !important}
+.route-container .mws{grid-template-columns:minmax(0,1fr)}
+.route-container .mws-stage{grid-column:1}

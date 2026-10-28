@@ -248,8 +248,9 @@
     }
 
     var cur = 0, phase = 'dwell', phaseStart = 0, running = false, raf = null, visible = false;
-    var DWELL = focus ? 4200 : 1700, END_DWELL = focus ? 5600 : 3200;
-    function travelTime(k) { var t = Math.max(1100, Math.min(2600, segs[k].len * 7)); return focus ? t * 1.5 : t; }
+    var slow = focus || !!(root.closest && root.closest('.route-section')); // route pages walk at the slow pace too
+    var DWELL = slow ? 4200 : 1700, END_DWELL = slow ? 5600 : 3200;
+    function travelTime(k) { var t = Math.max(1100, Math.min(2600, segs[k].len * 7)); return slow ? t * 1.5 : t; }
 
     function jump(i) {
       cur = i; phase = 'dwell'; phaseStart = performance.now();
