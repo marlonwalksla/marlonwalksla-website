@@ -53,9 +53,16 @@ html[lang^="es"] .tp.pc .tp-cta::after { content: "¡Marlon y Ernesto!"; }
 
 /* Ink stamps in the gutters, to break up the white space. Decorative only. */
 .tp.pc .pc-stamp { position: absolute; width: 104px; height: auto; margin: 0; transform: rotate(var(--r, 0deg)); pointer-events: none; z-index: 0; display: none; }
-@media (min-width: 1100px) { .tp.pc .pc-stamp { display: block; } }
-.tp.pc .pc-stamp.l { left: max(12px, calc(50% - 560px)); }
-.tp.pc .pc-stamp.r { right: max(12px, calc(50% - 560px)); }
+/* The content column is 1040px wide, so a 104px stamp only fits in the gutter from 1280px up. */
+@media (min-width: 1280px) { .tp.pc .pc-stamp { display: block; } }
+.tp.pc .pc-stamp.l { left: max(8px, calc(50% - 640px)); }
+.tp.pc .pc-stamp.r { right: max(8px, calc(50% - 640px)); }
 .tp.pc .pc-stamp.t { top: 18px; } .tp.pc .pc-stamp.b { bottom: 18px; }
 .tp.pc .tp-wrap { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) { .tp.pc .tp-card { transform: none; } }
+
+/* The booking band is a Webflow section (class mw-bg-team etc.), so it is matched from the page instead. */
+body:has(.tp.pc-team) .mw-bg-team { background-color: #E3F6D8; background-image: linear-gradient(rgba(39,48,46,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(39,48,46,.045) 1px, transparent 1px); background-size: 28px 28px; }
+.mw-bg-team .tp.pc { background: none; overflow: visible; }
+/* The calendar stays clean (third party, forms stay plain): only the frame matches. */
+body:has(.tp.pc) .tp-cal { background: #fff; border: 2px solid #27302E; border-radius: 10px; box-shadow: 3px 3px 0 #27302E; }
