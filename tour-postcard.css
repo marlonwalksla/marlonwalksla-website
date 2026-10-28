@@ -70,7 +70,7 @@ body:has(.tp.pc) .tp-cal { background: #fff; border: 2px solid #27302E; border-r
 /* Spanish pages carry pc-es, so the sign-off is right even when <html lang> is not set. */
 .tp.pc.pc-es .tp-cta::after { content: "¡Marlon y Ernesto!"; }
 /* Free tour: papel picado edge (multi-color flags) instead of airmail stripes. */
-.tp.pc-free .tp-cta { background: linear-gradient(var(--pc-paper), var(--pc-paper)) padding-box, repeating-linear-gradient(135deg, #FF4FA3 0 14px, #FFD43B 14px 28px, #3DBE6B 28px 42px, #2890B6 42px 56px) border-box; }
+.tp.pc .tp-cta { background: linear-gradient(var(--pc-paper), var(--pc-paper)) padding-box, repeating-linear-gradient(135deg, #FF4FA3 0 14px, #FFD43B 14px 28px, #3DBE6B 28px 42px, #2890B6 42px 56px) border-box; }
 /* Private booking band (a Webflow section) matches the page color. */
 body:has(.tp.pc-private) .mw-bg-private { background-color: #FFE6D2; background-image: linear-gradient(rgba(39,48,46,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(39,48,46,.045) 1px, transparent 1px); background-size: 28px 28px; }
 .mw-bg-private .tp.pc { background: none; overflow: visible; }
