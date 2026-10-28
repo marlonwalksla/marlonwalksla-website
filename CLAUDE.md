@@ -26,3 +26,14 @@ MarlonWalksLA is Marlon Gonzalez's walking-tour business in Los Angeles: free to
 - Real photos (guest Polaroids) over designed marketing images. No numbers baked into images. No off-brand AI Ernesto art. Guest photos only with permission.
 - Review numbers come from Marlon's review sheet (Oct 14, 2026: 505 reviews, 4.86; Google 309 at 4.95). Update by hand; do not invent ratings in schema markup.
 - Log every change in the claude.ai Project doc `claude/changelog.md`.
+
+## Look and feel: the postcard system (agreed with Marlon, Oct 28, 2026)
+Home is the reference. Every page should feel like getting or giving a postcard that captures a moment.
+- **Reuse before inventing.** Build from Home's pieces (taped paper cards, circled-plus FAQ, airmail edge, ink stamps, Polaroids). Tour pages opt in with `tour-postcard.css` and the classes `tp pc pc-team|pc-private|pc-free`.
+- **One page color per tour** (Team green, Private orange, Free pink) on paper with a faint grid. No alternating pastel bands. Yellow stays reserved for buttons.
+- **Fun where it is fun, clean where it is a form.** Forms, calendars and pricing inputs stay plain: no tilt, no tape, no overlap. Cards, FAQs, quotes and sign-offs get tape, tilt (under 1 degree) and hard offset shadows.
+- **Ink stamps** in the gutters (desktop, 1280px and up) to break up white space. Decorative only: aria-hidden, no pointer events.
+- **Decoration may overlap or tilt. Text and controls never overlap.** No sideways scroll at any width.
+- **No blurred drop shadows, no white SaaS cards, no navy CTA bands.** The sign-off is an airmail postcard ending "Marlon & Ernesto!".
+- **No blanket or serape patterns.** Papel picado belongs to the Free tour; airmail to Team and Private.
+- **Check every visual change** against Home at 1280 and 390px and report what you saw. New CSS goes in a new or opt-in file pinned to a commit, and is published to the test site only.
