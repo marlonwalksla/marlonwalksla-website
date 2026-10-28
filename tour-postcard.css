@@ -90,6 +90,6 @@ body:has(.tp.pc-private) .mw-bg-private { background-color: #FFE6D2; background-
 .tp.pc .tp-hero-visual > img { height: auto !important; width: auto !important; max-width: 100%; max-height: 460px; object-fit: contain !important; }
 
 /* Round 4: smaller hero Ernesto sticker; no "STOP N" pills on story cards */
-.tp.pc .tp-ernesto{width:78px;right:-14px;top:-34px}
-@media (max-width:720px){.tp.pc .tp-ernesto{width:62px;right:-4px;top:-26px}}
+.tp.pc img.tp-ernesto{width:78px!important;height:auto!important;max-width:none!important;right:-14px;top:-34px}
+@media (max-width:720px){.tp.pc img.tp-ernesto{width:62px!important;right:-4px;top:-26px}}
 .tp.pc #sc-tour .hh-stop{display:none}
