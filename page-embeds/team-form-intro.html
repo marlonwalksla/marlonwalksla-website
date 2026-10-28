@@ -6,6 +6,54 @@
   <span class="tp-eyebrow blue">Book your team walk</span>
   <h2 class="tp-h2">Pick a date, book it now</h2>
   <p class="tp-sub" style="margin-bottom:16px">Choose your day on the calendar. Marlon confirms by email and plans the day around your team.</p>
+        <h3 class="tp-h3" style="margin:26px 0 6px">Pricing</h3>
+<p class="tp-sub" style="margin-bottom:0">Drag to your group size. The bigger the group, the less each person pays.</p>
+      <div class="tp-card tpq" id="tpq">
+        <label class="tpq-label" for="tpq-range">How many people? <strong id="tpq-n">15</strong></label>
+        <input class="tpq-range" id="tpq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tpq-out">
+        <div class="tpq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
+        <div class="tpq-out" id="tpq-out" aria-live="polite">
+          <div><span class="tpq-total" id="tpq-total">$790</span><span class="tpq-cap">estimated total</span></div>
+          <div><span class="tpq-pp" id="tpq-pp">~$53</span><span class="tpq-cap">per person</span></div>
+        </div>
+        <ul class="tpq-notes">
+          <li>About 5 hours, with the Angels Flight ride and film for everyone</li>
+          <li>Lunch at Grand Central Market is not included</li>
+          <li>Minimum 5 guests. 21 to 35 guests? Marlon works out a better price per person with you: <a href="https://wa.me/12692670410?text=Hi%20Marlon,%20we%20have%20a%20group%20of%20more%20than%2020" target="_blank" rel="noopener">Message Marlon</a></li>
+        </ul>
+        <details class="tpq-how"><summary>How the price works</summary><p>The first 5 guests are $60 each, the next 5 are $52.50, then $45 and $37.50 for guests 16 to 20. Totals are rounded to the nearest $5.</p></details>
+      </div>
+      <style>
+        .tpq { margin-top: 16px; padding: 22px 24px; }
+        .tpq-label { display: block; font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
+        .tpq-label strong { color: #2563eb; font-size: 1.3rem; margin-left: 6px; }
+        .tpq-range { width: 100%; height: 32px; accent-color: #2563eb; cursor: pointer; }
+        .tpq-ticks { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; padding: 0 4px; }
+        .tpq-out { display: flex; flex-wrap: wrap; gap: 12px 40px; align-items: baseline; margin: 18px 0 8px; }
+        .tpq-out > div { display: flex; flex-direction: column; }
+        .tpq-total { font-size: clamp(2.2rem, 6vw, 3rem); font-weight: 900; line-height: 1; color: #0f172a; font-variant-numeric: tabular-nums; }
+        .tpq-pp { font-size: 1.4rem; font-weight: 800; color: #0f172a; font-variant-numeric: tabular-nums; }
+        .tpq-cap { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+        .tpq-notes { margin: 10px 0 0; padding-left: 18px; color: #475569; display: grid; gap: 4px; }
+        .tpq-how { margin-top: 12px; color: #475569; }
+        .tpq-how summary { cursor: pointer; font-weight: 700; color: #2563eb; }
+      </style>
+      <script>
+        (function () {
+          var rates = [60, 52.5, 45, 37.5, 30, 22.5];
+          function total(n) { var t = 0; for (var i = 0; i < n; i++) t += rates[Math.min(Math.floor(i / 5), rates.length - 1)]; return Math.round(t / 5) * 5; }
+          var r = document.getElementById('tpq-range');
+          if (!r) return;
+          function upd() {
+            var n = parseInt(r.value, 10), t = total(n);
+            document.getElementById('tpq-n').textContent = n;
+            document.getElementById('tpq-total').textContent = '$' + t.toLocaleString('en-US');
+            document.getElementById('tpq-pp').textContent = '~$' + Math.round(t / n) + ' (' + Math.round((1 - t / n / 60) * 100) + '% saved)';
+          }
+          r.addEventListener('input', upd); upd();
+        })();
+      </script>
+      <p style="margin-top:14px;color:#475569">Corporate invoicing, itemized receipts and W-9 available.</p>
   <ul class="tp-card" style="list-style:none;margin:0;padding:18px 20px;display:grid;gap:8px">
     <li>&#10003; Start and finish at Grand Central Market</li>
     <li>&#10003; Instant camera, a print for everyone</li>

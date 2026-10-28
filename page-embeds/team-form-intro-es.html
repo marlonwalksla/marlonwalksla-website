@@ -6,6 +6,54 @@
   <span class="tp-eyebrow blue">Reserva la caminata de tu equipo</span>
   <h2 class="tp-h2">Elige una fecha y reserva ahora</h2>
   <p class="tp-sub" style="margin-bottom:16px">Elige tu d&iacute;a en el calendario. Marlon confirma por correo y planea el d&iacute;a pensando en tu equipo.</p>
+        <h3 class="tp-h3" style="margin:26px 0 6px">Precio</h3>
+<p class="tp-sub" style="margin-bottom:0">Mueve la barra al tama&ntilde;o de tu grupo. Mientras m&aacute;s grande el grupo, menos paga cada persona.</p>
+      <div class="tp-card tpq" id="tpq">
+        <label class="tpq-label" for="tpq-range">&iquest;Cu&aacute;ntas personas? <strong id="tpq-n">15</strong></label>
+        <input class="tpq-range" id="tpq-range" type="range" min="5" max="20" step="1" value="15" aria-describedby="tpq-out">
+        <div class="tpq-ticks" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span></div>
+        <div class="tpq-out" id="tpq-out" aria-live="polite">
+          <div><span class="tpq-total" id="tpq-total">$790</span><span class="tpq-cap">total estimado</span></div>
+          <div><span class="tpq-pp" id="tpq-pp">~$53</span><span class="tpq-cap">por persona</span></div>
+        </div>
+        <ul class="tpq-notes">
+          <li>Unas 5 horas, con el viaje en Angels Flight y pel&iacute;cula para todos</li>
+          <li>El almuerzo en Grand Central Market no est&aacute; incluido</li>
+          <li>M&iacute;nimo 5 personas. &iquest;De 21 a 35? Marlon acuerda contigo un mejor precio por persona: <a href="https://wa.me/12692670410?text=Hola%20Marlon,%20tenemos%20un%20grupo%20de%20m%C3%A1s%20de%2020" target="_blank" rel="noopener">Escr&iacute;bele a Marlon</a></li>
+        </ul>
+        <details class="tpq-how"><summary>C&oacute;mo se calcula el precio</summary><p>Las primeras 5 personas pagan $60 cada una, las siguientes 5 pagan $52.50, luego $45 y $37.50 de la persona 16 a la 20. Los totales se redondean a los $5 m&aacute;s cercanos. Precios en d&oacute;lares de EE. UU.</p></details>
+      </div>
+      <style>
+        .tpq { margin-top: 16px; padding: 22px 24px; }
+        .tpq-label { display: block; font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
+        .tpq-label strong { color: #2563eb; font-size: 1.3rem; margin-left: 6px; }
+        .tpq-range { width: 100%; height: 32px; accent-color: #2563eb; cursor: pointer; }
+        .tpq-ticks { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; padding: 0 4px; }
+        .tpq-out { display: flex; flex-wrap: wrap; gap: 12px 40px; align-items: baseline; margin: 18px 0 8px; }
+        .tpq-out > div { display: flex; flex-direction: column; }
+        .tpq-total { font-size: clamp(2.2rem, 6vw, 3rem); font-weight: 900; line-height: 1; color: #0f172a; font-variant-numeric: tabular-nums; }
+        .tpq-pp { font-size: 1.4rem; font-weight: 800; color: #0f172a; font-variant-numeric: tabular-nums; }
+        .tpq-cap { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+        .tpq-notes { margin: 10px 0 0; padding-left: 18px; color: #475569; display: grid; gap: 4px; }
+        .tpq-how { margin-top: 12px; color: #475569; }
+        .tpq-how summary { cursor: pointer; font-weight: 700; color: #2563eb; }
+      </style>
+      <script>
+        (function () {
+          var rates = [60, 52.5, 45, 37.5, 30, 22.5];
+          function total(n) { var t = 0; for (var i = 0; i < n; i++) t += rates[Math.min(Math.floor(i / 5), rates.length - 1)]; return Math.round(t / 5) * 5; }
+          var r = document.getElementById('tpq-range');
+          if (!r) return;
+          function upd() {
+            var n = parseInt(r.value, 10), t = total(n);
+            document.getElementById('tpq-n').textContent = n;
+            document.getElementById('tpq-total').textContent = '$' + t.toLocaleString('en-US');
+            document.getElementById('tpq-pp').textContent = '~$' + Math.round(t / n) + ' (' + Math.round((1 - t / n / 60) * 100) + '% de ahorro)';
+          }
+          r.addEventListener('input', upd); upd();
+        })();
+      </script>
+      <p style="margin-top:14px;color:#475569">Facturaci&oacute;n para empresas, recibos detallados y formulario W-9 disponibles.</p>
   <ul class="tp-card" style="list-style:none;margin:0;padding:18px 20px;display:grid;gap:8px">
     <li>&#10003; Empieza y termina en Grand Central Market</li>
     <li>&#10003; C&aacute;mara instant&aacute;nea, una foto impresa para cada quien</li>
