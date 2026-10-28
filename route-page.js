@@ -14,18 +14,18 @@
     slow:  { en: 'Need a slower pace or a step-free route? Message Marlon before the day.', es: '¿Necesitas ir más despacio o una ruta sin escaleras? Escríbele a Marlon antes del día.' }
   };
   var CFG = {
-    'the-grand-loop': { lang: 'en', twin: 'el-circuito-grand', lunch: true, offers: ['team', 'private'], img: 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/img/stories/kara-bday-group-print.webp',
+    'the-grand-loop': { lang: 'en', twin: 'el-circuito-grand', lunch: true, offers: ['team', 'private'], img: 'https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp',
       eyebrow: 'Walking route', lead: 'A walking loop that starts and ends at Grand Central Market: Angels Flight, The Broad, Walt Disney Concert Hall and City Hall.',
-      cap: "Kara's birthday walk at Grand Central Market", chips: ['Starts at Grand Central Market', 'About 1.6 miles', 'English or Español'],
+      cap: "Kara's birthday walk at Grand Central Market", chips: ['📍 Starts at Grand Central Market', '🗣️ English or Español'],
       gtk: ['Start: Grand Central Market, 317 S Broadway (the Hill St entrance). Marlon sends the exact meeting spot when you book.',
             'Time: about 5 hours on a team tour, with lunch as the last stop. Private tours are shaped around your group.', COMMON.shoes.en, COMMON.bring.en,
             'Food: Grand Central Market has many stalls. Lunch is not included in the price, so come hungry.',
             'Angels Flight: the ride is part of the day, and the fare is included.',
             'Getting there: Pershing Square Metro station (B and D lines) is a short walk away. Parking garages are nearby; prices vary.', COMMON.slow.en],
       lunchText: "See what's for lunch at Grand Central Market" },
-    'el-circuito-grand': { lang: 'es', twin: 'the-grand-loop', lunch: true, offers: ['team', 'private'], img: 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/img/stories/kara-bday-group-print.webp',
+    'el-circuito-grand': { lang: 'es', twin: 'the-grand-loop', lunch: true, offers: ['team', 'private'], img: 'https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp',
       eyebrow: 'Ruta a pie', lead: 'Un circuito a pie que empieza y termina en Grand Central Market: Angels Flight, The Broad, el Walt Disney Concert Hall y el Ayuntamiento.',
-      cap: 'La caminata de cumpleaños de Kara en Grand Central Market', chips: ['Empieza en Grand Central Market', 'Unos 2,6 km', 'Español o English'],
+      cap: 'La caminata de cumpleaños de Kara en Grand Central Market', chips: ['📍 Empieza en Grand Central Market', '🗣️ Español o English'],
       gtk: ['Inicio: Grand Central Market, 317 S Broadway (entrada de Hill St). Marlon te manda el punto exacto cuando reservas.',
             'Duración: unas 5 horas en un tour de equipo, con el almuerzo como última parada. Los tours privados se arman a la medida de tu grupo.', COMMON.shoes.es, COMMON.bring.es,
             'Comida: Grand Central Market tiene muchos puestos. El almuerzo no está incluido en el precio, así que llega con hambre.',
@@ -33,16 +33,16 @@
             'Cómo llegar: la estación de Metro Pershing Square (líneas B y D) queda a pocos pasos. Hay estacionamientos cerca; los precios cambian.', COMMON.slow.es],
       lunchText: 'Mira qué hay para almorzar en Grand Central Market' },
     'downtown-la-history-walk': { lang: 'en', twin: 'recorrido-historico-centro-de-los-angeles', lunch: false, offers: ['free', 'team'], img: 'cb/6ad92ca91f82698d1862237d_guest-olvera-street-01.webp',
-      eyebrow: 'Walking route', lead: 'From Walt Disney Concert Hall to Placita Olvera, where Los Angeles began in 1781. About 1.8 miles (2.9 km).',
-      cap: 'Placita Olvera, where the walk ends', chips: ['Starts at Walt Disney Concert Hall', '2 to 2.5 hours', 'English or Español'],
+      eyebrow: 'Walking route', lead: 'From Walt Disney Concert Hall to Placita Olvera, where Los Angeles began in 1781.',
+      cap: 'Placita Olvera, where the walk ends', chips: ['📍 Starts at Walt Disney Concert Hall', '⏱️ 2 to 2.5 hours', '🗣️ English or Español'],
       gtk: ['Start: Walt Disney Concert Hall, 600 W 1st St. Marlon sends the exact meeting spot when you book.',
             'Time: 2 to 2.5 hours on the free tour. Free tours run on tips.', COMMON.shoes.en, COMMON.bring.en,
             'Food: you pass Grand Central Market, so grab a snack there. Food is not included.',
             'The end: the walk finishes at Placita Olvera, next to Union Station.',
             'Getting there: Civic Center/Grand Park Metro station (B and D lines) is a short walk away. Parking garages are nearby; prices vary.', COMMON.slow.en] },
     'recorrido-historico-centro-de-los-angeles': { lang: 'es', twin: 'downtown-la-history-walk', lunch: false, offers: ['free', 'team'], img: 'cb/6ad92ca91f82698d1862237d_guest-olvera-street-01.webp',
-      eyebrow: 'Ruta a pie', lead: 'Del Walt Disney Concert Hall a la Placita Olvera, donde nació Los Ángeles en 1781. Unos 2,9 km (1,8 millas).',
-      cap: 'Placita Olvera, donde termina la caminata', chips: ['Empieza en el Walt Disney Concert Hall', 'De 2 a 2,5 horas', 'Español o English'],
+      eyebrow: 'Ruta a pie', lead: 'Del Walt Disney Concert Hall a la Placita Olvera, donde nació Los Ángeles en 1781.',
+      cap: 'Placita Olvera, donde termina la caminata', chips: ['📍 Empieza en el Walt Disney Concert Hall', '⏱️ De 2 a 2,5 horas', '🗣️ Español o English'],
       gtk: ['Inicio: Walt Disney Concert Hall, 600 W 1st St. Marlon te manda el punto exacto cuando reservas.',
             'Duración: de 2 a 2,5 horas en el free tour. Los free tours funcionan por propinas.', COMMON.shoes.es, COMMON.bring.es,
             'Comida: pasas por Grand Central Market, así que puedes comprar algo ahí. La comida no está incluida.',
@@ -60,12 +60,11 @@
     if (!sec || !c || c.querySelector('.rp-hero')) return;
     var cfg = CFG[sec.getAttribute('data-route-slug')]; if (!cfg) return;
     var L = cfg.lang, t = T[L], h1 = c.querySelector('.route-title'), intro = c.querySelector('.route-intro');
-    var nStops = document.querySelectorAll('[data-stop-coords]').length;
     var hero = el('div', 'rp-hero'), txt = el('div', 'rp-hero-text');
     txt.appendChild(el('span', 'rp-eyebrow', esc(cfg.eyebrow)));
     if (h1) txt.appendChild(h1);
     txt.appendChild(el('p', 'rp-lead', esc(cfg.lead)));
-    var chips = el('ul', 'rp-facts'); var facts = cfg.chips.slice(); if (nStops) facts.splice(1, 0, nStops + ' ' + t.stops);
+    var chips = el('ul', 'rp-facts'); var facts = cfg.chips.slice();
     facts.forEach(function (f) { chips.appendChild(el('li', '', esc(f))); }); txt.appendChild(chips);
     var btns = el('div', 'rp-btns');
     cfg.offers.forEach(function (k, i) { var o = OFFER[k][L]; btns.appendChild(el('a', 'rp-btn' + (i ? ' ghost' : ''), esc(o[0]))).href = o[1]; });

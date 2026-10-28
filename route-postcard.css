@@ -87,3 +87,16 @@
 .route-container .mws-nav,.route-container .mws-dots,.route-container .mws-cap{display:none !important}
 .route-container .mws{grid-template-columns:minmax(0,1fr)}
 .route-container .mws-stage{grid-column:1}
+
+/* ---- Round 8 (Oct 28): photo and map are the same size; one arrow bar centered under both ---- */
+.route-container .route-visual{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 32px;align-items:center;max-width:940px;margin:6px auto 0}
+.route-container .route-visual .ra,.route-container .route-visual .ra-wrap{display:contents}
+.route-container .route-visual .mws{grid-column:1;grid-row:1;width:100%}
+.route-container .route-visual .mws-stage{aspect-ratio:506/371 !important}
+.route-container .route-visual .ra-map{grid-column:2;grid-row:1;width:100%;position:relative !important;top:auto !important}
+.route-container .route-visual .ra-ctrl{grid-column:1/-1;grid-row:2;justify-self:center;width:min(100%,480px);margin-top:0}
+@media(max-width:760px){
+  .route-container .route-visual{grid-template-columns:minmax(0,1fr);gap:14px}
+  .route-container .route-visual .ra-map{grid-column:1;grid-row:2}
+  .route-container .route-visual .ra-ctrl{grid-row:3}
+}
