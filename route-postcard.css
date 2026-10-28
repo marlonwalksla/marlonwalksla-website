@@ -31,3 +31,53 @@
 }
 :lang(es) .route-container::after{content:"¡Marlon y Ernesto!"}
 @media(prefers-reduced-motion:no-preference){.route-container .stop-row{transition:transform .15s}}
+
+/* ---- Round 5 (Oct 28): hero, facts, offers, Good to know, booking block. Pairs with route-page.js ---- */
+.route-container{max-width:1080px !important;width:100%;box-sizing:border-box;padding-left:20px;padding-right:20px}
+.rp-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:36px;align-items:center;margin:8px 0 34px}
+.rp-hero-text{min-width:0}
+.rp-eyebrow{display:inline-block;background:#FFD9BD;color:#9A4A12;border-radius:999px;padding:6px 14px;font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.route-container .route-title{font-family:'Lilita One','Fredoka',sans-serif !important;font-weight:400 !important;font-size:clamp(2.3rem,5.2vw,3.6rem) !important;line-height:1.02 !important;margin:14px 0 12px !important;color:#0f172a}
+.rp-lead{margin:0 0 16px;font-size:1.15rem;line-height:1.5;font-weight:600;color:#3B4440;max-width:34em}
+.rp-facts{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.rp-facts li{background:#FFFDF0;border:2px solid #C2571A;color:#C2571A;border-radius:999px;padding:6px 14px;font-weight:700;font-size:.92rem}
+.rp-btns{display:flex;flex-wrap:wrap;gap:12px}
+.rp-btn{display:inline-block;text-align:center;font-weight:800;font-size:1.02rem;line-height:1.2;color:#27302E !important;text-decoration:none !important;background:#FFD43B;border:2.5px solid #27302E;border-radius:999px;padding:13px 24px;box-shadow:4px 4px 0 #27302E;transition:transform .12s,box-shadow .12s}
+.rp-btn.ghost{background:#FFFDF0}
+.rp-btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 #27302E}
+.rp-hero-img{margin:0;justify-self:center;max-width:430px;width:100%;transform:rotate(2deg)}
+.rp-hero-img img{display:block;width:100%;height:auto;filter:drop-shadow(0 14px 18px rgba(39,48,46,.35))}
+.rp-hero-img figcaption{margin-top:12px;text-align:center;font-weight:700;color:#27302E}
+.route-container .route-visual{margin-top:6px}
+.route-container .w-dyn-items{align-items:start}
+@media(min-width:760px){.route-container .w-dyn-item:nth-child(even){margin-top:24px}}
+.route-container .w-dyn-item:nth-child(4n+1) .stop-row{transform:rotate(-1.2deg)}
+.route-container .w-dyn-item:nth-child(4n+2) .stop-row{transform:rotate(.9deg)}
+.route-container .w-dyn-item:nth-child(4n+3) .stop-row{transform:rotate(.6deg)}
+.route-container .w-dyn-item:nth-child(4n) .stop-row{transform:rotate(-.8deg)}
+.rp-lunch{display:block;width:max-content;max-width:100%;margin:26px auto 0}
+.rp-h2{font-family:'Lilita One','Fredoka',sans-serif;font-weight:400;font-size:clamp(1.6rem,3.4vw,2.2rem);line-height:1.1;margin:0 0 14px;color:#0f172a}
+.rp-gtk{position:relative;margin:44px 0 0;padding:26px 28px 20px;background:#FFFDF0;border:2px solid #27302E;border-radius:8px;box-shadow:4px 4px 0 #27302E;transform:rotate(-.4deg)}
+.rp-gtk::before{content:"";position:absolute;top:-11px;left:50%;width:70px;height:22px;margin-left:-35px;background:rgba(255,160,200,.75);transform:rotate(2deg)}
+.rp-gtk-list{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.rp-gtk-list li{line-height:1.45;color:#3B4440}
+.rp-gtk-list strong{color:#27302E}
+.rp-note{margin:16px 0 0;font-size:.9rem;color:#64748b}
+.rp-cta{margin:44px 0 0;text-align:center;padding:34px 24px 30px;border:10px solid transparent;border-radius:16px;
+  background:linear-gradient(#FFFDF0,#FFFDF0) padding-box,repeating-linear-gradient(135deg,#FF4FA3 0 14px,#FFD43B 14px 28px,#3DBE6B 28px 42px,#2890B6 42px 56px) border-box}
+.rp-cta-sub{margin:0 0 20px;font-weight:600;color:#3B4440}
+.rp-cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:22px 34px}
+.rp-offer{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:260px}
+.rp-offer span{font-size:.9rem;color:#475569}
+.rp-about{margin:30px 0 0;color:#3B4440}
+.rp-about summary{cursor:pointer;font-weight:800;color:#2563eb}
+.rp-about .route-intro{margin-top:12px}
+@media(max-width:860px){
+  .rp-hero{display:flex;flex-direction:column;gap:14px}
+  .rp-hero-text{display:contents}
+  .rp-eyebrow{order:1;align-self:flex-start}.route-container .route-title{order:2}.rp-lead{order:3}
+  .rp-hero-img{order:4;max-width:300px}.rp-facts{order:5;margin:0}.rp-btns{order:6}
+  .rp-gtk-list{grid-template-columns:1fr}
+  .route-container{padding-left:16px;padding-right:16px}
+}
+@media(prefers-reduced-motion:reduce){.rp-btn{transition:none}}
