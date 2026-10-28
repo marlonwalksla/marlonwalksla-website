@@ -1,0 +1,61 @@
+/* MarlonWalksLA tour pages, postcard look (Oct 28, 2026).
+ * An OVERRIDE layer on top of tour-pages.css. It only applies inside <div class="tp pc pc-team|pc-private|pc-free">,
+ * so a page opts in by adding those classes to its embeds. Nothing else on the site changes.
+ * Pieces copied from Home (home-faq.html, home-head-*.html) so the tour pages and Home match:
+ *   paper wash + faint grid, ink-bordered paper cards with hard offset shadow, taped tops, circled-plus FAQ,
+ *   airmail-edge sign-off, ink stamps in the gutters.
+ * Rules: ink = #27302E, buttons stay yellow, ONE page color per tour, forms stay clean (no tilt, no tape),
+ *   decoration may overlap or tilt, text and controls never overlap.
+ */
+.tp.pc { --pc-ink: #27302E; --pc-ink-soft: #3B4440; --pc-paper: #FFFDF0; --pc-wash: #E3F6D8; --pc-edge-a: #1E6B3A; --pc-edge-b: #FFFDF0;
+  position: relative; overflow-x: clip;
+  background-color: var(--pc-wash);
+  background-image: linear-gradient(rgba(39,48,46,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(39,48,46,.045) 1px, transparent 1px);
+  background-size: 28px 28px; }
+.tp.pc-team { --pc-wash: #E3F6D8; --pc-edge-a: #1E6B3A; }
+.tp.pc-private { --pc-wash: #FFE6D2; --pc-edge-a: #C2571A; }
+.tp.pc-free { --pc-wash: #FFE3F1; --pc-edge-a: #B3367A; }
+
+/* One page color: the old per-section bands go clear so the wash runs through. */
+.tp.pc .tp-bg-team, .tp.pc .tp-bg-book, .tp.pc .tp-bg-private, .tp.pc .tp-bg-white, .tp.pc .tp-route-sec { background: transparent; }
+.tp.pc .tp-section { position: relative; }
+
+/* Paper cards: ink border, hard offset shadow (the same one the yellow buttons use), no blurred SaaS shadow. */
+.tp.pc .tp-card, .tp.pc .tp-review, .tp.pc .tp-route li { position: relative; background: var(--pc-paper); border: 2px solid var(--pc-ink); border-radius: 10px; box-shadow: 3px 3px 0 var(--pc-ink); }
+.tp.pc .tp-card:nth-child(odd) { transform: rotate(-.6deg); }
+.tp.pc .tp-card:nth-child(even) { transform: rotate(.5deg); }
+.tp.pc .tp-card::before, .tp.pc .tp-review::before { content: ""; position: absolute; top: -9px; left: 24px; width: 52px; height: 16px; background: var(--tape, rgba(255,212,59,.7)); transform: rotate(-3deg); mix-blend-mode: multiply; pointer-events: none; }
+.tp.pc .tp-card:nth-child(2)::before { --tape: rgba(40,144,182,.45); left: auto; right: 24px; transform: rotate(3deg); }
+.tp.pc .tp-card:nth-child(3)::before { --tape: rgba(255,0,255,.4); }
+.tp.pc .tp-card p, .tp.pc .tp-card ul, .tp.pc .tp-review { color: var(--pc-ink-soft); }
+.tp.pc .tp-chips li, .tp.pc .tp-stat { background: var(--pc-paper); border: 2px solid var(--pc-edge-a); color: var(--pc-edge-a); }
+.tp.pc .tp-route li::before { background: var(--pc-edge-a); }
+
+/* FAQ: same as Home's "Good to Know". Interactive, so no tilt. */
+.tp.pc .tp-faq details { position: relative; background: #fff; border: 2px solid var(--pc-ink); border-radius: 8px; box-shadow: 3px 3px 0 var(--pc-ink); padding: 0; }
+.tp.pc .tp-faq details::before { content: ""; position: absolute; top: -9px; left: 24px; width: 52px; height: 16px; background: var(--tape, rgba(255,212,59,.7)); transform: rotate(-3deg); mix-blend-mode: multiply; pointer-events: none; }
+.tp.pc .tp-faq details:nth-child(3n+2)::before { --tape: rgba(40,144,182,.45); }
+.tp.pc .tp-faq details:nth-child(3n)::before { --tape: rgba(96,200,96,.55); }
+.tp.pc .tp-faq summary { min-height: 52px; padding: 14px 18px; align-items: center; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.15rem; line-height: 1.2; color: var(--pc-ink); }
+.tp.pc .tp-faq summary::after { content: "+"; flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #FFD43B; border: 2px solid var(--pc-ink); color: var(--pc-ink); font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; line-height: 1; }
+.tp.pc .tp-faq details[open] summary::after { content: "\2212"; }
+.tp.pc .tp-faq summary:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; border-radius: 6px; }
+.tp.pc .tp-faq details p { margin: 0; padding: 0 18px 16px; color: var(--pc-ink-soft); }
+
+/* Sign-off: the navy band becomes an airmail postcard. */
+.tp.pc .tp-cta { position: relative; color: var(--pc-ink); text-align: center; padding: 38px 28px 34px; border: 10px solid transparent; border-radius: 16px;
+  background: linear-gradient(var(--pc-paper), var(--pc-paper)) padding-box, repeating-linear-gradient(135deg, var(--pc-edge-a) 0 14px, var(--pc-edge-b) 14px 24px) border-box; }
+.tp.pc .tp-cta .tp-h2 { color: var(--pc-ink); }
+.tp.pc .tp-cta .tp-sub { color: var(--pc-ink-soft); }
+.tp.pc .tp-cta::after { content: "Marlon & Ernesto!"; display: block; margin-top: 14px; font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 1.9rem; line-height: 1; color: var(--pc-edge-a); transform: rotate(-2deg); }
+html[lang^="es"] .tp.pc .tp-cta::after { content: "¡Marlon y Ernesto!"; }
+.tp.pc .tp-btn.ghost { background: var(--pc-paper); border: 2.5px solid var(--pc-ink); border-radius: 999px; box-shadow: 4px 4px 0 var(--pc-ink); }
+
+/* Ink stamps in the gutters, to break up the white space. Decorative only. */
+.tp.pc .pc-stamp { position: absolute; width: 104px; height: auto; margin: 0; transform: rotate(var(--r, 0deg)); pointer-events: none; z-index: 0; display: none; }
+@media (min-width: 1100px) { .tp.pc .pc-stamp { display: block; } }
+.tp.pc .pc-stamp.l { left: max(12px, calc(50% - 560px)); }
+.tp.pc .pc-stamp.r { right: max(12px, calc(50% - 560px)); }
+.tp.pc .pc-stamp.t { top: 18px; } .tp.pc .pc-stamp.b { bottom: 18px; }
+.tp.pc .tp-wrap { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) { .tp.pc .tp-card { transform: none; } }
