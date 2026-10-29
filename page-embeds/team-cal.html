@@ -37,10 +37,17 @@
     Cal.ns["group-tours"]("inline", { elementOrSelector: "#tcal-inline", config: calCfg, calLink: "marlonwalksla/group-tours" });
     Cal.ns["group-tours"]("ui", { theme: "light", hideEventTypeDetails: true, layout: "month_view" }); // Oct 16, 2026: no title/length/location/time zone panel, the page already says it
   }
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: "600px" });
+  // Oct 29, 2026 (speed): wait for the first scroll, touch or key press (or 8 s), then load Cal.com when the calendar is within 250 px of the screen.
+  var armed = false, evs = ["scroll", "touchstart", "pointerdown", "keydown", "mousemove"];
+  function arm() {
+    if (armed) return; armed = true;
+    evs.forEach(function (e) { window.removeEventListener(e, arm); });
+    if (!("IntersectionObserver" in window)) { load(); return; }
+    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: "250px 0px" });
     io.observe(root);
-  } else load();
+  }
+  evs.forEach(function (e) { window.addEventListener(e, arm, { passive: true, once: true }); });
+  setTimeout(arm, 8000);
 })();
 </script>
 <!-- PC-FORMS:START (built by build_postcard_forms.py from postcard-forms.css) -->
@@ -58,8 +65,8 @@
   background: #FFFDF7 !important;
   border: 2px solid #27302E !important;
   border-image: none !important;
-  border-radius: 16px !important;
-  box-shadow: 0 16px 32px -20px rgba(39, 48, 46, 0.65) !important;
+  border-radius: 10px !important;
+  box-shadow: 4px 4px 0 #27302E !important;
 }
 /* Oct 17, 2026 (Marlon): no stamp and no striped edge on the cards (stripes stay on the outside of the section).
    Ernesto stands next to the button instead: he takes you there. */
