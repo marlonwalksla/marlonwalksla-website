@@ -124,7 +124,28 @@
       es: { ns: "free-tour-dtla-es", link: "marlonwalksla/free-tour-dtla-espanol", el: "#mwla-cal-es" }
     };
     const loaded = {};
+    // Oct 29, 2026 (speed): Cal.com starts after the first scroll, touch or key press (or 8 s), once the calendar is within 250 px of the screen.
+    let gateOpen = false, gateArmed = false, pendingLang = null;
+    const gateEvs = ["scroll", "touchstart", "pointerdown", "keydown", "mousemove"];
+    function openGate() {
+      gateOpen = true;
+      if (pendingLang) doLoadCal(pendingLang);
+    }
+    function armGate() {
+      if (gateArmed) return; gateArmed = true;
+      gateEvs.forEach(function (e) { window.removeEventListener(e, armGate); });
+      const box = document.getElementById("mwla-cal-" + (pendingLang || "en")) || document.getElementById("book");
+      if (!("IntersectionObserver" in window) || !box) { openGate(); return; }
+      const io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); openGate(); } }, { rootMargin: "250px 0px" });
+      io.observe(box);
+    }
+    gateEvs.forEach(function (e) { window.addEventListener(e, armGate, { passive: true, once: true }); });
+    setTimeout(armGate, 8000);
     function loadCal(lang) {
+      pendingLang = lang;
+      if (gateOpen) doLoadCal(lang);
+    }
+    function doLoadCal(lang) {
       if (loaded[lang] || typeof Cal !== "function") return;
       const ev = calEvents[lang];
       Cal("init", ev.ns, { origin: "https://app.cal.com" });
