@@ -174,9 +174,13 @@
   Cal.ns["free-tour-dtla-es"]("inline", { elementOrSelector: "#tp-cal-es", config: { layout: "month_view", theme: "light" }, calLink: "marlonwalksla/free-tour-dtla-espanol" });
   Cal.ns["free-tour-dtla-es"]("ui", { theme: "light", hideEventTypeDetails: false, layout: "month_view" });
   };
+  var tries=0;
+  (function arm(){
   var el=document.querySelector("#tp-cal-es");
-  if(!el||!("IntersectionObserver" in window)){load();return;}
+  if(!el){if(tries++<40){setTimeout(arm,100);return;}load();return;}
+  if(!("IntersectionObserver" in window)){load();return;}
   var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();load();}},{rootMargin:"250px 0px"});
   io.observe(el);
+  })();
   })();
 </script>
