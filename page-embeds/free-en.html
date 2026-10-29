@@ -175,7 +175,7 @@
   };
   var el=document.querySelector("#tp-cal-en");
   if(!el||!("IntersectionObserver" in window)){load();return;}
-  var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();load();}},{rootMargin:"600px 0px"});
+  var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();load();}},{rootMargin:"250px 0px"});
   io.observe(el);
   })();
 </script>
