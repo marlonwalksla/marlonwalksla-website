@@ -55,10 +55,34 @@
   };
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  // Oct 29: route facts now come from the Routes CMS (Start Point, Hero Lead, Hero Image Alt, On Free/Team/Private Tour,
+  // Includes Lunch Stop, Lunch Link Text, Good to Know), bound on the template as data-route-* attributes, flag spans
+  // and the hidden [data-route-gtk] rich text. If a route has no Hero Lead or Good to Know yet, CFG below is the fallback.
+  // The hero photo still comes from CFG (image fields would duplicate assets).
+  function fromCms(sec) {
+    var lead = (sec.getAttribute('data-route-lead') || '').trim(), g = sec.querySelector('[data-route-gtk]');
+    var items = g ? [].slice.call(g.querySelectorAll('li')).map(function (li) { return li.innerHTML; }) : [];
+    if (!lead || !items.length) return null;
+    var slug = sec.getAttribute('data-route-slug'), old = CFG[slug] || {};
+    var es = (sec.getAttribute('data-route-lang') || '').toLowerCase().indexOf('espa') === 0;
+    var start = (sec.getAttribute('data-route-start') || '').split(',')[0].trim();
+    var offers = ['free', 'team', 'private'].filter(function (k) { return sec.querySelector('[data-route-flag="' + k + '"]'); });
+    var lt = (sec.getAttribute('data-route-lunch-text') || '').trim();
+    var lunchOn = !!sec.querySelector('[data-route-flag="lunch"]');
+    g.parentNode.removeChild(g);
+    [].slice.call(sec.querySelectorAll('[data-route-flag]')).forEach(function (n) { n.parentNode.removeChild(n); });
+    return {
+      lang: es ? 'es' : 'en', offers: offers, lunch: lunchOn && !!lt, lunchText: lt,
+      eyebrow: es ? 'Ruta a pie' : 'Walking route', lead: lead,
+      cap: (sec.getAttribute('data-route-cap') || '').trim(), img: old.img || '',
+      chips: start ? [(es ? '\uD83D\uDCCD Empieza en ' : '\uD83D\uDCCD Starts at ') + start, es ? '\uD83D\uDDE3\uFE0F Español o English' : '\uD83D\uDDE3\uFE0F English or Español'] : (old.chips || []),
+      gtkHtml: items
+    };
+  }
   function run() {
     var sec = document.querySelector('[data-route-slug]'), c = document.querySelector('.route-container');
     if (!sec || !c || c.querySelector('.rp-hero')) return;
-    var cfg = CFG[sec.getAttribute('data-route-slug')]; if (!cfg) return;
+    var cfg = fromCms(sec) || CFG[sec.getAttribute('data-route-slug')]; if (!cfg) return;
     var L = cfg.lang, t = T[L], h1 = c.querySelector('.route-title'), intro = c.querySelector('.route-intro');
     var hero = el('div', 'rp-hero'), txt = el('div', 'rp-hero-text');
     txt.appendChild(el('span', 'rp-eyebrow', esc(cfg.eyebrow)));
@@ -69,12 +93,14 @@
     var btns = el('div', 'rp-btns');
     cfg.offers.forEach(function (k, i) { var o = OFFER[k][L]; btns.appendChild(el('a', 'rp-btn' + (i ? ' ghost' : ''), esc(o[0]))).href = o[1]; });
     txt.appendChild(btns);
-    var fig = el('figure', 'rp-hero-img'); var im = el('img'); im.src = /^http/.test(cfg.img) ? cfg.img : B + cfg.img.replace('cb/', ''); im.alt = cfg.cap; fig.appendChild(im); fig.appendChild(el('figcaption', '', esc(cfg.cap)));
-    hero.appendChild(txt); hero.appendChild(fig); c.insertBefore(hero, c.firstChild);
+    var fig = el('figure', 'rp-hero-img'); var im = el('img'); if (cfg.img) { im.src = /^http/.test(cfg.img) ? cfg.img : B + cfg.img.replace('cb/', ''); im.alt = cfg.cap; fig.appendChild(im); fig.appendChild(el('figcaption', '', esc(cfg.cap))); }
+    hero.appendChild(txt); if (cfg.img) hero.appendChild(fig); c.insertBefore(hero, c.firstChild);
     var vend = c.querySelector('.vendors-link');
     if (vend) { if (cfg.lunch) { vend.classList.add('rp-btn', 'ghost', 'rp-lunch'); vend.textContent = cfg.lunchText; vend.setAttribute('target', '_blank'); vend.setAttribute('rel', 'noopener'); } else { vend.style.display = 'none'; } }
     var g = el('section', 'rp-gtk'); g.appendChild(el('h2', 'rp-h2', esc(t.gtk)));
-    var ul = el('ul', 'rp-gtk-list'); cfg.gtk.forEach(function (x) { var i = x.indexOf(':'); ul.appendChild(el('li', '', '<strong>' + esc(x.slice(0, i + 1)) + '</strong>' + esc(x.slice(i + 1)))); });
+    var ul = el('ul', 'rp-gtk-list');
+    if (cfg.gtkHtml) cfg.gtkHtml.forEach(function (h) { ul.appendChild(el('li', '', h)); });
+    else cfg.gtk.forEach(function (x) { var i = x.indexOf(':'); ul.appendChild(el('li', '', '<strong>' + esc(x.slice(0, i + 1)) + '</strong>' + esc(x.slice(i + 1)))); });
     g.appendChild(ul); g.appendChild(el('p', 'rp-note', esc(t.gtkNote))); c.appendChild(g);
     var cta = el('section', 'rp-cta'); cta.appendChild(el('h2', 'rp-h2', esc(t.ctaH))); cta.appendChild(el('p', 'rp-cta-sub', esc(t.ctaS)));
     var row = el('div', 'rp-cta-row');
