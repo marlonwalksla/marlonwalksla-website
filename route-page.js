@@ -58,8 +58,8 @@
   // Oct 29: route facts now come from the Routes CMS (Start Point, Hero Lead, Hero Image Alt, On Free/Team/Private Tour,
   // Includes Lunch Stop, Lunch Link Text, Good to Know), bound on the template as data-route-* attributes, flag spans
   // and the hidden [data-route-gtk] rich text. If a route has no Hero Lead or Good to Know yet, CFG below is the fallback.
-  // The hero photo still comes from CFG (image fields would duplicate assets).
-  function fromCms(sec) {
+  // The hero photo comes from the Hero Image field (hidden [data-route-hero] image on the template); CFG img is the fallback.
+  function fromCms(sec, heroSrc) {
     var lead = (sec.getAttribute('data-route-lead') || '').trim(), g = sec.querySelector('[data-route-gtk]');
     var items = g ? [].slice.call(g.querySelectorAll('li')).map(function (li) { return li.innerHTML; }) : [];
     if (!lead || !items.length) return null;
@@ -74,7 +74,7 @@
     return {
       lang: es ? 'es' : 'en', offers: offers, lunch: lunchOn && !!lt, lunchText: lt,
       eyebrow: es ? 'Ruta a pie' : 'Walking route', lead: lead,
-      cap: (sec.getAttribute('data-route-cap') || '').trim(), img: old.img || '',
+      cap: (sec.getAttribute('data-route-cap') || '').trim(), img: heroSrc || old.img || '',
       chips: start ? [(es ? '\uD83D\uDCCD Empieza en ' : '\uD83D\uDCCD Starts at ') + start, es ? '\uD83D\uDDE3\uFE0F Español o English' : '\uD83D\uDDE3\uFE0F English or Español'] : (old.chips || []),
       gtkHtml: items
     };
@@ -82,7 +82,9 @@
   function run() {
     var sec = document.querySelector('[data-route-slug]'), c = document.querySelector('.route-container');
     if (!sec || !c || c.querySelector('.rp-hero')) return;
-    var cfg = fromCms(sec) || CFG[sec.getAttribute('data-route-slug')]; if (!cfg) return;
+    var heroEl = sec.querySelector('[data-route-hero]'), heroSrc = heroEl ? (heroEl.getAttribute('src') || '') : '';
+    if (heroEl) heroEl.parentNode.removeChild(heroEl);
+    var cfg = fromCms(sec, heroSrc) || CFG[sec.getAttribute('data-route-slug')]; if (!cfg) return;
     var L = cfg.lang, t = T[L], h1 = c.querySelector('.route-title'), intro = c.querySelector('.route-intro');
     var hero = el('div', 'rp-hero'), txt = el('div', 'rp-hero-text');
     txt.appendChild(el('span', 'rp-eyebrow', esc(cfg.eyebrow)));
