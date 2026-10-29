@@ -117,7 +117,7 @@ def build(lang):
     </div>
   </div>
 
-  <p class="pvr-facts">{t["facts"]} &middot; <a class="mw-offer-more" href="/private-tours-los-angeles">{t["prices"]} &rarr;</a></p>
+  <p class="pvr-facts">{t["facts"]} &middot; <a class="mw-offer-more" href="/private-tour-los-angeles">{t["prices"]} &rarr;</a></p>
 </div>
 <script type="application/json" id="pvr-data">{js_data}</script>
 <style>
@@ -204,7 +204,7 @@ def build(lang):
   }});
   document.getElementById("pvr-copy").addEventListener("click", function () {{
     var b = this, txt = t.mylist + "\\n" + cur.map(function (s, i) {{ return (i + 1) + ". " + s.name; }}).join("\\n") +
-      "\\n" + document.getElementById("pvr-steal").href + "\\n" + t.domore + ": https://www.marlonwalksla.com/private-tours-los-angeles";
+      "\\n" + document.getElementById("pvr-steal").href + "\\n" + t.domore + ": https://www.marlonwalksla.com/private-tour-los-angeles";
     function done() {{ var o = b.textContent; b.textContent = t.copied; setTimeout(function () {{ b.textContent = o; }}, 1600); }}
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () {{ window.prompt("", txt); }});
     else window.prompt("", txt);
