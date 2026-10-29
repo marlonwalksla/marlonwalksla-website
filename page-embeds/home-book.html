@@ -21,7 +21,7 @@
   <div class="mwla-fgrid">
     <div class="mwla-fleft">
       <div class="mwla-inc" id="mwla-inc">
-        <div class="mws" data-mws data-prev="Previous photo" data-prev-es="Foto anterior" data-next="Next photo" data-next-es="Foto siguiente" data-dot="Show stop {n}" data-dot-es="Ver parada {n}" aria-label="Photos from the free tour" aria-label-es="Fotos del free tour"><div class="mws-stage">
+        <div class="mws" data-mws data-prev="Previous photo" data-prev-es="Foto anterior" data-next="Next photo" data-next-es="Foto siguiente" data-dot="Show stop {n}" data-dot-es="Ver parada {n}" aria-label="Photos from the free tour" data-aria-label-es="Fotos del free tour"><div class="mws-stage">
 <figure class="mws-slide" data-cap="Walt Disney Concert Hall" data-cap-es="Walt Disney Concert Hall"><div class="mws-fit mws-rawbox"><span class="mws-tape" style="background:rgba(255,0,255,.4)"></span><img class="mws-raw" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92ca7137bdbc510c768e4_guest-disney-hall-01.webp" alt="Guests with their Polaroid in front of Walt Disney Concert Hall" data-es="Invitados con su Polaroid frente a Walt Disney Concert Hall" loading="eager"></div></figure>
 <figure class="mws-slide" data-cap="The Broad" data-cap-es="The Broad"><img class="mws-fit mws-photo" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6adf932d9543169e00f4e0ef_8b35da2d8c93c2a149526206a4e635dc_the-broad-01.webp" alt="The Broad museum on Grand Avenue" data-es="El museo The Broad en Grand Avenue" loading="lazy"></figure>
 <figure class="mws-slide" data-cap="Angels Flight" data-cap-es="Angels Flight"><div class="mws-fit mws-rawbox"><span class="mws-tape" style="background:rgba(0,200,180,.4)"></span><img class="mws-raw" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cb3add8991e783fc5d8_guest-angels-flight-02.avif" alt="A group of guests riding the Angels Flight railway car" data-es="Un grupo de invitados en el funicular Angels Flight" loading="lazy"></div></figure>
@@ -183,6 +183,7 @@
   var root = document.getElementById("book"); if (!root) return;
   var es = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 || /^\/es(\/|$)/.test(location.pathname);
   if (!es) return;
+  [].slice.call(root.querySelectorAll("[data-aria-label-es]")).forEach(function (el) { el.setAttribute("aria-label", el.getAttribute("data-aria-label-es")); });
   [].slice.call(root.querySelectorAll("[data-es]")).forEach(function (el) {
     if (el.closest(".mws")) return;
     if (el.tagName === "IMG") el.alt = el.getAttribute("data-es"); else el.textContent = el.getAttribute("data-es");
