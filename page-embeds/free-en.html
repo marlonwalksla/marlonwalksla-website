@@ -117,7 +117,20 @@
         <p style="color:#475569;margin:0 0 14px">Arrive 5 minutes early. Running late? Message Marlon on WhatsApp and he'll help you catch up with the group.</p>
         <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae0ec6b28d4a390cbe76dcf_PXL_20260507_200129011%20(1).webp" alt="Walt Disney Concert Hall, where the free tour meets" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:12px">
       </div>
-      <iframe title="Map of the meeting point" loading="lazy" src="https://www.google.com/maps?q=Walt+Disney+Concert+Hall,+Los+Angeles&output=embed"></iframe>
+      <div class="tp-mapgate" data-src="https://www.google.com/maps?q=Walt+Disney+Concert+Hall,+Los+Angeles&amp;output=embed" data-title="Map of the meeting point">
+        <p class="tp-mapgate-name">Walt Disney Concert Hall, 600 W 1st St</p>
+        <button type="button" class="tp-btn yellow tp-mapgate-btn">Show the map</button>
+        <a class="tp-mapgate-link" href="https://www.google.com/maps/search/?api=1&amp;query=Walt+Disney+Concert+Hall,+Los+Angeles" target="_blank" rel="noopener">Open in Google Maps</a>
+      </div>
+      <style>
+      .tp-mapgate{box-sizing:border-box;width:100%;height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center;background-color:#FFFDF0;background-image:linear-gradient(rgba(39,48,46,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(39,48,46,.07) 1px,transparent 1px);background-size:24px 24px;border:2px solid #27302E;border-radius:10px;box-shadow:3px 3px 0 #27302E}
+      .tp-mapgate-name{margin:0;font-family:"Lilita One",sans-serif;font-size:1.15rem;color:#27302E}
+      .tp-mapgate-btn{cursor:pointer;font-family:"Lilita One",sans-serif;font-size:1.15rem;padding:13px 26px;background:#FFD43B;color:#27302E;border:2.5px solid #27302E;border-radius:999px;box-shadow:4px 4px 0 #27302E}
+      .tp-mapgate-link{font-weight:700;color:#27302E;text-decoration:underline}
+      </style>
+      <script>
+      (function(){var g=document.currentScript.parentNode.querySelector('.tp-mapgate');if(!g)return;var b=g.querySelector('.tp-mapgate-btn');b.addEventListener('click',function(){var f=document.createElement('iframe');f.title=g.getAttribute('data-title');f.src=g.getAttribute('data-src');f.setAttribute('allowfullscreen','');f.referrerPolicy='no-referrer-when-downgrade';g.replaceWith(f);});})();
+      </script>
     </div>
   </section>
 
