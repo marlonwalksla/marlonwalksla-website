@@ -1,0 +1,39 @@
+<!-- Oct 30, 2026: loader v3 (replaces the old prefetch script AND the synchronous mw.js).
+     Source copy of what is pasted in Webflow > Site settings > Custom code > Head. Keep both in sync.
+     What it does: starts fetching every section of the page at once (top of head), then drops each
+     <div data-s="NAME"> placeholder's section in, in page order, as soon as it has arrived. Nothing waits
+     on the network, so the browser keeps painting. Placeholders hold their usual height (H) so the page does not jump. On Home and /es the site header is hidden and the hero's outer section is flattened from the first paint (the hero embed does both itself, but only once it has arrived, which pushed the page up 68px and then 10px).
+     Live (marlonwalksla.com): sections come from the release commit REL, so URLs never change between releases
+     and browsers cache them for a year. To release: push to `live`, set REL to the new full commit hash, publish.
+     Test (webflow.io): sections come from branch `test` (raw GitHub first), 1-minute cache window; ?mw=live|test switches branch.
+     Old embeds (<script src=.../mw.js data-s=...>) still work next to this: it only handles <div data-s>. -->
+<script>
+(function(){try{
+var m={"/":["home-hero","home-reviews-strip","home-head-team-en","home-team","home-team-card","home-routebreak","home-head-priv-en","home-private","home-private-calc","home-meet","home-book","home-faq"],"/es":["home-hero-es","home-reviews-strip-es","home-head-team-es","home-team-es","home-team-card-es","home-routebreak-es","home-head-priv-es","home-private-es","home-private-calc-es","home-meet-es","home-book","home-faq-es"],"/free-walking-tour-los-angeles":["free-en"],"/free-tour-los-angeles-espanol":["free-es"],"/team-outings-los-angeles":["team-top","team-form-intro","team-cal","team-bottom"],"/private-tour-los-angeles":["private-top","private-form-intro","private-bottom"],"/salidas-de-equipo-los-angeles":["team-top-es","team-form-intro-es","team-cal","team-bottom-es"],"/tours-privados-los-angeles":["private-top-es","private-form-intro-es","private-bottom-es"]};
+var pa=location.pathname.replace(/\/+$/,'')||'/',l=m[pa];if(!l)return;
+var REL='78bd11f90b1a07a1ad8c8e6029a0a9cefabc217f';
+var H={"home-hero":[1174,1269,761],"home-reviews-strip":[440,426,290],"home-head-team-en":[338,285,216],"home-team":[616,694,679],"home-team-card":[742,662,761],"home-routebreak":[366,274,278],"home-head-priv-en":[319,249,246],"home-private":[519,549,525],"home-private-calc":[651,492,544],"home-meet":[677,663,410],"home-book":[1511,1579,933],"home-faq":[691,696,729],"home-hero-es":[1200,1291,784],"home-reviews-strip-es":[440,426,290],"home-head-team-es":[338,285,216],"home-team-es":[616,694,679],"home-team-card-es":[786,662,761],"home-routebreak-es":[366,274,330],"home-head-priv-es":[319,291,246],"home-private-es":[519,549,525],"home-private-calc-es":[651,492,565],"home-meet-es":[677,635,390],"home-faq-es":[691,696,729],"free-en":[7259,6687,4716],"free-es":[7536,7352,4715],"team-top":[2152,1782,1202],"team-form-intro":[1145,1191,1094],"team-cal":[520,762,520],"team-bottom":[4390,3581,2626],"private-top":[1433,1187,856],"private-form-intro":[1989,1216,1416],"private-bottom":[4904,3227,3080],"team-top-es":[2335,1809,1343],"team-form-intro-es":[1171,1217,1142],"team-bottom-es":[4475,3635,2626],"private-top-es":[1459,1189,896],"private-form-intro-es":[2036,1237,1435],"private-bottom-es":[4938,3228,3107]};
+var repo='marlonwalksla/marlonwalksla-website',prod=/^(www\.)?marlonwalksla\.com$/i.test(location.hostname),ref='test',bk=Math.floor(Date.now()/60000);
+if(!prod){var q=/[?&]mw=(live|test)(&|$)/.exec(location.search);if(q)ref=q[1];}
+function srcs(n){var p='page-embeds/'+n+'.html';
+if(prod)return['https://cdn.jsdelivr.net/gh/'+repo+'@'+REL+'/'+p,'https://raw.githubusercontent.com/'+repo+'/'+REL+'/'+p];
+var t='?v='+bk;return['https://raw.githubusercontent.com/'+repo+'/'+ref+'/'+p+t,'https://cdn.jsdelivr.net/gh/'+repo+'@'+ref+'/'+p+t];}
+var r=['','',''],a=['','@media(min-width:601px){','@media(min-width:1024px){'];
+l.forEach(function(n){var h=H[n];if(h)for(var i=0;i<3;i++)r[i]+='div[data-s="'+n+'"]{min-height:'+h[i]+'px}';});
+var st=document.createElement('style');st.textContent=(pa==='/'||pa==='/es'?'.mwhd{display:none!important}.section.max-height_100vh_desktop{margin-top:0!important;padding:0!important;max-height:none!important;min-height:0!important;overflow:visible!important;display:block!important;background:#FFF6E6!important}':'')+r[0]+a[1]+r[1]+'}'+a[2]+r[2]+'}';document.head.appendChild(st);
+var T={},F={},P={},busy=0;
+function get(n){var u=srcs(n),i=0;return new Promise(function(ok,no){(function t(){fetch(u[i]).then(function(x){if(!x.ok)throw 0;return x.text();}).then(ok).catch(function(){++i<u.length?t():no();});})();});}
+function reg(n){if(P[n])return;P[n]=1;get(n).then(function(h){T[n]=h;drain();},function(){F[n]=1;drain();});}
+function put(e,h){e.setAttribute('data-mw','1');var p=e.parentNode,g=document.createRange();g.setStartBefore(e);p.insertBefore(g.createContextualFragment(h),e);p.removeChild(e);}
+function drain(){if(busy)return;busy=1;try{var d=document.querySelectorAll('div[data-s]:not([data-mw])');
+for(var i=0;i<d.length;i++){var e=d[i],n=e.getAttribute('data-s');
+if(!/^[a-z0-9][a-z0-9-]*$/.test(n)){e.setAttribute('data-mw','bad');continue;}
+reg(n);
+if(F[n]){e.setAttribute('data-mw','failed');e.style.minHeight='0';console.error('[mw] could not load section "'+n+'"');continue;}
+if(T[n]===undefined)break;
+put(e,T[n]);}}finally{busy=0;}}
+l.forEach(reg);
+var mo=new MutationObserver(drain);mo.observe(document.documentElement,{childList:true,subtree:true});
+document.addEventListener('DOMContentLoaded',function(){drain();mo.disconnect();});
+}catch(e){}})();
+</script>
