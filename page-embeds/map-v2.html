@@ -74,10 +74,10 @@
 #pmx .pmx-b.quiet{border:0;padding:4px 0;text-decoration:underline !important;font-weight:600;background:none}
 #pmx .pmx-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;color:#334155;background:#efe7d2;border:0;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;width:100%}
 @media (max-width:899px){
-  #pmx .pmx-wrap{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;grid-template-areas:"top" "map" "card" "body";height:auto;min-height:0}
+  #pmx .pmx-wrap{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto;grid-template-areas:"top" "map" "card" "body";height:auto;min-height:0}
   #pmx .pmx-top,#pmx .pmx-body{border-right:0}
   #pmx .pmx-top{padding:14px 14px 6px}
-  #pmx .pmx-body{overflow:visible;padding:12px 14px 28px}
+  #pmx .pmx-body{overflow:visible;padding:12px 14px 28px;min-height:720px}
   #pmx .pmx-mapbox{height:60vh;height:60svh;min-height:340px;border-top:2.5px solid #27302E;border-bottom:2.5px solid #27302E}
   #pmx .pmx-card{grid-area:card;justify-self:stretch;width:auto;max-height:none;margin:12px 12px 0;padding:14px 14px 12px;box-shadow:3px 3px 0 #27302E}
   #pmx .pmx-card h3{font-size:1.3rem}
