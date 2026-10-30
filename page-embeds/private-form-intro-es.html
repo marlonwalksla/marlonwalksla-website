@@ -118,9 +118,10 @@
 </div>
 <script>
   /* Oct 17, 2026: the inquiry form is a postcard to Marlon (styles below), so the button mails it */
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("#private-tour-form .mw-form-submit").forEach(function (b) { b.value = "Send my postcard"; b.setAttribute("data-wait", "Sending..."); });
-  });
+  function mwBtn() {
+    document.querySelectorAll("#private-tour-form .mw-form-submit").forEach(function (b) { b.value = "Solicitar un tour privado"; b.setAttribute("data-wait", "Enviando..."); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mwBtn); else mwBtn();
 </script>
 <!-- PC-FORMS:START (built by build_postcard_forms.py from postcard-forms.css) -->
 <style>

@@ -426,5 +426,5 @@
 <script>
   /* Spanish Home: page language for browsers and the booking calendar in Spanish */
   document.documentElement.setAttribute('lang', 'es');
-  document.addEventListener('DOMContentLoaded', function () { if (typeof window.mwlaBookSet === 'function') window.mwlaBookSet('es'); });
+  (function () { var n = 0; (function t() { if (typeof window.mwlaBookSet === 'function') { window.mwlaBookSet('es'); return; } if (++n < 100) setTimeout(t, 100); })(); })();
 </script>
