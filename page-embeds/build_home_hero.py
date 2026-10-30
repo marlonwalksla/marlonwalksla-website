@@ -172,8 +172,6 @@ def build(lang):
      No rotating words or images; the language switch lives in the header.
      The <style> below also sets the Home section backgrounds (booking, team, private).
      ============================================================================== -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600&family=Lilita+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <section class="mwh" lang="{lang}">
   <div class="mwh-wrap">
     <div class="mwh-text">

@@ -7,6 +7,9 @@
 @font-face{font-family:'Fredoka';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/fredoka-latin-600-normal.woff2) format('woff2');}
 @font-face{font-family:'Lilita One';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/lilita-one-latin-400-normal.woff2) format('woff2');}
 @font-face{font-family:'Caveat';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/caveat-latin-500-normal.woff2) format('woff2');}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/caveat-latin-600-normal.woff2) format('woff2');}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/caveat-latin-700-normal.woff2) format('woff2');}
+@font-face{font-family:'Fredoka';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/fredoka-latin-700-normal.woff2) format('woff2');}
 
 /* ===== global-vars.css (copied from main, Oct 30, 2026) ===== */
 /* ==============================================================================
