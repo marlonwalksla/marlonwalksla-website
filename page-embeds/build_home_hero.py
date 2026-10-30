@@ -10,9 +10,9 @@ import stamps  # original LA silhouettes for the postcard backs
 
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
 ERNESTO = CDN + "6ae4300b0f4f05b22191d298_Circle%20Full.avif"
-P_FREE = CDN + "6ad3db6c73266c4e732cdd90_free-tour-avila-adobe.webp"  # Oct 17, 2026 (Marlon): yellow-frame Polaroid; the old La Placita one moved into the free tour section
+P_FREE = CDN + "6ae451a4a161d7286632251d_free%20group%20polaroid.avif"  # Oct 17, 2026 (Marlon): yellow-frame Polaroid; the old La Placita one moved into the free tour section
 _OLD_P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp"
-P_PRIV = CDN + "6ad3db6be47154900024909b_private-tour-urban-lights.webp"  # Oct 17, 2026: Marlon's pick
+P_PRIV = CDN + "6ae45115ea1a111698dba65e_private%20urban%20lights.avif"  # Oct 17, 2026: Marlon's pick
 P_TEAM = CDN + "6ad3cf8b582d5e6e7bbb815a_team-tour-green-birthday.webp"  # Oct 17, 2026 (Marlon): green-tinted Polaroid, Kara's birthday group at the Grand Central Market
 
 T = {
