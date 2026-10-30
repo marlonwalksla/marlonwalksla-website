@@ -363,7 +363,7 @@ def left_html(lang):
      The estimate lives in home-private-calc.html (right column) and reads the pick through window.MWPV.
      ============================================================================== -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/mw-slider.css?v=2">
-<script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/mw-slider.js?v=2" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@f644401027d6f89309b640d73897c0f0244ef74f/mw-slider.js" defer></script>
 <div class="mw-offer pvb" id="private-tours">
   <div class="mws" id="pvc" data-mws style="--mws-w: 420px; --mws-ar: 1 / 1" data-prev="{t['prev']}" data-next="{t['next']}" data-dot="{t['dot']}" aria-label="{esc(t['h'])}"><div class="mws-stage"></div></div>
   <figure class="pvb-q" id="pvb-q"><blockquote></blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="pvb-by"></span></figcaption></figure>
