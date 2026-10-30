@@ -4,7 +4,6 @@
 import re
 CSS = open("postcard-forms.css", encoding="utf-8").read()
 BLOCK = ('<!-- PC-FORMS:START (built by build_postcard_forms.py from postcard-forms.css) -->\n'
-         '<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">\n'
          '<style>\n' + CSS + '</style>\n<script>\n' + open("postcard-forms.js", encoding="utf-8").read() + '</script>\n<!-- PC-FORMS:END -->')
 for name in ("private-form-intro.html", "team-cal.html"):
     s = open(name, encoding="utf-8").read()
