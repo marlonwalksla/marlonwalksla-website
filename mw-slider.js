@@ -14,6 +14,11 @@
   function init(root) {
     if (root.mws) return;
     var stage = root.querySelector(".mws-stage"), slides = [], dots = [], i = -1, token = 0;
+    /* Oct 30, 2026: a slider far below the fold does not fetch its photos until you scroll near it (speed). near = within about 600px of the screen. */
+    var near = !("IntersectionObserver" in window) || root.getBoundingClientRect().top < window.innerHeight * 1.5;
+    function hydrate(s) { var im = s && s.querySelector("img"), d = im && im.getAttribute("data-mws-src"); if (d) { im.removeAttribute("data-mws-src"); im.src = d; } }
+    function warm() { if (i < 0 || !slides.length) return; hydrate(slides[i]); hydrate(slides[(i + 1) % slides.length]); var c = slides[i].querySelector("img"); if (c && c.loading === "lazy") c.loading = "eager"; }
+    if (!near) { var io = new IntersectionObserver(function (ents) { if (ents[0].isIntersecting) { near = true; io.disconnect(); warm(); } }, { rootMargin: "600px 0px" }); io.observe(root); }
     var prev = document.createElement("button"), next = document.createElement("button"), cap = document.createElement("p"), dotBox = document.createElement("div");
     prev.type = next.type = "button"; prev.className = "mws-nav mws-prev"; next.className = "mws-nav mws-next";
     prev.innerHTML = "&lsaquo;"; next.innerHTML = "&rsaquo;";
@@ -42,13 +47,14 @@
       dots.forEach(function (d, k) { if (k === i) d.setAttribute("aria-current", "true"); else d.removeAttribute("aria-current"); });
       var s = slides[i]; cap.textContent = s ? at(s, "data-cap") : "";
       root.dispatchEvent(new CustomEvent("mws:change", { bubbles: true, detail: { index: i, slide: s || null, root: root } }));
-      var nx = slides[(i + 1) % slides.length]; if (nx) { var im = nx.querySelector("img"); if (im && im.loading === "lazy") im.loading = "eager"; }
+      var nx = slides[(i + 1) % slides.length]; if (nx && near) { hydrate(nx); var im = nx.querySelector("img"); if (im && im.loading === "lazy") im.loading = "eager"; }
     }
     function set(n) {
       if (!slides.length) return;
       n = (n % slides.length + slides.length) % slides.length;
       var im = slides[n].querySelector("img"), my = ++token;
-      if (im && !im.complete) {
+      if (near) hydrate(slides[n]);
+      if (near && im && !im.complete) {
         im.loading = "eager";
         var done = function () { if (my === token) paint(n); };
         im.addEventListener("load", done, { once: true }); im.addEventListener("error", done, { once: true }); setTimeout(done, 600);
@@ -61,7 +67,7 @@
         f.className = "mws-slide"; if (it.cap) f.setAttribute("data-cap", it.cap); if (it.key) f.setAttribute("data-key", it.key);
         if (kind === "card") { el = document.createElement("div"); el.className = "mws-fit mws-card"; el.style.background = it.color || "#FFE08A"; el.textContent = it.cap || ""; f.appendChild(el); }
         else {
-          var im = new Image(); im.alt = it.alt || it.cap || ""; im.src = it.src; if (k > 0) im.loading = "lazy"; if (it.pos) im.style.objectPosition = it.pos;
+          var im = new Image(); im.alt = it.alt || it.cap || ""; if (k > 0 || !near) im.loading = "lazy"; if (near && k < 2) im.src = it.src; else im.setAttribute("data-mws-src", it.src); if (it.pos) im.style.objectPosition = it.pos;
           if (kind === "print") { el = document.createElement("div"); el.className = "mws-fit mws-print"; if (it.pf) el.style.setProperty("--pf", it.pf); el.appendChild(im); }
           else { im.className = "mws-fit mws-" + kind; el = im; }
           f.appendChild(el);
