@@ -9,7 +9,7 @@ import paper
 import stamps  # original LA silhouettes for the postcard backs
 
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-ERNESTO = CDN + "6a052bdf15f429ade21cc6f5_Circle%20Full.webp"
+ERNESTO = CDN + "6ae4300b0f4f05b22191d298_Circle%20Full.avif"
 P_FREE = CDN + "6ad3db6c73266c4e732cdd90_free-tour-avila-adobe.webp"  # Oct 17, 2026 (Marlon): yellow-frame Polaroid; the old La Placita one moved into the free tour section
 _OLD_P_FREE = CDN + "6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp"
 P_PRIV = CDN + "6ad3db6be47154900024909b_private-tour-urban-lights.webp"  # Oct 17, 2026: Marlon's pick
@@ -178,7 +178,7 @@ def build(lang):
   <div class="mwh-wrap">
     <div class="mwh-text">
       <h1 class="mwh-h1">{t["h1"]}</h1>
-      <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a052bdf15f429ade21cc6f5_Circle%20Full.webp" alt="{t["badge_alt"]}" loading="eager" width="512" height="512">
+      <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%20Full.avif" alt="{t["badge_alt"]}" loading="eager" width="512" height="512">
       <span class="mwh-hand" lang="{lang}">{t["hand"]}</span>
       <div class="mwh-lang" role="group" aria-label="Language / Idioma">
         <a class="mwh-lb mwh-lb2" href="/es" lang="es" hreflang="es"{cur_es}>Espa&ntilde;ol</a>

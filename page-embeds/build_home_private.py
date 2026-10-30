@@ -554,7 +554,7 @@ CALC_JS = r"""<script>
 </script>
 """
 
-ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
+ERN = C + "6ae436f5cb91c1dbb4ea1298_Tour%20Guide%20541%20x%20800.avif"
 
 
 # Oct 23, 2026 (Marlon): an ink stamp in the corner of the estimate card, one per plan. key: (icon, ink, rotation, seed, EN top, ES top)

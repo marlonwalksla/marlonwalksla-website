@@ -2,8 +2,8 @@
 # Oct 16, 2026: same look as the free tour banner (Ernesto beside an eyebrow, title and one line).
 import stamps
 C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-ERN = {"team": C + "6a87ce800a9b9169f06d40de_Polaroid%20Photographer.avif",
-       "priv": C + "6a87cf628c921f7de316043f_Hiking.avif"}
+ERN = {"team": C + "6ae43686de3b227659989aa2_Polaroid%20Photographer%20378x800.avif",
+       "priv": C + "6ae4300bb3475c17e0bb3730_Hiking.avif"}
 PERSON = ('<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.2" r="3.6" fill="#27302E"/>'
           '<path d="M3 18c0-4.2 3.1-6.6 7-6.6s7 2.4 7 6.6z" fill="#27302E"/></svg>')
 # Oct 17, 2026 (Marlon): postcard headers. Text left, small badges instead of pills. Ernesto lives next to the form buttons, not up here.
