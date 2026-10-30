@@ -6,7 +6,7 @@
 # ("I love acos" typo). The approved Pointing (Left) Ernesto is used until the fixed one is uploaded. Swap MASCOT_URL to change it.
 import paper
 CDN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-MASCOT_URL = CDN + "6a87cf6d715b4e53c40aaf8d_Pointing%20(Left).avif"
+MASCOT_URL = CDN + "6ae4300b53389bcda1926254_Pointing%20(Left).avif"
 T = {
  "en": dict(title="LA Recommendations Map", l1="Don't know where to go? Need ideas?", l2="Food, shopping and more, all on one map.",
             cta="Explore the Map", cta_href="/maps"),

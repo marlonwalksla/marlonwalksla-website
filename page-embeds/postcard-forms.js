@@ -1,7 +1,7 @@
 /* Oct 17, 2026 (Marlon): Ernesto stands on the LEFT of the send button of each inquiry form: he takes you there.
    The forms are native Webflow forms, so the button is wrapped here instead of being edited in the Designer. */
 (function () {
-  var ERN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif";
+  var ERN = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300bde3b2276599704aa_Tour%20Guide.avif";
   function wrap() {
     document.querySelectorAll(".mw-form-card .mw-form-submit").forEach(function (b) {
       if (b.parentNode.classList.contains("pc-cta")) return;

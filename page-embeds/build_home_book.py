@@ -6,7 +6,7 @@ import stamps
 # Starts in Spanish when the page language is es (the Spanish Home hero sets it before this runs).
 import json
 C = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/"
-ERN = C + "6a87ce84d9af8f7c9bf12030_Tour%20Guide.avif"
+ERN = C + "6ae4300bde3b2276599704aa_Tour%20Guide.avif"
 POLS = [  # image, year, tape color, alt
   (C+"6ac74a8b6dc6526aa1e35909_polaroid-disney-hall-couple.webp", "2003", "rgba(255,0,255,.45)", "Guests with their Polaroid at Walt Disney Concert Hall"),
   (C+"6ac74a889c33f92895c9275a_polaroid-city-hall-couple.webp", "1928", "rgba(255,120,190,.55)", "Polaroid at Los Angeles City Hall"),
