@@ -86,6 +86,7 @@
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) set(i + (dx < 0 ? 1 : -1));
     }, { passive: true });
     root.mws = { set: set, index: function () { return i; }, count: function () { return slides.length; }, load: load };
+    if (!near) [].forEach.call(stage.querySelectorAll(".mws-slide img[src]"), function (im) { if (!im.complete) { im.setAttribute("data-mws-src", im.getAttribute("src")); im.removeAttribute("src"); } });
     if (stage.querySelector(".mws-slide")) { collect(); set(0); }
   }
 
