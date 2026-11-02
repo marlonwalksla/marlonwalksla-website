@@ -15,17 +15,18 @@
   mount.setAttribute('data-ready', '1');
   var BASE = mount.getAttribute('data-base') || 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/';
   var Q = new URLSearchParams(location.search);
-  var ES = (Q.get('lang') || '').toLowerCase().indexOf('es') === 0 || /^\/es(\/|$)/.test(location.pathname) || /^\/pasaporte/.test(location.pathname);
+  var PG = document.querySelector('[data-pp-page]');   // page mode: the CMS template page hands us its data in data-pp-* attributes
+  var ES = PG ? PG.getAttribute('data-pp-lang') === 'es' : (Q.get('lang') || '').toLowerCase().indexOf('es') === 0 || /^\/es(\/|$)/.test(location.pathname) || /^\/pasaporte/.test(location.pathname);
   var T = ES ? {
     title: 'Pasaportes de LA', sub: 'Explora la ciudad un sello a la vez. Se guarda en este navegador, sin cuenta.',
     stamped: 'sellos', of: 'de', open: 'Abrir', soon: 'Muy pronto', all: 'Todos los pasaportes', stampIt: 'Sellar',
     undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
-    honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', stops: 'paradas', draft: 'Ilustración pendiente'
+    honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', stops: 'paradas', draft: 'Ilustración pendiente', tryIt: 'Prueba esto', free: 'Gratis', next: 'Siguiente pasaporte'
   } : {
     title: 'LA Passports', sub: 'Explore the city one stamp at a time. Saved in this browser, no account.',
     stamped: 'stamps', of: 'of', open: 'Open', soon: 'Coming soon', all: 'All passports', stampIt: 'Stamp it',
     undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', close: 'Close', done: 'Passport complete! Explore the next one.',
-    honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', stops: 'stops', draft: 'Drawing coming soon'
+    honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', stops: 'stops', draft: 'Drawing coming soon', tryIt: 'Try this', free: 'Free', next: 'Next passport'
   };
 
   var css = '' +
@@ -68,6 +69,9 @@
     '#mwp .btn.alt{background:var(--cream);color:var(--olive)}#mwp .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--olive)}' +
     '#mwp .x{position:absolute;right:8px;top:6px;width:44px;height:44px;border:0;background:none;font-size:26px;cursor:pointer;color:var(--olive)}' +
     '#mwp .tag{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:99px;background:var(--peach);border:2px solid var(--olive);font-family:Fredoka,sans-serif;font-size:12px}' +
+    '#mwp .areah{grid-column:1/-1;padding:10px 6px 2px;font-family:"Lilita One",sans-serif;font-size:20px;border-bottom:2px dashed rgba(48,49,43,.3);margin-bottom:4px}' +
+    '#mwp .chal{margin:8px 0 0;padding:8px 10px;border-radius:12px;background:var(--peach);border:2px solid var(--olive);font-family:Fredoka,sans-serif;font-size:15px}' +
+    '#mwp .done .btn{margin-top:10px;font-size:17px}' +
     '@media(prefers-reduced-motion:reduce){#mwp *{transition:none!important}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   mount.innerHTML = '<div id="mwp"><p class="lead" id="mwp-msg">' + T.loading + '</p></div>';
@@ -101,7 +105,26 @@
   function stampSvg(p, s, i) {
     return MWStamp.svg({ uid: 'mwp-' + p.id + '-' + i, top: L(s.top), bottom: L(s.bottom), icon: s.icon, year: s.year, ink: s.ink || p.ink, rot: s.rot, seed: s.seed });
   }
+  function doneInner(p) {
+    var h = T.done;
+    if (PG && PG.getAttribute('data-pp-next')) h += '<br><a class="btn" href="' + esc(PG.getAttribute('data-pp-next')) + '">' + T.next + (PG.getAttribute('data-pp-next-name') ? ': ' + esc(PG.getAttribute('data-pp-next-name')) : '') + '</a>';
+    return h;
+  }
+  function fromDom() {
+    var a = function (e, k) { return e.getAttribute('data-pp-' + k) || ''; };
+    var stamps = [].map.call(document.querySelectorAll('[data-pp-stamp]'), function (e) {
+      var legacy = a(e, 'legacy-key'), mapId = a(e, 'map-id');
+      return { id: mapId ? a(e, 'id') : (legacy || a(e, 'id')), order: +a(e, 'order') || 0,
+        name: { en: a(e, 'name-en'), es: a(e, 'name-es') }, top: { en: a(e, 'top-en'), es: a(e, 'top-es') }, bottom: { en: a(e, 'bottom-en'), es: a(e, 'bottom-es') },
+        tip: { en: a(e, 'tip-en'), es: a(e, 'tip-es') }, challenge: { en: a(e, 'challenge-en'), es: a(e, 'challenge-es') },
+        icon: a(e, 'icon'), year: a(e, 'year'), ink: a(e, 'ink'), rot: a(e, 'rot') === '' ? -6 : +a(e, 'rot'), seed: a(e, 'seed') === '' ? 3 : +a(e, 'seed'),
+        mapId: mapId || null, legacyKey: legacy || null, mapLink: a(e, 'map-link') || null, area: a(e, 'area'), cost: a(e, 'cost'), draft: a(e, 'draft') === 'true' };
+    }).sort(function (x, y) { return x.order - y.order; });
+    var n = a(PG, 'name'), t = a(PG, 'tagline');
+    return { passports: [{ id: a(PG, 'id') || 'passport', name: { en: n, es: n }, tagline: { en: t, es: t }, ink: a(PG, 'ink') || '#1D6F8F', status: a(PG, 'status') || 'live', stamps: stamps }] };
+  }
   function go(id) {
+    if (PG) { var ix = PG.getAttribute('data-pp-index'); if (ix) location.href = ix; return; }
     var u = new URL(location.href);
     if (id) u.searchParams.set('passport', id); else u.searchParams.delete('passport');
     try { history.pushState({}, '', u); } catch (e) {}
@@ -123,8 +146,10 @@
   function book(p) {
     var n = count(p), tot = p.stamps.length;
     var h = '<button class="back" id="mwp-back">← ' + T.all + '</button><div class="book" style="--c:' + esc(p.ink) + '"><div class="cover"><div style="flex:1;min-width:0"><h2>' + esc(L(p.name)) + '</h2><p>' + esc(L(p.tagline)) + '</p></div>' +
-      '<div class="badge" id="mwp-badge"><b>' + n + '/' + tot + '</b><span>' + T.stamped + '</span></div></div>' + (n === tot ? '<div class="done" style="margin-top:14px">' + T.done + '</div>' : '') + '<div class="grid">';
+      '<div class="badge" id="mwp-badge"><b>' + n + '/' + tot + '</b><span>' + T.stamped + '</span></div></div>' + (n === tot ? '<div class="done" style="margin-top:14px">' + doneInner(p) + '</div>' : '') + '<div class="grid">';
+    var lastArea = null, hasAreas = p.stamps.some(function (s) { return s.area; });
     p.stamps.forEach(function (s, i) {
+      if (hasAreas && s.area !== lastArea) { h += '<div class="areah">' + esc(s.area || '') + '</div>'; lastArea = s.area; }
       h += '<button class="st' + (has(s) ? ' on' : '') + '" data-i="' + i + '" aria-pressed="' + has(s) + '" style="color:' + esc(s.ink || p.ink) + '">' + stampSvg(p, s, i) + '<span class="lb" style="color:var(--olive)">' + esc(L(s.name)) + '</span></button>';
     });
     root.innerHTML = h + '</div><div class="foot">' + T.honest + '</div></div><div id="mwp-sheet"></div>';
@@ -137,7 +162,7 @@
     var mapUrl = s.mapId ? T.mapPath + '?spot=' + encodeURIComponent(s.mapId) + '&passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '') : (s.mapLink || '');
     box.innerHTML = '<div class="back-dim" id="mwp-dim"></div><div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(L(s.name)) + '" style="--c:' + esc(s.ink || p.ink) + '">' +
       '<button class="x" id="mwp-x" aria-label="' + T.close + '">×</button><div class="big' + (on ? ' on' : '') + '" id="mwp-big" style="color:' + esc(s.ink || p.ink) + '">' + stampSvg(p, s, 'big') + '</div>' +
-      '<div class="tx"><h2>' + esc(L(s.name)) + '</h2><p>' + esc(L(s.tip)) + '</p>' + (s.draft ? '<span class="tag">' + T.draft + '</span>' : '') + '</div>' +
+      '<div class="tx"><h2>' + esc(L(s.name)) + '</h2><p>' + esc(L(s.tip)) + '</p>' + (L(s.challenge) ? '<p class="chal"><b>' + T.tryIt + ':</b> ' + esc(L(s.challenge)) + '</p>' : '') + (s.cost ? '<span class="tag" style="margin-right:6px">' + esc(s.cost === 'Free' ? T.free : s.cost) + '</span>' : '') + (s.draft ? '<span class="tag">' + T.draft + '</span>' : '') + '</div>' +
       '<div class="row"><button class="btn' + (on ? ' alt' : '') + '" id="mwp-do">' + (on ? T.undo : T.stampIt) + '</button>' + (mapUrl ? '<a class="btn alt" href="' + esc(mapUrl) + '">' + T.map + '</a>' : '') + '</div></div>';
     var dd = document.getElementById('mwp-do'); dd.focus();
     document.getElementById('mwp-x').onclick = document.getElementById('mwp-dim').onclick = close;
@@ -160,19 +185,20 @@
     [].forEach.call(root.querySelectorAll('.st'), function (b) {
       var i = +b.getAttribute('data-i'), on = has(p.stamps[i]); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on);
     });
-    var d = root.querySelector('.done'); if (n === p.stamps.length && !d) { var el = document.createElement('div'); el.className = 'done'; el.style.marginTop = '14px'; el.textContent = T.done; root.querySelector('.cover').after(el); } else if (n < p.stamps.length && d) d.remove();
+    var d = root.querySelector('.done'); if (n === p.stamps.length && !d) { var el = document.createElement('div'); el.className = 'done'; el.style.marginTop = '14px'; el.innerHTML = doneInner(p); root.querySelector('.cover').after(el); } else if (n < p.stamps.length && d) d.remove();
   }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sel !== null) close(); });
-  window.addEventListener('popstate', function () { sel = null; render(); });
+  window.addEventListener('popstate', function () { if (!PG) { sel = null; render(); } });
   window.addEventListener('storage', function (e) { if (/marlon_/.test(e.key || '') && sel === null) render(); });
 
   function render() {
+    if (PG) { var q = D.passports[0]; if (q.stamps.length) book(q); else root.innerHTML = ''; return; }
     var id = new URLSearchParams(location.search).get('passport'), p = id && pp(id);
     if (p && p.status !== 'coming-soon' && p.stamps.length) book(p); else shelf();
   }
 
   function j(u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); }); }
-  Promise.all([j(BASE + 'passports.json'), j(BASE + 'stamp-icons.json')]).then(function (r) {
+  Promise.all([PG ? Promise.resolve(fromDom()) : j(BASE + 'passports.json'), j(BASE + 'stamp-icons.json')]).then(function (r) {
     D = r[0]; MWStamp.setIcons(r[1]); syncOld(); render();
   }).catch(function (e) { root.innerHTML = '<p class="lead">' + T.err + '</p>'; if (window.console) console.warn(e); });
 })();
