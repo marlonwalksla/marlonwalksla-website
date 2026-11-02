@@ -86,13 +86,16 @@
     return ids.some(function (i) { return a.indexOf(i) > -1 || m.indexOf(i) > -1; });
   }
   function set(s, on) {
-    var k = key(s), a = rd(k), m = k === 'marlon_visited_spots' ? mem.v : mem.s, id = s.mapId || s.id;
+    var k = key(s), a = rd(k), m = k === 'marlon_visited_spots' ? mem.v : mem.s;
+    // Write BOTH names. The map and the older passport pages look for the old name (no 5-letter code), newer code uses the real pin id.
+    var ids = [s.mapId || s.id]; if (s.legacyKey && ids.indexOf(s.legacyKey) < 0) ids.push(s.legacyKey);
     [a, m].forEach(function (arr) {
-      var ids = [id]; if (s.legacyKey) ids.push(s.legacyKey);
-      ids.forEach(function (i) { var x = arr.indexOf(i); if (on && i === id && x < 0) arr.push(i); if (!on && x > -1) arr.splice(x, 1); });
+      ids.forEach(function (i) { var x = arr.indexOf(i); if (on && x < 0) arr.push(i); if (!on && x > -1) arr.splice(x, 1); });
     });
     wr(k, a);
   }
+  // stamps made before this fix only have the real id: add the old name too, so the map shows them
+  function syncOld() { D.passports.forEach(function (p) { p.stamps.forEach(function (s) { if (s.legacyKey && has(s)) set(s, true); }); }); }
   function pp(id) { return (D.passports || []).filter(function (p) { return p.id === id; })[0]; }
   function count(p) { return p.stamps.filter(has).length; }
   function stampSvg(p, s, i) {
@@ -170,6 +173,6 @@
 
   function j(u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); }); }
   Promise.all([j(BASE + 'passports.json'), j(BASE + 'stamp-icons.json')]).then(function (r) {
-    D = r[0]; MWStamp.setIcons(r[1]); render();
+    D = r[0]; MWStamp.setIcons(r[1]); syncOld(); render();
   }).catch(function (e) { root.innerHTML = '<p class="lead">' + T.err + '</p>'; if (window.console) console.warn(e); });
 })();
