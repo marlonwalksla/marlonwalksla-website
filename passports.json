@@ -637,20 +637,2905 @@
    ]
   },
   {
-   "id": "la-tacos",
+   "id": "film-and-tv",
    "order": 3,
-   "status": "coming-soon",
+   "status": "live",
+   "name": {
+    "en": "Film and TV",
+    "es": "Cine y TV"
+   },
+   "tagline": {
+    "en": "Stand where the movies were made.",
+    "es": "Párate donde se hicieron las películas."
+   },
+   "audience": "movie fans",
+   "ink": "#8B1E3F",
+   "stamps": [
+    {
+     "id": "bradbury-building",
+     "order": 1,
+     "name": {
+      "en": "Bradbury Building",
+      "es": "Edificio Bradbury"
+     },
+     "top": {
+      "en": "BRADBURY BUILDING",
+      "es": "EDIFICIO BRADBURY"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "bradbury",
+     "year": "1893",
+     "ink": "#8B1E3F",
+     "rot": -6,
+     "seed": 3,
+     "mapId": "bradbury-building-e93ee",
+     "legacyKey": "bradbury-building",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "Step into the lobby. This glass-roof building was in Blade Runner and (500) Days of Summer.",
+      "es": "Entra al vestíbulo. Este edificio con techo de vidrio salió en Blade Runner y (500) Days of Summer."
+     },
+     "challenge": {
+      "en": "Find the spot where you would film your own scene.",
+      "es": "Busca el lugar donde filmarías tu propia escena."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "tcl-chinese-theatre",
+     "order": 2,
+     "name": {
+      "en": "TCL Chinese Theatre",
+      "es": "Teatro Chino TCL"
+     },
+     "top": {
+      "en": "TCL CHINESE THEATRE",
+      "es": "TEATRO CHINO TCL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "1927",
+     "ink": "#8B1E3F",
+     "rot": 5,
+     "seed": 5,
+     "mapId": "tcl-chinese-theatre-b566e",
+     "legacyKey": "tcl-chinese-theatre",
+     "draft": true,
+     "area": "Hollywood and nearby",
+     "cost": "Free",
+     "tip": {
+      "en": "Put your hands in the cement prints in the front yard.",
+      "es": "Pon tus manos en las huellas de cemento del patio de enfrente."
+     },
+     "challenge": {
+      "en": "Find the handprints of a star you love.",
+      "es": "Busca las huellas de una estrella que te guste."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "dolby-theatre-hollywood",
+     "order": 3,
+     "name": {
+      "en": "Dolby Theatre",
+      "es": "Teatro Dolby"
+     },
+     "top": {
+      "en": "DOLBY THEATRE",
+      "es": "TEATRO DOLBY"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "",
+     "ink": "#8B1E3F",
+     "rot": -4,
+     "seed": 7,
+     "mapId": "dolby-theatre-hollywood",
+     "legacyKey": "dolby-theatre-hollywood",
+     "draft": true,
+     "area": "Hollywood and nearby",
+     "cost": "Free",
+     "tip": {
+      "en": "The Oscars are held here. Walk up to the entrance and take it in.",
+      "es": "Aquí se entregan los Oscar. Camina hasta la entrada y míralo con calma."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "egyptian-theatre",
+     "order": 4,
+     "name": {
+      "en": "Egyptian Theatre",
+      "es": "Teatro Egipcio"
+     },
+     "top": {
+      "en": "EGYPTIAN THEATRE",
+      "es": "TEATRO EGIPCIO"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "polaroid",
+     "year": "1922",
+     "ink": "#8B1E3F",
+     "rot": 7,
+     "seed": 9,
+     "mapId": "egyptian-theatre-3acab",
+     "legacyKey": "egyptian-theatre",
+     "draft": true,
+     "area": "Hollywood and nearby",
+     "cost": null,
+     "tip": {
+      "en": "Opened in 1922, one of the first big movie palaces in Hollywood. Look at the courtyard.",
+      "es": "Abrió en 1922, uno de los primeros grandes cines de Hollywood. Mira el patio."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "bronson-canyon-batcave",
+     "order": 5,
+     "name": {
+      "en": "Bronson Canyon and Batcave",
+      "es": "Cañón Bronson y la Batcueva"
+     },
+     "top": {
+      "en": "BRONSON CANYON",
+      "es": "CAÑÓN BRONSON"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "palms3",
+     "year": "",
+     "ink": "#8B1E3F",
+     "rot": -8,
+     "seed": 11,
+     "mapId": "bronson-canyon-batcave-e03cf",
+     "legacyKey": "bronson-canyon-batcave",
+     "draft": true,
+     "area": "Hollywood and nearby",
+     "cost": "Free",
+     "tip": {
+      "en": "The cave entrance was the Batcave in the 1960s Batman TV show.",
+      "es": "La entrada de la cueva fue la Batcueva en la serie de Batman de los años 60."
+     },
+     "challenge": {
+      "en": "Take a photo from inside the cave, looking out.",
+      "es": "Toma una foto desde dentro de la cueva, mirando hacia afuera."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "music-box-steps",
+     "order": 6,
+     "name": {
+      "en": "Music Box Steps",
+      "es": "Escaleras Music Box"
+     },
+     "top": {
+      "en": "MUSIC BOX STEPS",
+      "es": "ESCALERAS MUSIC BOX"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pin",
+     "year": "1932",
+     "ink": "#8B1E3F",
+     "rot": 4,
+     "seed": 13,
+     "mapId": "music-box-steps-5c742",
+     "legacyKey": "music-box-steps",
+     "draft": true,
+     "area": "Hollywood and nearby",
+     "cost": "Free",
+     "tip": {
+      "en": "In 1932, Laurel and Hardy pushed a piano up these 133 steps in a short film.",
+      "es": "En 1932, Laurel y Hardy subieron un piano por estas 133 escaleras en un cortometraje."
+     },
+     "challenge": {
+      "en": "Climb all the steps. Count them.",
+      "es": "Sube todas las escaleras. Cuéntalas."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "paramount-pictures-studio-tour",
+     "order": 7,
+     "name": {
+      "en": "Paramount Pictures Tour",
+      "es": "Tour de Paramount Pictures"
+     },
+     "top": {
+      "en": "PARAMOUNT PICTURES",
+      "es": "PARAMOUNT PICTURES"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "",
+     "ink": "#8B1E3F",
+     "rot": -3,
+     "seed": 15,
+     "mapId": "paramount-pictures-studio-tour-72d5f",
+     "legacyKey": "paramount-pictures-studio-tour",
+     "draft": true,
+     "area": "Studios and museums",
+     "cost": "$$",
+     "tip": {
+      "en": "The only major film studio still inside Hollywood. Book the tour ahead.",
+      "es": "El único gran estudio que sigue dentro de Hollywood. Reserva el tour con tiempo."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "warner-bros-studio-tour-hollywood",
+     "order": 8,
+     "name": {
+      "en": "Warner Bros. Studio Tour",
+      "es": "Tour de Warner Bros."
+     },
+     "top": {
+      "en": "WARNER BROS. TOUR",
+      "es": "TOUR WARNER BROS."
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "",
+     "ink": "#8B1E3F",
+     "rot": 6,
+     "seed": 17,
+     "mapId": "warner-bros-studio-tour-hollywood-46817",
+     "legacyKey": "warner-bros-studio-tour-hollywood",
+     "draft": true,
+     "area": "Studios and museums",
+     "cost": "$$",
+     "tip": {
+      "en": "Walk through real sound stages and sets in Burbank. Book ahead, it can sell out.",
+      "es": "Camina por sets y foros reales en Burbank. Reserva con tiempo, se puede llenar."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "sony-pictures-studios-tour",
+     "order": 9,
+     "name": {
+      "en": "Sony Pictures Studios Tour",
+      "es": "Tour de Sony Pictures"
+     },
+     "top": {
+      "en": "SONY PICTURES TOUR",
+      "es": "TOUR SONY PICTURES"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "",
+     "ink": "#8B1E3F",
+     "rot": -5,
+     "seed": 19,
+     "mapId": "sony-pictures-studios-tour-b27de",
+     "legacyKey": "sony-pictures-studios-tour",
+     "draft": true,
+     "area": "Studios and museums",
+     "cost": "$$",
+     "tip": {
+      "en": "A working studio lot in Culver City. The lot once made The Wizard of Oz.",
+      "es": "Un estudio en funcionamiento en Culver City. Aquí se hizo El Mago de Oz."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "academy-museum-of-motion-pictures",
+     "order": 10,
+     "name": {
+      "en": "Academy Museum",
+      "es": "Museo de la Academia"
+     },
+     "top": {
+      "en": "ACADEMY MUSEUM",
+      "es": "MUSEO DE LA ACADEMIA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "polaroid",
+     "year": "",
+     "ink": "#8B1E3F",
+     "rot": 3,
+     "seed": 21,
+     "mapId": "academy-museum-of-motion-pictures-69c13",
+     "legacyKey": "academy-museum-of-motion-pictures",
+     "draft": true,
+     "area": "Studios and museums",
+     "cost": "$$",
+     "tip": {
+      "en": "Explore movie costumes, props and the story of how films get made.",
+      "es": "Explora vestuario, objetos y la historia de cómo se hacen las películas."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    }
+   ]
+  },
+  {
+   "id": "photo-spots",
+   "order": 4,
+   "status": "live",
+   "name": {
+    "en": "Photo Spots",
+    "es": "Lugares para Fotos"
+   },
+   "tagline": {
+    "en": "The places in LA that love a camera.",
+    "es": "Los lugares de LA que aman la cámara."
+   },
+   "audience": "photographers",
+   "ink": "#D6457A",
+   "stamps": [
+    {
+     "id": "lacma-urban-light",
+     "order": 1,
+     "name": {
+      "en": "Urban Light (LACMA)",
+      "es": "Urban Light (LACMA)"
+     },
+     "top": {
+      "en": "URBAN LIGHT",
+      "es": "URBAN LIGHT"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "",
+     "ink": "#D6457A",
+     "rot": -6,
+     "seed": 3,
+     "mapId": "lacma-urban-light-28a47",
+     "legacyKey": "lacma-urban-light",
+     "draft": true,
+     "area": "Hollywood and Mid-City",
+     "cost": "Free",
+     "tip": {
+      "en": "202 vintage street lamps in rows. Come at dusk, when they turn on.",
+      "es": "202 faroles antiguos en filas. Ve al atardecer, cuando se encienden."
+     },
+     "challenge": {
+      "en": "Take a photo of your group between the lamps.",
+      "es": "Toma una foto de tu grupo entre los faroles."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "hollywood-sign-viewpoint-lake-hollywood-park",
+     "order": 2,
+     "name": {
+      "en": "Hollywood Sign view",
+      "es": "Vista del letrero de Hollywood"
+     },
+     "top": {
+      "en": "HOLLYWOOD SIGN",
+      "es": "LETRERO DE HOLLYWOOD"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "palms3",
+     "year": "1923",
+     "ink": "#D6457A",
+     "rot": 5,
+     "seed": 5,
+     "mapId": "hollywood-sign-viewpoint-lake-hollywood-park-6a0ef",
+     "legacyKey": "hollywood-sign-viewpoint-lake-hollywood-park",
+     "draft": true,
+     "area": "Hollywood and Mid-City",
+     "cost": "Free",
+     "tip": {
+      "en": "A clear view of the sign from Lake Hollywood Park. Come early, before the crowds.",
+      "es": "Una vista clara del letrero desde Lake Hollywood Park. Ve temprano, antes de que llegue la gente."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "griffith-observatory",
+     "order": 3,
+     "name": {
+      "en": "Griffith Observatory",
+      "es": "Observatorio Griffith"
+     },
+     "top": {
+      "en": "GRIFFITH OBSERVATORY",
+      "es": "OBSERVATORIO GRIFFITH"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "obs",
+     "year": "1935",
+     "ink": "#D6457A",
+     "rot": -4,
+     "seed": 7,
+     "mapId": "griffith-observatory-8ca7d",
+     "legacyKey": "griffith-observatory",
+     "draft": false,
+     "area": "Hollywood and Mid-City",
+     "cost": "Free",
+     "tip": {
+      "en": "Stand on the lawn or terrace to get the city in your picture. Sunset is the favorite hour.",
+      "es": "Párate en el pasto o la terraza para tener la ciudad en tu foto. La mejor hora es el atardecer."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "walt-disney-concert-hall",
+     "order": 4,
+     "name": {
+      "en": "Walt Disney Concert Hall",
+      "es": "Sala de Conciertos Walt Disney"
+     },
+     "top": {
+      "en": "WALT DISNEY CONCERT HALL",
+      "es": "SALA WALT DISNEY"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "wdch",
+     "year": "2003",
+     "ink": "#D6457A",
+     "rot": 7,
+     "seed": 9,
+     "mapId": "walt-disney-concert-hall-844da",
+     "legacyKey": "walt-disney-concert-hall",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "The steel curves look different from every side. Late afternoon light makes them glow.",
+      "es": "Las curvas de acero cambian en cada lado. La luz de la tarde las hace brillar."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "bradbury-building",
+     "order": 5,
+     "name": {
+      "en": "Bradbury Building",
+      "es": "Edificio Bradbury"
+     },
+     "top": {
+      "en": "BRADBURY BUILDING",
+      "es": "EDIFICIO BRADBURY"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "bradbury",
+     "year": "1893",
+     "ink": "#D6457A",
+     "rot": -8,
+     "seed": 11,
+     "mapId": "bradbury-building-e93ee",
+     "legacyKey": "bradbury-building",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "Look up from the lobby. The glass roof and iron stairs make great pictures.",
+      "es": "Mira hacia arriba desde el vestíbulo. El techo de vidrio y las escaleras de hierro dan fotos increíbles."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "arts-district-street-art-wall",
+     "order": 6,
+     "name": {
+      "en": "Arts District Street Art",
+      "es": "Arte callejero del Arts District"
+     },
+     "top": {
+      "en": "ARTS DISTRICT",
+      "es": "ARTS DISTRICT"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "mural",
+     "year": "",
+     "ink": "#D6457A",
+     "rot": 4,
+     "seed": 13,
+     "mapId": "arts-district-street-art-wall-8542d",
+     "legacyKey": "arts-district-street-art-wall",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "The murals change, so every visit is new. Walk the blocks and find your wall.",
+      "es": "Los murales cambian, así que cada visita es nueva. Camina las cuadras y encuentra tu pared."
+     },
+     "challenge": {
+      "en": "Find a wall that matches the color of your outfit.",
+      "es": "Busca una pared del color de tu ropa."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "colorado-street-bridge",
+     "order": 7,
+     "name": {
+      "en": "Colorado Street Bridge",
+      "es": "Puente Colorado Street"
+     },
+     "top": {
+      "en": "COLORADO STREET BRIDGE",
+      "es": "PUENTE COLORADO STREET"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pin",
+     "year": "1913",
+     "ink": "#D6457A",
+     "rot": -3,
+     "seed": 15,
+     "mapId": "colorado-street-bridge-8dddc",
+     "legacyKey": "colorado-street-bridge",
+     "draft": true,
+     "area": "Around LA",
+     "cost": "Free",
+     "tip": {
+      "en": "A 1913 bridge with tall arches over the Arroyo Seco. Walk across, then look back at the arches.",
+      "es": "Un puente de 1913 con grandes arcos sobre el Arroyo Seco. Crúzalo y luego mira los arcos hacia atrás."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "venice-canals",
+     "order": 8,
+     "name": {
+      "en": "Venice Canals",
+      "es": "Canales de Venice"
+     },
+     "top": {
+      "en": "VENICE CANALS",
+      "es": "CANALES DE VENICE"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "swan",
+     "year": "",
+     "ink": "#D6457A",
+     "rot": 6,
+     "seed": 17,
+     "mapId": "venice-canals-175f3",
+     "legacyKey": "venice-canals",
+     "draft": true,
+     "area": "Beaches",
+     "cost": "Free",
+     "tip": {
+      "en": "Little bridges, houses and ducks. Go in the morning when it is quiet.",
+      "es": "Puentecitos, casas y patos. Ve por la mañana, cuando hay calma."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "santa-monica-pier",
+     "order": 9,
+     "name": {
+      "en": "Santa Monica Pier",
+      "es": "Muelle de Santa Monica"
+     },
+     "top": {
+      "en": "SANTA MONICA PIER",
+      "es": "MUELLE DE SANTA MONICA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pier",
+     "year": "1909",
+     "ink": "#D6457A",
+     "rot": -5,
+     "seed": 19,
+     "mapId": "santa-monica-pier-6f0bc",
+     "legacyKey": "santa-monica-pier",
+     "draft": false,
+     "area": "Beaches",
+     "cost": "Free",
+     "tip": {
+      "en": "Take a photo at the pier sign, then one at the end with the Ferris wheel behind you.",
+      "es": "Toma una foto en el letrero del muelle y otra al final, con la rueda de la fortuna atrás."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "el-matador-state-beach",
+     "order": 10,
+     "name": {
+      "en": "El Matador Beach",
+      "es": "Playa El Matador"
+     },
+     "top": {
+      "en": "EL MATADOR BEACH",
+      "es": "PLAYA EL MATADOR"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "",
+     "ink": "#D6457A",
+     "rot": 3,
+     "seed": 21,
+     "mapId": "el-matador-state-beach-e9cf6",
+     "legacyKey": "el-matador-state-beach",
+     "draft": true,
+     "area": "Beaches",
+     "cost": null,
+     "tip": {
+      "en": "Sea stacks and rock arches. Come near sunset, and watch the steep stairs.",
+      "es": "Rocas en el mar y arcos de piedra. Ve cerca del atardecer y ten cuidado con las escaleras empinadas."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    }
+   ]
+  },
+  {
+   "id": "la-tacos",
+   "order": 5,
+   "status": "live",
    "name": {
     "en": "LA Tacos",
     "es": "Tacos de LA"
    },
    "tagline": {
-    "en": "Coming soon.",
-    "es": "Muy pronto."
+    "en": "Ten tacos, ten styles, one city.",
+    "es": "Diez tacos, diez estilos, una ciudad."
    },
    "audience": "food lovers",
    "ink": "#B84A00",
-   "stamps": []
+   "stamps": [
+    {
+     "id": "grand-central-market",
+     "order": 1,
+     "name": {
+      "en": "Grand Central Market",
+      "es": "Mercado Grand Central"
+     },
+     "top": {
+      "en": "GRAND CENTRAL MARKET",
+      "es": "MERCADO GRAND CENTRAL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "stall",
+     "year": "1917",
+     "ink": "#B84A00",
+     "rot": -6,
+     "seed": 3,
+     "mapId": "grand-central-market-3f7fa",
+     "legacyKey": "grand-central-market",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "$",
+     "tip": {
+      "en": "Many taco stalls under one roof. Try two different ones.",
+      "es": "Muchos puestos de tacos bajo un techo. Prueba dos distintos."
+     },
+     "challenge": {
+      "en": "Eat a taco standing at the counter.",
+      "es": "Come un taco de pie, en la barra."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "sonoratown",
+     "order": 2,
+     "name": {
+      "en": "Sonoratown",
+      "es": "Sonoratown"
+     },
+     "top": {
+      "en": "SONORATOWN",
+      "es": "SONORATOWN"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#C2352A",
+     "rot": 5,
+     "seed": 5,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Downtown",
+     "cost": "$",
+     "tip": {
+      "en": "Sonoran style: grilled meat on soft flour tortillas.",
+      "es": "Estilo Sonora: carne asada en tortillas de harina suaves."
+     },
+     "challenge": {
+      "en": "Order the carne asada.",
+      "es": "Pide la carne asada."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "chuys-tacos-dorados",
+     "order": 3,
+     "name": {
+      "en": "Chuy's Tacos Dorados",
+      "es": "Chuy's Tacos Dorados"
+     },
+     "top": {
+      "en": "CHUY'S TACOS DORADOS",
+      "es": "CHUY'S TACOS DORADOS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#E89B00",
+     "rot": -4,
+     "seed": 7,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Downtown",
+     "cost": "$",
+     "tip": {
+      "en": "Crispy fried tacos in the Arts District.",
+      "es": "Tacos dorados crujientes en el Arts District."
+     },
+     "challenge": {
+      "en": "Listen for the crunch.",
+      "es": "Escucha el crujido."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "mariscos-jalisco",
+     "order": 4,
+     "name": {
+      "en": "Mariscos Jalisco",
+      "es": "Mariscos Jalisco"
+     },
+     "top": {
+      "en": "MARISCOS JALISCO",
+      "es": "MARISCOS JALISCO"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#7A3FA0",
+     "rot": 7,
+     "seed": 9,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Eastside",
+     "cost": "$",
+     "tip": {
+      "en": "Famous for the fried shrimp taco. Look for the truck in Boyle Heights.",
+      "es": "Famoso por el taco dorado de camarón. Busca el camión en Boyle Heights."
+     },
+     "challenge": {
+      "en": "Try the shrimp taco dorado.",
+      "es": "Prueba el taco dorado de camarón."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "guisados",
+     "order": 5,
+     "name": {
+      "en": "Guisados",
+      "es": "Guisados"
+     },
+     "top": {
+      "en": "GUISADOS",
+      "es": "GUISADOS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#2E9E57",
+     "rot": -8,
+     "seed": 11,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Eastside",
+     "cost": "$",
+     "tip": {
+      "en": "Tacos with braised fillings like tinga and chicharrón. Try a few kinds.",
+      "es": "Tacos con guisos como tinga y chicharrón. Prueba varios tipos."
+     },
+     "challenge": {
+      "en": "Order three different guisos.",
+      "es": "Pide tres guisos distintos."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "los-cinco-puntos",
+     "order": 6,
+     "name": {
+      "en": "Los Cinco Puntos",
+      "es": "Los Cinco Puntos"
+     },
+     "top": {
+      "en": "LOS CINCO PUNTOS",
+      "es": "LOS CINCO PUNTOS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#B84A00",
+     "rot": 4,
+     "seed": 13,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Eastside",
+     "cost": "$",
+     "tip": {
+      "en": "Carnitas and chicharrón on tortillas made there.",
+      "es": "Carnitas y chicharrón en tortillas hechas ahí mismo."
+     },
+     "challenge": {
+      "en": "Watch them chop the carnitas.",
+      "es": "Mira cómo pican las carnitas."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "villas-tacos",
+     "order": 7,
+     "name": {
+      "en": "Villa's Tacos",
+      "es": "Villa's Tacos"
+     },
+     "top": {
+      "en": "VILLA'S TACOS",
+      "es": "VILLA'S TACOS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#C2352A",
+     "rot": -3,
+     "seed": 15,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Eastside",
+     "cost": "$",
+     "tip": {
+      "en": "Charcoal-grilled tacos. There is one in Highland Park and one at Grand Central Market.",
+      "es": "Tacos al carbón. Hay uno en Highland Park y otro en el Mercado Grand Central."
+     },
+     "challenge": {
+      "en": "Try the potato taco.",
+      "es": "Prueba el taco de papa."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "leos-tacos-truck",
+     "order": 8,
+     "name": {
+      "en": "Leo's Tacos Truck",
+      "es": "Leo's Tacos Truck"
+     },
+     "top": {
+      "en": "LEO'S TACOS TRUCK",
+      "es": "LEO'S TACOS TRUCK"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#E89B00",
+     "rot": 6,
+     "seed": 17,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Around LA",
+     "cost": "$",
+     "tip": {
+      "en": "A taco truck known for al pastor. Look for the spinning trompo.",
+      "es": "Un camión de tacos famoso por el al pastor. Busca el trompo girando."
+     },
+     "challenge": {
+      "en": "Order al pastor with pineapple.",
+      "es": "Pide al pastor con piña."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "tacos-1986",
+     "order": 9,
+     "name": {
+      "en": "Tacos 1986",
+      "es": "Tacos 1986"
+     },
+     "top": {
+      "en": "TACOS 1986",
+      "es": "TACOS 1986"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#7A3FA0",
+     "rot": -5,
+     "seed": 19,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Around LA",
+     "cost": "$",
+     "tip": {
+      "en": "Tijuana-style tacos with a crispy edge.",
+      "es": "Tacos estilo Tijuana con la orilla crujiente."
+     },
+     "challenge": {
+      "en": "Add a splash of salsa verde.",
+      "es": "Agrégale un poco de salsa verde."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "tito-s-tacos",
+     "order": 10,
+     "name": {
+      "en": "Tito's Tacos",
+      "es": "Tito's Tacos"
+     },
+     "top": {
+      "en": "TITO'S TACOS",
+      "es": "TITO'S TACOS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "1959",
+     "ink": "#2E9E57",
+     "rot": 3,
+     "seed": 21,
+     "mapId": "tito-s-tacos-df820",
+     "legacyKey": "tito-s-tacos",
+     "draft": false,
+     "area": "Around LA",
+     "cost": "$",
+     "tip": {
+      "en": "An old-school stand known for hard-shell tacos.",
+      "es": "Un puesto de la vieja escuela, famoso por los tacos de tortilla dura."
+     },
+     "challenge": {
+      "en": "Eat one in the parking lot like a local.",
+      "es": "Come uno en el estacionamiento, como local."
+     },
+     "mapLink": null
+    }
+   ]
+  },
+  {
+   "id": "hollywood",
+   "order": 6,
+   "status": "live",
+   "name": {
+    "en": "Hollywood",
+    "es": "Hollywood"
+   },
+   "tagline": {
+    "en": "Things to do in Hollywood, one stamp at a time.",
+    "es": "Qué hacer en Hollywood, un sello a la vez."
+   },
+   "audience": "visitors",
+   "ink": "#C28A00",
+   "stamps": [
+    {
+     "id": "hollywood-walk-of-fame",
+     "order": 1,
+     "name": {
+      "en": "Hollywood Walk of Fame",
+      "es": "Paseo de la Fama de Hollywood"
+     },
+     "top": {
+      "en": "WALK OF FAME",
+      "es": "PASEO DE LA FAMA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pin",
+     "year": "1960",
+     "ink": "#C28A00",
+     "rot": -6,
+     "seed": 3,
+     "mapId": "hollywood-walk-of-fame-932c6",
+     "legacyKey": "hollywood-walk-of-fame",
+     "draft": true,
+     "area": "Hollywood Boulevard",
+     "cost": "Free",
+     "tip": {
+      "en": "Look down. Find a star for someone you love.",
+      "es": "Mira al piso. Busca la estrella de alguien que quieres."
+     },
+     "challenge": {
+      "en": "Find the star of your favorite actor.",
+      "es": "Busca la estrella de tu actor favorito."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "tcl-chinese-theatre",
+     "order": 2,
+     "name": {
+      "en": "TCL Chinese Theatre",
+      "es": "Teatro Chino TCL"
+     },
+     "top": {
+      "en": "TCL CHINESE THEATRE",
+      "es": "TEATRO CHINO TCL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "1927",
+     "ink": "#C28A00",
+     "rot": 5,
+     "seed": 5,
+     "mapId": "tcl-chinese-theatre-b566e",
+     "legacyKey": "tcl-chinese-theatre",
+     "draft": true,
+     "area": "Hollywood Boulevard",
+     "cost": "Free",
+     "tip": {
+      "en": "Put your hands in the cement prints in the front yard.",
+      "es": "Pon tus manos en las huellas de cemento del patio de enfrente."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "dolby-theatre-hollywood",
+     "order": 3,
+     "name": {
+      "en": "Dolby Theatre",
+      "es": "Teatro Dolby"
+     },
+     "top": {
+      "en": "DOLBY THEATRE",
+      "es": "TEATRO DOLBY"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "",
+     "ink": "#C28A00",
+     "rot": -4,
+     "seed": 7,
+     "mapId": "dolby-theatre-hollywood",
+     "legacyKey": "dolby-theatre-hollywood",
+     "draft": true,
+     "area": "Hollywood Boulevard",
+     "cost": "Free",
+     "tip": {
+      "en": "The Oscars are held here. Walk up to the entrance and take it in.",
+      "es": "Aquí se entregan los Oscar. Camina hasta la entrada y míralo con calma."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "pantages-theatre",
+     "order": 4,
+     "name": {
+      "en": "Pantages Theatre",
+      "es": "Teatro Pantages"
+     },
+     "top": {
+      "en": "PANTAGES THEATRE",
+      "es": "TEATRO PANTAGES"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "polaroid",
+     "year": "1930",
+     "ink": "#C28A00",
+     "rot": 7,
+     "seed": 9,
+     "mapId": "pantages-theatre-898cd",
+     "legacyKey": "pantages-theatre",
+     "draft": true,
+     "area": "Hollywood Boulevard",
+     "cost": null,
+     "tip": {
+      "en": "A grand Art Deco theater from 1930. If you see a show, look at the ceiling.",
+      "es": "Un gran teatro Art Deco de 1930. Si ves un show, mira el techo."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "musso-and-frank-grill",
+     "order": 5,
+     "name": {
+      "en": "Musso & Frank Grill",
+      "es": "Musso & Frank Grill"
+     },
+     "top": {
+      "en": "MUSSO & FRANK GRILL",
+      "es": "MUSSO & FRANK GRILL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "stall",
+     "year": "1919",
+     "ink": "#C28A00",
+     "rot": 4,
+     "seed": 13,
+     "mapId": "musso-and-frank-grill-9777b",
+     "legacyKey": "musso-and-frank-grill",
+     "draft": true,
+     "area": "Hollywood Boulevard",
+     "cost": "$$",
+     "tip": {
+      "en": "Opened in 1919. Step in for a classic LA lunch or a drink at the bar.",
+      "es": "Abrió en 1919. Entra por una comida clásica de LA o una bebida en la barra."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "capitol-records-building",
+     "order": 6,
+     "name": {
+      "en": "Capitol Records Building",
+      "es": "Edificio de Capitol Records"
+     },
+     "top": {
+      "en": "CAPITOL RECORDS",
+      "es": "CAPITOL RECORDS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "city_tower",
+     "year": "1956",
+     "ink": "#C28A00",
+     "rot": -8,
+     "seed": 11,
+     "mapId": "capitol-records-building-eca57",
+     "legacyKey": "capitol-records-building",
+     "draft": true,
+     "area": "Around Hollywood",
+     "cost": "Free",
+     "tip": {
+      "en": "The tower looks like a stack of records. Stand across the street and look up.",
+      "es": "La torre parece una pila de discos. Párate al otro lado de la calle y mira hacia arriba."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "pink-s-hot-dogs",
+     "order": 7,
+     "name": {
+      "en": "Pink's Hot Dogs",
+      "es": "Pink's Hot Dogs"
+     },
+     "top": {
+      "en": "PINK'S HOT DOGS",
+      "es": "PINK'S HOT DOGS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "stall",
+     "year": "1939",
+     "ink": "#C28A00",
+     "rot": -3,
+     "seed": 15,
+     "mapId": "pink-s-hot-dogs-7fd14",
+     "legacyKey": "pink-s-hot-dogs",
+     "draft": true,
+     "area": "Around Hollywood",
+     "cost": "$",
+     "tip": {
+      "en": "Hot dogs since 1939. The line is part of the fun.",
+      "es": "Hot dogs desde 1939. La fila es parte de la diversión."
+     },
+     "challenge": {
+      "en": "Order a chili dog.",
+      "es": "Pide un hot dog con chili."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "amoeba-music",
+     "order": 8,
+     "name": {
+      "en": "Amoeba Music",
+      "es": "Amoeba Music"
+     },
+     "top": {
+      "en": "AMOEBA MUSIC",
+      "es": "AMOEBA MUSIC"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "bag",
+     "year": "",
+     "ink": "#C28A00",
+     "rot": 6,
+     "seed": 17,
+     "mapId": "amoeba-music-be573",
+     "legacyKey": "amoeba-music",
+     "draft": true,
+     "area": "Around Hollywood",
+     "cost": "Free",
+     "tip": {
+      "en": "A huge record store. Flip through the bins and find one thing you did not expect.",
+      "es": "Una tienda enorme de discos. Revisa los cajones y encuentra algo que no esperabas."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "hollywood-bowl",
+     "order": 9,
+     "name": {
+      "en": "Hollywood Bowl",
+      "es": "Hollywood Bowl"
+     },
+     "top": {
+      "en": "HOLLYWOOD BOWL",
+      "es": "HOLLYWOOD BOWL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "1922",
+     "ink": "#C28A00",
+     "rot": -5,
+     "seed": 19,
+     "mapId": "hollywood-bowl-5f2f5",
+     "legacyKey": "hollywood-bowl",
+     "draft": true,
+     "area": "Hills",
+     "cost": "$$",
+     "tip": {
+      "en": "An outdoor amphitheater under the stars. Check the schedule for a show.",
+      "es": "Un anfiteatro al aire libre bajo las estrellas. Revisa el calendario para ver un show."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "hollywood-sign-viewpoint-lake-hollywood-park",
+     "order": 10,
+     "name": {
+      "en": "Hollywood Sign view",
+      "es": "Vista del letrero de Hollywood"
+     },
+     "top": {
+      "en": "HOLLYWOOD SIGN",
+      "es": "LETRERO DE HOLLYWOOD"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "palms3",
+     "year": "1923",
+     "ink": "#C28A00",
+     "rot": 3,
+     "seed": 21,
+     "mapId": "hollywood-sign-viewpoint-lake-hollywood-park-6a0ef",
+     "legacyKey": "hollywood-sign-viewpoint-lake-hollywood-park",
+     "draft": true,
+     "area": "Hills",
+     "cost": "Free",
+     "tip": {
+      "en": "A clear view of the sign from Lake Hollywood Park. Come early, before the crowds.",
+      "es": "Una vista clara del letrero desde Lake Hollywood Park. Ve temprano, antes de que llegue la gente."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    }
+   ]
+  },
+  {
+   "id": "beaches-and-coast",
+   "order": 7,
+   "status": "live",
+   "name": {
+    "en": "Beaches and Coast",
+    "es": "Playas y Costa"
+   },
+   "tagline": {
+    "en": "Explore the LA coast, pier by pier.",
+    "es": "Explora la costa de LA, muelle por muelle."
+   },
+   "audience": "visitors",
+   "ink": "#2A9D8F",
+   "stamps": [
+    {
+     "id": "santa-monica-pier",
+     "order": 1,
+     "name": {
+      "en": "Santa Monica Pier",
+      "es": "Muelle de Santa Monica"
+     },
+     "top": {
+      "en": "SANTA MONICA PIER",
+      "es": "MUELLE DE SANTA MONICA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pier",
+     "year": "1909",
+     "ink": "#2A9D8F",
+     "rot": -6,
+     "seed": 3,
+     "mapId": "santa-monica-pier-6f0bc",
+     "legacyKey": "santa-monica-pier",
+     "draft": false,
+     "area": "Santa Monica and Venice",
+     "cost": "Free",
+     "tip": {
+      "en": "Walk to the end of the pier and look back at the coast.",
+      "es": "Camina hasta el final del muelle y mira hacia la costa."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "venice-beach-boardwalk",
+     "order": 2,
+     "name": {
+      "en": "Venice Beach Boardwalk",
+      "es": "Malecón de Venice Beach"
+     },
+     "top": {
+      "en": "VENICE BEACH",
+      "es": "VENICE BEACH"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "venice_beach",
+     "year": "1905",
+     "ink": "#2A9D8F",
+     "rot": 5,
+     "seed": 5,
+     "mapId": "venice-beach-boardwalk-ffbe3",
+     "legacyKey": "venice-beach-boardwalk",
+     "draft": false,
+     "area": "Santa Monica and Venice",
+     "cost": "Free",
+     "tip": {
+      "en": "Skaters, street art and performers. Explore it slowly.",
+      "es": "Patinadores, arte callejero y artistas. Explóralo con calma."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "muscle-beach-venice",
+     "order": 3,
+     "name": {
+      "en": "Muscle Beach",
+      "es": "Muscle Beach"
+     },
+     "top": {
+      "en": "MUSCLE BEACH",
+      "es": "MUSCLE BEACH"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "",
+     "ink": "#2A9D8F",
+     "rot": -4,
+     "seed": 7,
+     "mapId": "muscle-beach-venice-23ebd",
+     "legacyKey": "muscle-beach-venice",
+     "draft": true,
+     "area": "Santa Monica and Venice",
+     "cost": "Free",
+     "tip": {
+      "en": "An outdoor gym by the sand. Watch the lifters, then walk the boardwalk.",
+      "es": "Un gimnasio al aire libre junto a la arena. Mira a los levantadores y luego camina el malecón."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "malibu-pier",
+     "order": 4,
+     "name": {
+      "en": "Malibu Pier",
+      "es": "Muelle de Malibu"
+     },
+     "top": {
+      "en": "MALIBU PIER",
+      "es": "MUELLE DE MALIBU"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pier",
+     "year": "1905",
+     "ink": "#2A9D8F",
+     "rot": 7,
+     "seed": 9,
+     "mapId": "malibu-pier-0370f",
+     "legacyKey": "malibu-pier",
+     "draft": true,
+     "area": "Malibu",
+     "cost": "Free",
+     "tip": {
+      "en": "A wooden pier with ocean views. Surfers ride the waves nearby.",
+      "es": "Un muelle de madera con vista al mar. Los surfistas montan las olas cerca."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "el-matador-state-beach",
+     "order": 5,
+     "name": {
+      "en": "El Matador Beach",
+      "es": "Playa El Matador"
+     },
+     "top": {
+      "en": "EL MATADOR BEACH",
+      "es": "PLAYA EL MATADOR"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "",
+     "ink": "#2A9D8F",
+     "rot": -8,
+     "seed": 11,
+     "mapId": "el-matador-state-beach-e9cf6",
+     "legacyKey": "el-matador-state-beach",
+     "draft": true,
+     "area": "Malibu",
+     "cost": null,
+     "tip": {
+      "en": "Sea stacks and rock arches. Come near sunset, and watch the steep stairs.",
+      "es": "Rocas en el mar y arcos de piedra. Ve cerca del atardecer y ten cuidado con las escaleras empinadas."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "zuma-beach",
+     "order": 6,
+     "name": {
+      "en": "Zuma Beach",
+      "es": "Playa Zuma"
+     },
+     "top": {
+      "en": "ZUMA BEACH",
+      "es": "PLAYA ZUMA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "palms3",
+     "year": "",
+     "ink": "#2A9D8F",
+     "rot": 4,
+     "seed": 13,
+     "mapId": "zuma-beach-6061f",
+     "legacyKey": "zuma-beach",
+     "draft": true,
+     "area": "Malibu",
+     "cost": null,
+     "tip": {
+      "en": "A very long sandy beach. Bring a towel and walk to the water.",
+      "es": "Una playa de arena muy larga. Lleva una toalla y camina hacia el agua."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "manhattan-beach-pier",
+     "order": 7,
+     "name": {
+      "en": "Manhattan Beach Pier",
+      "es": "Muelle de Manhattan Beach"
+     },
+     "top": {
+      "en": "MANHATTAN BEACH PIER",
+      "es": "MUELLE DE MANHATTAN BEACH"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pier",
+     "year": "",
+     "ink": "#2A9D8F",
+     "rot": -3,
+     "seed": 15,
+     "mapId": "manhattan-beach-pier-7aaa0",
+     "legacyKey": "manhattan-beach-pier",
+     "draft": true,
+     "area": "South Bay",
+     "cost": "Free",
+     "tip": {
+      "en": "A concrete pier with a small aquarium at the end. Walk the strand on both sides.",
+      "es": "Un muelle de concreto con un pequeño acuario al final. Camina por el paseo a ambos lados."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "hermosa-beach-pier-and-plaza",
+     "order": 8,
+     "name": {
+      "en": "Hermosa Beach Pier",
+      "es": "Muelle de Hermosa Beach"
+     },
+     "top": {
+      "en": "HERMOSA BEACH PIER",
+      "es": "MUELLE DE HERMOSA BEACH"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pier",
+     "year": "",
+     "ink": "#2A9D8F",
+     "rot": 6,
+     "seed": 17,
+     "mapId": "hermosa-beach-pier-and-plaza-b2333",
+     "legacyKey": "hermosa-beach-pier-and-plaza",
+     "draft": true,
+     "area": "South Bay",
+     "cost": "Free",
+     "tip": {
+      "en": "A lively beach town with volleyball on the sand. Walk the pier and the plaza.",
+      "es": "Un pueblo de playa lleno de vida, con voleibol en la arena. Camina el muelle y la plaza."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "point-vicente-lighthouse",
+     "order": 9,
+     "name": {
+      "en": "Point Vicente Lighthouse",
+      "es": "Faro de Point Vicente"
+     },
+     "top": {
+      "en": "POINT VICENTE LIGHTHOUSE",
+      "es": "FARO DE POINT VICENTE"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pin",
+     "year": "1926",
+     "ink": "#2A9D8F",
+     "rot": -5,
+     "seed": 19,
+     "mapId": "point-vicente-lighthouse-f6400",
+     "legacyKey": "point-vicente-lighthouse",
+     "draft": true,
+     "area": "South Bay",
+     "cost": "Free",
+     "tip": {
+      "en": "A lighthouse on a cliff. In winter, look for gray whales.",
+      "es": "Un faro en un acantilado. En invierno, busca ballenas grises."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "dockweiler-beach-fire-pits",
+     "order": 10,
+     "name": {
+      "en": "Dockweiler Fire Pits",
+      "es": "Fogatas de Dockweiler"
+     },
+     "top": {
+      "en": "DOCKWEILER FIRE PITS",
+      "es": "FOGATAS DE DOCKWEILER"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "",
+     "ink": "#2A9D8F",
+     "rot": 3,
+     "seed": 21,
+     "mapId": "dockweiler-beach-fire-pits-78a08",
+     "legacyKey": "dockweiler-beach-fire-pits",
+     "draft": true,
+     "area": "South Bay",
+     "cost": "Free",
+     "tip": {
+      "en": "Fire pits right on the sand, with planes flying low overhead. Bring wood and marshmallows.",
+      "es": "Fogatas en la arena, con aviones que pasan bajito. Lleva leña y malvaviscos."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    }
+   ]
+  },
+  {
+   "id": "latino-la",
+   "order": 8,
+   "status": "live",
+   "name": {
+    "en": "Latino LA",
+    "es": "LA Latina"
+   },
+   "tagline": {
+    "en": "Explore the Latino heart of Los Angeles.",
+    "es": "Explora el corazón latino de Los Ángeles."
+   },
+   "audience": "locals and visitors",
+   "ink": "#D1495B",
+   "stamps": [
+    {
+     "id": "olvera-street-and-el-pueblo",
+     "order": 1,
+     "name": {
+      "en": "Olvera Street and El Pueblo",
+      "es": "Calle Olvera y El Pueblo"
+     },
+     "top": {
+      "en": "PLACITA OLVERA",
+      "es": "PLACITA OLVERA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "papel",
+     "year": "1781",
+     "ink": "#D1495B",
+     "rot": -6,
+     "seed": 3,
+     "mapId": "olvera-street-and-el-pueblo-a0700",
+     "legacyKey": "olvera-street-and-el-pueblo",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "This is where LA started. Try the taquitos and look for the papel picado.",
+      "es": "Aquí empezó LA. Prueba los taquitos y busca el papel picado."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "grand-central-market",
+     "order": 2,
+     "name": {
+      "en": "Grand Central Market",
+      "es": "Mercado Grand Central"
+     },
+     "top": {
+      "en": "GRAND CENTRAL MARKET",
+      "es": "MERCADO GRAND CENTRAL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "stall",
+     "year": "1917",
+     "ink": "#D1495B",
+     "rot": 5,
+     "seed": 5,
+     "mapId": "grand-central-market-3f7fa",
+     "legacyKey": "grand-central-market",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "$",
+     "tip": {
+      "en": "Share a few things from different stalls. Explore before you buy.",
+      "es": "Comparte algo de varios puestos. Explora antes de comprar."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "santee-alley-fashion-district",
+     "order": 3,
+     "name": {
+      "en": "Santee Alley",
+      "es": "Callejón Santee"
+     },
+     "top": {
+      "en": "SANTEE ALLEY",
+      "es": "CALLEJÓN SANTEE"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "bag",
+     "year": "",
+     "ink": "#D1495B",
+     "rot": -4,
+     "seed": 7,
+     "mapId": "santee-alley-fashion-district-ddf10",
+     "legacyKey": "santee-alley-fashion-district",
+     "draft": true,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "A busy market alley with clothes, toys and bargains. Explore it and ask for the price.",
+      "es": "Un callejón de mercado lleno de ropa, juguetes y ofertas. Explóralo y pregunta el precio."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "mariachi-plaza",
+     "order": 4,
+     "name": {
+      "en": "Mariachi Plaza",
+      "es": "Plaza del Mariachi"
+     },
+     "top": {
+      "en": "MARIACHI PLAZA",
+      "es": "PLAZA DEL MARIACHI"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "papel",
+     "year": "",
+     "ink": "#D1495B",
+     "rot": 7,
+     "seed": 9,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": true,
+     "area": "Eastside",
+     "cost": "Free",
+     "tip": {
+      "en": "Mariachis in their suits wait here to be hired for parties. Come and listen.",
+      "es": "Los mariachis con su traje esperan aquí a que los contraten para fiestas. Ven y escucha."
+     },
+     "challenge": {
+      "en": "Ask a mariachi what their favorite song is.",
+      "es": "Pregúntale a un mariachi cuál es su canción favorita."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "pan-dulce-challenge",
+     "order": 5,
+     "name": {
+      "en": "Pan dulce",
+      "es": "Pan dulce"
+     },
+     "top": {
+      "en": "PAN DULCE",
+      "es": "PAN DULCE"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "cake",
+     "year": "",
+     "ink": "#D1495B",
+     "rot": -8,
+     "seed": 11,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Eastside",
+     "cost": "$",
+     "tip": {
+      "en": "A challenge, not a place. Any panadería counts.",
+      "es": "Un reto, no un lugar. Cualquier panadería cuenta."
+     },
+     "challenge": {
+      "en": "Take a tray and tongs, and pick three pan dulce.",
+      "es": "Toma una charola y unas pinzas, y escoge tres panes dulces."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "birria-challenge",
+     "order": 6,
+     "name": {
+      "en": "Birria",
+      "es": "Birria"
+     },
+     "top": {
+      "en": "BIRRIA",
+      "es": "BIRRIA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#D1495B",
+     "rot": 4,
+     "seed": 13,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "Eastside",
+     "cost": "$",
+     "tip": {
+      "en": "A challenge, not a place. Any birria spot counts.",
+      "es": "Un reto, no un lugar. Cualquier lugar de birria cuenta."
+     },
+     "challenge": {
+      "en": "Dip your taco in the consomé.",
+      "es": "Moja tu taco en el consomé."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "highland-park-york-and-figueroa",
+     "order": 7,
+     "name": {
+      "en": "Highland Park",
+      "es": "Highland Park"
+     },
+     "top": {
+      "en": "HIGHLAND PARK",
+      "es": "HIGHLAND PARK"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pin",
+     "year": "",
+     "ink": "#D1495B",
+     "rot": -3,
+     "seed": 15,
+     "mapId": "highland-park-york-and-figueroa-de510",
+     "legacyKey": "highland-park-york-and-figueroa",
+     "draft": true,
+     "area": "Eastside",
+     "cost": "Free",
+     "tip": {
+      "en": "Old shops, murals and cafes on a walkable stretch.",
+      "es": "Tiendas viejas, murales y cafés en un tramo para caminar."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "guelaguetza",
+     "order": 8,
+     "name": {
+      "en": "Guelaguetza",
+      "es": "Guelaguetza"
+     },
+     "top": {
+      "en": "GUELAGUETZA",
+      "es": "GUELAGUETZA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "stall",
+     "year": "",
+     "ink": "#D1495B",
+     "rot": 6,
+     "seed": 17,
+     "mapId": "guelaguetza-ddc5c",
+     "legacyKey": "guelaguetza",
+     "draft": true,
+     "area": "Around LA",
+     "cost": "$$",
+     "tip": {
+      "en": "Oaxacan food and a long-time LA favorite. Try the mole.",
+      "es": "Comida oaxaqueña y favorita de LA desde hace años. Prueba el mole."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "mission-san-gabriel-arc-ngel",
+     "order": 9,
+     "name": {
+      "en": "Mission San Gabriel",
+      "es": "Misión San Gabriel Arcángel"
+     },
+     "top": {
+      "en": "MISSION SAN GABRIEL",
+      "es": "MISIÓN SAN GABRIEL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "papel",
+     "year": "1771",
+     "ink": "#D1495B",
+     "rot": -5,
+     "seed": 19,
+     "mapId": "mission-san-gabriel-arc-ngel-7af32",
+     "legacyKey": "mission-san-gabriel-arc-ngel",
+     "draft": true,
+     "area": "Around LA",
+     "cost": null,
+     "tip": {
+      "en": "Founded in 1771. Walk the old mission grounds.",
+      "es": "Fundada en 1771. Camina por los terrenos de la antigua misión."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    }
+   ]
+  },
+  {
+   "id": "music",
+   "order": 9,
+   "status": "live",
+   "name": {
+    "en": "Music",
+    "es": "Música"
+   },
+   "tagline": {
+    "en": "Walk the places where LA music was born.",
+    "es": "Camina los lugares donde nació la música de LA."
+   },
+   "audience": "music fans",
+   "ink": "#3F51B5",
+   "stamps": [
+    {
+     "id": "capitol-records-building",
+     "order": 1,
+     "name": {
+      "en": "Capitol Records Building",
+      "es": "Edificio de Capitol Records"
+     },
+     "top": {
+      "en": "CAPITOL RECORDS",
+      "es": "CAPITOL RECORDS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "city_tower",
+     "year": "1956",
+     "ink": "#3F51B5",
+     "rot": -6,
+     "seed": 3,
+     "mapId": "capitol-records-building-eca57",
+     "legacyKey": "capitol-records-building",
+     "draft": true,
+     "area": "Hollywood and Sunset",
+     "cost": "Free",
+     "tip": {
+      "en": "The tower looks like a stack of records. Stand across the street and look up.",
+      "es": "La torre parece una pila de discos. Párate al otro lado de la calle y mira hacia arriba."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "amoeba-music",
+     "order": 2,
+     "name": {
+      "en": "Amoeba Music",
+      "es": "Amoeba Music"
+     },
+     "top": {
+      "en": "AMOEBA MUSIC",
+      "es": "AMOEBA MUSIC"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "bag",
+     "year": "",
+     "ink": "#3F51B5",
+     "rot": 5,
+     "seed": 5,
+     "mapId": "amoeba-music-be573",
+     "legacyKey": "amoeba-music",
+     "draft": true,
+     "area": "Hollywood and Sunset",
+     "cost": "Free",
+     "tip": {
+      "en": "A huge record store. Flip through the bins and find one thing you did not expect.",
+      "es": "Una tienda enorme de discos. Revisa los cajones y encuentra algo que no esperabas."
+     },
+     "challenge": {
+      "en": "Buy one record you have never heard of.",
+      "es": "Compra un disco que nunca hayas escuchado."
+     },
+     "mapLink": null
+    },
+    {
+     "id": "whisky-a-go-go",
+     "order": 3,
+     "name": {
+      "en": "Whisky a Go Go",
+      "es": "Whisky a Go Go"
+     },
+     "top": {
+      "en": "WHISKY A GO GO",
+      "es": "WHISKY A GO GO"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "1964",
+     "ink": "#3F51B5",
+     "rot": -4,
+     "seed": 7,
+     "mapId": "whisky-a-go-go-6ebc4",
+     "legacyKey": "whisky-a-go-go",
+     "draft": true,
+     "area": "Hollywood and Sunset",
+     "cost": null,
+     "tip": {
+      "en": "Opened in 1964. Bands have played on this stage for generations. Check tonight's lineup.",
+      "es": "Abrió en 1964. Hay bandas tocando en este escenario desde hace generaciones. Mira quién toca esta noche."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "the-troubadour",
+     "order": 4,
+     "name": {
+      "en": "The Troubadour",
+      "es": "The Troubadour"
+     },
+     "top": {
+      "en": "THE TROUBADOUR",
+      "es": "THE TROUBADOUR"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "1957",
+     "ink": "#3F51B5",
+     "rot": 7,
+     "seed": 9,
+     "mapId": "the-troubadour-e537d",
+     "legacyKey": "the-troubadour",
+     "draft": true,
+     "area": "Hollywood and Sunset",
+     "cost": null,
+     "tip": {
+      "en": "Opened in 1957. A small room where many famous artists played early in their careers.",
+      "es": "Abrió en 1957. Un salón pequeño donde tocaron muchos artistas famosos al empezar su carrera."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "sunset-strip-and-the-roxy",
+     "order": 5,
+     "name": {
+      "en": "Sunset Strip and The Roxy",
+      "es": "Sunset Strip y The Roxy"
+     },
+     "top": {
+      "en": "SUNSET STRIP",
+      "es": "SUNSET STRIP"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "",
+     "ink": "#3F51B5",
+     "rot": -8,
+     "seed": 11,
+     "mapId": "sunset-strip-and-the-roxy-4822b",
+     "legacyKey": "sunset-strip-and-the-roxy",
+     "draft": true,
+     "area": "Hollywood and Sunset",
+     "cost": "Free",
+     "tip": {
+      "en": "Walk the Strip and read the names on the club signs.",
+      "es": "Camina por el Strip y lee los nombres en los letreros de los clubes."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "hollywood-bowl",
+     "order": 6,
+     "name": {
+      "en": "Hollywood Bowl",
+      "es": "Hollywood Bowl"
+     },
+     "top": {
+      "en": "HOLLYWOOD BOWL",
+      "es": "HOLLYWOOD BOWL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "1922",
+     "ink": "#3F51B5",
+     "rot": 4,
+     "seed": 13,
+     "mapId": "hollywood-bowl-5f2f5",
+     "legacyKey": "hollywood-bowl",
+     "draft": true,
+     "area": "Hills",
+     "cost": "$$",
+     "tip": {
+      "en": "An outdoor amphitheater under the stars. Check the schedule for a show.",
+      "es": "Un anfiteatro al aire libre bajo las estrellas. Revisa el calendario para ver un show."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "greek-theatre",
+     "order": 7,
+     "name": {
+      "en": "Greek Theatre",
+      "es": "Greek Theatre"
+     },
+     "top": {
+      "en": "GREEK THEATRE",
+      "es": "GREEK THEATRE"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pin",
+     "year": "1929",
+     "ink": "#3F51B5",
+     "rot": -3,
+     "seed": 15,
+     "mapId": "greek-theatre-efdf5",
+     "legacyKey": "greek-theatre",
+     "draft": true,
+     "area": "Hills",
+     "cost": "$$",
+     "tip": {
+      "en": "An outdoor theater in Griffith Park, open since 1929.",
+      "es": "Un teatro al aire libre en Griffith Park, abierto desde 1929."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "the-wiltern",
+     "order": 8,
+     "name": {
+      "en": "The Wiltern",
+      "es": "The Wiltern"
+     },
+     "top": {
+      "en": "THE WILTERN",
+      "es": "THE WILTERN"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "city_tower",
+     "year": "1931",
+     "ink": "#3F51B5",
+     "rot": 6,
+     "seed": 17,
+     "mapId": "the-wiltern-b3bf8",
+     "legacyKey": "the-wiltern",
+     "draft": true,
+     "area": "Around LA",
+     "cost": null,
+     "tip": {
+      "en": "An Art Deco theater from 1931 with a green tower. Look up from the corner.",
+      "es": "Un teatro Art Deco de 1931 con una torre verde. Mira hacia arriba desde la esquina."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "grammy-museum-at-l-a-live",
+     "order": 9,
+     "name": {
+      "en": "Grammy Museum",
+      "es": "Museo Grammy"
+     },
+     "top": {
+      "en": "GRAMMY MUSEUM",
+      "es": "MUSEO GRAMMY"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "trophy",
+     "year": "",
+     "ink": "#3F51B5",
+     "rot": -5,
+     "seed": 19,
+     "mapId": "grammy-museum-at-l-a-live-04cd9",
+     "legacyKey": "grammy-museum-at-l-a-live",
+     "draft": true,
+     "area": "Around LA",
+     "cost": "$$",
+     "tip": {
+      "en": "Explore the stories behind the music, with outfits and instruments.",
+      "es": "Explora las historias detrás de la música, con trajes e instrumentos."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "the-echo",
+     "order": 10,
+     "name": {
+      "en": "The Echo",
+      "es": "The Echo"
+     },
+     "top": {
+      "en": "THE ECHO",
+      "es": "THE ECHO"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "",
+     "ink": "#3F51B5",
+     "rot": 3,
+     "seed": 21,
+     "mapId": "the-echo",
+     "legacyKey": "the-echo",
+     "draft": true,
+     "area": "Around LA",
+     "cost": null,
+     "tip": {
+      "en": "A small club for new bands. Check who plays tonight.",
+      "es": "Un club pequeño para bandas nuevas. Mira quién toca esta noche."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    }
+   ]
+  },
+  {
+   "id": "free-la",
+   "order": 10,
+   "status": "live",
+   "name": {
+    "en": "Free LA",
+    "es": "LA Gratis"
+   },
+   "tagline": {
+    "en": "The best of Los Angeles costs nothing.",
+    "es": "Lo mejor de Los Ángeles no cuesta nada."
+   },
+   "audience": "budget travelers",
+   "ink": "#4C8C2B",
+   "stamps": [
+    {
+     "id": "the-broad",
+     "order": 1,
+     "name": {
+      "en": "The Broad",
+      "es": "The Broad"
+     },
+     "top": {
+      "en": "THE BROAD",
+      "es": "THE BROAD"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "broad",
+     "year": "2015",
+     "ink": "#4C8C2B",
+     "rot": -6,
+     "seed": 3,
+     "mapId": "the-broad-a0dea",
+     "legacyKey": "the-broad",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "Free to get in, but book a time online. The line outside moves fast.",
+      "es": "Entrada gratis, pero reserva hora en línea. La fila avanza rápido."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "gloria-molina-grand-park",
+     "order": 2,
+     "name": {
+      "en": "Grand Park",
+      "es": "Grand Park"
+     },
+     "top": {
+      "en": "GRAND PARK",
+      "es": "GRAND PARK"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "palms3",
+     "year": "",
+     "ink": "#4C8C2B",
+     "rot": 5,
+     "seed": 5,
+     "mapId": "gloria-molina-grand-park-d86ef",
+     "legacyKey": "gloria-molina-grand-park",
+     "draft": true,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "A green park in the middle of Downtown. Sit for a minute and look at City Hall.",
+      "es": "Un parque verde en pleno Centro. Siéntate un minuto y mira el Ayuntamiento."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "olvera-street-and-el-pueblo",
+     "order": 3,
+     "name": {
+      "en": "Olvera Street and El Pueblo",
+      "es": "Calle Olvera y El Pueblo"
+     },
+     "top": {
+      "en": "PLACITA OLVERA",
+      "es": "PLACITA OLVERA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "papel",
+     "year": "1781",
+     "ink": "#4C8C2B",
+     "rot": -4,
+     "seed": 7,
+     "mapId": "olvera-street-and-el-pueblo-a0700",
+     "legacyKey": "olvera-street-and-el-pueblo",
+     "draft": false,
+     "area": "Downtown",
+     "cost": "Free",
+     "tip": {
+      "en": "This is where LA started. Try the taquitos and look for the papel picado.",
+      "es": "Aquí empezó LA. Prueba los taquitos y busca el papel picado."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "lacma-urban-light",
+     "order": 4,
+     "name": {
+      "en": "Urban Light (LACMA)",
+      "es": "Urban Light (LACMA)"
+     },
+     "top": {
+      "en": "URBAN LIGHT",
+      "es": "URBAN LIGHT"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "sunset",
+     "year": "",
+     "ink": "#4C8C2B",
+     "rot": 7,
+     "seed": 9,
+     "mapId": "lacma-urban-light-28a47",
+     "legacyKey": "lacma-urban-light",
+     "draft": true,
+     "area": "Hollywood and Mid-City",
+     "cost": "Free",
+     "tip": {
+      "en": "202 vintage street lamps in rows. Come at dusk, when they turn on.",
+      "es": "202 faroles antiguos en filas. Ve al atardecer, cuando se encienden."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "hollywood-walk-of-fame",
+     "order": 5,
+     "name": {
+      "en": "Hollywood Walk of Fame",
+      "es": "Paseo de la Fama de Hollywood"
+     },
+     "top": {
+      "en": "WALK OF FAME",
+      "es": "PASEO DE LA FAMA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pin",
+     "year": "1960",
+     "ink": "#4C8C2B",
+     "rot": -8,
+     "seed": 11,
+     "mapId": "hollywood-walk-of-fame-932c6",
+     "legacyKey": "hollywood-walk-of-fame",
+     "draft": true,
+     "area": "Hollywood and Mid-City",
+     "cost": "Free",
+     "tip": {
+      "en": "Look down. Find a star for someone you love.",
+      "es": "Mira al piso. Busca la estrella de alguien que quieres."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "griffith-observatory",
+     "order": 6,
+     "name": {
+      "en": "Griffith Observatory",
+      "es": "Observatorio Griffith"
+     },
+     "top": {
+      "en": "GRIFFITH OBSERVATORY",
+      "es": "OBSERVATORIO GRIFFITH"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "obs",
+     "year": "1935",
+     "ink": "#4C8C2B",
+     "rot": 4,
+     "seed": 13,
+     "mapId": "griffith-observatory-8ca7d",
+     "legacyKey": "griffith-observatory",
+     "draft": false,
+     "area": "Hollywood and Mid-City",
+     "cost": "Free",
+     "tip": {
+      "en": "Free to get in. Parking is limited, so try the DASH bus or a rideshare.",
+      "es": "Entrada gratis. El estacionamiento es limitado, usa el autobús DASH o un viaje por app."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "runyon-canyon-park",
+     "order": 7,
+     "name": {
+      "en": "Runyon Canyon",
+      "es": "Runyon Canyon"
+     },
+     "top": {
+      "en": "RUNYON CANYON",
+      "es": "RUNYON CANYON"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "palms3",
+     "year": "",
+     "ink": "#4C8C2B",
+     "rot": -3,
+     "seed": 15,
+     "mapId": "runyon-canyon-park-9b704",
+     "legacyKey": "runyon-canyon-park",
+     "draft": true,
+     "area": "Hollywood and Mid-City",
+     "cost": "Free",
+     "tip": {
+      "en": "A hike with a city view, and lots of dogs. Go early, before it gets hot.",
+      "es": "Una caminata con vista a la ciudad y muchos perros. Ve temprano, antes del calor."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "the-getty-center",
+     "order": 8,
+     "name": {
+      "en": "The Getty Center",
+      "es": "El Getty Center"
+     },
+     "top": {
+      "en": "THE GETTY CENTER",
+      "es": "EL GETTY CENTER"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "polaroid",
+     "year": "1997",
+     "ink": "#4C8C2B",
+     "rot": 6,
+     "seed": 17,
+     "mapId": "the-getty-center-87f3f",
+     "legacyKey": "the-getty-center",
+     "draft": true,
+     "area": "Westside and beaches",
+     "cost": "Free",
+     "tip": {
+      "en": "Free to get in. Parking costs money, so take the tram up the hill.",
+      "es": "Entrada gratis. El estacionamiento cuesta, usa el tranvía hasta arriba."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "santa-monica-state-beach",
+     "order": 9,
+     "name": {
+      "en": "Santa Monica Beach",
+      "es": "Playa de Santa Monica"
+     },
+     "top": {
+      "en": "SANTA MONICA BEACH",
+      "es": "PLAYA DE SANTA MONICA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "pier",
+     "year": "",
+     "ink": "#4C8C2B",
+     "rot": -5,
+     "seed": 19,
+     "mapId": "santa-monica-state-beach-7a8ad",
+     "legacyKey": "santa-monica-state-beach",
+     "draft": true,
+     "area": "Westside and beaches",
+     "cost": "Free",
+     "tip": {
+      "en": "A wide, sandy beach next to the pier. Bring a towel.",
+      "es": "Una playa amplia de arena junto al muelle. Lleva una toalla."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    },
+    {
+     "id": "venice-beach-boardwalk",
+     "order": 10,
+     "name": {
+      "en": "Venice Beach Boardwalk",
+      "es": "Malecón de Venice Beach"
+     },
+     "top": {
+      "en": "VENICE BEACH",
+      "es": "VENICE BEACH"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "venice_beach",
+     "year": "1905",
+     "ink": "#4C8C2B",
+     "rot": 3,
+     "seed": 21,
+     "mapId": "venice-beach-boardwalk-ffbe3",
+     "legacyKey": "venice-beach-boardwalk",
+     "draft": false,
+     "area": "Westside and beaches",
+     "cost": "Free",
+     "tip": {
+      "en": "Skaters, street art and performers. Explore it slowly.",
+      "es": "Patinadores, arte callejero y artistas. Explóralo con calma."
+     },
+     "challenge": {
+      "en": "",
+      "es": ""
+     },
+     "mapLink": null
+    }
+   ]
   }
  ]
 }

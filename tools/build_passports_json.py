@@ -67,7 +67,30 @@ out = {"version": 1,
  "passports": [
   {"id": "la-tourist", "order": 1, "status": "live", "name": {"en": "LA Tourist", "es": "Turista en LA"}, "tagline": {"en": "The big first-visit list. Explore the city one stamp at a time.", "es": "La lista grande para tu primera visita. Explora la ciudad un sello a la vez."}, "audience": "visitors", "ink": "#1D6F8F", "stamps": tstamps},
   {"id": "downtown-classic", "order": 2, "status": "live", "name": {"en": "Downtown Classic", "es": "Clásico del Centro"}, "tagline": {"en": "The stops of our free walking tour.", "es": "Las paradas de nuestro tour gratis."}, "audience": "tour guests", "ink": "#7A2A6A", "stamps": dstamps},
-  {"id": "la-tacos", "order": 3, "status": "coming-soon", "name": {"en": "LA Tacos", "es": "Tacos de LA"}, "tagline": {"en": "Coming soon.", "es": "Muy pronto."}, "audience": "food lovers", "ink": "#B84A00", "stamps": []}]}
+  ]}
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import passport_content as PC
+TACO_INKS = ["#B84A00", "#C2352A", "#E89B00", "#7A3FA0", "#2E9E57"]
+ROTS = [-6, 5, -4, 7, -8, 4, -3, 6, -5, 3, -7, 5]
+for pid, c in PC.P.items():
+    st = []
+    for i, t in enumerate(c["stamps"]):
+        (sid, pin, nen, nes, ten, tes, icon, year, draft, area, cost, tipen, tipes, chen, ches) = t
+        real = mapid.get(pin) if pin else None
+        if pin and not real: print("NO PIN FOR", pid, sid, pin)
+        st.append({"id": sid, "order": i + 1, "name": {"en": nen, "es": nes}, "top": {"en": ten, "es": tes},
+            "bottom": {"en": "LOS ANGELES", "es": "LOS ÁNGELES"}, "icon": icon, "year": year,
+            "ink": TACO_INKS[i % 5] if pid == "la-tacos" else c["ink"], "rot": ROTS[i % 12], "seed": 3 + i * 2,
+            "mapId": real, "legacyKey": pin if real else None, "draft": draft, "area": area, "cost": cost,
+            "tip": {"en": tipen, "es": tipes}, "challenge": {"en": chen, "es": ches}, "mapLink": None})
+    seen = []
+    for x in st:
+        if x["area"] not in seen: seen.append(x["area"])
+    st.sort(key=lambda x: seen.index(x["area"]))      # keep each area together (stable)
+    for i, x in enumerate(st): x["order"] = i + 1
+    out["passports"].append({"id": pid, "order": c["order"], "status": "live", "name": {"en": c["name"][0], "es": c["name"][1]},
+        "tagline": {"en": c["tagline"][0], "es": c["tagline"][1]}, "audience": c["audience"], "ink": c["ink"], "stamps": st})
+out["passports"].sort(key=lambda p: p["order"])
 json.dump(out, open(os.path.join(root, "passports.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("passports.json", os.path.getsize(os.path.join(root, "passports.json")), "bytes;", sum(len(p["stamps"]) for p in out["passports"]), "stamps")
 miss = [s["id"] for p in out["passports"] for s in p["stamps"] if s["legacyKey"] and not s["mapId"]]
