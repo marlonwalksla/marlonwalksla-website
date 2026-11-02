@@ -1,0 +1,910 @@
+{
+  "version": 1,
+  "notes": "Stamps with a 'spot' share the main map visited list (localStorage marlon_visited_spots). Stamps with onMainMap=false use their own list (marlon_stamps). Fallback icon: generic Ernesto silhouette tinted by passport ink. One stamp per place, earned by going.",
+  "collections": [
+    {
+      "id": "la-tourist",
+      "name": {
+        "en": "LA Tourist",
+        "es": "Turista en LA"
+      },
+      "ink": "#1D6F8F",
+      "stamps": [
+        {
+          "id": "griffith-observatory",
+          "label": {
+            "en": "Griffith Observatory",
+            "es": "Observatorio Griffith"
+          },
+          "spot": "griffith-observatory"
+        },
+        {
+          "id": "hollywood-walk-of-fame",
+          "label": {
+            "en": "Hollywood Walk of Fame",
+            "es": "Paseo de la Fama de Hollywood"
+          },
+          "spot": "hollywood-walk-of-fame"
+        },
+        {
+          "id": "hollywood-sign",
+          "label": {
+            "en": "Hollywood Sign view",
+            "es": "Vista del letrero de Hollywood"
+          },
+          "spot": "hollywood-sign-viewpoint-lake-hollywood-park"
+        },
+        {
+          "id": "tcl-chinese-theatre",
+          "label": {
+            "en": "TCL Chinese Theatre",
+            "es": "Teatro Chino TCL"
+          },
+          "spot": "tcl-chinese-theatre"
+        },
+        {
+          "id": "santa-monica-pier",
+          "label": {
+            "en": "Santa Monica Pier",
+            "es": "Muelle de Santa Monica"
+          },
+          "spot": "santa-monica-pier"
+        },
+        {
+          "id": "venice-beach",
+          "label": {
+            "en": "Venice Beach Boardwalk",
+            "es": "Malecon de Venice Beach"
+          },
+          "spot": "venice-beach-boardwalk"
+        },
+        {
+          "id": "the-getty-center",
+          "label": {
+            "en": "The Getty Center",
+            "es": "El Getty Center"
+          },
+          "spot": "the-getty-center"
+        },
+        {
+          "id": "rodeo-drive",
+          "label": {
+            "en": "Rodeo Drive",
+            "es": "Rodeo Drive"
+          },
+          "spot": "rodeo-drive"
+        },
+        {
+          "id": "walt-disney-concert-hall",
+          "label": {
+            "en": "Walt Disney Concert Hall",
+            "es": "Sala de Conciertos Walt Disney"
+          },
+          "spot": "walt-disney-concert-hall"
+        },
+        {
+          "id": "the-broad",
+          "label": {
+            "en": "The Broad",
+            "es": "The Broad"
+          },
+          "spot": "the-broad"
+        },
+        {
+          "id": "grand-central-market",
+          "label": {
+            "en": "Grand Central Market",
+            "es": "Mercado Grand Central"
+          },
+          "spot": "grand-central-market"
+        },
+        {
+          "id": "olvera-street",
+          "label": {
+            "en": "Olvera Street",
+            "es": "Calle Olvera"
+          },
+          "spot": "olvera-street-and-el-pueblo"
+        }
+      ],
+      "defaultMapFilter": true
+    },
+    {
+      "id": "downtown-classic",
+      "name": {
+        "en": "Downtown Classic",
+        "es": "Clasico del Centro"
+      },
+      "ink": "#7A2A6A",
+      "stamps": [
+        {
+          "id": "walt-disney-concert-hall",
+          "label": {
+            "en": "Disney Hall",
+            "es": "Sala Disney"
+          },
+          "spot": "walt-disney-concert-hall"
+        },
+        {
+          "id": "the-broad",
+          "label": {
+            "en": "The Broad",
+            "es": "The Broad"
+          },
+          "spot": "the-broad"
+        },
+        {
+          "id": "angels-flight",
+          "label": {
+            "en": "Angels Flight",
+            "es": "Angels Flight"
+          },
+          "spot": "angels-flight-railway"
+        },
+        {
+          "id": "grand-central-market",
+          "label": {
+            "en": "Grand Central Market",
+            "es": "Mercado Grand Central"
+          },
+          "spot": "grand-central-market"
+        },
+        {
+          "id": "bradbury-building",
+          "label": {
+            "en": "Bradbury Building",
+            "es": "Edificio Bradbury"
+          },
+          "spot": "bradbury-building"
+        },
+        {
+          "id": "evolution-of-la-mural",
+          "label": {
+            "en": "Evolution of LA mural",
+            "es": "Mural Evolucion de LA"
+          },
+          "location": {
+            "coordinates": [
+              -118.2464,
+              34.052
+            ],
+            "address": "200 block of S Broadway"
+          },
+          "onMainMap": false
+        },
+        {
+          "id": "la-city-hall",
+          "label": {
+            "en": "City Hall",
+            "es": "Ayuntamiento"
+          },
+          "spot": "la-city-hall"
+        },
+        {
+          "id": "hall-of-justice",
+          "label": {
+            "en": "Hall of Justice",
+            "es": "Palacio de Justicia"
+          },
+          "location": {
+            "coordinates": [
+              -118.2422,
+              34.0556
+            ],
+            "address": "Civic Center"
+          },
+          "onMainMap": false
+        },
+        {
+          "id": "olvera-street",
+          "label": {
+            "en": "Olvera Street",
+            "es": "Calle Olvera"
+          },
+          "spot": "olvera-street-and-el-pueblo"
+        }
+      ]
+    },
+    {
+      "id": "film-and-tv",
+      "name": {
+        "en": "Film and TV",
+        "es": "Cine y TV"
+      },
+      "ink": "#8B1E3F",
+      "stamps": [
+        {
+          "id": "bradbury-building",
+          "label": {
+            "en": "Bradbury Building",
+            "es": "Edificio Bradbury"
+          },
+          "spot": "bradbury-building-e93ee"
+        },
+        {
+          "id": "tcl-chinese-theatre",
+          "label": {
+            "en": "TCL Chinese Theatre",
+            "es": "Teatro Chino TCL"
+          },
+          "spot": "tcl-chinese-theatre-b566e"
+        },
+        {
+          "id": "dolby-theatre-hollywood",
+          "label": {
+            "en": "Dolby Theatre",
+            "es": "Teatro Dolby"
+          },
+          "spot": "dolby-theatre-hollywood"
+        },
+        {
+          "id": "egyptian-theatre",
+          "label": {
+            "en": "Egyptian Theatre",
+            "es": "Teatro Egipcio"
+          },
+          "spot": "egyptian-theatre-3acab"
+        },
+        {
+          "id": "bronson-canyon-batcave",
+          "label": {
+            "en": "Bronson Canyon and Batcave",
+            "es": "Cañón Bronson y la Batcueva"
+          },
+          "spot": "bronson-canyon-batcave-e03cf"
+        },
+        {
+          "id": "music-box-steps",
+          "label": {
+            "en": "Music Box Steps",
+            "es": "Escaleras Music Box"
+          },
+          "spot": "music-box-steps-5c742"
+        },
+        {
+          "id": "paramount-pictures-studio-tour",
+          "label": {
+            "en": "Paramount Pictures Tour",
+            "es": "Tour de Paramount Pictures"
+          },
+          "spot": "paramount-pictures-studio-tour-72d5f"
+        },
+        {
+          "id": "warner-bros-studio-tour-hollywood",
+          "label": {
+            "en": "Warner Bros. Studio Tour",
+            "es": "Tour de Warner Bros."
+          },
+          "spot": "warner-bros-studio-tour-hollywood-46817"
+        },
+        {
+          "id": "sony-pictures-studios-tour",
+          "label": {
+            "en": "Sony Pictures Studios Tour",
+            "es": "Tour de Sony Pictures"
+          },
+          "spot": "sony-pictures-studios-tour-b27de"
+        },
+        {
+          "id": "academy-museum-of-motion-pictures",
+          "label": {
+            "en": "Academy Museum",
+            "es": "Museo de la Academia"
+          },
+          "spot": "academy-museum-of-motion-pictures-69c13"
+        }
+      ]
+    },
+    {
+      "id": "photo-spots",
+      "name": {
+        "en": "Photo Spots",
+        "es": "Lugares para Fotos"
+      },
+      "ink": "#D6457A",
+      "stamps": [
+        {
+          "id": "lacma-urban-light",
+          "label": {
+            "en": "Urban Light (LACMA)",
+            "es": "Urban Light (LACMA)"
+          },
+          "spot": "lacma-urban-light-28a47"
+        },
+        {
+          "id": "hollywood-sign-viewpoint-lake-hollywood-park",
+          "label": {
+            "en": "Hollywood Sign view",
+            "es": "Vista del letrero de Hollywood"
+          },
+          "spot": "hollywood-sign-viewpoint-lake-hollywood-park-6a0ef"
+        },
+        {
+          "id": "griffith-observatory",
+          "label": {
+            "en": "Griffith Observatory",
+            "es": "Observatorio Griffith"
+          },
+          "spot": "griffith-observatory-8ca7d"
+        },
+        {
+          "id": "walt-disney-concert-hall",
+          "label": {
+            "en": "Walt Disney Concert Hall",
+            "es": "Sala de Conciertos Walt Disney"
+          },
+          "spot": "walt-disney-concert-hall-844da"
+        },
+        {
+          "id": "bradbury-building",
+          "label": {
+            "en": "Bradbury Building",
+            "es": "Edificio Bradbury"
+          },
+          "spot": "bradbury-building-e93ee"
+        },
+        {
+          "id": "arts-district-street-art-wall",
+          "label": {
+            "en": "Arts District Street Art",
+            "es": "Arte callejero del Arts District"
+          },
+          "spot": "arts-district-street-art-wall-8542d"
+        },
+        {
+          "id": "colorado-street-bridge",
+          "label": {
+            "en": "Colorado Street Bridge",
+            "es": "Puente Colorado Street"
+          },
+          "spot": "colorado-street-bridge-8dddc"
+        },
+        {
+          "id": "venice-canals",
+          "label": {
+            "en": "Venice Canals",
+            "es": "Canales de Venice"
+          },
+          "spot": "venice-canals-175f3"
+        },
+        {
+          "id": "santa-monica-pier",
+          "label": {
+            "en": "Santa Monica Pier",
+            "es": "Muelle de Santa Monica"
+          },
+          "spot": "santa-monica-pier-6f0bc"
+        },
+        {
+          "id": "el-matador-state-beach",
+          "label": {
+            "en": "El Matador Beach",
+            "es": "Playa El Matador"
+          },
+          "spot": "el-matador-state-beach-e9cf6"
+        }
+      ]
+    },
+    {
+      "id": "la-tacos",
+      "name": {
+        "en": "LA Tacos",
+        "es": "Tacos de LA"
+      },
+      "ink": "#B84A00",
+      "stamps": [
+        {
+          "id": "grand-central-market",
+          "label": {
+            "en": "Grand Central Market",
+            "es": "Mercado Grand Central"
+          },
+          "spot": "grand-central-market-3f7fa"
+        },
+        {
+          "id": "sonoratown",
+          "label": {
+            "en": "Sonoratown",
+            "es": "Sonoratown"
+          }
+        },
+        {
+          "id": "chuys-tacos-dorados",
+          "label": {
+            "en": "Chuy's Tacos Dorados",
+            "es": "Chuy's Tacos Dorados"
+          }
+        },
+        {
+          "id": "mariscos-jalisco",
+          "label": {
+            "en": "Mariscos Jalisco",
+            "es": "Mariscos Jalisco"
+          }
+        },
+        {
+          "id": "guisados",
+          "label": {
+            "en": "Guisados",
+            "es": "Guisados"
+          }
+        },
+        {
+          "id": "los-cinco-puntos",
+          "label": {
+            "en": "Los Cinco Puntos",
+            "es": "Los Cinco Puntos"
+          }
+        },
+        {
+          "id": "villas-tacos",
+          "label": {
+            "en": "Villa's Tacos",
+            "es": "Villa's Tacos"
+          }
+        },
+        {
+          "id": "leos-tacos-truck",
+          "label": {
+            "en": "Leo's Tacos Truck",
+            "es": "Leo's Tacos Truck"
+          }
+        },
+        {
+          "id": "tacos-1986",
+          "label": {
+            "en": "Tacos 1986",
+            "es": "Tacos 1986"
+          }
+        },
+        {
+          "id": "tito-s-tacos",
+          "label": {
+            "en": "Tito's Tacos",
+            "es": "Tito's Tacos"
+          },
+          "spot": "tito-s-tacos-df820"
+        }
+      ]
+    },
+    {
+      "id": "hollywood",
+      "name": {
+        "en": "Hollywood",
+        "es": "Hollywood"
+      },
+      "ink": "#C28A00",
+      "stamps": [
+        {
+          "id": "hollywood-walk-of-fame",
+          "label": {
+            "en": "Hollywood Walk of Fame",
+            "es": "Paseo de la Fama de Hollywood"
+          },
+          "spot": "hollywood-walk-of-fame-932c6"
+        },
+        {
+          "id": "tcl-chinese-theatre",
+          "label": {
+            "en": "TCL Chinese Theatre",
+            "es": "Teatro Chino TCL"
+          },
+          "spot": "tcl-chinese-theatre-b566e"
+        },
+        {
+          "id": "dolby-theatre-hollywood",
+          "label": {
+            "en": "Dolby Theatre",
+            "es": "Teatro Dolby"
+          },
+          "spot": "dolby-theatre-hollywood"
+        },
+        {
+          "id": "pantages-theatre",
+          "label": {
+            "en": "Pantages Theatre",
+            "es": "Teatro Pantages"
+          },
+          "spot": "pantages-theatre-898cd"
+        },
+        {
+          "id": "musso-and-frank-grill",
+          "label": {
+            "en": "Musso & Frank Grill",
+            "es": "Musso & Frank Grill"
+          },
+          "spot": "musso-and-frank-grill-9777b"
+        },
+        {
+          "id": "capitol-records-building",
+          "label": {
+            "en": "Capitol Records Building",
+            "es": "Edificio de Capitol Records"
+          },
+          "spot": "capitol-records-building-eca57"
+        },
+        {
+          "id": "pink-s-hot-dogs",
+          "label": {
+            "en": "Pink's Hot Dogs",
+            "es": "Pink's Hot Dogs"
+          },
+          "spot": "pink-s-hot-dogs-7fd14"
+        },
+        {
+          "id": "amoeba-music",
+          "label": {
+            "en": "Amoeba Music",
+            "es": "Amoeba Music"
+          },
+          "spot": "amoeba-music-be573"
+        },
+        {
+          "id": "hollywood-bowl",
+          "label": {
+            "en": "Hollywood Bowl",
+            "es": "Hollywood Bowl"
+          },
+          "spot": "hollywood-bowl-5f2f5"
+        },
+        {
+          "id": "hollywood-sign-viewpoint-lake-hollywood-park",
+          "label": {
+            "en": "Hollywood Sign view",
+            "es": "Vista del letrero de Hollywood"
+          },
+          "spot": "hollywood-sign-viewpoint-lake-hollywood-park-6a0ef"
+        }
+      ]
+    },
+    {
+      "id": "beaches-and-coast",
+      "name": {
+        "en": "Beaches and Coast",
+        "es": "Playas y Costa"
+      },
+      "ink": "#2A9D8F",
+      "stamps": [
+        {
+          "id": "santa-monica-pier",
+          "label": {
+            "en": "Santa Monica Pier",
+            "es": "Muelle de Santa Monica"
+          },
+          "spot": "santa-monica-pier-6f0bc"
+        },
+        {
+          "id": "venice-beach-boardwalk",
+          "label": {
+            "en": "Venice Beach Boardwalk",
+            "es": "Malecón de Venice Beach"
+          },
+          "spot": "venice-beach-boardwalk-ffbe3"
+        },
+        {
+          "id": "muscle-beach-venice",
+          "label": {
+            "en": "Muscle Beach",
+            "es": "Muscle Beach"
+          },
+          "spot": "muscle-beach-venice-23ebd"
+        },
+        {
+          "id": "malibu-pier",
+          "label": {
+            "en": "Malibu Pier",
+            "es": "Muelle de Malibu"
+          },
+          "spot": "malibu-pier-0370f"
+        },
+        {
+          "id": "el-matador-state-beach",
+          "label": {
+            "en": "El Matador Beach",
+            "es": "Playa El Matador"
+          },
+          "spot": "el-matador-state-beach-e9cf6"
+        },
+        {
+          "id": "zuma-beach",
+          "label": {
+            "en": "Zuma Beach",
+            "es": "Playa Zuma"
+          },
+          "spot": "zuma-beach-6061f"
+        },
+        {
+          "id": "manhattan-beach-pier",
+          "label": {
+            "en": "Manhattan Beach Pier",
+            "es": "Muelle de Manhattan Beach"
+          },
+          "spot": "manhattan-beach-pier-7aaa0"
+        },
+        {
+          "id": "hermosa-beach-pier-and-plaza",
+          "label": {
+            "en": "Hermosa Beach Pier",
+            "es": "Muelle de Hermosa Beach"
+          },
+          "spot": "hermosa-beach-pier-and-plaza-b2333"
+        },
+        {
+          "id": "point-vicente-lighthouse",
+          "label": {
+            "en": "Point Vicente Lighthouse",
+            "es": "Faro de Point Vicente"
+          },
+          "spot": "point-vicente-lighthouse-f6400"
+        },
+        {
+          "id": "dockweiler-beach-fire-pits",
+          "label": {
+            "en": "Dockweiler Fire Pits",
+            "es": "Fogatas de Dockweiler"
+          },
+          "spot": "dockweiler-beach-fire-pits-78a08"
+        }
+      ]
+    },
+    {
+      "id": "latino-la",
+      "name": {
+        "en": "Latino LA",
+        "es": "LA Latina"
+      },
+      "ink": "#D1495B",
+      "stamps": [
+        {
+          "id": "olvera-street-and-el-pueblo",
+          "label": {
+            "en": "Olvera Street and El Pueblo",
+            "es": "Calle Olvera y El Pueblo"
+          },
+          "spot": "olvera-street-and-el-pueblo-a0700"
+        },
+        {
+          "id": "grand-central-market",
+          "label": {
+            "en": "Grand Central Market",
+            "es": "Mercado Grand Central"
+          },
+          "spot": "grand-central-market-3f7fa"
+        },
+        {
+          "id": "santee-alley-fashion-district",
+          "label": {
+            "en": "Santee Alley",
+            "es": "Callejón Santee"
+          },
+          "spot": "santee-alley-fashion-district-ddf10"
+        },
+        {
+          "id": "mariachi-plaza",
+          "label": {
+            "en": "Mariachi Plaza",
+            "es": "Plaza del Mariachi"
+          }
+        },
+        {
+          "id": "pan-dulce-challenge",
+          "label": {
+            "en": "Pan dulce",
+            "es": "Pan dulce"
+          }
+        },
+        {
+          "id": "birria-challenge",
+          "label": {
+            "en": "Birria",
+            "es": "Birria"
+          }
+        },
+        {
+          "id": "highland-park-york-and-figueroa",
+          "label": {
+            "en": "Highland Park",
+            "es": "Highland Park"
+          },
+          "spot": "highland-park-york-and-figueroa-de510"
+        },
+        {
+          "id": "guelaguetza",
+          "label": {
+            "en": "Guelaguetza",
+            "es": "Guelaguetza"
+          },
+          "spot": "guelaguetza-ddc5c"
+        },
+        {
+          "id": "mission-san-gabriel-arc-ngel",
+          "label": {
+            "en": "Mission San Gabriel",
+            "es": "Misión San Gabriel Arcángel"
+          },
+          "spot": "mission-san-gabriel-arc-ngel-7af32"
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "name": {
+        "en": "Music",
+        "es": "Música"
+      },
+      "ink": "#3F51B5",
+      "stamps": [
+        {
+          "id": "capitol-records-building",
+          "label": {
+            "en": "Capitol Records Building",
+            "es": "Edificio de Capitol Records"
+          },
+          "spot": "capitol-records-building-eca57"
+        },
+        {
+          "id": "amoeba-music",
+          "label": {
+            "en": "Amoeba Music",
+            "es": "Amoeba Music"
+          },
+          "spot": "amoeba-music-be573"
+        },
+        {
+          "id": "whisky-a-go-go",
+          "label": {
+            "en": "Whisky a Go Go",
+            "es": "Whisky a Go Go"
+          },
+          "spot": "whisky-a-go-go-6ebc4"
+        },
+        {
+          "id": "the-troubadour",
+          "label": {
+            "en": "The Troubadour",
+            "es": "The Troubadour"
+          },
+          "spot": "the-troubadour-e537d"
+        },
+        {
+          "id": "sunset-strip-and-the-roxy",
+          "label": {
+            "en": "Sunset Strip and The Roxy",
+            "es": "Sunset Strip y The Roxy"
+          },
+          "spot": "sunset-strip-and-the-roxy-4822b"
+        },
+        {
+          "id": "hollywood-bowl",
+          "label": {
+            "en": "Hollywood Bowl",
+            "es": "Hollywood Bowl"
+          },
+          "spot": "hollywood-bowl-5f2f5"
+        },
+        {
+          "id": "greek-theatre",
+          "label": {
+            "en": "Greek Theatre",
+            "es": "Greek Theatre"
+          },
+          "spot": "greek-theatre-efdf5"
+        },
+        {
+          "id": "the-wiltern",
+          "label": {
+            "en": "The Wiltern",
+            "es": "The Wiltern"
+          },
+          "spot": "the-wiltern-b3bf8"
+        },
+        {
+          "id": "grammy-museum-at-l-a-live",
+          "label": {
+            "en": "Grammy Museum",
+            "es": "Museo Grammy"
+          },
+          "spot": "grammy-museum-at-l-a-live-04cd9"
+        },
+        {
+          "id": "the-echo",
+          "label": {
+            "en": "The Echo",
+            "es": "The Echo"
+          },
+          "spot": "the-echo"
+        }
+      ]
+    },
+    {
+      "id": "free-la",
+      "name": {
+        "en": "Free LA",
+        "es": "LA Gratis"
+      },
+      "ink": "#4C8C2B",
+      "stamps": [
+        {
+          "id": "the-broad",
+          "label": {
+            "en": "The Broad",
+            "es": "The Broad"
+          },
+          "spot": "the-broad-a0dea"
+        },
+        {
+          "id": "gloria-molina-grand-park",
+          "label": {
+            "en": "Grand Park",
+            "es": "Grand Park"
+          },
+          "spot": "gloria-molina-grand-park-d86ef"
+        },
+        {
+          "id": "olvera-street-and-el-pueblo",
+          "label": {
+            "en": "Olvera Street and El Pueblo",
+            "es": "Calle Olvera y El Pueblo"
+          },
+          "spot": "olvera-street-and-el-pueblo-a0700"
+        },
+        {
+          "id": "lacma-urban-light",
+          "label": {
+            "en": "Urban Light (LACMA)",
+            "es": "Urban Light (LACMA)"
+          },
+          "spot": "lacma-urban-light-28a47"
+        },
+        {
+          "id": "hollywood-walk-of-fame",
+          "label": {
+            "en": "Hollywood Walk of Fame",
+            "es": "Paseo de la Fama de Hollywood"
+          },
+          "spot": "hollywood-walk-of-fame-932c6"
+        },
+        {
+          "id": "griffith-observatory",
+          "label": {
+            "en": "Griffith Observatory",
+            "es": "Observatorio Griffith"
+          },
+          "spot": "griffith-observatory-8ca7d"
+        },
+        {
+          "id": "runyon-canyon-park",
+          "label": {
+            "en": "Runyon Canyon",
+            "es": "Runyon Canyon"
+          },
+          "spot": "runyon-canyon-park-9b704"
+        },
+        {
+          "id": "the-getty-center",
+          "label": {
+            "en": "The Getty Center",
+            "es": "El Getty Center"
+          },
+          "spot": "the-getty-center-87f3f"
+        },
+        {
+          "id": "santa-monica-state-beach",
+          "label": {
+            "en": "Santa Monica Beach",
+            "es": "Playa de Santa Monica"
+          },
+          "spot": "santa-monica-state-beach-7a8ad"
+        },
+        {
+          "id": "venice-beach-boardwalk",
+          "label": {
+            "en": "Venice Beach Boardwalk",
+            "es": "Malecón de Venice Beach"
+          },
+          "spot": "venice-beach-boardwalk-ffbe3"
+        }
+      ]
+    }
+  ]
+}
