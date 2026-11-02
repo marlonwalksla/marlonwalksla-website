@@ -17,7 +17,7 @@ LEAF_DIVS = {"tp-rating", "tp-stat", "who"}
 
 class X(HTMLParser):
     def __init__(self):
-        super().__init__(convert_charrefs=True); self.stack = []; self.out = []; self.cur = None; self.skip = 0; self.href = None; self.hid = 0
+        super().__init__(convert_charrefs=True); self.stack = []; self.out = []; self.cur = None; self.skip = 0; self.href = None; self.hid = 0; self.link_open = False
     def handle_starttag(self, t, a):
         a = dict(a)
         if t in SKIP: self.skip += 1; return
@@ -26,7 +26,10 @@ class X(HTMLParser):
         if self.skip or self.hid: return
         if t in KEEP: self.cur = [t, ""]
         if t == "div" and LEAF_DIVS & set(a.get("class", "").split()): self.cur = ["div", ""]
-        if t == "a" and self.cur is not None: self.href = a.get("href"); self.cur[1] += "\x01"
+        # Keep internal and https links inside the text (markers \x01 href \x02 text \x03, turned into <a> by esc()), so crawlers still follow them.
+        if t == "a" and self.cur is not None:
+            self.href = a.get("href") or ""
+            if self.href.startswith(("/", "https://")): self.cur[1] += "\x01" + self.href + "\x02"; self.link_open = True
         if t == "br" and self.cur is not None: self.cur[1] += " "
     def handle_endtag(self, t):
         if t in SKIP: self.skip = max(0, self.skip - 1); return
@@ -35,8 +38,9 @@ class X(HTMLParser):
             _, h = self.stack.pop()
             if h: self.hid -= 1
         if self.skip or self.hid: return
+        if t == "a" and self.cur is not None and self.link_open: self.cur[1] += "\x03"; self.link_open = False
         if (t in KEEP or t == "div") and self.cur and self.cur[0] == t:
-            txt = re.sub(r"\s+", " ", self.cur[1].replace("\x01", "")).strip()
+            txt = re.sub(r"\s+", " ", self.cur[1]).strip()
             if txt: self.out.append(("p" if t == "div" else t, txt))
             self.cur = None
     def handle_data(self, d):
@@ -62,7 +66,9 @@ PAGES = {
  "home-es": ["home-hero-es", "home-reviews-strip-es", "home-head-team-es", "home-team-es", "home-team-card-es", "home-routebreak-es", "home-head-priv-es", "home-private-es", "home-private-calc-es", "home-meet-es", "home-book", "home-faq-es"],
 }
 
-def esc(t): return H.escape(t, quote=False)
+def esc(t):
+    t = H.escape(t, quote=False)
+    return re.sub(r"\x01(.*?)\x02(.*?)\x03", lambda m: '<a href="%s">%s</a>' % (m.group(1), m.group(2)), t)
 
 def pick(sec, tag, idx=0):
     items = [x for t, x in extract(sec) if t == tag]
@@ -73,7 +79,7 @@ def pick(sec, tag, idx=0):
 FACTS = {
  "en": dict(
   h1="Explore LA with Marlon", lede="Free, team and private walking tours of Los Angeles with a local guide, in English and Spanish.",
-  free_h="Free Walking Tour of Downtown LA", free_extra="English tour at 12:30 PM and Spanish tour at 9:30 AM. Meet at Walt Disney Concert Hall, 600 W 1st St. Free to book, tip what feels right at the end. The walk takes 2 to 2.5 hours and covers about 1.8 miles (2.9 km) on foot. Everyone gets a free Ernesto sticker. Food, drinks and parking are not included.",
+  free_h="Free Walking Tour of Downtown LA", free_extra="English tour at 12:30 PM and Spanish tour at 9:30 AM. Meet at Walt Disney Concert Hall, 600 W 1st St. Free to book, tip what feels right at the end. The walk takes about 2.5 hours and covers about 1.8 miles (2.9 km) on foot. Everyone gets a free Ernesto sticker. Food, drinks and parking are not included.",
   free_link=("/free-walking-tour-los-angeles", "Free walking tour in English"), free_link2=("/free-tour-los-angeles-espanol", "Free tour en español"),
   team_h="Team Outing Walking Tours", team_extra="Pricing for 5 to 20 guests: for example about $790 for 15 people (about $53 per person). The price per person goes down as the group grows. Lunch is either bought by each guest at Grand Central Market, or Marlon arranges catering for your group.",
   team_link=("/team-outings-los-angeles", "Team outing walking tours in Downtown LA"),
@@ -84,7 +90,7 @@ FACTS = {
   faq_h="Good to Know", meet_h="Meet Your Local Guide"),
  "es": dict(
   h1="Explora LA con Marlon", lede="Tours a pie gratis, para equipos y privados por Los Ángeles con un guía local, en español e inglés.",
-  free_h="Free tour a pie por el centro de Los Ángeles", free_extra="Tour en español a las 9:30 AM y en inglés a las 12:30 PM. Punto de encuentro: Walt Disney Concert Hall, 600 W 1st St. Reserva gratis y deja la propina que quieras al final. El recorrido dura de 2 a 2.5 horas y son unos 2.9 km (1.8 millas) a pie. Todos reciben una calcomanía de Ernesto gratis. La comida, las bebidas y el estacionamiento no están incluidos.",
+  free_h="Free tour a pie por el centro de Los Ángeles", free_extra="Tour en español a las 9:30 AM y en inglés a las 12:30 PM. Punto de encuentro: Walt Disney Concert Hall, 600 W 1st St. Reserva gratis y deja la propina que quieras al final. El recorrido dura unas 2,5 horas y son unos 2,9 km (1,8 millas) a pie. Todos reciben una calcomanía de Ernesto gratis. La comida, las bebidas y el estacionamiento no están incluidos.",
   free_link=("/free-tour-los-angeles-espanol", "Free tour por Los Ángeles en español"), free_link2=("/free-walking-tour-los-angeles", "Free tour in English"),
   team_h="Salidas de equipo a pie", team_extra="Precio para 5 a 20 personas: por ejemplo unos $790 para 15 personas (unos $53 por persona). El precio por persona baja a medida que crece el grupo. El almuerzo lo compra cada quien en Grand Central Market, o Marlon organiza un catering para tu grupo.",
   team_link=("/salidas-de-equipo-los-angeles", "Salidas de equipo a pie en el centro de LA"),
