@@ -5,13 +5,15 @@ The block is only shown when JavaScript is off. Visitors never see it. Crawlers 
 Run:  python3 tools/build_crawler_text.py        -> writes tools/crawler-text/<page>.html
 Then paste each file into the page's footer custom code in Webflow (Claude does this with the Webflow tools).
 Re-run after changing copy in a section."""
-import html as H, os, re, sys
+import html as H, json, os, re, sys
 from html.parser import HTMLParser
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PE = os.path.join(ROOT, "page-embeds")
 OUT = os.path.join(ROOT, "tools", "crawler-text")
 SKIP = {"style", "script", "svg", "noscript", "template", "button", "input", "select", "textarea", "form", "iframe"}
-KEEP = {"h1", "h2", "h3", "h4", "p", "li", "blockquote", "summary", "figcaption", "dt", "dd"}
+KEEP = {"h1", "h2", "h3", "h4", "p", "li", "blockquote", "summary", "figcaption", "dt", "dd", "q"}
+# Leaf <div>s that hold facts as plain text: the rating line, the per-platform rating chips and the reviewer name under each quote.
+LEAF_DIVS = {"tp-rating", "tp-stat", "who"}
 
 class X(HTMLParser):
     def __init__(self):
@@ -23,6 +25,7 @@ class X(HTMLParser):
         self.stack.append((t, False))
         if self.skip or self.hid: return
         if t in KEEP: self.cur = [t, ""]
+        if t == "div" and LEAF_DIVS & set(a.get("class", "").split()): self.cur = ["div", ""]
         if t == "a" and self.cur is not None: self.href = a.get("href"); self.cur[1] += "\x01"
         if t == "br" and self.cur is not None: self.cur[1] += " "
     def handle_endtag(self, t):
@@ -32,9 +35,9 @@ class X(HTMLParser):
             _, h = self.stack.pop()
             if h: self.hid -= 1
         if self.skip or self.hid: return
-        if t in KEEP and self.cur and self.cur[0] == t:
+        if (t in KEEP or t == "div") and self.cur and self.cur[0] == t:
             txt = re.sub(r"\s+", " ", self.cur[1].replace("\x01", "")).strip()
-            if txt: self.out.append((t, txt))
+            if txt: self.out.append(("p" if t == "div" else t, txt))
             self.cur = None
     def handle_data(self, d):
         if not self.skip and not self.hid and self.cur is not None: self.cur[1] += d
@@ -44,6 +47,14 @@ def extract(name):
     if not os.path.exists(p): return []
     s = open(p, encoding="utf-8").read()
     s = re.sub(r"<!--.*?-->", "", s, flags=re.S)
+    # The route stops live in a JSON <script> (the map widget reads it). Turn them into a plain list so crawlers see the stops too.
+    es = 'lang="es"' in s
+    def stops(m):
+        try: d = json.loads(m.group(1))
+        except ValueError: return ""
+        li = "".join(f"<li>{H.escape(p.get('name', ''))}: {H.escape(p.get('desc', ''))}</li>" for p in d.get("stops", []))
+        return f"<h3>{'Paradas del tour' if es else 'Tour stops'}</h3><ul>{li}</ul>" if li else ""
+    s = re.sub(r'<script type="application/json" class="ra-data">(.*?)</script>', stops, s, flags=re.S)
     x = X(); x.feed(s); return x.out
 
 PAGES = {
@@ -140,7 +151,7 @@ def build_other(page):
         if any(d in x for d in DRAFT): continue
         if t == "p" and not last_summary_ok:
             last_summary_ok = True; continue
-        tag = {"h1": "h1", "h2": "h2", "h3": "h3", "p": "p", "li": "li", "blockquote": "blockquote"}.get(t)
+        tag = {"h1": "h1", "h2": "h2", "h3": "h3", "p": "p", "li": "li", "blockquote": "blockquote", "q": "blockquote"}.get(t)
         if not tag: continue
         if tag == "li" and (not o[-1].startswith("<li") and o[-1] != "<ul>"): o.append("<ul>")
         if tag != "li" and o[-1].startswith("<li"): o.append("</ul>")
