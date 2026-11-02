@@ -21,12 +21,12 @@
     title: 'Pasaportes de LA', sub: 'Explora la ciudad un sello a la vez. Se guarda en este navegador, sin cuenta.',
     stamped: 'sellos', of: 'de', open: 'Abrir', soon: 'Muy pronto', all: 'Todos los pasaportes', stampIt: 'Sellar',
     undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
-    honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', stops: 'paradas', draft: 'Ilustración pendiente', tryIt: 'Prueba esto', free: 'Gratis', next: 'Siguiente pasaporte'
+    honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', mapAll: 'Explora todos los lugares en el mapa', mapPass: 'Ver este pasaporte en el mapa', stops: 'paradas', draft: 'Ilustración pendiente', tryIt: 'Prueba esto', free: 'Gratis', next: 'Siguiente pasaporte'
   } : {
     title: 'LA Passports', sub: 'Explore the city one stamp at a time. Saved in this browser, no account.',
     stamped: 'stamps', of: 'of', open: 'Open', soon: 'Coming soon', all: 'All passports', stampIt: 'Stamp it',
     undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', close: 'Close', done: 'Passport complete! Explore the next one.',
-    honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', stops: 'stops', draft: 'Drawing coming soon', tryIt: 'Try this', free: 'Free', next: 'Next passport'
+    honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', mapAll: 'Explore all places on the map', mapPass: 'See this passport on the map', stops: 'stops', draft: 'Drawing coming soon', tryIt: 'Try this', free: 'Free', next: 'Next passport'
   };
 
   var css = '' +
@@ -139,7 +139,7 @@
       h += '<button class="pcard" data-p="' + esc(p.id) + '"' + (soon ? ' disabled' : '') + ' style="--c:' + esc(p.ink) + '"><span class="mini" style="color:' + esc(p.ink) + '">' + mini + '</span><span style="flex:1;min-width:0"><b>' + esc(L(p.name)) + '</b><span class="m">' +
         (soon ? T.soon : n + ' ' + T.of + ' ' + tot + ' ' + T.stamped) + '</span>' + (soon ? '' : '<span class="bar"><i style="width:' + Math.round(100 * n / tot) + '%"></i></span>') + '</span></button>';
     });
-    root.innerHTML = h + '</div>';
+    root.innerHTML = h + '</div><p style="text-align:center;margin-top:18px"><a class="btn alt" href="' + T.mapPath + (ES ? '?lang=es' : '') + '">' + T.mapAll + ' →</a></p>';
     [].forEach.call(root.querySelectorAll('.pcard:not([disabled])'), function (b) { b.onclick = function () { go(b.getAttribute('data-p')); }; });
   }
 
@@ -152,7 +152,7 @@
       if (hasAreas && s.area !== lastArea) { h += '<div class="areah">' + esc(s.area || '') + '</div>'; lastArea = s.area; }
       h += '<button class="st' + (has(s) ? ' on' : '') + '" data-i="' + i + '" aria-pressed="' + has(s) + '" style="color:' + esc(s.ink || p.ink) + '">' + stampSvg(p, s, i) + '<span class="lb" style="color:var(--olive)">' + esc(L(s.name)) + '</span></button>';
     });
-    root.innerHTML = h + '</div><div class="foot">' + T.honest + '</div></div><div id="mwp-sheet"></div>';
+    root.innerHTML = h + '</div><p style="text-align:center;margin:16px 0 0"><a class="btn alt" href="' + T.mapPath + '?passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '') + '">' + T.mapPass + ' →</a></p><div class="foot">' + T.honest + '</div></div><div id="mwp-sheet"></div>';
     document.getElementById('mwp-back').onclick = function () { go(null); };
     [].forEach.call(root.querySelectorAll('.st'), function (b) { b.onclick = function () { open(p, +b.getAttribute('data-i')); }; });
   }
