@@ -319,7 +319,7 @@
 
   function renderPassport() {
     var p = pp(mode); if (!p) return;
-    var ink = p.ink || '#27302E', list = stops(p), g = prog(p), page = PPAGE[p.id];
+    var ink = p.ink || '#27302E', list = stops(p), g = prog(p), page = PPAGE[p.id] || '/passports?passport=' + encodeURIComponent(p.id);
     root.style.setProperty('--ink', ink);
     var h = '<div class="pmx-prog"><div class="pmx-prog-top"><b>' + esc(L(p.name)) + '</b><span>' + g.d + '/' + g.t + '</span></div>' +
       '<div class="pmx-bar"><i style="width:' + (g.t ? Math.round(g.d / g.t * 100) : 0) + '%"></i></div><small>' + esc(T.of(g.d, g.t)) + '</small>' +
