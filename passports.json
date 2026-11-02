@@ -489,8 +489,8 @@
      "mapId": "grand-central-market-3f7fa",
      "legacyKey": "grand-central-market",
      "tip": {
-      "en": "What to Eat on Your Visit: <ul><li><strong>Roast To Go (1952):</strong> Carnitas tacos simmered in traditional copper pots.</li><li><strong>Sarita’s Pupusería:</strong> Salvadoran handmade pupusas (featured in <em>La La Land</em>).</li><li><strong>China Cafe (1959):</strong> Classic wonton soup under vintage neon.</li></ul>",
-      "es": "Qué Probar en el Mercado: <ul><li><strong>Roast To Go (1952):</strong> Tacos de carnitas en cazo de cobre tradicional.</li><li><strong>Sarita's Pupusería:</strong> Pupusas salvadoreñas hechas a mano (vistas en <em>La La Land</em>).</li><li><strong>China Cafe (1959):</strong> Sopa wonton clásica en la barra de madera.</li></ul>"
+      "en": "What to Eat on Your Visit: Roast To Go (1952): Carnitas tacos simmered in traditional copper pots. Sarita’s Pupusería: Salvadoran handmade pupusas (featured in La La Land). China Cafe (1959): Classic wonton soup under vintage neon.",
+      "es": "Qué Probar en el Mercado: Roast To Go (1952): Tacos de carnitas en cazo de cobre tradicional. Sarita's Pupusería: Pupusas salvadoreñas hechas a mano (vistas en La La Land). China Cafe (1959): Sopa wonton clásica en la barra de madera."
      },
      "mapLink": "https://maps.google.com/?q=Grand+Central+Market+Los+Angeles"
     },
@@ -545,8 +545,8 @@
      "mapId": null,
      "legacyKey": null,
      "tip": {
-      "en": "The Sister Sculpture: On the opposite side of this parking structure facing Spring Street, Tony Sheets sculpted a companion relief titled <em>The Evolution of Printing</em>.",
-      "es": "La Escultura Gemela: Del otro lado de este estacionamiento sobre Spring Street, Tony Sheets esculpió el relieve complementario <em>La Evolución de la Imprenta</em>."
+      "en": "The Sister Sculpture: On the opposite side of this parking structure facing Spring Street, Tony Sheets sculpted a companion relief titled The Evolution of Printing.",
+      "es": "La Escultura Gemela: Del otro lado de este estacionamiento sobre Spring Street, Tony Sheets esculpió el relieve complementario La Evolución de la Imprenta."
      },
      "mapLink": "https://maps.google.com/?q=200+S+Broadway+Los+Angeles"
     },
@@ -629,8 +629,8 @@
      "mapId": "olvera-street-and-el-pueblo-a0700",
      "legacyKey": "olvera-street-and-el-pueblo",
      "tip": {
-      "en": "Legendary Avocado Taquitos: Grab crispy fried beef taquitos drenched in green avocado sauce at <em>Cielito Lindo</em> (operating at the top of Olvera Street since 1934).",
-      "es": "Taquitos con Aguacate de Cielito Lindo: Prueba los famosos taquitos dorados con salsa verde de aguacate en <em>Cielito Lindo</em> (abierto desde 1934 al final del callejón)."
+      "en": "Legendary Avocado Taquitos: Grab crispy fried beef taquitos drenched in green avocado sauce at Cielito Lindo (operating at the top of Olvera Street since 1934).",
+      "es": "Taquitos con Aguacate de Cielito Lindo: Prueba los famosos taquitos dorados con salsa verde de aguacate en Cielito Lindo (abierto desde 1934 al final del callejón)."
      },
      "mapLink": "https://maps.google.com/?q=Olvera+Street+Los+Angeles"
     }
