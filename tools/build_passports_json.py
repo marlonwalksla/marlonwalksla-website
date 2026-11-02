@@ -12,6 +12,9 @@ for f in g["features"]:
     mapid[re.sub(r"-[0-9a-f]{5}$", "", s)] = s          # old key (no code) -> real map pin id
 mapid["la-city-hall"] = "la-city-hall-observation-deck-c13cc"
 U = lambda s: html.unescape(s)
+def plain(t):
+    t = re.sub(r"</li>", " ", t); t = re.sub(r"<[^>]+>", "", t)
+    return re.sub(r"\s+", " ", html.unescape(t)).strip()
 stops = json.load(open(os.path.join(root, "page-embeds/free-passport-stops.json"), encoding="utf-8"))
 
 # Downtown Classic (same 9 stamps as the free tour passport page)
@@ -34,7 +37,7 @@ for i, d in enumerate(D):
         "top": {"en": U(d[1]), "es": U(d[2])}, "bottom": {"en": "LOS ANGELES", "es": "LOS ÁNGELES"},
         "icon": d[3], "year": d[4], "ink": d[5], "rot": d[6], "seed": d[7],
         "mapId": mapid.get(old) if old else None, "legacyKey": old,
-        "tip": {"en": ": ".join(x for x in en if x), "es": ": ".join(x for x in es if x)}, "mapLink": st.get("map")})
+        "tip": {"en": plain(": ".join(x for x in en if x)), "es": plain(": ".join(x for x in es if x))}, "mapLink": st.get("map")})
 
 # LA Tourist: the classic first-visit list. Icons are stand-ins where there is no drawing of the place yet (flagged "draft": true).
 T = [("griffith-observatory","GRIFFITH OBSERVATORY","OBSERVATORIO GRIFFITH","obs","1935","Griffith Observatory","Observatorio Griffith",False,"Free to get in. Come near sunset for the city lights.","Entrada gratis. Ve cerca del atardecer para ver las luces de la ciudad."),
