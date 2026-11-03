@@ -61,14 +61,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "pin",
+     "icon": "star",
      "year": "1960",
      "ink": "#1D6F8F",
      "rot": 5,
      "seed": 5,
      "mapId": "hollywood-walk-of-fame-932c6",
      "legacyKey": "hollywood-walk-of-fame",
-     "draft": true,
+     "draft": false,
      "tip": {
       "en": "Look down. Find a star for someone you love.",
       "es": "Mira al piso. Busca la estrella de alguien que quieres."
@@ -90,7 +90,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "palms3",
+     "icon": "mountain",
      "year": "1923",
      "ink": "#1D6F8F",
      "rot": -4,
@@ -119,7 +119,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "theater",
      "year": "1927",
      "ink": "#1D6F8F",
      "rot": 7,
@@ -206,7 +206,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "polaroid",
+     "icon": "museum",
      "year": "1997",
      "ink": "#1D6F8F",
      "rot": -3,
@@ -411,8 +411,82 @@
      "mapLink": "https://maps.google.com/?q=Walt+Disney+Concert+Hall+Los+Angeles"
     },
     {
+     "id": "wdch-garden",
+     "bonus": true,
+     "parent": "walt-disney-concert-hall",
+     "name": {
+      "en": "Explore the garden",
+      "es": "Explora el jardín"
+     },
+     "top": {
+      "en": "THE GARDEN",
+      "es": "EL JARDÍN"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "flower",
+     "year": "",
+     "ink": "#2B4F9E",
+     "rot": 5,
+     "seed": 13,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "Free",
+     "tip": {
+      "en": "The garden is behind the hall. Find the fountain covered in broken blue and white tiles.",
+      "es": "El jardín está detrás de la sala. Busca la fuente cubierta de pedazos de azulejo azul y blanco."
+     },
+     "challenge": {
+      "en": "Find the rose fountain.",
+      "es": "Encuentra la fuente de la rosa."
+     },
+     "mapLink": null,
+     "order": 2
+    },
+    {
+     "id": "wdch-inside",
+     "bonus": true,
+     "parent": "walt-disney-concert-hall",
+     "name": {
+      "en": "Go inside",
+      "es": "Entra a la sala"
+     },
+     "top": {
+      "en": "INSIDE THE HALL",
+      "es": "DENTRO DE LA SALA"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "door",
+     "year": "",
+     "ink": "#2B4F9E",
+     "rot": -4,
+     "seed": 16,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "Free",
+     "tip": {
+      "en": "Step inside when it is open and look up at the wood ceiling. Check the hall's website for hours and tours.",
+      "es": "Entra cuando esté abierto y mira hacia arriba, al techo de madera. Revisa el sitio de la sala para ver horarios y tours."
+     },
+     "challenge": {
+      "en": "Look up at the wood ceiling.",
+      "es": "Mira hacia arriba, al techo de madera."
+     },
+     "mapLink": null,
+     "order": 3
+    },
+    {
      "id": "the-broad",
-     "order": 2,
+     "order": 4,
      "name": {
       "en": "The Broad",
       "es": "The Broad"
@@ -439,8 +513,45 @@
      "mapLink": "https://maps.google.com/?q=The+Broad+Los+Angeles"
     },
     {
+     "id": "broad-honeycomb",
+     "bonus": true,
+     "parent": "the-broad",
+     "name": {
+      "en": "Honeycomb wall",
+      "es": "Pared de panal"
+     },
+     "top": {
+      "en": "HONEYCOMB WALL",
+      "es": "PARED DE PANAL"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "camera",
+     "year": "",
+     "ink": "#C2352A",
+     "rot": 5,
+     "seed": 8,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "Free",
+     "tip": {
+      "en": "The outside wall looks like a honeycomb. Look at it from across the street.",
+      "es": "La pared de afuera parece un panal. Mírala desde el otro lado de la calle."
+     },
+     "challenge": {
+      "en": "Take a photo of the honeycomb wall.",
+      "es": "Toma una foto de la pared de panal."
+     },
+     "mapLink": null,
+     "order": 5
+    },
+    {
      "id": "angels-flight",
-     "order": 3,
+     "order": 6,
      "name": {
       "en": "Angels Flight",
       "es": "Angels Flight"
@@ -467,8 +578,45 @@
      "mapLink": "https://maps.google.com/?q=Angels+Flight+Railway+Los+Angeles"
     },
     {
+     "id": "angels-ride",
+     "bonus": true,
+     "parent": "angels-flight",
+     "name": {
+      "en": "Ride Angels Flight",
+      "es": "Súbete a Angels Flight"
+     },
+     "top": {
+      "en": "RIDE IT",
+      "es": "SÚBETE"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "angels",
+     "year": "",
+     "ink": "#2890B6",
+     "rot": 5,
+     "seed": 17,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "$",
+     "tip": {
+      "en": "The little railway climbs Bunker Hill. The fare is $1.50, or 75 cents with TAP.",
+      "es": "El funicular sube Bunker Hill. Cuesta $1.50, o 75 centavos con TAP."
+     },
+     "challenge": {
+      "en": "Ride it once.",
+      "es": "Súbete una vez."
+     },
+     "mapLink": null,
+     "order": 7
+    },
+    {
      "id": "grand-central-market",
-     "order": 4,
+     "order": 8,
      "name": {
       "en": "Grand Central Market",
       "es": "Mercado Grand Central"
@@ -495,8 +643,45 @@
      "mapLink": "https://maps.google.com/?q=Grand+Central+Market+Los+Angeles"
     },
     {
+     "id": "gcm-sign",
+     "bonus": true,
+     "parent": "grand-central-market",
+     "name": {
+      "en": "Find the neon sign",
+      "es": "Busca el letrero de neón"
+     },
+     "top": {
+      "en": "NEON SIGN",
+      "es": "LETRERO DE NEÓN"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "camera",
+     "year": "",
+     "ink": "#E2662A",
+     "rot": 5,
+     "seed": 9,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "Free",
+     "tip": {
+      "en": "Look for the big neon sign at the entrance.",
+      "es": "Busca el letrero grande de neón en la entrada."
+     },
+     "challenge": {
+      "en": "Take a photo under the sign.",
+      "es": "Toma una foto debajo del letrero."
+     },
+     "mapLink": null,
+     "order": 9
+    },
+    {
      "id": "bradbury-building",
-     "order": 5,
+     "order": 10,
      "name": {
       "en": "Bradbury Building",
       "es": "Edificio Bradbury"
@@ -523,8 +708,45 @@
      "mapLink": "https://maps.google.com/?q=Bradbury+Building+Los+Angeles"
     },
     {
+     "id": "bradbury-lobby",
+     "bonus": true,
+     "parent": "bradbury-building",
+     "name": {
+      "en": "Step into the lobby",
+      "es": "Entra al lobby"
+     },
+     "top": {
+      "en": "THE LOBBY",
+      "es": "EL LOBBY"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "door",
+     "year": "",
+     "ink": "#1B8A8F",
+     "rot": 5,
+     "seed": 19,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "Free",
+     "tip": {
+      "en": "The lobby is open to visitors in the daytime. Look up at the glass roof and the iron stairs.",
+      "es": "El lobby está abierto a visitantes de día. Mira hacia arriba, al techo de vidrio y las escaleras de hierro."
+     },
+     "challenge": {
+      "en": "Look up at the glass roof.",
+      "es": "Mira hacia arriba, al techo de vidrio."
+     },
+     "mapLink": null,
+     "order": 11
+    },
+    {
      "id": "evolution-of-la-mural",
-     "order": 6,
+     "order": 12,
      "name": {
       "en": "Evolution of LA mural",
       "es": "Mural Evolución de LA"
@@ -552,7 +774,7 @@
     },
     {
      "id": "la-city-hall",
-     "order": 7,
+     "order": 13,
      "name": {
       "en": "LA City Hall",
       "es": "Ayuntamiento de LA"
@@ -579,8 +801,45 @@
      "mapLink": "https://maps.google.com/?q=Los+Angeles+City+Hall"
     },
     {
+     "id": "cityhall-deck",
+     "bonus": true,
+     "parent": "la-city-hall",
+     "name": {
+      "en": "Go up to the deck",
+      "es": "Sube al mirador"
+     },
+     "top": {
+      "en": "OBSERVATION DECK",
+      "es": "MIRADOR"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "skyline",
+     "year": "",
+     "ink": "#2E9E57",
+     "rot": 5,
+     "seed": 11,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "Free",
+     "tip": {
+      "en": "The observation deck is free when it is open. Check the city's website for days and hours.",
+      "es": "El mirador es gratis cuando está abierto. Revisa el sitio de la ciudad para ver días y horarios."
+     },
+     "challenge": {
+      "en": "Find Walt Disney Concert Hall from above.",
+      "es": "Encuentra la Sala Walt Disney desde arriba."
+     },
+     "mapLink": null,
+     "order": 14
+    },
+    {
      "id": "hall-of-justice",
-     "order": 8,
+     "order": 15,
      "name": {
       "en": "Hall of Justice",
       "es": "Palacio de Justicia"
@@ -608,7 +867,7 @@
     },
     {
      "id": "olvera-street",
-     "order": 9,
+     "order": 16,
      "name": {
       "en": "Olvera Street and El Pueblo",
       "es": "Calle Olvera y El Pueblo"
@@ -633,6 +892,80 @@
       "es": "Taquitos con Aguacate de Cielito Lindo: Prueba los famosos taquitos dorados con salsa verde de aguacate en Cielito Lindo (abierto desde 1934 al final del callejón)."
      },
      "mapLink": "https://maps.google.com/?q=Olvera+Street+Los+Angeles"
+    },
+    {
+     "id": "olvera-avila",
+     "bonus": true,
+     "parent": "olvera-street",
+     "name": {
+      "en": "Visit the Avila Adobe",
+      "es": "Visita la Avila Adobe"
+     },
+     "top": {
+      "en": "AVILA ADOBE",
+      "es": "AVILA ADOBE"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "mission",
+     "year": "",
+     "ink": "#7A3FA0",
+     "rot": 5,
+     "seed": 22,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "Free",
+     "tip": {
+      "en": "The oldest house in LA, built in 1818. It is free to walk in when it is open.",
+      "es": "La casa más antigua de LA, construida en 1818. Es gratis entrar cuando está abierta."
+     },
+     "challenge": {
+      "en": "Walk through the old rooms.",
+      "es": "Camina por los cuartos antiguos."
+     },
+     "mapLink": null,
+     "order": 17
+    },
+    {
+     "id": "olvera-taquito",
+     "bonus": true,
+     "parent": "olvera-street",
+     "name": {
+      "en": "Try a taquito",
+      "es": "Prueba un taquito"
+     },
+     "top": {
+      "en": "TAQUITOS",
+      "es": "TAQUITOS"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "taco",
+     "year": "",
+     "ink": "#7A3FA0",
+     "rot": -4,
+     "seed": 25,
+     "mapId": null,
+     "legacyKey": null,
+     "draft": false,
+     "area": "",
+     "cost": "$",
+     "tip": {
+      "en": "A famous Olvera Street snack. Share one with a friend.",
+      "es": "Un snack famoso de la calle Olvera. Comparte uno con un amigo."
+     },
+     "challenge": {
+      "en": "Try a taquito.",
+      "es": "Prueba un taquito."
+     },
+     "mapLink": null,
+     "order": 18
     }
    ]
   },
@@ -701,7 +1034,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "theater",
      "year": "1927",
      "ink": "#8B1E3F",
      "rot": 5,
@@ -736,7 +1069,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "theater",
      "year": "",
      "ink": "#8B1E3F",
      "rot": -4,
@@ -771,7 +1104,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "polaroid",
+     "icon": "theater",
      "year": "1922",
      "ink": "#8B1E3F",
      "rot": 7,
@@ -806,14 +1139,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "palms3",
+     "icon": "mountain",
      "year": "",
      "ink": "#8B1E3F",
      "rot": -8,
      "seed": 11,
      "mapId": "bronson-canyon-batcave-e03cf",
      "legacyKey": "bronson-canyon-batcave",
-     "draft": true,
+     "draft": false,
      "area": "Hollywood and nearby",
      "cost": "Free",
      "tip": {
@@ -841,14 +1174,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "pin",
+     "icon": "stairs",
      "year": "1932",
      "ink": "#8B1E3F",
      "rot": 4,
      "seed": 13,
      "mapId": "music-box-steps-5c742",
      "legacyKey": "music-box-steps",
-     "draft": true,
+     "draft": false,
      "area": "Hollywood and nearby",
      "cost": "Free",
      "tip": {
@@ -876,14 +1209,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "clapper",
      "year": "",
      "ink": "#8B1E3F",
      "rot": -3,
      "seed": 15,
      "mapId": "paramount-pictures-studio-tour-72d5f",
      "legacyKey": "paramount-pictures-studio-tour",
-     "draft": true,
+     "draft": false,
      "area": "Studios and museums",
      "cost": "$$",
      "tip": {
@@ -911,14 +1244,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "clapper",
      "year": "",
      "ink": "#8B1E3F",
      "rot": 6,
      "seed": 17,
      "mapId": "warner-bros-studio-tour-hollywood-46817",
      "legacyKey": "warner-bros-studio-tour-hollywood",
-     "draft": true,
+     "draft": false,
      "area": "Studios and museums",
      "cost": "$$",
      "tip": {
@@ -946,14 +1279,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "clapper",
      "year": "",
      "ink": "#8B1E3F",
      "rot": -5,
      "seed": 19,
      "mapId": "sony-pictures-studios-tour-b27de",
      "legacyKey": "sony-pictures-studios-tour",
-     "draft": true,
+     "draft": false,
      "area": "Studios and museums",
      "cost": "$$",
      "tip": {
@@ -981,7 +1314,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "polaroid",
+     "icon": "museum",
      "year": "",
      "ink": "#8B1E3F",
      "rot": 3,
@@ -1068,7 +1401,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "palms3",
+     "icon": "mountain",
      "year": "1923",
      "ink": "#D6457A",
      "rot": 5,
@@ -1243,14 +1576,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "pin",
+     "icon": "bridge",
      "year": "1913",
      "ink": "#D6457A",
      "rot": -3,
      "seed": 15,
      "mapId": "colorado-street-bridge-8dddc",
      "legacyKey": "colorado-street-bridge",
-     "draft": true,
+     "draft": false,
      "area": "Around LA",
      "cost": "Free",
      "tip": {
@@ -1348,14 +1681,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "sunset",
+     "icon": "wave",
      "year": "",
      "ink": "#D6457A",
      "rot": 3,
      "seed": 21,
      "mapId": "el-matador-state-beach-e9cf6",
      "legacyKey": "el-matador-state-beach",
-     "draft": true,
+     "draft": false,
      "area": "Beaches",
      "cost": null,
      "tip": {
@@ -1767,14 +2100,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "pin",
+     "icon": "star",
      "year": "1960",
      "ink": "#C28A00",
      "rot": -6,
      "seed": 3,
      "mapId": "hollywood-walk-of-fame-932c6",
      "legacyKey": "hollywood-walk-of-fame",
-     "draft": true,
+     "draft": false,
      "area": "Hollywood Boulevard",
      "cost": "Free",
      "tip": {
@@ -1802,7 +2135,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "theater",
      "year": "1927",
      "ink": "#C28A00",
      "rot": 5,
@@ -1837,7 +2170,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "theater",
      "year": "",
      "ink": "#C28A00",
      "rot": -4,
@@ -1872,7 +2205,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "polaroid",
+     "icon": "theater",
      "year": "1930",
      "ink": "#C28A00",
      "rot": 7,
@@ -1942,7 +2275,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "city_tower",
+     "icon": "record",
      "year": "1956",
      "ink": "#C28A00",
      "rot": -8,
@@ -2012,7 +2345,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "bag",
+     "icon": "record",
      "year": "",
      "ink": "#C28A00",
      "rot": 6,
@@ -2047,7 +2380,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "sunset",
+     "icon": "theater",
      "year": "1922",
      "ink": "#C28A00",
      "rot": -5,
@@ -2082,7 +2415,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "palms3",
+     "icon": "mountain",
      "year": "1923",
      "ink": "#C28A00",
      "rot": 3,
@@ -2274,14 +2607,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "sunset",
+     "icon": "wave",
      "year": "",
      "ink": "#2A9D8F",
      "rot": -8,
      "seed": 11,
      "mapId": "el-matador-state-beach-e9cf6",
      "legacyKey": "el-matador-state-beach",
-     "draft": true,
+     "draft": false,
      "area": "Malibu",
      "cost": null,
      "tip": {
@@ -2309,14 +2642,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "palms3",
+     "icon": "wave",
      "year": "",
      "ink": "#2A9D8F",
      "rot": 4,
      "seed": 13,
      "mapId": "zuma-beach-6061f",
      "legacyKey": "zuma-beach",
-     "draft": true,
+     "draft": false,
      "area": "Malibu",
      "cost": null,
      "tip": {
@@ -2414,14 +2747,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "pin",
+     "icon": "lighthouse",
      "year": "1926",
      "ink": "#2A9D8F",
      "rot": -5,
      "seed": 19,
      "mapId": "point-vicente-lighthouse-f6400",
      "legacyKey": "point-vicente-lighthouse",
-     "draft": true,
+     "draft": false,
      "area": "South Bay",
      "cost": "Free",
      "tip": {
@@ -2449,14 +2782,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "sunset",
+     "icon": "fire",
      "year": "",
      "ink": "#2A9D8F",
      "rot": 3,
      "seed": 21,
      "mapId": "dockweiler-beach-fire-pits-78a08",
      "legacyKey": "dockweiler-beach-fire-pits",
-     "draft": true,
+     "draft": false,
      "area": "South Bay",
      "cost": "Free",
      "tip": {
@@ -2781,14 +3114,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "papel",
+     "icon": "mission",
      "year": "1771",
      "ink": "#D1495B",
      "rot": -5,
      "seed": 19,
      "mapId": "mission-san-gabriel-arc-ngel-7af32",
      "legacyKey": "mission-san-gabriel-arc-ngel",
-     "draft": true,
+     "draft": false,
      "area": "Around LA",
      "cost": null,
      "tip": {
@@ -2833,7 +3166,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "city_tower",
+     "icon": "record",
      "year": "1956",
      "ink": "#3F51B5",
      "rot": -6,
@@ -2868,7 +3201,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "bag",
+     "icon": "record",
      "year": "",
      "ink": "#3F51B5",
      "rot": 5,
@@ -2903,7 +3236,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "sunset",
+     "icon": "record",
      "year": "1964",
      "ink": "#3F51B5",
      "rot": -4,
@@ -2938,7 +3271,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "sunset",
+     "icon": "record",
      "year": "1957",
      "ink": "#3F51B5",
      "rot": 7,
@@ -3008,7 +3341,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "sunset",
+     "icon": "theater",
      "year": "1922",
      "ink": "#3F51B5",
      "rot": 4,
@@ -3043,7 +3376,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "pin",
+     "icon": "theater",
      "year": "1929",
      "ink": "#3F51B5",
      "rot": -3,
@@ -3078,7 +3411,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "city_tower",
+     "icon": "theater",
      "year": "1931",
      "ink": "#3F51B5",
      "rot": 6,
@@ -3113,7 +3446,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "trophy",
+     "icon": "museum",
      "year": "",
      "ink": "#3F51B5",
      "rot": -5,
@@ -3148,7 +3481,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "sunset",
+     "icon": "record",
      "year": "",
      "ink": "#3F51B5",
      "rot": 3,
@@ -3340,14 +3673,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "pin",
+     "icon": "star",
      "year": "1960",
      "ink": "#4C8C2B",
      "rot": -8,
      "seed": 11,
      "mapId": "hollywood-walk-of-fame-932c6",
      "legacyKey": "hollywood-walk-of-fame",
-     "draft": true,
+     "draft": false,
      "area": "Hollywood and Mid-City",
      "cost": "Free",
      "tip": {
@@ -3410,14 +3743,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "palms3",
+     "icon": "mountain",
      "year": "",
      "ink": "#4C8C2B",
      "rot": -3,
      "seed": 15,
      "mapId": "runyon-canyon-park-9b704",
      "legacyKey": "runyon-canyon-park",
-     "draft": true,
+     "draft": false,
      "area": "Hollywood and Mid-City",
      "cost": "Free",
      "tip": {
@@ -3445,7 +3778,7 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "polaroid",
+     "icon": "museum",
      "year": "1997",
      "ink": "#4C8C2B",
      "rot": 6,
@@ -3480,14 +3813,14 @@
       "en": "LOS ANGELES",
       "es": "LOS ÁNGELES"
      },
-     "icon": "pier",
+     "icon": "wave",
      "year": "",
      "ink": "#4C8C2B",
      "rot": -5,
      "seed": 19,
      "mapId": "santa-monica-state-beach-7a8ad",
      "legacyKey": "santa-monica-state-beach",
-     "draft": true,
+     "draft": false,
      "area": "Westside and beaches",
      "cost": "Free",
      "tip": {
