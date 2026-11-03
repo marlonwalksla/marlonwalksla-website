@@ -179,7 +179,7 @@
     nightlife: { e: '🍸', c: '#7C3AED', en: 'Nightlife', es: 'Vida nocturna' }
   };
   var STORY = { 'walt-disney-concert-hall': '/blog/walt-disney-concert-hall', 'the-broad': '/blog/the-broad', 'angels-flight-railway': '/blog/angels-flight', 'la-city-hall': '/blog/city-hall', 'olvera-street-and-el-pueblo': '/blog/olvera-street' };
-  var PPAGE = { 'downtown-classic': '/free-tour-passport', 'la-tourist': '/passports?passport=la-tourist' };
+  var PPAGE = { 'downtown-classic': '/passports?passport=downtown-classic', 'la-tourist': '/passports?passport=la-tourist' };
   var BASE = 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/';
   var TOKEN = 'pk.eyJ1IjoibWFybG9ud2Fsa3NsYSIsImEiOiJjbXM5YWhuOGIwbGVjMzRwbTZ0b2I2emZlIn0.UgW7MpYibACH6Axk1WgoSA';
 
@@ -349,6 +349,7 @@
   function renderPassport() {
     var p = pp(mode); if (!p) return;
     var ink = p.ink || '#27302E', list = stops(p), g = prog(p), page = PPAGE[p.id] || '/passports?passport=' + encodeURIComponent(p.id);
+    if (ES) page = page.replace('/passports', '/pasaportes');
     root.style.setProperty('--ink', ink);
     var h = '<div class="pmx-prog"><div class="pmx-prog-top"><b>' + esc(L(p.name)) + '</b><span>' + g.d + '/' + g.t + '</span></div>' +
       '<div class="pmx-bar"><i style="width:' + (g.t ? Math.round(g.d / g.t * 100) : 0) + '%"></i></div><small>' + esc(T.of(g.d, g.t)) + '</small>' +
