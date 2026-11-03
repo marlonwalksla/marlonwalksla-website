@@ -39,14 +39,60 @@ for i, d in enumerate(D):
         "mapId": mapid.get(old) if old else None, "legacyKey": old,
         "tip": {"en": plain(": ".join(x for x in en if x)), "es": plain(": ".join(x for x in es if x))}, "mapLink": st.get("map")})
 
+
+# Bonus stamps (Nov 3, 2026): small extras that belong to a place. They sit under their place, do not count toward the passport total,
+# and tell a visitor what to look forward to there. (id, parent, name EN, name ES, top EN, top ES, icon, map pin or None, tip EN, tip ES, challenge EN, challenge ES, cost)
+BONUS = [
+ ("wdch-garden", "walt-disney-concert-hall", "Explore the garden", "Explora el jard\u00edn", "THE GARDEN", "EL JARD\u00cdN", "flower", None,
+  "The garden is behind the hall. Find the fountain covered in broken blue and white tiles.", "El jard\u00edn est\u00e1 detr\u00e1s de la sala. Busca la fuente cubierta de pedazos de azulejo azul y blanco.",
+  "Find the rose fountain.", "Encuentra la fuente de la rosa.", "Free"),
+ ("wdch-inside", "walt-disney-concert-hall", "Go inside", "Entra a la sala", "INSIDE THE HALL", "DENTRO DE LA SALA", "door", None,
+  "Step inside when it is open and look up at the wood ceiling. Check the hall's website for hours and tours.", "Entra cuando est\u00e9 abierto y mira hacia arriba, al techo de madera. Revisa el sitio de la sala para ver horarios y tours.",
+  "Look up at the wood ceiling.", "Mira hacia arriba, al techo de madera.", "Free"),
+ ("broad-honeycomb", "the-broad", "Honeycomb wall", "Pared de panal", "HONEYCOMB WALL", "PARED DE PANAL", "camera", None,
+  "The outside wall looks like a honeycomb. Look at it from across the street.", "La pared de afuera parece un panal. M\u00edrala desde el otro lado de la calle.",
+  "Take a photo of the honeycomb wall.", "Toma una foto de la pared de panal.", "Free"),
+ ("angels-ride", "angels-flight", "Ride Angels Flight", "S\u00fabete a Angels Flight", "RIDE IT", "S\u00daBETE", "angels", None,
+  "The little railway climbs Bunker Hill. The fare is $1.50, or 75 cents with TAP.", "El funicular sube Bunker Hill. Cuesta $1.50, o 75 centavos con TAP.",
+  "Ride it once.", "S\u00fabete una vez.", "$"),
+ ("gcm-sign", "grand-central-market", "Find the neon sign", "Busca el letrero de ne\u00f3n", "NEON SIGN", "LETRERO DE NE\u00d3N", "camera", None,
+  "Look for the big neon sign at the entrance.", "Busca el letrero grande de ne\u00f3n en la entrada.",
+  "Take a photo under the sign.", "Toma una foto debajo del letrero.", "Free"),
+ ("bradbury-lobby", "bradbury-building", "Step into the lobby", "Entra al lobby", "THE LOBBY", "EL LOBBY", "door", None,
+  "The lobby is open to visitors in the daytime. Look up at the glass roof and the iron stairs.", "El lobby est\u00e1 abierto a visitantes de d\u00eda. Mira hacia arriba, al techo de vidrio y las escaleras de hierro.",
+  "Look up at the glass roof.", "Mira hacia arriba, al techo de vidrio.", "Free"),
+ ("cityhall-deck", "la-city-hall", "Go up to the deck", "Sube al mirador", "OBSERVATION DECK", "MIRADOR", "skyline", None,
+  "The observation deck is free when it is open. Check the city's website for days and hours.", "El mirador es gratis cuando est\u00e1 abierto. Revisa el sitio de la ciudad para ver d\u00edas y horarios.",
+  "Find Walt Disney Concert Hall from above.", "Encuentra la Sala Walt Disney desde arriba.", "Free"),
+ ("olvera-avila", "olvera-street", "Visit the Avila Adobe", "Visita la Avila Adobe", "AVILA ADOBE", "AVILA ADOBE", "mission", None,
+  "The oldest house in LA, built in 1818. It is free to walk in when it is open.", "La casa m\u00e1s antigua de LA, construida en 1818. Es gratis entrar cuando est\u00e1 abierta.",
+  "Walk through the old rooms.", "Camina por los cuartos antiguos.", "Free"),
+ ("olvera-taquito", "olvera-street", "Try a taquito", "Prueba un taquito", "TAQUITOS", "TAQUITOS", "taco", None,
+  "A famous Olvera Street snack. Share one with a friend.", "Un snack famoso de la calle Olvera. Comparte uno con un amigo.",
+  "Try a taquito.", "Prueba un taquito.", "$"),
+]
+_kids = {}
+for b in BONUS: _kids.setdefault(b[1], []).append(b)
+_new = []
+for d in dstamps:
+    _new.append(d)
+    for k, b in enumerate(_kids.get(d["id"], [])):
+        real = mapid.get(b[7]) if b[7] else None
+        _new.append({"id": b[0], "bonus": True, "parent": d["id"], "name": {"en": b[2], "es": b[3]}, "top": {"en": b[4], "es": b[5]},
+            "bottom": {"en": "LOS ANGELES", "es": "LOS \u00c1NGELES"}, "icon": b[6], "year": "", "ink": d["ink"], "rot": [5, -4, 6][k % 3], "seed": d["seed"] + 5 + k * 3,
+            "mapId": real or (b[7] if b[7] and b[7] in mapid.values() else None), "legacyKey": None, "draft": False, "area": "", "cost": b[12],
+            "tip": {"en": b[8], "es": b[9]}, "challenge": {"en": b[10], "es": b[11]}, "mapLink": None})
+dstamps = _new
+for _i, _x in enumerate(dstamps): _x["order"] = _i + 1
+
 # LA Tourist: the classic first-visit list. Icons are stand-ins where there is no drawing of the place yet (flagged "draft": true).
 T = [("griffith-observatory","GRIFFITH OBSERVATORY","OBSERVATORIO GRIFFITH","obs","1935","Griffith Observatory","Observatorio Griffith",False,"Free to get in. Come near sunset for the city lights.","Entrada gratis. Ve cerca del atardecer para ver las luces de la ciudad."),
-("hollywood-walk-of-fame","WALK OF FAME","PASEO DE LA FAMA","pin","1960","Hollywood Walk of Fame","Paseo de la Fama de Hollywood",True,"Look down. Find a star for someone you love.","Mira al piso. Busca la estrella de alguien que quieres."),
-("hollywood-sign-viewpoint-lake-hollywood-park","HOLLYWOOD SIGN","LETRERO DE HOLLYWOOD","palms3","1923","Hollywood Sign view","Vista del letrero de Hollywood",True,"The park at Lake Hollywood has a clear view and a dog park.","El parque de Lake Hollywood tiene una vista clara del letrero."),
-("tcl-chinese-theatre","TCL CHINESE THEATRE","TEATRO CHINO TCL","trophy","1927","TCL Chinese Theatre","Teatro Chino TCL",True,"Put your hands in the famous cement prints in the front yard.","Pon tus manos en las huellas de cemento del patio de enfrente."),
+("hollywood-walk-of-fame","WALK OF FAME","PASEO DE LA FAMA","star","1960","Hollywood Walk of Fame","Paseo de la Fama de Hollywood",False,"Look down. Find a star for someone you love.","Mira al piso. Busca la estrella de alguien que quieres."),
+("hollywood-sign-viewpoint-lake-hollywood-park","HOLLYWOOD SIGN","LETRERO DE HOLLYWOOD","mountain","1923","Hollywood Sign view","Vista del letrero de Hollywood",True,"The park at Lake Hollywood has a clear view and a dog park.","El parque de Lake Hollywood tiene una vista clara del letrero."),
+("tcl-chinese-theatre","TCL CHINESE THEATRE","TEATRO CHINO TCL","theater","1927","TCL Chinese Theatre","Teatro Chino TCL",True,"Put your hands in the famous cement prints in the front yard.","Pon tus manos en las huellas de cemento del patio de enfrente."),
 ("santa-monica-pier","SANTA MONICA PIER","MUELLE DE SANTA MONICA","pier","1909","Santa Monica Pier","Muelle de Santa Monica",False,"Walk to the end of the pier and look back at the coast.","Camina hasta el final del muelle y mira hacia la costa."),
 ("venice-beach-boardwalk","VENICE BEACH","VENICE BEACH","venice_beach","1905","Venice Beach Boardwalk","Malecón de Venice Beach",False,"Skaters, muscle beach and street art. Explore it slowly.","Patinadores, Muscle Beach y arte callejero. Explóralo con calma."),
-("the-getty-center","THE GETTY CENTER","EL GETTY CENTER","polaroid","1997","The Getty Center","El Getty Center",True,"Free to get in. Parking costs money, so take the tram up the hill.","Entrada gratis. El estacionamiento cuesta, usa el tranvía hasta arriba."),
+("the-getty-center","THE GETTY CENTER","EL GETTY CENTER","museum","1997","The Getty Center","El Getty Center",True,"Free to get in. Parking costs money, so take the tram up the hill.","Entrada gratis. El estacionamiento cuesta, usa el tranvía hasta arriba."),
 ("rodeo-drive","RODEO DRIVE","RODEO DRIVE","bag","","Rodeo Drive","Rodeo Drive",False,"Window shopping is free. Walk it and enjoy the people watching.","Ver las vitrinas es gratis. Camina y disfruta ver pasar a la gente."),
 ("walt-disney-concert-hall","WALT DISNEY CONCERT HALL","SALA WALT DISNEY","wdch","2003","Walt Disney Concert Hall","Sala de Conciertos Walt Disney",False,"The steel curves look different from every side. Walk all the way around.","Las curvas de acero cambian en cada lado. Camina alrededor."),
 ("the-broad","THE BROAD","THE BROAD","broad","2015","The Broad","The Broad",False,"Free to get in, but book a time online. The line outside moves fast.","Entrada gratis, pero reserva hora en línea. La fila avanza rápido."),
