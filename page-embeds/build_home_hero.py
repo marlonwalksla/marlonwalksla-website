@@ -257,7 +257,6 @@ def build(lang):
   .mwh-cta {{ display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 14px; }}
   .mwh-cta .mwh-btn {{ flex: 0 1 auto; font-size: 1.15rem; padding: 13px 22px; text-align: center; }}
   /* Oct 17, 2026 (Marlon, via Gemini): Ernesto + two scrapbook language tags under the headline; two CTAs; no header bar on Home */
-  body:has(.mwh) .mwhd {{ display: none !important; }}
   body:has(.mwh) .section.max-height_100vh_desktop {{ margin-top: 0 !important; }}
   /* Oct 17, 2026 (Marlon, via Gemini round 2): back to one border per section; the hero keeps its own airmail edge (inset 12px) */
   .mwh-wrap {{ padding-top: 64px; }}
