@@ -39,9 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Nov 3, 2026: passports in the header and footer, and the EN | ES switch on the two passport pages.
-// OFF on marlonwalksla.com until Marlon says go: set PP_NAV_LIVE to true to show it everywhere.
+// ON everywhere since Nov 3, 2026 (Marlon said go). Set PP_NAV_LIVE to false to hide the passport links on marlonwalksla.com again.
 (function () {
-  var PP_NAV_LIVE = false;
+  var PP_NAV_LIVE = true;
   var live = /^(www\.)?marlonwalksla\.com$/i.test(location.hostname);
   if (live && !PP_NAV_LIVE) return;
   document.addEventListener('DOMContentLoaded', function () {
