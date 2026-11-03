@@ -65,10 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Footer: after the Maps link in the footer
     var fm = Array.prototype.filter.call(document.querySelectorAll('a[href="/maps"], a[href="/mapa-los-angeles"]'), function (x) { return !x.closest('.mwhd'); })[0];
-    if (fm && !document.querySelector('a[data-pp-foot]')) {
+    [].forEach.call(document.querySelectorAll('a[data-pp-foot]'), function (x) { x.remove(); });
+    if (fm) {
       var f = fm.cloneNode(false);
       f.setAttribute('data-pp-foot', '1'); f.href = href; f.textContent = label;
-      fm.parentNode.insertBefore(f, fm.nextSibling);
+      // Own list item: another script copies the Maps item to make LA History, and would copy the link with it.
+      var li = fm.parentNode;
+      if (li && li.tagName === 'LI' && li.parentNode) {
+        var nli = li.cloneNode(false); nli.appendChild(f); li.parentNode.insertBefore(nli, li.nextSibling);
+      } else fm.parentNode.insertBefore(f, fm.nextSibling);
     }
   });
 })();
