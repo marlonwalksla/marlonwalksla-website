@@ -354,3 +354,23 @@ P["free-la"] = dict(
 
 # Order of the "next passport" chain on the finish card
 CHAIN = ["la-tourist", "downtown-classic", "film-and-tv", "photo-spots", "la-tacos", "hollywood", "beaches-and-coast", "latino-la", "music", "free-la"]
+
+# Nov 3, 2026: use the new category icons. id -> (icon, still a stand-in?). A place-type picture that fits (a lighthouse for a lighthouse)
+# counts as a real stamp; a named landmark keeps "Drawing coming soon" until it has its own drawing.
+ICON_FIX = {
+ "tcl-chinese-theatre": ("theater", True), "dolby-theatre-hollywood": ("theater", True), "egyptian-theatre": ("theater", True),
+ "pantages-theatre": ("theater", True), "greek-theatre": ("theater", True), "the-wiltern": ("theater", True),
+ "whisky-a-go-go": ("record", True), "the-troubadour": ("record", True), "the-echo": ("record", True), "hollywood-bowl": ("theater", True),
+ "capitol-records-building": ("record", True), "amoeba-music": ("record", True),
+ "bronson-canyon-batcave": ("mountain", False), "runyon-canyon-park": ("mountain", False), "hollywood-sign-viewpoint-lake-hollywood-park": ("mountain", True),
+ "music-box-steps": ("stairs", False), "colorado-street-bridge": ("bridge", False),
+ "paramount-pictures-studio-tour": ("clapper", False), "warner-bros-studio-tour-hollywood": ("clapper", False), "sony-pictures-studios-tour": ("clapper", False),
+ "academy-museum-of-motion-pictures": ("museum", True), "the-getty-center": ("museum", True), "grammy-museum-at-l-a-live": ("museum", True),
+ "hollywood-walk-of-fame": ("star", False), "el-matador-state-beach": ("wave", False), "zuma-beach": ("wave", False), "santa-monica-state-beach": ("wave", False),
+ "point-vicente-lighthouse": ("lighthouse", False), "dockweiler-beach-fire-pits": ("fire", False), "mission-san-gabriel-arc-ngel": ("mission", False),
+}
+def _fix(t):
+    f = ICON_FIX.get(t[0])
+    if not f: return t
+    t = list(t); t[6] = f[0]; t[8] = f[1]; return tuple(t)
+for _c in P.values(): _c["stamps"] = [_fix(t) for t in _c["stamps"]]
