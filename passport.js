@@ -20,12 +20,12 @@
   var T = ES ? {
     title: 'Pasaportes de LA', sub: 'Explora la ciudad un sello a la vez. Se guarda en este navegador, sin cuenta.',
     stamped: 'sellos', of: 'de', open: 'Abrir', soon: 'Muy pronto', all: 'Todos los pasaportes', stampIt: 'Sellar',
-    undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
+    undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', gmaps: 'Horarios y cómo llegar', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
     honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', mapAll: 'Explora todos los lugares en el mapa', mapPass: 'Ver este pasaporte en el mapa', stops: 'paradas', draft: 'Ilustración pendiente', tryIt: 'Prueba esto', free: 'Gratis', next: 'Siguiente pasaporte', bonus: 'Extra', bonusAt: 'Extra en', alsoHere: 'Para hacer aquí', bonusLine: 'Sellos extra'
   } : {
     title: 'LA Passports', sub: 'Explore the city one stamp at a time. Saved in this browser, no account.',
     stamped: 'stamps', of: 'of', open: 'Open', soon: 'Coming soon', all: 'All passports', stampIt: 'Stamp it',
-    undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', close: 'Close', done: 'Passport complete! Explore the next one.',
+    undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', gmaps: 'Hours and directions', close: 'Close', done: 'Passport complete! Explore the next one.',
     honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', mapAll: 'Explore all places on the map', mapPass: 'See this passport on the map', stops: 'stops', draft: 'Drawing coming soon', tryIt: 'Try this', free: 'Free', next: 'Next passport', bonus: 'Bonus', bonusAt: 'Bonus at', alsoHere: 'To do here', bonusLine: 'Bonus stamps'
   };
 
@@ -72,7 +72,7 @@
     '#mwp .areah{grid-column:1/-1;padding:10px 6px 2px;font-family:"Lilita One",sans-serif;font-size:20px;border-bottom:2px dashed rgba(48,49,43,.3);margin-bottom:4px}' +
     '#mwp .chal{margin:8px 0 0;padding:8px 10px;border-radius:12px;background:var(--peach);border:2px solid var(--olive);font-family:Fredoka,sans-serif;font-size:15px}' +
     '#mwp .done .btn{margin-top:10px;font-size:17px}' +
-    '#mwp-sheet .tx h2{padding-right:34px}#mwp .st.bonus svg{width:74%}#mwp .bn{font-family:Fredoka,sans-serif;font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:1px 8px;border-radius:99px;border:2px solid var(--olive);background:var(--peach)}' +
+    '#mwp-sheet .tx h2{padding-right:34px}#mwp .gm{display:inline-block;margin:12px 0 4px;min-height:44px;line-height:44px;font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:var(--olive);text-decoration:underline}#mwp .st.bonus svg{width:74%}#mwp .bn{font-family:Fredoka,sans-serif;font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:1px 8px;border-radius:99px;border:2px solid var(--olive);background:var(--peach)}' +
     '#mwp .bonusline{margin:12px 14px 0;padding:8px 12px;border:2px dashed var(--olive);border-radius:14px;font-family:Fredoka,sans-serif;font-size:15px;text-align:center}' +
     '#mwp .also{margin:10px 0 0;font-family:Fredoka,sans-serif;font-size:15px}#mwp .also b{display:block;margin-bottom:6px}#mwp .also button{margin:0 6px 6px 0;min-height:44px;padding:6px 14px;border-radius:99px;border:2px solid var(--olive);background:var(--peach);font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:var(--olive);cursor:pointer}' +
     '@media(prefers-reduced-motion:reduce){#mwp *{transition:none!important}}';
@@ -172,12 +172,13 @@
     sel = i; var s = p.stamps[i], on = has(s), box = document.getElementById('mwp-sheet');
     var par = s.bonus ? p.stamps.filter(function (x) { return x.id === s.parent; })[0] : null;
     var kids = s.bonus ? [] : kidsOf(p, s);
+    var gmN = ((par || s).name || {}).en || L((par || s).name), gmUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(gmN + ', Los Angeles, CA');
     var alsoH = kids.length ? '<div class="also"><b>' + T.alsoHere + ': ' + prog(p, s) + '</b>' + kids.map(function (k) { return '<button type="button" data-k="' + k.ix + '">' + (has(k.x) ? '✓ ' : '') + esc(L(k.x.name)) + '</button>'; }).join('') + '</div>' : (par ? '<div class="also"><button type="button" data-k="' + p.stamps.indexOf(par) + '">← ' + esc(L(par.name)) + ' (' + prog(p, par) + ')</button></div>' : '');
     var mapUrl = s.mapId ? T.mapPath + '?spot=' + encodeURIComponent(s.mapId) + '&passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '') : (s.mapLink || '');
     box.innerHTML = '<div class="back-dim" id="mwp-dim"></div><div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(L(s.name)) + '" style="--c:' + esc(s.ink || p.ink) + '">' +
       '<button class="x" id="mwp-x" aria-label="' + T.close + '">×</button><div class="big' + (on ? ' on' : '') + '" id="mwp-big" style="color:' + esc(s.ink || p.ink) + '">' + stampSvg(p, s, 'big') + '</div>' +
       '<div class="tx"><h2>' + esc(L(s.name)) + '</h2><p>' + esc(L(s.tip)) + '</p>' + (L(s.challenge) ? '<p class="chal"><b>' + T.tryIt + ':</b> ' + esc(L(s.challenge)) + '</p>' : '') + (s.bonus ? '<span class="tag" style="margin-right:6px">' + T.bonus + (par ? ': ' + esc(L(par.name)) : '') + '</span>' : '') + (s.cost ? '<span class="tag" style="margin-right:6px">' + esc(s.cost === 'Free' ? T.free : s.cost) + '</span>' : '') + (s.draft ? '<span class="tag">' + T.draft + '</span>' : '') + alsoH + '</div>' +
-      '<div class="row"><button class="btn' + (on ? ' alt' : '') + '" id="mwp-do">' + (on ? T.undo : T.stampIt) + '</button>' + (mapUrl ? '<a class="btn alt" href="' + esc(mapUrl) + '">' + T.map + '</a>' : '') + '</div></div>';
+      '<div class="row"><button class="btn' + (on ? ' alt' : '') + '" id="mwp-do">' + (on ? T.undo : T.stampIt) + '</button>' + (mapUrl ? '<a class="btn alt" href="' + esc(mapUrl) + '">' + T.map + '</a>' : '') + '</div><a class="gm" target="_blank" rel="noopener" href="' + esc(gmUrl) + '">' + T.gmaps + ' ↗</a></div>';
     var dd = document.getElementById('mwp-do'); dd.focus();
     [].forEach.call(box.querySelectorAll('.also button'), function (b) { b.onclick = function () { open(p, +b.getAttribute('data-k')); }; });
     document.getElementById('mwp-x').onclick = document.getElementById('mwp-dim').onclick = close;
