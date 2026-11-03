@@ -85,6 +85,35 @@
   #pmx .pmx-tabs{flex-wrap:nowrap;overflow-x:auto;min-height:54px;align-content:center;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   #pmx h1{font-size:1.4rem}
 }
+/* Nov 3, 2026: postcard look (same as /passports): pink grid paper, cream postcards, stamp-style numbers, map in a postcard frame.
+   Overrides only; layout and map sizing are unchanged. */
+#pmx{--cream:#FFE3EF;font-family:Nunito,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#pmx .pmx-wrap{background-color:#FFE3EF;background-image:linear-gradient(rgba(39,48,46,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(39,48,46,.07) 1px,transparent 1px);background-size:28px 28px}
+#pmx .pmx-sub,#pmx .pmx-prog small,#pmx .pmx-count,#pmx .pmx-trust,#pmx .pmx-city,#pmx .pmx-stamp small,#pmx .pmx-li-t small{color:#4A4B43}
+#pmx .pmx-tab{background:#FFFDF7;font-family:Fredoka,sans-serif;font-weight:500;transition:transform .18s ease-out,box-shadow .18s ease-out}
+#pmx .pmx-tab:not(:disabled):hover{transform:translateY(-2px)}
+#pmx .pmx-tab[aria-pressed="true"]{box-shadow:3px 3px 0 #27302E}
+#pmx .pmx-prog{background:#FFFDF7;border:2px solid #27302E;box-shadow:0 16px 28px -20px rgba(39,48,46,.7);transform:rotate(-.5deg)}
+#pmx .pmx-bar{background:rgba(39,48,46,.14)}
+#pmx .pmx-open{display:inline-flex;align-items:center;min-height:44px;padding:6px 18px;border:2.5px solid #27302E;border-radius:999px;background:#FFD43B;color:#27302E;text-decoration:none;font-family:"Lilita One",sans-serif;font-weight:400;font-size:1rem;box-shadow:3px 3px 0 #27302E;transition:transform .18s ease-out,box-shadow .18s ease-out}
+#pmx .pmx-open:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #27302E}
+#pmx .pmx-list button{background:#FFFDF7;border:1.5px solid rgba(39,48,46,.35);box-shadow:0 10px 18px -16px rgba(39,48,46,.7);min-height:48px}
+#pmx .pmx-list button:hover{border-color:#27302E}
+#pmx .pmx-num{border-style:dashed;border-radius:6px;width:34px;height:34px;background:#fff;transform:rotate(-3deg)}
+#pmx .pmx-num.on{border-style:solid}
+#pmx .pmx-li-t b{font-family:Fredoka,sans-serif;font-weight:500}
+#pmx .pmx-q,#pmx .pmx-cat{background:#FFFDF7}
+#pmx .pmx-cat[aria-pressed="true"]{background:var(--c)}
+#pmx .pmx-more{background:#FFFDF7}
+#pmx .pmx-trust{border-top-color:rgba(39,48,46,.3)}
+#pmx .pmx-card{background:#FFFDF7;border:2px solid #27302E;border-radius:16px;box-shadow:0 16px 28px -18px rgba(39,48,46,.8)}
+#pmx .pmx-stamp{background:#fff;border-radius:6px}
+#pmx .pmx-load{background:#FFE9F2;color:#27302E}
+#pmx .pmx-mapbox::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;border:9px solid #FFFDF7;box-shadow:inset 0 0 0 2px #27302E}
+#pmx .mapboxgl-ctrl-top-right{top:8px;right:8px}
+#pmx .mapboxgl-ctrl-bottom-left,#pmx .mapboxgl-ctrl-bottom-right{margin:0 6px 6px}
+@media (max-width:899px){#pmx .pmx-mapbox{border-top:0;border-bottom:0;margin:0 14px;border-radius:16px;overflow:hidden;box-shadow:0 16px 28px -20px rgba(39,48,46,.7);outline:2px solid #27302E;outline-offset:-2px}}
+@media (prefers-reduced-motion:reduce){#pmx .pmx-prog{transform:none}#pmx .pmx-num{transform:none}#pmx .pmx-tab,#pmx .pmx-open{transition:none}}
 </style>
 
 <div id="pmx">
