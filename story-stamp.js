@@ -13,6 +13,7 @@
   var slug = m[2];
   var PROD = /^(www\.)?marlonwalksla\.com$/i.test(location.hostname);
   var BASE = PROD ? 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/' : 'https://raw.githubusercontent.com/marlonwalksla/marlonwalksla-website/test/';
+  var CDN = 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@' + (PROD ? 'main' : 'test') + '/';
   var T = ES ? {
     h: 'Sella este lugar', p: 'Ya lo leíste. Ahora ve, tómate la foto y sella tu pasaporte. Es un juego de honor.',
     stamp: 'Ver el sello', map: 'Verlo en el mapa', book: 'Ver el pasaporte', mapPath: '/mapa-los-angeles', bookPath: '/pasaportes', stampPath: '/passport-stamps/'
@@ -74,7 +75,7 @@
     if (rt && host) host.insertBefore(el, rt.nextSibling); else (document.querySelector('main') || document.body).appendChild(el);
   }
 
-  Promise.all([fetch(BASE + 'passports.json').then(function (r) { return r.json(); }), js(BASE + 'stamp-lib.js')]).then(function (r) {
+  Promise.all([fetch(BASE + 'passports.json').then(function (r) { return r.json(); }), js(CDN + 'stamp-lib.js' + (PROD ? '' : '?v=' + Date.now()))]).then(function (r) {
     var h = pick(r[0]); if (!h) return;
     return MWStamp.load(BASE).then(function () { css(); build(h); });
   }).catch(function () {});
