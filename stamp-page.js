@@ -98,7 +98,7 @@
     var mapUrl = head.mapId ? TT.mapPath + '?spot=' + encodeURIComponent(head.mapId) + '&passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '') : (head.mapLink || '');
     var gmUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((head.name.en) + ', Los Angeles, CA');
     var bookUrl = TT.bookPath + '?passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '');
-    var hist = da('history') || s.history || head.history || '';
+    var hist = da('history') || (head.history && (head.history[ES ? 'es' : 'en'] || head.history.en)) || (typeof head.history === 'string' ? head.history : '') || '';
     function pageHref(x) { return '/passport-stamps/' + p.id + '-' + x.id + (ES ? '?lang=es' : ''); }
 
     // Text from the CMS stays in place (search engines read it); in Spanish we swap in the Spanish text.
