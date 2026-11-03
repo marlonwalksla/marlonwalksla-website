@@ -276,7 +276,11 @@
       "en": "The steel curves look different from every side. Walk all the way around.",
       "es": "Las curvas de acero cambian en cada lado. Camina alrededor."
      },
-     "mapLink": null
+     "mapLink": null,
+     "history": {
+      "en": "/blog/walt-disney-concert-hall",
+      "es": "/historias/walt-disney-concert-hall"
+     }
     },
     {
      "id": "the-broad",
@@ -305,7 +309,11 @@
       "en": "Free to get in, but book a time online. The line outside moves fast.",
       "es": "Entrada gratis, pero reserva hora en línea. La fila avanza rápido."
      },
-     "mapLink": null
+     "mapLink": null,
+     "history": {
+      "en": "/blog/the-broad",
+      "es": "/historias/the-broad"
+     }
     },
     {
      "id": "grand-central-market",
@@ -363,7 +371,11 @@
       "en": "This is where LA started. Try the taquitos and look for the papel picado.",
       "es": "Aquí empezó LA. Prueba los taquitos y busca el papel picado."
      },
-     "mapLink": null
+     "mapLink": null,
+     "history": {
+      "en": "/blog/olvera-street",
+      "es": "/historias/calle-olvera"
+     }
     }
    ]
   },
@@ -408,7 +420,11 @@
       "en": "Hidden Rooftop Garden: Climb the outdoor stairs on the Hope Street side to find the elevated Blue Ribbon Garden, featuring a mosaic rose fountain built from broken blue-and-white Delft china in honor of Lillian Disney.",
       "es": "Jardín Secreto en la Azotea: Sube las escaleras de Hope St hacia el jardín elevado para ver la fuente de rosas hecha con porcelana azul rota de Delft en honor a Lillian Disney."
      },
-     "mapLink": "https://maps.google.com/?q=Walt+Disney+Concert+Hall+Los+Angeles"
+     "mapLink": "https://maps.google.com/?q=Walt+Disney+Concert+Hall+Los+Angeles",
+     "history": {
+      "en": "/blog/walt-disney-concert-hall",
+      "es": "/historias/walt-disney-concert-hall"
+     }
     },
     {
      "id": "wdch-garden",
@@ -510,7 +526,11 @@
       "en": "Yayoi Kusama Infinity Rooms: Requires a separate free timed reservation at the kiosk inside the lobby due to high international visitor demand.",
       "es": "Salas de Espejos de Kusama: Requiere un registro gratuito adicional en las pantallas táctiles del vestíbulo debido a su alta demanda."
      },
-     "mapLink": "https://maps.google.com/?q=The+Broad+Los+Angeles"
+     "mapLink": "https://maps.google.com/?q=The+Broad+Los+Angeles",
+     "history": {
+      "en": "/blog/the-broad",
+      "es": "/historias/the-broad"
+     }
     },
     {
      "id": "broad-honeycomb",
@@ -575,7 +595,11 @@
       "en": "Fare & Operating Hours: $1.50 each way (only 75¢ if you tap a Metro TAP card). Open 365 days a year from 6:45 AM to 10:00 PM.",
       "es": "Tarifa y Horarios: $1.50 por trayecto (75¢ con tarjeta TAP de Metro). Abierto los 365 días del año de 6:45 AM a 10:00 PM."
      },
-     "mapLink": "https://maps.google.com/?q=Angels+Flight+Railway+Los+Angeles"
+     "mapLink": "https://maps.google.com/?q=Angels+Flight+Railway+Los+Angeles",
+     "history": {
+      "en": "/blog/angels-flight",
+      "es": "/historias/angels-flight"
+     }
     },
     {
      "id": "angels-ride",
@@ -798,7 +822,11 @@
       "en": "Free 27th-Floor Observation Deck: The 27th-floor Tom Bradley Room is open free to the public on weekdays, offering 360° panoramic views across the entire Los Angeles basin to the ocean.",
       "es": "Mirador Gratuito Piso 27: El piso 27 (Sala Tom Bradley) abre gratis entre semana ofreciendo vistas panorámicas de 360° de toda la metrópoli hasta el océano Pacífico."
      },
-     "mapLink": "https://maps.google.com/?q=Los+Angeles+City+Hall"
+     "mapLink": "https://maps.google.com/?q=Los+Angeles+City+Hall",
+     "history": {
+      "en": "/blog/city-hall",
+      "es": "/historias/city-hall"
+     }
     },
     {
      "id": "cityhall-deck",
@@ -891,7 +919,11 @@
       "en": "Legendary Avocado Taquitos: Grab crispy fried beef taquitos drenched in green avocado sauce at Cielito Lindo (operating at the top of Olvera Street since 1934).",
       "es": "Taquitos con Aguacate de Cielito Lindo: Prueba los famosos taquitos dorados con salsa verde de aguacate en Cielito Lindo (abierto desde 1934 al final del callejón)."
      },
-     "mapLink": "https://maps.google.com/?q=Olvera+Street+Los+Angeles"
+     "mapLink": "https://maps.google.com/?q=Olvera+Street+Los+Angeles",
+     "history": {
+      "en": "/blog/olvera-street",
+      "es": "/historias/calle-olvera"
+     }
     },
     {
      "id": "olvera-avila",
@@ -1489,7 +1521,11 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "history": {
+      "en": "/blog/walt-disney-concert-hall",
+      "es": "/historias/walt-disney-concert-hall"
+     }
     },
     {
      "id": "bradbury-building",
@@ -2852,7 +2888,11 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "history": {
+      "en": "/blog/olvera-street",
+      "es": "/historias/calle-olvera"
+     }
     },
     {
      "id": "grand-central-market",
@@ -3551,7 +3591,11 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "history": {
+      "en": "/blog/the-broad",
+      "es": "/historias/the-broad"
+     }
     },
     {
      "id": "gloria-molina-grand-park",
@@ -3621,7 +3665,11 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "history": {
+      "en": "/blog/olvera-street",
+      "es": "/historias/calle-olvera"
+     }
     },
     {
      "id": "lacma-urban-light",

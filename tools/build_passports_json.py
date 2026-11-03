@@ -137,6 +137,21 @@ for pid, c in PC.P.items():
     out["passports"].append({"id": pid, "order": c["order"], "status": "live", "name": {"en": c["name"][0], "es": c["name"][1]},
         "tagline": {"en": c["tagline"][0], "es": c["tagline"][1]}, "audience": c["audience"], "ink": c["ink"], "stamps": st})
 out["passports"].sort(key=lambda p: p["order"])
+
+# Nov 3, 2026: stamps whose place has a History story (Blogs EN /blog/<slug>, Blogs ES /historias/<slug>)
+STORIES = {
+    "walt-disney-concert-hall": ("walt-disney-concert-hall", "walt-disney-concert-hall"),
+    "the-broad": ("the-broad", "the-broad"),
+    "angels-flight": ("angels-flight", "angels-flight"),
+    "la-city-hall": ("city-hall", "city-hall"),
+    "olvera-street": ("olvera-street", "calle-olvera"),
+    "olvera-street-and-el-pueblo": ("olvera-street", "calle-olvera"),
+}
+for _p in out["passports"]:
+    for _s in _p["stamps"]:
+        if _s["id"] in STORIES and not _s.get("bonus"):
+            _en, _es = STORIES[_s["id"]]
+            _s["history"] = {"en": "/blog/" + _en, "es": "/historias/" + _es}
 json.dump(out, open(os.path.join(root, "passports.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("passports.json", os.path.getsize(os.path.join(root, "passports.json")), "bytes;", sum(len(p["stamps"]) for p in out["passports"]), "stamps")
 miss = [s["id"] for p in out["passports"] for s in p["stamps"] if s["legacyKey"] and not s["mapId"]]

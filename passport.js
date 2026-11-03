@@ -20,12 +20,12 @@
   var T = ES ? {
     title: 'Pasaportes de LA', sub: 'Explora la ciudad un sello a la vez. Se guarda en este navegador, sin cuenta.',
     stamped: 'sellos', of: 'de', open: 'Abrir', soon: 'Muy pronto', all: 'Todos los pasaportes', stampIt: 'Sellar',
-    undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', gmaps: 'Horarios y cómo llegar', hint: 'Toca un sello para ver más.', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
+    undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', gmaps: 'Horarios y cómo llegar', story: 'Lee la historia', hint: 'Toca un sello para ver más.', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
     honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', mapAll: 'Explora todos los lugares en el mapa', mapPass: 'Ver este pasaporte en el mapa', stops: 'paradas', draft: 'Ilustración pendiente', tryIt: 'Prueba esto', free: 'Gratis', next: 'Siguiente pasaporte', bonus: 'Extra', bonusAt: 'Extra en', alsoHere: 'Para hacer aquí', bonusLine: 'Sellos extra'
   } : {
     title: 'LA Passports', sub: 'Explore the city one stamp at a time. Saved in this browser, no account.',
     stamped: 'stamps', of: 'of', open: 'Open', soon: 'Coming soon', all: 'All passports', stampIt: 'Stamp it',
-    undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', gmaps: 'Hours and directions', hint: 'Tap a stamp to see more.', close: 'Close', done: 'Passport complete! Explore the next one.',
+    undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', gmaps: 'Hours and directions', story: 'Read the story', hint: 'Tap a stamp to see more.', close: 'Close', done: 'Passport complete! Explore the next one.',
     honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', mapAll: 'Explore all places on the map', mapPass: 'See this passport on the map', stops: 'stops', draft: 'Drawing coming soon', tryIt: 'Try this', free: 'Free', next: 'Next passport', bonus: 'Bonus', bonusAt: 'Bonus at', alsoHere: 'To do here', bonusLine: 'Bonus stamps'
   };
 
@@ -34,18 +34,20 @@
     '#mwp *{box-sizing:border-box}#mwp [hidden]{display:none!important}' +
     '#mwp h1,#mwp h2{font-family:"Lilita One",sans-serif;font-weight:400;margin:0;line-height:1.05}' +
     '#mwp .lead{font-family:Fredoka,sans-serif;font-size:17px;line-height:1.3;margin:8px 0 18px;color:var(--muted)}' +
-    '#mwp .shelf{display:grid;grid-template-columns:1fr;gap:14px}' +
+    '#mwp .shelf{display:grid;grid-template-columns:1fr;gap:18px}' +
     '@media(min-width:560px){#mwp .shelf{grid-template-columns:1fr 1fr}}' +
-    '#mwp .pcard{display:flex;gap:12px;align-items:center;text-align:left;width:100%;min-height:96px;padding:14px;background:var(--cream);border:3px solid var(--olive);border-radius:20px;box-shadow:4px 4px 0 var(--olive);cursor:pointer;color:inherit;font:inherit;text-decoration:none;position:relative}' +
-    '#mwp .pcard[disabled]{cursor:default;opacity:.7;box-shadow:none}' +
-    '#mwp .pcard:not([disabled]):hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--olive)}' +
+    '#mwp .pcard{display:flex;flex-direction:row-reverse;gap:14px;align-items:center;text-align:left;width:100%;min-height:128px;padding:16px 16px 14px;background:#FFFDF7;border:2px solid var(--olive);border-radius:16px;box-shadow:0 16px 28px -20px rgba(39,48,46,.7);cursor:pointer;color:inherit;font:inherit;text-decoration:none;position:relative;transform:rotate(var(--tilt,0deg));transition:transform .2s ease-out,box-shadow .2s ease-out}' +
+    '#mwp .pcard:nth-child(odd){--tilt:-.7deg}#mwp .pcard:nth-child(even){--tilt:.6deg}' +
+    '#mwp .pcard[disabled]{cursor:default;opacity:.75;box-shadow:none}' +
+    '#mwp .pcard:not([disabled]):hover{transform:translateY(-3px) rotate(0);box-shadow:0 20px 30px -18px rgba(39,48,46,.8)}' +
     '#mwp .pcard:focus-visible,#mwp .st:focus-visible,#mwp button:focus-visible,#mwp a:focus-visible{outline:3px solid var(--olive);outline-offset:2px}' +
-    '#mwp .pcard .mini{flex:0 0 64px;width:64px}#mwp .pcard .mini svg{width:100%;height:auto;display:block}' +
-    '#mwp .pcard b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:22px;display:block;line-height:1.05}' +
-    '#mwp .pcard span.m{font-family:Fredoka,sans-serif;font-size:14px;color:var(--muted);display:block;margin-top:3px}' +
+    '#mwp .pcard .mini{flex:0 0 84px;width:84px;align-self:flex-start;padding:5px;background:#fff;border:2px dashed rgba(39,48,46,.55);border-radius:6px;transform:rotate(3deg)}#mwp .pcard .mini svg{width:100%;height:auto;display:block}' +
+    '#mwp .pcard b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:24px;display:block;line-height:1.05}' +
+    '#mwp .pcard .tg{font-family:Caveat,cursive;font-weight:700;font-size:21px;line-height:1.05;color:#1F2A44;display:block;margin-top:6px}' +
+    '#mwp .pcard span.m{display:inline-block;margin-top:9px;padding:2px 11px;border:2px solid var(--c,var(--ink));border-radius:99px;font-family:Fredoka,sans-serif;font-weight:500;font-size:14px;color:var(--olive);background:#fff}' +
     '#mwp .bar{height:8px;border-radius:99px;background:rgba(48,49,43,.15);margin-top:8px;overflow:hidden}#mwp .bar i{display:block;height:100%;background:var(--c,var(--ink));border-radius:99px;transition:width .5s}' +
     '#mwp .back{display:inline-flex;align-items:center;min-height:44px;padding:6px 4px;margin-bottom:6px;background:none;border:0;font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:var(--olive);cursor:pointer;text-decoration:underline}' +
-    '#mwp .book{background:var(--cream);border:3px solid var(--olive);border-radius:24px;overflow:hidden;box-shadow:5px 5px 0 var(--olive)}' +
+    '#mwp .book{background:#FFFDF7;border:2px solid var(--olive);border-radius:16px;overflow:hidden;box-shadow:0 16px 28px -20px rgba(39,48,46,.7)}' +
     '#mwp .cover{background:var(--c,var(--ink));color:var(--cream);padding:18px;display:flex;gap:14px;align-items:center;border-bottom:3px solid var(--olive)}' +
     '#mwp .cover h2{font-size:30px;margin:0}#mwp .cover p{margin:6px 0 0;font-family:Fredoka,sans-serif;font-size:16px;line-height:1.25}' +
     '#mwp .badge{flex:0 0 76px;width:76px;height:76px;border-radius:50%;border:4px solid var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Lilita One",sans-serif;line-height:1}' +
@@ -76,6 +78,8 @@
     '#mwp .bonusline{margin:12px 14px 0;padding:8px 12px;border:2px dashed var(--olive);border-radius:14px;font-family:Fredoka,sans-serif;font-size:15px;text-align:center}' +
     '#mwp .also{margin:10px 0 0;font-family:Fredoka,sans-serif;font-size:15px}#mwp .also b{display:block;margin-bottom:6px}#mwp .also button{margin:0 6px 6px 0;min-height:44px;padding:6px 14px;border-radius:99px;border:2px solid var(--olive);background:var(--peach);font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:var(--olive);cursor:pointer}' +
     '@media(prefers-reduced-motion:reduce){#mwp *{transition:none!important}}';
+  css += 'body.mwp-pc{background-color:#FFE3EF!important;background-image:linear-gradient(rgba(39,48,46,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(39,48,46,.07) 1px,transparent 1px)!important;background-size:28px 28px!important}body.mwp-pc .tp,body.mwp-pc main{background:transparent}#mwp h1{font-size:clamp(34px,7vw,52px)}#mwp .lead{color:#4A4B43}@media(prefers-reduced-motion:reduce){#mwp .pcard{transform:none}}';
+  document.body.classList.add('mwp-pc');
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   mount.innerHTML = '<div id="mwp"><p class="lead" id="mwp-msg">' + T.loading + '</p></div>';
   var root = document.getElementById('mwp');
@@ -146,7 +150,7 @@
     D.passports.forEach(function (p) {
       var soon = p.status === 'coming-soon' || !p.stamps.length, n = soon ? 0 : count(p), tot = places(p).length;
       var first = p.stamps[0], mini = first ? stampSvg(p, first, 'm') : '';
-      h += '<button class="pcard" data-p="' + esc(p.id) + '"' + (soon ? ' disabled' : '') + ' style="--c:' + esc(p.ink) + '"><span class="mini" style="color:' + esc(p.ink) + '">' + mini + '</span><span style="flex:1;min-width:0"><b>' + esc(L(p.name)) + '</b><span class="m">' +
+      h += '<button class="pcard" data-p="' + esc(p.id) + '"' + (soon ? ' disabled' : '') + ' style="--c:' + esc(p.ink) + '"><span class="mini" style="color:' + esc(p.ink) + '">' + mini + '</span><span style="flex:1;min-width:0"><b>' + esc(L(p.name)) + '</b><span class="tg">' + esc(L(p.tagline) || '') + '</span><span class="m">' +
         (soon ? T.soon : n + ' ' + T.of + ' ' + tot + ' ' + T.stamped) + '</span>' + (soon ? '' : '<span class="bar"><i style="width:' + Math.round(100 * n / tot) + '%"></i></span>') + '</span></button>';
     });
     root.innerHTML = h + '</div><p style="text-align:center;margin-top:18px"><a class="btn alt" href="' + T.mapPath + (ES ? '?lang=es' : '') + '">' + T.mapAll + ' →</a></p>';
@@ -178,7 +182,7 @@
     box.innerHTML = '<div class="back-dim" id="mwp-dim"></div><div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(L(s.name)) + '" style="--c:' + esc(s.ink || p.ink) + '">' +
       '<button class="x" id="mwp-x" aria-label="' + T.close + '">×</button><div class="big' + (on ? ' on' : '') + '" id="mwp-big" style="color:' + esc(s.ink || p.ink) + '">' + stampSvg(p, s, 'big') + '</div>' +
       '<div class="tx"><h2>' + esc(L(s.name)) + '</h2><p>' + esc(L(s.tip)) + '</p>' + (L(s.challenge) ? '<p class="chal"><b>' + T.tryIt + ':</b> ' + esc(L(s.challenge)) + '</p>' : '') + (s.bonus ? '<span class="tag" style="margin-right:6px">' + T.bonus + (par ? ': ' + esc(L(par.name)) : '') + '</span>' : '') + (s.cost ? '<span class="tag" style="margin-right:6px">' + esc(s.cost === 'Free' ? T.free : s.cost) + '</span>' : '') + (s.draft ? '<span class="tag">' + T.draft + '</span>' : '') + alsoH + '</div>' +
-      '<div class="row"><button class="btn' + (on ? ' alt' : '') + '" id="mwp-do">' + (on ? T.undo : T.stampIt) + '</button>' + (mapUrl ? '<a class="btn alt" href="' + esc(mapUrl) + '">' + T.map + '</a>' : '') + '</div><a class="gm" target="_blank" rel="noopener" href="' + esc(gmUrl) + '">' + T.gmaps + ' ↗</a></div>';
+      '<div class="row"><button class="btn' + (on ? ' alt' : '') + '" id="mwp-do">' + (on ? T.undo : T.stampIt) + '</button>' + (mapUrl ? '<a class="btn alt" href="' + esc(mapUrl) + '">' + T.map + '</a>' : '') + '</div><a class="gm" target="_blank" rel="noopener" href="' + esc(gmUrl) + '">' + T.gmaps + ' ↗</a>' + (s.history && L(s.history) ? '<a class="gm" style="margin-left:16px" href="' + esc(L(s.history)) + '">' + T.story + ' →</a>' : '') + '</div>';
     var dd = document.getElementById('mwp-do'); dd.focus();
     [].forEach.call(box.querySelectorAll('.also button'), function (b) { b.onclick = function () { open(p, +b.getAttribute('data-k')); }; });
     document.getElementById('mwp-x').onclick = document.getElementById('mwp-dim').onclick = close;
