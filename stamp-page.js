@@ -1,5 +1,5 @@
 /* MarlonWalksLA: one page per stamp (Nov 2026)
- * Runs on the CMS template page for Passport Stamps (/passport-stamps/<slug>).
+ * Runs on the CMS template page for Stamps (/stamps/<slug>).
  * The page itself holds real text from the CMS (name, tip, challenge) so search engines can read it. This file lays it out,
  * adds the stamp, the "to do here" list, and the links to the map, Google Maps, the passport book and History.
  * Data: the CMS fields in data-* attributes on [data-mwsp=data], plus passports.json (for the passport, siblings and bonus list).
@@ -99,7 +99,7 @@
     var gmUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((head.name.en) + ', Los Angeles, CA');
     var bookUrl = TT.bookPath + '?passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '');
     var hist = da('history') || (head.history && (head.history[ES ? 'es' : 'en'] || head.history.en)) || (typeof head.history === 'string' ? head.history : '') || '';
-    function pageHref(x) { return '/passport-stamps/' + p.id + '-' + x.id + (ES ? '?lang=es' : ''); }
+    function pageHref(x) { return '/stamps/' + p.id + '-' + x.id + (ES ? '?lang=es' : ''); }
 
     // Text from the CMS stays in place (search engines read it); in Spanish we swap in the Spanish text.
     if (ES) {
