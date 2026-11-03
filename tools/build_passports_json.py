@@ -90,7 +90,7 @@ T = [("griffith-observatory","GRIFFITH OBSERVATORY","OBSERVATORIO GRIFFITH","obs
 ("hollywood-walk-of-fame","WALK OF FAME","PASEO DE LA FAMA","star","1960","Hollywood Walk of Fame","Paseo de la Fama de Hollywood",False,"Look down. Find a star for someone you love.","Mira al piso. Busca la estrella de alguien que quieres."),
 ("hollywood-sign-viewpoint-lake-hollywood-park","HOLLYWOOD SIGN","LETRERO DE HOLLYWOOD","mountain","1923","Hollywood Sign view","Vista del letrero de Hollywood",True,"The park at Lake Hollywood has a clear view and a dog park.","El parque de Lake Hollywood tiene una vista clara del letrero."),
 ("tcl-chinese-theatre","TCL CHINESE THEATRE","TEATRO CHINO TCL","theater","1927","TCL Chinese Theatre","Teatro Chino TCL",True,"Put your hands in the famous cement prints in the front yard.","Pon tus manos en las huellas de cemento del patio de enfrente."),
-("santa-monica-pier","SANTA MONICA PIER","MUELLE DE SANTA MONICA","pier","1909","Santa Monica Pier","Muelle de Santa Monica",False,"Walk to the end of the pier and look back at the coast.","Camina hasta el final del muelle y mira hacia la costa."),
+("santa-monica-pier","SANTA MONICA PIER","MUELLE DE SANTA MÓNICA","pier","1909","Santa Monica Pier","Muelle de Santa Mónica",False,"Walk to the end of the pier and look back at the coast.","Camina hasta el final del muelle y mira hacia la costa."),
 ("venice-beach-boardwalk","VENICE BEACH","VENICE BEACH","venice_beach","1905","Venice Beach Boardwalk","Malecón de Venice Beach",False,"Skaters, muscle beach and street art. Explore it slowly.","Patinadores, Muscle Beach y arte callejero. Explóralo con calma."),
 ("the-getty-center","THE GETTY CENTER","EL GETTY CENTER","museum","1997","The Getty Center","El Getty Center",True,"Free to get in. Parking costs money, so take the tram up the hill.","Entrada gratis. El estacionamiento cuesta, usa el tranvía hasta arriba."),
 ("rodeo-drive","RODEO DRIVE","RODEO DRIVE","bag","","Rodeo Drive","Rodeo Drive",False,"Window shopping is free. Walk it and enjoy the people watching.","Ver las vitrinas es gratis. Camina y disfruta ver pasar a la gente."),
@@ -137,6 +137,21 @@ for pid, c in PC.P.items():
     out["passports"].append({"id": pid, "order": c["order"], "status": "live", "name": {"en": c["name"][0], "es": c["name"][1]},
         "tagline": {"en": c["tagline"][0], "es": c["tagline"][1]}, "audience": c["audience"], "ink": c["ink"], "stamps": st})
 out["passports"].sort(key=lambda p: p["order"])
+
+# Nov 3, 2026: stamps whose place has a History story (Blogs EN /blog/<slug>, Blogs ES /historias/<slug>)
+STORIES = {
+    "walt-disney-concert-hall": ("walt-disney-concert-hall", "walt-disney-concert-hall"),
+    "the-broad": ("the-broad", "the-broad"),
+    "angels-flight": ("angels-flight", "angels-flight"),
+    "la-city-hall": ("city-hall", "city-hall"),
+    "olvera-street": ("olvera-street", "calle-olvera"),
+    "olvera-street-and-el-pueblo": ("olvera-street", "calle-olvera"),
+}
+for _p in out["passports"]:
+    for _s in _p["stamps"]:
+        if _s["id"] in STORIES and not _s.get("bonus"):
+            _en, _es = STORIES[_s["id"]]
+            _s["history"] = {"en": "/blog/" + _en, "es": "/historias/" + _es}
 json.dump(out, open(os.path.join(root, "passports.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("passports.json", os.path.getsize(os.path.join(root, "passports.json")), "bytes;", sum(len(p["stamps"]) for p in out["passports"]), "stamps")
 miss = [s["id"] for p in out["passports"] for s in p["stamps"] if s["legacyKey"] and not s["mapId"]]
