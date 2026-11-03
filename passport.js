@@ -20,12 +20,12 @@
   var T = ES ? {
     title: 'Pasaportes de LA', sub: 'Explora la ciudad un sello a la vez. Se guarda en este navegador, sin cuenta.',
     stamped: 'sellos', of: 'de', open: 'Abrir', soon: 'Muy pronto', all: 'Todos los pasaportes', stampIt: 'Sellar',
-    undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', gmaps: 'Horarios y cómo llegar', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
+    undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', gmaps: 'Horarios y cómo llegar', hint: 'Toca un sello para ver más.', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
     honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', mapAll: 'Explora todos los lugares en el mapa', mapPass: 'Ver este pasaporte en el mapa', stops: 'paradas', draft: 'Ilustración pendiente', tryIt: 'Prueba esto', free: 'Gratis', next: 'Siguiente pasaporte', bonus: 'Extra', bonusAt: 'Extra en', alsoHere: 'Para hacer aquí', bonusLine: 'Sellos extra'
   } : {
     title: 'LA Passports', sub: 'Explore the city one stamp at a time. Saved in this browser, no account.',
     stamped: 'stamps', of: 'of', open: 'Open', soon: 'Coming soon', all: 'All passports', stampIt: 'Stamp it',
-    undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', gmaps: 'Hours and directions', close: 'Close', done: 'Passport complete! Explore the next one.',
+    undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', gmaps: 'Hours and directions', hint: 'Tap a stamp to see more.', close: 'Close', done: 'Passport complete! Explore the next one.',
     honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', mapAll: 'Explore all places on the map', mapPass: 'See this passport on the map', stops: 'stops', draft: 'Drawing coming soon', tryIt: 'Try this', free: 'Free', next: 'Next passport', bonus: 'Bonus', bonusAt: 'Bonus at', alsoHere: 'To do here', bonusLine: 'Bonus stamps'
   };
 
@@ -72,7 +72,7 @@
     '#mwp .areah{grid-column:1/-1;padding:10px 6px 2px;font-family:"Lilita One",sans-serif;font-size:20px;border-bottom:2px dashed rgba(48,49,43,.3);margin-bottom:4px}' +
     '#mwp .chal{margin:8px 0 0;padding:8px 10px;border-radius:12px;background:var(--peach);border:2px solid var(--olive);font-family:Fredoka,sans-serif;font-size:15px}' +
     '#mwp .done .btn{margin-top:10px;font-size:17px}' +
-    '#mwp-sheet .tx h2{padding-right:34px}#mwp .gm{display:inline-block;margin:12px 0 4px;min-height:44px;line-height:44px;font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:var(--olive);text-decoration:underline}#mwp .st.bonus svg{width:74%}#mwp .bn{font-family:Fredoka,sans-serif;font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:1px 8px;border-radius:99px;border:2px solid var(--olive);background:var(--peach)}' +
+    '#mwp .hint{margin:12px 14px 0;text-align:center;font-family:Fredoka,sans-serif;font-size:16px;color:var(--olive)}#mwp-sheet .tx h2{padding-right:34px}#mwp .gm{display:inline-block;margin:12px 0 4px;min-height:44px;line-height:44px;font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:var(--olive);text-decoration:underline}#mwp .st.bonus svg{width:74%}#mwp .bn{font-family:Fredoka,sans-serif;font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:1px 8px;border-radius:99px;border:2px solid var(--olive);background:var(--peach)}' +
     '#mwp .bonusline{margin:12px 14px 0;padding:8px 12px;border:2px dashed var(--olive);border-radius:14px;font-family:Fredoka,sans-serif;font-size:15px;text-align:center}' +
     '#mwp .also{margin:10px 0 0;font-family:Fredoka,sans-serif;font-size:15px}#mwp .also b{display:block;margin-bottom:6px}#mwp .also button{margin:0 6px 6px 0;min-height:44px;padding:6px 14px;border-radius:99px;border:2px solid var(--olive);background:var(--peach);font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:var(--olive);cursor:pointer}' +
     '@media(prefers-reduced-motion:reduce){#mwp *{transition:none!important}}';
@@ -156,7 +156,7 @@
   function book(p) {
     var n = count(p), tot = places(p).length;
     var h = '<button class="back" id="mwp-back">← ' + T.all + '</button><div class="book" style="--c:' + esc(p.ink) + '"><div class="cover"><div style="flex:1;min-width:0"><h2>' + esc(L(p.name)) + '</h2><p>' + esc(L(p.tagline)) + '</p></div>' +
-      '<div class="badge" id="mwp-badge"><b>' + n + '/' + tot + '</b><span>' + T.stamped + '</span></div></div>' + (n === tot ? '<div class="done" style="margin-top:14px">' + doneInner(p) + '</div>' : '') + bonusLine(p) + '<div class="grid">';
+      '<div class="badge" id="mwp-badge"><b>' + n + '/' + tot + '</b><span>' + T.stamped + '</span></div></div>' + (n === tot ? '<div class="done" style="margin-top:14px">' + doneInner(p) + '</div>' : '') + '<p class="hint">' + T.hint + '</p><div class="grid">';
     var lastArea = null, hasAreas = p.stamps.some(function (s) { return s.area; });
     p.stamps.forEach(function (s, i) {
       if (s.bonus) return;
