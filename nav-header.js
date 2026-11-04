@@ -69,19 +69,21 @@ document.addEventListener('DOMContentLoaded', () => {
         hp.parentNode.insertBefore(sa, hp.nextSibling);
       }
     }
-    // EN | ES switch on the two stamps pages (Nov 4, 2026)
+    // EN | ES switch on the stamps and passports pages. The header embed sets these links itself (to / and /es), so apply again after it has run.
+    function applySwitch() {
     if (path === '/stamps' || path === '/sellos') {
       var sen = document.getElementById('mwhd-en'), ses = document.getElementById('mwhd-es');
       if (sen) { sen.href = '/stamps'; if (!ES) sen.setAttribute('aria-current', 'true'); else sen.removeAttribute('aria-current'); }
       if (ses) { ses.href = '/sellos'; if (ES) ses.setAttribute('aria-current', 'true'); else ses.removeAttribute('aria-current'); }
     }
-    // EN | ES switch on the two passport pages
     if (path === '/passports' || path === '/pasaportes') {
       var en = document.getElementById('mwhd-en'), es = document.getElementById('mwhd-es');
       var q = location.search.replace(/[?&]lang=[a-z]+/i, '').replace(/^&/, '?');
       if (en) { en.href = '/passports' + q; if (!ES) en.setAttribute('aria-current', 'true'); else en.removeAttribute('aria-current'); }
       if (es) { es.href = '/pasaportes' + q; if (ES) es.setAttribute('aria-current', 'true'); else es.removeAttribute('aria-current'); }
     }
+    }
+    applySwitch(); window.addEventListener('load', applySwitch); setTimeout(applySwitch, 700);
     // Footer: after the Maps link in the footer
     var fm = Array.prototype.filter.call(document.querySelectorAll('a[href="/maps"], a[href="/mapa-los-angeles"]'), function (x) { return !x.closest('.mwhd'); })[0];
     [].forEach.call(document.querySelectorAll('a[data-pp-foot]'), function (x) { x.remove(); });
