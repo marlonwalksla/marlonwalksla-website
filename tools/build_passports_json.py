@@ -152,6 +152,40 @@ for _p in out["passports"]:
         if _s["id"] in STORIES and not _s.get("bonus"):
             _en, _es = STORIES[_s["id"]]
             _s["history"] = {"en": "/blog/" + _en, "es": "/historias/" + _es}
+# Nov 4, 2026: one page per place. Every stamp gets a "slug" (its stamp page: /stamps/<slug>). The same place in
+# several passports shares one slug. "id" and "legacyKey" are NOT touched, so saved progress keeps working.
+import re as _re, unicodedata as _ud
+def _slugify(t):
+    t = _ud.normalize("NFKD", t).encode("ascii", "ignore").decode().lower().replace("&", " and ").replace("'", "")
+    return _re.sub(r"[^a-z0-9]+", "-", t).strip("-")
+# Bonus stamps: id -> (slug, EN name, ES name). Names say where they are, so the page title works on its own.
+BONUS_FIX = {
+    "wdch-garden": ("walt-disney-concert-hall-blue-ribbon-garden", "Visit the Blue Ribbon Garden", "Visita el Jard\u00edn Blue Ribbon"),
+    "wdch-inside": ("walt-disney-concert-hall-inside", "Go inside Walt Disney Concert Hall", "Entra a la Sala de Conciertos Walt Disney"),
+    "broad-honeycomb": ("the-broad-honeycomb-wall", "See the honeycomb wall at The Broad", "Mira la pared de panal de The Broad"),
+    "angels-ride": ("angels-flight-ride", "Ride Angels Flight", "S\u00fabete a Angels Flight"),
+    "gcm-sign": ("grand-central-market-neon-sign", "Find the Grand Central Market neon sign", "Busca el letrero de ne\u00f3n del Mercado Grand Central"),
+    "bradbury-lobby": ("bradbury-building-lobby", "Step into the Bradbury Building lobby", "Entra al lobby del Edificio Bradbury"),
+    "cityhall-deck": ("la-city-hall-observation-deck", "Go up to the City Hall deck", "Sube al mirador del Ayuntamiento"),
+    "olvera-avila": ("olvera-street-avila-adobe", "Visit the Avila Adobe", "Visita la Avila Adobe"),
+    "olvera-taquito": ("olvera-street-taquito", "Try a taquito on Olvera Street", "Prueba un taquito en la calle Olvera"),
+}
+_by_place = {}
+for _p in out["passports"]:
+    for _s in _p["stamps"]:
+        if _s.get("bonus"):
+            _s["slug"], _s["name"]["en"], _s["name"]["es"] = BONUS_FIX[_s["id"]]
+            continue
+        _key = _s.get("mapId") or ("id", _s["id"])
+        _sl = _by_place.setdefault(_key, _slugify(_s["name"]["en"]))
+        _s["slug"] = _sl
+_seen = {}
+for _p in out["passports"]:
+    for _s in _p["stamps"]:
+        _k = _s.get("mapId") or ("id", _s["id"])
+        if _s["slug"] in _seen and _seen[_s["slug"]] != _k: raise SystemExit("SLUG CLASH: " + _s["slug"])
+        _seen[_s["slug"]] = _k
+print("unique stamp pages:", len(_seen))
 json.dump(out, open(os.path.join(root, "passports.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("passports.json", os.path.getsize(os.path.join(root, "passports.json")), "bytes;", sum(len(p["stamps"]) for p in out["passports"]), "stamps")
 miss = [s["id"] for p in out["passports"] for s in p["stamps"] if s["legacyKey"] and not s["mapId"]]

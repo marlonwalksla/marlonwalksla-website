@@ -58,7 +58,7 @@
     '[data-mwsp=main] .tx{flex:1 1 220px;min-width:0}' +
     '[data-mwsp=main] [data-mwsp=tip]{margin:10px 0 0;font-family:Fredoka,sans-serif;font-size:18px;line-height:1.35}' +
     '[data-mwsp=main] [data-mwsp=chal]{margin:12px 0 0;padding:9px 12px;border-radius:12px;background:var(--peach);border:2px solid var(--olive);font-family:Fredoka,sans-serif;font-size:16px}' +
-    '[data-mwsp=main] .tag{display:inline-block;margin:6px 6px 0 0;padding:2px 10px;border-radius:99px;background:var(--peach);border:2px solid var(--olive);font-family:Fredoka,sans-serif;font-size:13px}' +
+    '[data-mwsp=main] .tag{color:var(--olive);text-decoration:none;display:inline-block;margin:6px 6px 0 0;padding:2px 10px;border-radius:99px;background:var(--peach);border:2px solid var(--olive);font-family:Fredoka,sans-serif;font-size:13px}' +
     '[data-mwsp=main] .row{flex:1 1 100%;display:flex;gap:10px;flex-wrap:wrap;align-items:center}' +
     '[data-mwsp=main] .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:8px 22px;border-radius:999px;border:3px solid var(--olive);background:var(--c,var(--ink));color:var(--cream);font-family:"Lilita One",sans-serif;font-size:19px;cursor:pointer;text-decoration:none;box-shadow:3px 3px 0 var(--olive)}' +
     '[data-mwsp=main] .btn.alt{background:var(--cream);color:var(--olive)}[data-mwsp=main] .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--olive)}' +
@@ -78,12 +78,23 @@
   function j(u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); }); }
   var slug = da('slug') || location.pathname.replace(/\/+$/, '').split('/').pop();
 
+  // Nov 4, 2026: one page per place. /stamps/<slug> (stamp.slug in passports.json) shows the place once and lists every
+  // passport that includes it. The old form /stamps/<passport>-<id> still resolves, so links from yesterday do not break.
+  var RANK = { 'downtown-classic': 0, 'la-tourist': 1 };
+  var wantP = (location.search.match(/[?&]passport=([^&#]+)/) || [])[1] || '';
   function find(D) {
-    for (var i = 0; i < D.passports.length; i++) {
-      var p = D.passports[i];
-      for (var k = 0; k < p.stamps.length; k++) if (p.id + '-' + p.stamps[k].id === slug) return { p: p, s: p.stamps[k] };
-    }
-    return null;
+    var hits = [];
+    D.passports.forEach(function (p) {
+      p.stamps.forEach(function (x) { if (x.slug === slug || p.id + '-' + x.id === slug) hits.push({ p: p, s: x }); });
+    });
+    if (!hits.length) return null;
+    hits.sort(function (a, b) {
+      var wa = a.p.id === wantP ? -1 : 0, wb = b.p.id === wantP ? -1 : 0;
+      if (wa !== wb) return wa - wb;
+      return (RANK[a.p.id] == null ? 9 : RANK[a.p.id]) - (RANK[b.p.id] == null ? 9 : RANK[b.p.id]);
+    });
+    var f = hits[0]; f.owners = hits.map(function (h) { return h.p; });
+    return f;
   }
 
   function draw(D) {
@@ -92,14 +103,14 @@
     var p = f.p, s = f.s;
     var par = s.bonus ? p.stamps.filter(function (x) { return x.id === s.parent; })[0] : null;
     var head = par || s;                                    // the place this page is about
-    var kids = p.stamps.filter(function (x) { return x.bonus && x.parent === head.id; });
+    var kids = []; D.passports.forEach(function (q) { q.stamps.forEach(function (x) { if (x.bonus && x.parent === head.id && kids.indexOf(x) < 0) kids.push(x); }); });
     var team = [head].concat(kids);
     var ink = s.ink || p.ink;
     var mapUrl = head.mapId ? TT.mapPath + '?spot=' + encodeURIComponent(head.mapId) + '&passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '') : (head.mapLink || '');
     var gmUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((head.name.en) + ', Los Angeles, CA');
     var bookUrl = TT.bookPath + '?passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '');
     var hist = da('history') || (head.history && (head.history[ES ? 'es' : 'en'] || head.history.en)) || (typeof head.history === 'string' ? head.history : '') || '';
-    function pageHref(x) { return '/stamps/' + p.id + '-' + x.id + (ES ? '?lang=es' : ''); }
+    function pageHref(x) { return '/stamps/' + (x.slug || p.id + '-' + x.id) + (ES ? '?lang=es' : ''); }
 
     // Text from the CMS stays in place (search engines read it); in Spanish we swap in the Spanish text.
     if (ES) {
@@ -112,7 +123,7 @@
 
     function stampSvg(x, i) { return MWStamp.svg({ uid: 'mwsp-' + i, top: L(x.top), bottom: L(x.bottom), icon: x.icon, year: x.year, ink: x.ink || p.ink, rot: x.rot, seed: x.seed }); }
 
-    var tags = '<span class="tag">' + esc(L(p.name)) + '</span>' + (head.area ? '<span class="tag">' + esc(head.area) + '</span>' : '') +
+    var tags = f.owners.map(function (q) { return '<a class="tag" href="' + esc(TT.bookPath + '?passport=' + encodeURIComponent(q.id) + (ES ? '&lang=es' : '')) + '">' + esc(L(q.name)) + '</a>'; }).join('') + (head.area ? '<span class="tag">' + esc(head.area) + '</span>' : '') +
       (s.bonus ? '<span class="tag">' + TT.bonusAt + ': ' + esc(L(par.name)) + '</span>' : '') +
       (s.cost ? '<span class="tag">' + (s.cost === 'Free' ? TT.free : esc(s.cost)) + '</span>' : '');
     var wrap = document.createElement('div');
