@@ -3,7 +3,7 @@
  *
  * Mount:  <div id="mw-stamps"></div>  then stamp-lib.js and this file.
  * Pages:  /stamps (EN)   /sellos (ES)   or ?lang=es
- * Links:  a stamp with its own page goes to /stamps/<passport>-<stamp>; the others open that passport book (?passport=...).
+ * Links:  a stamp with its own page goes to /stamps/<slug> (one page per place); the others open that passport book (?passport=...).
  *         Which passports have stamp pages: LINKED below (same rule as tools/build_passports_crawler.py).
  * Saving: reads the same browser lists as passport.js (marlon_visited_spots, marlon_stamps). It never writes them.
  * Why bonus stamps are not shown: they live inside their place (one tile per place, as in the passport book).
@@ -75,9 +75,11 @@
     var ids = [s.mapId || s.id]; if (s.legacyKey) ids.push(s.legacyKey);
     return ids.some(function (i) { return a.indexOf(i) > -1; });
   }
+  var PAGES = {};   // slugs that have a stamp page: every stamp of a LINKED passport (one page per place, shared by all passports)
+  function mark() { D.passports.forEach(function (p) { if (LINKED[p.id]) p.stamps.forEach(function (x) { if (x.slug) PAGES[x.slug] = 1; }); }); }
   function places(p) { return p.stamps.filter(function (s) { return !s.bonus; }); }
   function href(p, s) {
-    if (LINKED[p.id]) return '/stamps/' + p.id + '-' + s.id + qs;
+    if (s.slug && PAGES[s.slug]) return '/stamps/' + s.slug + qs;
     return T.bookPath + '?passport=' + encodeURIComponent(p.id) + (ES ? '&lang=es' : '');
   }
   function tile(p, s, i) {
@@ -118,7 +120,7 @@
   }
   function j(u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); }); }
   Promise.all([j(BASE + 'passports.json'), j(BASE + 'stamp-icons.json')]).then(function (r) {
-    D = r[0]; MWStamp.setIcons(r[1]); render();
+    D = r[0]; MWStamp.setIcons(r[1]); mark(); render();
   }).catch(function (e) { root.innerHTML = '<p class="lead">' + T.err + '</p>'; if (window.console) console.warn(e); });
   window.addEventListener('storage', function (e) { if (/marlon_/.test(e.key || '') && D && !document.getElementById('mws-q').value) render(); });
 })();

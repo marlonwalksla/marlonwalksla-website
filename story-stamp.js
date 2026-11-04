@@ -67,7 +67,7 @@
     el.className = 'mwss'; el.setAttribute('aria-label', T.h);
     el.innerHTML = '<div class="mwss-card"><div class="mwss-st" style="color:' + esc(s.ink || p.ink) + '">' + svg + '</div>' +
       '<div class="mwss-tx"><h2>' + T.h + '</h2><span class="mwss-nm">' + esc(L(s.name)) + ' · ' + esc(L(p.name)) + '</span><p>' + T.p + '</p></div>' +
-      '<div class="mwss-row"><a class="mwss-b" href="' + T.stampPath + esc(p.id + '-' + s.id) + lang + '">' + T.stamp + '</a>' +
+      '<div class="mwss-row"><a class="mwss-b" href="' + T.stampPath + esc(s.slug || (p.id + '-' + s.id)) + lang + '">' + T.stamp + '</a>' +
       (mapUrl ? '<a class="mwss-b alt" href="' + esc(mapUrl) + '">' + T.map + '</a>' : '') +
       '<a class="mwss-b alt" href="' + T.bookPath + '?passport=' + encodeURIComponent(p.id) + lang2 + '">' + T.book + '</a></div></div>';
     var rt = document.querySelector('.w-richtext');
