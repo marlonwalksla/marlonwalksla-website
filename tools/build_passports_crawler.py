@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Crawler text for /passports and /pasaportes (noscript block for the page footer in Webflow).
 Built from passports.json. Output: tools/crawler-text/passports.html and pasaportes.html.
-Stamp pages that are published (Downtown Classic) get links to /stamps/<passport>-<stamp>."""
+Stamp pages that are published (Downtown Classic) get links to /stamps/<slug> (one page per place)."""
 import json, os, html
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = json.load(open(os.path.join(ROOT, "passports.json"), encoding="utf-8"))
 LINKED = {"downtown-classic"}  # passports whose stamp pages are published
+PAGES = {s["slug"] for p in D["passports"] if p["id"] in LINKED for s in p["stamps"]}  # one page per place, shared by all passports
 e = html.escape
 
 def build(es):
@@ -29,8 +30,8 @@ def build(es):
             items = []
             for s in places:
                 nm = e(L(s["name"]))
-                if p["id"] in LINKED:
-                    items.append('<li><a href="/stamps/%s-%s%s">%s</a></li>' % (p["id"], s["id"], "?lang=es" if es else "", nm))
+                if s["slug"] in PAGES:
+                    items.append('<li><a href="/stamps/%s%s">%s</a></li>' % (s["slug"], "?lang=es" if es else "", nm))
                 else:
                     items.append('<li>%s</li>' % nm)
             h.append('<ul>\n' + '\n'.join(items) + '\n</ul>')

@@ -42,11 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // ON everywhere since Nov 3, 2026 (Marlon said go). Set PP_NAV_LIVE to false to hide the passport links on marlonwalksla.com again.
 (function () {
   var PP_NAV_LIVE = true;
+  // Nov 4, 2026: Stamps page (/stamps, /sellos). Shown on the test site only until Marlon says OK; then set ST_NAV_LIVE to true.
+  var ST_NAV_LIVE = false;
   var live = /^(www\.)?marlonwalksla\.com$/i.test(location.hostname);
   if (live && !PP_NAV_LIVE) return;
   document.addEventListener('DOMContentLoaded', function () {
     var path = (location.pathname.replace(/\/+$/, '') || '/');
-    var ES = document.documentElement.lang === 'es' || /^\/pasaportes$/.test(path) || /^\/es(\/|$)/.test(path);
+    var ES = document.documentElement.lang === 'es' || /^\/(pasaportes|sellos)$/.test(path) || /^\/es(\/|$)/.test(path);
     var href = ES ? '/pasaportes' : '/passports', label = ES ? 'Pasaportes' : 'Passports';
     // Header: after the Maps link
     var maps = document.querySelector('.mwhd-nav a[data-k="maps"]');
@@ -56,13 +58,32 @@ document.addEventListener('DOMContentLoaded', () => {
       if (path === href) a.setAttribute('aria-current', 'page');
       maps.parentNode.insertBefore(a, maps.nextSibling);
     }
-    // EN | ES switch on the two passport pages
+    // Stamps link: after the Passports link (header) and after the Passports item (footer)
+    var showSt = !live || ST_NAV_LIVE, stHref = ES ? '/sellos' : '/stamps', stLabel = ES ? 'Sellos' : 'Stamps';
+    if (showSt) {
+      var hp = document.querySelector('.mwhd-nav a[data-k="passports"]');
+      if (hp && !document.querySelector('.mwhd-nav a[data-k="stamps"]')) {
+        var sa = document.createElement('a');
+        sa.className = 'mwhd-link'; sa.setAttribute('data-k', 'stamps'); sa.href = stHref; sa.textContent = stLabel;
+        if (path === stHref) sa.setAttribute('aria-current', 'page');
+        hp.parentNode.insertBefore(sa, hp.nextSibling);
+      }
+    }
+    // EN | ES switch on the stamps and passports pages. The header embed sets these links itself (to / and /es), so apply again after it has run.
+    function applySwitch() {
+    if (path === '/stamps' || path === '/sellos') {
+      var sen = document.getElementById('mwhd-en'), ses = document.getElementById('mwhd-es');
+      if (sen) { sen.href = '/stamps'; if (!ES) sen.setAttribute('aria-current', 'true'); else sen.removeAttribute('aria-current'); }
+      if (ses) { ses.href = '/sellos'; if (ES) ses.setAttribute('aria-current', 'true'); else ses.removeAttribute('aria-current'); }
+    }
     if (path === '/passports' || path === '/pasaportes') {
       var en = document.getElementById('mwhd-en'), es = document.getElementById('mwhd-es');
       var q = location.search.replace(/[?&]lang=[a-z]+/i, '').replace(/^&/, '?');
       if (en) { en.href = '/passports' + q; if (!ES) en.setAttribute('aria-current', 'true'); else en.removeAttribute('aria-current'); }
       if (es) { es.href = '/pasaportes' + q; if (ES) es.setAttribute('aria-current', 'true'); else es.removeAttribute('aria-current'); }
     }
+    }
+    applySwitch(); window.addEventListener('load', applySwitch); setTimeout(applySwitch, 700);
     // Footer: after the Maps link in the footer
     var fm = Array.prototype.filter.call(document.querySelectorAll('a[href="/maps"], a[href="/mapa-los-angeles"]'), function (x) { return !x.closest('.mwhd'); })[0];
     [].forEach.call(document.querySelectorAll('a[data-pp-foot]'), function (x) { x.remove(); });
@@ -74,6 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (li && li.tagName === 'LI' && li.parentNode) {
         var nli = li.cloneNode(false); nli.appendChild(f); li.parentNode.insertBefore(nli, li.nextSibling);
       } else fm.parentNode.insertBefore(f, fm.nextSibling);
+    }
+    [].forEach.call(document.querySelectorAll('a[data-st-foot]'), function (x) { x.parentNode && x.parentNode.tagName === 'LI' ? x.parentNode.remove() : x.remove(); });
+    var fp = document.querySelector('a[data-pp-foot]');
+    if (showSt && fp) {
+      var g = fp.cloneNode(false); g.removeAttribute('data-pp-foot'); g.setAttribute('data-st-foot', '1'); g.href = stHref; g.textContent = stLabel;
+      var fli = fp.parentNode;
+      if (fli && fli.tagName === 'LI' && fli.parentNode) { var sli = fli.cloneNode(false); sli.appendChild(g); fli.parentNode.insertBefore(sli, fli.nextSibling); }
+      else fp.parentNode.insertBefore(g, fp.nextSibling);
     }
   });
 })();

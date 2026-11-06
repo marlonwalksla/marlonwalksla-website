@@ -44,7 +44,8 @@
       "en": "Free to get in. Come near sunset for the city lights.",
       "es": "Entrada gratis. Ve cerca del atardecer para ver las luces de la ciudad."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "griffith-observatory"
     },
     {
      "id": "hollywood-walk-of-fame",
@@ -73,7 +74,8 @@
       "en": "Look down. Find a star for someone you love.",
       "es": "Mira al piso. Busca la estrella de alguien que quieres."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hollywood-walk-of-fame"
     },
     {
      "id": "hollywood-sign-viewpoint-lake-hollywood-park",
@@ -102,7 +104,8 @@
       "en": "The park at Lake Hollywood has a clear view and a dog park.",
       "es": "El parque de Lake Hollywood tiene una vista clara del letrero."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hollywood-sign-view"
     },
     {
      "id": "tcl-chinese-theatre",
@@ -131,7 +134,8 @@
       "en": "Put your hands in the famous cement prints in the front yard.",
       "es": "Pon tus manos en las huellas de cemento del patio de enfrente."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "tcl-chinese-theatre"
     },
     {
      "id": "santa-monica-pier",
@@ -160,7 +164,8 @@
       "en": "Walk to the end of the pier and look back at the coast.",
       "es": "Camina hasta el final del muelle y mira hacia la costa."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "santa-monica-pier"
     },
     {
      "id": "venice-beach-boardwalk",
@@ -189,7 +194,8 @@
       "en": "Skaters, muscle beach and street art. Explore it slowly.",
       "es": "Patinadores, Muscle Beach y arte callejero. Explóralo con calma."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "venice-beach-boardwalk"
     },
     {
      "id": "the-getty-center",
@@ -218,7 +224,8 @@
       "en": "Free to get in. Parking costs money, so take the tram up the hill.",
       "es": "Entrada gratis. El estacionamiento cuesta, usa el tranvía hasta arriba."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "the-getty-center"
     },
     {
      "id": "rodeo-drive",
@@ -247,7 +254,8 @@
       "en": "Window shopping is free. Walk it and enjoy the people watching.",
       "es": "Ver las vitrinas es gratis. Camina y disfruta ver pasar a la gente."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "rodeo-drive"
     },
     {
      "id": "walt-disney-concert-hall",
@@ -280,7 +288,8 @@
      "history": {
       "en": "/blog/walt-disney-concert-hall",
       "es": "/historias/walt-disney-concert-hall"
-     }
+     },
+     "slug": "walt-disney-concert-hall"
     },
     {
      "id": "the-broad",
@@ -313,7 +322,8 @@
      "history": {
       "en": "/blog/the-broad",
       "es": "/historias/the-broad"
-     }
+     },
+     "slug": "the-broad"
     },
     {
      "id": "grand-central-market",
@@ -342,7 +352,8 @@
       "en": "Share a few things from different stalls. Explore before you buy.",
       "es": "Comparte algo de varios puestos. Explora antes de comprar."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "grand-central-market"
     },
     {
      "id": "olvera-street-and-el-pueblo",
@@ -375,7 +386,8 @@
      "history": {
       "en": "/blog/olvera-street",
       "es": "/historias/calle-olvera"
-     }
+     },
+     "slug": "olvera-street-and-el-pueblo"
     }
    ]
   },
@@ -424,15 +436,16 @@
      "history": {
       "en": "/blog/walt-disney-concert-hall",
       "es": "/historias/walt-disney-concert-hall"
-     }
+     },
+     "slug": "walt-disney-concert-hall"
     },
     {
      "id": "wdch-garden",
      "bonus": true,
      "parent": "walt-disney-concert-hall",
      "name": {
-      "en": "Explore the garden",
-      "es": "Explora el jardín"
+      "en": "Visit the Blue Ribbon Garden",
+      "es": "Visita el Jardín Blue Ribbon"
      },
      "top": {
       "en": "THE GARDEN",
@@ -461,15 +474,16 @@
       "es": "Encuentra la fuente de la rosa."
      },
      "mapLink": null,
-     "order": 2
+     "order": 2,
+     "slug": "walt-disney-concert-hall-blue-ribbon-garden"
     },
     {
      "id": "wdch-inside",
      "bonus": true,
      "parent": "walt-disney-concert-hall",
      "name": {
-      "en": "Go inside",
-      "es": "Entra a la sala"
+      "en": "Go inside Walt Disney Concert Hall",
+      "es": "Entra a la Sala de Conciertos Walt Disney"
      },
      "top": {
       "en": "INSIDE THE HALL",
@@ -498,7 +512,8 @@
       "es": "Mira hacia arriba, al techo de madera."
      },
      "mapLink": null,
-     "order": 3
+     "order": 3,
+     "slug": "walt-disney-concert-hall-inside"
     },
     {
      "id": "the-broad",
@@ -530,15 +545,16 @@
      "history": {
       "en": "/blog/the-broad",
       "es": "/historias/the-broad"
-     }
+     },
+     "slug": "the-broad"
     },
     {
      "id": "broad-honeycomb",
      "bonus": true,
      "parent": "the-broad",
      "name": {
-      "en": "Honeycomb wall",
-      "es": "Pared de panal"
+      "en": "See the honeycomb wall at The Broad",
+      "es": "Mira la pared de panal de The Broad"
      },
      "top": {
       "en": "HONEYCOMB WALL",
@@ -567,7 +583,8 @@
       "es": "Toma una foto de la pared de panal."
      },
      "mapLink": null,
-     "order": 5
+     "order": 5,
+     "slug": "the-broad-honeycomb-wall"
     },
     {
      "id": "angels-flight",
@@ -599,7 +616,8 @@
      "history": {
       "en": "/blog/angels-flight",
       "es": "/historias/angels-flight"
-     }
+     },
+     "slug": "angels-flight"
     },
     {
      "id": "angels-ride",
@@ -636,7 +654,8 @@
       "es": "Súbete una vez."
      },
      "mapLink": null,
-     "order": 7
+     "order": 7,
+     "slug": "angels-flight-ride"
     },
     {
      "id": "grand-central-market",
@@ -664,15 +683,16 @@
       "en": "What to Eat on Your Visit: Roast To Go (1952): Carnitas tacos simmered in traditional copper pots. Sarita’s Pupusería: Salvadoran handmade pupusas (featured in La La Land). China Cafe (1959): Classic wonton soup under vintage neon.",
       "es": "Qué Probar en el Mercado: Roast To Go (1952): Tacos de carnitas en cazo de cobre tradicional. Sarita's Pupusería: Pupusas salvadoreñas hechas a mano (vistas en La La Land). China Cafe (1959): Sopa wonton clásica en la barra de madera."
      },
-     "mapLink": "https://maps.google.com/?q=Grand+Central+Market+Los+Angeles"
+     "mapLink": "https://maps.google.com/?q=Grand+Central+Market+Los+Angeles",
+     "slug": "grand-central-market"
     },
     {
      "id": "gcm-sign",
      "bonus": true,
      "parent": "grand-central-market",
      "name": {
-      "en": "Find the neon sign",
-      "es": "Busca el letrero de neón"
+      "en": "Find the Grand Central Market neon sign",
+      "es": "Busca el letrero de neón del Mercado Grand Central"
      },
      "top": {
       "en": "NEON SIGN",
@@ -701,7 +721,8 @@
       "es": "Toma una foto debajo del letrero."
      },
      "mapLink": null,
-     "order": 9
+     "order": 9,
+     "slug": "grand-central-market-neon-sign"
     },
     {
      "id": "bradbury-building",
@@ -729,15 +750,16 @@
       "en": "The French Ironwork: The intricate wrought-iron elevator cages and railings were fabricated in France and displayed at the 1893 Chicago World's Fair before being shipped to LA.",
       "es": "Herrería de la Feria de Chicago: Las rejas de hierro forjado y las jaulas de los elevadores fueron forjadas en Francia y exhibidas en la Feria Mundial de Chicago de 1893."
      },
-     "mapLink": "https://maps.google.com/?q=Bradbury+Building+Los+Angeles"
+     "mapLink": "https://maps.google.com/?q=Bradbury+Building+Los+Angeles",
+     "slug": "bradbury-building"
     },
     {
      "id": "bradbury-lobby",
      "bonus": true,
      "parent": "bradbury-building",
      "name": {
-      "en": "Step into the lobby",
-      "es": "Entra al lobby"
+      "en": "Step into the Bradbury Building lobby",
+      "es": "Entra al lobby del Edificio Bradbury"
      },
      "top": {
       "en": "THE LOBBY",
@@ -766,7 +788,8 @@
       "es": "Mira hacia arriba, al techo de vidrio."
      },
      "mapLink": null,
-     "order": 11
+     "order": 11,
+     "slug": "bradbury-building-lobby"
     },
     {
      "id": "evolution-of-la-mural",
@@ -794,7 +817,8 @@
       "en": "The Sister Sculpture: On the opposite side of this parking structure facing Spring Street, Tony Sheets sculpted a companion relief titled The Evolution of Printing.",
       "es": "La Escultura Gemela: Del otro lado de este estacionamiento sobre Spring Street, Tony Sheets esculpió el relieve complementario La Evolución de la Imprenta."
      },
-     "mapLink": "https://maps.google.com/?q=200+S+Broadway+Los+Angeles"
+     "mapLink": "https://maps.google.com/?q=200+S+Broadway+Los+Angeles",
+     "slug": "evolution-of-la-mural"
     },
     {
      "id": "la-city-hall",
@@ -826,15 +850,16 @@
      "history": {
       "en": "/blog/city-hall",
       "es": "/historias/city-hall"
-     }
+     },
+     "slug": "la-city-hall"
     },
     {
      "id": "cityhall-deck",
      "bonus": true,
      "parent": "la-city-hall",
      "name": {
-      "en": "Go up to the deck",
-      "es": "Sube al mirador"
+      "en": "Go up to the City Hall deck",
+      "es": "Sube al mirador del Ayuntamiento"
      },
      "top": {
       "en": "OBSERVATION DECK",
@@ -863,7 +888,8 @@
       "es": "Encuentra la Sala Walt Disney desde arriba."
      },
      "mapLink": null,
-     "order": 14
+     "order": 14,
+     "slug": "la-city-hall-observation-deck"
     },
     {
      "id": "hall-of-justice",
@@ -891,7 +917,8 @@
       "en": "The 1994 Earthquake Retrofit: The heavy top-floor jail cells made the building twist during the 1994 Northridge quake; it was red-tagged for 20 years before a $231M seismic retrofit reopened it as sheriff/DA headquarters.",
       "es": "El Terremoto de 1994: El peso de las celdas superiores hizo torcer el edificio en el sismo de 1994; estuvo abandonado 20 años hasta una restauración antisísmica de $231 millones."
      },
-     "mapLink": "https://maps.google.com/?q=Hall+of+Justice+Los+Angeles"
+     "mapLink": "https://maps.google.com/?q=Hall+of+Justice+Los+Angeles",
+     "slug": "hall-of-justice"
     },
     {
      "id": "olvera-street",
@@ -923,7 +950,8 @@
      "history": {
       "en": "/blog/olvera-street",
       "es": "/historias/calle-olvera"
-     }
+     },
+     "slug": "olvera-street-and-el-pueblo"
     },
     {
      "id": "olvera-avila",
@@ -960,15 +988,16 @@
       "es": "Camina por los cuartos antiguos."
      },
      "mapLink": null,
-     "order": 17
+     "order": 17,
+     "slug": "olvera-street-avila-adobe"
     },
     {
      "id": "olvera-taquito",
      "bonus": true,
      "parent": "olvera-street",
      "name": {
-      "en": "Try a taquito",
-      "es": "Prueba un taquito"
+      "en": "Try a taquito on Olvera Street",
+      "es": "Prueba un taquito en la calle Olvera"
      },
      "top": {
       "en": "TAQUITOS",
@@ -997,7 +1026,8 @@
       "es": "Prueba un taquito."
      },
      "mapLink": null,
-     "order": 18
+     "order": 18,
+     "slug": "olvera-street-taquito"
     }
    ]
   },
@@ -1049,7 +1079,8 @@
       "en": "Find the spot where you would film your own scene.",
       "es": "Busca el lugar donde filmarías tu propia escena."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "bradbury-building"
     },
     {
      "id": "tcl-chinese-theatre",
@@ -1084,7 +1115,8 @@
       "en": "Find the handprints of a star you love.",
       "es": "Busca las huellas de una estrella que te guste."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "tcl-chinese-theatre"
     },
     {
      "id": "dolby-theatre-hollywood",
@@ -1119,7 +1151,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "dolby-theatre"
     },
     {
      "id": "egyptian-theatre",
@@ -1154,7 +1187,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "egyptian-theatre"
     },
     {
      "id": "bronson-canyon-batcave",
@@ -1189,7 +1223,8 @@
       "en": "Take a photo from inside the cave, looking out.",
       "es": "Toma una foto desde dentro de la cueva, mirando hacia afuera."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "bronson-canyon-and-batcave"
     },
     {
      "id": "music-box-steps",
@@ -1224,7 +1259,8 @@
       "en": "Climb all the steps. Count them.",
       "es": "Sube todas las escaleras. Cuéntalas."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "music-box-steps"
     },
     {
      "id": "paramount-pictures-studio-tour",
@@ -1259,7 +1295,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "paramount-pictures-tour"
     },
     {
      "id": "warner-bros-studio-tour-hollywood",
@@ -1294,7 +1331,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "warner-bros-studio-tour"
     },
     {
      "id": "sony-pictures-studios-tour",
@@ -1329,7 +1367,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "sony-pictures-studios-tour"
     },
     {
      "id": "academy-museum-of-motion-pictures",
@@ -1364,7 +1403,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "academy-museum"
     }
    ]
   },
@@ -1416,7 +1456,8 @@
       "en": "Take a photo of your group between the lamps.",
       "es": "Toma una foto de tu grupo entre los faroles."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "urban-light-lacma"
     },
     {
      "id": "hollywood-sign-viewpoint-lake-hollywood-park",
@@ -1451,7 +1492,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hollywood-sign-view"
     },
     {
      "id": "griffith-observatory",
@@ -1486,7 +1528,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "griffith-observatory"
     },
     {
      "id": "walt-disney-concert-hall",
@@ -1525,7 +1568,8 @@
      "history": {
       "en": "/blog/walt-disney-concert-hall",
       "es": "/historias/walt-disney-concert-hall"
-     }
+     },
+     "slug": "walt-disney-concert-hall"
     },
     {
      "id": "bradbury-building",
@@ -1560,7 +1604,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "bradbury-building"
     },
     {
      "id": "arts-district-street-art-wall",
@@ -1595,7 +1640,8 @@
       "en": "Find a wall that matches the color of your outfit.",
       "es": "Busca una pared del color de tu ropa."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "arts-district-street-art"
     },
     {
      "id": "colorado-street-bridge",
@@ -1630,7 +1676,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "colorado-street-bridge"
     },
     {
      "id": "venice-canals",
@@ -1665,7 +1712,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "venice-canals"
     },
     {
      "id": "santa-monica-pier",
@@ -1700,7 +1748,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "santa-monica-pier"
     },
     {
      "id": "el-matador-state-beach",
@@ -1735,7 +1784,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "el-matador-beach"
     }
    ]
   },
@@ -1787,7 +1837,8 @@
       "en": "Eat a taco standing at the counter.",
       "es": "Come un taco de pie, en la barra."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "grand-central-market"
     },
     {
      "id": "sonoratown",
@@ -1822,7 +1873,8 @@
       "en": "Order the carne asada.",
       "es": "Pide la carne asada."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "sonoratown"
     },
     {
      "id": "chuys-tacos-dorados",
@@ -1857,7 +1909,8 @@
       "en": "Listen for the crunch.",
       "es": "Escucha el crujido."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "chuys-tacos-dorados"
     },
     {
      "id": "mariscos-jalisco",
@@ -1892,7 +1945,8 @@
       "en": "Try the shrimp taco dorado.",
       "es": "Prueba el taco dorado de camarón."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "mariscos-jalisco"
     },
     {
      "id": "guisados",
@@ -1927,7 +1981,8 @@
       "en": "Order three different guisos.",
       "es": "Pide tres guisos distintos."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "guisados"
     },
     {
      "id": "los-cinco-puntos",
@@ -1962,7 +2017,8 @@
       "en": "Watch them chop the carnitas.",
       "es": "Mira cómo pican las carnitas."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "los-cinco-puntos"
     },
     {
      "id": "villas-tacos",
@@ -1997,7 +2053,8 @@
       "en": "Try the potato taco.",
       "es": "Prueba el taco de papa."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "villas-tacos"
     },
     {
      "id": "leos-tacos-truck",
@@ -2032,7 +2089,8 @@
       "en": "Order al pastor with pineapple.",
       "es": "Pide al pastor con piña."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "leos-tacos-truck"
     },
     {
      "id": "tacos-1986",
@@ -2067,7 +2125,8 @@
       "en": "Add a splash of salsa verde.",
       "es": "Agrégale un poco de salsa verde."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "tacos-1986"
     },
     {
      "id": "tito-s-tacos",
@@ -2102,7 +2161,8 @@
       "en": "Eat one in the parking lot like a local.",
       "es": "Come uno en el estacionamiento, como local."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "titos-tacos"
     }
    ]
   },
@@ -2154,7 +2214,8 @@
       "en": "Find the star of your favorite actor.",
       "es": "Busca la estrella de tu actor favorito."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hollywood-walk-of-fame"
     },
     {
      "id": "tcl-chinese-theatre",
@@ -2189,7 +2250,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "tcl-chinese-theatre"
     },
     {
      "id": "dolby-theatre-hollywood",
@@ -2224,7 +2286,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "dolby-theatre"
     },
     {
      "id": "pantages-theatre",
@@ -2259,7 +2322,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "pantages-theatre"
     },
     {
      "id": "musso-and-frank-grill",
@@ -2294,7 +2358,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "musso-and-frank-grill"
     },
     {
      "id": "capitol-records-building",
@@ -2329,7 +2394,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "capitol-records-building"
     },
     {
      "id": "pink-s-hot-dogs",
@@ -2364,7 +2430,8 @@
       "en": "Order a chili dog.",
       "es": "Pide un hot dog con chili."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "pinks-hot-dogs"
     },
     {
      "id": "amoeba-music",
@@ -2399,7 +2466,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "amoeba-music"
     },
     {
      "id": "hollywood-bowl",
@@ -2434,7 +2502,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hollywood-bowl"
     },
     {
      "id": "hollywood-sign-viewpoint-lake-hollywood-park",
@@ -2469,7 +2538,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hollywood-sign-view"
     }
    ]
   },
@@ -2521,7 +2591,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "santa-monica-pier"
     },
     {
      "id": "venice-beach-boardwalk",
@@ -2556,7 +2627,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "venice-beach-boardwalk"
     },
     {
      "id": "muscle-beach-venice",
@@ -2591,7 +2663,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "muscle-beach"
     },
     {
      "id": "malibu-pier",
@@ -2626,7 +2699,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "malibu-pier"
     },
     {
      "id": "el-matador-state-beach",
@@ -2661,7 +2735,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "el-matador-beach"
     },
     {
      "id": "zuma-beach",
@@ -2696,7 +2771,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "zuma-beach"
     },
     {
      "id": "manhattan-beach-pier",
@@ -2731,7 +2807,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "manhattan-beach-pier"
     },
     {
      "id": "hermosa-beach-pier-and-plaza",
@@ -2766,7 +2843,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hermosa-beach-pier"
     },
     {
      "id": "point-vicente-lighthouse",
@@ -2801,7 +2879,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "point-vicente-lighthouse"
     },
     {
      "id": "dockweiler-beach-fire-pits",
@@ -2836,7 +2915,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "dockweiler-fire-pits"
     }
    ]
   },
@@ -2892,7 +2972,8 @@
      "history": {
       "en": "/blog/olvera-street",
       "es": "/historias/calle-olvera"
-     }
+     },
+     "slug": "olvera-street-and-el-pueblo"
     },
     {
      "id": "grand-central-market",
@@ -2927,7 +3008,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "grand-central-market"
     },
     {
      "id": "santee-alley-fashion-district",
@@ -2962,7 +3044,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "santee-alley"
     },
     {
      "id": "mariachi-plaza",
@@ -2997,7 +3080,8 @@
       "en": "Ask a mariachi what their favorite song is.",
       "es": "Pregúntale a un mariachi cuál es su canción favorita."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "mariachi-plaza"
     },
     {
      "id": "pan-dulce-challenge",
@@ -3032,7 +3116,8 @@
       "en": "Take a tray and tongs, and pick three pan dulce.",
       "es": "Toma una charola y unas pinzas, y escoge tres panes dulces."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "pan-dulce"
     },
     {
      "id": "birria-challenge",
@@ -3067,7 +3152,8 @@
       "en": "Dip your taco in the consomé.",
       "es": "Moja tu taco en el consomé."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "birria"
     },
     {
      "id": "highland-park-york-and-figueroa",
@@ -3102,7 +3188,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "highland-park"
     },
     {
      "id": "guelaguetza",
@@ -3137,7 +3224,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "guelaguetza"
     },
     {
      "id": "mission-san-gabriel-arc-ngel",
@@ -3172,7 +3260,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "mission-san-gabriel"
     }
    ]
   },
@@ -3224,7 +3313,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "capitol-records-building"
     },
     {
      "id": "amoeba-music",
@@ -3259,7 +3349,8 @@
       "en": "Buy one record you have never heard of.",
       "es": "Compra un disco que nunca hayas escuchado."
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "amoeba-music"
     },
     {
      "id": "whisky-a-go-go",
@@ -3294,7 +3385,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "whisky-a-go-go"
     },
     {
      "id": "the-troubadour",
@@ -3329,7 +3421,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "the-troubadour"
     },
     {
      "id": "sunset-strip-and-the-roxy",
@@ -3364,7 +3457,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "sunset-strip-and-the-roxy"
     },
     {
      "id": "hollywood-bowl",
@@ -3399,7 +3493,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hollywood-bowl"
     },
     {
      "id": "greek-theatre",
@@ -3434,7 +3529,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "greek-theatre"
     },
     {
      "id": "the-wiltern",
@@ -3469,7 +3565,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "the-wiltern"
     },
     {
      "id": "grammy-museum-at-l-a-live",
@@ -3504,7 +3601,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "grammy-museum"
     },
     {
      "id": "the-echo",
@@ -3539,7 +3637,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "the-echo"
     }
    ]
   },
@@ -3595,7 +3694,8 @@
      "history": {
       "en": "/blog/the-broad",
       "es": "/historias/the-broad"
-     }
+     },
+     "slug": "the-broad"
     },
     {
      "id": "gloria-molina-grand-park",
@@ -3630,7 +3730,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "grand-park"
     },
     {
      "id": "olvera-street-and-el-pueblo",
@@ -3669,7 +3770,8 @@
      "history": {
       "en": "/blog/olvera-street",
       "es": "/historias/calle-olvera"
-     }
+     },
+     "slug": "olvera-street-and-el-pueblo"
     },
     {
      "id": "lacma-urban-light",
@@ -3704,7 +3806,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "urban-light-lacma"
     },
     {
      "id": "hollywood-walk-of-fame",
@@ -3739,7 +3842,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "hollywood-walk-of-fame"
     },
     {
      "id": "griffith-observatory",
@@ -3774,7 +3878,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "griffith-observatory"
     },
     {
      "id": "runyon-canyon-park",
@@ -3809,7 +3914,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "runyon-canyon"
     },
     {
      "id": "the-getty-center",
@@ -3844,7 +3950,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "the-getty-center"
     },
     {
      "id": "santa-monica-state-beach",
@@ -3879,7 +3986,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "santa-monica-beach"
     },
     {
      "id": "venice-beach-boardwalk",
@@ -3914,7 +4022,8 @@
       "en": "",
       "es": ""
      },
-     "mapLink": null
+     "mapLink": null,
+     "slug": "venice-beach-boardwalk"
     }
    ]
   }
