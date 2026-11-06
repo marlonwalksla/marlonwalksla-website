@@ -252,6 +252,10 @@
 #pmx .pmx-fm[aria-expanded="true"] i{transform:rotate(180deg)}
 #pmx .pmx-ftab2 button:focus-visible{outline:2px solid #FFD43B;outline-offset:-2px}
 @media (prefers-reduced-motion:reduce){#pmx .pmx-fm i{transition:none}}
+/* Full-width bar (default). Add ?bar=tab to the address to see the small left tab. */
+#pmx.pmx-barwide .pmx-ftab2{left:0;right:0;width:auto;border-radius:14px 14px 0 0}
+#pmx.pmx-barwide .pmx-fa{width:56px;font-size:1.5rem}
+#pmx.pmx-barwide .pmx-fm{flex:1;font-size:.95rem;padding:0 12px}
 </style>
 
 <div id="pmx">
@@ -285,6 +289,7 @@
 (function () {
   'use strict';
   var root = document.getElementById('pmx');
+  if (!/[?&]bar=tab\b/.test(location.search)) root.classList.add('pmx-barwide');
   if (!root || root.getAttribute('data-ready')) return;
   root.setAttribute('data-ready', '1');
 
