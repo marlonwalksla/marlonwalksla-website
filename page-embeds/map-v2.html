@@ -239,6 +239,19 @@
 #pmx .pmx-pick.pmx-in-r{animation:pmxInR .22s ease-out}
 #pmx .pmx-pick.pmx-in-l{animation:pmxInL .22s ease-out}
 @media (prefers-reduced-motion:reduce){#pmx .pmx-pick.pmx-in-r,#pmx .pmx-pick.pmx-in-l{animation:none}}
+
+/* Nov 6, 2026 (eve): arrows live inside the dark passports tab */
+#pmx .pmx-flip{display:none}
+#pmx .pmx-deck{padding-top:36px}
+#pmx .pmx-ftab2{position:absolute;left:12px;top:0;height:36px;display:flex;align-items:stretch;border-radius:12px 12px 0 0;background:#27302E;color:#FFFDF7;overflow:hidden}
+#pmx .pmx-ftab2 button{border:0;background:none;color:#FFFDF7;cursor:pointer;font:inherit}
+#pmx .pmx-fa{width:38px;font-size:1.3rem;line-height:1;padding:0 0 3px}
+#pmx .pmx-fa:hover,#pmx .pmx-fm:hover{background:rgba(255,253,247,.14)}
+#pmx .pmx-fm{padding:0 8px;font-family:Fredoka,sans-serif !important;font-weight:500;font-size:.85rem;white-space:nowrap;border-left:1px solid rgba(255,253,247,.25) !important;border-right:1px solid rgba(255,253,247,.25) !important}
+#pmx .pmx-fm i{font-style:normal;display:inline-block;transition:transform .18s ease-out}
+#pmx .pmx-fm[aria-expanded="true"] i{transform:rotate(180deg)}
+#pmx .pmx-ftab2 button:focus-visible{outline:2px solid #FFD43B;outline-offset:-2px}
+@media (prefers-reduced-motion:reduce){#pmx .pmx-fm i{transition:none}}
 </style>
 
 <div id="pmx">
@@ -284,7 +297,7 @@
     more: 'Ver más', dir: 'Cómo llegar', story: 'Leer la historia', stampIt: '¡Sella!', stampedBtn: '¡Sellado!', tapRemove: 'Toca para quitar el sello', unstamp: 'Quitar el sello',
     stampFor: 'Sello para', stampedIn: 'Sellado en', goNote: 'Los sellos se ganan yendo.', stampedNote: 'Ya estuviste aquí.',
     noPP: 'Aún no está en un pasaporte.', trust: 'Elegido por Marlon, guía local de LA · 4,9 en más de 500 opiniones', about: 'Conoce a Marlon',
-    updated: 'Actualizado en noviembre de 2026', anywhere: 'Reto: vale cualquier lugar. Séllalo en tu pasaporte.', pps: 'Pasaportes', pick: function (n) { return n + ' pasaportes'; }, prevP: 'Pasaporte anterior', nextP: 'Siguiente pasaporte', showAll: function () { return 'Ver todo'; }, bonusH: 'Sellos extra', plusBonus: function (n) { return '+' + n + ' extra'; }, choose: 'Elige un pasaporte', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
+    updated: 'Actualizado en noviembre de 2026', anywhere: 'Reto: vale cualquier lugar. Séllalo en tu pasaporte.', pps: 'Pasaportes', pick: function (n) { return n + ' pasaportes'; }, ofP: function (i, n) { return i + ' de ' + n + ' pasaportes'; }, prevP: 'Pasaporte anterior', nextP: 'Siguiente pasaporte', showAll: function () { return 'Ver todo'; }, bonusH: 'Sellos extra', plusBonus: function (n) { return '+' + n + ' extra'; }, choose: 'Elige un pasaporte', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
   } : {
     title: 'Explore LA', sub: 'Track your adventure. Stamp your passport.', saved: 'Your stamps are saved on this phone.',
     all: 'All places', soon: 'soon', of: function (d, t) { return d + ' of ' + t + ' stamped'; }, open: 'Open my passport',
@@ -292,7 +305,7 @@
     more: 'Show more', dir: 'Directions', story: 'Read the story', stampIt: 'Stamp!', stampedBtn: 'Stamped!', tapRemove: 'Tap to remove the stamp', unstamp: 'Remove stamp',
     stampFor: 'Stamp for', stampedIn: 'Stamped in', goNote: 'Stamps are earned by going.', stampedNote: "You've been here.",
     noPP: 'Not in a passport yet.', trust: 'Picked by Marlon, a local LA guide · 4.9 from 500+ reviews', about: 'Meet Marlon',
-    updated: 'Updated November 2026', anywhere: 'A challenge: any spot counts. Stamp it in your passport.', pps: 'Passports', pick: function (n) { return n + ' passports'; }, prevP: 'Previous passport', nextP: 'Next passport', showAll: function () { return 'Show all'; }, bonusH: 'Bonus stamps', plusBonus: function (n) { return '+' + n + ' bonus'; }, choose: 'Pick a passport', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
+    updated: 'Updated November 2026', anywhere: 'A challenge: any spot counts. Stamp it in your passport.', pps: 'Passports', pick: function (n) { return n + ' passports'; }, ofP: function (i, n) { return i + ' of ' + n + ' passports'; }, prevP: 'Previous passport', nextP: 'Next passport', showAll: function () { return 'Show all'; }, bonusH: 'Bonus stamps', plusBonus: function (n) { return '+' + n + ' bonus'; }, choose: 'Pick a passport', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
   };
 
   var CATS = {
@@ -494,9 +507,11 @@
     if (!isAll && cur) {
       var ci = pps.indexOf(cur), n2 = pps[(ci + 1) % pps.length], n3 = pps[(ci + 2) % pps.length];
       var livePs = pps.filter(live), li = livePs.indexOf(cur);
-      h += '<div class="pmx-deck"><div class="pmx-flip"><button type="button" data-flip="-1" aria-label="' + esc(T.prevP) + '">‹</button><span>' + (li + 1) + '/' + livePs.length + '</span><button type="button" data-flip="1" aria-label="' + esc(T.nextP) + '">›</button></div>';
+      /* Nov 6, 2026: one dark tab holds the arrows and the list toggle: ‹ 🎫 1 of 10 passports ▾ › */
+      h += '<div class="pmx-deck"><div class="pmx-ftab2"><button type="button" class="pmx-fa" data-flip="-1" aria-label="' + esc(T.prevP) + '">‹</button>' +
+        '<button type="button" class="pmx-fm" data-menu aria-haspopup="true" aria-expanded="' + menuOpen + '" aria-controls="pmx-menu">🎫 ' + esc(T.ofP(li + 1, livePs.length)) + ' <i aria-hidden="true">▾</i></button>' +
+        '<button type="button" class="pmx-fa" data-flip="1" aria-label="' + esc(T.nextP) + '">›</button></div>';
       h += '<button type="button" class="pmx-pick' + (flipDir ? (flipDir > 0 ? ' pmx-in-r' : ' pmx-in-l') : '') + '" id="pmx-pick" aria-haspopup="true" aria-expanded="' + menuOpen + '" aria-controls="pmx-menu" style="--ink:' + esc(cur.ink || '#27302E') + ';--ink2:' + esc((n2 && n2.ink) || '#27302E') + ';--ink3:' + esc((n3 && n3.ink) || '#27302E') + '">' +
-        '<span class="pmx-ftab">🎫 ' + esc(T.pick(pps.length)) + ' <i aria-hidden="true">▾</i></span>' +
         '<span class="pmx-dot"></span><b>' + esc(L(cur.name)) + '</b><span class="pmx-chev" aria-hidden="true">▾</span>' +
         (function () { var g = prog(cur); return '<span class="pmx-pick-p"><span class="pmx-mini"><i style="width:' + (g.t ? Math.round(g.d / g.t * 100) : 0) + '%"></i></span><small>' + esc(T.of(g.d, g.t)) + '</small></span>'; })() + '</button></div>';
       h += '<div class="pmx-menu" id="pmx-menu"' + (menuOpen ? '' : ' hidden') + '><div class="pmx-menu-h">' + esc(T.choose) + '</div>' + pps.map(function (p) {
@@ -509,8 +524,8 @@
     $('pmx-tabs').innerHTML = h;
   }
   function setMenu(open) {
-    menuOpen = open; var m = $('pmx-menu'), b = $('pmx-pick');
-    if (m) m.hidden = !open; if (b) b.setAttribute('aria-expanded', String(open));
+    menuOpen = open; var m = $('pmx-menu'), b = $('pmx-pick'), fm = root.querySelector('.pmx-fm');
+    if (m) m.hidden = !open; if (b) b.setAttribute('aria-expanded', String(open)); if (fm) fm.setAttribute('aria-expanded', String(open));
     if (open && m) { var c = m.querySelector('[aria-current="true"]') || m.querySelector('.pmx-opt'); if (c) c.focus(); }
   }
 
@@ -669,8 +684,9 @@
   /* ---------- events ---------- */
   root.addEventListener('click', function (e) {
     var b = e.target.closest('button');
-    if (menuOpen && !(b && (b.id === 'pmx-pick' || b.classList.contains('pmx-opt')))) setMenu(false);
+    if (menuOpen && !(b && (b.id === 'pmx-pick' || b.hasAttribute('data-menu') || b.classList.contains('pmx-opt')))) setMenu(false);
     if (!b) return;
+    if (b.hasAttribute('data-menu')) { setMenu(!menuOpen); return; }
     if (b.id === 'pmx-pick') { if (swiped) { swiped = false; return; } setMenu(!menuOpen); return; }
     if (b.hasAttribute('data-flip')) { flip(+b.getAttribute('data-flip')); return; }
     if (b.hasAttribute('data-view')) {
