@@ -170,8 +170,7 @@
 
 /* Nov 6, 2026: stamp in the card's top-right corner, toggle stamp button */
 #pmx .pmx-card{position:relative}
-#pmx .pmx-card.has-corner .pmx-type,#pmx .pmx-card.has-corner h3,#pmx .pmx-card.has-corner .pmx-city{margin-right:92px}
-#pmx .pmx-corner{position:absolute;top:34px;right:8px;width:92px;height:92px;pointer-events:none;opacity:.16;filter:grayscale(1);transition:opacity .25s ease-out,filter .25s ease-out}
+#pmx .pmx-corner{float:right;width:88px;height:88px;margin:20px -4px 6px 10px;shape-outside:circle(50%);pointer-events:none;opacity:.16;filter:grayscale(1);transition:opacity .25s ease-out,filter .25s ease-out}
 #pmx .pmx-corner.on{opacity:1;filter:none}
 #pmx .pmx-corner svg{width:100%;height:100%;display:block;overflow:visible}
 #pmx .pmx-go.on{background:#FFFDF7;border-color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
@@ -213,6 +212,8 @@
 #pmx .pmx-bt.on{border-color:var(--ink)}
 #pmx .pmx-bt.on .pmx-bt-c{background:var(--ink);border-style:solid}
 @media (prefers-reduced-motion:reduce){#pmx .pmx-bt,#pmx .pmx-bt-s{transition:none}}
+#pmx .pmx-card .pmx-go,#pmx .pmx-card .pmx-bonus,#pmx .pmx-card .pmx-acts{clear:both}
+#pmx .pmx-acts .pmx-b{white-space:nowrap;font-size:.92rem;padding:8px 10px}
 </style>
 
 <div id="pmx">
