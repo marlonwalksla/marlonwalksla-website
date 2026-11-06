@@ -167,6 +167,18 @@
 #pmx .pmx-acts .pmx-b:hover{background:#fff}
 #pmx .pmx-b.quiet{display:block;margin:10px auto 0}
 @media (prefers-reduced-motion:reduce){#pmx .pmx-go{transition:none}}
+
+/* Nov 6, 2026: stamp in the card's top-right corner, toggle stamp button */
+#pmx .pmx-card{position:relative}
+#pmx .pmx-card.has-corner .pmx-type,#pmx .pmx-card.has-corner h3,#pmx .pmx-card.has-corner .pmx-city{margin-right:92px}
+#pmx .pmx-corner{position:absolute;top:34px;right:8px;width:92px;height:92px;pointer-events:none;opacity:.16;filter:grayscale(1);transition:opacity .25s ease-out,filter .25s ease-out}
+#pmx .pmx-corner.on{opacity:1;filter:none}
+#pmx .pmx-corner svg{width:100%;height:100%;display:block;overflow:visible}
+#pmx .pmx-go.on{background:#FFFDF7;border-color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+#pmx .pmx-go.on .pmx-seal{background:var(--ink);border-style:solid;border-color:var(--ink);color:#fff;font-weight:800}
+#pmx .pmx-go.on .pmx-go-t b{color:var(--ink)}
+#pmx .pmx-go.on .pmx-go-t small{color:#4A4B43}
+@media (prefers-reduced-motion:reduce){#pmx .pmx-corner{transition:none}}
 </style>
 
 <div id="pmx">
@@ -208,7 +220,7 @@
     title: 'Explora LA, un pasaporte a la vez', sub: 'Elige un pasaporte, ve a cada lugar y séllalo. Tus sellos se guardan en este teléfono.',
     all: 'Todos los lugares', soon: 'pronto', of: function (d, t) { return d + ' de ' + t + ' sellos'; }, open: 'Abrir mi pasaporte',
     done: '¡Pasaporte completo! Envía una postal desde tu pasaporte.', search: 'Busca entre los lugares', places: function (n) { return n + ' lugares'; },
-    more: 'Ver más', dir: 'Cómo llegar', story: 'Leer la historia', stampIt: '¡Séllalo!', unstamp: 'Quitar el sello',
+    more: 'Ver más', dir: 'Cómo llegar', story: 'Leer la historia', stampIt: '¡Séllalo!', stampedBtn: '¡Sellado!', tapRemove: 'Toca para quitar el sello', unstamp: 'Quitar el sello',
     stampFor: 'Sello para', stampedIn: 'Sellado en', goNote: 'Los sellos se ganan yendo.', stampedNote: 'Ya estuviste aquí.',
     noPP: 'Aún no está en un pasaporte.', trust: 'Elegido por Marlon, guía local de LA · 4,9 en más de 500 opiniones', about: 'Conoce a Marlon',
     updated: 'Actualizado en noviembre de 2026', anywhere: 'Reto: vale cualquier lugar. Séllalo en tu pasaporte.', pps: 'Pasaportes', pick: 'Cambiar de pasaporte', choose: 'Elige un pasaporte', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
@@ -216,7 +228,7 @@
     title: 'Explore LA, one passport at a time', sub: 'Pick a passport, go to each place and stamp it. Your stamps are saved on this phone.',
     all: 'All places', soon: 'soon', of: function (d, t) { return d + ' of ' + t + ' stamped'; }, open: 'Open my passport',
     done: 'Passport complete! Send a postcard from your passport.', search: 'Search all places', places: function (n) { return n + ' places'; },
-    more: 'Show more', dir: 'Directions', story: 'Read the story', stampIt: 'Stamp it!', unstamp: 'Remove stamp',
+    more: 'Show more', dir: 'Directions', story: 'Read the story', stampIt: 'Stamp it!', stampedBtn: 'Stamped!', tapRemove: 'Tap to remove the stamp', unstamp: 'Remove stamp',
     stampFor: 'Stamp for', stampedIn: 'Stamped in', goNote: 'Stamps are earned by going.', stampedNote: "You've been here.",
     noPP: 'Not in a passport yet.', trust: 'Picked by Marlon, a local LA guide · 4.9 from 500+ reviews', about: 'Meet Marlon',
     updated: 'Updated November 2026', anywhere: 'A challenge: any spot counts. Stamp it in your passport.', pps: 'Passports', pick: 'Change passport', choose: 'Pick a passport', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
@@ -270,7 +282,7 @@
   function stops(p) {
     return (p.stamps || []).map(function (st, i) {
       var s = spotOf(st.spot);
-      var o = s ? placeFromSpot(s) : { key: st.id, name: L(st.label), cat: 'landmarks', city: (st.location && st.location.address) || '', desc: '', coords: st.location && st.location.coordinates };
+      var o = s ? placeFromSpot(s) : { key: keyOf(st), name: L(st.label), cat: 'landmarks', city: (st.location && st.location.address) || '', desc: '', coords: st.location && st.location.coordinates };
       o.name = L(st.label) || o.name;
       o.n = i + 1; o.st = st;
       return o;
@@ -487,28 +499,30 @@
     if (st && st.location) openCard({ key: key, name: L(st.label), cat: 'landmarks', city: st.location.address || '', desc: '', coords: st.location.coordinates });
   }
 
-  function openCard(o, still) {
+  function openCard(o, still, pressed) {
     card = o;
     var c = cat(o.cat), st = o.st || stampObj(o.key), members = memberOf(o.key), on = st ? stamped(st) : false;
     var ink = (members[0] && members[0].ink) || '#27302E';
     var names = members.map(function (p) { return L(p.name); }).join(' · ');
     var dir = 'https://www.google.com/maps/dir/?api=1&destination=' + o.coords[1] + ',' + o.coords[0];
+    var sv = st ? stampSvg(o, members) : '';
     var h = '<button type="button" class="pmx-x" data-close aria-label="Close">×</button>' +
+      (sv ? '<div class="pmx-corner' + (on ? ' on' : '') + '" aria-hidden="true" style="color:' + esc(ink) + '">' + sv + '</div>' : '') +
       '<span class="pmx-type" style="--c:' + c.c + '">' + c.e + ' ' + esc(L(c)) + '</span>' +
       '<h3>' + esc(o.name) + '</h3>' + (o.city ? '<div class="pmx-city">📍 ' + esc(o.city) + '</div>' : '') +
       (o.desc ? '<p>' + esc(o.desc) + '</p>' : '<div style="height:8px"></div>');
     if (st) {
-      /* Nov 6, 2026: the stamp box IS the button (people tapped the box). Short label. */
-      h += on
-        ? '<div class="pmx-stamp on" style="--ink:' + esc(ink) + '"><span class="pmx-seal">✓</span><div><b>' + esc(T.stampedIn) + ' ' + esc(names) + '</b><small>' + esc(T.stampedNote) + '</small></div></div>'
-        : '<button type="button" class="pmx-go" data-stamp="1" style="--ink:' + esc(ink) + '"><span class="pmx-seal">🎫</span><span class="pmx-go-t"><b>' + esc(T.stampIt) + '</b><small>' + esc(names) + '</small></span></button>';
+      /* Nov 6, 2026: one toggle button. Tap to stamp, tap again to remove. */
+      h += '<button type="button" class="pmx-go' + (on ? ' on' : '') + '" data-stamp="' + (on ? '0' : '1') + '" aria-pressed="' + on + '" style="--ink:' + esc(ink) + '"><span class="pmx-seal">' + (on ? '✓' : '🎫') + '</span><span class="pmx-go-t"><b>' + esc(on ? T.stampedBtn : T.stampIt) + '</b><small>' + esc(on ? T.tapRemove : names) + '</small></span></button>';
     } else {
       h += '<p style="color:#64748b;font-size:.85rem;margin-top:0">' + esc(T.noPP) + '</p>';
     }
     h += '<div class="pmx-acts"><a class="pmx-b" href="' + dir + '" target="_blank" rel="noopener">🚗 ' + esc(T.dir) + '</a>' +
       (STORY[(spotOf(o.key) || {}).id || o.key] ? '<a class="pmx-b" href="' + STORY[(spotOf(o.key) || {}).id || o.key] + '">📖 ' + esc(T.story) + '</a>' : '') + '</div>' +
-      (st && on ? '<button type="button" class="pmx-b quiet" data-stamp="0">' + esc(T.unstamp) + '</button>' : '');
-    var el = $('pmx-card'); el.innerHTML = h; el.hidden = false; el.scrollTop = 0;
+      '';
+    var el = $('pmx-card'); el.innerHTML = h; el.hidden = false; if (!still) el.scrollTop = 0;
+    el.classList.toggle('has-corner', !!sv);
+    if (pressed === 'press' && on && window.MWStamp) { var cn = el.querySelector('.pmx-corner'); if (cn) { MWStamp.press(cn); MWStamp.burst(cn, [ink, '#FFD43B', '#27302E']); } }
     var phone = window.innerWidth < 900;
     if (map) map.easeTo({ center: o.coords, zoom: Math.max(map.getZoom(), 14), offset: phone ? [0, 0] : [180, 0], duration: 600 }); else ensureMap();
     /* phones: the card sits under the map; scroll so the pin and the card are both in view */
@@ -518,6 +532,28 @@
       if (Math.abs(dy) > 4) window.scrollBy({ top: dy, behavior: 'smooth' });
     }
     if (mode !== 'all') renderPassport();
+  }
+
+  /* Nov 6, 2026: the real passport stamp sits in the card's top-right corner (faint until stamped). Same drawing as /passports. */
+  var art = null, artLoading = null;
+  function loadArt() {
+    if (art || artLoading) return artLoading;
+    artLoading = new Promise(function (res, rej) {
+      if (window.MWStamp) return res();
+      var sc = document.createElement('script'); sc.src = BASE + 'stamp-lib.js'; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc);
+    }).then(function () { return Promise.all([getJSON(BASE + 'passports.json'), MWStamp.load(BASE)]); })
+      .then(function (r) { art = r[0].passports || []; if (card) openCard(card, true, true); })
+      .catch(function () { art = []; });
+    return artLoading;
+  }
+  function stampSvg(o, members) {
+    if (!art || !window.MWStamp) { loadArt(); return ''; }
+    for (var i = 0; i < members.length; i++) {
+      var P = art.filter(function (x) { return x.id === members[i].id; })[0];
+      var S = P && (P.stamps || []).filter(function (x) { return x.id === (o.st || {}).id || same(x.mapId || x.legacyKey || x.id, o.key); })[0];
+      if (S) { try { return MWStamp.svg({ uid: 'pmxs', top: L(S.top), bottom: L(S.bottom), icon: S.icon, year: S.year, ink: S.ink || P.ink, rot: S.rot, seed: S.seed }); } catch (e) { return ''; } }
+    }
+    return '';
   }
 
   function closeCard() { card = null; $('pmx-card').hidden = true; if (mode !== 'all') renderPassport(); }
@@ -541,7 +577,7 @@
       var st = card.st || stampObj(card.key); if (!st) return;
       setStamp(st, b.getAttribute('data-stamp') === '1');
       renderTabs(); if (mode === 'all') renderAll();
-      openCard(card, true); return;
+      openCard(card, true, 'press'); return;
     }
     if (b.hasAttribute('data-key')) {
       openByKey(b.getAttribute('data-key'));
