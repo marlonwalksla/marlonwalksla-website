@@ -153,6 +153,20 @@
   #pmx .pmx-menu{max-height:60vh}
 }
 @media (prefers-reduced-motion:reduce){#pmx .pmx-pick,#pmx .pmx-pick span.pmx-chg i,#pmx .pmx-seg button{transition:none}}
+
+/* Nov 6, 2026: place card buttons. One big stamp button, then same-size full-width action buttons. */
+#pmx .pmx-go{width:100%;min-height:60px;display:flex;align-items:center;gap:12px;padding:8px 16px 8px 10px;margin:6px 0 10px;border:2.5px solid #27302E;border-radius:16px;background:#FFD43B;color:#27302E;cursor:pointer;text-align:left;font:inherit;box-shadow:3px 3px 0 #27302E;transition:transform .15s ease-out,box-shadow .15s ease-out}
+#pmx .pmx-go:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #27302E}
+#pmx .pmx-go:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #27302E}
+#pmx .pmx-go .pmx-seal{background:#FFFDF7;border-color:#27302E;color:#27302E;width:42px;height:42px}
+#pmx .pmx-go-t{display:flex;flex-direction:column;min-width:0}
+#pmx .pmx-go-t b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:1.3rem;line-height:1.1}
+#pmx .pmx-go-t small{font-family:Fredoka,sans-serif;font-size:.85rem;color:#27302E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pmx .pmx-acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+#pmx .pmx-acts .pmx-b{min-height:48px;width:100%;border-radius:14px;border-width:2px;background:#FFFDF7;font-family:Fredoka,sans-serif;font-weight:500;font-size:1rem}
+#pmx .pmx-acts .pmx-b:hover{background:#fff}
+#pmx .pmx-b.quiet{display:block;margin:10px auto 0}
+@media (prefers-reduced-motion:reduce){#pmx .pmx-go{transition:none}}
 </style>
 
 <div id="pmx">
@@ -194,7 +208,7 @@
     title: 'Explora LA, un pasaporte a la vez', sub: 'Elige un pasaporte, ve a cada lugar y séllalo. Tus sellos se guardan en este teléfono.',
     all: 'Todos los lugares', soon: 'pronto', of: function (d, t) { return d + ' de ' + t + ' sellos'; }, open: 'Abrir mi pasaporte',
     done: '¡Pasaporte completo! Envía una postal desde tu pasaporte.', search: 'Busca entre los lugares', places: function (n) { return n + ' lugares'; },
-    more: 'Ver más', dir: 'Cómo llegar', story: 'Leer la historia', stampIt: 'Estoy aquí: sellar', unstamp: 'Quitar el sello',
+    more: 'Ver más', dir: 'Cómo llegar', story: 'Leer la historia', stampIt: '¡Séllalo!', unstamp: 'Quitar el sello',
     stampFor: 'Sello para', stampedIn: 'Sellado en', goNote: 'Los sellos se ganan yendo.', stampedNote: 'Ya estuviste aquí.',
     noPP: 'Aún no está en un pasaporte.', trust: 'Elegido por Marlon, guía local de LA · 4,9 en más de 500 opiniones', about: 'Conoce a Marlon',
     updated: 'Actualizado en noviembre de 2026', anywhere: 'Reto: vale cualquier lugar. Séllalo en tu pasaporte.', pps: 'Pasaportes', pick: 'Cambiar de pasaporte', choose: 'Elige un pasaporte', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
@@ -202,7 +216,7 @@
     title: 'Explore LA, one passport at a time', sub: 'Pick a passport, go to each place and stamp it. Your stamps are saved on this phone.',
     all: 'All places', soon: 'soon', of: function (d, t) { return d + ' of ' + t + ' stamped'; }, open: 'Open my passport',
     done: 'Passport complete! Send a postcard from your passport.', search: 'Search all places', places: function (n) { return n + ' places'; },
-    more: 'Show more', dir: 'Directions', story: 'Read the story', stampIt: "I'm here: stamp it", unstamp: 'Remove stamp',
+    more: 'Show more', dir: 'Directions', story: 'Read the story', stampIt: 'Stamp it!', unstamp: 'Remove stamp',
     stampFor: 'Stamp for', stampedIn: 'Stamped in', goNote: 'Stamps are earned by going.', stampedNote: "You've been here.",
     noPP: 'Not in a passport yet.', trust: 'Picked by Marlon, a local LA guide · 4.9 from 500+ reviews', about: 'Meet Marlon',
     updated: 'Updated November 2026', anywhere: 'A challenge: any spot counts. Stamp it in your passport.', pps: 'Passports', pick: 'Change passport', choose: 'Pick a passport', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
@@ -484,8 +498,10 @@
       '<h3>' + esc(o.name) + '</h3>' + (o.city ? '<div class="pmx-city">📍 ' + esc(o.city) + '</div>' : '') +
       (o.desc ? '<p>' + esc(o.desc) + '</p>' : '<div style="height:8px"></div>');
     if (st) {
-      h += '<div class="pmx-stamp' + (on ? ' on' : '') + '" style="--ink:' + esc(ink) + '"><span class="pmx-seal">' + (on ? '✓' : '🎫') + '</span><div><b>' + esc(on ? T.stampedIn : T.stampFor) + ' ' + esc(names) + '</b><small>' + esc(on ? T.stampedNote : T.goNote) + '</small></div></div>';
-      h += on ? '' : '<button type="button" class="pmx-b main" data-stamp="1">' + esc(T.stampIt) + '</button>';
+      /* Nov 6, 2026: the stamp box IS the button (people tapped the box). Short label. */
+      h += on
+        ? '<div class="pmx-stamp on" style="--ink:' + esc(ink) + '"><span class="pmx-seal">✓</span><div><b>' + esc(T.stampedIn) + ' ' + esc(names) + '</b><small>' + esc(T.stampedNote) + '</small></div></div>'
+        : '<button type="button" class="pmx-go" data-stamp="1" style="--ink:' + esc(ink) + '"><span class="pmx-seal">🎫</span><span class="pmx-go-t"><b>' + esc(T.stampIt) + '</b><small>' + esc(names) + '</small></span></button>';
     } else {
       h += '<p style="color:#64748b;font-size:.85rem;margin-top:0">' + esc(T.noPP) + '</p>';
     }
