@@ -114,6 +114,45 @@
 #pmx .mapboxgl-ctrl-bottom-left,#pmx .mapboxgl-ctrl-bottom-right{margin:0 6px 6px}
 @media (max-width:899px){#pmx .pmx-mapbox{border-top:0;border-bottom:0;margin:0 14px;border-radius:16px;overflow:hidden;box-shadow:0 16px 28px -20px rgba(39,48,46,.7);outline:2px solid #27302E;outline-offset:-2px}}
 @media (prefers-reduced-motion:reduce){#pmx .pmx-prog{transform:none}#pmx .pmx-num{transform:none}#pmx .pmx-tab,#pmx .pmx-open{transition:none}}
+
+/* Nov 6, 2026: passport picker. A two-way switch (Passports / All places) and one passport button that opens a list,
+   instead of a wall of pills. Frees the side panel for the stop list; one visible scrollbar. */
+#pmx .pmx-tabs{display:block;min-height:0;padding:0;overflow:visible;position:relative}
+#pmx .pmx-seg{display:grid;grid-template-columns:1fr 1fr;border:2px solid #27302E;border-radius:999px;background:#FFFDF7;padding:3px;gap:3px;margin:0 0 10px}
+#pmx .pmx-seg button{min-height:40px;border:0;border-radius:999px;background:none;color:#27302E;font-family:Fredoka,sans-serif;font-weight:500;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background-color .18s ease-out}
+#pmx .pmx-seg button em{font-style:normal;font-size:.8rem;opacity:.8}
+#pmx .pmx-seg button[aria-pressed="true"]{background:#27302E;color:#FFFDF7}
+#pmx .pmx-pick{width:100%;min-height:52px;display:flex;align-items:center;gap:10px;padding:8px 14px;border:2.5px solid var(--ink);border-radius:14px;background:#FFFDF7;color:#27302E;cursor:pointer;text-align:left;font:inherit;box-shadow:3px 3px 0 var(--ink);transition:transform .18s ease-out,box-shadow .18s ease-out}
+#pmx .pmx-pick:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+#pmx .pmx-pick .pmx-dot{width:14px;height:14px;border-radius:50%;background:var(--ink);flex:none}
+#pmx .pmx-pick b{flex:1;min-width:0;font-family:"Lilita One",sans-serif;font-weight:400;font-size:1.25rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pmx .pmx-pick span.pmx-chg{flex:none;font-family:Fredoka,sans-serif;font-weight:500;font-size:.85rem;display:flex;align-items:center;gap:4px}
+#pmx .pmx-pick span.pmx-chg i{font-style:normal;display:inline-block;transition:transform .18s ease-out}
+#pmx .pmx-pick[aria-expanded="true"] span.pmx-chg i{transform:rotate(180deg)}
+#pmx .pmx-menu{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;background:#FFFDF7;border:2px solid #27302E;border-radius:14px;box-shadow:4px 4px 0 #27302E;padding:6px;max-height:min(440px,62vh);overflow-y:auto;overscroll-behavior:contain}
+#pmx .pmx-menu-h{font-family:Fredoka,sans-serif;font-weight:500;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:#4A4B43;padding:6px 8px 4px}
+#pmx .pmx-opt{width:100%;min-height:48px;display:grid;grid-template-columns:14px minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:10px;row-gap:4px;align-items:center;padding:8px 10px;border:0;border-radius:10px;background:none;color:#27302E;cursor:pointer;text-align:left;font:inherit}
+#pmx .pmx-opt:hover,#pmx .pmx-opt:focus-visible{background:rgba(39,48,46,.07)}
+#pmx .pmx-opt[aria-current="true"]{background:color-mix(in srgb,var(--ink) 14%,#FFFDF7)}
+#pmx .pmx-opt .pmx-dot{grid-row:1 / span 2;width:14px;height:14px;border-radius:50%;background:var(--ink)}
+#pmx .pmx-opt b{font-family:Fredoka,sans-serif;font-weight:500;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pmx .pmx-opt small{font-size:.8rem;color:#4A4B43;justify-self:end}
+#pmx .pmx-opt .pmx-mini{grid-column:2 / span 2;height:5px;border-radius:99px;background:rgba(39,48,46,.14);overflow:hidden}
+#pmx .pmx-opt .pmx-mini i{display:block;height:100%;background:var(--ink)}
+#pmx .pmx-opt:disabled{opacity:.5;cursor:default}
+#pmx .pmx-row-x{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1.5px dashed rgba(39,48,46,.35);border-radius:12px;min-height:48px;background:rgba(255,253,247,.6)}
+#pmx .pmx-row-x small{white-space:normal}
+#pmx .pmx-prog-top{display:none}
+#pmx .pmx-body{scrollbar-width:auto;scrollbar-color:#27302E rgba(39,48,46,.12)}
+#pmx .pmx-body::-webkit-scrollbar{width:12px}
+#pmx .pmx-body::-webkit-scrollbar-track{background:rgba(39,48,46,.1);border-radius:99px}
+#pmx .pmx-body::-webkit-scrollbar-thumb{background:#27302E;border-radius:99px;border:3px solid #FFE3EF}
+#pmx .pmx-top{position:relative;z-index:20}
+@media (max-width:899px){
+  #pmx .pmx-tabs{display:block;overflow:visible;min-height:0}
+  #pmx .pmx-menu{max-height:60vh}
+}
+@media (prefers-reduced-motion:reduce){#pmx .pmx-pick,#pmx .pmx-pick span.pmx-chg i,#pmx .pmx-seg button{transition:none}}
 </style>
 
 <div id="pmx">
@@ -121,7 +160,7 @@
     <div class="pmx-top">
       <h1 id="pmx-h"></h1>
       <p class="pmx-sub" id="pmx-sub"></p>
-      <div class="pmx-tabs" id="pmx-tabs" role="toolbar"></div>
+      <div class="pmx-tabs" id="pmx-tabs"></div>
     </div>
     <div class="pmx-mapbox">
       <div id="pmx-map"></div>
@@ -158,7 +197,7 @@
     more: 'Ver más', dir: 'Cómo llegar', story: 'Leer la historia', stampIt: 'Estoy aquí: sellar', unstamp: 'Quitar el sello',
     stampFor: 'Sello para', stampedIn: 'Sellado en', goNote: 'Los sellos se ganan yendo.', stampedNote: 'Ya estuviste aquí.',
     noPP: 'Aún no está en un pasaporte.', trust: 'Elegido por Marlon, guía local de LA · 4,9 en más de 500 opiniones', about: 'Conoce a Marlon',
-    updated: 'Actualizado en octubre de 2026', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
+    updated: 'Actualizado en noviembre de 2026', anywhere: 'Reto: vale cualquier lugar. Séllalo en tu pasaporte.', pps: 'Pasaportes', pick: 'Cambiar de pasaporte', choose: 'Elige un pasaporte', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
   } : {
     title: 'Explore LA, one passport at a time', sub: 'Pick a passport, go to each place and stamp it. Your stamps are saved on this phone.',
     all: 'All places', soon: 'soon', of: function (d, t) { return d + ' of ' + t + ' stamped'; }, open: 'Open my passport',
@@ -166,7 +205,7 @@
     more: 'Show more', dir: 'Directions', story: 'Read the story', stampIt: "I'm here: stamp it", unstamp: 'Remove stamp',
     stampFor: 'Stamp for', stampedIn: 'Stamped in', goNote: 'Stamps are earned by going.', stampedNote: "You've been here.",
     noPP: 'Not in a passport yet.', trust: 'Picked by Marlon, a local LA guide · 4.9 from 500+ reviews', about: 'Meet Marlon',
-    updated: 'Updated October 2026', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
+    updated: 'Updated November 2026', anywhere: 'A challenge: any spot counts. Stamp it in your passport.', pps: 'Passports', pick: 'Change passport', choose: 'Pick a passport', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
   };
 
   var CATS = {
@@ -181,6 +220,8 @@
   var STORY = { 'walt-disney-concert-hall': '/blog/walt-disney-concert-hall', 'the-broad': '/blog/the-broad', 'angels-flight-railway': '/blog/angels-flight', 'la-city-hall': '/blog/city-hall', 'olvera-street-and-el-pueblo': '/blog/olvera-street' };
   var PPAGE = { 'downtown-classic': '/passports?passport=downtown-classic', 'la-tourist': '/passports?passport=la-tourist' };
   var BASE = 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/';
+  /* Nov 6, 2026: the test site reads passport-collections.json from the test branch so data fixes can be checked before they go live. */
+  var COLS = /\.webflow\.io$/.test(location.hostname) ? 'https://raw.githubusercontent.com/marlonwalksla/marlonwalksla-website/test/passport-collections.json' : BASE + 'passport-collections.json';
   var TOKEN = 'pk.eyJ1IjoibWFybG9ud2Fsa3NsYSIsImEiOiJjbXM5YWhuOGIwbGVjMzRwbTZ0b2I2emZlIn0.UgW7MpYibACH6Axk1WgoSA';
 
   var $ = function (id) { return document.getElementById(id); };
@@ -194,6 +235,9 @@
 
   /* ---------- stamps (shared with the passport page) ---------- */
   function keyOf(st) { return st.spot || st.id; }
+  /* Nov 6, 2026: newer passports name places by their Webflow slug (santa-monica-pier-6f0bc); the map list uses santa-monica-pier. */
+  function spotOf(k) { return !k ? null : (byId[k] || byId[String(k).replace(/-[0-9a-f]{5}$/, '')] || null); }
+  function same(a, b) { if (a === b) return true; var x = spotOf(a), y = spotOf(b); return !!(x && y && x === y); }
   function stamped(st) { return st.spot ? rd('marlon_visited_spots').indexOf(st.spot) > -1 : rd('marlon_stamps').indexOf(st.id) > -1; }
   function setStamp(st, on) {
     var k = st.spot ? 'marlon_visited_spots' : 'marlon_stamps', id = keyOf(st), a = rd(k), i = a.indexOf(id);
@@ -204,19 +248,19 @@
   function pp(id) { for (var i = 0; i < pps.length; i++) if (pps[i].id === id) return pps[i]; return null; }
   function live(p) { return p && p.status !== 'coming-soon' && (p.stamps || []).length; }
   function prog(p) { var a = p.stamps || []; return { d: a.filter(stamped).length, t: a.length }; }
-  function memberOf(key) { return pps.filter(function (p) { return live(p) && (p.stamps || []).some(function (st) { return keyOf(st) === key; }); }); }
-  function stampObj(key) { var m = memberOf(key); if (!m.length) return null; return m[0].stamps.filter(function (st) { return keyOf(st) === key; })[0]; }
+  function memberOf(key) { return pps.filter(function (p) { return live(p) && (p.stamps || []).some(function (st) { return same(keyOf(st), key); }); }); }
+  function stampObj(key) { var m = memberOf(key); if (!m.length) return null; return m[0].stamps.filter(function (st) { return same(keyOf(st), key); })[0]; }
 
   /* A place as one object, from a spot or from a stamp without a pin */
   function placeFromSpot(s) { return { key: s.id, name: s.name, cat: s.cat, city: s.city, desc: s.desc, coords: s.coords }; }
   function stops(p) {
     return (p.stamps || []).map(function (st, i) {
-      var s = st.spot ? byId[st.spot] : null;
+      var s = spotOf(st.spot);
       var o = s ? placeFromSpot(s) : { key: st.id, name: L(st.label), cat: 'landmarks', city: (st.location && st.location.address) || '', desc: '', coords: st.location && st.location.coordinates };
       o.name = L(st.label) || o.name;
       o.n = i + 1; o.st = st;
       return o;
-    }).filter(function (o) { return o.coords; });
+    });
   }
 
   /* ---------- loading ---------- */
@@ -256,7 +300,7 @@
     $('pmx-h').textContent = T.title; $('pmx-sub').textContent = T.sub; $('pmx-load').textContent = ES ? 'Toca para cargar el mapa' : 'Tap to load the map';
     $('pmx-q').placeholder = '🔍 ' + T.search;
     $('pmx-trust').innerHTML = esc(T.trust) + '. <a href="/about">' + esc(T.about) + '</a><br>' + esc(T.updated);
-    Promise.all([getJSON(BASE + 'spots.geojson'), getJSON(BASE + 'passport-collections.json')]).then(function (r) {
+    Promise.all([getJSON(BASE + 'spots.geojson'), getJSON(COLS)]).then(function (r) {
       (r[0].features || []).forEach(function (f) {
         var p = f.properties || {}, c = f.geometry && f.geometry.coordinates;
         if (!c) return;
@@ -339,11 +383,29 @@
     try { var u = new URL(location.href); u.searchParams.set('passport', mode); history.replaceState(null, '', u.toString()); } catch (e) {}
   }
 
+  var menuOpen = false, lastPP = '';
   function renderTabs() {
-    $('pmx-tabs').innerHTML = pps.map(function (p) {
-      var ok = live(p), g = prog(p);
-      return '<button type="button" class="pmx-tab" data-mode="' + esc(p.id) + '" aria-pressed="' + (mode === p.id) + '"' + (ok ? '' : ' disabled') + ' style="--ink:' + esc(p.ink || '#27302E') + '"><span class="pmx-dot"></span>' + esc(L(p.name)) + ' <em>' + (ok ? g.d + '/' + g.t : T.soon) + '</em></button>';
-    }).join('') + '<button type="button" class="pmx-tab" data-mode="all" aria-pressed="' + (mode === 'all') + '">🗺️ ' + esc(T.all) + ' <em>' + spots.length + '</em></button>';
+    var isAll = mode === 'all', cur = isAll ? pp(lastPP) : pp(mode);
+    if (!isAll) lastPP = mode;
+    var h = '<div class="pmx-seg" role="group" aria-label="' + esc(T.pps + ' / ' + T.all) + '">' +
+      '<button type="button" data-view="pp" aria-pressed="' + !isAll + '">🎫 ' + esc(T.pps) + '</button>' +
+      '<button type="button" data-view="all" aria-pressed="' + isAll + '">🗺️ ' + esc(T.all) + ' <em>' + spots.length + '</em></button></div>';
+    if (!isAll && cur) {
+      h += '<button type="button" class="pmx-pick" id="pmx-pick" aria-haspopup="true" aria-expanded="' + menuOpen + '" aria-controls="pmx-menu" style="--ink:' + esc(cur.ink || '#27302E') + '">' +
+        '<span class="pmx-dot"></span><b>' + esc(L(cur.name)) + '</b><span class="pmx-chg">' + esc(T.pick) + ' <i aria-hidden="true">▾</i></span></button>';
+      h += '<div class="pmx-menu" id="pmx-menu"' + (menuOpen ? '' : ' hidden') + '><div class="pmx-menu-h">' + esc(T.choose) + '</div>' + pps.map(function (p) {
+        var ok = live(p), g = prog(p), pct = g.t ? Math.round(g.d / g.t * 100) : 0;
+        return '<button type="button" class="pmx-opt" data-mode="' + esc(p.id) + '"' + (p.id === mode ? ' aria-current="true"' : '') + (ok ? '' : ' disabled') + ' style="--ink:' + esc(p.ink || '#27302E') + '">' +
+          '<span class="pmx-dot"></span><b>' + esc(L(p.name)) + '</b><small>' + (ok ? g.d + '/' + g.t : esc(T.soon)) + '</small>' +
+          '<span class="pmx-mini"><i style="width:' + pct + '%"></i></span></button>';
+      }).join('') + '</div>';
+    }
+    $('pmx-tabs').innerHTML = h;
+  }
+  function setMenu(open) {
+    menuOpen = open; var m = $('pmx-menu'), b = $('pmx-pick');
+    if (m) m.hidden = !open; if (b) b.setAttribute('aria-expanded', String(open));
+    if (open && m) { var c = m.querySelector('[aria-current="true"]') || m.querySelector('.pmx-opt'); if (c) c.focus(); }
   }
 
   function renderPassport() {
@@ -357,11 +419,12 @@
     if (g.t && g.d === g.t) h += '<div class="pmx-done">🎉 ' + esc(T.done) + '</div>';
     h += '<ol class="pmx-list">' + list.map(function (o) {
       var on = stamped(o.st), c = cat(o.cat);
+      if (!o.coords) return '<li><div class="pmx-row-x"><span class="pmx-num' + (on ? ' on' : '') + '">' + (on ? '✓' : o.n) + '</span><span class="pmx-li-t"><b>' + esc(o.name) + '</b><small>✨ ' + esc(T.anywhere) + '</small></span></div></li>';
       return '<li><button type="button" data-key="' + esc(o.key) + '"><span class="pmx-num' + (on ? ' on' : '') + '">' + (on ? '✓' : o.n) + '</span><span class="pmx-li-t"><b>' + esc(o.name) + '</b><small>' + c.e + ' ' + esc(L(c)) + (o.city ? ' · ' + esc(o.city) : '') + '</small></span></button></li>';
     }).join('') + '</ol>';
     $('pmx-pp').innerHTML = h;
     clearMarkers();
-    if (map && window.mapboxgl) list.forEach(function (o) {
+    if (map && window.mapboxgl) list.filter(function (o) { return o.coords; }).forEach(function (o) {
       var on = stamped(o.st), wrap = document.createElement('div'), pin = document.createElement('div');
       pin.className = 'pmx-pin' + (on ? ' on' : '') + (card && card.key === o.key ? ' sel' : '');
       pin.style.setProperty('--ink', ink); pin.textContent = on ? '✓' : o.n; pin.title = o.name;
@@ -369,7 +432,7 @@
       wrap.addEventListener('click', function (e) { e.stopPropagation(); openCard(o); });
       markers.push(new mapboxgl.Marker({ element: wrap }).setLngLat(o.coords).addTo(map));
     });
-    if (fitFor !== mode) { fitFor = mode; fit(list.map(function (o) { return o.coords; })); }
+    if (fitFor !== mode) { fitFor = mode; fit(list.filter(function (o) { return o.coords; }).map(function (o) { return o.coords; })); }
   }
 
   function renderCats() {
@@ -404,8 +467,8 @@
 
   /* ---------- the place card ---------- */
   function openByKey(key) {
-    if (mode !== 'all') { var o = stops(pp(mode)).filter(function (x) { return x.key === key; })[0]; if (o) return openCard(o); }
-    if (byId[key]) return openCard(placeFromSpot(byId[key]));
+    if (mode !== 'all') { var o = stops(pp(mode)).filter(function (x) { return x.coords && same(x.key, key); })[0]; if (o) return openCard(o); }
+    if (spotOf(key)) return openCard(placeFromSpot(spotOf(key)));
     var st = stampObj(key);
     if (st && st.location) openCard({ key: key, name: L(st.label), cat: 'landmarks', city: st.location.address || '', desc: '', coords: st.location.coordinates });
   }
@@ -427,7 +490,7 @@
       h += '<p style="color:#64748b;font-size:.85rem;margin-top:0">' + esc(T.noPP) + '</p>';
     }
     h += '<div class="pmx-acts"><a class="pmx-b" href="' + dir + '" target="_blank" rel="noopener">🚗 ' + esc(T.dir) + '</a>' +
-      (STORY[o.key] ? '<a class="pmx-b" href="' + STORY[o.key] + '">📖 ' + esc(T.story) + '</a>' : '') + '</div>' +
+      (STORY[(spotOf(o.key) || {}).id || o.key] ? '<a class="pmx-b" href="' + STORY[(spotOf(o.key) || {}).id || o.key] + '">📖 ' + esc(T.story) + '</a>' : '') + '</div>' +
       (st && on ? '<button type="button" class="pmx-b quiet" data-stamp="0">' + esc(T.unstamp) + '</button>' : '');
     var el = $('pmx-card'); el.innerHTML = h; el.hidden = false; el.scrollTop = 0;
     var phone = window.innerWidth < 900;
@@ -445,8 +508,16 @@
 
   /* ---------- events ---------- */
   root.addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (!b) return;
-    if (b.hasAttribute('data-mode')) { mode = b.getAttribute('data-mode'); fitFor = ''; closeCard(); shown = 40; render(); return; }
+    var b = e.target.closest('button');
+    if (menuOpen && !(b && (b.id === 'pmx-pick' || b.classList.contains('pmx-opt')))) setMenu(false);
+    if (!b) return;
+    if (b.id === 'pmx-pick') { setMenu(!menuOpen); return; }
+    if (b.hasAttribute('data-view')) {
+      var v = b.getAttribute('data-view'), next = v === 'all' ? 'all' : (lastPP && live(pp(lastPP)) ? lastPP : (pps.filter(live)[0] || {}).id);
+      if (next && next !== mode) { mode = next; fitFor = ''; closeCard(); shown = 40; render(); }
+      return;
+    }
+    if (b.hasAttribute('data-mode')) { menuOpen = false; mode = b.getAttribute('data-mode'); fitFor = ''; closeCard(); shown = 40; render(); var pk = $('pmx-pick'); if (pk) pk.focus(); return; }
     if (b.hasAttribute('data-cat')) { var k = b.getAttribute('data-cat'); cats[k] = !cats[k]; shown = 40; renderCats(); renderAll(); return; }
     if (b.id === 'pmx-more') { shown += 40; renderAll(); return; }
     if (b.hasAttribute('data-close')) { closeCard(); return; }
@@ -460,6 +531,8 @@
       openByKey(b.getAttribute('data-key'));
     }
   });
+  document.addEventListener('click', function (e) { if (menuOpen && !root.contains(e.target)) setMenu(false); });
+  root.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) { setMenu(false); var pk = $('pmx-pick'); if (pk) pk.focus(); } });
   var qt;
   $('pmx-q').addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { query = $('pmx-q').value; shown = 40; renderAll(); }, 150); });
   window.addEventListener('storage', function (e) { if (e.key === 'marlon_visited_spots' || e.key === 'marlon_stamps') { renderTabs(); if (mode === 'all') renderAll(); else renderPassport(); } });
