@@ -40,7 +40,7 @@ TAPES = ["rgba(255,190,0,.5)", "rgba(60,160,220,.5)", "rgba(255,0,255,.35)", "rg
 
 T = {
     "en": dict(
-        cal_title="Pick your date", cal_sub="Up to 35 guests. Book at least a week ahead.", cal_loading="Loading calendar&hellip;",
+        cal_title="Pick your date", cal_sub="Up to 35 guests.", cal_loading="Loading calendar&hellip;",
         aria="Private tour photos", prev="Previous photo", next="Next photo", dot="Show photo {n}",
         quote="Marlon was flexible, I had to reschedule and he was very open to it. He is very knowledgeable, he shared so much and went over time.",
         by="Beatrice", src="Google",
@@ -49,7 +49,7 @@ T = {
         ern_alt="Ernesto the piñata donkey dressed as a tour guide",
     ),
     "es": dict(
-        cal_title="Elige tu fecha", cal_sub="Hasta 35 personas. Reserva con al menos una semana de anticipación.", cal_loading="Cargando calendario&hellip;",
+        cal_title="Elige tu fecha", cal_sub="Hasta 35 personas.", cal_loading="Cargando calendario&hellip;",
         aria="Fotos de tours privados", prev="Foto anterior", next="Foto siguiente", dot="Ver foto {n}",
         quote="Marlon was flexible, I had to reschedule and he was very open to it. He is very knowledgeable, he shared so much and went over time.",
         by="Beatrice", src="Google (en inglés)",
