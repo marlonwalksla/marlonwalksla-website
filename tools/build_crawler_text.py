@@ -85,7 +85,7 @@ FACTS = {
   team_link=("/team-outings-los-angeles", "Team outing walking tours in Downtown LA"),
   priv_h="Private Tours of Los Angeles", priv_extra="Choose a plan (Date Night, Family Outing, Fun with Friends or design your own day), pick your places and get an estimate. About $20 to $40 per person per hour; bigger groups and longer tours cost less per person. Tours run 2 to 12 hours, for 2 to 4 guests.",
   priv_link=("/private-tour-los-angeles", "Private tours of Los Angeles"),
-  rev_h="Reviews", rev_extra="505 reviews across Google, Civitatis, GuruWalk, FreeTour.com and Viator, 4.86 average. Google: 309 reviews, 4.95.",
+  rev_h="Reviews", rev_extra="525 reviews across Google, Civitatis, GuruWalk, FreeTour.com and Viator, 4.87 average. Google: 329 reviews, 4.95.",
   map_link=("/maps", "Interactive LA map and trip planner"), about_link=("/about", "About Marlon"), hist_link=("/history", "LA history stories"),
   faq_h="Good to Know", meet_h="Meet Your Local Guide"),
  "es": dict(
@@ -96,7 +96,7 @@ FACTS = {
   team_link=("/salidas-de-equipo-los-angeles", "Salidas de equipo a pie en el centro de LA"),
   priv_h="Tours privados por Los Ángeles", priv_extra="Elige un plan (Cita en pareja, Salida en familia, Con amigos o diseña tu día), escoge tus lugares y recibe un estimado. Unos $20 a $40 por persona por hora; los grupos más grandes y los tours más largos cuestan menos por persona. Los tours duran de 2 a 12 horas, para 2 a 4 personas.",
   priv_link=("/tours-privados-los-angeles", "Tours privados por Los Ángeles"),
-  rev_h="Opiniones", rev_extra="505 opiniones en Google, Civitatis, GuruWalk, FreeTour.com y Viator, promedio de 4,86. Google: 309 opiniones, 4,95.",
+  rev_h="Opiniones", rev_extra="525 opiniones en Google, Civitatis, GuruWalk, FreeTour.com y Viator, promedio de 4,87. Google: 329 opiniones, 4,95.",
   map_link=("/mapa-los-angeles", "Mapa interactivo de LA y pasaportes"), about_link=("/about", "Sobre Marlon"), hist_link=("/historia-de-los-angeles", "Historia de LA"),
   faq_h="Bueno saber", meet_h="Conoce a tu guía local"),
 }

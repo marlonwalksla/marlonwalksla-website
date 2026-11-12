@@ -21,6 +21,6 @@ Red `.tp-todo` text marks info Marlon still needs to fill in.
 ## Home page embeds (Oct 15, 2026)
 - `home-hero-left.html`: hero text, language toggle (also switches the Polaroid captions)
 - `home-hero-polaroids.html`: three static Polaroids (Free, Private, Team) in the hero's right column
-- `home-reviews-strip.html`: big review banner (505 reviews). Update the numbers by hand.
+- `home-reviews-strip.html`: big review banner (525 reviews). Update the numbers by hand.
 - `home-team.html`, `home-private.html`: Team and Private sections next to the forms, with map-only route animations
 - `route-team-dtla.json`, `route-private-la.json`: the route data pasted into the `.ra` embeds (route-anim.js)
