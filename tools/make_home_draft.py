@@ -57,12 +57,19 @@ def hero(src, es):
     # the subtext stays under it, the yellow button goes
     # Marlon, Nov 24 (round 3): one YELLOW button under the photo, then the subtext. No pink title.
     btn = "&Uacute;nete a un Free Tour" if es else "Join a Free Tour"
-    # Round 5 (Marlon): the button sits under Ernesto and the tagline (left column), the photo stands alone on the right
-    m = re.search(r'<p class="mwh-cap"><strong data-tone="pink">[^<]*</strong></p>\s*(<p class="mwh-sub">[^<]*</p>)\s*<a class="mwh-btn mwh-cbtn" data-tone="pink" href="[^"]*"[^>]*>[^<]*</a>', s)
+    # Round 6 (Marlon): two offers, two buttons, side by side under Ernesto and the tagline; a short line under each.
+    m = re.search(r'<p class="mwh-cap"><strong data-tone="pink">[^<]*</strong></p>\s*<p class="mwh-sub">[^<]*</p>\s*<a class="mwh-btn mwh-cbtn" data-tone="pink" href="[^"]*"[^>]*>[^<]*</a>', s)
     assert m, "pink caption + button"
-    sub = m.group(1).replace('class="mwh-sub"', 'class="mwh-sub mwh-sub2"')
     s = s[:m.start()] + s[m.end():]
-    s, n = re.subn(r'(<p class="mwh-tagline">[^<]*</p>)', lambda mm: mm.group(1) + '\n      <a class="mwh-btn mwh-one" href="#book">%s</a>\n      %s' % (btn, sub), s, count=1)
+    if es:
+        b1, l1, b2, l2 = btn, "Con propina &middot; espa&ntilde;ol e ingl&eacute;s", "Tours por LA", "Comida, atardeceres y playa"
+    else:
+        b1, l1, b2, l2 = btn, "Tip-based &middot; English and Spanish", "Explore LA Tours", "Food walks, sunset hikes, beach days"
+    ctas = ('\n      <div class="mwh-ctas">'
+            '<div class="mwh-cta"><a class="mwh-btn mwh-one" href="#book">%s</a><p class="mwh-mini">%s</p></div>'
+            '<div class="mwh-cta"><a class="mwh-btn mwh-one" href="#packages">%s</a><p class="mwh-mini">%s</p></div>'
+            '</div>') % (b1, l1, b2, l2)
+    s, n = re.subn(r'(<p class="mwh-tagline">[^<]*</p>)', lambda mm: mm.group(1) + ctas, s, count=1)
     assert n == 1, "tagline anchor"
     # the sentence: Group and Private are packages now
     line = ('Explora LA en un <a class="mwh-hl" data-tone="pink" href="#book">free tour</a> o <a class="mwh-hl" data-tone="green" href="#packages">elige tu d&iacute;a en LA</a>.' if es else
@@ -83,18 +90,25 @@ def hero(src, es):
   .mwh .mwh-tagline { margin: 0 0 14px; font-family: "Fredoka", system-ui, sans-serif; font-weight: 500; font-size: 1.2rem; color: #3B4440; }
   .mwh .mwh-hand { margin: 22px 0 10px; }
   .mwh a.mwh-hl { text-decoration: none !important; color: #27302E !important; }
-  .mwh .mwh-one { margin: 18px auto 8px; font-size: 1.25rem; padding: 13px 30px; }
-  .mwh .mwh-tagline { margin-bottom: 0; }
-  .mwh .mwh-sub2 { margin: 0 auto; max-width: 30ch; text-align: center; font-size: 1rem; line-height: 1.45; color: #3B4440; }
-  /* Desktop: the whole hero fits in one screen under the header (sizes follow the window height) */
+  .mwh .mwh-tagline { margin: 2px 0 0; font-size: 1.35rem; font-weight: 600; color: #27302E; }
+  .mwh .mwh-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 18px; margin: 18px 0 0; }
+  .mwh .mwh-cta { display: flex; flex-direction: column; align-items: center; }
+  .mwh .mwh-one { margin: 0; font-size: 1.15rem; padding: 12px 22px; white-space: nowrap; }
+  .mwh .mwh-mini { margin: 8px 0 0; font-family: "Fredoka", sans-serif; font-size: .9rem; line-height: 1.3; color: #3B4440; text-align: center; max-width: 22ch; }
+  /* only the three corner stamps (the middle-bottom one sat in the way) */
+  .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
+  /* Desktop: the whole hero fits in one screen under the header; columns sit closer; the photo is as tall as the text */
   @media (min-width: 992px) {
-    .mwh .mwh-wrap { padding-top: clamp(24px, 5vh, 64px) !important; padding-bottom: clamp(24px, 5vh, 64px) !important; min-height: calc(100vh - 64px); min-height: calc(100svh - 64px); box-sizing: border-box; align-items: center; align-content: center; }
-    .mwh .mwh-h1 { font-size: clamp(2.4rem, min(5.4vw, 8vh), 4.4rem); }
-    .mwh .mwh-ern2 { width: clamp(110px, 21vh, 210px); }
-    .mwh .mwh-hand { margin: 1.2vh 0 0.6vh; }
-    .mwh .mwh-car { grid-template-columns: minmax(0, min(340px, calc((100vh - 64px - 10vh - 70px) / 1.62))); justify-content: center; }
+    .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(30px, 6vh, 64px) !important; padding-bottom: clamp(30px, 6vh, 64px) !important; min-height: calc(100vh - 64px); min-height: calc(100svh - 64px); box-sizing: border-box; align-items: center; align-content: center; }
+    .mwh .mwh-h1 { font-size: clamp(2.3rem, min(5vw, 7.4vh), 4.2rem); }
+    .mwh .mwh-ern2 { width: clamp(100px, 17vh, 190px); }
+    .mwh .mwh-hand { margin: 0.8vh 0 0.2vh; }
+    .mwh .mwh-car { grid-template-columns: minmax(0, min(400px, calc((100vh - 64px - 12vh - 24px) / 1.62))) !important; justify-content: center; }
+    .mwh .mwh-pol { grid-column: 1 !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
   }
+  @media (max-width: 991px) { .mwh .mwh-text { align-items: center; text-align: center; } }
+
 </style>
 """
     return s + css
