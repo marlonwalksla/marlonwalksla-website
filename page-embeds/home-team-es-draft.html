@@ -1,0 +1,72 @@
+<!-- DRAFT (Nov 24, 2026): built by tools/make_home_draft.py from the live Home section. Only /home-draft and /es-draft load it. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/mw-slider.css?v=2">
+<script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@f644401027d6f89309b640d73897c0f0244ef74f/mw-slider.js" defer></script>
+<!-- ==============================================================================
+     MARLONWALKSLA - HOME ES: TOURS DE EQUIPO (DETAILS COLUMN)  Oct 16, 2026
+     Matches the Team Tours page (about 5 hours) and links to it. The animated
+     map (route-anim.js, map-only mode) shows the sample team day. The inquiry
+     form is the native Webflow form "Team Tour Inquiry" in the right column.
+     ============================================================================== -->
+
+<div class="mw-offer" id="team-tours">
+  <!-- Eyebrow, title and intro moved to the section banner above (home-head-team-es.html) -->
+  <!-- Oct 17, 2026: photos are the selling point, so they lead the column (spec card removed: slider shows group size, map shows the market) -->
+  <div class="mwp">
+    <div class="mws" id="mwp-car" data-mws data-prev="Foto anterior" data-next="Foto siguiente" data-dot="Ver foto {n}" aria-label="Fotos de equipos"><div class="mws-stage">
+<figure class="mws-slide" data-c="birthday" data-q="I booked him to lead a birthday tour for me and my friends and he went above and beyond." data-by="Kara F." data-cap="El grupo de cumplea&ntilde;os de Kara en Grand Central Market"><img class="mws-fit mws-raw" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4441660c929ab6108a7d5_birthday.avif" alt="El grupo de cumplea&ntilde;os de Kara frente al letrero de Grand Central Market" loading="lazy"></figure>
+</div></div>
+    <figure class="mwp-q"><blockquote>&ldquo;The best tour guide, crazy interesting facts and very funny. We are locals and still learned a ton. He also set up fun games that kept everyone engaged and frenzied in competition.&rdquo;</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="mwp-by">Addison R.</span> &middot; Google (en ingl&eacute;s)</figcaption></figure>
+  </div>
+
+
+</div>
+
+<style>
+  /* Photos above the map (Oct 17, 2026): unframed guest Polaroids taped to the postcard */
+  .mwp { margin: 0 0 22px; }
+  .mwp-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; color: #27302E; margin: 0 0 16px; }
+  .mwp-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; padding: 0 6px; }
+  .mwp-pol { position: relative; margin: 0; transform: rotate(var(--r)); }
+  .mwp-pol img { display: block; width: 100%; height: auto; box-shadow: 0 10px 20px -10px rgba(39, 48, 46, 0.5); }
+  .mwp-tape { position: absolute; top: -9px; left: 50%; width: 58px; height: 18px; transform: translateX(-50%) rotate(-4deg); mix-blend-mode: multiply; z-index: 1; }
+  .mwp-q { margin: 18px 0 0; }
+  .mwp-q blockquote { margin: 0; padding: 0 0 0 14px; border-left: 4px solid rgba(150, 100, 50, 0.28); font-size: 1rem; line-height: 1.5; color: #3B4440; }
+  .mwp-q figcaption { margin-top: 4px; padding-left: 18px; font-size: 0.85rem; color: #5B6663; }
+  .mwp-q figcaption span { color: #E89B00; letter-spacing: 1px; margin-right: 4px; }
+  .mwp-q figcaption .mwp-by { color: inherit; letter-spacing: normal; margin-right: 0; }
+  .mwp-q blockquote { min-height: 4.5em; }
+  /* Nov 10, 2026: the occasion buttons are gone, so on phones the quote stays under the photos (same as Private) */
+  .mw-offer { scroll-margin-top: 90px; padding-top: 8px; }
+  .mw-offer-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 50px; margin-bottom: 12px; }
+  .mw-eyebrow-blue { color: #1d4ed8; background: #dbeafe; }
+  .mw-eyebrow-pink { color: #be185d; background: #fce7f3; }
+  .mw-route { margin-top: 18px; }
+  .mw-route .highlights-title { margin-bottom: 10px; }
+  .mw-offer-links { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; margin-top: 18px; }
+  /* Oct 16, 2026: plain text links instead of a black button */
+  .mw-offer-more { display: inline-block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; color: #1B6688 !important; text-decoration: underline !important; text-underline-offset: 3px; padding: 6px 0; }
+  .mw-offer-more:hover { color: #27302E !important; }
+  .mw-offer-wa { display: inline-block; font-family: "Fredoka", sans-serif; font-size: 0.95rem; font-weight: 600; color: #1B6688; text-decoration: none; padding: 6px 0; }
+  .mw-offer-wa:hover { text-decoration: underline; }
+</style>
+<script>
+/* Oct 23, 2026: Team photos use the shared slider (mw-slider.js). This glue keeps the quote and the price-card occasion in step with the photo. */
+(function () {
+  var car = document.getElementById("mwp-car"); if (!car) return;
+  document.addEventListener("mws:change", function (e) {
+    if (e.detail.root !== car || !e.detail.slide) return;
+    var s = e.detail.slide;
+    try { window.dispatchEvent(new CustomEvent("mwcel2", { detail: s.getAttribute("data-c") })); } catch (x) {}
+    var qq = document.querySelector(".mwp-q blockquote"), qb = document.querySelector(".mwp-q .mwp-by"), dq = s.getAttribute("data-q");
+    if (qq && qb && dq) { qq.textContent = "\u201C" + dq + "\u201D"; qb.textContent = s.getAttribute("data-by"); }
+  });
+  /* the quote box keeps one height for all four quotes, so the price card below never moves */
+  function lock() { if (window.MWS) window.MWS.lockQuote(document.querySelector(".mwp-q blockquote"), [].map.call(car.querySelectorAll(".mws-slide"), function (s) { return s.getAttribute("data-q"); })); }
+  if (window.MWS) lock(); else window.addEventListener("mws:ready", lock);
+  /* the occasion chosen in the price card (birthday, milestone, offsite, just because) picks the photo */
+  window.addEventListener("mwcel", function (e) {
+    var L = car.querySelectorAll(".mws-slide");
+    for (var k = 0; k < L.length; k++) { if (L[k].getAttribute("data-c") === e.detail) { if (car.mws) car.mws.set(k); break; } }
+  });
+})();
+</script>
