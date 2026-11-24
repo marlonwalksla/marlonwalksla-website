@@ -179,6 +179,8 @@ PK_CSS = """
   /* Packages (Nov 24, 2026 draft). The section sits in the old Group wrapper; give it the classic airmail edge and cream paper. */
   .mw-bg-team:has(#packages) { background: #FFF6E6 !important; --pc-stripes: repeating-linear-gradient(-45deg, #D9412B 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px); }
   .mw-bg-team:has(#packages)::before { opacity: .5; }
+  .mw-bg-team:has(#packages) .w-container { max-width: 1160px; }
+  .mw-bg-team:has(#packages) #team-split { display: none !important; }
   .pk { max-width: 1120px; margin: 0 auto; padding: 34px 28px 46px; box-sizing: border-box; font-family: "Nunito", system-ui, sans-serif; color: #27302E; scroll-margin-top: 70px; }
   .pk-head { text-align: center; margin: 0 auto 26px; max-width: 680px; }
   .pk-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; margin: 0; }
