@@ -63,7 +63,8 @@ def hero(src, es):
     # the sentence: Group and Private are packages now
     line = ('Explora LA en un <a class="mwh-hl" data-tone="pink" href="#book">free tour</a> o <a class="mwh-hl" data-tone="green" href="#packages">elige tu d&iacute;a en LA</a>.' if es else
             'Explore LA on a <a class="mwh-hl" data-tone="pink" href="#book">free tour</a> or <a class="mwh-hl" data-tone="green" href="#packages">pick your LA day</a>.')
-    s, n = re.subn(r'(<p class="mwh-line" id="mwh-line">)[\s\S]*?(</p>)', lambda m: m.group(1) + line + m.group(2), s, count=1)
+    # Marlon (round 4): the sentence with the tour words goes; the highlights move into the sections below
+    s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "", s, count=1)
     assert n == 1, "hero line"
     s = re.sub(r'\s*<button type="button" class="mwh-nav mwh-(prev|next)"[^>]*>[^<]*</button>', "", s)
     s = re.sub(r'\s*<div class="mwh-dots"[\s\S]*?</div>', "", s, count=1)
@@ -78,7 +79,8 @@ def hero(src, es):
   .mwh .mwh-tagline { margin: 0 0 14px; font-family: "Fredoka", system-ui, sans-serif; font-weight: 500; font-size: 1.2rem; color: #3B4440; }
   .mwh .mwh-hand { margin: 22px 0 10px; }
   .mwh a.mwh-hl { text-decoration: none !important; color: #27302E !important; }
-  .mwh .mwh-one { margin: 14px 0 10px; }
+  .mwh .mwh-one { margin: 16px auto 10px; }
+  .mwh .mwh-tagline { margin-bottom: 0; }
 </style>
 """
     return s + css
@@ -116,13 +118,13 @@ def private(src, es):
 IMG = C
 PK = {
   "en": dict(
-    title="Pick Your LA Day", sub="Walk Downtown or ride across LA",
-    line="Pick a day and bring your people. Marlon guides, the instant camera captures the moments.",
+    title="Explore LA With a Local", sub="The LA you came for, the way locals live it",
+    line='You already know the places. I\'ll show you how we live them: <mark class="mk" data-tone="green">where locals eat</mark>, <mark class="mk" data-tone="orange">the best views</mark> and <mark class="mk" data-tone="pink">the stories behind them</mark>. The instant camera captures the moments.',
     cards=[
-      dict(tone="green", mode="&#128694; Walking &middot; groups up to 35", name="Downtown Grand Loop",
+      dict(tone="green", mode="&#128694; Walking &middot; groups up to 35", name="Downtown LA",
            img="6ae4441660c929ab6108a7d5_birthday.avif", raw=True, rot="-1.2deg",
            alt="Kara's birthday group under the neon lights with their instant photo", cap="Kara's birthday crew",
-           line="Five hours around Downtown LA from Grand Central Market. Great for birthdays, offsites and big groups.",
+           line="Five hours exploring the historic center, starting at Grand Central Market. Great for birthdays, offsites and big groups.",
            stops="Grand Central Market &middot; Angels Flight &middot; The Broad &middot; Disney Hall &middot; City Hall",
            price="$30 per person &middot; 5 hours", todo="",
            q="I booked him to lead a birthday tour for me and my friends and he went above and beyond.", by="Kara F. &middot; Google",
@@ -146,13 +148,13 @@ PK = {
     ],
     rating="&#9733; 4.9 from 500+ reviews", custom="Want a different day? <a href=\"/private-tour-los-angeles\">Tell Marlon where you want to go</a>."),
   "es": dict(
-    title="Elige tu día en LA", sub="Camina el centro o recorre LA en auto",
-    line="Elige un día y trae a tu gente. Marlon te guía y la cámara instantánea captura los momentos.",
+    title="Explora LA con un local", sub="El LA que viniste a ver, como lo vivimos aquí",
+    line='Ya conoces los lugares. Te enseño cómo los vivimos: <mark class="mk" data-tone="green">dónde comemos</mark>, <mark class="mk" data-tone="orange">las mejores vistas</mark> y <mark class="mk" data-tone="pink">las historias detrás</mark>. La cámara instantánea captura los momentos.',
     cards=[
-      dict(tone="green", mode="&#128694; A pie &middot; grupos de hasta 35", name="Downtown Grand Loop",
+      dict(tone="green", mode="&#128694; A pie &middot; grupos de hasta 35", name="Downtown LA",
            img="6ae4441660c929ab6108a7d5_birthday.avif", raw=True, rot="-1.2deg",
            alt="El grupo de cumpleaños de Kara bajo las luces de neón con su foto instantánea", cap="El cumpleaños de Kara",
-           line="Cinco horas por el centro de LA desde Grand Central Market. Ideal para cumpleaños, salidas de equipo y grupos grandes.",
+           line="Cinco horas explorando el centro histórico, desde Grand Central Market. Ideal para cumpleaños, salidas de equipo y grupos grandes.",
            stops="Grand Central Market &middot; Angels Flight &middot; The Broad &middot; Disney Hall &middot; City Hall",
            price="$30 por persona &middot; 5 horas", todo="",
            q="I booked him to lead a birthday tour for me and my friends and he went above and beyond.", by="Kara F. &middot; Google (en inglés)",
@@ -188,7 +190,9 @@ PK_CSS = """
   .pk-head { text-align: center; margin: 0 auto 26px; max-width: 680px; }
   .pk-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; margin: 0; }
   .pk-sub { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: clamp(1.5rem, 3.2vw, 1.9rem); color: #2890B6; margin: 2px 0 8px; }
-  .pk-line { font-size: 1.05rem; line-height: 1.55; margin: 0; }
+  .pk-line { font-size: 1.1rem; line-height: 1.8; margin: 0; }
+  mark.mk { color: #27302E; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--tone, #FFD43B); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  mark.mk[data-tone="green"] { --tone: #86D69E; } mark.mk[data-tone="pink"] { --tone: #FF9FD0; } mark.mk[data-tone="orange"] { --tone: #FFAE63; }
   .pk-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
   .pk-card { display: flex; flex-direction: column; background: #FFFDF7; border: 2.5px solid #27302E; border-radius: 18px; box-shadow: 4px 4px 0 #27302E; padding: 18px 18px 20px; }
   .pk-card[data-tone="green"] { background: #E8F6DF; } .pk-card[data-tone="orange"] { background: #FFE9D9; } .pk-card[data-tone="blue"] { background: #E0F1F8; }
@@ -286,7 +290,9 @@ def mapcard(src, es):
 
 def meetcard(src):
     s = (PE / src).read_text()
-    css = "<style>.mwpc .hl-meet { background: transparent !important; } .mwpc .hl-meet::before { opacity: .35; }</style>\n"
+    s, n = re.subn(r'(<p class="hl-eyebrow">[^<]*</p>)\s*(<h2 class="hl-title">[^<]*</h2>)', r'\2\n      \1', s, count=1)
+    assert n == 1, "meet eyebrow"
+    css = "<style>.mwpc .hl-meet { background: transparent !important; } .mwpc .hl-meet::before { opacity: .35; } .mwpc .hl-title { margin-bottom: 2px; } .mwpc .hl-eyebrow { margin: 0 0 10px; }</style>\n"
     return postcard(s, "#FFE9D9", "orange", css)
 
 
@@ -294,26 +300,27 @@ IG_PHOTOS = [
   ("6ae444160f4f05b221979a15_walt%20disney%20polaroid.avif", True, "Guests with their instant photo at Walt Disney Concert Hall", "Invitados con su foto instant&aacute;nea en el Walt Disney Concert Hall"),
   ("6ad92cb3add8991e783fc5d8_guest-angels-flight-02.avif", True, "Guests riding Angels Flight", "Invitados en Angels Flight"),
   ("6ae45115ea1a111698dba65e_private%20urban%20lights.avif", True, "Guests at Urban Light with their instant photo", "Invitados en Urban Light con su foto instant&aacute;nea"),
-  ("6ad92fccefa7590f943fa69d_guest-city-hall-and-grand-park-01.avif", False, "A tour group in front of City Hall", "Un grupo frente al City Hall"),
-  ("6ae446ba02954dd0f02d26ec_team%20photo%20olvera%20street.avif", False, "Marlon and a big group at the Olvera Street gazebo", "Marlon y un grupo grande en el kiosco de la calle Olvera"),
-  ("6ae44416b7a5edc5b105a689_Team%20800x600.avif", False, "Marlon taking a selfie with a big group at the Avila Adobe", "Marlon con un grupo grande en el Avila Adobe"),
+  ("6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp", True, "Instant photo of a guest at sunset at Griffith", "Foto instant&aacute;nea de una invitada al atardecer en Griffith"),
+  ("6ac75117a6fa1b95aee600c4_polaroid-team-ernesto-la-placita.webp", True, "Instant photo of Team Ernesto at La Placita", "Foto instant&aacute;nea del Team Ernesto en La Placita"),
+  ("6ae451a4a161d7286632251d_free%20group%20polaroid.avif", True, "Instant photo of a free tour group with Ernesto", "Foto instant&aacute;nea de un grupo del free tour con Ernesto"),
 ]
 
 def igstrip(es):
     t = dict(eb="@marlonwalksla", title=("Capturando momentos en LA" if es else "Capturing Moments in LA"),
-             line=("Fotos instant&aacute;neas de nuestros tours y de mis aventuras por la ciudad." if es else "Instant photos from our tours and from my own adventures around the city."),
+             line=('<mark class="mk">Fotos instant&aacute;neas</mark> de nuestros tours y de mis aventuras por la ciudad.' if es else '<mark class="mk">Instant photos</mark> from our tours and from my own adventures around the city.'),
              btn=("S&iacute;gueme en Instagram" if es else "Follow on Instagram"))
     rots = ["-2deg", "1.5deg", "-1deg", "2deg", "-1.5deg", "1deg"]
     figs = []
     for i, (img, raw, en_alt, es_alt) in enumerate(IG_PHOTOS):
         figs.append('<a class="ig-ph%s" style="--rot:%s" href="https://www.instagram.com/marlonwalksla/" target="_blank" rel="noopener">%s<img src="%s%s" alt="%s" loading="lazy" decoding="async"></a>'
                     % (" is-raw" if raw else "", rots[i], "" if raw else '<span class="ig-tape" aria-hidden="true"></span>', C, img, es_alt if es else en_alt))
-    html = ('<section class="ig" aria-labelledby="ig-title">\n  <div class="ig-head"><p class="ig-eb">%(eb)s</p><h2 class="ig-title" id="ig-title">%(title)s</h2><p class="ig-line">%(line)s</p></div>\n'
+    html = ('<section class="ig" aria-labelledby="ig-title">\n  <div class="ig-head"><h2 class="ig-title" id="ig-title">%(title)s</h2><p class="ig-eb">%(eb)s</p><p class="ig-line">%(line)s</p></div>\n'
             '  <div class="ig-grid">\n    %(figs)s\n  </div>\n'
             '  <p class="ig-cta"><a class="ig-btn" href="https://www.instagram.com/marlonwalksla/" target="_blank" rel="noopener">%(btn)s</a></p>\n</section>\n') % dict(t, figs="\n    ".join(figs))
     css = """<style>
   .ig { max-width: 1060px; margin: 0 auto; padding: 30px 28px 34px; box-sizing: border-box; font-family: "Nunito", system-ui, sans-serif; color: #27302E; text-align: center; }
-  .ig-eb { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 1.6rem; color: #7A3FA0; margin: 0; }
+  .ig-eb { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 1.7rem; color: #7A3FA0; margin: 0 0 6px; }
+  .ig mark.mk { color: #27302E; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: #FF9FD0; }
   .ig-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; margin: 0 0 8px; }
   .ig-line { font-size: 1.05rem; line-height: 1.5; margin: 0 auto 24px; max-width: 560px; }
   .ig-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px; align-items: center; }
