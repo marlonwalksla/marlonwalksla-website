@@ -13,6 +13,8 @@
       <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%20Full.avif" alt="Logo de MarlonWalksLA: Ernesto, el burro pi&ntilde;ata, con una tablet y una c&aacute;mara Polaroid" loading="eager" width="512" height="512">
       <span class="mwh-hand" lang="es">&iexcl;y Ernesto!</span>
       <p class="mwh-tagline">Capturando momentos en LA.</p>
+      <a class="mwh-btn mwh-one" href="#book">&Uacute;nete a un Free Tour</a>
+      <p class="mwh-sub mwh-sub2">Free tour a pie por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Con propina.</p>
     </div>
     <div class="mwh-right">
       <div class="mwh-car" role="region" aria-roledescription="carousel" aria-label="Tipos de tour">
@@ -23,8 +25,7 @@
                 <span class="mwh-tape" style="background:rgba(255,0,255,.45)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4fd054a1a3af597a87125_Master%20Polaroids%20(1).avif" alt="Grupo del free tour posando juntos en el jard&iacute;n de la Casa Avila" loading="eager" fetchpriority="high" decoding="async">
               </a>
-              <a class="mwh-btn mwh-cbtn mwh-one" href="#book">&Uacute;nete a un Free Tour</a>
-              <p class="mwh-sub">Free tour a pie por el centro de LA, en espa&ntilde;ol e ingl&eacute;s. Con propina.</p>
+              
             </div>
           </div>
         </div>
@@ -386,6 +387,16 @@
   .mwh .mwh-tagline { margin: 0 0 14px; font-family: "Fredoka", system-ui, sans-serif; font-weight: 500; font-size: 1.2rem; color: #3B4440; }
   .mwh .mwh-hand { margin: 22px 0 10px; }
   .mwh a.mwh-hl { text-decoration: none !important; color: #27302E !important; }
-  .mwh .mwh-one { margin: 16px auto 10px; }
+  .mwh .mwh-one { margin: 18px auto 8px; font-size: 1.25rem; padding: 13px 30px; }
   .mwh .mwh-tagline { margin-bottom: 0; }
+  .mwh .mwh-sub2 { margin: 0 auto; max-width: 30ch; text-align: center; font-size: 1rem; line-height: 1.45; color: #3B4440; }
+  /* Desktop: the whole hero fits in one screen under the header (sizes follow the window height) */
+  @media (min-width: 992px) {
+    .mwh .mwh-wrap { padding-top: clamp(24px, 5vh, 64px) !important; padding-bottom: clamp(24px, 5vh, 64px) !important; min-height: calc(100vh - 64px); min-height: calc(100svh - 64px); box-sizing: border-box; align-items: center; align-content: center; }
+    .mwh .mwh-h1 { font-size: clamp(2.4rem, min(5.4vw, 8vh), 4.4rem); }
+    .mwh .mwh-ern2 { width: clamp(110px, 21vh, 210px); }
+    .mwh .mwh-hand { margin: 1.2vh 0 0.6vh; }
+    .mwh .mwh-car { grid-template-columns: minmax(0, min(340px, calc((100vh - 64px - 10vh - 70px) / 1.62))); justify-content: center; }
+    .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
+  }
 </style>
