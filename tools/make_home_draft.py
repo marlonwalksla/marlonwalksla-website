@@ -53,8 +53,13 @@ def hero(src, es):
     s = re.sub(r'(<div class="mwh-slide is-on" data-tone="pink"[\s\S]*?)tabindex="-1"', r'\1tabindex="0"', s, count=1)
     s = re.sub(r'(<div class="mwh-slide is-on" data-tone="pink"[\s\S]*?)tabindex="-1"', r'\1tabindex="0"', s, count=1)
     s = re.sub(r'(<div class="mwh-slide is-on" data-tone="pink"[\s\S]*?)loading="lazy"', r'\1loading="eager" fetchpriority="high"', s, count=1)
-    # the button books on this page (the calendar sits right under the reviews now)
-    s = re.sub(r'(<a class="mwh-btn mwh-cbtn" data-tone="pink" href=")[^"]*"', r'\1#book"', s, count=1)
+    # one button, not two (Marlon, Nov 24): the pink title is the link to the calendar on this page,
+    # the subtext stays under it, the yellow button goes
+    s, n = re.subn(r'<p class="mwh-cap"><strong data-tone="pink">([^<]*)</strong></p>',
+                   r'<p class="mwh-cap"><a class="mwh-caplink" href="#book"><strong data-tone="pink">\1</strong></a></p>', s, count=1)
+    assert n == 1, "pink caption"
+    s, n = re.subn(r'\s*<a class="mwh-btn mwh-cbtn" data-tone="pink" href="[^"]*"[^>]*>[^<]*</a>', "", s, count=1)
+    assert n == 1, "pink button"
     s = re.sub(r'\s*<button type="button" class="mwh-nav mwh-(prev|next)"[^>]*>[^<]*</button>', "", s)
     s = re.sub(r'\s*<div class="mwh-dots"[\s\S]*?</div>', "", s, count=1)
     # drop the carousel script (it needs three slides)
@@ -68,6 +73,9 @@ def hero(src, es):
   .mwh .mwh-tagline { margin: 0 0 14px; font-family: "Fredoka", system-ui, sans-serif; font-weight: 500; font-size: 1.2rem; color: #3B4440; }
   .mwh .mwh-hand { margin: 22px 0 10px; }
   .mwh a.mwh-hl { text-decoration: none !important; color: #27302E !important; }
+  .mwh a.mwh-caplink { text-decoration: none !important; color: inherit !important; display: inline-block; min-height: 44px; padding-top: 4px; }
+  .mwh a.mwh-caplink strong::after { content: " \\2192"; }
+  .mwh a.mwh-caplink:hover strong, .mwh a.mwh-caplink:focus-visible strong { filter: brightness(.95); text-decoration: underline; text-underline-offset: 3px; }
 </style>
 """
     return s + css
