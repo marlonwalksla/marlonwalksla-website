@@ -65,9 +65,9 @@ def hero(src, es):
         b1, l1, b2, l2 = btn, "Con propina &middot; espa&ntilde;ol e ingl&eacute;s", "Tours por LA", "Comida, atardeceres y playa"
     else:
         b1, l1, b2, l2 = btn, "Tip-based &middot; English and Spanish", "Explore LA Tours", "Food walks, sunset hikes, beach days"
-    ctas = ('\n      <div class="mwh-ctas">'
-            '<div class="mwh-cta"><a class="mwh-btn mwh-one" href="#book">%s</a><p class="mwh-mini">%s</p></div>'
-            '<div class="mwh-cta"><a class="mwh-btn mwh-one" href="#packages">%s</a><p class="mwh-mini">%s</p></div>'
+    ctas = ('\n      <div class="mwh-pair">'
+            '<div class="mwh-pairc"><a class="mwh-btn mwh-one" href="#book">%s</a><p class="mwh-mini">%s</p></div>'
+            '<div class="mwh-pairc"><a class="mwh-btn mwh-one" href="#packages">%s</a><p class="mwh-mini">%s</p></div>'
             '</div>') % (b1, l1, b2, l2)
     s, n = re.subn(r'(<p class="mwh-tagline">[^<]*</p>)', lambda mm: mm.group(1) + ctas, s, count=1)
     assert n == 1, "tagline anchor"
@@ -91,8 +91,8 @@ def hero(src, es):
   .mwh .mwh-hand { margin: 22px 0 10px; }
   .mwh a.mwh-hl { text-decoration: none !important; color: #27302E !important; }
   .mwh .mwh-tagline { margin: 2px 0 0; font-size: 1.35rem; font-weight: 600; color: #27302E; }
-  .mwh .mwh-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 18px; margin: 18px 0 0; }
-  .mwh .mwh-cta { display: flex; flex-direction: column; align-items: center; }
+  .mwh .mwh-pair { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 18px; margin: 18px 0 0; }
+  .mwh .mwh-pairc { display: flex; flex-direction: column; align-items: center; }
   .mwh .mwh-one { margin: 0; font-size: 1.15rem; padding: 12px 22px; white-space: nowrap; }
   .mwh .mwh-mini { margin: 8px 0 0; font-family: "Fredoka", sans-serif; font-size: .9rem; line-height: 1.3; color: #3B4440; text-align: center; max-width: 22ch; }
   /* only the three corner stamps (the middle-bottom one sat in the way) */
@@ -103,7 +103,7 @@ def hero(src, es):
     .mwh .mwh-h1 { font-size: clamp(2.3rem, min(5vw, 7.4vh), 4.2rem); }
     .mwh .mwh-ern2 { width: clamp(100px, 17vh, 190px); }
     .mwh .mwh-hand { margin: 0.8vh 0 0.2vh; }
-    .mwh .mwh-car { grid-template-columns: minmax(0, min(400px, calc((100vh - 64px - 12vh - 24px) / 1.62))) !important; justify-content: center; }
+    .mwh .mwh-car { grid-template-columns: minmax(0, min(400px, calc((100vh - 64px - 12vh - 24px) / 1.2))) !important; justify-content: center; }
     .mwh .mwh-pol { grid-column: 1 !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
   }
