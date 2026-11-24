@@ -55,11 +55,16 @@ def hero(src, es):
     s = re.sub(r'(<div class="mwh-slide is-on" data-tone="pink"[\s\S]*?)loading="lazy"', r'\1loading="eager" fetchpriority="high"', s, count=1)
     # one button, not two (Marlon, Nov 24): the pink title is the link to the calendar on this page,
     # the subtext stays under it, the yellow button goes
-    s, n = re.subn(r'<p class="mwh-cap"><strong data-tone="pink">([^<]*)</strong></p>',
-                   r'<p class="mwh-cap"><a class="mwh-caplink" href="#book"><strong data-tone="pink">\1</strong></a></p>', s, count=1)
-    assert n == 1, "pink caption"
-    s, n = re.subn(r'\s*<a class="mwh-btn mwh-cbtn" data-tone="pink" href="[^"]*"[^>]*>[^<]*</a>', "", s, count=1)
-    assert n == 1, "pink button"
+    # Marlon, Nov 24 (round 3): one YELLOW button under the photo, then the subtext. No pink title.
+    btn = "&Uacute;nete a un Free Tour" if es else "Join a Free Tour"
+    s, n = re.subn(r'<p class="mwh-cap"><strong data-tone="pink">[^<]*</strong></p>\s*(<p class="mwh-sub">[^<]*</p>)\s*<a class="mwh-btn mwh-cbtn" data-tone="pink" href="[^"]*"[^>]*>[^<]*</a>',
+                   lambda m: '<a class="mwh-btn mwh-cbtn mwh-one" href="#book">%s</a>\n              %s' % (btn, m.group(1)), s, count=1)
+    assert n == 1, "pink caption + button"
+    # the sentence: Group and Private are packages now
+    line = ('Explora LA en un <a class="mwh-hl" data-tone="pink" href="#book">free tour</a> o <a class="mwh-hl" data-tone="green" href="#packages">elige tu d&iacute;a en LA</a>.' if es else
+            'Explore LA on a <a class="mwh-hl" data-tone="pink" href="#book">free tour</a> or <a class="mwh-hl" data-tone="green" href="#packages">pick your LA day</a>.')
+    s, n = re.subn(r'(<p class="mwh-line" id="mwh-line">)[\s\S]*?(</p>)', lambda m: m.group(1) + line + m.group(2), s, count=1)
+    assert n == 1, "hero line"
     s = re.sub(r'\s*<button type="button" class="mwh-nav mwh-(prev|next)"[^>]*>[^<]*</button>', "", s)
     s = re.sub(r'\s*<div class="mwh-dots"[\s\S]*?</div>', "", s, count=1)
     # drop the carousel script (it needs three slides)
@@ -73,9 +78,7 @@ def hero(src, es):
   .mwh .mwh-tagline { margin: 0 0 14px; font-family: "Fredoka", system-ui, sans-serif; font-weight: 500; font-size: 1.2rem; color: #3B4440; }
   .mwh .mwh-hand { margin: 22px 0 10px; }
   .mwh a.mwh-hl { text-decoration: none !important; color: #27302E !important; }
-  .mwh a.mwh-caplink { text-decoration: none !important; color: inherit !important; display: inline-block; min-height: 44px; padding-top: 4px; }
-  .mwh a.mwh-caplink strong::after { content: " \\2192"; }
-  .mwh a.mwh-caplink:hover strong, .mwh a.mwh-caplink:focus-visible strong { filter: brightness(.95); text-decoration: underline; text-underline-offset: 3px; }
+  .mwh .mwh-one { margin: 14px 0 10px; }
 </style>
 """
     return s + css
@@ -220,7 +223,8 @@ PK_CSS = """
 def packages(lang):
     d = PK[lang]; cards = []
     for c in d["cards"]:
-        price = '<p class="pk-price">%s</p>' % c["price"] if c["price"] else '<p class="pk-todo">%s</p>' % c["todo"]
+        price = '<p class="pk-price">%s</p>' % (c["price"] + " &middot; " + c["mode"].split("&middot; ")[1] if c["price"] else c["mode"].split("&middot; ")[1].capitalize() + " &middot; " + ("hotel pickup" if lang == "en" else "te recojo en tu hotel"))
+        if c["todo"]: price += '\n  <p class="pk-todo">%s</p>' % c["todo"]
         if c["q"]:
             rev = ('<figure class="pk-q"><blockquote>&ldquo;%s&rdquo;</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> %s</figcaption></figure>' % (c["q"], c["by"]))
         else:
@@ -228,7 +232,7 @@ def packages(lang):
         lbl = "Stops" if lang == "en" else "Paradas"
         cards.append(
           '<article class="pk-card" data-tone="%(tone)s">\n'
-          '  <p class="pk-mode">%(mode)s</p>\n  <h3 class="pk-name">%(name)s</h3>\n'
+          '  <h3 class="pk-name">%(name)s</h3>\n'
           '  <div class="pk-photo%(raw)s" style="--rot:%(rot)s">%(tape)s<img src="%(src)s" alt="%(alt)s" loading="lazy" decoding="async"></div>\n'
           '  <p class="pk-cap">%(cap)s</p>\n  <p class="pk-text">%(line)s</p>\n  <p class="pk-stops"><b>%(lbl)s:</b> %(stops)s</p>\n'
           '  %(price)s\n  %(rev)s\n  <a class="pk-btn" href="%(href)s">%(btn)s</a>\n</article>' % dict(c,
@@ -250,12 +254,97 @@ def book_stops(s):
     return s + ('\n<style>.mwla-stops { font-family: "Fredoka", sans-serif; font-size: .98rem; line-height: 1.5; color: #3B4440; margin: 12px 0 0; }'
                 ' .mwla-stops b { font-weight: 600; color: #27302E; }</style>\n')
 
+
+# ---------------------------------------------------------------------------
+# Round 3 (Nov 24): every section is a postcard (airmail edge, its own paper color); one button per section.
+PC_CSS = """
+<style>
+  .mwpc { position: relative; padding: 30px 0; background: var(--paper, #FFF6E6); overflow: hidden; }
+  .mwpc::after { content: ""; position: absolute; inset: 12px; border: 12px solid transparent; border-image: var(--stripes) 12; pointer-events: none; z-index: 3; }
+  .mwpc > * { position: relative; z-index: 2; }
+  @media (max-width: 640px) { .mwpc { padding: 18px 0; } .mwpc::after { inset: 6px; border-width: 7px; border-image-slice: 7; border-image-width: 7px; } }
+</style>
+"""
+STRIPES = {
+  "blue":   "repeating-linear-gradient(-45deg, #2890B6 0 16px, transparent 16px 26px, #FFD43B 26px 42px, transparent 42px 52px)",
+  "orange": "repeating-linear-gradient(-45deg, #E8742A 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px)",
+  "purple": "repeating-linear-gradient(-45deg, #7A3FA0 0 16px, transparent 16px 26px, #2E9E57 26px 42px, transparent 42px 52px)",
+}
+
+def postcard(inner, paper, stripes, extra_css=""):
+    return ('<div class="mwpc" style="--paper:%s;--stripes:%s">\n%s\n</div>\n' % (paper, STRIPES[stripes], inner)) + PC_CSS + extra_css
+
+
+def mapcard(src, es):
+    s = (PE / src).read_text()
+    # one button; the ?from=home keeps the site's footer-link script from copying it into Passports/Stamps buttons
+    s, n = re.subn(r'href="/maps(\?lang=es)?"', lambda m: 'href="/maps?%sfrom=home"' % ("lang=es&amp;" if m.group(1) else ""), s)
+    assert n == 1, "map href"
+    css = "<style>.mwpc .rm { background: transparent !important; } .mwpc .rm::before { opacity: .35; }</style>\n"
+    return postcard(s, "#E0F1F8", "blue", css)
+
+
+def meetcard(src):
+    s = (PE / src).read_text()
+    css = "<style>.mwpc .hl-meet { background: transparent !important; } .mwpc .hl-meet::before { opacity: .35; }</style>\n"
+    return postcard(s, "#FFE9D9", "orange", css)
+
+
+IG_PHOTOS = [
+  ("6ae444160f4f05b221979a15_walt%20disney%20polaroid.avif", True, "Guests with their instant photo at Walt Disney Concert Hall", "Invitados con su foto instant&aacute;nea en el Walt Disney Concert Hall"),
+  ("6ad92cb3add8991e783fc5d8_guest-angels-flight-02.avif", True, "Guests riding Angels Flight", "Invitados en Angels Flight"),
+  ("6ae45115ea1a111698dba65e_private%20urban%20lights.avif", True, "Guests at Urban Light with their instant photo", "Invitados en Urban Light con su foto instant&aacute;nea"),
+  ("6ad92fccefa7590f943fa69d_guest-city-hall-and-grand-park-01.avif", False, "A tour group in front of City Hall", "Un grupo frente al City Hall"),
+  ("6ae446ba02954dd0f02d26ec_team%20photo%20olvera%20street.avif", False, "Marlon and a big group at the Olvera Street gazebo", "Marlon y un grupo grande en el kiosco de la calle Olvera"),
+  ("6ae44416b7a5edc5b105a689_Team%20800x600.avif", False, "Marlon taking a selfie with a big group at the Avila Adobe", "Marlon con un grupo grande en el Avila Adobe"),
+]
+
+def igstrip(es):
+    t = dict(eb="@marlonwalksla", title=("Capturando momentos en LA" if es else "Capturing Moments in LA"),
+             line=("Fotos instant&aacute;neas de nuestros tours y de mis aventuras por la ciudad." if es else "Instant photos from our tours and from my own adventures around the city."),
+             btn=("S&iacute;gueme en Instagram" if es else "Follow on Instagram"))
+    rots = ["-2deg", "1.5deg", "-1deg", "2deg", "-1.5deg", "1deg"]
+    figs = []
+    for i, (img, raw, en_alt, es_alt) in enumerate(IG_PHOTOS):
+        figs.append('<a class="ig-ph%s" style="--rot:%s" href="https://www.instagram.com/marlonwalksla/" target="_blank" rel="noopener">%s<img src="%s%s" alt="%s" loading="lazy" decoding="async"></a>'
+                    % (" is-raw" if raw else "", rots[i], "" if raw else '<span class="ig-tape" aria-hidden="true"></span>', C, img, es_alt if es else en_alt))
+    html = ('<section class="ig" aria-labelledby="ig-title">\n  <div class="ig-head"><p class="ig-eb">%(eb)s</p><h2 class="ig-title" id="ig-title">%(title)s</h2><p class="ig-line">%(line)s</p></div>\n'
+            '  <div class="ig-grid">\n    %(figs)s\n  </div>\n'
+            '  <p class="ig-cta"><a class="ig-btn" href="https://www.instagram.com/marlonwalksla/" target="_blank" rel="noopener">%(btn)s</a></p>\n</section>\n') % dict(t, figs="\n    ".join(figs))
+    css = """<style>
+  .ig { max-width: 1060px; margin: 0 auto; padding: 30px 28px 34px; box-sizing: border-box; font-family: "Nunito", system-ui, sans-serif; color: #27302E; text-align: center; }
+  .ig-eb { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 1.6rem; color: #7A3FA0; margin: 0; }
+  .ig-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; margin: 0 0 8px; }
+  .ig-line { font-size: 1.05rem; line-height: 1.5; margin: 0 auto 24px; max-width: 560px; }
+  .ig-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px; align-items: center; }
+  .ig-ph { position: relative; display: block; transform: rotate(var(--rot, 0deg)); transition: transform .2s ease-out; }
+  .ig-ph:hover, .ig-ph:focus-visible { transform: rotate(0deg) translateY(-4px); }
+  .ig-ph img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; box-shadow: 0 6px 14px rgba(0,0,0,.18); }
+  .ig-ph.is-raw img { aspect-ratio: auto; object-fit: contain; box-shadow: none; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
+  .ig-tape { position: absolute; top: -9px; left: 50%; width: 56px; height: 18px; transform: translateX(-50%) rotate(-3deg); background: rgba(255,212,59,.6); z-index: 2; }
+  .ig-cta { margin: 26px 0 0; }
+  .ig-btn { display: inline-block; font-family: "Lilita One", sans-serif; font-size: 1.2rem; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 12px 28px; min-height: 44px; box-sizing: border-box; box-shadow: 4px 4px 0 #27302E; transition: transform .18s ease-out, box-shadow .18s ease-out; }
+  .ig-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #27302E; }
+  .ig-btn:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  @media (max-width: 860px) { .ig-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .ig { padding: 22px 22px 28px; } .ig-grid { gap: 14px; } }
+  @media (prefers-reduced-motion: reduce) { .ig-ph, .ig-btn { transition: none; } }
+</style>
+"""
+    return postcard(html + css, "#F0E8F8", "purple")
+
 OUT = {
     "home-hero-draft.html": hero("home-hero.html", False),
     "home-hero-es-draft.html": hero("home-hero-es.html", True),
     "home-book-draft.html": book_stops(book()),
     "home-packages-draft.html": packages("en"),
     "home-packages-es-draft.html": packages("es"),
+    "home-routebreak-draft.html": mapcard("home-routebreak.html", False),
+    "home-routebreak-es-draft.html": mapcard("home-routebreak-es.html", True),
+    "home-meet-draft.html": meetcard("home-meet.html"),
+    "home-meet-es-draft.html": meetcard("home-meet-es.html"),
+    "home-ig-draft.html": igstrip(False),
+    "home-ig-es-draft.html": igstrip(True),
     "home-team-draft.html": team("home-team.html"),
     "home-team-es-draft.html": team("home-team-es.html"),
     "home-private-draft.html": private("home-private.html", False),
