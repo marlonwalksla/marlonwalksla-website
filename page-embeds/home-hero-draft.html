@@ -390,15 +390,15 @@
   .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
   /* Desktop: the whole hero fits in one screen under the header; columns sit closer; the photo is as tall as the text */
   @media (min-width: 992px) {
-    .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(30px, 6vh, 64px) !important; padding-bottom: clamp(30px, 6vh, 64px) !important; min-height: calc(100vh - 64px); min-height: calc(100svh - 64px); box-sizing: border-box; align-items: center; align-content: center; }
+    .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(40px, 7vh, 80px) !important; padding-bottom: clamp(40px, 7vh, 80px) !important; min-height: 0 !important; max-height: calc(100svh - 64px); box-sizing: border-box; align-items: center; align-content: center; }
     /* round 7 (Marlon): on desktop Ernesto's badge sits beside the title, "& Ernesto!" under it; tagline and buttons below */
     .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "btns btns"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
     .mwh .mwh-h1 { grid-area: title; align-self: end; margin: 0 !important; font-size: clamp(2.4rem, min(5vw, 8vh), 4.3rem); }
     .mwh .mwh-ern2 { grid-area: badge; width: clamp(120px, 22vh, 200px); margin: 0 !important; }
-    .mwh .mwh-hand { grid-area: hand; align-self: start; margin: 10px 0 0 4px !important; transform: rotate(-3deg); }
+    .mwh .mwh-hand { grid-area: hand; align-self: start; position: static !important; left: auto !important; bottom: auto !important; margin: 10px 0 0 4px !important; transform: rotate(-3deg) !important; }
     .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(16px, 3.5vh, 30px) 0 0 !important; }
     .mwh .mwh-pair { grid-area: btns; justify-self: center; }
-    .mwh .mwh-car { grid-template-columns: minmax(0, min(400px, calc((100vh - 64px - 12vh - 24px) / 1.2))) !important; justify-content: center; }
+    .mwh .mwh-car { grid-template-columns: minmax(0, min(360px, calc((100vh - 64px - 14vh - 24px) / 1.2))) !important; justify-content: center; }
     .mwh .mwh-pol { grid-column: 1 !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
   }
