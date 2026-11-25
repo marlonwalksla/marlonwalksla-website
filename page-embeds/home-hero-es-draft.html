@@ -14,6 +14,7 @@
       <span class="mwh-hand" lang="es">&iexcl;y Ernesto!</span>
       <p class="mwh-tagline">Vive y captura tu mejor d&iacute;a en LA.</p>
       <p class="mwh-who">Un <button type="button" class="mwh-hl" data-tone="pink" data-i="0">free tour</button>, una <button type="button" class="mwh-hl" data-tone="orange" data-i="1">caminata al atardecer</button> o un <button type="button" class="mwh-hl" data-tone="blue" data-i="2">d&iacute;a de playa</button> para viajeros solos, parejas y familias.</p>
+      <p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>
     </div>
     <div class="mwh-right">
       <div class="mwh-car" role="region" aria-roledescription="carousel" aria-label="Tipos de tour">
@@ -25,7 +26,8 @@
                 <span class="mwh-tape" style="background:rgba(255,0,255,.45)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4fd054a1a3af597a87125_Master%20Polaroids%20(1).avif" alt="Invitados del free tour en el jard&iacute;n del Avila Adobe" loading="eager" fetchpriority="high" decoding="async">
               </a>
-              <p class="mwh-cap"><strong data-tone="pink">Free Tour: centro de LA</strong></p>
+              <p class="mwh-cap"><strong data-tone="pink">Centro de LA</strong></p>
+              <p class="mwh-sub">Para primerizos y amantes de la historia. Con propina, en espa&ntilde;ol e ingl&eacute;s.</p>
               <a class="mwh-btn mwh-cbtn" href="#book" tabindex="0">&Uacute;nete a un Free Tour</a>
             </div>
             <div class="mwh-slide" data-tone="orange">
@@ -33,7 +35,8 @@
                 <span class="mwh-tape" style="background:rgba(255,140,40,.5)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp" alt="Foto instant&aacute;nea de una invitada al atardecer en Griffith" loading="lazy" decoding="async">
               </a>
-              <p class="mwh-cap"><strong data-tone="orange">Caminata al atardecer: Hollywood + Griffith</strong></p>
+              <p class="mwh-cap"><strong data-tone="orange">Hollywood + Griffith</strong></p>
+              <p class="mwh-sub">Para aventura y vistas al atardecer. Te recojo en tu hotel, hasta 4 personas.</p>
               <a class="mwh-btn mwh-cbtn" href="#packages" tabindex="-1">Planea tu caminata</a>
             </div>
             <div class="mwh-slide" data-tone="blue">
@@ -41,7 +44,8 @@
                 <span class="mwh-tape" style="background:rgba(40,144,182,.45)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cac0bb99231ec0ee3ef_place-venice-01.webp" alt="Foto instant&aacute;nea en los canales de Venice" loading="lazy" decoding="async">
               </a>
-              <p class="mwh-cap"><strong data-tone="blue">D&iacute;a de playa: Santa Monica + Venice</strong></p>
+              <p class="mwh-cap"><strong data-tone="blue">Santa Monica + Venice</strong></p>
+              <p class="mwh-sub">Para un d&iacute;a divertido de sol y mar. Te recojo en tu hotel, hasta 4 personas.</p>
               <a class="mwh-btn mwh-cbtn" href="#packages" tabindex="-1">Planea tu d&iacute;a de playa</a>
             </div>
           </div>
@@ -435,19 +439,24 @@
   .mwh .mwh-hand { font-size: 2.7rem !important; }
   .mwh .mwh-who { line-height: 2.2 !important; font-size: 1.1rem !important; max-width: 30ch !important; }
   .mwh .mwh-hl[data-tone="blue"] { --tone: rgba(110, 190, 225, 0.6); }
-  .mwh .mwh-hl { margin: 0 2px; }
+  .mwh .mwh-hl { margin: 0 7px; }
+  .mwh .mwh-rate { margin: 10px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.05rem; color: #27302E; }
+  .mwh .mwh-rate span { color: #E89B00; }
+  .mwh .mwh-sub { margin: 10px auto 0; font-size: 1rem; line-height: 1.45; color: #3B4440; }
   .mwh .mwh-cap { margin-top: 16px; }
   .mwh .mwh-cbtn { margin-top: 14px; }
   .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
   @media (min-width: 992px) {
     .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(36px, 6vh, 72px) !important; padding-bottom: clamp(36px, 6vh, 72px) !important; min-height: 0 !important; box-sizing: border-box; align-items: center; }
-    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "who who"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
+    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "who who" "rate rate"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
     .mwh .mwh-h1 { grid-area: title; align-self: end; margin: 0 !important; font-size: clamp(2.4rem, min(5vw, 8vh), 4.3rem); }
     .mwh .mwh-ern2 { grid-area: badge; width: clamp(120px, 22vh, 200px); margin: 0 !important; }
     .mwh .mwh-hand { grid-area: hand; align-self: start; position: static !important; left: auto !important; bottom: auto !important; margin: 10px 0 0 4px !important; transform: rotate(-3deg) !important; }
     .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(18px, 3.5vh, 32px) 0 0 !important; text-align: center; }
     .mwh .mwh-who { grid-area: who; justify-self: center; text-align: center; }
-    .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 150px) / 1.2), 340px)) 44px !important; }
+    .mwh .mwh-rate { grid-area: rate; justify-self: center; }
+    .mwh .mwh-stamps svg.stamp:nth-child(1) { top: auto !important; bottom: 28px !important; left: 24px !important; }
+    .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 200px) / 1.2), 330px)) 44px !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
   }
   @media (max-width: 991px) { .mwh .mwh-text { align-items: center; text-align: center; } .mwh .mwh-who { margin-left: auto; margin-right: auto; } }

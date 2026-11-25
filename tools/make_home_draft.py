@@ -45,11 +45,13 @@ def hero(src, es):
     if es:
         tag = ('<p class="mwh-tagline">Vive y captura tu mejor d&iacute;a en LA.</p>\n'
                '      <p class="mwh-who">Un %s, una %s o un %s para viajeros solos, parejas y familias.</p>'
-               % (P(0, "pink", "free tour"), P(1, "orange", "caminata al atardecer"), P(2, "blue", "d&iacute;a de playa")))
+               % (P(0, "pink", "free tour"), P(1, "orange", "caminata al atardecer"), P(2, "blue", "d&iacute;a de playa"))
+               + '\n      <p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>')
     else:
         tag = ('<p class="mwh-tagline">Live and capture your best day in LA.</p>\n'
                '      <p class="mwh-who">A %s, a %s or a %s for solo travelers, couples and families.</p>'
-               % (P(0, "pink", "free tour"), P(1, "orange", "sunset hike"), P(2, "blue", "beach day")))
+               % (P(0, "pink", "free tour"), P(1, "orange", "sunset hike"), P(2, "blue", "beach day"))
+               + '\n      <p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>')
     s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "\n      " + tag, s, count=1)
     assert n == 1, "hero line"
     slides = re.findall(r'\s*<div class="mwh-slide[^"]*" data-tone="(\w+)"[\s\S]*?\n            </div>', s)
@@ -58,21 +60,21 @@ def hero(src, es):
     S = [
       dict(tone="pink", tape="rgba(255,0,255,.45)", img="6ae4fd054a1a3af597a87125_Master%20Polaroids%20(1).avif",
            alt=("Invitados del free tour en el jard&iacute;n del Avila Adobe" if es else "Free tour guests posing together at the Avila Adobe garden"),
-           cap=("Free Tour: Downtown LA" if not es else "Free Tour: centro de LA"),
-           sub=("Para quienes visitan LA por primera vez y aman la historia y caminar. Con propina, en espa&ntilde;ol e ingl&eacute;s." if es else
-                "For first-time visitors who love history and walking. Tip-based, in English and Spanish."),
+           cap=("Centro de LA" if es else "Downtown LA"),
+           sub=("Para primerizos y amantes de la historia. Con propina, en espa&ntilde;ol e ingl&eacute;s." if es else
+                "For first-timers and history lovers. Tip-based, in English and Spanish."),
            btn=("&Uacute;nete a un Free Tour" if es else "Join a Free Tour"), href="#book"),
       dict(tone="orange", tape="rgba(255,140,40,.5)", img="6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp",
            alt=("Foto instant&aacute;nea de una invitada al atardecer en Griffith" if es else "Instant photo of a guest at sunset at Griffith"),
-           cap=("Caminata al atardecer: Hollywood + Griffith" if es else "Sunset Hike: Hollywood + Griffith"),
-           sub=("Para parejas, familias y amigos activos. Te recojo en tu hotel, hasta 4 personas." if es else
-                "For active couples, families and friends. Hotel pickup, up to 4 guests."),
+           cap="Hollywood + Griffith",
+           sub=("Para aventura y vistas al atardecer. Te recojo en tu hotel, hasta 4 personas." if es else
+                "For adventure and sunset views. Hotel pickup, up to 4 guests."),
            btn=("Planea tu caminata" if es else "Plan a Sunset Hike"), href="#packages"),
       dict(tone="blue", tape="rgba(40,144,182,.45)", img="6ad92cac0bb99231ec0ee3ef_place-venice-01.webp",
            alt=("Foto instant&aacute;nea en los canales de Venice" if es else "Instant photo from the Venice Canals"),
-           cap=("D&iacute;a de playa: Santa Monica + Venice" if es else "Beach Day: Santa Monica + Venice"),
-           sub=("Para parejas, familias y amigos que quieren un d&iacute;a f&aacute;cil y divertido. Te recojo en tu hotel, hasta 4 personas." if es else
-                "For couples, families and friends who want an easy, fun day. Hotel pickup, up to 4 guests."),
+           cap="Santa Monica + Venice",
+           sub=("Para un d&iacute;a divertido de sol y mar. Te recojo en tu hotel, hasta 4 personas." if es else
+                "For a fun day of sun and ocean. Hotel pickup, up to 4 guests."),
            btn=("Planea tu d&iacute;a de playa" if es else "Plan a Beach Day"), href="#packages"),
     ]
     html = []
@@ -85,6 +87,7 @@ def hero(src, es):
           '                <img src="%(C)s%(img)s" alt="%(alt)s" %(load)s decoding="async">\n'
           '              </a>\n'
           '              <p class="mwh-cap"><strong data-tone="%(tone)s">%(cap)s</strong></p>\n'
+          '              <p class="mwh-sub">%(sub)s</p>\n'
           '              <a class="mwh-btn mwh-cbtn" href="%(href)s" tabindex="%(ti)s">%(btn)s</a>\n'
           '            </div>' % dict(d, on=" is-on" if on else "", ti="0" if on else "-1", C=C,
                                      load='loading="eager" fetchpriority="high"' if on else 'loading="lazy"'))
@@ -105,19 +108,24 @@ def hero(src, es):
   .mwh .mwh-hand { font-size: 2.7rem !important; }
   .mwh .mwh-who { line-height: 2.2 !important; font-size: 1.1rem !important; max-width: 30ch !important; }
   .mwh .mwh-hl[data-tone="blue"] { --tone: rgba(110, 190, 225, 0.6); }
-  .mwh .mwh-hl { margin: 0 2px; }
+  .mwh .mwh-hl { margin: 0 7px; }
+  .mwh .mwh-rate { margin: 10px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.05rem; color: #27302E; }
+  .mwh .mwh-rate span { color: #E89B00; }
+  .mwh .mwh-sub { margin: 10px auto 0; font-size: 1rem; line-height: 1.45; color: #3B4440; }
   .mwh .mwh-cap { margin-top: 16px; }
   .mwh .mwh-cbtn { margin-top: 14px; }
   .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
   @media (min-width: 992px) {
     .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(36px, 6vh, 72px) !important; padding-bottom: clamp(36px, 6vh, 72px) !important; min-height: 0 !important; box-sizing: border-box; align-items: center; }
-    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "who who"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
+    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "who who" "rate rate"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
     .mwh .mwh-h1 { grid-area: title; align-self: end; margin: 0 !important; font-size: clamp(2.4rem, min(5vw, 8vh), 4.3rem); }
     .mwh .mwh-ern2 { grid-area: badge; width: clamp(120px, 22vh, 200px); margin: 0 !important; }
     .mwh .mwh-hand { grid-area: hand; align-self: start; position: static !important; left: auto !important; bottom: auto !important; margin: 10px 0 0 4px !important; transform: rotate(-3deg) !important; }
     .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(18px, 3.5vh, 32px) 0 0 !important; text-align: center; }
     .mwh .mwh-who { grid-area: who; justify-self: center; text-align: center; }
-    .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 150px) / 1.2), 340px)) 44px !important; }
+    .mwh .mwh-rate { grid-area: rate; justify-self: center; }
+    .mwh .mwh-stamps svg.stamp:nth-child(1) { top: auto !important; bottom: 28px !important; left: 24px !important; }
+    .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 200px) / 1.2), 330px)) 44px !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
   }
   @media (max-width: 991px) { .mwh .mwh-text { align-items: center; text-align: center; } .mwh .mwh-who { margin-left: auto; margin-right: auto; } }
