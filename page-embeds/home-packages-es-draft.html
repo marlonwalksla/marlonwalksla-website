@@ -1,0 +1,76 @@
+<!-- DRAFT (Nov 24, 2026): built by tools/make_home_draft.py from the live Home section. Only /home-draft and /es-draft load it. -->
+<section class="pk" id="packages" aria-labelledby="pk-title">
+  <div class="pk-head"><h2 class="pk-title" id="pk-title">Explora LA con un local</h2><p class="pk-sub">El LA que viniste a ver, como lo vivimos aquí</p><p class="pk-line">Ya conoces los lugares. Te enseño cómo los vivimos: <mark class="mk" data-tone="green">dónde comemos</mark>, <mark class="mk" data-tone="orange">las mejores vistas</mark> y <mark class="mk" data-tone="pink">las historias detrás</mark>. La cámara instantánea captura los momentos.</p></div>
+  <div class="pk-grid">
+<article class="pk-card" data-tone="green">
+  <h3 class="pk-name">Ruta de comida en el centro</h3>
+  <p class="pk-place">Grand Central Market</p>
+  <div class="pk-photo is-raw" style="--rot:-1.2deg"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4441660c929ab6108a7d5_birthday.avif" alt="El grupo de cumpleaños de Kara bajo las luces de neón con su foto instantánea" loading="lazy" decoding="async"></div>
+  <p class="pk-text">Cinco horas comiendo y explorando el centro histórico. Ideal para cumpleaños y grupos grandes.</p>
+  <p class="pk-price">$30 por persona &middot; hasta 35 personas</p>
+  <a class="pk-btn" href="/tours-para-grupos-los-angeles">Ver detalles</a>
+</article>
+<article class="pk-card" data-tone="orange">
+  <h3 class="pk-name">Caminatas al atardecer</h3>
+  <p class="pk-place">Hollywood + Observatorio Griffith</p>
+  <div class="pk-photo" style="--rot:1.3deg"><span class="pk-tape" aria-hidden="true"></span><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04.webp" alt="Personas viendo el atardecer en el Observatorio Griffith" loading="lazy" decoding="async"></div>
+  <p class="pk-text">Subimos al Observatorio Griffith para el atardecer y cenamos en Hollywood.</p>
+  <p class="pk-price">Hasta 4 personas &middot; te recojo en tu hotel &middot; pide tu precio</p>
+  <a class="pk-btn" href="/tours-privados-los-angeles">Ver detalles</a>
+</article>
+<article class="pk-card" data-tone="blue">
+  <h3 class="pk-name">Día de playa</h3>
+  <p class="pk-place">Santa Monica + Venice Beach</p>
+  <div class="pk-photo" style="--rot:-1deg"><span class="pk-tape" aria-hidden="true"></span><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad929e61c74efa5d6a35519_guest-santa-monica-01.avif" alt="Personas sonriendo en el muelle de Santa Monica" loading="lazy" decoding="async"></div>
+  <p class="pk-text">El muelle, la playa y los canales de Venice. Quédate al atardecer.</p>
+  <p class="pk-price">Hasta 4 personas &middot; te recojo en tu hotel &middot; pide tu precio</p>
+  <a class="pk-btn" href="/tours-privados-los-angeles">Ver detalles</a>
+</article>
+  </div>
+  <p class="pk-custom">¿Quieres otro plan? <a href="/tours-privados-los-angeles">Dile a Marlon a dónde quieres ir</a>.</p>
+</section>
+
+<style>
+  /* Packages (Nov 24, 2026 draft, round 5). Sits in the old Group wrapper: classic airmail edge, cream paper. */
+  .mw-bg-team:has(#packages) { background: #FFF6E6 !important; --pc-stripes: repeating-linear-gradient(-45deg, #D9412B 0 16px, transparent 16px 26px, #2890B6 26px 42px, transparent 42px 52px); }
+  .mw-bg-team:has(#packages)::before { opacity: .5; }
+  .mw-bg-team:has(#packages) .w-container { max-width: 1160px; }
+  .mw-bg-team:has(#packages) #team-split { display: none !important; }
+  .pk { max-width: 1120px; margin: 0 auto; padding: 34px 28px 46px; box-sizing: border-box; font-family: "Nunito", system-ui, sans-serif; color: #27302E; scroll-margin-top: 70px; }
+  .pk-head { text-align: center; margin: 0 auto 28px; max-width: 700px; }
+  .pk-title { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; margin: 0; }
+  .pk-sub { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: clamp(1.5rem, 3.2vw, 1.9rem); color: #2890B6; margin: 2px 0 10px; }
+  .pk-line { font-size: 1.1rem; line-height: 1.8; margin: 0; }
+  mark.mk { color: #27302E; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--tone, #FFD43B); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  mark.mk[data-tone="green"] { --tone: #86D69E; } mark.mk[data-tone="pink"] { --tone: #FF9FD0; } mark.mk[data-tone="orange"] { --tone: #FFAE63; }
+  .pk-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  /* every card has the same 9 rows; subgrid lines them up across the three cards */
+  .pk-card { display: grid; grid-template-rows: subgrid; grid-row: span 6; row-gap: 0; background: #FFFDF7; border: 2.5px solid #27302E; border-radius: 18px; box-shadow: 4px 4px 0 #27302E; padding: 18px 18px 20px; text-align: center; }
+  .pk-card[data-tone="green"] { background: #E8F6DF; } .pk-card[data-tone="orange"] { background: #FFE9D9; } .pk-card[data-tone="blue"] { background: #E0F1F8; }
+  .pk-name { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.55rem; line-height: 1.1; margin: 0; align-self: end; }
+  .pk-place { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 1.3rem; line-height: 1.15; margin: 2px 0 10px; color: #3B4440; }
+  .pk-card[data-tone="green"] .pk-place { color: #1E6B3A; } .pk-card[data-tone="orange"] .pk-place { color: #B4531A; } .pk-card[data-tone="blue"] .pk-place { color: #1D6F8F; }
+  .pk-photo { position: relative; width: 64%; margin: 4px auto 14px; aspect-ratio: 4 / 5; }
+  .pk-photo img { display: block; width: 100%; height: 100%; object-fit: cover; box-shadow: 0 6px 14px rgba(0,0,0,.18); transform: rotate(var(--rot, 0deg)); }
+  .pk-photo.is-raw img { object-fit: contain; box-shadow: none; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
+  .pk-tape { position: absolute; top: -10px; left: 50%; width: 84px; height: 22px; transform: translateX(-50%) rotate(-3deg); background: rgba(255,212,59,.6); z-index: 2; }
+  .pk-cap { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: .92rem; color: #4D5551; margin: 10px 0 14px; }
+  .pk-text { font-size: 1rem; line-height: 1.45; margin: 0 0 8px; text-align: center; }
+  .pk-stops { font-family: "Fredoka", sans-serif; font-size: .95rem; line-height: 1.45; color: #3B4440; margin: 0 0 10px; text-align: left; }
+  .pk-stops b { font-weight: 600; }
+  .pk-pricebox { text-align: left; margin: 0 0 12px; }
+  .pk-price { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: .95rem; margin: 0 0 14px; text-align: center; color: #27302E; }
+  .pk-todo { color: #C0262D; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; margin: 2px 0 0; }
+  .pk-q { margin: 0 0 16px; text-align: left; }
+  .pk-q blockquote { margin: 0; padding: 0 0 0 12px; border-left: 4px solid rgba(39,48,46,.2); font-size: .95rem; line-height: 1.5; color: #3B4440; font-style: italic; }
+  .pk-q figcaption { margin-top: 4px; padding-left: 16px; font-size: .85rem; color: #5B6663; }
+  .pk-q figcaption span { color: #E89B00; letter-spacing: 1px; }
+  .pk-btn { align-self: end; justify-self: center; display: inline-block; font-family: "Lilita One", sans-serif; font-size: 1.15rem; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 12px 26px; min-height: 44px; box-sizing: border-box; box-shadow: 4px 4px 0 #27302E; transition: transform .18s ease-out, box-shadow .18s ease-out; }
+  .pk-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #27302E; }
+  .pk-btn:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  .pk-custom { text-align: center; margin: 26px 0 0; font-size: 1rem; }
+  .pk-custom a { color: #1D6F8F; font-weight: 700; }
+  @media (max-width: 980px) { .pk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .pk { padding: 22px 26px 34px; } .pk-grid { grid-template-columns: 1fr; gap: 26px; } .pk-card { grid-template-rows: none; grid-row: auto; display: flex; flex-direction: column; } .pk-btn { align-self: center; margin-top: 4px; } .pk-photo { width: 72%; } }
+  @media (prefers-reduced-motion: reduce) { .pk-btn { transition: none; } }
+</style>

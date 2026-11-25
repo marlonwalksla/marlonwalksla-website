@@ -1,0 +1,193 @@
+<!-- DRAFT (Nov 24, 2026): built by tools/make_home_draft.py from the live Home section. Only /home-draft and /es-draft load it. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/mw-slider.css?v=2">
+<script src="https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@f644401027d6f89309b640d73897c0f0244ef74f/mw-slider.js" defer></script>
+<!-- ==============================================================================
+     MARLONWALKSLA - BOOK A FREE TOUR (CAL.COM INLINE CALENDARS, EN + ES)
+     Built by page-embeds/build_home_book.py. Same embed on Home (/) and /es.
+     EN event: cal.com/marlonwalksla/free-tour-dtla
+     ES event: cal.com/marlonwalksla/free-tour-dtla-espanol
+     Oct 17, 2026: left = three Polaroids walking back in time (2003, 1928, 1781) + the free tour map;
+     right = sticky card with the language switch and the calendar.
+     ============================================================================== -->
+<div class="mwla-book" id="book">
+  <div class="mwla-book-head">
+    <div class="mwla-book-head-text">
+      <h2 class="mwla-book-title" data-pi="title">Free Tours</h2>
+      <p class="mwla-book-tag" data-pi="tag">Walk Back in Time</p>
+      <p class="pc-line" data-pi="line">Come walk LA's historic downtown. Start at Bunker Hill, home of LA's arts buildings, then walk backwards in time to Placita Olvera, where the Spanish and Mexican pueblo began.</p>
+      <div class="mwla-inc-grp"><span class="mwla-inc-gl" data-es="Incluido">Included</span><ul class="mwla-inc-pills"><li class="yes"><span aria-hidden="true">&#9201;&#65039;</span> <span data-es="2,5 horas">2.5 hours</span></li><li class="yes"><span aria-hidden="true">&#128205;</span> <span data-es="Walt Disney Concert Hall">Walt Disney Concert Hall</span></li><li class="yes"><span aria-hidden="true">&#127873;</span> <span data-es="Calcoman&iacute;a de Ernesto">Ernesto sticker</span></li><li class="yes"><span aria-hidden="true">&#128155;</span> <span data-es="Con propina">Tip-based</span></li></ul></div>
+      <p class="mwla-stops"><b data-es="Paradas:">Stops:</b> Walt Disney Concert Hall &middot; The Broad &middot; Angels Flight &middot; Grand Central Market &middot; Bradbury Building &middot; City Hall &middot; Placita Olvera</p>
+    </div>
+  </div>
+
+  <div class="mwla-fgrid">
+    <div class="mwla-fleft">
+      <div class="mwla-inc" id="mwla-inc">
+        <div class="mws" data-mws data-prev="Previous photo" data-prev-es="Foto anterior" data-next="Next photo" data-next-es="Foto siguiente" data-dot="Show stop {n}" data-dot-es="Ver parada {n}" aria-label="Photos from the free tour" data-aria-label-es="Fotos del free tour"><div class="mws-stage">
+<figure class="mws-slide" data-cap="Marlon with the whole crew" data-cap-es="Marlon con todo el grupo"><div class="mws-fit mws-print" style="--pf:#FFE27A"><span class="mws-tape" style="background:rgba(255,190,0,.5)"></span><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae44416b7a5edc5b105a689_Team%20800x600.avif" alt="Marlon taking a selfie with a large group in the Avila Adobe courtyard" style="object-position:94% 50%" loading="lazy"></div></figure>
+</div></div>
+      </div>
+      <figure class="mwla-q"><blockquote data-pi="qt">Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span data-pi="qwho">Angel · Google (in Spanish)</span></figcaption></figure>
+    </div>
+    <div class="mwla-fcard">
+      <h3 class="mwla-card-h" data-i18n="cardh">Pick your date</h3>
+      <div class="mwla-lang-switch" role="group" aria-label="Tour language / Idioma del tour">
+        <span class="mwla-lang-label">Tour language &middot; Idioma del tour</span>
+        <div class="mwla-lang-pill">
+          <button type="button" class="mwla-lang-opt" id="mwla-lang-es" onclick="mwlaBookSet('es')" aria-pressed="false"><span class="mwla-lang-name">Espa&ntilde;ol</span><span class="mwla-lang-time">9:30 AM</span></button>
+          <button type="button" class="mwla-lang-opt is-active" id="mwla-lang-en" onclick="mwlaBookSet('en')" aria-pressed="true"><span class="mwla-lang-name">English</span><span class="mwla-lang-time">12:30 PM</span></button>
+        </div>
+      </div>
+      <div class="mwla-book-cals">
+        <div class="mwla-book-cal" id="mwla-cal-en"></div>
+        <div class="mwla-book-cal" id="mwla-cal-es" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mwla-book { max-width: 1140px; margin: 0 auto; padding: 40px 20px 52px; box-sizing: border-box; font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; scroll-margin-top: 90px; }
+  .mwla-book *, .mwla-book *::before { box-sizing: border-box; }
+  .mwla-book-head { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px 24px; align-items: start; max-width: 1060px; margin: 0 auto 28px; text-align: left; }
+  /* Oct 17, 2026 (Marlon): a quote under the Polaroids, like the Team section (no captions under the photos) */
+  .mwla-q { margin: 22px 0 0; }
+  .mwla-q blockquote { margin: 0; padding: 0 0 0 14px; border-left: 4px solid rgba(150, 100, 50, 0.28); font-size: 1rem; line-height: 1.5; color: #3B4440; }
+  .mwla-q figcaption { margin-top: 4px; padding-left: 18px; font-size: 0.85rem; color: #5B6663; }
+  .mwla-q figcaption span:first-child { color: #E89B00; letter-spacing: 1px; margin-right: 4px; }
+  .mwla-book-title { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; color: #0f172a; margin: 0; }
+  .mwla-book-tag { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: clamp(1.6rem, 3.4vw, 2rem); line-height: 1.1; color: #C2318A; margin: 2px 0 8px; }
+  .mwla-book-sub { font-size: 1.05rem; line-height: 1.55; color: #475569; margin: 0; max-width: 56ch; }
+  /* Oct 19, 2026 (Marlon): the WhatsApp link was hard to see on pink; it is now a white outlined button */
+  .mwla-book-wa { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-family: "Fredoka", sans-serif; font-size: 1rem; font-weight: 600; line-height: 1.2; color: #27302E !important; text-decoration: none !important; background: #fff; border: 2.5px solid #27302E; border-radius: 999px; padding: 10px 18px; min-height: 44px; box-shadow: 3px 3px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .mwla-book-wa:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #27302E; }
+  .mwla-book-wa:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
+
+  /* Two columns, like the Team section */
+  .mwla-fgrid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .mwla-back-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; color: #27302E; margin: 0 0 18px; }
+  /* a dotted "time line" running behind the three Polaroids, newest to oldest */
+  .mwla-fleft .mwla-q { margin-top: 18px; }
+  .mwla-inc { margin-top: 22px; min-width: 0; }
+  .mwla-inc-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.35rem; margin: 16px 0 8px; color: #27302E; }
+  /* Oct 23, 2026 (Marlon): intro runs full width, stamps removed, the pills sit under the text (they used to be in the left column) */
+  .mwla-book-head .pc-line { max-width: none; }
+  .mwla-inc-pills { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 8px; }
+  .mwla-inc-pills li { display: inline-flex; align-items: center; gap: 6px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; padding: 6px 14px; margin: 0; border-radius: 99px; }
+  .mwla-inc-pills li::before { content: none; }
+  .mwla-inc-pills li.yes { background: #fff; color: #1E6B3A; border: 2px solid #1E6B3A; }
+  .mwla-inc-grp { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 14px; }
+  .mwla-inc-gl { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1E6B3A; min-width: 122px; }
+  .mwla-inc-grp .mwla-inc-pills { margin: 0; }
+  @media (max-width: 600px) { .mwla-inc-gl { min-width: 100%; } .mwla-inc-grp .mwla-inc-pills { gap: 6px; } .mwla-inc-pills li { font-size: 0.8rem; padding: 4px 9px; } }
+  .mwla-inc-pills li.no { background: #FFE4EA; color: #A12B4A; border: 2px solid #E58AA3; }
+  .mwla-fcard { background: #ffffff; border-radius: 18px; padding: 20px 18px 18px; box-shadow: 0 12px 30px -18px rgba(39, 48, 46, 0.55); }
+  .mwla-card-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.45rem; color: #27302E; margin: 0 0 12px; }
+  .mwla-lang-switch { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 0 0 14px; }
+  .mwla-lang-label { text-align: center; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #27302E; }
+  .mwla-lang-pill { display: flex; justify-content: center; background: #FFF6E6; border: 2px solid #f3e3b5; border-radius: 50px; padding: 4px; gap: 4px; }
+  .mwla-lang-opt { font: inherit; font-size: 1.25rem; font-weight: 800; color: #475569; background: transparent; border: none; border-radius: 50px; padding: 12px 30px; display: flex; flex-direction: column; align-items: center; gap: 2px; line-height: 1.15; cursor: pointer; transition: background 0.15s ease-out, color 0.15s ease-out; }
+  .mwla-lang-time { font-size: 0.85rem; font-weight: 700; }
+  .mwla-lang-opt:hover { color: #0f172a; }
+  .mwla-lang-opt.is-active { background: #FFD43B; color: #27302E; }
+  .mwla-meet { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95rem; line-height: 1.4; color: #3B4440; margin: 0 0 12px; }
+  .mwla-book-cals { min-width: 0; }
+  .mwla-book-cal { width: 100%; min-height: 380px; border-radius: 12px; overflow: hidden; }
+
+  @media (max-width: 991px) {
+    .mwla-fgrid { grid-template-columns: 1fr; }
+    /* Oct 23, 2026 (Marlon): same as Team and Private: on phones the quote goes above the photos */
+    .mwla-fleft { display: flex; flex-direction: column; }
+    .mwla-fleft .mwla-q { order: -1; margin: 0 0 16px; }
+  }
+  @media (max-width: 900px) {
+    .mwla-book { padding: 40px 16px; }
+    .mwla-book-head { grid-template-columns: 1fr; gap: 6px; }
+    .mwla-book-head .pc-addr { justify-self: end; }
+    .mwla-book-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
+    .mwla-book-head .pc-badge { font-size: 0.9rem; }
+          .mwla-book-cal { min-height: 360px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .mwla-lang-opt { transition: none; } }
+</style>
+
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  (function () {
+    const calEvents = {
+      en: { ns: "free-tour-dtla", link: "marlonwalksla/free-tour-dtla", el: "#mwla-cal-en" },
+      es: { ns: "free-tour-dtla-es", link: "marlonwalksla/free-tour-dtla-espanol", el: "#mwla-cal-es" }
+    };
+    const loaded = {};
+    // Oct 29, 2026 (speed): Cal.com starts after the first scroll, touch or key press (or 8 s), once the calendar is within 250 px of the screen.
+    let gateOpen = false, gateArmed = false, pendingLang = null;
+    const gateEvs = ["scroll", "touchstart", "pointerdown", "keydown", "mousemove"];
+    function openGate() {
+      gateOpen = true;
+      if (pendingLang) doLoadCal(pendingLang);
+    }
+    function armGate() {
+      if (gateArmed) return; gateArmed = true;
+      gateEvs.forEach(function (e) { window.removeEventListener(e, armGate); });
+      const box = document.getElementById("mwla-cal-" + (pendingLang || "en")) || document.getElementById("book");
+      if (!("IntersectionObserver" in window) || !box) { openGate(); return; }
+      const io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); openGate(); } }, { rootMargin: "250px 0px" });
+      io.observe(box);
+    }
+    gateEvs.forEach(function (e) { window.addEventListener(e, armGate, { passive: true, once: true }); });
+    setTimeout(armGate, 8000);
+    function loadCal(lang) {
+      pendingLang = lang;
+      if (gateOpen) doLoadCal(lang);
+    }
+    function doLoadCal(lang) {
+      if (loaded[lang] || typeof Cal !== "function") return;
+      const ev = calEvents[lang];
+      Cal("init", ev.ns, { origin: "https://app.cal.com" });
+      Cal.ns[ev.ns]("inline", { elementOrSelector: ev.el, config: { layout: "month_view", theme: "light" }, calLink: ev.link });
+      Cal.ns[ev.ns]("ui", { theme: "light", hideEventTypeDetails: true, layout: "month_view" }); // details panel hidden; the line above the calendar says length and meeting point
+      loaded[lang] = true;
+    }
+    const T = {"en": {"eyebrow": "Free DTLA Walking Tour", "title": "Free Tours", "tag": "Walk Back in Time", "sub": "Walk back in time through 240 years of Los Angeles history with a local guide. Booking takes under a minute.", "wa": "💬 Questions? WhatsApp Marlon", "back": "Walk backwards through LA history", "pf1": "2.5 hours", "pf2": "English and Spanish", "tip": "Tip-based", "pf4": "On foot", "line": "Come walk LA's historic downtown. Start at Bunker Hill, home of LA's arts buildings, then walk backwards in time to Placita Olvera, where the Spanish and Mexican pueblo began.", "qt": "Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.", "qwho": "Angel · Google (in Spanish)", "p1n": "Walt Disney Concert Hall", "p1l": "Where we meet", "p2n": "City Hall", "p2l": "The 1928 tower", "p3n": "Placita Olvera", "p3l": "Where LA began", "from": "From: Marlon · MarlonWalksLA, Los Angeles", "toL": "To:", "to": "you · Walt Disney Concert Hall, 600 W 1st St", "pm": "LOS ANGELES", "cardh": "Pick your date", "meet": "2.5 hours · We meet at Walt Disney Concert Hall, 600 W 1st St · Tip-based", "maplabel": "Route map", "waHref": "https://wa.me/12692670410?text=Hi%20Marlon,%20I'm%20interested%20in%20joining%20the%20free%20Downtown%20LA%20walking%20tour!"}, "es": {"eyebrow": "Free Tour por Downtown LA", "title": "Free Tours", "tag": "Camina hacia atrás en el tiempo", "sub": "Viaja hacia atrás en el tiempo por 240 años de historia de Los Ángeles con un guía local. Reservar toma menos de un minuto.", "wa": "💬 ¿Preguntas? Escríbele a Marlon por WhatsApp", "back": "Camina hacia atrás en la historia de LA", "pf1": "2,5 horas", "pf2": "Español e inglés", "tip": "Con propina", "pf4": "A pie", "line": "Ven a caminar por el centro histórico de LA. Empezamos en Bunker Hill, donde están los edificios de las artes de LA, y retrocedemos en el tiempo hasta la Placita Olvera, donde nació el pueblo español y mexicano.", "qt": "Marlon nos ha llevado durante dos horas por un Los Ángeles que no conocíamos.", "qwho": "Angel · Google", "p1n": "Walt Disney Concert Hall", "p1l": "Punto de encuentro", "p2n": "City Hall", "p2l": "La torre de 1928", "p3n": "La Placita Olvera", "p3l": "Donde nació LA", "from": "De: Marlon · MarlonWalksLA, Los Ángeles", "toL": "Para:", "to": "ti · Walt Disney Concert Hall, 600 W 1st St", "pm": "LOS ÁNGELES", "cardh": "Elige tu fecha", "meet": "2,5 horas · Nos vemos en Walt Disney Concert Hall, 600 W 1st St · Con propina", "maplabel": "Mapa de la ruta", "waHref": "https://wa.me/12692670410?text=Hola%20Marlon,%20me%20interesa%20el%20free%20tour%20en%20espa%C3%B1ol"}};
+    const root = document.getElementById("book");
+    const pageLang = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 ? "es" : "en";
+    // Oct 17, 2026 (Marlon): the switch changes ONLY the calendar card. The rest of the page keeps the page language.
+    (function () {
+      const t = T[pageLang];
+      root.querySelectorAll("[data-pi]").forEach(function (el) { const k = el.getAttribute("data-pi"); if (t[k] != null) el.textContent = t[k]; });
+    })();
+    function apply(lang) {
+      lang = lang === "es" ? "es" : "en";
+      const t = T[lang];
+      root.querySelectorAll("[data-i18n]").forEach(function (el) { const k = el.getAttribute("data-i18n"); if (t[k] != null) el.textContent = t[k]; });
+      ["en", "es"].forEach(function (l) {
+        const b = document.getElementById("mwla-lang-" + l);
+        if (b) { b.classList.toggle("is-active", l === lang); b.setAttribute("aria-pressed", l === lang); }
+        const c = document.getElementById("mwla-cal-" + l);
+        if (c) c.style.display = l === lang ? "" : "none";
+      });
+      loadCal(lang);
+    }
+    window.mwlaBookSet = apply;
+    apply((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 ? "es" : "en");
+  })();
+</script>
+<script>
+/* Oct 21, 2026 (Marlon): the static map is gone. What's included, pills (with what is not included) and a scroll of photos from the stops. Text follows the page language. */
+(function () {
+  var root = document.getElementById("book"); if (!root) return;
+  var es = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("es") === 0 || /^\/es(\/|$)/.test(location.pathname);
+  if (!es) return;
+  [].slice.call(root.querySelectorAll("[data-aria-label-es]")).forEach(function (el) { el.setAttribute("aria-label", el.getAttribute("data-aria-label-es")); });
+  [].slice.call(root.querySelectorAll("[data-es]")).forEach(function (el) {
+    if (el.closest(".mws")) return;
+    if (el.tagName === "IMG") el.alt = el.getAttribute("data-es"); else el.textContent = el.getAttribute("data-es");
+  });
+})();
+</script>
+
+
+<style>/* round 13: compact booking card (no language label, slimmer switch, calendar capped) */ .mwla-lang-label { display: none !important; } .mwla-card-h { margin: 0 0 8px !important; font-size: 1.3rem !important; } .mwla-lang-switch { margin: 0 0 8px !important; gap: 0 !important; } .mwla-lang-opt { font-size: 1rem !important; padding: 7px 20px !important; flex-direction: row !important; gap: 6px !important; } .mwla-lang-time { font-size: .85rem !important; } .mwla-fcard { align-self: start; } .mwla-book-cal { min-height: 300px !important; max-height: 460px; overflow-y: auto; -webkit-overflow-scrolling: touch; } @media (max-width: 640px) { .mwla-book-cal { max-height: 520px; } }</style>
+
+<style>.mwla-stops { font-family: "Fredoka", sans-serif; font-size: .98rem; line-height: 1.5; color: #3B4440; margin: 12px 0 0; } .mwla-stops b { font-weight: 600; color: #27302E; }</style>
