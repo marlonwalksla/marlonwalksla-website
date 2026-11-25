@@ -33,24 +33,56 @@ def keep_slides(html, keep):
     return res
 
 
+def prune_hero_css(s):
+    """Nov 25, 2026 (speed): the hero's big style block came from the old Home and still styled
+    sections that are gone (Group/Private cards, forms, tabs, dots...). Selectors listed in
+    tools/hero-css-dead.json matched nothing on the new Home and /es at 360 to 1440px, in both
+    hero states (checked in Chrome), so they are dropped here, with the block's comments.
+    New selectors are kept by default. Re-check with the perf script if the hero changes a lot."""
+    import json, tinycss2
+    dead = set(json.loads((Path(__file__).resolve().parent / "hero-css-dead.json").read_text()))
+    i = s.index("/* Let the old hero section")
+    a = s.rindex("<style>", 0, i) + len("<style>")
+    b = s.index("</style>", i)
+
+    def rules(css):
+        out = []
+        for r in tinycss2.parse_rule_list(css, skip_comments=True, skip_whitespace=True):
+            if r.type == "qualified-rule":
+                keep = [x.strip() for x in tinycss2.serialize(r.prelude).split(",") if x.strip() not in dead]
+                if keep:
+                    out.append(", ".join(keep) + " {" + tinycss2.serialize(r.content).strip() + "}")
+            elif r.type == "at-rule" and r.content is not None and r.at_keyword in ("media", "supports"):
+                inner = rules(tinycss2.serialize(r.content))
+                if inner:
+                    out.append("@%s%s {\n%s\n}" % (r.at_keyword, tinycss2.serialize(r.prelude).rstrip(), "\n".join(inner)))
+            elif r.type == "at-rule":
+                out.append(tinycss2.serialize([r]).strip())
+        return out
+
+    css = "\n".join(rules(s[a:b]))
+    return s[:a] + "\n/* trimmed by prune_hero_css (Nov 25, 2026); full history in the source hero file */\n" + css + "\n" + s[b:]
+
+
 def hero(src, es):
     """Round 9 (Marlon, Nov 25): the switching photos come back, one per kind of day, each with who it is for.
     Free Tour: Downtown LA / Sunset Hike: Hollywood + Griffith / Beach Day: Santa Monica + Venice. No language pills."""
-    s = (PE / src).read_text()
+    s = prune_hero_css((PE / src).read_text())
     s = re.sub(r'\s*<div class="mwh-lang"[\s\S]*?</div>', "", s, count=1)
     assert 'class="mwh-lang"' not in s.split("<style")[0]
     # the business in one line, under "& Ernesto!"
     # Round 10 (Marlon): the three days are the switch (old highlight pills), for solo travelers, couples and families
     P = lambda i, tone, t: '<button type="button" class="mwh-hl" data-tone="%s" data-i="%d">%s</button>' % (tone, i, t)
     if es:
-        tag = ('<p class="mwh-tagline">Olv&iacute;date del bus tur&iacute;stico. Explora Los &Aacute;ngeles con un local.</p>\n'
-               '      <p class="mwh-who">Elige %s o %s para viajeros solos, parejas y familias.</p>'
-               % (P(0, "pink", "un free tour a pie"), P(1, "orange", "paquetes de tours")))
+        # round 15 (Marlon, Nov 25): one line, then the two toggles on their own row
+        tag = ('<p class="mwh-tagline">Explora Los &Aacute;ngeles con un local, para viajeros solos, parejas, amigos y familias.</p>\n'
+               '      <div class="mwh-who mwh-tog" role="group" aria-label="Elige un tour">%s%s</div>'
+               % (P(0, "pink", "Free Tour"), P(1, "orange", "Tour Privado")))
         rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>'
     else:
-        tag = ('<p class="mwh-tagline">Skip the tour bus. Explore Los Angeles with a local.</p>\n'
-               '      <p class="mwh-who">Choose %s or %s for solo travelers, couples and families.</p>'
-               % (P(0, "pink", "a free walking tour"), P(1, "orange", "tour packages")))
+        tag = ('<p class="mwh-tagline">Explore Los Angeles with a local, for solo travelers, couples, friends, and families.</p>\n'
+               '      <div class="mwh-who mwh-tog" role="group" aria-label="Choose a tour">%s%s</div>'
+               % (P(0, "pink", "Free Tour"), P(1, "orange", "Private Tour")))
         rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>'
     s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "\n      " + tag, s, count=1)
     assert n == 1, "hero line"
@@ -63,15 +95,15 @@ def hero(src, es):
     S = [
       dict(tone="pink", tape="rgba(255,0,255,.45)", img="6ae4fd054a1a3af597a87125_Master%20Polaroids%20(1).avif",
            alt=("Invitados del free tour en el jard&iacute;n del Avila Adobe" if es else "Free tour guests posing together at the Avila Adobe garden"),
-           cap=("Free Tour: centro hist&oacute;rico de LA" if es else "Free Tour: Historic Downtown LA"),
+           cap=("Free Tour a pie:<br>Centro Hist&oacute;rico de LA" if es else "Free Walking Tour:<br>Historic Downtown LA"),
            sub=("Para primerizos y amantes de la historia. Con propina, en espa&ntilde;ol e ingl&eacute;s." if es else
                 "For first-timers and history lovers. Tip-based, in English and Spanish."),
            btn=("&Uacute;nete a un Free Tour" if es else "Join a Free Tour"), href="#book"),
       dict(tone="orange", tape="rgba(255,140,40,.5)", img="6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp",
            alt=("Foto instant&aacute;nea de una invitada al atardecer en Griffith" if es else "Instant photo of a guest at sunset at Griffith"),
-           cap=("Tours privados y guiados en Los &Aacute;ngeles" if es else "Private &amp; Guided Los Angeles Tours"),
-           sub=("Tours guiados y d&iacute;as a tu medida en LA para parejas, familias y grupos peque&ntilde;os." if es else
-                "Guided tours and custom LA days for couples, families and small groups."),
+           cap=("Tour Privado:<br>Hollywood, caminatas y playas" if es else "Private Tour:<br>Hollywood, Hikes &amp; Beaches"),
+           sub=("Excursiones guiadas en espa&ntilde;ol para parejas, familias y grupos peque&ntilde;os, con recogida en tu hotel." if es else
+                "Guided days for couples, families, and small groups, with hotel pickup."),
            btn=("Explora los tours" if es else "Explore Tours"), href="#packages"),
     ]
     html = []
@@ -143,6 +175,25 @@ def hero(src, es):
   .mwh .mwh-slide.is-on .mwh-photo { transform: rotate(2deg); }
   @media (max-width: 640px) { .mwh .mwh-slide:not(.is-on) .mwh-photo { transform: translate(-12px, 6px) rotate(-4deg) !important; } }
   @media (prefers-reduced-motion: reduce) { .mwh .mwh-slide .mwh-photo { transition: none !important; } }
+  /* round 15 (Marlon, Nov 25): standalone toggle row under one headline line */
+  .mwh .mwh-tog { display: flex !important; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 16px 0 0 !important; line-height: 1 !important; max-width: none !important; }
+  .mwh .mwh-tog .mwh-hl { margin: 0 !important; min-height: 46px; padding: 11px 20px; border-radius: 999px; border: 2px solid #27302E; font-size: 1.08rem; line-height: 1.1; letter-spacing: 0.01em !important; transform: none; box-shadow: none; color: #27302E; border-color: rgba(39, 48, 46, .3); transition: border-color .2s ease-out, box-shadow .2s ease-out, transform .2s ease-out; }
+  .mwh .mwh-tog .mwh-hl:hover { border-color: rgba(39, 48, 46, .7); }
+  .mwh .mwh-tog .mwh-hl.is-on { border-color: #27302E; transform: translate(-1px, -1px); box-shadow: 3px 3px 0 #27302E; }
+  .mwh .mwh-tagline { max-width: 34ch; }
+  .mwh .mwh-slide .mwh-sub { text-wrap: balance; }
+  @media (max-width: 400px) { .mwh .mwh-tog { gap: 8px; } .mwh .mwh-tog .mwh-hl { padding: 10px 14px; font-size: 1rem; } }
+  /* v16: two-line slide titles may use the full card width on phones (the arrows sit beside the photo, not the title) */
+  @media (max-width: 767px) { .mwh .mwh-slide .mwh-cap { margin-left: -46px; margin-right: -46px; } .mwh .mwh-slide .mwh-sub { max-width: none !important; margin-left: -40px !important; margin-right: -40px !important; } .mwh .mwh-cap strong { font-size: 1.2rem; padding: 4px 12px; } }
+  @media (max-width: 374px) { .mwh .mwh-tog .mwh-hl { padding: 10px 11px; font-size: .95rem; } .mwh .mwh-cap strong { font-size: 1.15rem; } }
+  @media (min-width: 992px) {
+    .mwh .mwh-tog { justify-content: center; justify-self: center; }
+    .mwh .mwh-slide .mwh-sub { width: 410px; max-width: none !important; margin-left: calc((100% - 410px) / 2) !important; margin-right: calc((100% - 410px) / 2) !important; }
+    .mwh .mwh-slide .mwh-cap { margin-left: calc((100% - 410px) / 2); margin-right: calc((100% - 410px) / 2); }
+    .mwh .mwh-wrap, .mwh .mwh-text, .mwh .mwh-right { align-items: center; }
+    .mwh .mwh-right { align-self: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { .mwh .mwh-tog .mwh-hl { transition: none; } }
 </style>
 <script>
 (function () {
@@ -315,6 +366,7 @@ def book_stops(s):
             'Grand Central Market &middot; Bradbury Building &middot; City Hall &middot; Placita Olvera</p>')
     s, n = re.subn(r'(<div class="mwla-inc-grp">[\s\S]*?</ul></div>)', r'\1\n      ' + line.replace('\\', r'\\'), s, count=1)
     assert n == 1, "free pills"
+    s += "\n<style>/* Nov 25, 2026: no sideways scroll at 360px (the grid took its widest child, 326px) */ .mwla-fleft { min-width: 0; } @media (max-width: 767px) { .mwla-fgrid { grid-template-columns: minmax(0, 1fr) !important; } }</style>"
     s += ("\n<style>/* round 13: compact booking card (no language label, slimmer switch, calendar capped) */"
           " .mwla-lang-label { display: none !important; }"
           " .mwla-card-h { margin: 0 0 8px !important; font-size: 1.3rem !important; }"
@@ -453,3 +505,13 @@ OUT = {
 for name, html in OUT.items():
     (PE / name).write_text("<!-- DRAFT (Nov 24, 2026): built by tools/make_home_draft.py from the live Home section. Only /home-draft and /es-draft load it. -->\n" + html)
     print(name, len(html))
+
+# Nov 25, 2026 (speed): the hero is pasted straight into the Home and /es embed (Webflow element
+# e2a6c92c-f998-5c7c-e007-3a5db12425a2 on both pages), not fetched. These are the paste-ready copies:
+# HTML comments stripped, must stay under Webflow's 50,000-character embed limit.
+for _src, _lang in (("home-hero-draft", "en"), ("home-hero-es-draft", "es")):
+    _s = re.sub(r"<!--.*?-->\s*", "", (PE / (_src + ".html")).read_text(), flags=re.S)
+    _s = ("<!-- Home hero, inlined for speed (Nov 25, 2026). Source: page-embeds/%s.html, built by tools/make_home_draft.py. Edit there, then paste here. -->\n" % _src) + _s.strip() + "\n"
+    assert len(_s) < 50000, (_src, len(_s))
+    (Path(__file__).resolve().parent / ("home-hero-embed-%s.html" % _lang)).write_text(_s)
+    print("embed", _lang, len(_s), "chars")
