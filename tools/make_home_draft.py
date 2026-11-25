@@ -34,85 +34,83 @@ def keep_slides(html, keep):
 
 
 def hero(src, es):
+    """Round 9 (Marlon, Nov 25): the switching photos come back, one per kind of day, each with who it is for.
+    Free Tour: Downtown LA / Sunset Hike: Hollywood + Griffith / Beach Day: Santa Monica + Venice. No language pills."""
     s = (PE / src).read_text()
     s = re.sub(r'\s*<div class="mwh-lang"[\s\S]*?</div>', "", s, count=1)
     assert 'class="mwh-lang"' not in s.split("<style")[0]
-    # the three tour words become links to their sections on this page
-    for i, anchor in ((0, "#packages"), (1, "#packages"), (2, "#book")):
-        s, n = re.subn(r'<button type="button" class="mwh-hl" data-tone="(\w+)" data-i="%d">([^<]*)</button>' % i,
-                       r'<a class="mwh-hl" data-tone="\1" href="%s">\2</a>' % anchor, s)
-        assert n == 1, i
-    tag = "Capturando momentos en LA." if es else "Capturing moments in LA."
-    s = s.replace('<p class="mwh-line" id="mwh-line">', '<p class="mwh-tagline">%s</p>\n      <p class="mwh-line" id="mwh-line">' % tag, 1)
-    # one slide: the pink free tour print
+    # the business in one line, under "& Ernesto!"
+    if es:
+        tag = ('<p class="mwh-tagline">Vive y captura tu mejor d&iacute;a en LA.</p>\n'
+               '      <p class="mwh-who">Tours gratis y guiados para viajeros, parejas, familias y amigos.</p>')
+    else:
+        tag = ('<p class="mwh-tagline">Live and capture your best day in LA.</p>\n'
+               '      <p class="mwh-who">Free and guided tours for travelers, couples, families and friends.</p>')
+    s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "\n      " + tag, s, count=1)
+    assert n == 1, "hero line"
     slides = re.findall(r'\s*<div class="mwh-slide[^"]*" data-tone="(\w+)"[\s\S]*?\n            </div>', s)
     assert slides == ["green", "orange", "pink"], slides
-    s = re.sub(r'\s*<div class="mwh-slide is-on" data-tone="green"[\s\S]*?\n            </div>', "", s, count=1)
-    s = re.sub(r'\s*<div class="mwh-slide" data-tone="orange"[\s\S]*?\n            </div>', "", s, count=1)
-    s = s.replace('<div class="mwh-slide" data-tone="pink"', '<div class="mwh-slide is-on" data-tone="pink"', 1)
-    s = re.sub(r'(<div class="mwh-slide is-on" data-tone="pink"[\s\S]*?)tabindex="-1"', r'\1tabindex="0"', s, count=1)
-    s = re.sub(r'(<div class="mwh-slide is-on" data-tone="pink"[\s\S]*?)tabindex="-1"', r'\1tabindex="0"', s, count=1)
-    s = re.sub(r'(<div class="mwh-slide is-on" data-tone="pink"[\s\S]*?)loading="lazy"', r'\1loading="eager" fetchpriority="high"', s, count=1)
-    # one button, not two (Marlon, Nov 24): the pink title is the link to the calendar on this page,
-    # the subtext stays under it, the yellow button goes
-    # Marlon, Nov 24 (round 3): one YELLOW button under the photo, then the subtext. No pink title.
-    btn = "&Uacute;nete a un Free Tour" if es else "Join a Free Tour"
-    # Round 6 (Marlon): two offers, two buttons, side by side under Ernesto and the tagline; a short line under each.
-    m = re.search(r'<p class="mwh-cap"><strong data-tone="pink">[^<]*</strong></p>\s*<p class="mwh-sub">[^<]*</p>\s*<a class="mwh-btn mwh-cbtn" data-tone="pink" href="[^"]*"[^>]*>[^<]*</a>', s)
-    assert m, "pink caption + button"
-    s = s[:m.start()] + s[m.end():]
-    if es:
-        b1, l1, b2, l2 = btn, "Con propina &middot; espa&ntilde;ol e ingl&eacute;s", "Tours por LA", "Comida, atardeceres y playa"
-    else:
-        b1, l1, b2, l2 = btn, "Tip-based &middot; English and Spanish", "Explore LA Tours", "Food walks, sunset hikes, beach days"
-    ctas = ('\n      <div class="mwh-pair">'
-            '<a class="mwh-btn mwh-one" href="#book">%s</a>'
-            '<a class="mwh-btn mwh-one" href="#packages">%s</a>'
-            '</div>') % (b1, b2)  # round 7 (Marlon): no small text under the buttons
-    s, n = re.subn(r'(<p class="mwh-tagline">[^<]*</p>)', lambda mm: mm.group(1) + ctas, s, count=1)
-    assert n == 1, "tagline anchor"
-    # the sentence: Group and Private are packages now
-    line = ('Explora LA en un <a class="mwh-hl" data-tone="pink" href="#book">free tour</a> o <a class="mwh-hl" data-tone="green" href="#packages">elige tu d&iacute;a en LA</a>.' if es else
-            'Explore LA on a <a class="mwh-hl" data-tone="pink" href="#book">free tour</a> or <a class="mwh-hl" data-tone="green" href="#packages">pick your LA day</a>.')
-    # Marlon (round 4): the sentence with the tour words goes; the highlights move into the sections below
-    s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "", s, count=1)
-    assert n == 1, "hero line"
-    s = re.sub(r'\s*<button type="button" class="mwh-nav mwh-(prev|next)"[^>]*>[^<]*</button>', "", s)
-    s = re.sub(r'\s*<div class="mwh-dots"[\s\S]*?</div>', "", s, count=1)
-    # drop the carousel script (it needs three slides)
-    s, n = re.subn(r'<script>\s*\(function \(\) \{\s*var car = document\.querySelector\("\.mwh-car"\)[\s\S]*?</script>\s*', "", s)
-    assert n == 1, "carousel script"
+    E = "&Uacute;" if es else ""
+    S = [
+      dict(tone="pink", tape="rgba(255,0,255,.45)", img="6ae4fd054a1a3af597a87125_Master%20Polaroids%20(1).avif",
+           alt=("Invitados del free tour en el jard&iacute;n del Avila Adobe" if es else "Free tour guests posing together at the Avila Adobe garden"),
+           cap=("Free Tour: Downtown LA" if not es else "Free Tour: centro de LA"),
+           sub=("Para quienes visitan LA por primera vez y aman la historia y caminar. Con propina, en espa&ntilde;ol e ingl&eacute;s." if es else
+                "For first-time visitors who love history and walking. Tip-based, in English and Spanish."),
+           btn=("&Uacute;nete a un Free Tour" if es else "Join a Free Tour"), href="#book"),
+      dict(tone="orange", tape="rgba(255,140,40,.5)", img="6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp",
+           alt=("Foto instant&aacute;nea de una invitada al atardecer en Griffith" if es else "Instant photo of a guest at sunset at Griffith"),
+           cap=("Caminata al atardecer: Hollywood + Griffith" if es else "Sunset Hike: Hollywood + Griffith"),
+           sub=("Para parejas, familias y amigos activos. Te recojo en tu hotel, hasta 4 personas." if es else
+                "For active couples, families and friends. Hotel pickup, up to 4 guests."),
+           btn=("Planea tu caminata" if es else "Plan a Sunset Hike"), href="#packages"),
+      dict(tone="blue", tape="rgba(40,144,182,.45)", img="6ad92cac0bb99231ec0ee3ef_place-venice-01.webp",
+           alt=("Foto instant&aacute;nea en los canales de Venice" if es else "Instant photo from the Venice Canals"),
+           cap=("D&iacute;a de playa: Santa Monica + Venice" if es else "Beach Day: Santa Monica + Venice"),
+           sub=("Para parejas, familias y amigos que quieren un d&iacute;a f&aacute;cil y divertido. Te recojo en tu hotel, hasta 4 personas." if es else
+                "For couples, families and friends who want an easy, fun day. Hotel pickup, up to 4 guests."),
+           btn=("Planea tu d&iacute;a de playa" if es else "Plan a Beach Day"), href="#packages"),
+    ]
+    html = []
+    for k, d in enumerate(S):
+        on = k == 0
+        html.append(
+          '\n            <div class="mwh-slide%(on)s" data-tone="%(tone)s">\n'
+          '              <a class="mwh-photo" href="%(href)s" tabindex="%(ti)s">\n'
+          '                <span class="mwh-tape" style="background:%(tape)s"></span>\n'
+          '                <img src="%(C)s%(img)s" alt="%(alt)s" %(load)s decoding="async">\n'
+          '              </a>\n'
+          '              <p class="mwh-cap"><strong data-tone="%(tone)s">%(cap)s</strong></p>\n'
+          '              <p class="mwh-sub">%(sub)s</p>\n'
+          '              <a class="mwh-btn mwh-cbtn" href="%(href)s" tabindex="%(ti)s">%(btn)s</a>\n'
+          '            </div>' % dict(d, on=" is-on" if on else "", ti="0" if on else "-1", C=C,
+                                     load='loading="eager" fetchpriority="high"' if on else 'loading="lazy"'))
+    first = re.search(r'\s*<div class="mwh-slide is-on" data-tone="green"', s).start()
+    last = list(re.finditer(r'\s*<div class="mwh-slide[^"]*" data-tone="pink"[\s\S]*?\n            </div>', s))[-1].end()
+    s = s[:first] + "".join(html) + s[last:]
     css = """
 <style>
-  /* Nov 24, 2026 draft: one photo, no arrows */
-  .mwh .mwh-car { grid-template-columns: minmax(0, 340px); }
-  .mwh .mwh-pol { grid-column: 1; }
-  .mwh .mwh-tagline { margin: 0 0 14px; font-family: "Fredoka", system-ui, sans-serif; font-weight: 500; font-size: 1.2rem; color: #3B4440; }
-  .mwh .mwh-hand { margin: 22px 0 10px; }
-  .mwh a.mwh-hl { text-decoration: none !important; color: #27302E !important; }
-  .mwh .mwh-tagline { margin: 2px 0 0; font-size: 1.35rem; font-weight: 600; color: #27302E; }
-  .mwh .mwh-pair { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 16px; margin: 20px 0 0; }
-  .mwh .mwh-one { margin: 0; font-size: 1.15rem; padding: 12px 24px; white-space: nowrap; }
-  /* round 7: the same block highlight as the rest of the page, instead of the one-off yellow underline */
+  /* Nov 25, 2026 draft (round 9): three kinds of day in the switching photos */
+  .mwh .mwh-cap strong[data-tone="blue"] { --tone: rgba(110, 190, 225, 0.55); }
+  .mwh .mwh-cap strong { font-size: 1.3rem; }
+  .mwh .mwh-sub { max-width: 34ch; margin-left: auto; margin-right: auto; }
+  .mwh .mwh-cbtn { background: #FFD43B !important; }
+  .mwh .mwh-tagline { margin: 2px 0 0; font-family: "Fredoka", system-ui, sans-serif; font-size: 1.35rem; font-weight: 600; color: #27302E; }
+  .mwh .mwh-who { margin: 6px 0 0; font-size: 1.05rem; line-height: 1.45; color: #3B4440; max-width: 34ch; }
   .mwh .mwh-mark { background: #FF9FD0; padding: 0 12px 2px; border-radius: 8px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-  /* only the three corner stamps (the middle-bottom one sat in the way) */
   .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
-  /* Desktop: the whole hero fits in one screen under the header; columns sit closer; the photo is as tall as the text */
   @media (min-width: 992px) {
-    .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(40px, 7vh, 80px) !important; padding-bottom: clamp(40px, 7vh, 80px) !important; min-height: 0 !important; max-height: calc(100svh - 64px); box-sizing: border-box; align-items: center; align-content: center; }
-    /* round 7 (Marlon): on desktop Ernesto's badge sits beside the title, "& Ernesto!" under it; tagline and buttons below */
-    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "btns btns"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
+    .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(36px, 6vh, 72px) !important; padding-bottom: clamp(36px, 6vh, 72px) !important; min-height: 0 !important; box-sizing: border-box; align-items: center; }
+    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "who who"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
     .mwh .mwh-h1 { grid-area: title; align-self: end; margin: 0 !important; font-size: clamp(2.4rem, min(5vw, 8vh), 4.3rem); }
     .mwh .mwh-ern2 { grid-area: badge; width: clamp(120px, 22vh, 200px); margin: 0 !important; }
     .mwh .mwh-hand { grid-area: hand; align-self: start; position: static !important; left: auto !important; bottom: auto !important; margin: 10px 0 0 4px !important; transform: rotate(-3deg) !important; }
-    .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(16px, 3.5vh, 30px) 0 0 !important; }
-    .mwh .mwh-pair { grid-area: btns; justify-self: center; }
-    .mwh .mwh-car { grid-template-columns: minmax(0, min(360px, calc((100vh - 64px - 14vh - 24px) / 1.2))) !important; justify-content: center; }
-    .mwh .mwh-pol { grid-column: 1 !important; }
+    .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(18px, 3.5vh, 32px) 0 0 !important; text-align: center; }
+    .mwh .mwh-who { grid-area: who; justify-self: center; text-align: center; }
+    .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 230px) / 1.2), 330px)) 44px !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
   }
-  @media (max-width: 991px) { .mwh .mwh-text { align-items: center; text-align: center; } }
-
+  @media (max-width: 991px) { .mwh .mwh-text { align-items: center; text-align: center; } .mwh .mwh-who { margin-left: auto; margin-right: auto; } }
 </style>
 """
     return s + css
@@ -166,12 +164,12 @@ PK = {
            img="6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04.webp", raw=False, alt="Guests watching the sunset at Griffith Observatory", cap="Sunset at Griffith Observatory",
            line="Hotel pickup, hike up to the Observatory for the sunset (or drive up), then dinner in Hollywood.",
            stops="Griffith Observatory &middot; Hollywood sign views &middot; Walk of Fame",
-           price="Up to 5 guests &middot; hotel pickup", todo="Price and hours to set", q=Q_BEA, btn="Plan this day", href="/private-tour-los-angeles"),
+           price="Up to 4 guests &middot; hotel pickup", todo="Price and hours to set", q=Q_BEA, btn="Plan this day", href="/private-tour-los-angeles"),
       dict(tone="blue", name="Beach Day", place="Santa Monica + Venice Beach",
            img="6ad929e61c74efa5d6a35519_guest-santa-monica-01.avif", raw=False, alt="Guests smiling on the Santa Monica Pier", cap="Santa Monica Pier",
            line="Hotel pickup, the pier, the beach and the Venice Canals. Stay for the sunset if you want it.",
            stops="Santa Monica Pier &middot; Venice Beach &middot; Venice Canals",
-           price="Up to 5 guests &middot; hotel pickup", todo="Price and hours to set", q=Q_MATEO, btn="Plan this day", href="/private-tour-los-angeles"),
+           price="Up to 4 guests &middot; hotel pickup", todo="Price and hours to set", q=Q_MATEO, btn="Plan this day", href="/private-tour-los-angeles"),
     ],
     custom="Want a different day? <a href=\"/private-tour-los-angeles\">Tell Marlon where you want to go</a>."),
   "es": dict(
@@ -187,12 +185,12 @@ PK = {
            img="6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04.webp", raw=False, alt="Personas viendo el atardecer en el Observatorio Griffith", cap="Atardecer en el Observatorio Griffith",
            line="Te recojo en tu hotel, subimos al Observatorio para el atardecer (caminando o en auto) y cenamos en Hollywood.",
            stops="Observatorio Griffith &middot; vistas del letrero de Hollywood &middot; Paseo de la Fama",
-           price="Hasta 5 personas &middot; te recojo en tu hotel", todo="Precio y horas por definir", q=Q_BEA, btn="Planea este día", href="/tours-privados-los-angeles"),
+           price="Hasta 4 personas &middot; te recojo en tu hotel", todo="Precio y horas por definir", q=Q_BEA, btn="Planea este día", href="/tours-privados-los-angeles"),
       dict(tone="blue", name="Día de playa", place="Santa Monica + Venice Beach",
            img="6ad929e61c74efa5d6a35519_guest-santa-monica-01.avif", raw=False, alt="Personas sonriendo en el muelle de Santa Monica", cap="Muelle de Santa Monica",
            line="Te recojo en tu hotel: el muelle, la playa y los canales de Venice. Quédate al atardecer si quieres.",
            stops="Muelle de Santa Monica &middot; Venice Beach &middot; canales de Venice",
-           price="Hasta 5 personas &middot; te recojo en tu hotel", todo="Precio y horas por definir", q=Q_MATEO, btn="Planea este día", href="/tours-privados-los-angeles"),
+           price="Hasta 4 personas &middot; te recojo en tu hotel", todo="Precio y horas por definir", q=Q_MATEO, btn="Planea este día", href="/tours-privados-los-angeles"),
     ],
     custom="¿Quieres otro plan? <a href=\"/tours-privados-los-angeles\">Dile a Marlon a dónde quieres ir</a>."),
 }
