@@ -33,10 +33,41 @@ def keep_slides(html, keep):
     return res
 
 
+def prune_hero_css(s):
+    """Nov 25, 2026 (speed): the hero's big style block came from the old Home and still styled
+    sections that are gone (Group/Private cards, forms, tabs, dots...). Selectors listed in
+    tools/hero-css-dead.json matched nothing on the new Home and /es at 360 to 1440px, in both
+    hero states (checked in Chrome), so they are dropped here, with the block's comments.
+    New selectors are kept by default. Re-check with the perf script if the hero changes a lot."""
+    import json, tinycss2
+    dead = set(json.loads((Path(__file__).resolve().parent / "hero-css-dead.json").read_text()))
+    i = s.index("/* Let the old hero section")
+    a = s.rindex("<style>", 0, i) + len("<style>")
+    b = s.index("</style>", i)
+
+    def rules(css):
+        out = []
+        for r in tinycss2.parse_rule_list(css, skip_comments=True, skip_whitespace=True):
+            if r.type == "qualified-rule":
+                keep = [x.strip() for x in tinycss2.serialize(r.prelude).split(",") if x.strip() not in dead]
+                if keep:
+                    out.append(", ".join(keep) + " {" + tinycss2.serialize(r.content).strip() + "}")
+            elif r.type == "at-rule" and r.content is not None and r.at_keyword in ("media", "supports"):
+                inner = rules(tinycss2.serialize(r.content))
+                if inner:
+                    out.append("@%s%s {\n%s\n}" % (r.at_keyword, tinycss2.serialize(r.prelude).rstrip(), "\n".join(inner)))
+            elif r.type == "at-rule":
+                out.append(tinycss2.serialize([r]).strip())
+        return out
+
+    css = "\n".join(rules(s[a:b]))
+    return s[:a] + "\n/* trimmed by prune_hero_css (Nov 25, 2026); full history in the source hero file */\n" + css + "\n" + s[b:]
+
+
 def hero(src, es):
     """Round 9 (Marlon, Nov 25): the switching photos come back, one per kind of day, each with who it is for.
     Free Tour: Downtown LA / Sunset Hike: Hollywood + Griffith / Beach Day: Santa Monica + Venice. No language pills."""
-    s = (PE / src).read_text()
+    s = prune_hero_css((PE / src).read_text())
     s = re.sub(r'\s*<div class="mwh-lang"[\s\S]*?</div>', "", s, count=1)
     assert 'class="mwh-lang"' not in s.split("<style")[0]
     # the business in one line, under "& Ernesto!"
@@ -453,3 +484,13 @@ OUT = {
 for name, html in OUT.items():
     (PE / name).write_text("<!-- DRAFT (Nov 24, 2026): built by tools/make_home_draft.py from the live Home section. Only /home-draft and /es-draft load it. -->\n" + html)
     print(name, len(html))
+
+# Nov 25, 2026 (speed): the hero is pasted straight into the Home and /es embed (Webflow element
+# e2a6c92c-f998-5c7c-e007-3a5db12425a2 on both pages), not fetched. These are the paste-ready copies:
+# HTML comments stripped, must stay under Webflow's 50,000-character embed limit.
+for _src, _lang in (("home-hero-draft", "en"), ("home-hero-es-draft", "es")):
+    _s = re.sub(r"<!--.*?-->\s*", "", (PE / (_src + ".html")).read_text(), flags=re.S)
+    _s = ("<!-- Home hero, inlined for speed (Nov 25, 2026). Source: page-embeds/%s.html, built by tools/make_home_draft.py. Edit there, then paste here. -->\n" % _src) + _s.strip() + "\n"
+    assert len(_s) < 50000, (_src, len(_s))
+    (Path(__file__).resolve().parent / ("home-hero-embed-%s.html" % _lang)).write_text(_s)
+    print("embed", _lang, len(_s), "chars")
