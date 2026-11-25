@@ -7,7 +7,7 @@
       <span class="mwh-hand" lang="es">&iexcl;y Ernesto!</span>
       <p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>
       <p class="mwh-tagline">Explora Los &Aacute;ngeles con un local, para viajeros solos, parejas, amigos y familias.</p>
-      <div class="mwh-who mwh-tog" role="group" aria-label="Elige un tour"><button type="button" class="mwh-hl" data-tone="pink" data-i="0">Free Tour</button><button type="button" class="mwh-hl" data-tone="orange" data-i="1">Tours Privados</button></div>
+      <div class="mwh-who mwh-tog" role="group" aria-label="Elige un tour"><button type="button" class="mwh-hl" data-tone="pink" data-i="0">Free Tour</button><button type="button" class="mwh-hl" data-tone="orange" data-i="1">Tour Privado</button></div>
     </div>
     <div class="mwh-right">
       <div class="mwh-car" role="region" aria-roledescription="carousel" aria-label="Tipos de tour">
@@ -19,7 +19,7 @@
                 <span class="mwh-tape" style="background:rgba(255,0,255,.45)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4fd054a1a3af597a87125_Master%20Polaroids%20(1).avif" alt="Invitados del free tour en el jard&iacute;n del Avila Adobe" loading="eager" fetchpriority="high" decoding="async">
               </a>
-              <p class="mwh-cap"><strong data-tone="pink">Free Tour: Centro Hist&oacute;rico de LA</strong></p>
+              <p class="mwh-cap"><strong data-tone="pink">Free Tour a pie:<br>Centro Hist&oacute;rico de LA</strong></p>
               <p class="mwh-sub">Para primerizos y amantes de la historia. Con propina, en espa&ntilde;ol e ingl&eacute;s.</p>
               <a class="mwh-btn mwh-cbtn" href="#book" tabindex="0">&Uacute;nete a un Free Tour</a>
             </div>
@@ -28,8 +28,8 @@
                 <span class="mwh-tape" style="background:rgba(255,140,40,.5)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp" alt="Foto instant&aacute;nea de una invitada al atardecer en Griffith" loading="lazy" decoding="async">
               </a>
-              <p class="mwh-cap"><strong data-tone="orange">Tours Privados en Los&nbsp;&Aacute;ngeles</strong></p>
-              <p class="mwh-sub">Excursiones y visitas guiadas en espa&ntilde;ol para parejas, familias y grupos peque&ntilde;os, con recogida en tu hotel.</p>
+              <p class="mwh-cap"><strong data-tone="orange">Tour Privado:<br>Hollywood, caminatas y playas</strong></p>
+              <p class="mwh-sub">Excursiones guiadas en espa&ntilde;ol para parejas, familias y grupos peque&ntilde;os, con recogida en tu hotel.</p>
               <a class="mwh-btn mwh-cbtn" href="#packages" tabindex="-1">Explora los tours</a>
             </div>
           </div>
@@ -301,12 +301,15 @@ svg.stamp {display: block; width: 150px; height: auto; mix-blend-mode: multiply;
   .mwh .mwh-tog .mwh-hl:hover { border-color: rgba(39, 48, 46, .7); }
   .mwh .mwh-tog .mwh-hl.is-on { border-color: #27302E; transform: translate(-1px, -1px); box-shadow: 3px 3px 0 #27302E; }
   .mwh .mwh-tagline { max-width: 34ch; }
+  .mwh .mwh-slide .mwh-sub { text-wrap: balance; }
   @media (max-width: 400px) { .mwh .mwh-tog { gap: 8px; } .mwh .mwh-tog .mwh-hl { padding: 10px 14px; font-size: 1rem; } }
+  /* v16: two-line slide titles may use the full card width on phones (the arrows sit beside the photo, not the title) */
+  @media (max-width: 767px) { .mwh .mwh-slide .mwh-cap { margin-left: -46px; margin-right: -46px; } .mwh .mwh-slide .mwh-sub { max-width: none !important; margin-left: -40px !important; margin-right: -40px !important; } .mwh .mwh-cap strong { font-size: 1.2rem; padding: 4px 12px; } }
   @media (max-width: 374px) { .mwh .mwh-tog .mwh-hl { padding: 10px 11px; font-size: .95rem; } .mwh .mwh-cap strong { font-size: 1.15rem; } }
   @media (min-width: 992px) {
     .mwh .mwh-tog { justify-content: center; justify-self: center; }
-    .mwh .mwh-slide .mwh-sub { width: 370px; max-width: none !important; margin-left: calc((100% - 370px) / 2) !important; margin-right: calc((100% - 370px) / 2) !important; }
-    .mwh .mwh-slide .mwh-cap { margin-left: calc((100% - 390px) / 2); margin-right: calc((100% - 390px) / 2); }
+    .mwh .mwh-slide .mwh-sub { width: 410px; max-width: none !important; margin-left: calc((100% - 410px) / 2) !important; margin-right: calc((100% - 410px) / 2) !important; }
+    .mwh .mwh-slide .mwh-cap { margin-left: calc((100% - 410px) / 2); margin-right: calc((100% - 410px) / 2); }
     .mwh .mwh-wrap, .mwh .mwh-text, .mwh .mwh-right { align-items: center; }
     .mwh .mwh-right { align-self: center; }
   }
