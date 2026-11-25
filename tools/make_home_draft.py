@@ -44,16 +44,19 @@ def hero(src, es):
     P = lambda i, tone, t: '<button type="button" class="mwh-hl" data-tone="%s" data-i="%d">%s</button>' % (tone, i, t)
     if es:
         tag = ('<p class="mwh-tagline">Vive y captura tu mejor d&iacute;a en LA.</p>\n'
-               '      <p class="mwh-who">Un %s, una %s o un %s para viajeros solos, parejas y familias.</p>'
-               % (P(0, "pink", "free tour"), P(1, "orange", "caminata al atardecer"), P(2, "blue", "d&iacute;a de playa"))
-               + '\n      <p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>')
+               '      <p class="mwh-who">Elige %s o %s para viajeros solos, parejas y familias.</p>'
+               % (P(0, "pink", "un free tour"), P(1, "orange", "paquetes de tours")))
+        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>'
     else:
         tag = ('<p class="mwh-tagline">Live and capture your best day in LA.</p>\n'
-               '      <p class="mwh-who">A %s, a %s or a %s for solo travelers, couples and families.</p>'
-               % (P(0, "pink", "free tour"), P(1, "orange", "sunset hike"), P(2, "blue", "beach day"))
-               + '\n      <p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>')
+               '      <p class="mwh-who">Choose %s or %s for solo travelers, couples and families.</p>'
+               % (P(0, "pink", "a free tour"), P(1, "orange", "tour packages")))
+        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>'
     s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "\n      " + tag, s, count=1)
     assert n == 1, "hero line"
+    # round 12: the rating sits right under "& Ernesto!"
+    s, n = re.subn(r'(<span class="mwh-hand"[^>]*>[^<]*</span>)', lambda m: m.group(1) + "\n      " + rate, s, count=1)
+    assert n == 1, "rating under hand"
     slides = re.findall(r'\s*<div class="mwh-slide[^"]*" data-tone="(\w+)"[\s\S]*?\n            </div>', s)
     assert slides == ["green", "orange", "pink"], slides
     E = "&Uacute;" if es else ""
@@ -66,16 +69,10 @@ def hero(src, es):
            btn=("&Uacute;nete a un Free Tour" if es else "Join a Free Tour"), href="#book"),
       dict(tone="orange", tape="rgba(255,140,40,.5)", img="6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp",
            alt=("Foto instant&aacute;nea de una invitada al atardecer en Griffith" if es else "Instant photo of a guest at sunset at Griffith"),
-           cap="Hollywood + Griffith",
-           sub=("Para aventura y vistas al atardecer. Te recojo en tu hotel, hasta 4 personas." if es else
-                "For adventure and sunset views. Hotel pickup, up to 4 guests."),
-           btn=("Planea tu caminata" if es else "Plan a Sunset Hike"), href="#packages"),
-      dict(tone="blue", tape="rgba(40,144,182,.45)", img="6ad92cac0bb99231ec0ee3ef_place-venice-01.webp",
-           alt=("Foto instant&aacute;nea en los canales de Venice" if es else "Instant photo from the Venice Canals"),
-           cap="Santa Monica + Venice",
-           sub=("Para un d&iacute;a divertido de sol y mar. Te recojo en tu hotel, hasta 4 personas." if es else
-                "For a fun day of sun and ocean. Hotel pickup, up to 4 guests."),
-           btn=("Planea tu d&iacute;a de playa" if es else "Plan a Beach Day"), href="#packages"),
+           cap=("Hollywood &middot; Beverly Hills &middot; playas" if es else "Hollywood &middot; Beverly Hills &middot; Beaches"),
+           sub=("Tours guiados y d&iacute;as a tu medida en LA para parejas, familias y grupos peque&ntilde;os." if es else
+                "Guided tours and custom LA days for couples, families and small groups."),
+           btn=("Explora los tours" if es else "Explore Tours"), href="#packages"),
     ]
     html = []
     for k, d in enumerate(S):
@@ -108,8 +105,9 @@ def hero(src, es):
   .mwh .mwh-hand { font-size: 2.7rem !important; }
   .mwh .mwh-who { line-height: 2.2 !important; font-size: 1.1rem !important; max-width: 30ch !important; }
   .mwh .mwh-hl[data-tone="blue"] { --tone: rgba(110, 190, 225, 0.6); }
-  .mwh .mwh-hl { margin: 0 7px; }
-  .mwh .mwh-rate { margin: 10px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.05rem; color: #27302E; }
+  .mwh .mwh-hl { margin: 0 4px; }
+  .mwh .mwh-hl:focus:not(:focus-visible) { outline: none; }
+  .mwh .mwh-rate { margin: 8px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.3rem; color: #27302E; }
   .mwh .mwh-rate span { color: #E89B00; }
   .mwh .mwh-sub { margin: 10px auto 0; font-size: 1rem; line-height: 1.45; color: #3B4440; }
   .mwh .mwh-cap { margin-top: 16px; }
@@ -117,13 +115,14 @@ def hero(src, es):
   .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
   @media (min-width: 992px) {
     .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(36px, 6vh, 72px) !important; padding-bottom: clamp(36px, 6vh, 72px) !important; min-height: 0 !important; box-sizing: border-box; align-items: center; }
-    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "who who" "rate rate"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
+    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "badge rate" "tag tag" "who who"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
     .mwh .mwh-h1 { grid-area: title; align-self: end; margin: 0 !important; font-size: clamp(2.4rem, min(5vw, 8vh), 4.3rem); }
     .mwh .mwh-ern2 { grid-area: badge; width: clamp(120px, 22vh, 200px); margin: 0 !important; }
     .mwh .mwh-hand { grid-area: hand; align-self: start; position: static !important; left: auto !important; bottom: auto !important; margin: 10px 0 0 4px !important; transform: rotate(-3deg) !important; }
     .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(18px, 3.5vh, 32px) 0 0 !important; text-align: center; }
     .mwh .mwh-who { grid-area: who; justify-self: center; text-align: center; }
-    .mwh .mwh-rate { grid-area: rate; justify-self: center; }
+    .mwh .mwh-rate { grid-area: rate; justify-self: start; align-self: start; margin: 6px 0 0 6px !important; }
+    .mwh .mwh-hand { align-self: center !important; }
     .mwh .mwh-stamps svg.stamp:nth-child(1) { top: auto !important; bottom: 28px !important; left: 24px !important; }
     .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 200px) / 1.2), 330px)) 44px !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }

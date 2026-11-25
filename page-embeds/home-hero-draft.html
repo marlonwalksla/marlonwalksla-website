@@ -12,9 +12,9 @@
       <h1 class="mwh-h1">Explore <span class="mwh-blue">LA</span><br><span class="mwh-mark">with Marlon</span></h1>
       <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%20Full.avif" alt="MarlonWalksLA logo: Ernesto the pi&ntilde;ata donkey with a tablet and Polaroid camera" loading="eager" width="512" height="512">
       <span class="mwh-hand" lang="en">&amp; Ernesto!</span>
-      <p class="mwh-tagline">Live and capture your best day in LA.</p>
-      <p class="mwh-who">A <button type="button" class="mwh-hl" data-tone="pink" data-i="0">free tour</button>, a <button type="button" class="mwh-hl" data-tone="orange" data-i="1">sunset hike</button> or a <button type="button" class="mwh-hl" data-tone="blue" data-i="2">beach day</button> for solo travelers, couples and families.</p>
       <p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>
+      <p class="mwh-tagline">Live and capture your best day in LA.</p>
+      <p class="mwh-who">Choose <button type="button" class="mwh-hl" data-tone="pink" data-i="0">a free tour</button> or <button type="button" class="mwh-hl" data-tone="orange" data-i="1">tour packages</button> for solo travelers, couples and families.</p>
     </div>
     <div class="mwh-right">
       <div class="mwh-car" role="region" aria-roledescription="carousel" aria-label="Tour types">
@@ -35,18 +35,9 @@
                 <span class="mwh-tape" style="background:rgba(255,140,40,.5)"></span>
                 <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp" alt="Instant photo of a guest at sunset at Griffith" loading="lazy" decoding="async">
               </a>
-              <p class="mwh-cap"><strong data-tone="orange">Hollywood + Griffith</strong></p>
-              <p class="mwh-sub">For adventure and sunset views. Hotel pickup, up to 4 guests.</p>
-              <a class="mwh-btn mwh-cbtn" href="#packages" tabindex="-1">Plan a Sunset Hike</a>
-            </div>
-            <div class="mwh-slide" data-tone="blue">
-              <a class="mwh-photo" href="#packages" tabindex="-1">
-                <span class="mwh-tape" style="background:rgba(40,144,182,.45)"></span>
-                <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cac0bb99231ec0ee3ef_place-venice-01.webp" alt="Instant photo from the Venice Canals" loading="lazy" decoding="async">
-              </a>
-              <p class="mwh-cap"><strong data-tone="blue">Santa Monica + Venice</strong></p>
-              <p class="mwh-sub">For a fun day of sun and ocean. Hotel pickup, up to 4 guests.</p>
-              <a class="mwh-btn mwh-cbtn" href="#packages" tabindex="-1">Plan a Beach Day</a>
+              <p class="mwh-cap"><strong data-tone="orange">Hollywood &middot; Beverly Hills &middot; Beaches</strong></p>
+              <p class="mwh-sub">Guided tours and custom LA days for couples, families and small groups.</p>
+              <a class="mwh-btn mwh-cbtn" href="#packages" tabindex="-1">Explore Tours</a>
             </div>
           </div>
         </div>
@@ -434,8 +425,9 @@
   .mwh .mwh-hand { font-size: 2.7rem !important; }
   .mwh .mwh-who { line-height: 2.2 !important; font-size: 1.1rem !important; max-width: 30ch !important; }
   .mwh .mwh-hl[data-tone="blue"] { --tone: rgba(110, 190, 225, 0.6); }
-  .mwh .mwh-hl { margin: 0 7px; }
-  .mwh .mwh-rate { margin: 10px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.05rem; color: #27302E; }
+  .mwh .mwh-hl { margin: 0 4px; }
+  .mwh .mwh-hl:focus:not(:focus-visible) { outline: none; }
+  .mwh .mwh-rate { margin: 8px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.3rem; color: #27302E; }
   .mwh .mwh-rate span { color: #E89B00; }
   .mwh .mwh-sub { margin: 10px auto 0; font-size: 1rem; line-height: 1.45; color: #3B4440; }
   .mwh .mwh-cap { margin-top: 16px; }
@@ -443,13 +435,14 @@
   .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
   @media (min-width: 992px) {
     .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(36px, 6vh, 72px) !important; padding-bottom: clamp(36px, 6vh, 72px) !important; min-height: 0 !important; box-sizing: border-box; align-items: center; }
-    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "who who" "rate rate"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
+    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "badge rate" "tag tag" "who who"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
     .mwh .mwh-h1 { grid-area: title; align-self: end; margin: 0 !important; font-size: clamp(2.4rem, min(5vw, 8vh), 4.3rem); }
     .mwh .mwh-ern2 { grid-area: badge; width: clamp(120px, 22vh, 200px); margin: 0 !important; }
     .mwh .mwh-hand { grid-area: hand; align-self: start; position: static !important; left: auto !important; bottom: auto !important; margin: 10px 0 0 4px !important; transform: rotate(-3deg) !important; }
     .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(18px, 3.5vh, 32px) 0 0 !important; text-align: center; }
     .mwh .mwh-who { grid-area: who; justify-self: center; text-align: center; }
-    .mwh .mwh-rate { grid-area: rate; justify-self: center; }
+    .mwh .mwh-rate { grid-area: rate; justify-self: start; align-self: start; margin: 6px 0 0 6px !important; }
+    .mwh .mwh-hand { align-self: center !important; }
     .mwh .mwh-stamps svg.stamp:nth-child(1) { top: auto !important; bottom: 28px !important; left: 24px !important; }
     .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 200px) / 1.2), 330px)) 44px !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
