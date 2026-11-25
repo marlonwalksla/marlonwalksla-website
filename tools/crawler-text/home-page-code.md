@@ -27,7 +27,7 @@
 <!-- Crawler text. Built by tools/build_home_crawler.py (Nov 25, 2026 Home). Only shown when JavaScript is off. -->
 <div class="mw-crawler-text">
 <h1>Explore LA with Marlon</h1>
-<p>Skip the tour bus. Explore Los Angeles with a local. Choose a free walking tour or tour packages for solo travelers, couples and families. 4.9 stars from 525 reviews.</p>
+<p>Explore Los Angeles with a local, for solo travelers, couples, friends, and families. Free Walking Tour or Private Tours. 4.9 stars from 525 reviews.</p>
 <h2>Free Walking Tour of Historic Downtown LA</h2>
 <p>Come walk LA's historic downtown. Start at Bunker Hill, home of LA's arts buildings, then walk backwards in time to Placita Olvera, where the Spanish and Mexican pueblo began.</p>
 <p>For first-timers and history lovers. English tour at 12:30 PM and Spanish tour at 9:30 AM. Meet at Walt Disney Concert Hall, 600 W 1st St. Free to book, tip what feels right at the end. About 2.5 hours on foot.</p>
@@ -87,7 +87,7 @@
 <!-- Crawler text. Built by tools/build_home_crawler.py (Nov 25, 2026 Home). Only shown when JavaScript is off. -->
 <div class="mw-crawler-text">
 <h1>Explora LA con Marlon</h1>
-<p>Olvídate del bus turístico. Explora Los Ángeles con un local. Elige un free tour a pie o paquetes de tours para viajeros solos, parejas y familias. 4,9 estrellas en 525 reseñas.</p>
+<p>Explora Los Ángeles con un local, para viajeros solos, parejas, amigos y familias. Free tour en español o tours privados. 4,9 estrellas en 525 reseñas.</p>
 <h2>Free tour a pie por el centro histórico de Los Ángeles</h2>
 <p>Ven a caminar por el centro histórico de LA. Empezamos en Bunker Hill, donde están los edificios de las artes de LA, y retrocedemos en el tiempo hasta la Placita Olvera, donde nació el pueblo español y mexicano.</p>
 <p>Para primerizos y amantes de la historia. Tour en español a las 9:30 AM y en inglés a las 12:30 PM. Punto de encuentro: Walt Disney Concert Hall, 600 W 1st St. Reserva gratis y deja la propina que quieras al final. Unas 2,5 horas a pie.</p>
@@ -121,7 +121,7 @@
 <p>Sí. Quien viaja solo conoce gente fácilmente en el free tour, porque caminamos todos juntos. A las parejas y familias también les encanta, y un tour privado te deja ir a tu ritmo.</p>
 <h3>¿Tienen tours a pie en español?</h3>
 <p>Sí. El free tour a pie por el centro de LA sale en español a las 9:30 AM y en inglés a las 12:30 PM. Los tours privados son en el idioma que prefieras.</p>
-<h3>¿Cómo funcionan los tours privados por Los Ángeles? ¿Me recogen en el hotel?</h3>
+<h3>¿Cómo funcionan los tours privados y las excursiones por Los Ángeles? ¿Me recogen en el hotel?</h3>
 <p>Los tours privados son para hasta 4 personas. Te recojo en tu hotel y manejo yo. Elige una caminata al atardecer (Hollywood y el Observatorio Griffith), un día de playa (Santa Monica y Venice) o dime a dónde quieres ir, y te mando un precio.</p>
 <h3>¿Dónde nos vemos? ¿Y el estacionamiento o el Metro?</h3>
 <p>El free tour sale del Walt Disney Concert Hall, 600 W 1st St. En Metro, toma la línea A o E hasta Grand Av Arts/Bunker Hill, a pocos pasos; si vienes en auto, estaciona una vez en un garaje del centro porque vamos a pie. Usa zapatos cómodos y trae agua.</p>

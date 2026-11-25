@@ -28,7 +28,7 @@ FAQ = {
    "Sí. Quien viaja solo conoce gente fácilmente en el free tour, porque caminamos todos juntos. A las parejas y familias también les encanta, y un tour privado te deja ir a tu ritmo."),
   ("¿Tienen tours a pie en español?",
    "Sí. El free tour a pie por el centro de LA sale en español a las 9:30 AM y en inglés a las 12:30 PM. Los tours privados son en el idioma que prefieras."),
-  ("¿Cómo funcionan los tours privados por Los Ángeles? ¿Me recogen en el hotel?",
+  ("¿Cómo funcionan los tours privados y las excursiones por Los Ángeles? ¿Me recogen en el hotel?",
    "Los tours privados son para hasta 4 personas. Te recojo en tu hotel y manejo yo. Elige una caminata al atardecer (Hollywood y el Observatorio Griffith), un día de playa (Santa Monica y Venice) o dime a dónde quieres ir, y te mando un precio."),
   ("¿Dónde nos vemos? ¿Y el estacionamiento o el Metro?",
    "El free tour sale del Walt Disney Concert Hall, 600 W 1st St. En Metro, toma la línea A o E hasta Grand Av Arts/Bunker Hill, a pocos pasos; si vienes en auto, estaciona una vez en un garaje del centro porque vamos a pie. Usa zapatos cómodos y trae agua."),
