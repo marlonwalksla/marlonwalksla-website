@@ -409,6 +409,28 @@ def igstrip(es):
 """
     return postcard(html + css, "#F0E8F8", "purple")
 
+
+# ---------------------------------------------------------------------------
+# Nov 25, 2026: Good to Know comes back (7 questions people search for), as a postcard under the Instagram strip.
+import html as _h, sys as _sys
+_sys.path.insert(0, str(PE.parent / "tools"))
+from home_faq import FAQ, TXT
+
+def faqcard(lang):
+    src = (PE / ("home-faq-es.html" if lang == "es" else "home-faq.html")).read_text()
+    tones = ["rgba(255,212,59,.7)", "rgba(40,144,182,.45)", "rgba(255,0,255,.4)", "rgba(96,200,96,.55)"]
+    rots = ["-0.6deg", "0.5deg", "-0.4deg", "0.6deg", "-0.5deg", "0.4deg", "-0.3deg"]
+    items = "\n".join('    <details class="hl-q" style="--r:%s;--t:%s"><summary>%s</summary><p>%s</p></details>'
+                      % (rots[i], tones[i % 4], _h.escape(q), _h.escape(a)) for i, (q, a) in enumerate(FAQ[lang]))
+    t = TXT[lang]
+    s, n = re.subn(r'<h2 class="hl-title">[^<]*</h2>\s*<p class="hl-sub">[^<]*</p>[\s\S]*?(?=\s*<p class="hl-ask)',
+                   lambda m: '<h2 class="hl-title">%s</h2>\n    <p class="hl-sub">%s</p>\n%s' % (t["title"], t["sub"], items), src, count=1)
+    assert n == 1, "faq body"
+    css = "<style>.mwpc .hl-faq { background: transparent !important; } .mwpc .hl-faq::before { opacity: .35; }</style>\n"
+    return postcard(s, "#FFF6D6", "green", css)
+
+STRIPES["green"] = "repeating-linear-gradient(-45deg, #2E9E57 0 16px, transparent 16px 26px, #FFD43B 26px 42px, transparent 42px 52px)"
+
 OUT = {
     "home-hero-draft.html": hero("home-hero.html", False),
     "home-hero-es-draft.html": hero("home-hero-es.html", True),
@@ -421,6 +443,8 @@ OUT = {
     "home-meet-es-draft.html": meetcard("home-meet-es.html"),
     "home-ig-draft.html": igstrip(False),
     "home-ig-es-draft.html": igstrip(True),
+    "home-faq-draft.html": faqcard("en"),
+    "home-faq-es-draft.html": faqcard("es"),
     "home-team-draft.html": team("home-team.html"),
     "home-team-es-draft.html": team("home-team-es.html"),
     "home-private-draft.html": private("home-private.html", False),
