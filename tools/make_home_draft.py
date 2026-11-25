@@ -201,19 +201,19 @@ PK = {
     g="Google", cards=[
       dict(tone="green", name="Downtown Food Walk", place="Grand Central Market",
            img="6ae4441660c929ab6108a7d5_birthday.avif", raw=True, alt="Kara's birthday group under the neon lights with their instant photo", cap="Kara's birthday crew",
-           line="Five hours through the historic center, eating our way from Grand Central Market. Great for birthdays, offsites and big groups.",
+           line="Five hours eating and exploring the historic center. Great for birthdays and big groups.",
            stops="Grand Central Market &middot; Angels Flight &middot; The Broad &middot; City Hall",
-           price="$30 per person &middot; 5 hours &middot; groups up to 35", todo="", q=Q_KARA, btn="See dates", href="/group-tours-los-angeles"),
+           price="$30 per person &middot; up to 35 guests", todo="", q=Q_KARA, btn="See details", href="/group-tours-los-angeles"),
       dict(tone="orange", name="Sunset Hikes", place="Hollywood + Griffith Observatory",
            img="6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04.webp", raw=False, alt="Guests watching the sunset at Griffith Observatory", cap="Sunset at Griffith Observatory",
-           line="Hotel pickup, hike up to the Observatory for the sunset (or drive up), then dinner in Hollywood.",
+           line="Hike up to Griffith Observatory for the sunset, then dinner in Hollywood.",
            stops="Griffith Observatory &middot; Hollywood sign views &middot; Walk of Fame",
-           price="Up to 4 guests &middot; hotel pickup", todo="Price and hours to set", q=Q_BEA, btn="Plan this day", href="/private-tour-los-angeles"),
+           price="Up to 4 guests &middot; hotel pickup &middot; ask for a price", todo="", q=Q_BEA, btn="See details", href="/private-tour-los-angeles"),
       dict(tone="blue", name="Beach Day", place="Santa Monica + Venice Beach",
            img="6ad929e61c74efa5d6a35519_guest-santa-monica-01.avif", raw=False, alt="Guests smiling on the Santa Monica Pier", cap="Santa Monica Pier",
-           line="Hotel pickup, the pier, the beach and the Venice Canals. Stay for the sunset if you want it.",
+           line="The pier, the beach and the Venice Canals. Stay for the sunset.",
            stops="Santa Monica Pier &middot; Venice Beach &middot; Venice Canals",
-           price="Up to 4 guests &middot; hotel pickup", todo="Price and hours to set", q=Q_MATEO, btn="Plan this day", href="/private-tour-los-angeles"),
+           price="Up to 4 guests &middot; hotel pickup &middot; ask for a price", todo="", q=Q_MATEO, btn="See details", href="/private-tour-los-angeles"),
     ],
     custom="Want a different day? <a href=\"/private-tour-los-angeles\">Tell Marlon where you want to go</a>."),
   "es": dict(
@@ -222,19 +222,19 @@ PK = {
     g="Google (en inglés)", cards=[
       dict(tone="green", name="Ruta de comida en el centro", place="Grand Central Market",
            img="6ae4441660c929ab6108a7d5_birthday.avif", raw=True, alt="El grupo de cumpleaños de Kara bajo las luces de neón con su foto instantánea", cap="El cumpleaños de Kara",
-           line="Cinco horas por el centro histórico, comiendo desde Grand Central Market. Ideal para cumpleaños, salidas de equipo y grupos grandes.",
+           line="Cinco horas comiendo y explorando el centro histórico. Ideal para cumpleaños y grupos grandes.",
            stops="Grand Central Market &middot; Angels Flight &middot; The Broad &middot; City Hall",
-           price="$30 por persona &middot; 5 horas &middot; grupos de hasta 35", todo="", q=Q_KARA, btn="Ver fechas", href="/tours-para-grupos-los-angeles"),
+           price="$30 por persona &middot; hasta 35 personas", todo="", q=Q_KARA, btn="Ver detalles", href="/tours-para-grupos-los-angeles"),
       dict(tone="orange", name="Caminatas al atardecer", place="Hollywood + Observatorio Griffith",
            img="6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04.webp", raw=False, alt="Personas viendo el atardecer en el Observatorio Griffith", cap="Atardecer en el Observatorio Griffith",
-           line="Te recojo en tu hotel, subimos al Observatorio para el atardecer (caminando o en auto) y cenamos en Hollywood.",
+           line="Subimos al Observatorio Griffith para el atardecer y cenamos en Hollywood.",
            stops="Observatorio Griffith &middot; vistas del letrero de Hollywood &middot; Paseo de la Fama",
-           price="Hasta 4 personas &middot; te recojo en tu hotel", todo="Precio y horas por definir", q=Q_BEA, btn="Planea este día", href="/tours-privados-los-angeles"),
+           price="Hasta 4 personas &middot; te recojo en tu hotel &middot; pide tu precio", todo="", q=Q_BEA, btn="Ver detalles", href="/tours-privados-los-angeles"),
       dict(tone="blue", name="Día de playa", place="Santa Monica + Venice Beach",
            img="6ad929e61c74efa5d6a35519_guest-santa-monica-01.avif", raw=False, alt="Personas sonriendo en el muelle de Santa Monica", cap="Muelle de Santa Monica",
-           line="Te recojo en tu hotel: el muelle, la playa y los canales de Venice. Quédate al atardecer si quieres.",
+           line="El muelle, la playa y los canales de Venice. Quédate al atardecer.",
            stops="Muelle de Santa Monica &middot; Venice Beach &middot; canales de Venice",
-           price="Hasta 4 personas &middot; te recojo en tu hotel", todo="Precio y horas por definir", q=Q_MATEO, btn="Planea este día", href="/tours-privados-los-angeles"),
+           price="Hasta 4 personas &middot; te recojo en tu hotel &middot; pide tu precio", todo="", q=Q_MATEO, btn="Ver detalles", href="/tours-privados-los-angeles"),
     ],
     custom="¿Quieres otro plan? <a href=\"/tours-privados-los-angeles\">Dile a Marlon a dónde quieres ir</a>."),
 }
@@ -255,21 +255,21 @@ PK_CSS = """
   mark.mk[data-tone="green"] { --tone: #86D69E; } mark.mk[data-tone="pink"] { --tone: #FF9FD0; } mark.mk[data-tone="orange"] { --tone: #FFAE63; }
   .pk-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
   /* every card has the same 9 rows; subgrid lines them up across the three cards */
-  .pk-card { display: grid; grid-template-rows: subgrid; grid-row: span 9; row-gap: 0; background: #FFFDF7; border: 2.5px solid #27302E; border-radius: 18px; box-shadow: 4px 4px 0 #27302E; padding: 20px 20px 22px; text-align: center; }
+  .pk-card { display: grid; grid-template-rows: subgrid; grid-row: span 6; row-gap: 0; background: #FFFDF7; border: 2.5px solid #27302E; border-radius: 18px; box-shadow: 4px 4px 0 #27302E; padding: 18px 18px 20px; text-align: center; }
   .pk-card[data-tone="green"] { background: #E8F6DF; } .pk-card[data-tone="orange"] { background: #FFE9D9; } .pk-card[data-tone="blue"] { background: #E0F1F8; }
-  .pk-name { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.7rem; line-height: 1.1; margin: 0; align-self: end; }
-  .pk-place { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 1.45rem; line-height: 1.15; margin: 2px 0 14px; color: #3B4440; }
+  .pk-name { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.55rem; line-height: 1.1; margin: 0; align-self: end; }
+  .pk-place { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 1.3rem; line-height: 1.15; margin: 2px 0 10px; color: #3B4440; }
   .pk-card[data-tone="green"] .pk-place { color: #1E6B3A; } .pk-card[data-tone="orange"] .pk-place { color: #B4531A; } .pk-card[data-tone="blue"] .pk-place { color: #1D6F8F; }
-  .pk-photo { position: relative; width: 82%; margin: 8px auto 0; aspect-ratio: 4 / 5; }
+  .pk-photo { position: relative; width: 64%; margin: 4px auto 14px; aspect-ratio: 4 / 5; }
   .pk-photo img { display: block; width: 100%; height: 100%; object-fit: cover; box-shadow: 0 6px 14px rgba(0,0,0,.18); transform: rotate(var(--rot, 0deg)); }
   .pk-photo.is-raw img { object-fit: contain; box-shadow: none; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
   .pk-tape { position: absolute; top: -10px; left: 50%; width: 84px; height: 22px; transform: translateX(-50%) rotate(-3deg); background: rgba(255,212,59,.6); z-index: 2; }
   .pk-cap { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: .92rem; color: #4D5551; margin: 10px 0 14px; }
-  .pk-text { font-size: 1rem; line-height: 1.5; margin: 0 0 10px; text-align: left; }
+  .pk-text { font-size: 1rem; line-height: 1.45; margin: 0 0 8px; text-align: center; }
   .pk-stops { font-family: "Fredoka", sans-serif; font-size: .95rem; line-height: 1.45; color: #3B4440; margin: 0 0 10px; text-align: left; }
   .pk-stops b { font-weight: 600; }
   .pk-pricebox { text-align: left; margin: 0 0 12px; }
-  .pk-price { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; margin: 0; }
+  .pk-price { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: .95rem; margin: 0 0 14px; text-align: center; color: #27302E; }
   .pk-todo { color: #C0262D; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1rem; margin: 2px 0 0; }
   .pk-q { margin: 0 0 16px; text-align: left; }
   .pk-q blockquote { margin: 0; padding: 0 0 0 12px; border-left: 4px solid rgba(39,48,46,.2); font-size: .95rem; line-height: 1.5; color: #3B4440; font-style: italic; }
@@ -297,12 +297,11 @@ def packages(lang):
           '<article class="pk-card" data-tone="%(tone)s">\n'
           '  <h3 class="pk-name">%(name)s</h3>\n  <p class="pk-place">%(place)s</p>\n'
           '  <div class="pk-photo%(raw)s" style="--rot:%(rot)s">%(tape)s<img src="%(src)s" alt="%(alt)s" loading="lazy" decoding="async"></div>\n'
-          '  <p class="pk-cap">%(cap)s</p>\n  <p class="pk-text">%(line)s</p>\n  <p class="pk-stops"><b>%(lbl)s:</b> %(stops)s</p>\n'
-          '  <div class="pk-pricebox"><p class="pk-price">%(price)s</p>%(todo)s</div>\n'
-          '  <figure class="pk-q"><blockquote>&ldquo;%(q)s&rdquo;</blockquote><figcaption><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> %(by)s &middot; %(g)s</figcaption></figure>\n'
+          '  <p class="pk-text">%(line)s</p>\n'
+          '  <p class="pk-price">%(price)s</p>\n'
           '  <a class="pk-btn" href="%(href)s">%(btn)s</a>\n</article>' % dict(c,
             raw=" is-raw" if c["raw"] else "", tape="" if c["raw"] else '<span class="pk-tape" aria-hidden="true"></span>',
-            src=IMG + c["img"], rot=ROTS[i], lbl="Stops" if lang == "en" else "Paradas", todo=todo, q=q, by=by, g=d["g"]))
+            src=IMG + c["img"], rot=ROTS[i]))
     html = ('<section class="pk" id="packages" aria-labelledby="pk-title">\n'
             '  <div class="pk-head"><h2 class="pk-title" id="pk-title">%s</h2><p class="pk-sub">%s</p><p class="pk-line">%s</p></div>\n'
             '  <div class="pk-grid">\n%s\n  </div>\n  <p class="pk-custom">%s</p>\n</section>\n'
