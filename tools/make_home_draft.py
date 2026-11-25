@@ -40,12 +40,16 @@ def hero(src, es):
     s = re.sub(r'\s*<div class="mwh-lang"[\s\S]*?</div>', "", s, count=1)
     assert 'class="mwh-lang"' not in s.split("<style")[0]
     # the business in one line, under "& Ernesto!"
+    # Round 10 (Marlon): the three days are the switch (old highlight pills), for solo travelers, couples and families
+    P = lambda i, tone, t: '<button type="button" class="mwh-hl" data-tone="%s" data-i="%d">%s</button>' % (tone, i, t)
     if es:
         tag = ('<p class="mwh-tagline">Vive y captura tu mejor d&iacute;a en LA.</p>\n'
-               '      <p class="mwh-who">Tours gratis y guiados para viajeros, parejas, familias y amigos.</p>')
+               '      <p class="mwh-who">Un %s, una %s o un %s para viajeros solos, parejas y familias.</p>'
+               % (P(0, "pink", "free tour"), P(1, "orange", "caminata al atardecer"), P(2, "blue", "d&iacute;a de playa")))
     else:
         tag = ('<p class="mwh-tagline">Live and capture your best day in LA.</p>\n'
-               '      <p class="mwh-who">Free and guided tours for travelers, couples, families and friends.</p>')
+               '      <p class="mwh-who">A %s, a %s or a %s for solo travelers, couples and families.</p>'
+               % (P(0, "pink", "free tour"), P(1, "orange", "sunset hike"), P(2, "blue", "beach day")))
     s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "\n      " + tag, s, count=1)
     assert n == 1, "hero line"
     slides = re.findall(r'\s*<div class="mwh-slide[^"]*" data-tone="(\w+)"[\s\S]*?\n            </div>', s)
@@ -81,13 +85,14 @@ def hero(src, es):
           '                <img src="%(C)s%(img)s" alt="%(alt)s" %(load)s decoding="async">\n'
           '              </a>\n'
           '              <p class="mwh-cap"><strong data-tone="%(tone)s">%(cap)s</strong></p>\n'
-          '              <p class="mwh-sub">%(sub)s</p>\n'
           '              <a class="mwh-btn mwh-cbtn" href="%(href)s" tabindex="%(ti)s">%(btn)s</a>\n'
           '            </div>' % dict(d, on=" is-on" if on else "", ti="0" if on else "-1", C=C,
                                      load='loading="eager" fetchpriority="high"' if on else 'loading="lazy"'))
     first = re.search(r'\s*<div class="mwh-slide is-on" data-tone="green"', s).start()
     last = list(re.finditer(r'\s*<div class="mwh-slide[^"]*" data-tone="pink"[\s\S]*?\n            </div>', s))[-1].end()
     s = s[:first] + "".join(html) + s[last:]
+    s, n = re.subn(r'\s*<div class="mwh-dots"[\s\S]*?</div>', "", s, count=1)
+    assert n == 1, "dots"
     css = """
 <style>
   /* Nov 25, 2026 draft (round 9): three kinds of day in the switching photos */
@@ -97,7 +102,12 @@ def hero(src, es):
   .mwh .mwh-cbtn { background: #FFD43B !important; }
   .mwh .mwh-tagline { margin: 2px 0 0; font-family: "Fredoka", system-ui, sans-serif; font-size: 1.35rem; font-weight: 600; color: #27302E; }
   .mwh .mwh-who { margin: 6px 0 0; font-size: 1.05rem; line-height: 1.45; color: #3B4440; max-width: 34ch; }
-  .mwh .mwh-mark { background: #FF9FD0; padding: 0 12px 2px; border-radius: 8px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .mwh .mwh-hand { font-size: 2.7rem !important; }
+  .mwh .mwh-who { line-height: 2.2 !important; font-size: 1.1rem !important; max-width: 30ch !important; }
+  .mwh .mwh-hl[data-tone="blue"] { --tone: rgba(110, 190, 225, 0.6); }
+  .mwh .mwh-hl { margin: 0 2px; }
+  .mwh .mwh-cap { margin-top: 16px; }
+  .mwh .mwh-cbtn { margin-top: 14px; }
   .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
   @media (min-width: 992px) {
     .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(36px, 6vh, 72px) !important; padding-bottom: clamp(36px, 6vh, 72px) !important; min-height: 0 !important; box-sizing: border-box; align-items: center; }
@@ -107,7 +117,7 @@ def hero(src, es):
     .mwh .mwh-hand { grid-area: hand; align-self: start; position: static !important; left: auto !important; bottom: auto !important; margin: 10px 0 0 4px !important; transform: rotate(-3deg) !important; }
     .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(18px, 3.5vh, 32px) 0 0 !important; text-align: center; }
     .mwh .mwh-who { grid-area: who; justify-self: center; text-align: center; }
-    .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 230px) / 1.2), 330px)) 44px !important; }
+    .mwh .mwh-car { grid-template-columns: 44px minmax(0, clamp(230px, calc((100vh - 64px - 12vh - 150px) / 1.2), 340px)) 44px !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
   }
   @media (max-width: 991px) { .mwh .mwh-text { align-items: center; text-align: center; } .mwh .mwh-who { margin-left: auto; margin-right: auto; } }
