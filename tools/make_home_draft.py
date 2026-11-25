@@ -43,14 +43,14 @@ def hero(src, es):
     # Round 10 (Marlon): the three days are the switch (old highlight pills), for solo travelers, couples and families
     P = lambda i, tone, t: '<button type="button" class="mwh-hl" data-tone="%s" data-i="%d">%s</button>' % (tone, i, t)
     if es:
-        tag = ('<p class="mwh-tagline">Olv&iacute;date del bus de turistas. &Uacute;nete a un free tour a pie por el centro de Los &Aacute;ngeles, o reserva un d&iacute;a privado con un local.</p>\n'
+        tag = ('<p class="mwh-tagline">Olv&iacute;date del bus tur&iacute;stico. Explora Los &Aacute;ngeles con un local.</p>\n'
                '      <p class="mwh-who">Elige %s o %s para viajeros solos, parejas y familias.</p>'
-               % (P(0, "pink", "un free tour"), P(1, "orange", "paquetes de tours")))
+               % (P(0, "pink", "un free tour a pie"), P(1, "orange", "paquetes de tours")))
         rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>'
     else:
-        tag = ('<p class="mwh-tagline">Skip the tour bus. Join a free walking tour in Downtown Los Angeles, or book a private day with a local.</p>\n'
+        tag = ('<p class="mwh-tagline">Skip the tour bus. Explore Los Angeles with a local.</p>\n'
                '      <p class="mwh-who">Choose %s or %s for solo travelers, couples and families.</p>'
-               % (P(0, "pink", "a free tour"), P(1, "orange", "tour packages")))
+               % (P(0, "pink", "a free walking tour"), P(1, "orange", "tour packages")))
         rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>'
     s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "\n      " + tag, s, count=1)
     assert n == 1, "hero line"
@@ -130,6 +130,32 @@ def hero(src, es):
   }
   @media (max-width: 991px) { .mwh .mwh-text { align-items: center; text-align: center; } .mwh .mwh-who { margin-left: auto; margin-right: auto; } }
 </style>
+"""
+    # round 14: the other print peeks out from behind the active one; tap it to switch
+    css += """
+<style>
+  .mwh .mwh-nav { z-index: 6; }
+  .mwh .mwh-slide.is-on { z-index: 2; }
+  .mwh .mwh-slide:not(.is-on) { visibility: visible !important; opacity: 1 !important; z-index: 1; pointer-events: none; }
+  .mwh .mwh-slide:not(.is-on) > *:not(.mwh-photo) { visibility: hidden; }
+  .mwh .mwh-slide:not(.is-on) .mwh-photo { pointer-events: auto; cursor: pointer; opacity: .55; filter: saturate(.8); transform: translate(-24px, 10px) rotate(-7deg) !important; transition: opacity .2s ease-out, transform .25s ease-out; }
+  .mwh .mwh-slide:not(.is-on) .mwh-photo:hover { opacity: .8; }
+  .mwh .mwh-slide.is-on .mwh-photo { transform: rotate(2deg); }
+  @media (max-width: 640px) { .mwh .mwh-slide:not(.is-on) .mwh-photo { transform: translate(-12px, 6px) rotate(-5deg) !important; } }
+  @media (prefers-reduced-motion: reduce) { .mwh .mwh-slide .mwh-photo { transition: none !important; } }
+</style>
+<script>
+(function () {
+  var car = document.querySelector(".mwh-car"); if (!car) return;
+  car.addEventListener("click", function (e) {
+    var a = e.target.closest(".mwh-slide:not(.is-on) .mwh-photo"); if (!a) return;
+    e.preventDefault();
+    var slides = [].slice.call(car.querySelectorAll(".mwh-slide")), k = slides.indexOf(a.closest(".mwh-slide"));
+    var pill = document.querySelector('.mwh-hl[data-i="' + k + '"]');
+    if (pill) pill.click(); else { var n = car.querySelector(".mwh-next"); if (n) n.click(); }
+  }, true);
+})();
+</script>
 """
     return s + css
 

@@ -13,8 +13,8 @@
       <img class="mwh-ern2" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%20Full.avif" alt="Logo de MarlonWalksLA: Ernesto, el burro pi&ntilde;ata, con una tablet y una c&aacute;mara Polaroid" loading="eager" width="512" height="512">
       <span class="mwh-hand" lang="es">&iexcl;y Ernesto!</span>
       <p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>
-      <p class="mwh-tagline">Olv&iacute;date del bus de turistas. &Uacute;nete a un free tour a pie por el centro de Los &Aacute;ngeles, o reserva un d&iacute;a privado con un local.</p>
-      <p class="mwh-who">Elige <button type="button" class="mwh-hl" data-tone="pink" data-i="0">un free tour</button> o <button type="button" class="mwh-hl" data-tone="orange" data-i="1">paquetes de tours</button> para viajeros solos, parejas y familias.</p>
+      <p class="mwh-tagline">Olv&iacute;date del bus tur&iacute;stico. Explora Los &Aacute;ngeles con un local.</p>
+      <p class="mwh-who">Elige <button type="button" class="mwh-hl" data-tone="pink" data-i="0">un free tour a pie</button> o <button type="button" class="mwh-hl" data-tone="orange" data-i="1">paquetes de tours</button> para viajeros solos, parejas y familias.</p>
     </div>
     <div class="mwh-right">
       <div class="mwh-car" role="region" aria-roledescription="carousel" aria-label="Tipos de tour">
@@ -455,3 +455,27 @@
   }
   @media (max-width: 991px) { .mwh .mwh-text { align-items: center; text-align: center; } .mwh .mwh-who { margin-left: auto; margin-right: auto; } }
 </style>
+
+<style>
+  .mwh .mwh-nav { z-index: 6; }
+  .mwh .mwh-slide.is-on { z-index: 2; }
+  .mwh .mwh-slide:not(.is-on) { visibility: visible !important; opacity: 1 !important; z-index: 1; pointer-events: none; }
+  .mwh .mwh-slide:not(.is-on) > *:not(.mwh-photo) { visibility: hidden; }
+  .mwh .mwh-slide:not(.is-on) .mwh-photo { pointer-events: auto; cursor: pointer; opacity: .55; filter: saturate(.8); transform: translate(-24px, 10px) rotate(-7deg) !important; transition: opacity .2s ease-out, transform .25s ease-out; }
+  .mwh .mwh-slide:not(.is-on) .mwh-photo:hover { opacity: .8; }
+  .mwh .mwh-slide.is-on .mwh-photo { transform: rotate(2deg); }
+  @media (max-width: 640px) { .mwh .mwh-slide:not(.is-on) .mwh-photo { transform: translate(-12px, 6px) rotate(-5deg) !important; } }
+  @media (prefers-reduced-motion: reduce) { .mwh .mwh-slide .mwh-photo { transition: none !important; } }
+</style>
+<script>
+(function () {
+  var car = document.querySelector(".mwh-car"); if (!car) return;
+  car.addEventListener("click", function (e) {
+    var a = e.target.closest(".mwh-slide:not(.is-on) .mwh-photo"); if (!a) return;
+    e.preventDefault();
+    var slides = [].slice.call(car.querySelectorAll(".mwh-slide")), k = slides.indexOf(a.closest(".mwh-slide"));
+    var pill = document.querySelector('.mwh-hl[data-i="' + k + '"]');
+    if (pill) pill.click(); else { var n = car.querySelector(".mwh-next"); if (n) n.click(); }
+  }, true);
+})();
+</script>
