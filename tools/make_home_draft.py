@@ -66,9 +66,9 @@ def hero(src, es):
     else:
         b1, l1, b2, l2 = btn, "Tip-based &middot; English and Spanish", "Explore LA Tours", "Food walks, sunset hikes, beach days"
     ctas = ('\n      <div class="mwh-pair">'
-            '<div class="mwh-pairc"><a class="mwh-btn mwh-one" href="#book">%s</a><p class="mwh-mini">%s</p></div>'
-            '<div class="mwh-pairc"><a class="mwh-btn mwh-one" href="#packages">%s</a><p class="mwh-mini">%s</p></div>'
-            '</div>') % (b1, l1, b2, l2)
+            '<a class="mwh-btn mwh-one" href="#book">%s</a>'
+            '<a class="mwh-btn mwh-one" href="#packages">%s</a>'
+            '</div>') % (b1, b2)  # round 7 (Marlon): no small text under the buttons
     s, n = re.subn(r'(<p class="mwh-tagline">[^<]*</p>)', lambda mm: mm.group(1) + ctas, s, count=1)
     assert n == 1, "tagline anchor"
     # the sentence: Group and Private are packages now
@@ -91,18 +91,22 @@ def hero(src, es):
   .mwh .mwh-hand { margin: 22px 0 10px; }
   .mwh a.mwh-hl { text-decoration: none !important; color: #27302E !important; }
   .mwh .mwh-tagline { margin: 2px 0 0; font-size: 1.35rem; font-weight: 600; color: #27302E; }
-  .mwh .mwh-pair { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 18px; margin: 18px 0 0; }
-  .mwh .mwh-pairc { display: flex; flex-direction: column; align-items: center; }
-  .mwh .mwh-one { margin: 0; font-size: 1.15rem; padding: 12px 22px; white-space: nowrap; }
-  .mwh .mwh-mini { margin: 8px 0 0; font-family: "Fredoka", sans-serif; font-size: .9rem; line-height: 1.3; color: #3B4440; text-align: center; max-width: 22ch; }
+  .mwh .mwh-pair { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 16px; margin: 20px 0 0; }
+  .mwh .mwh-one { margin: 0; font-size: 1.15rem; padding: 12px 24px; white-space: nowrap; }
+  /* round 7: the same block highlight as the rest of the page, instead of the one-off yellow underline */
+  .mwh .mwh-mark { background: #FF9FD0; padding: 0 12px 2px; border-radius: 8px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
   /* only the three corner stamps (the middle-bottom one sat in the way) */
   .mwh .mwh-stamps svg.stamp:nth-child(3) { display: none !important; }
   /* Desktop: the whole hero fits in one screen under the header; columns sit closer; the photo is as tall as the text */
   @media (min-width: 992px) {
     .mwh .mwh-wrap { grid-template-columns: auto auto !important; justify-content: center; column-gap: clamp(48px, 7vw, 110px) !important; padding-top: clamp(30px, 6vh, 64px) !important; padding-bottom: clamp(30px, 6vh, 64px) !important; min-height: calc(100vh - 64px); min-height: calc(100svh - 64px); box-sizing: border-box; align-items: center; align-content: center; }
-    .mwh .mwh-h1 { font-size: clamp(2.3rem, min(5vw, 7.4vh), 4.2rem); }
-    .mwh .mwh-ern2 { width: clamp(100px, 17vh, 190px); }
-    .mwh .mwh-hand { margin: 0.8vh 0 0.2vh; }
+    /* round 7 (Marlon): on desktop Ernesto's badge sits beside the title, "& Ernesto!" under it; tagline and buttons below */
+    .mwh .mwh-text { display: grid !important; grid-template-columns: auto auto; grid-template-areas: "badge title" "badge hand" "tag tag" "btns btns"; column-gap: 22px; row-gap: 0; align-items: center; justify-items: start; text-align: left !important; }
+    .mwh .mwh-h1 { grid-area: title; align-self: end; margin: 0 !important; font-size: clamp(2.4rem, min(5vw, 8vh), 4.3rem); }
+    .mwh .mwh-ern2 { grid-area: badge; width: clamp(120px, 22vh, 200px); margin: 0 !important; }
+    .mwh .mwh-hand { grid-area: hand; align-self: start; margin: 10px 0 0 4px !important; transform: rotate(-3deg); }
+    .mwh .mwh-tagline { grid-area: tag; justify-self: center; margin: clamp(16px, 3.5vh, 30px) 0 0 !important; }
+    .mwh .mwh-pair { grid-area: btns; justify-self: center; }
     .mwh .mwh-car { grid-template-columns: minmax(0, min(400px, calc((100vh - 64px - 12vh - 24px) / 1.2))) !important; justify-content: center; }
     .mwh .mwh-pol { grid-column: 1 !important; }
     .mwh .mwh-stamps .stamp { width: clamp(70px, 13vh, 110px) !important; height: auto !important; }
