@@ -43,12 +43,12 @@ def hero(src, es):
     # Round 10 (Marlon): the three days are the switch (old highlight pills), for solo travelers, couples and families
     P = lambda i, tone, t: '<button type="button" class="mwh-hl" data-tone="%s" data-i="%d">%s</button>' % (tone, i, t)
     if es:
-        tag = ('<p class="mwh-tagline">Vive y captura tu mejor d&iacute;a en LA.</p>\n'
+        tag = ('<p class="mwh-tagline">Olv&iacute;date del bus de turistas. &Uacute;nete a un free tour a pie por el centro de Los &Aacute;ngeles, o reserva un d&iacute;a privado con un local.</p>\n'
                '      <p class="mwh-who">Elige %s o %s para viajeros solos, parejas y familias.</p>'
                % (P(0, "pink", "un free tour"), P(1, "orange", "paquetes de tours")))
         rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>'
     else:
-        tag = ('<p class="mwh-tagline">Live and capture your best day in LA.</p>\n'
+        tag = ('<p class="mwh-tagline">Skip the tour bus. Join a free walking tour in Downtown Los Angeles, or book a private day with a local.</p>\n'
                '      <p class="mwh-who">Choose %s or %s for solo travelers, couples and families.</p>'
                % (P(0, "pink", "a free tour"), P(1, "orange", "tour packages")))
         rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>'
@@ -63,13 +63,13 @@ def hero(src, es):
     S = [
       dict(tone="pink", tape="rgba(255,0,255,.45)", img="6ae4fd054a1a3af597a87125_Master%20Polaroids%20(1).avif",
            alt=("Invitados del free tour en el jard&iacute;n del Avila Adobe" if es else "Free tour guests posing together at the Avila Adobe garden"),
-           cap=("Centro de LA" if es else "Downtown LA"),
+           cap=("Free Tour: centro hist&oacute;rico de LA" if es else "Free Tour: Historic Downtown LA"),
            sub=("Para primerizos y amantes de la historia. Con propina, en espa&ntilde;ol e ingl&eacute;s." if es else
                 "For first-timers and history lovers. Tip-based, in English and Spanish."),
            btn=("&Uacute;nete a un Free Tour" if es else "Join a Free Tour"), href="#book"),
       dict(tone="orange", tape="rgba(255,140,40,.5)", img="6ac74a88ff63a23a7673ee96_polaroid-griffith-sunset.webp",
            alt=("Foto instant&aacute;nea de una invitada al atardecer en Griffith" if es else "Instant photo of a guest at sunset at Griffith"),
-           cap=("Hollywood &middot; Beverly Hills &middot; playas" if es else "Hollywood &middot; Beverly Hills &middot; Beaches"),
+           cap=("Tours privados y guiados en Los &Aacute;ngeles" if es else "Private &amp; Guided Los Angeles Tours"),
            sub=("Tours guiados y d&iacute;as a tu medida en LA para parejas, familias y grupos peque&ntilde;os." if es else
                 "Guided tours and custom LA days for couples, families and small groups."),
            btn=("Explora los tours" if es else "Explore Tours"), href="#packages"),
@@ -100,12 +100,13 @@ def hero(src, es):
   .mwh .mwh-cap strong { font-size: 1.3rem; }
   .mwh .mwh-sub { max-width: 34ch; margin-left: auto; margin-right: auto; }
   .mwh .mwh-cbtn { background: #FFD43B !important; }
-  .mwh .mwh-tagline { margin: 2px 0 0; font-family: "Fredoka", system-ui, sans-serif; font-size: 1.35rem; font-weight: 600; color: #27302E; }
+  .mwh .mwh-tagline { margin: 2px 0 0; font-family: "Fredoka", system-ui, sans-serif; font-size: 1.2rem; line-height: 1.4; font-weight: 600; color: #27302E; max-width: 34ch; }
   .mwh .mwh-who { margin: 6px 0 0; font-size: 1.05rem; line-height: 1.45; color: #3B4440; max-width: 34ch; }
   .mwh .mwh-hand { font-size: 2.7rem !important; }
   .mwh .mwh-who { line-height: 2.2 !important; font-size: 1.1rem !important; max-width: 30ch !important; }
   .mwh .mwh-hl[data-tone="blue"] { --tone: rgba(110, 190, 225, 0.6); }
-  .mwh .mwh-hl { margin: 0 4px; }
+  .mwh .mwh-hl { margin: 0 7px; }
+  .mwh .mwh-hl.is-on { transform: scale(1.06); }
   .mwh .mwh-hl:focus:not(:focus-visible) { outline: none; }
   .mwh .mwh-rate { margin: 8px 0 0; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.3rem; color: #27302E; }
   .mwh .mwh-rate span { color: #E89B00; }
@@ -289,6 +290,15 @@ def book_stops(s):
             'Grand Central Market &middot; Bradbury Building &middot; City Hall &middot; Placita Olvera</p>')
     s, n = re.subn(r'(<div class="mwla-inc-grp">[\s\S]*?</ul></div>)', r'\1\n      ' + line.replace('\\', r'\\'), s, count=1)
     assert n == 1, "free pills"
+    s += ("\n<style>/* round 13: compact booking card (no language label, slimmer switch, calendar capped) */"
+          " .mwla-lang-label { display: none !important; }"
+          " .mwla-card-h { margin: 0 0 8px !important; font-size: 1.3rem !important; }"
+          " .mwla-lang-switch { margin: 0 0 8px !important; gap: 0 !important; }"
+          " .mwla-lang-opt { font-size: 1rem !important; padding: 7px 20px !important; flex-direction: row !important; gap: 6px !important; }"
+          " .mwla-lang-time { font-size: .85rem !important; }"
+          " .mwla-fcard { align-self: start; }"
+          " .mwla-book-cal { min-height: 300px !important; max-height: 460px; overflow-y: auto; -webkit-overflow-scrolling: touch; }"
+          " @media (max-width: 640px) { .mwla-book-cal { max-height: 520px; } }</style>\n")
     return s + ('\n<style>.mwla-stops { font-family: "Fredoka", sans-serif; font-size: .98rem; line-height: 1.5; color: #3B4440; margin: 12px 0 0; }'
                 ' .mwla-stops b { font-weight: 600; color: #27302E; }</style>\n')
 
