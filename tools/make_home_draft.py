@@ -244,7 +244,7 @@ def book_v2(s):
     pills = ('<ul class="mwla-inc-pills mwla-pills3">'
              '<li class="yes"><span aria-hidden="true">&#9201;&#65039;</span> <span data-es="2,5 horas">2.5 hours</span></li>'
              '<li class="yes"><span aria-hidden="true">&#128155;</span> <span data-es="Basado en propinas">Tip-based</span></li>'
-             '<li class="yes"><span aria-hidden="true">&#127873;</span> <span data-es="Sticker de Ernesto">Ernesto sticker</span></li></ul>')
+             '<li class="yes"><span aria-hidden="true">&#127873;</span> <span data-es="Foto instantánea">Instant photo</span></li></ul>')
     head, n = re.subn(r'<div class="mwla-inc-grp">[\s\S]*?</ul></div>', lambda _: pills, head, count=1); assert n == 1, "pills"
     stops = ('<p class="mwla-stops"><b data-es="Paradas:">Stops:</b> <span data-es="%sPlacita Olvera (Olvera Street)">%sOlvera Street (Placita Olvera)</span></p>' % (STOPS, STOPS))
     head, n = re.subn(r'<p class="mwla-stops">[\s\S]*?</p>', lambda _: stops, head, count=1); assert n == 1, "stops"
@@ -282,11 +282,12 @@ def book_v2(s):
   .mwla-inc-pills.mwla-pills3 { gap: 0 !important; flex-wrap: wrap; }
   .mwla-inc-pills.mwla-pills3 li.yes { white-space: nowrap; background: none !important; border: 0 !important; border-radius: 0; padding: 0 !important; color: #27302E !important; font-weight: 700; font-size: 1rem !important; }
   .mwla-inc-pills.mwla-pills3 li > span[aria-hidden] { display: none; }
+  .mwla-inc-pills.mwla-pills3 li > span:not([aria-hidden]) { background: linear-gradient(transparent 55%, rgba(255, 212, 59, .8) 55%, rgba(255, 212, 59, .8) 92%, transparent 92%); padding: 0 3px; }
   .mwla-inc-pills.mwla-pills3 li:not(:last-child)::after { content: "·"; margin: 0 10px; color: rgba(39, 48, 46, .45); font-weight: 400; }
   @media (max-width: 480px) { .mwla-inc-pills.mwla-pills3 li.yes { font-size: .9rem !important; } .mwla-inc-pills.mwla-pills3 li:not(:last-child)::after { margin: 0 6px; } }
   .mwla-inc .mws { max-width: 460px; margin: 0 auto; }
   .mwla-fcard { position: relative; }
-  .mwla-book-cal { max-height: 540px !important; }
+  .mwla-book-cal { max-height: 600px !important; }
   .mwla-fstamp { position: absolute; pointer-events: none; z-index: 3; }
   .mwla-fstamp svg.stamp { display: block; width: 100%; height: auto; mix-blend-mode: multiply; opacity: .9; transform: rotate(var(--r, -8deg)); }
   .mwla-fstamp-a { width: 92px; top: -30px; right: -24px; }
@@ -295,9 +296,10 @@ def book_v2(s):
   @media (min-width: 992px) {
     .mw-bg-book .w-container:has(#book) { max-width: 1100px !important; }
     .mwla-book { max-width: none !important; }
-    .mwla-inc .mws { grid-template-columns: 0 minmax(0, 1fr) 0 !important; max-width: none !important; width: 94%; margin: 0 auto; }
+    .mwla-inc .mws { grid-template-columns: 0 minmax(0, 1fr) 0 !important; max-width: none !important; width: 84%; margin: 0 auto; }
     .mwla-inc .mws-stage { aspect-ratio: 1.183 !important; }
     .mwla-fhead2 .mwla-pills3 { justify-content: center; margin-top: 12px !important; }
+    .mwla-inc-pills.mwla-pills3 li.yes { font-size: 1.05rem !important; }
   }
   @media (max-width: 991px) {
     .mwla-fgrid { grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; }
