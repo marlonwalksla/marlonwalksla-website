@@ -75,15 +75,15 @@ def hero(src, es):
     P = lambda i, tone, t: '<button type="button" class="mwh-hl" data-tone="%s" data-i="%d">%s</button>' % (tone, i, t)
     if es:
         # round 15 (Marlon, Nov 25): one line, then the two toggles on their own row
-        tag = ('<p class="mwh-tagline">Explora Los &Aacute;ngeles con un local, para viajeros solos, parejas, amigos y familias.</p>\n'
+        tag = ('<p class="mwh-tagline">Free tours y excursiones privadas en Los &Aacute;ngeles, para viajeros solos, parejas, amigos y familias.</p>\n'
                '      <div class="mwh-who mwh-tog" role="group" aria-label="Elige un tour">%s%s</div>'
                % (P(0, "pink", "Free Tour"), P(1, "orange", "Tour Privado")))
-        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>'
+        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525+ rese&ntilde;as &middot; 7,000+ viajeros</p>'
     else:
-        tag = ('<p class="mwh-tagline">Explore Los Angeles with a local, for solo travelers, couples, friends, and families.</p>\n'
+        tag = ('<p class="mwh-tagline">Free walking tours and private tours in Los Angeles, for solo travelers, couples, friends, and families.</p>\n'
                '      <div class="mwh-who mwh-tog" role="group" aria-label="Choose a tour">%s%s</div>'
                % (P(0, "pink", "Free Tour"), P(1, "orange", "Private Tour")))
-        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>'
+        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525+ reviews &middot; 7,000+ travelers</p>'
     s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "\n      " + tag, s, count=1)
     assert n == 1, "hero line"
     # round 12: the rating sits right under "& Ernesto!"
