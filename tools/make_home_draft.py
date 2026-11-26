@@ -483,14 +483,160 @@ def faqcard(lang):
 
 STRIPES["green"] = "repeating-linear-gradient(-45deg, #2E9E57 0 16px, transparent 16px 26px, #FFD43B 26px 42px, transparent 42px 52px)"
 
+# Nov 25, 2026 (Marlon's spec): the map section becomes a "click to load" facade. A still picture of the
+# map sits in a 5:3 box; one tap loads the real map into the same box (no layout shift). The map code
+# (Mapbox, same version and token as /maps) and spots.geojson load only after the tap.
+MAPSHOT = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6b07a8a51553f763e9bb369d_home-map-preview-780.webp"
+ERNESTO_POINT = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b53389bcda1926254_Pointing%20(Left).avif"
+MAP_STRIPES = "repeating-linear-gradient(135deg, #2890B6 0 14px, #E0F1F8 14px 28px)"
+
+def mapfacade(es):
+    t = dict(
+        title=("Mapa de Recomendaciones de LA" if es else "LA Recommendations Map"),
+        lead=("&iquest;No sabes ad&oacute;nde ir? &iquest;Necesitas ideas?" if es else "Don&rsquo;t know where to go? Need ideas?"),
+        body=("Comida, compras y m&aacute;s, todo en un solo mapa." if es else "Food, shopping and more, all on one map."),
+        btn=("Toca para cargar el mapa" if es else "Tap to load the map"),
+        loading=("Cargando mapa..." if es else "Loading map..."),
+        link=("Abrir el mapa completo" if es else "Open the full map"),
+        href=("/maps?lang=es&amp;from=home" if es else "/maps?from=home"),
+        alt=("Vista previa del mapa de recomendaciones de Los &Aacute;ngeles de Marlon con lugares favoritos de comida, compras y vistas en el centro de LA, Hollywood y Santa M&oacute;nica." if es else
+             "Preview of Marlon&rsquo;s Los Angeles recommendations map showing pinned food spots, shops, and sights across Downtown LA, Hollywood, and Santa Monica."),
+        ern=("Ernesto, el burrito de pi&ntilde;ata, se&ntilde;alando el mapa" if es else "Ernesto the pi&ntilde;ata donkey pointing to the map"),
+        maparia=("Mapa de recomendaciones" if es else "Recommendations map"),
+        fail=("No se pudo cargar el mapa." if es else "The map didn&rsquo;t load."),
+    )
+    html = """<!-- MARLONWALKSLA - HOME: LA RECOMMENDATIONS MAP, click-to-load facade (Nov 25, 2026). Built by tools/make_home_draft.py (mapfacade). -->
+<section class="rmf" aria-label="%(title)s" data-lang="%(lang)s">
+  <div class="rmf-grid">
+    <h2 class="rmf-title">%(title)s</h2>
+    <p class="rmf-lead">%(lead)s</p>
+    <p class="rmf-body">%(body)s</p>
+    <div class="rmf-box">
+      <img class="rmf-shot" src="%(shot)s" alt="%(alt)s" width="780" height="468" loading="lazy" decoding="async">
+      <div class="rmf-map" role="region" aria-label="%(maparia)s"></div>
+      <div class="rmf-loading" hidden><span class="rmf-spin" aria-hidden="true"></span><span class="rmf-ltxt" role="status">%(loading)s</span></div>
+    </div>
+    <div class="rmf-act">
+      <button type="button" class="rmf-btn">%(btn)s</button>
+      <a class="rmf-link" href="%(href)s" hidden>%(link)s</a>
+    </div>
+    <img class="rmf-ern" src="%(ern_src)s" alt="%(ern)s" width="541" height="800" loading="lazy" decoding="async">
+  </div>
+</section>
+<style>
+  .rmf { box-sizing: border-box; padding: 28px 20px; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }
+  .rmf *, .rmf *::before, .rmf *::after { box-sizing: border-box; }
+  .rmf-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "lead" "body" "box" "act" "ern"; }
+  .rmf-title { grid-area: title; margin: 0 0 8px; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 28px; line-height: 1.08; color: #27302E; }
+  .rmf-lead { grid-area: lead; margin: 0 0 6px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 18px; line-height: 1.35; color: #27302E; }
+  .rmf-body { grid-area: body; margin: 0 0 18px; font-family: "Nunito", sans-serif; font-size: 16px; line-height: 1.5; color: #27302E; }
+  .rmf-box { grid-area: box; position: relative; width: 100%%; aspect-ratio: 5 / 3; border: 2.5px solid #27302E; border-radius: 14px; box-shadow: 4px 4px 0 #27302E; overflow: hidden; background: #E0F1F8; }
+  .rmf-shot, .rmf-map, .rmf-loading { position: absolute; inset: 0; width: 100%%; height: 100%%; }
+  .rmf-shot { display: block; object-fit: cover; }
+  .rmf-map { visibility: hidden; }
+  .rmf.is-live .rmf-map { visibility: visible; }
+  .rmf.is-live .rmf-shot { display: none; }
+  .rmf-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #E0F1F8; z-index: 2; }
+  .rmf-loading[hidden] { display: none; }
+  .rmf-spin { width: 28px; height: 28px; border: 3px solid rgba(39, 48, 46, 0.2); border-top-color: #27302E; border-radius: 50%%; animation: rmf-spin 0.8s linear infinite; }
+  .rmf-ltxt { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 16px; color: #27302E; }
+  @keyframes rmf-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .rmf-spin { animation-duration: 2.4s; } .rmf-btn { transition: none; } }
+  .rmf-act { grid-area: act; margin-top: 16px; display: flex; align-items: center; min-height: 52px; }
+  .rmf.is-live .rmf-act, .rmf.is-loading .rmf-act { margin-top: 14px; }
+  .rmf-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 26px; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 18px; line-height: 1.1; letter-spacing: 0.01em; color: #27302E; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; box-shadow: 4px 4px 0 #27302E; cursor: pointer; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .rmf-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+  .rmf-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
+  .rmf-btn:focus-visible, .rmf-link:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  .rmf-btn[hidden], .rmf-link[hidden] { display: none; }
+  .rmf-link { display: inline-flex; align-items: center; min-height: 44px; font-family: "Nunito", sans-serif; font-weight: 700; font-size: 16px; color: #27302E !important; text-decoration: underline !important; text-underline-offset: 3px; }
+  .rmf-fail { margin: 0 12px 0 0; font-family: "Nunito", sans-serif; font-size: 16px; }
+  .rmf-ern { grid-area: ern; justify-self: end; width: 88px; height: auto; margin-top: -4px; pointer-events: none; }
+  .rmf .mapboxgl-popup-content { font-family: "Nunito", sans-serif; font-size: 14px; color: #27302E; border: 2px solid #27302E; border-radius: 10px; padding: 8px 28px 8px 10px; box-shadow: 3px 3px 0 #27302E; }
+  .rmf .mapboxgl-popup-content b { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 15px; display: block; }
+  .rmf .mapboxgl-popup-close-button { width: 26px; height: 26px; font-size: 18px; color: #27302E; }
+  @media (min-width: 900px) {
+    .rmf { padding: 48px 56px; }
+    .rmf-grid { grid-template-columns: 42%% minmax(0, 1fr); column-gap: 40px; grid-template-rows: 1fr auto auto auto auto auto 1fr; grid-template-areas: ". box" "title box" "lead box" "body box" "act box" "ern box" ". box"; align-items: center; }
+    .rmf-box { align-self: center; }
+    .rmf-title { font-size: 38px; margin-bottom: 10px; }
+    .rmf-lead { font-size: 20px; }
+    .rmf-body { font-size: 17px; margin-bottom: 0; }
+    .rmf-act { margin-top: 22px; }
+    .rmf.is-live .rmf-act, .rmf.is-loading .rmf-act { margin-top: 22px; }
+    .rmf-ern { justify-self: start; width: 135px; margin-top: 14px; transform: scaleX(-1); }
+  }
+</style>
+<script>
+(function () {
+  var root = document.currentScript && document.currentScript.previousElementSibling && document.currentScript.previousElementSibling.previousElementSibling;
+  if (!root || !root.classList || !root.classList.contains('rmf')) root = document.querySelector('.rmf');
+  if (!root || root.getAttribute('data-ready')) return;
+  root.setAttribute('data-ready', '1');
+  var btn = root.querySelector('.rmf-btn'), link = root.querySelector('.rmf-link'), box = root.querySelector('.rmf-box');
+  var loading = root.querySelector('.rmf-loading'), holder = root.querySelector('.rmf-map'), act = root.querySelector('.rmf-act');
+  var VER = 'v3.1.2', TOKEN = 'pk.eyJ1IjoibWFybG9ud2Fsa3NsYSIsImEiOiJjbXM5YWhuOGIwbGVjMzRwbTZ0b2I2emZlIn0.UgW7MpYibACH6Axk1WgoSA';
+  var SPOTS = 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/spots.geojson';
+  var COLORS = { landmarks: '#2890B6', parks: '#2E9E57', nightlife: '#7A3FA0', dining: '#E8742A', entertainment: '#E14B3B', shopping: '#E05A9C', arts: '#FFD43B' };
+  function css(href) { if (document.querySelector('link[href="' + href + '"]')) return; var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; document.head.appendChild(l); }
+  function js(src) { return new Promise(function (ok, no) { if (window.mapboxgl) return ok(); var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); }); }
+  function esc(t) { return String(t || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fail() {
+    root.classList.remove('is-loading', 'is-live'); loading.hidden = true;
+    var p = document.createElement('p'); p.className = 'rmf-fail'; p.textContent = '%(fail_js)s';
+    act.insertBefore(p, link); link.hidden = false;
+  }
+  btn.addEventListener('click', function () {
+    btn.hidden = true; btn.remove();
+    root.classList.add('is-loading'); loading.hidden = false;
+    try { if (window.gtag) gtag('event', 'home_map_load', { lang: root.getAttribute('data-lang') }); } catch (e) {}
+    var timer = setTimeout(fail, 15000);
+    css('https://api.mapbox.com/mapbox-gl-js/' + VER + '/mapbox-gl.css');
+    Promise.all([js('https://api.mapbox.com/mapbox-gl-js/' + VER + '/mapbox-gl.js'), fetch(SPOTS).then(function (r) { return r.json(); })]).then(function (r) {
+      var data = r[1];
+      data.features.forEach(function (f) { var c = String(f.properties.Category || '').toLowerCase(); f.properties._c = COLORS[c] || '#2890B6'; });
+      mapboxgl.accessToken = TOKEN;
+      var map = new mapboxgl.Map({ container: holder, style: 'mapbox://styles/mapbox/streets-v12', bounds: [[-118.52, 33.97], [-118.18, 34.15]], fitBoundsOptions: { padding: 16 }, scrollZoom: false, pitchWithRotate: false, dragRotate: false, attributionControl: true });
+      map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+      map.touchZoomRotate.disableRotation();
+      map.on('load', function () {
+        map.addSource('spots', { type: 'geojson', data: data, cluster: true, clusterRadius: 38, clusterMaxZoom: 13 });
+        map.addLayer({ id: 'cl', type: 'circle', source: 'spots', filter: ['has', 'point_count'], paint: { 'circle-color': '#FFD43B', 'circle-stroke-color': '#27302E', 'circle-stroke-width': 2, 'circle-radius': ['step', ['get', 'point_count'], 14, 10, 17, 30, 21] } });
+        map.addLayer({ id: 'cn', type: 'symbol', source: 'spots', filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'] }, paint: { 'text-color': '#27302E' } });
+        map.addLayer({ id: 'pt', type: 'circle', source: 'spots', filter: ['!', ['has', 'point_count']], paint: { 'circle-color': ['get', '_c'], 'circle-stroke-color': '#27302E', 'circle-stroke-width': 2, 'circle-radius': 7 } });
+        map.on('click', 'cl', function (e) {
+          var f = map.queryRenderedFeatures(e.point, { layers: ['cl'] })[0];
+          map.getSource('spots').getClusterExpansionZoom(f.properties.cluster_id, function (err, z) { if (!err) map.easeTo({ center: f.geometry.coordinates, zoom: z }); });
+        });
+        map.on('click', 'pt', function (e) {
+          var f = e.features[0], p = f.properties;
+          new mapboxgl.Popup({ offset: 10, maxWidth: '240px' }).setLngLat(f.geometry.coordinates).setHTML('<b>' + esc(p.Name) + '</b>' + esc(p.City || '')).addTo(map);
+        });
+        ['cl', 'pt'].forEach(function (id) { map.on('mouseenter', id, function () { map.getCanvas().style.cursor = 'pointer'; }); map.on('mouseleave', id, function () { map.getCanvas().style.cursor = ''; }); });
+        map.once('idle', function () {
+          clearTimeout(timer);
+          root.classList.remove('is-loading'); root.classList.add('is-live');
+          loading.hidden = true; link.hidden = false; map.resize();
+        });
+      });
+      map.on('error', function (e) { if (!root.classList.contains('is-live')) { clearTimeout(timer); fail(); } });
+    }).catch(function () { clearTimeout(timer); fail(); });
+  });
+})();
+</script>
+""" % dict(t, lang=("es" if es else "en"), shot=MAPSHOT, ern_src=ERNESTO_POINT, fail_js=t["fail"].replace("&rsquo;", "’"))
+    return postcard(html, "#FFF6E6", "mapblue")
+
+STRIPES["mapblue"] = MAP_STRIPES
+
 OUT = {
     "home-hero-draft.html": hero("home-hero.html", False),
     "home-hero-es-draft.html": hero("home-hero-es.html", True),
     "home-book-draft.html": book_stops(book()),
     "home-packages-draft.html": packages("en"),
     "home-packages-es-draft.html": packages("es"),
-    "home-routebreak-draft.html": mapcard("home-routebreak.html", False),
-    "home-routebreak-es-draft.html": mapcard("home-routebreak-es.html", True),
+    "home-routebreak-draft.html": mapfacade(False),
+    "home-routebreak-es-draft.html": mapfacade(True),
     "home-meet-draft.html": meetcard("home-meet.html"),
     "home-meet-es-draft.html": meetcard("home-meet-es.html"),
     "home-ig-draft.html": igstrip(False),
