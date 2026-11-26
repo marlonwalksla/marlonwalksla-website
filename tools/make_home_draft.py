@@ -658,6 +658,113 @@ def mapfacade(es):
 """ % dict(t, lang=("es" if es else "en"), shot=MAPSHOT, ern_src=ERNESTO_POINT)
     return postcard(html, "#FFF6E6", "mapblue")
 
+
+def guidescard(es):
+    """Nov 26, 2026 (Marlon): "Not Sure What to Do in LA?" One decision (the yellow button to the map, passport-first).
+    Right side: the real map preview tilted, two real passports overlapping it (LA Tourist, Photo Spots), a stamp."""
+    import sys as _s3
+    _s3.path.insert(0, str(PE))
+    import stamps as _ST
+    L = "es" if es else "en"
+    q = ("lang=es&amp;" if es else "")
+    M = lambda tone, t: '<mark class="mk" data-tone="%s">%s</mark>' % (tone, t)
+    t = dict(
+        title=("&iquest;No Sabes Qu&eacute; Hacer en LA?" if es else "Not Sure What to Do in LA?"),
+        sub=("Deja que Ernesto te gu&iacute;e." if es else "Let Ernesto show you."),
+        body=(("Ernesto arm&oacute; %s gratis y un %s con m&aacute;s de 200 lugares para comer y visitar, para que explores Los &Aacute;ngeles sin estr&eacute;s." % (M("green", "pasaportes de LA"), M("blue", "mapa local"))) if es else
+              ("Ernesto put together free %s and a %s with 200+ food and sightseeing spots, so you can explore Los Angeles with confidence." % (M("green", "LA passports"), M("blue", "local map")))),
+        btn=("Ver las Gu&iacute;as de Ernesto" if es else "Explore Ernesto&rsquo;s Guides"),
+        href="/maps?%sfrom=home" % q,
+        alt=("Vista previa del mapa de recomendaciones de Los &Aacute;ngeles de Marlon" if es else "Preview of Marlon&rsquo;s Los Angeles recommendations map"),
+        ern=("Ernesto, el burrito de pi&ntilde;ata, se&ntilde;alando las gu&iacute;as" if es else "Ernesto the pi&ntilde;ata donkey pointing to the guides"),
+        stops=("paradas" if es else "stops"), pass_=("Pasaporte" if es else "Passport"),
+    )
+    cards = [("la-tourist", ("Turista en LA" if es else "LA Tourist"), 12, "#1D6F8F", "#E0F1F8", "obs", "-3deg"),
+             ("photo-spots", ("Lugares para Fotos" if es else "Photo Spots"), 10, "#D6457A", "#FFE6EF", "polaroid", "3deg")]
+    ch = ""
+    for i, (pid, name, n, ink, bg, icon, rot) in enumerate(cards):
+        st = _ST.stamp("gc%d" % i, name.upper().replace("&IACUTE;", "Í"), "LOS ANGELES", icon, "", ink, rot=0, seed=4 + i)
+        ch += ('<a class="gc-card" href="/maps?%spassport=%s&amp;from=home" style="--rot:%s;--bg:%s">'
+               '<span class="gc-tape" aria-hidden="true"></span><span class="gc-art" aria-hidden="true">%s</span>'
+               '<span class="gc-kind">%s</span><span class="gc-name">%s</span><span class="gc-chip">%d %s</span></a>') % (q, pid, rot, bg, st, t["pass_"], name, n, t["stops"])
+    corner = _ST.stamp("gcx", "FREE GUIDES" if not es else "GU&Iacute;AS GRATIS", "LOS ANGELES", "palms3", "", "#2890B6", rot=8, seed=9)
+    html = """<!-- MARLONWALKSLA - HOME: GUIDES CARD (Nov 26, 2026). Built by tools/make_home_draft.py (guidescard). -->
+<section class="gc" aria-label="%(title)s" data-lang="%(lang)s">
+  <div class="gc-grid">
+    <div class="gc-text">
+      <h2 class="gc-title">%(title)s</h2>
+      <p class="gc-sub">%(sub)s</p>
+      <p class="gc-body">%(body)s</p>
+    </div>
+    <div class="gc-col">
+      <div class="gc-stamp" aria-hidden="true">%(corner)s</div>
+      <a class="gc-map" href="%(href)s" tabindex="-1" aria-hidden="true"><img src="%(shot)s" alt="%(alt)s" width="780" height="468" loading="lazy" decoding="async"></a>
+      <div class="gc-cards">%(cards)s</div>
+    </div>
+    <div class="gc-act">
+      <a class="gc-btn" href="%(href)s">%(btn)s &rarr;</a>
+      <img class="gc-ern" src="%(ern_src)s" alt="%(ern)s" width="541" height="800" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+<style>
+  .gc { position: relative; box-sizing: border-box; padding: 30px 20px 26px; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }
+  .gc *, .gc *::before, .gc *::after { box-sizing: border-box; }
+  .gc-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "col" "act"; row-gap: 18px; }
+  .gc-text { grid-area: text; } .gc-col { grid-area: col; } .gc-act { grid-area: act; }
+  .gc-title { margin: 0; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 30px; line-height: 1.08; color: #27302E; text-wrap: balance; }
+  .gc-sub { margin: 8px 0 10px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 19px; line-height: 1.3; color: #1D6F8F; }
+  .gc-body { margin: 0; font-size: 16.5px; line-height: 1.75; color: #27302E; }
+  .gc mark.mk { color: #27302E; font-weight: 700; padding: 2px 7px; border-radius: 5px; background: var(--tone); white-space: nowrap; }
+  .gc mark.mk[data-tone="green"] { --tone: #B9EBC8; } .gc mark.mk[data-tone="blue"] { --tone: #C7E7F5; }
+  .gc-col { position: relative; }
+  .gc-map { display: block; position: relative; border: 2.5px solid #27302E; border-radius: 14px; box-shadow: 5px 5px 0 #27302E; overflow: hidden; background: #E0F1F8; transform: rotate(-1.5deg); aspect-ratio: 5 / 3; }
+  .gc-map img { position: absolute; inset: 0; width: 100%%; height: 100%%; object-fit: cover; display: block; }
+  .gc-cards { position: absolute; left: 4%%; right: 4%%; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .gc-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding: 10px 10px 12px; background: #fff; border: 2.5px solid #27302E; border-radius: 12px; box-shadow: 4px 4px 0 #27302E; transform: rotate(var(--rot)); text-decoration: none !important; color: #27302E !important; transition: transform .18s ease-out; }
+  .gc-card:hover, .gc-card:focus-visible { transform: rotate(0deg) translateY(-4px); }
+  .gc-card:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
+  .gc-tape { position: absolute; top: -9px; left: 50%%; width: 52px; height: 16px; transform: translateX(-50%%) rotate(-3deg); background: rgba(255, 212, 59, .7); }
+  .gc-art { display: flex; justify-content: center; width: 100%%; background: var(--bg); border-radius: 8px; padding: 6px 0; }
+  .gc-art svg.stamp { width: 58px; height: auto; display: block; mix-blend-mode: multiply; }
+  .gc-col { padding-bottom: 70px; }
+  .gc-kind { margin-top: 8px; font-family: "Fredoka", sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #5B6663; }
+  .gc-name { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 16px; line-height: 1.2; }
+  .gc-chip { margin-top: 6px; font-family: "Fredoka", sans-serif; font-size: 12.5px; font-weight: 500; padding: 2px 8px; border-radius: 99px; background: #F1ECE0; }
+  .gc-act { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .gc-btn { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 22px; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 18px; line-height: 1.1; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; box-shadow: 4px 4px 0 #27302E; transition: transform .18s ease-out, box-shadow .18s ease-out; }
+  .gc-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+  .gc-btn:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  .gc-ern { width: 74px; height: auto; pointer-events: none; }
+  .gc-stamp { position: absolute; top: -24px; right: -8px; width: 64px; pointer-events: none; z-index: 3; }
+  .gc-stamp svg.stamp { width: 100%%; height: auto; display: block; mix-blend-mode: multiply; opacity: .85; transform: rotate(var(--r, 8deg)); }
+  @media (max-width: 380px) { .gc-btn { font-size: 16px; padding: 11px 16px; } .gc-name { font-size: 14.5px; } }
+  @media (min-width: 900px) {
+    .gc { padding: 52px 56px 46px; }
+    .gc-grid { grid-template-columns: 42%% minmax(0, 1fr); column-gap: 48px; grid-template-areas: "text col" "act col"; align-items: center; row-gap: 26px; }
+    .gc-text { align-self: end; } .gc-act { align-self: start; justify-content: flex-start; gap: 18px; }
+    .gc-title { font-size: 46px; }
+    .gc-sub { font-size: 22px; margin: 10px 0 14px; }
+    .gc-body { font-size: 17.5px; }
+    .gc-col { padding-bottom: 110px; }
+    .gc-cards { left: 8%%; right: 6%%; gap: 22px; }
+    .gc-art svg.stamp { width: 92px; }
+    .gc-name { font-size: 18px; }
+    .gc-btn { font-size: 20px; padding: 14px 28px; }
+    .gc-ern { width: 110px; transform: scaleX(-1); }
+    .gc-stamp { top: -38px; right: -30px; width: 92px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .gc-btn, .gc-card { transition: none; } }
+</style>
+<script>
+(function () {
+  var r = document.querySelectorAll('.gc a');
+  for (var i = 0; i < r.length; i++) if (!r[i].getAttribute('data-ga')) { r[i].setAttribute('data-ga', '1'); r[i].addEventListener('click', function () { var p = (this.getAttribute('href').match(/passport=([a-z-]+)/) || [])[1] || 'all'; try { if (window.gtag) gtag('event', 'home_guides_click', { lang: document.documentElement.lang || '', passport: p }); } catch (e) {} }); }
+})();
+</script>
+""" % dict(t, lang=L, shot=MAPSHOT, ern_src=ERNESTO_POINT, cards=ch, corner=corner)
+    return postcard(html, "#FFF6E6", "mapblue")
+
 STRIPES["mapblue"] = MAP_STRIPES
 
 # Nov 25, 2026 (Marlon): after a date tap, Cal.com scrolls the page on phones (it jumps to the top of the calendar
@@ -691,8 +798,8 @@ OUT = {
     "home-book-draft.html": book_v2(book_stops(book())) + CAL_NOSCROLL,
     "home-packages-draft.html": packages("en"),
     "home-packages-es-draft.html": packages("es"),
-    "home-routebreak-draft.html": mapfacade(False),
-    "home-routebreak-es-draft.html": mapfacade(True),
+    "home-routebreak-draft.html": guidescard(False),
+    "home-routebreak-es-draft.html": guidescard(True),
     "home-meet-draft.html": meetcard("home-meet.html"),
     "home-meet-es-draft.html": meetcard("home-meet-es.html"),
     "home-ig-draft.html": igstrip(False),
