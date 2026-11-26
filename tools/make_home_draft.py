@@ -711,7 +711,7 @@ def guidescard(es):
   .gc *, .gc *::before, .gc *::after { box-sizing: border-box; }
   .gc-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "col" "act"; row-gap: 18px; }
   .gc-text { grid-area: text; } .gc-col { grid-area: col; } .gc-act { grid-area: act; }
-  .gc-title { flex: 1; min-width: 0; margin: 0; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 30px; line-height: 1.08; color: #27302E; text-wrap: balance; }
+  .gc-title { flex: 0 1 auto; min-width: 0; margin: 0; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 30px; line-height: 1.08; color: #27302E; text-wrap: balance; }
   .gc-sub { margin: 8px 0 10px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 19px; line-height: 1.3; color: #1D6F8F; }
   .gc-body { margin: 0; font-size: 16.5px; line-height: 1.75; color: #27302E; }
   .gc mark.mk { color: #27302E; font-weight: 700; padding: 2px 7px; border-radius: 5px; background: var(--tone); white-space: nowrap; }
