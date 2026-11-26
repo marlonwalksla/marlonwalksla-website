@@ -231,9 +231,9 @@ def book_v2(s):
     _s2.path.insert(0, str(PE))
     import stamps as _ST
     EN = dict(title="Free Walking Tour: Downtown Los Angeles", tag="Historic walking tour for first-time visitors",
-              line="Walk Downtown LA with a local guide. Start at Bunker Hill's arts district and walk through LA's history to Olvera Street (Placita Olvera), where the Spanish and Mexican pueblo began.")
+              line="Learn LA's history with a local guide. Start at Bunker Hill's arts district and walk to Olvera Street (Placita Olvera), where the Spanish and Mexican pueblo began.")
     ES = dict(title="Free Tour: Centro Histórico de Los Ángeles", tag="Visita guiada histórica en español por el centro de LA",
-              line="Explora el centro de Los Ángeles con un guía local. Empieza en Bunker Hill y recorre la historia de la ciudad hasta la Placita Olvera (Olvera Street), donde nació el pueblo.")
+              line="Aprende la historia de LA con un guía local. Empieza en Bunker Hill y camina hasta la Placita Olvera (Olvera Street), donde nació el pueblo.")
     STOPS = "Walt Disney Concert Hall · The Broad · Angels Flight · Grand Central Market · Bradbury Building · City Hall · "
     # 1. move the head text into the left column, above the photo
     m = re.search(r'<div class="mwla-book-head">\s*<div class="mwla-book-head-text">([\s\S]*?)</div>\s*</div>\s*', s)
@@ -299,6 +299,11 @@ def book_v2(s):
     .mwla-inc .mws { grid-template-columns: 0 minmax(0, 1fr) 0 !important; max-width: none !important; width: 84%; margin: 0 auto; }
     .mwla-inc .mws-stage { aspect-ratio: 1.183 !important; }
     .mwla-fhead2 .mwla-pills3 { justify-content: center; margin-top: 12px !important; }
+    /* left column runs the full height of the calendar card: photo, row and stops sit at the bottom */
+    .mwla-fgrid { align-items: stretch !important; }
+    .mwla-fcard { align-self: start; }
+    .mwla-fleft { display: flex; flex-direction: column; }
+    .mwla-fleft .mwla-inc { margin-top: auto !important; padding-top: 16px; }
     .mwla-inc-pills.mwla-pills3 li.yes { font-size: 1.05rem !important; }
   }
   @media (max-width: 991px) {
