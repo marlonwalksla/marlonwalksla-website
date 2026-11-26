@@ -204,7 +204,8 @@
   .mwla-inc-pills.mwla-pills3 { gap: 0 !important; flex-wrap: wrap; }
   .mwla-inc-pills.mwla-pills3 li.yes { white-space: nowrap; background: none !important; border: 0 !important; border-radius: 0; padding: 0 !important; color: #27302E !important; font-weight: 700; font-size: 1rem !important; }
   .mwla-inc-pills.mwla-pills3 li > span[aria-hidden] { display: none; }
-  .mwla-inc-pills.mwla-pills3 li + li::before { content: "·" !important; margin: 0 10px; color: rgba(39, 48, 46, .45); font-weight: 400; }
+  .mwla-inc-pills.mwla-pills3 li:not(:last-child)::after { content: "·"; margin: 0 10px; color: rgba(39, 48, 46, .45); font-weight: 400; }
+  @media (max-width: 480px) { .mwla-inc-pills.mwla-pills3 li.yes { font-size: .9rem !important; } .mwla-inc-pills.mwla-pills3 li:not(:last-child)::after { margin: 0 6px; } }
   .mwla-inc .mws { max-width: 460px; margin: 0 auto; }
   .mwla-fcard { position: relative; }
   .mwla-book-cal { max-height: 540px !important; }
