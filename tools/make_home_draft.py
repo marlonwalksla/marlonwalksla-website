@@ -231,7 +231,7 @@ def book_v2(s):
     _s2.path.insert(0, str(PE))
     import stamps as _ST
     EN = dict(title="Free Walking Tour: Downtown Los Angeles", tag="Historic walking tour for first-time visitors",
-              line="Explore Downtown LA with a local guide. Start at Bunker Hill's arts district and walk through LA's history to Olvera Street (Placita Olvera), where the Spanish and Mexican pueblo began.")
+              line="Walk Downtown LA with a local guide. Start at Bunker Hill's arts district and walk through LA's history to Olvera Street (Placita Olvera), where the Spanish and Mexican pueblo began.")
     ES = dict(title="Free Tour: Centro Histórico de Los Ángeles", tag="Visita guiada histórica en español por el centro de LA",
               line="Explora el centro de Los Ángeles con un guía local. Empieza en Bunker Hill y recorre la historia de la ciudad hasta la Placita Olvera (Olvera Street), donde nació el pueblo.")
     STOPS = "Walt Disney Concert Hall · The Broad · Angels Flight · Grand Central Market · Bradbury Building · City Hall · "
@@ -251,10 +251,12 @@ def book_v2(s):
     head = head.replace(">Free Tours<", ">%s<" % EN["title"]).replace(">Walk Back in Time<", ">%s<" % EN["tag"])
     head, n = re.subn(r'(<p class="pc-line" data-pi="line">)[^<]*', lambda m_: m_.group(1) + EN["line"].replace("'", "&#39;"), head, count=1); assert n == 1, "line"
     stamp2 = _ST.stamp("fbo", "PLACITA OLVERA", "DOWNTOWN LA", "papel", "1781", "#7A3FA0", rot=-10, seed=8)
-    s, n = re.subn(r'(<div class="mwla-fleft">)', lambda m_: m_.group(1) + '\n      <div class="mwla-fhead">' + head.strip() + '</div>', s, count=1); assert n == 1, "fleft"
+    _k = head.index('<ul class="mwla-inc-pills')
+    top, bottom = head[:_k].strip(), head[_k:].strip()
+    s, n = re.subn(r'(<div class="mwla-fleft">)', lambda m_: m_.group(1) + '\n      <div class="mwla-fhead">' + top + '</div>', s, count=1); assert n == 1, "fleft"
     s, n = re.subn(r'(<div class="mwla-inc" id="mwla-inc">)', lambda m_: m_.group(1) + '\n        <div class="mwla-fstamp mwla-fstamp-b" aria-hidden="true">' + stamp2 + '</div>', s, count=1); assert n == 1, "inc"
     # 3. no quote, no caption
-    s, n = re.subn(r'\s*<figure class="mwla-q">[\s\S]*?</figure>', "", s, count=1); assert n == 1, "quote"
+    s, n = re.subn(r'\s*<figure class="mwla-q">[\s\S]*?</figure>', lambda _: '\n      <div class="mwla-fhead mwla-fhead2">' + bottom + '</div>', s, count=1); assert n == 1, "quote"
     s = s.replace(' data-cap="Marlon with the whole crew" data-cap-es="Marlon con todo el grupo"', "")
     # 4. stamp on the calendar card's top-right corner
     stamp1 = _ST.stamp("fba", "ANGELS FLIGHT", "FREE TOUR", "angels", "1901", "#C2318A", rot=9, seed=5)
@@ -272,7 +274,8 @@ def book_v2(s):
   .mwla-fhead .pc-line { max-width: none; margin: 0; font-size: 1.02rem; }
   .mwla-pills3 { margin: 14px 0 0 !important; flex-wrap: nowrap; }
   .mwla-fhead .mwla-stops { margin-top: 12px; font-size: .92rem; }
-  .mwla-fleft .mwla-inc { position: relative; margin-top: 18px; }
+  .mwla-fleft .mwla-inc { position: relative; margin-top: 16px; }
+  .mwla-fhead2 .mwla-pills3 { margin-top: 18px !important; }
   .mwla-inc .mws-cap, .mwla-inc .mws-dots, .mwla-inc .mws-btn { display: none !important; }
   .mwla-inc .mws-stage { aspect-ratio: 1.2 !important; }
   .mwla-inc .mws-print { --arn: 1.183; --ix: 5%; --iw: 90%; --iy: 5.9%; --ih: 79.9%; }
