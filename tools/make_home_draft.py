@@ -676,7 +676,12 @@ def la_map_svg(es):
                 'stroke="#FFF6E6" stroke-width="4" paint-order="stroke" stroke-linejoin="round">%s</text>') % (x, y, anchor, size, t)
     L = (lambda en, sp: sp) if es else (lambda en, sp: en)
     parts = [
-        '<rect width="600" height="360" fill="#F7EBD2"/>',
+        '<rect width="600" height="360" fill="#FFFDF8"/>',
+        # light street grid
+        '<g stroke="#E9E1D0" stroke-width="1.5"><path d="M140 60 H600 M140 100 H600 M120 260 H600 M120 300 H600 M260 40 V360 M340 60 V360 M420 90 V360 M560 60 V360"/></g>',
+        # beach strip, parks
+        '<path d="M118 0 C108 60 92 110 84 160 C76 210 92 262 74 310 C66 334 60 350 56 360 H72 C80 340 90 300 98 262 C104 220 94 170 102 120 C108 80 120 40 132 0 Z" fill="#F6E3B5"/>',
+        '<ellipse cx="372" cy="292" rx="34" ry="18" fill="#D6EDC6"/><ellipse cx="160" cy="120" rx="26" ry="14" fill="#D6EDC6"/><ellipse cx="560" cy="120" rx="22" ry="12" fill="#D6EDC6"/>',
         # hills: Santa Monica Mountains and Griffith Park
         '<path d="M150 0 C200 40 260 58 330 54 C390 50 430 30 470 0 Z" fill="#CFE8BE"/>',
         '<path d="M330 0 C350 50 400 78 450 70 C480 64 500 40 505 0 Z" fill="#BFE0AA"/>',
@@ -688,6 +693,9 @@ def la_map_svg(es):
         '<path d="M88 214 C200 206 330 214 470 222 C520 225 560 230 600 232" fill="none" stroke="#F4B942" stroke-width="7" stroke-linecap="round"/>',
         '<path d="M250 120 C320 150 380 175 470 212" fill="none" stroke="#F4B942" stroke-width="6" stroke-linecap="round"/>',
         '<path d="M190 0 C196 80 200 200 205 360" fill="none" stroke="#F4B942" stroke-width="5" stroke-linecap="round" opacity=".8"/>',
+        '<path d="M600 120 C560 150 520 190 500 222 C480 260 470 310 466 360" fill="none" stroke="#F4B942" stroke-width="5" stroke-linecap="round" opacity=".85"/>',
+        '<path d="M205 290 C300 296 420 300 600 306" fill="none" stroke="#F4B942" stroke-width="4" stroke-linecap="round" opacity=".7"/>',
+        '<g font-family="Fredoka, sans-serif" font-size="9" font-weight="700" fill="#fff"><rect x="236" y="204" width="22" height="14" rx="3" fill="#2E7DBF"/><text x="247" y="214.5" text-anchor="middle">10</text><rect x="360" y="152" width="26" height="14" rx="3" fill="#2E7DBF"/><text x="373" y="162.5" text-anchor="middle">101</text></g>',
         '<path d="M120 150 C230 140 340 130 470 140" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>',
         # landmarks from the stamp icon library
         ic("pier", "#2890B6", 104, 206, 92),
@@ -701,7 +709,7 @@ def la_map_svg(es):
         lab(118, 232, "Santa Monica"),
         lab(290, 148, "Hollywood"),
         lab(420, 98, L("Griffith Observatory", "Observatorio Griffith"), 14),
-        lab(520, 230, L("Downtown LA", "Centro de LA")),
+        lab(512, 146, L("Downtown LA", "Centro de LA")),
     ]
     return ('<svg class="gc-svg" viewBox="0 0 600 360" role="img" aria-label="%s" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">%s</svg>'
             % (L("Illustrated map of Los Angeles: Santa Monica, Hollywood, Griffith Observatory and Downtown LA",
@@ -768,7 +776,7 @@ def guidescard(es):
   .gc-col { position: relative; }
   .gc-map { display: block; position: relative; border: 2.5px solid #27302E; border-radius: 14px; box-shadow: 5px 5px 0 #27302E; overflow: hidden; background: #E0F1F8; transform: rotate(-1.5deg); aspect-ratio: 5 / 3; }
   .gc-map .gc-svg { position: absolute; inset: 0; width: 100%%; height: 100%%; display: block; }
-  .gc-ern { position: absolute; z-index: 4; width: 50px; height: auto; right: -8px; top: -44px; pointer-events: none; }
+  .gc-ern { position: absolute; z-index: 4; width: 46px; height: auto; left: -4px; top: 18%%; transform: scaleX(-1); pointer-events: none; }
   .gc-title { font-size: 31px !important; }
   .gc-cards { position: absolute; left: 4%%; right: 4%%; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .gc-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding: 10px 10px 12px; background: #fff; border: 2.5px solid #27302E; border-radius: 12px; box-shadow: 4px 4px 0 #27302E; transform: rotate(var(--rot)); text-decoration: none !important; color: #27302E !important; transition: transform .18s ease-out; }
@@ -790,13 +798,13 @@ def guidescard(es):
   .gc-badge { flex: none; width: 68px; height: 68px; border-radius: 50%%; transform: rotate(-4deg); filter: drop-shadow(3px 4px 0 rgba(39, 48, 46, .18)); }
   .gc-btn { white-space: nowrap; }
   @media (max-width: 899px) { .gc-act { justify-content: center; } .gc-btn { width: 100%%; justify-content: center; } }
-  .gc-stamp { position: absolute; top: -26px; left: -10px; width: 64px; pointer-events: none; z-index: 3; }
+  .gc-stamp { position: absolute; top: -22px; right: -12px; width: 62px; pointer-events: none; z-index: 5; }
   .gc-stamp svg.stamp { width: 100%%; height: auto; display: block; mix-blend-mode: multiply; opacity: .85; transform: rotate(var(--r, 8deg)); }
   @media (max-width: 380px) { .gc-btn { font-size: 16px; padding: 11px 16px; } .gc-name { font-size: 14.5px; } }
   @media (min-width: 900px) {
     .gc { padding: 52px 56px 46px; }
     .gc-grid { grid-template-columns: 42%% minmax(0, 1fr); column-gap: 48px; grid-template-areas: "text col" "act col"; align-items: center; row-gap: 26px; }
-    .gc-text { align-self: end; } .gc-act { align-self: start; justify-content: flex-start; gap: 18px; }
+    .gc-text { align-self: end; } .gc-act { align-self: start; justify-content: center; gap: 18px; }
     .gc-title { font-size: 42px; }
     .gc-sub { font-size: 22px; margin: 10px 0 14px; }
     .gc-body { font-size: 17.5px; }
@@ -805,8 +813,8 @@ def guidescard(es):
     .gc-art svg.stamp { width: 92px; }
     .gc-name { font-size: 18px; }
     .gc-btn { font-size: 20px; padding: 14px 28px; }
-    .gc-stamp { top: -40px; left: -34px; width: 90px; }
-    .gc-ern { width: 96px; right: -46px; top: 14%%; }
+    .gc-stamp { top: -34px; right: -28px; width: 88px; }
+    .gc-ern { width: 88px; left: auto; right: -24px; top: 30%%; transform: none; }
     .gc-title { font-size: 44px !important; }
   }
   @media (prefers-reduced-motion: reduce) { .gc-btn, .gc-card { transition: none; } }
