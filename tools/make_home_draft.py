@@ -12,7 +12,7 @@ Cuts:
   private  Private tour: one photo, the Urban Light print.
 Run from the repo root:  python3 tools/make_home_draft.py
 """
-import re
+import json, re
 from pathlib import Path
 
 PE = Path(__file__).resolve().parent.parent / "page-embeds"
@@ -75,15 +75,15 @@ def hero(src, es):
     P = lambda i, tone, t: '<button type="button" class="mwh-hl" data-tone="%s" data-i="%d">%s</button>' % (tone, i, t)
     if es:
         # round 15 (Marlon, Nov 25): one line, then the two toggles on their own row
-        tag = ('<p class="mwh-tagline">Explora Los &Aacute;ngeles con un local, para viajeros solos, parejas, amigos y familias.</p>\n'
+        tag = ('<p class="mwh-tagline">Free tours y excursiones privadas en Los &Aacute;ngeles, para viajeros solos, parejas, amigos y familias.</p>\n'
                '      <div class="mwh-who mwh-tog" role="group" aria-label="Elige un tour">%s%s</div>'
                % (P(0, "pink", "Free Tour"), P(1, "orange", "Tour Privado")))
-        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 rese&ntilde;as</p>'
+        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525+ rese&ntilde;as &middot; 7,000+ viajeros</p>'
     else:
-        tag = ('<p class="mwh-tagline">Explore Los Angeles with a local, for solo travelers, couples, friends, and families.</p>\n'
+        tag = ('<p class="mwh-tagline">Free walking tours and private tours in Los Angeles, for solo travelers, couples, friends, and families.</p>\n'
                '      <div class="mwh-who mwh-tog" role="group" aria-label="Choose a tour">%s%s</div>'
                % (P(0, "pink", "Free Tour"), P(1, "orange", "Private Tour")))
-        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525 reviews</p>'
+        rate = '<p class="mwh-rate"><span aria-hidden="true">&#9733;</span> 4.9 &middot; 525+ reviews &middot; 7,000+ travelers</p>'
     s, n = re.subn(r'\s*<p class="mwh-line" id="mwh-line">[\s\S]*?</p>', "\n      " + tag, s, count=1)
     assert n == 1, "hero line"
     # round 12: the rating sits right under "& Ernesto!"
@@ -221,6 +221,109 @@ def book():
     s = re.sub(r'<figure class="mws-slide" data-cap="Walt Disney Concert Hall"[\s\S]*?</figure>', lambda m: crew, s, count=1)
     return s
 
+
+
+def book_v2(s):
+    """Nov 25, 2026 (Marlon via Gemini): Free Tours card as a true two-column postcard, about 30% shorter.
+    Left: title, subtitle, 2-line text, 3 pills, stops, then the group photo (4:3). Right: the calendar from the top.
+    No quote, no caption, no INCLUDED label, no meeting-point pill. Two ink stamps tucked into corners. SEO copy."""
+    import sys as _s2
+    _s2.path.insert(0, str(PE))
+    import stamps as _ST
+    EN = dict(title="Free Walking Tour: Downtown Los Angeles", tag="Historic walking tour for first-time visitors",
+              line='Learn LA&#39;s history with a local guide on a <mark class="mk" data-tone="green">2.5-Hour Walk</mark> from Bunker Hill&#39;s arts district to Olvera Street (Placita Olvera), where the Spanish and Mexican pueblo began. It&#39;s <mark class="mk" data-tone="orange">Tip-Based</mark>, with an <mark class="mk" data-tone="blue">Instant Photo</mark> to remember it.')
+    ES = dict(title="Free Tour: Centro Histórico de Los Ángeles", tag="Visita guiada histórica en español por el centro de LA",
+              line='Aprende la historia de LA con un guía local en una <mark class="mk" data-tone="green">Caminata de 2,5 Horas</mark> desde Bunker Hill hasta la Placita Olvera (Olvera Street), donde nació el pueblo. Es <mark class="mk" data-tone="orange">A Base de Propinas</mark>, con una <mark class="mk" data-tone="blue">Foto Instantánea</mark> de recuerdo.')
+    STOPS = "Walt Disney Concert Hall · The Broad · Angels Flight · Grand Central Market · Bradbury Building · City Hall · "
+    # 1. move the head text into the left column, above the photo
+    m = re.search(r'<div class="mwla-book-head">\s*<div class="mwla-book-head-text">([\s\S]*?)</div>\s*</div>\s*', s)
+    assert m, "book head"
+    head = m.group(1)
+    s = s[:m.start()] + s[m.end():]
+    # 2. pills: no label, no meeting point, three in one row
+    pills = ('<ul class="mwla-inc-pills mwla-pills3">'
+             '<li class="yes"><span aria-hidden="true">&#9201;&#65039;</span> <span data-es="2,5 horas">2.5 hours</span></li>'
+             '<li class="yes"><span aria-hidden="true">&#128155;</span> <span data-es="Basado en propinas">Tip-based</span></li>'
+             '<li class="yes"><span aria-hidden="true">&#127873;</span> <span data-es="Foto instantánea">Instant photo</span></li></ul>')
+    head, n = re.subn(r'<div class="mwla-inc-grp">[\s\S]*?</ul></div>', lambda _: pills, head, count=1); assert n == 1, "pills"
+    stops = ('<p class="mwla-stops"><b data-es="Paradas:">Stops:</b> <span data-es="%sPlacita Olvera">%sOlvera Street</span></p>' % (STOPS, STOPS))
+    head, n = re.subn(r'<p class="mwla-stops">[\s\S]*?</p>', lambda _: stops, head, count=1); assert n == 1, "stops"
+    head = head.replace(">Free Tours<", ">%s<" % EN["title"]).replace(">Walk Back in Time<", ">%s<" % EN["tag"])
+    head, n = re.subn(r'(<p class="pc-line" data-pi="line">)[^<]*', lambda m_: m_.group(1) + EN["line"], head, count=1); assert n == 1, "line"
+    stamp2 = _ST.stamp("fbo", "PLACITA OLVERA", "DOWNTOWN LA", "papel", "1781", "#7A3FA0", rot=-10, seed=8)
+    head = re.sub(r'<ul class="mwla-inc-pills mwla-pills3">[\s\S]*?</ul>', '', head)
+    _k = head.index('<p class="mwla-stops"')
+    top, bottom = head[:_k].strip(), head[_k:].strip()
+    s, n = re.subn(r'(<div class="mwla-fleft">)', lambda m_: m_.group(1) + '\n      <div class="mwla-fhead">' + top + '</div>', s, count=1); assert n == 1, "fleft"
+    s, n = re.subn(r'(<div class="mwla-inc" id="mwla-inc">)', lambda m_: m_.group(1) + '\n        <div class="mwla-fstamp mwla-fstamp-b" aria-hidden="true">' + stamp2 + '</div>', s, count=1); assert n == 1, "inc"
+    # 3. no quote, no caption
+    s, n = re.subn(r'\s*<figure class="mwla-q">[\s\S]*?</figure>', lambda _: '\n      <div class="mwla-fhead mwla-fhead2">' + bottom + '</div>', s, count=1); assert n == 1, "quote"
+    s = s.replace(' data-cap="Marlon with the whole crew" data-cap-es="Marlon con todo el grupo"', "")
+    # 4. stamp on the calendar card's top-right corner
+    stamp1 = _ST.stamp("fba", "ANGELS FLIGHT", "FREE TOUR", "angels", "1901", "#C2318A", rot=9, seed=5)
+    s, n = re.subn(r'(<div class="mwla-fcard">)', lambda m_: m_.group(1) + '\n      <div class="mwla-fstamp mwla-fstamp-a" aria-hidden="true">' + stamp1 + '</div>', s, count=1); assert n == 1, "fcard"
+    # 5. copy in the language table (page language picks these)
+    s = s.replace('if (t[k] != null) el.textContent = t[k]; });', 'if (t[k] != null) { if (k === "line") el.innerHTML = t[k]; else el.textContent = t[k]; } });', 1)
+    m = re.search(r"const T = (\{.*?\});\n", s); assert m, "T"
+    T = json.loads(m.group(1))
+    T["en"].update(EN); T["es"].update(ES)
+    s = s[:m.start(1)] + json.dumps(T, ensure_ascii=False) + s[m.end(1):]
+    s += """
+<style>/* Nov 25, 2026: Free Tours card v2 (two-column postcard, about 30% shorter) */
+  .mwla-fgrid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) !important; gap: 34px !important; align-items: start; }
+  .mwla-fhead .mwla-book-title { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  .mwla-fhead .mwla-book-tag { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; line-height: 1.3; color: #9C1458; margin: 6px 0 10px; }
+  .mwla-fhead .pc-line { max-width: none; margin: 0; font-size: 1.02rem; }
+  .mwla-pills3 { margin: 14px 0 0 !important; flex-wrap: nowrap; }
+  .mwla-fhead .mwla-stops { margin-top: 12px; font-size: .92rem; }
+  .mwla-fleft .mwla-inc { position: relative; margin-top: 16px; }
+  .mwla-fhead2 .mwla-pills3 { margin-top: 18px !important; }
+  .mwla-inc .mws-cap, .mwla-inc .mws-dots, .mwla-inc .mws-btn { display: none !important; }
+  .mwla-inc .mws-stage { aspect-ratio: 1.2 !important; }
+  .mwla-inc .mws-print { --arn: 1.183; --ix: 5%; --iw: 90%; --iy: 5.9%; --ih: 79.9%; }
+  .mwla-inc-pills.mwla-pills3 { gap: 0 !important; flex-wrap: wrap; }
+  .mwla-inc-pills.mwla-pills3 li.yes { white-space: nowrap; background: none !important; border: 0 !important; border-radius: 0; padding: 0 !important; color: #27302E !important; font-weight: 700; font-size: 1rem !important; }
+  .mwla-inc-pills.mwla-pills3 li > span[aria-hidden] { display: none; }
+  .mwla-inc-pills.mwla-pills3 li > span:not([aria-hidden]) { background: linear-gradient(transparent 55%, rgba(255, 212, 59, .8) 55%, rgba(255, 212, 59, .8) 92%, transparent 92%); padding: 0 3px; }
+  .mwla-inc-pills.mwla-pills3 li:not(:last-child)::after { content: "·"; margin: 0 10px; color: rgba(39, 48, 46, .45); font-weight: 400; }
+  @media (max-width: 480px) { .mwla-inc-pills.mwla-pills3 li.yes { font-size: .9rem !important; } .mwla-inc-pills.mwla-pills3 li:not(:last-child)::after { margin: 0 6px; } }
+  .mwla-inc .mws { max-width: 460px; margin: 0 auto; }
+  .mwla-fcard { position: relative; }
+  .mwla-card-h { display: none !important; }
+  .mwla-lang-opt, .mwla-lang-time { white-space: nowrap; }
+  .mwla-fhead .pc-line { line-height: 1.75; }
+  .mwla-fhead mark.mk { color: #27302E; font-weight: 700; padding: 2px 7px; border-radius: 5px; background: var(--tone); -webkit-box-decoration-break: clone; box-decoration-break: clone; white-space: nowrap; }
+  .mwla-fhead mark.mk[data-tone="green"] { --tone: #86D69E; }
+  .mwla-fhead mark.mk[data-tone="orange"] { --tone: #FFAE63; }
+  .mwla-fhead mark.mk[data-tone="blue"] { --tone: #8ECFEA; }
+  .mwla-fhead2 .mwla-stops { text-align: center; margin-top: 14px; }
+  .mwla-book-cal { max-height: 620px !important; }
+  .mwla-fstamp { position: absolute; pointer-events: none; z-index: 3; }
+  .mwla-fstamp svg.stamp { display: block; width: 100%; height: auto; mix-blend-mode: multiply; opacity: .9; transform: rotate(var(--r, -8deg)); }
+  .mwla-fstamp-a { width: 84px; top: -40px; right: -34px; }
+  .mwla-fstamp-b { width: 84px; left: -28px; bottom: -26px; z-index: 0; }
+  .mwla-inc .mws { position: relative; z-index: 1; }
+  @media (min-width: 992px) {
+    .mw-bg-book .w-container:has(#book) { max-width: 1100px !important; }
+    .mwla-book { max-width: none !important; }
+    .mwla-inc .mws { grid-template-columns: 0 minmax(0, 1fr) 0 !important; max-width: none !important; width: 84%; margin: 0 auto; }
+    .mwla-inc .mws-stage { aspect-ratio: 1.183 !important; }
+    .mwla-fhead2 .mwla-pills3 { justify-content: center; margin-top: 12px !important; }
+    /* left column runs the full height of the calendar card: photo, row and stops sit at the bottom */
+    .mwla-fcard { align-self: start; }
+    .mwla-inc-pills.mwla-pills3 li.yes { font-size: 1.05rem !important; }
+  }
+  @media (max-width: 991px) {
+    .mwla-fgrid { grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; }
+    .mwla-fstamp-a { width: 70px; top: -22px; right: -8px; }
+  }
+  @media (max-width: 640px) {
+    .mwla-book-cal { max-height: 600px !important; }
+    .mwla-pills3 { flex-wrap: wrap; }
+    .mwla-fstamp-b { width: 64px; left: -4px; bottom: -12px; }
+  }
+</style>"""
+    return s
 
 def team(src):
     return keep_slides((PE / src).read_text(), 'data-c="birthday"')
@@ -585,7 +688,7 @@ CAL_NOSCROLL = """<script>
 OUT = {
     "home-hero-draft.html": hero("home-hero.html", False),
     "home-hero-es-draft.html": hero("home-hero-es.html", True),
-    "home-book-draft.html": book_stops(book()) + CAL_NOSCROLL,
+    "home-book-draft.html": book_v2(book_stops(book())) + CAL_NOSCROLL,
     "home-packages-draft.html": packages("en"),
     "home-packages-es-draft.html": packages("es"),
     "home-routebreak-draft.html": mapfacade(False),
@@ -608,9 +711,39 @@ for name, html in OUT.items():
 # Nov 25, 2026 (speed): the hero is pasted straight into the Home and /es embed (Webflow element
 # e2a6c92c-f998-5c7c-e007-3a5db12425a2 on both pages), not fetched. These are the paste-ready copies:
 # HTML comments stripped, must stay under Webflow's 50,000-character embed limit.
+# Nov 25, 2026 (split): the embed keeps only the words, photos and one tiny width script (~3,000 chars),
+# so copy edits are small. Styles go to page-embeds/home-hero.css, the slider and form scripts plus the
+# ink stamps (EN and ES) to page-embeds/home-hero.js. Both are loaded from jsDelivr pinned to the commit
+# in tools/hero-assets-sha.txt (cached for a year). After changing styles/scripts/stamps: run this,
+# commit and push, put the new commit hash in tools/hero-assets-sha.txt, run again, paste the embeds.
+_T = Path(__file__).resolve().parent
+_sha = (_T / "hero-assets-sha.txt").read_text().strip()
+_cdn = "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@%s/page-embeds/" % _sha
+_css, _js, _stamps = None, None, {}
+_WIDTH = "<script>\n/* Full-width hero: use the width WITHOUT the scrollbar so the airmail edge is not cut at the screen sides */\n(function(){var h=document.querySelector('.mwh');if(!h)return;function f(){h.style.setProperty('--mwh-w',document.documentElement.clientWidth+'px');}f();window.addEventListener('resize',f);document.addEventListener('DOMContentLoaded',f);})();\n</script>"
 for _src, _lang in (("home-hero-draft", "en"), ("home-hero-es-draft", "es")):
     _s = re.sub(r"<!--.*?-->\s*", "", (PE / (_src + ".html")).read_text(), flags=re.S)
-    _s = ("<!-- Home hero, inlined for speed (Nov 25, 2026). Source: page-embeds/%s.html, built by tools/make_home_draft.py. Edit there, then paste here. -->\n" % _src) + _s.strip() + "\n"
-    assert len(_s) < 50000, (_src, len(_s))
-    (Path(__file__).resolve().parent / ("home-hero-embed-%s.html" % _lang)).write_text(_s)
-    print("embed", _lang, len(_s), "chars")
+    _st = re.findall(r"<style>([\s\S]*?)</style>", _s)
+    _sc = [x for x in re.findall(r"<script>[\s\S]*?</script>", _s)]
+    assert _WIDTH in _sc, "width script"
+    _keep = [_WIDTH] + [x for x in _sc if "Spanish Home:" in x]
+    _shared = [re.sub(r"^<script>|</script>$", "", x).strip() for x in _sc if x not in _keep]
+    _c = "\n".join(x.strip() for x in _st)
+    _j = "\n;\n".join(_shared)
+    assert _css in (None, _c) and _js in (None, _j), "EN and ES hero styles/scripts differ"
+    _css, _js = _c, _j
+    _m = re.search(r'(<div class="mwh-stamps" aria-hidden="true">)([\s\S]*?)(</div>\s*</div>\s*</section>)', _s)
+    _stamps[_lang] = _m.group(2)
+    _mark = _s[:_m.start(2)] + _s[_m.end(2):]
+    _mark = re.sub(r"<style>[\s\S]*?</style>\s*|<script>[\s\S]*?</script>\s*", "", _mark).strip()
+    _out = ("<!-- Home hero (split Nov 25, 2026). Source: page-embeds/%s.html, built by tools/make_home_draft.py. Styles, scripts and stamps: page-embeds/home-hero.css/.js @ %s. -->\n" % (_src, _sha[:7])
+            + '<link rel="stylesheet" href="%shome-hero.css">\n' % _cdn + _mark + "\n" + "\n".join(_keep)
+            + '\n<script src="%shome-hero.js" defer></script>\n' % _cdn)
+    assert len(_out) < 50000, (_src, len(_out))
+    (_T / ("home-hero-embed-%s.html" % _lang)).write_text(_out)
+    print("embed", _lang, len(_out), "chars")
+(PE / "home-hero.css").write_text("/* Home and /es hero styles. Built by tools/make_home_draft.py from page-embeds/home-hero-draft.html. Do not edit by hand. */\n" + _css + "\n")
+(PE / "home-hero.js").write_text("/* Home and /es hero: ink stamps, slider and form helpers. Built by tools/make_home_draft.py. Do not edit by hand. */\n"
+    + "(function(){var S=" + json.dumps(_stamps) + ";var b=document.querySelector('.mwh .mwh-stamps');if(b&&!b.firstChild){var l=(document.querySelector('.mwh')||{}).lang==='es'?'es':'en';b.innerHTML=S[l];}})();\n;\n"
+    + _js + "\n")
+print("home-hero.css", len(_css), "home-hero.js", len(_js))

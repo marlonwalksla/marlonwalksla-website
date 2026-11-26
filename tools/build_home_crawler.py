@@ -11,7 +11,7 @@ def t(x):  # section strings hold HTML entities and <mark> tags
     return html.escape(html.unescape(re.sub(r"<[^>]+>", "", x)), quote=False)
 
 COPY = {
- "en": dict(h1="Explore LA with Marlon", lead="Explore Los Angeles with a local, for solo travelers, couples, friends, and families. Free Walking Tour or Private Tours. 4.9 stars from 525 reviews.",
+ "en": dict(h1="Explore LA with Marlon", lead="Free walking tours and private tours in Los Angeles, for solo travelers, couples, friends, and families. 4.9 stars from 525+ reviews, 7,000+ travelers.",
    free_h="Free Walking Tour of Historic Downtown LA",
    free=["Come walk LA's historic downtown. Start at Bunker Hill, home of LA's arts buildings, then walk backwards in time to Placita Olvera, where the Spanish and Mexican pueblo began.",
          "For first-timers and history lovers. English tour at 12:30 PM and Spanish tour at 9:30 AM. Meet at Walt Disney Concert Hall, 600 W 1st St. Free to book, tip what feels right at the end. About 2.5 hours on foot.",
@@ -22,7 +22,7 @@ COPY = {
    meet_h="Meet Your Local Guide", meet="I was born a few minutes from where my free tour starts, and I grew up speaking Spanish at home. Today I guide walks around Los Angeles in English and Spanish, with my sidekick Ernesto.",
    meet_links='<a href="/about">About Marlon</a> · <a href="/history">LA history stories</a>',
    ig_h="Capturing Moments in LA", ig='Instant photos from our tours and from my own adventures around the city. <a href="https://www.instagram.com/marlonwalksla/">@marlonwalksla on Instagram</a>'),
- "es": dict(h1="Explora LA con Marlon", lead="Explora Los Ángeles con un local, para viajeros solos, parejas, amigos y familias. Free tour en español o tours privados. 4,9 estrellas en 525 reseñas.",
+ "es": dict(h1="Explora LA con Marlon", lead="Free tours y excursiones privadas en Los Ángeles, para viajeros solos, parejas, amigos y familias. Free tour en español o inglés. 4,9 estrellas en 525+ reseñas, 7,000+ viajeros.",
    free_h="Free tour a pie por el centro histórico de Los Ángeles",
    free=["Ven a caminar por el centro histórico de LA. Empezamos en Bunker Hill, donde están los edificios de las artes de LA, y retrocedemos en el tiempo hasta la Placita Olvera, donde nació el pueblo español y mexicano.",
          "Para primerizos y amantes de la historia. Tour en español a las 9:30 AM y en inglés a las 12:30 PM. Punto de encuentro: Walt Disney Concert Hall, 600 W 1st St. Reserva gratis y deja la propina que quieras al final. Unas 2,5 horas a pie.",
