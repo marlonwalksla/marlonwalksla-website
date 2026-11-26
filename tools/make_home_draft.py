@@ -673,7 +673,7 @@ def guidescard(es):
         sub=("Deja que Ernesto te gu&iacute;e." if es else "Let Ernesto show you."),
         body=(("Ernesto arm&oacute; %s gratis y un %s con m&aacute;s de 200 lugares para comer y visitar, para que explores Los &Aacute;ngeles sin estr&eacute;s." % (M("green", "pasaportes de LA"), M("blue", "mapa local"))) if es else
               ("Ernesto put together free %s and a %s with 200+ food and sightseeing spots, so you can explore Los Angeles with confidence." % (M("green", "LA passports"), M("blue", "local map")))),
-        btn=("Ver las Gu&iacute;as de Ernesto" if es else "Explore Ernesto&rsquo;s Guides"),
+        btn=("Ver las Gu&iacute;as de Ernesto" if es else "See Ernesto&rsquo;s Guides"),
         href="/maps?%sfrom=home" % q,
         alt=("Vista previa del mapa de recomendaciones de Los &Aacute;ngeles de Marlon" if es else "Preview of Marlon&rsquo;s Los Angeles recommendations map"),
         ern=("Ernesto, el burrito de pi&ntilde;ata, se&ntilde;alando las gu&iacute;as" if es else "Ernesto the pi&ntilde;ata donkey pointing to the guides"),
@@ -692,7 +692,7 @@ def guidescard(es):
 <section class="gc" aria-label="%(title)s" data-lang="%(lang)s">
   <div class="gc-grid">
     <div class="gc-text">
-      <h2 class="gc-title">%(title)s</h2>
+      <div class="gc-head"><img class="gc-badge" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%%20Full.avif" alt="%(ern)s" width="512" height="512" loading="lazy" decoding="async"><h2 class="gc-title">%(title)s</h2></div>
       <p class="gc-sub">%(sub)s</p>
       <p class="gc-body">%(body)s</p>
     </div>
@@ -703,7 +703,6 @@ def guidescard(es):
     </div>
     <div class="gc-act">
       <a class="gc-btn" href="%(href)s">%(btn)s &rarr;</a>
-      <img class="gc-ern" src="%(ern_src)s" alt="%(ern)s" width="541" height="800" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -712,7 +711,7 @@ def guidescard(es):
   .gc *, .gc *::before, .gc *::after { box-sizing: border-box; }
   .gc-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "col" "act"; row-gap: 18px; }
   .gc-text { grid-area: text; } .gc-col { grid-area: col; } .gc-act { grid-area: act; }
-  .gc-title { margin: 0; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 30px; line-height: 1.08; color: #27302E; text-wrap: balance; }
+  .gc-title { flex: 1; min-width: 0; margin: 0; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 30px; line-height: 1.08; color: #27302E; text-wrap: balance; }
   .gc-sub { margin: 8px 0 10px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 19px; line-height: 1.3; color: #1D6F8F; }
   .gc-body { margin: 0; font-size: 16.5px; line-height: 1.75; color: #27302E; }
   .gc mark.mk { color: #27302E; font-weight: 700; padding: 2px 7px; border-radius: 5px; background: var(--tone); white-space: nowrap; }
@@ -735,7 +734,10 @@ def guidescard(es):
   .gc-btn { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 22px; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 18px; line-height: 1.1; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; box-shadow: 4px 4px 0 #27302E; transition: transform .18s ease-out, box-shadow .18s ease-out; }
   .gc-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
   .gc-btn:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
-  .gc-ern { width: 74px; height: auto; pointer-events: none; }
+  .gc-head { display: flex; align-items: center; gap: 12px; }
+  .gc-badge { flex: none; width: 68px; height: 68px; border-radius: 50%%; transform: rotate(-4deg); filter: drop-shadow(3px 4px 0 rgba(39, 48, 46, .18)); }
+  .gc-btn { white-space: nowrap; }
+  @media (max-width: 899px) { .gc-act { justify-content: center; } .gc-btn { width: 100%%; justify-content: center; } }
   .gc-stamp { position: absolute; top: -24px; right: -8px; width: 64px; pointer-events: none; z-index: 3; }
   .gc-stamp svg.stamp { width: 100%%; height: auto; display: block; mix-blend-mode: multiply; opacity: .85; transform: rotate(var(--r, 8deg)); }
   @media (max-width: 380px) { .gc-btn { font-size: 16px; padding: 11px 16px; } .gc-name { font-size: 14.5px; } }
@@ -743,7 +745,7 @@ def guidescard(es):
     .gc { padding: 52px 56px 46px; }
     .gc-grid { grid-template-columns: 42%% minmax(0, 1fr); column-gap: 48px; grid-template-areas: "text col" "act col"; align-items: center; row-gap: 26px; }
     .gc-text { align-self: end; } .gc-act { align-self: start; justify-content: flex-start; gap: 18px; }
-    .gc-title { font-size: 46px; }
+    .gc-title { font-size: 42px; }
     .gc-sub { font-size: 22px; margin: 10px 0 14px; }
     .gc-body { font-size: 17.5px; }
     .gc-col { padding-bottom: 110px; }
@@ -751,7 +753,8 @@ def guidescard(es):
     .gc-art svg.stamp { width: 92px; }
     .gc-name { font-size: 18px; }
     .gc-btn { font-size: 20px; padding: 14px 28px; }
-    .gc-ern { width: 110px; transform: scaleX(-1); }
+    .gc-badge { width: 104px; height: 104px; }
+    .gc-head { gap: 18px; }
     .gc-stamp { top: -38px; right: -30px; width: 92px; }
   }
   @media (prefers-reduced-motion: reduce) { .gc-btn, .gc-card { transition: none; } }
