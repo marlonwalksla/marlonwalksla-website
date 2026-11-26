@@ -231,9 +231,9 @@ def book_v2(s):
     _s2.path.insert(0, str(PE))
     import stamps as _ST
     EN = dict(title="Free Walking Tour: Downtown Los Angeles", tag="Historic walking tour for first-time visitors",
-              line="Learn LA's history with a local guide. Start at Bunker Hill's arts district and walk to Olvera Street (Placita Olvera), where the Spanish and Mexican pueblo began.")
+              line='Learn LA&#39;s history with a local guide on a <mark class="mk" data-tone="green">2.5-Hour Walk</mark> from Bunker Hill&#39;s arts district to Olvera Street (Placita Olvera), where the Spanish and Mexican pueblo began. It&#39;s <mark class="mk" data-tone="orange">Tip-Based</mark>, with an <mark class="mk" data-tone="blue">Instant Photo</mark> to remember it.')
     ES = dict(title="Free Tour: Centro Histórico de Los Ángeles", tag="Visita guiada histórica en español por el centro de LA",
-              line="Aprende la historia de LA con un guía local. Empieza en Bunker Hill y camina hasta la Placita Olvera (Olvera Street), donde nació el pueblo.")
+              line='Aprende la historia de LA con un guía local en una <mark class="mk" data-tone="green">Caminata de 2,5 Horas</mark> desde Bunker Hill hasta la Placita Olvera (Olvera Street), donde nació el pueblo. Es <mark class="mk" data-tone="orange">A Base de Propinas</mark>, con una <mark class="mk" data-tone="blue">Foto Instantánea</mark> de recuerdo.')
     STOPS = "Walt Disney Concert Hall · The Broad · Angels Flight · Grand Central Market · Bradbury Building · City Hall · "
     # 1. move the head text into the left column, above the photo
     m = re.search(r'<div class="mwla-book-head">\s*<div class="mwla-book-head-text">([\s\S]*?)</div>\s*</div>\s*', s)
@@ -246,12 +246,13 @@ def book_v2(s):
              '<li class="yes"><span aria-hidden="true">&#128155;</span> <span data-es="Basado en propinas">Tip-based</span></li>'
              '<li class="yes"><span aria-hidden="true">&#127873;</span> <span data-es="Foto instantánea">Instant photo</span></li></ul>')
     head, n = re.subn(r'<div class="mwla-inc-grp">[\s\S]*?</ul></div>', lambda _: pills, head, count=1); assert n == 1, "pills"
-    stops = ('<p class="mwla-stops"><b data-es="Paradas:">Stops:</b> <span data-es="%sPlacita Olvera (Olvera Street)">%sOlvera Street (Placita Olvera)</span></p>' % (STOPS, STOPS))
+    stops = ('<p class="mwla-stops"><b data-es="Paradas:">Stops:</b> <span data-es="%sPlacita Olvera">%sOlvera Street</span></p>' % (STOPS, STOPS))
     head, n = re.subn(r'<p class="mwla-stops">[\s\S]*?</p>', lambda _: stops, head, count=1); assert n == 1, "stops"
     head = head.replace(">Free Tours<", ">%s<" % EN["title"]).replace(">Walk Back in Time<", ">%s<" % EN["tag"])
-    head, n = re.subn(r'(<p class="pc-line" data-pi="line">)[^<]*', lambda m_: m_.group(1) + EN["line"].replace("'", "&#39;"), head, count=1); assert n == 1, "line"
+    head, n = re.subn(r'(<p class="pc-line" data-pi="line">)[^<]*', lambda m_: m_.group(1) + EN["line"], head, count=1); assert n == 1, "line"
     stamp2 = _ST.stamp("fbo", "PLACITA OLVERA", "DOWNTOWN LA", "papel", "1781", "#7A3FA0", rot=-10, seed=8)
-    _k = head.index('<ul class="mwla-inc-pills')
+    head = re.sub(r'<ul class="mwla-inc-pills mwla-pills3">[\s\S]*?</ul>', '', head)
+    _k = head.index('<p class="mwla-stops"')
     top, bottom = head[:_k].strip(), head[_k:].strip()
     s, n = re.subn(r'(<div class="mwla-fleft">)', lambda m_: m_.group(1) + '\n      <div class="mwla-fhead">' + top + '</div>', s, count=1); assert n == 1, "fleft"
     s, n = re.subn(r'(<div class="mwla-inc" id="mwla-inc">)', lambda m_: m_.group(1) + '\n        <div class="mwla-fstamp mwla-fstamp-b" aria-hidden="true">' + stamp2 + '</div>', s, count=1); assert n == 1, "inc"
@@ -262,6 +263,7 @@ def book_v2(s):
     stamp1 = _ST.stamp("fba", "ANGELS FLIGHT", "FREE TOUR", "angels", "1901", "#C2318A", rot=9, seed=5)
     s, n = re.subn(r'(<div class="mwla-fcard">)', lambda m_: m_.group(1) + '\n      <div class="mwla-fstamp mwla-fstamp-a" aria-hidden="true">' + stamp1 + '</div>', s, count=1); assert n == 1, "fcard"
     # 5. copy in the language table (page language picks these)
+    s = s.replace('if (t[k] != null) el.textContent = t[k]; });', 'if (t[k] != null) { if (k === "line") el.innerHTML = t[k]; else el.textContent = t[k]; } });', 1)
     m = re.search(r"const T = (\{.*?\});\n", s); assert m, "T"
     T = json.loads(m.group(1))
     T["en"].update(EN); T["es"].update(ES)
@@ -287,6 +289,14 @@ def book_v2(s):
   @media (max-width: 480px) { .mwla-inc-pills.mwla-pills3 li.yes { font-size: .9rem !important; } .mwla-inc-pills.mwla-pills3 li:not(:last-child)::after { margin: 0 6px; } }
   .mwla-inc .mws { max-width: 460px; margin: 0 auto; }
   .mwla-fcard { position: relative; }
+  .mwla-card-h { display: none !important; }
+  .mwla-fhead .pc-line { line-height: 1.75; }
+  .mwla-fhead mark.mk { color: #27302E; font-weight: 700; padding: 2px 7px; border-radius: 5px; background: var(--tone); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .mwla-fhead mark.mk[data-tone="green"] { --tone: #86D69E; }
+  .mwla-fhead mark.mk[data-tone="orange"] { --tone: #FFAE63; }
+  .mwla-fhead mark.mk[data-tone="blue"] { --tone: #8ECFEA; }
+  .mwla-fhead2 .mwla-stops { text-align: center; margin-top: 14px; }
+  @media (min-width: 992px) { .mwla-book-cal { min-height: 616px !important; } }
   .mwla-book-cal { max-height: 620px !important; }
   .mwla-fstamp { position: absolute; pointer-events: none; z-index: 3; }
   .mwla-fstamp svg.stamp { display: block; width: 100%; height: auto; mix-blend-mode: multiply; opacity: .9; transform: rotate(var(--r, -8deg)); }
