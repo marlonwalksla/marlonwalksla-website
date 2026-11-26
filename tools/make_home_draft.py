@@ -222,6 +222,79 @@ def book():
     return s
 
 
+
+def book_v2(s):
+    """Nov 25, 2026 (Marlon via Gemini): Free Tours card as a true two-column postcard, about 30% shorter.
+    Left: title, subtitle, 2-line text, 3 pills, stops, then the group photo (4:3). Right: the calendar from the top.
+    No quote, no caption, no INCLUDED label, no meeting-point pill. Two ink stamps tucked into corners. SEO copy."""
+    import sys as _s2
+    _s2.path.insert(0, str(PE))
+    import stamps as _ST
+    EN = dict(title="Free Walking Tour: Downtown Los Angeles", tag="Historic walking tour for first-time visitors",
+              line="Explore Downtown LA with a local guide. Start at Bunker Hill's arts district and walk through LA's history to Olvera Street (Placita Olvera), where the Spanish and Mexican pueblo began.")
+    ES = dict(title="Free Tour: Centro Histórico de Los Ángeles", tag="Visita guiada histórica en español por el centro de LA",
+              line="Explora el centro de Los Ángeles con un guía local. Empieza en Bunker Hill y recorre la historia de la ciudad hasta la Placita Olvera (Olvera Street), donde nació el pueblo.")
+    STOPS = "Walt Disney Concert Hall · The Broad · Angels Flight · Grand Central Market · Bradbury Building · City Hall · "
+    # 1. move the head text into the left column, above the photo
+    m = re.search(r'<div class="mwla-book-head">\s*<div class="mwla-book-head-text">([\s\S]*?)</div>\s*</div>\s*', s)
+    assert m, "book head"
+    head = m.group(1)
+    s = s[:m.start()] + s[m.end():]
+    # 2. pills: no label, no meeting point, three in one row
+    pills = ('<ul class="mwla-inc-pills mwla-pills3">'
+             '<li class="yes"><span aria-hidden="true">&#9201;&#65039;</span> <span data-es="2,5 horas">2.5 hours</span></li>'
+             '<li class="yes"><span aria-hidden="true">&#128155;</span> <span data-es="Basado en propinas">Tip-based</span></li>'
+             '<li class="yes"><span aria-hidden="true">&#127873;</span> <span data-es="Sticker de Ernesto">Ernesto sticker</span></li></ul>')
+    head, n = re.subn(r'<div class="mwla-inc-grp">[\s\S]*?</ul></div>', lambda _: pills, head, count=1); assert n == 1, "pills"
+    stops = ('<p class="mwla-stops"><b data-es="Paradas:">Stops:</b> <span data-es="%sPlacita Olvera (Olvera Street)">%sOlvera Street (Placita Olvera)</span></p>' % (STOPS, STOPS))
+    head, n = re.subn(r'<p class="mwla-stops">[\s\S]*?</p>', lambda _: stops, head, count=1); assert n == 1, "stops"
+    head = head.replace(">Free Tours<", ">%s<" % EN["title"]).replace(">Walk Back in Time<", ">%s<" % EN["tag"])
+    head, n = re.subn(r'(<p class="pc-line" data-pi="line">)[^<]*', lambda m_: m_.group(1) + EN["line"].replace("'", "&#39;"), head, count=1); assert n == 1, "line"
+    stamp2 = _ST.stamp("fbo", "PLACITA OLVERA", "DOWNTOWN LA", "papel", "1781", "#7A3FA0", rot=-10, seed=8)
+    s, n = re.subn(r'(<div class="mwla-fleft">)', lambda m_: m_.group(1) + '\n      <div class="mwla-fhead">' + head.strip() + '</div>', s, count=1); assert n == 1, "fleft"
+    s, n = re.subn(r'(<div class="mwla-inc" id="mwla-inc">)', lambda m_: m_.group(1) + '\n        <div class="mwla-fstamp mwla-fstamp-b" aria-hidden="true">' + stamp2 + '</div>', s, count=1); assert n == 1, "inc"
+    # 3. no quote, no caption
+    s, n = re.subn(r'\s*<figure class="mwla-q">[\s\S]*?</figure>', "", s, count=1); assert n == 1, "quote"
+    s = s.replace(' data-cap="Marlon with the whole crew" data-cap-es="Marlon con todo el grupo"', "")
+    # 4. stamp on the calendar card's top-right corner
+    stamp1 = _ST.stamp("fba", "ANGELS FLIGHT", "FREE TOUR", "angels", "1901", "#C2318A", rot=9, seed=5)
+    s, n = re.subn(r'(<div class="mwla-fcard">)', lambda m_: m_.group(1) + '\n      <div class="mwla-fstamp mwla-fstamp-a" aria-hidden="true">' + stamp1 + '</div>', s, count=1); assert n == 1, "fcard"
+    # 5. copy in the language table (page language picks these)
+    m = re.search(r"const T = (\{.*?\});\n", s); assert m, "T"
+    T = json.loads(m.group(1))
+    T["en"].update(EN); T["es"].update(ES)
+    s = s[:m.start(1)] + json.dumps(T, ensure_ascii=False) + s[m.end(1):]
+    s += """
+<style>/* Nov 25, 2026: Free Tours card v2 (two-column postcard, about 30% shorter) */
+  .mwla-fgrid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) !important; gap: 34px !important; align-items: start; }
+  .mwla-fhead .mwla-book-title { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  .mwla-fhead .mwla-book-tag { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; line-height: 1.3; color: #9C1458; margin: 6px 0 10px; }
+  .mwla-fhead .pc-line { max-width: none; margin: 0; font-size: 1.02rem; }
+  .mwla-pills3 { margin: 14px 0 0 !important; flex-wrap: nowrap; }
+  .mwla-fhead .mwla-stops { margin-top: 12px; font-size: .92rem; }
+  .mwla-fleft .mwla-inc { position: relative; margin-top: 18px; }
+  .mwla-inc .mws-cap, .mwla-inc .mws-dots, .mwla-inc .mws-btn { display: none !important; }
+  .mwla-inc .mws-print img { aspect-ratio: 4 / 3; object-fit: cover; height: auto; }
+  .mwla-inc .mws { max-width: 460px; margin: 0 auto; }
+  .mwla-fcard { position: relative; }
+  .mwla-book-cal { max-height: 540px !important; }
+  .mwla-fstamp { position: absolute; pointer-events: none; z-index: 3; }
+  .mwla-fstamp svg.stamp { display: block; width: 100%; height: auto; mix-blend-mode: multiply; opacity: .9; transform: rotate(var(--r, -8deg)); }
+  .mwla-fstamp-a { width: 92px; top: -30px; right: -24px; }
+  .mwla-fstamp-b { width: 84px; left: -10px; bottom: -18px; z-index: 0; }
+  .mwla-inc .mws { position: relative; z-index: 1; }
+  @media (max-width: 991px) {
+    .mwla-fgrid { grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; }
+    .mwla-fstamp-a { width: 70px; top: -22px; right: -8px; }
+  }
+  @media (max-width: 640px) {
+    .mwla-book-cal { max-height: 600px !important; }
+    .mwla-pills3 { flex-wrap: wrap; }
+    .mwla-fstamp-b { width: 64px; left: -4px; bottom: -12px; }
+  }
+</style>"""
+    return s
+
 def team(src):
     return keep_slides((PE / src).read_text(), 'data-c="birthday"')
 
@@ -585,7 +658,7 @@ CAL_NOSCROLL = """<script>
 OUT = {
     "home-hero-draft.html": hero("home-hero.html", False),
     "home-hero-es-draft.html": hero("home-hero-es.html", True),
-    "home-book-draft.html": book_stops(book()) + CAL_NOSCROLL,
+    "home-book-draft.html": book_v2(book_stops(book())) + CAL_NOSCROLL,
     "home-packages-draft.html": packages("en"),
     "home-packages-es-draft.html": packages("es"),
     "home-routebreak-draft.html": mapfacade(False),
