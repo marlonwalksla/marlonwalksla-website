@@ -332,7 +332,7 @@ PK_CSS = """
   .pk-custom { text-align: center; margin: 26px 0 0; font-size: 1rem; }
   .pk-custom a { color: #1D6F8F; font-weight: 700; }
   @media (max-width: 980px) { .pk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 680px) { .pk { padding: 22px 26px 34px; } .pk-grid { grid-template-columns: 1fr; gap: 26px; } .pk-card { grid-template-rows: none; grid-row: auto; display: flex; flex-direction: column; } .pk-btn { align-self: center; margin-top: 4px; } .pk-photo { width: 72%; } }
+  @media (max-width: 680px) { .pk { padding: 22px 26px 34px; } .pk-grid { grid-template-columns: 1fr; gap: 26px; } .pk-card { grid-template-rows: none; grid-row: auto; display: flex; flex-direction: column; } .pk-btn { align-self: center; margin-top: 4px; } .pk-photo { width: 72%; } .pk-name { align-self: stretch; text-align: center; } }
   @media (prefers-reduced-motion: reduce) { .pk-btn { transition: none; } }
 </style>
 """
@@ -483,14 +483,113 @@ def faqcard(lang):
 
 STRIPES["green"] = "repeating-linear-gradient(-45deg, #2E9E57 0 16px, transparent 16px 26px, #FFD43B 26px 42px, transparent 42px 52px)"
 
+# Nov 25, 2026 (Marlon's spec): the map section becomes a "click to load" facade. A still picture of the
+# map sits in a 5:3 box; one tap loads the real map into the same box (no layout shift). The map code
+# (Mapbox, same version and token as /maps) and spots.geojson load only after the tap.
+MAPSHOT = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6b07a8a51553f763e9bb369d_home-map-preview-780.webp"
+ERNESTO_POINT = "https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b53389bcda1926254_Pointing%20(Left).avif"
+MAP_STRIPES = "repeating-linear-gradient(135deg, #2890B6 0 14px, #E0F1F8 14px 28px)"
+
+def mapfacade(es):
+    # Nov 25, 2026 (Marlon): reframed as "Free LA Guides & Map". No live map on Home: the picture and the one
+    # yellow button both open the guides (/maps for now; a /la-guides page may replace it later).
+    t = dict(
+        title=("Gu&iacute;as Gratis y Mapa de LA" if es else "Free LA Guides &amp; Map"),
+        lead=("Explora Los &Aacute;ngeles como un local y sin estr&eacute;s." if es else "Explore LA like a local, with confidence."),
+        body=("Gu&iacute;as por vecindario, lugares para comer y un mapa interactivo: todo lo que necesitas en un solo lugar." if es else
+              "Neighborhood cheat sheets, food spots, and an interactive map: everything you need in one place."),
+        btn=("Ver las Gu&iacute;as" if es else "Read the Guides"),
+        href=("/maps?lang=es&amp;from=home" if es else "/maps?from=home"),
+        alt=("Vista previa del mapa de recomendaciones de Los &Aacute;ngeles de Marlon con lugares favoritos de comida, compras y vistas en el centro de LA, Hollywood y Santa M&oacute;nica." if es else
+             "Preview of Marlon&rsquo;s Los Angeles recommendations map showing pinned food spots, shops, and sights across Downtown LA, Hollywood, and Santa Monica."),
+        ern=("Ernesto, el burrito de pi&ntilde;ata, se&ntilde;alando las gu&iacute;as" if es else "Ernesto the pi&ntilde;ata donkey pointing to the guides"),
+    )
+    html = """<!-- MARLONWALKSLA - HOME: FREE LA GUIDES & MAP (Nov 25, 2026). Built by tools/make_home_draft.py (mapfacade). -->
+<section class="rmf" aria-label="%(title)s" data-lang="%(lang)s">
+  <div class="rmf-grid">
+    <h2 class="rmf-title">%(title)s</h2>
+    <p class="rmf-lead">%(lead)s</p>
+    <p class="rmf-body">%(body)s</p>
+    <a class="rmf-box" href="%(href)s" tabindex="-1" aria-hidden="true">
+      <img class="rmf-shot" src="%(shot)s" alt="%(alt)s" width="780" height="468" loading="lazy" decoding="async">
+    </a>
+    <div class="rmf-act">
+      <a class="rmf-btn" href="%(href)s">%(btn)s</a>
+    </div>
+    <img class="rmf-ern" src="%(ern_src)s" alt="%(ern)s" width="541" height="800" loading="lazy" decoding="async">
+  </div>
+</section>
+<style>
+  .rmf { box-sizing: border-box; padding: 28px 20px; color: #27302E; font-family: "Nunito", system-ui, sans-serif; }
+  .rmf *, .rmf *::before, .rmf *::after { box-sizing: border-box; }
+  .rmf-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "lead" "body" "box" "act" "ern"; }
+  .rmf-title { grid-area: title; margin: 0 0 8px; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 28px; line-height: 1.08; color: #27302E; }
+  .rmf-lead { grid-area: lead; margin: 0 0 6px; font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 18px; line-height: 1.35; color: #27302E; }
+  .rmf-body { grid-area: body; margin: 0 0 18px; font-family: "Nunito", sans-serif; font-size: 16px; line-height: 1.5; color: #27302E; }
+  .rmf-box { grid-area: box; display: block; position: relative; width: 100%%; aspect-ratio: 5 / 3; border: 2.5px solid #27302E; border-radius: 14px; box-shadow: 4px 4px 0 #27302E; overflow: hidden; background: #E0F1F8; }
+  .rmf-shot { position: absolute; inset: 0; width: 100%%; height: 100%%; display: block; object-fit: cover; }
+  .rmf-act { grid-area: act; margin-top: 16px; display: flex; align-items: center; }
+  .rmf-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 26px; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 18px; line-height: 1.1; letter-spacing: 0.01em; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; box-shadow: 4px 4px 0 #27302E; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+  .rmf-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+  .rmf-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
+  .rmf-btn:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) { .rmf-btn { transition: none; } }
+  .rmf-ern { grid-area: ern; justify-self: end; width: 88px; height: auto; margin-top: -4px; pointer-events: none; }
+  @media (min-width: 900px) {
+    .rmf { padding: 48px 56px; }
+    .rmf-grid { grid-template-columns: 42%% minmax(0, 1fr); column-gap: 40px; grid-template-rows: 1fr auto auto auto auto auto 1fr; grid-template-areas: ". box" "title box" "lead box" "body box" "act box" "ern box" ". box"; align-items: center; }
+    .rmf-box { align-self: center; }
+    .rmf-title { font-size: 38px; margin-bottom: 10px; }
+    .rmf-lead { font-size: 20px; }
+    .rmf-body { font-size: 17px; margin-bottom: 0; }
+    .rmf-act { margin-top: 22px; }
+    .rmf-ern { justify-self: start; width: 135px; margin-top: 14px; transform: scaleX(-1); }
+  }
+</style>
+<script>
+(function () {
+  var r = document.querySelectorAll('.rmf a');
+  for (var i = 0; i < r.length; i++) if (!r[i].getAttribute('data-ga')) { r[i].setAttribute('data-ga', '1'); r[i].addEventListener('click', function () { try { if (window.gtag) gtag('event', 'home_guides_click', { lang: document.documentElement.lang || '' }); } catch (e) {} }); }
+})();
+</script>
+""" % dict(t, lang=("es" if es else "en"), shot=MAPSHOT, ern_src=ERNESTO_POINT)
+    return postcard(html, "#FFF6E6", "mapblue")
+
+STRIPES["mapblue"] = MAP_STRIPES
+
+# Nov 25, 2026 (Marlon): after a date tap, Cal.com scrolls the page on phones (it jumps to the top of the calendar
+# when you are partway down it, "__routeChanged", or scrolls toward the times, "__scrollByDistance"). Drop those two
+# messages (capture listener runs before the embed's own) so the calendar stays put and the times appear below it.
+CAL_NOSCROLL = """<script>
+(function () {
+  if (window.__mwCalNoScroll) return; window.__mwCalNoScroll = true;
+  // After a date tap the calendar also scrolls its own time list into view, and the browser passes that scroll up
+  // to the page. So for 1.5 s after each tap, keep the page where it was unless the visitor scrolls on the page.
+  var holdY = 0, until = 0;
+  function release() { until = 0; }
+  ['wheel', 'touchmove', 'keydown'].forEach(function (ev) { window.addEventListener(ev, release, { passive: true }); });
+  window.addEventListener('scroll', function () {
+    if (until && Date.now() < until && Math.abs(window.scrollY - holdY) > 2) window.scrollTo({ top: holdY, behavior: 'instant' });
+  }, { passive: true });
+  window.addEventListener('message', function (e) {
+    var d = e.data;
+    if (!d || typeof d !== 'object' || typeof d.fullType !== 'string') return;
+    if (!/(^|\\.)cal\\.com$/.test((e.origin || '').replace(/^https?:\\/\\//, ''))) return;
+    if (/__routeChanged$/.test(d.fullType)) { holdY = window.scrollY; until = Date.now() + 1500; }
+    if (/__(scrollByDistance|routeChanged)$/.test(d.fullType)) e.stopImmediatePropagation();
+  }, true);
+})();
+</script>
+"""
+
 OUT = {
     "home-hero-draft.html": hero("home-hero.html", False),
     "home-hero-es-draft.html": hero("home-hero-es.html", True),
-    "home-book-draft.html": book_stops(book()),
+    "home-book-draft.html": book_stops(book()) + CAL_NOSCROLL,
     "home-packages-draft.html": packages("en"),
     "home-packages-es-draft.html": packages("es"),
-    "home-routebreak-draft.html": mapcard("home-routebreak.html", False),
-    "home-routebreak-es-draft.html": mapcard("home-routebreak-es.html", True),
+    "home-routebreak-draft.html": mapfacade(False),
+    "home-routebreak-es-draft.html": mapfacade(True),
     "home-meet-draft.html": meetcard("home-meet.html"),
     "home-meet-es-draft.html": meetcard("home-meet-es.html"),
     "home-ig-draft.html": igstrip(False),
