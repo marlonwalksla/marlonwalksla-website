@@ -671,22 +671,22 @@ def guidescard(es):
     t = dict(
         title=("&iquest;No Sabes Qu&eacute; Hacer en LA?" if es else "Not Sure What to Do in LA?"),
         sub=("Deja que Ernesto te gu&iacute;e." if es else "Let Ernesto show you."),
-        body=(("Ernesto arm&oacute; %s gratis y un %s con m&aacute;s de 200 lugares para comer y visitar, para que explores Los &Aacute;ngeles sin estr&eacute;s." % (M("green", "pasaportes de LA"), M("blue", "mapa local"))) if es else
-              ("Ernesto put together free %s and a %s with 200+ food and sightseeing spots, so you can explore Los Angeles with confidence." % (M("green", "LA passports"), M("blue", "local map")))),
+        body=(("Ernesto arm&oacute; gu&iacute;as gratis de LA para lo que quieras ver: %s, %s, %s y m&aacute;s. Elige una y explora la ciudad como un local." % (M("green", "Hollywood"), M("orange", "tacos"), M("blue", "cine y TV"))) if es else
+              ("Ernesto put together free LA guides for whatever you want to see: %s, %s, %s and more. Pick one and explore the city like a local." % (M("green", "Hollywood"), M("orange", "tacos"), M("blue", "film and TV")))),
         btn=("Ver las Gu&iacute;as de Ernesto" if es else "See Ernesto&rsquo;s Guides"),
         href="/maps?%sfrom=home" % q,
         alt=("Vista previa del mapa de recomendaciones de Los &Aacute;ngeles de Marlon" if es else "Preview of Marlon&rsquo;s Los Angeles recommendations map"),
         ern=("Ernesto, el burrito de pi&ntilde;ata, se&ntilde;alando las gu&iacute;as" if es else "Ernesto the pi&ntilde;ata donkey pointing to the guides"),
-        stops=("paradas" if es else "stops"), pass_=("Pasaporte" if es else "Passport"),
+        pass_=("Gu&iacute;a de LA" if es else "LA Guide"),
     )
-    cards = [("la-tourist", ("Turista en LA" if es else "LA Tourist"), 12, "#1D6F8F", "#E0F1F8", "obs", "-3deg"),
-             ("photo-spots", ("Lugares para Fotos" if es else "Photo Spots"), 10, "#D6457A", "#FFE6EF", "polaroid", "3deg")]
+    cards = [("la-tourist", ("Turista en LA" if es else "LA Tourist"), ("Lo imperdible de LA" if es else "The must-see spots"), "#1D6F8F", "#E0F1F8", "obs", "-3deg"),
+             ("photo-spots", ("Lugares para Fotos" if es else "Photo Spots"), ("Tus mejores fotos" if es else "Your best photos"), "#D6457A", "#FFE6EF", "polaroid", "3deg")]
     ch = ""
     for i, (pid, name, n, ink, bg, icon, rot) in enumerate(cards):
         st = _ST.stamp("gc%d" % i, name.upper().replace("&IACUTE;", "Í"), "LOS ANGELES", icon, "", ink, rot=0, seed=4 + i)
         ch += ('<a class="gc-card" href="/maps?%spassport=%s&amp;from=home" style="--rot:%s;--bg:%s">'
                '<span class="gc-tape" aria-hidden="true"></span><span class="gc-art" aria-hidden="true">%s</span>'
-               '<span class="gc-kind">%s</span><span class="gc-name">%s</span><span class="gc-chip">%d %s</span></a>') % (q, pid, rot, bg, st, t["pass_"], name, n, t["stops"])
+               '<span class="gc-kind">%s</span><span class="gc-name">%s</span><span class="gc-chip">%s</span></a>') % (q, pid, rot, bg, st, t["pass_"], name, n)
     corner = _ST.stamp("gcx", "FREE GUIDES" if not es else "GU&Iacute;AS GRATIS", "LOS ANGELES", "palms3", "", "#2890B6", rot=8, seed=9)
     html = """<!-- MARLONWALKSLA - HOME: GUIDES CARD (Nov 26, 2026). Built by tools/make_home_draft.py (guidescard). -->
 <section class="gc" aria-label="%(title)s" data-lang="%(lang)s">
@@ -702,7 +702,7 @@ def guidescard(es):
       <div class="gc-cards">%(cards)s</div>
     </div>
     <div class="gc-act">
-      <a class="gc-btn" href="%(href)s">%(btn)s &rarr;</a>
+      <a class="gc-btn" href="%(href)s">%(btn)s</a>
     </div>
   </div>
 </section>
@@ -735,6 +735,7 @@ def guidescard(es):
   .gc-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
   .gc-btn:focus-visible { outline: 3px solid #2890B6; outline-offset: 4px; }
   .gc-head { display: flex; align-items: center; gap: 12px; }
+  .gc-badge { order: 2; }
   .gc-badge { flex: none; width: 68px; height: 68px; border-radius: 50%%; transform: rotate(-4deg); filter: drop-shadow(3px 4px 0 rgba(39, 48, 46, .18)); }
   .gc-btn { white-space: nowrap; }
   @media (max-width: 899px) { .gc-act { justify-content: center; } .gc-btn { width: 100%%; justify-content: center; } }
