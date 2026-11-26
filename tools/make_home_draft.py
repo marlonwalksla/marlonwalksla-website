@@ -287,11 +287,11 @@ def book_v2(s):
   @media (max-width: 480px) { .mwla-inc-pills.mwla-pills3 li.yes { font-size: .9rem !important; } .mwla-inc-pills.mwla-pills3 li:not(:last-child)::after { margin: 0 6px; } }
   .mwla-inc .mws { max-width: 460px; margin: 0 auto; }
   .mwla-fcard { position: relative; }
-  .mwla-book-cal { max-height: 600px !important; }
+  .mwla-book-cal { max-height: 620px !important; }
   .mwla-fstamp { position: absolute; pointer-events: none; z-index: 3; }
   .mwla-fstamp svg.stamp { display: block; width: 100%; height: auto; mix-blend-mode: multiply; opacity: .9; transform: rotate(var(--r, -8deg)); }
   .mwla-fstamp-a { width: 92px; top: -30px; right: -24px; }
-  .mwla-fstamp-b { width: 84px; left: -10px; bottom: -18px; z-index: 0; }
+  .mwla-fstamp-b { width: 84px; left: -28px; bottom: -26px; z-index: 0; }
   .mwla-inc .mws { position: relative; z-index: 1; }
   @media (min-width: 992px) {
     .mw-bg-book .w-container:has(#book) { max-width: 1100px !important; }
