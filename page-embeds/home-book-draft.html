@@ -192,3 +192,12 @@
 <style>/* round 13: compact booking card (no language label, slimmer switch, calendar capped) */ .mwla-lang-label { display: none !important; } .mwla-card-h { margin: 0 0 8px !important; font-size: 1.3rem !important; } .mwla-lang-switch { margin: 0 0 8px !important; gap: 0 !important; } .mwla-lang-opt { font-size: 1rem !important; padding: 7px 20px !important; flex-direction: row !important; gap: 6px !important; } .mwla-lang-time { font-size: .85rem !important; } .mwla-fcard { align-self: start; } .mwla-book-cal { min-height: 300px !important; max-height: 460px; overflow-y: auto; -webkit-overflow-scrolling: touch; } @media (max-width: 640px) { .mwla-book-cal { max-height: 520px; } }</style>
 
 <style>.mwla-stops { font-family: "Fredoka", sans-serif; font-size: .98rem; line-height: 1.5; color: #3B4440; margin: 12px 0 0; } .mwla-stops b { font-weight: 600; color: #27302E; }</style>
+<script>
+(function () {
+  if (window.__mwCalNoScroll) return; window.__mwCalNoScroll = true;
+  window.addEventListener('message', function (e) {
+    var d = e.data;
+    if (d && typeof d === 'object' && typeof d.fullType === 'string' && /__scrollByDistance$/.test(d.fullType) && /(^|\.)cal\.com$/.test((e.origin || '').replace(/^https?:\/\//, ''))) e.stopImmediatePropagation();
+  }, true);
+})();
+</script>
