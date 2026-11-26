@@ -12,7 +12,7 @@ Cuts:
   private  Private tour: one photo, the Urban Light print.
 Run from the repo root:  python3 tools/make_home_draft.py
 """
-import re
+import json, re
 from pathlib import Path
 
 PE = Path(__file__).resolve().parent.parent / "page-embeds"
@@ -608,9 +608,39 @@ for name, html in OUT.items():
 # Nov 25, 2026 (speed): the hero is pasted straight into the Home and /es embed (Webflow element
 # e2a6c92c-f998-5c7c-e007-3a5db12425a2 on both pages), not fetched. These are the paste-ready copies:
 # HTML comments stripped, must stay under Webflow's 50,000-character embed limit.
+# Nov 25, 2026 (split): the embed keeps only the words, photos and one tiny width script (~3,000 chars),
+# so copy edits are small. Styles go to page-embeds/home-hero.css, the slider and form scripts plus the
+# ink stamps (EN and ES) to page-embeds/home-hero.js. Both are loaded from jsDelivr pinned to the commit
+# in tools/hero-assets-sha.txt (cached for a year). After changing styles/scripts/stamps: run this,
+# commit and push, put the new commit hash in tools/hero-assets-sha.txt, run again, paste the embeds.
+_T = Path(__file__).resolve().parent
+_sha = (_T / "hero-assets-sha.txt").read_text().strip()
+_cdn = "https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@%s/page-embeds/" % _sha
+_css, _js, _stamps = None, None, {}
+_WIDTH = "<script>\n/* Full-width hero: use the width WITHOUT the scrollbar so the airmail edge is not cut at the screen sides */\n(function(){var h=document.querySelector('.mwh');if(!h)return;function f(){h.style.setProperty('--mwh-w',document.documentElement.clientWidth+'px');}f();window.addEventListener('resize',f);document.addEventListener('DOMContentLoaded',f);})();\n</script>"
 for _src, _lang in (("home-hero-draft", "en"), ("home-hero-es-draft", "es")):
     _s = re.sub(r"<!--.*?-->\s*", "", (PE / (_src + ".html")).read_text(), flags=re.S)
-    _s = ("<!-- Home hero, inlined for speed (Nov 25, 2026). Source: page-embeds/%s.html, built by tools/make_home_draft.py. Edit there, then paste here. -->\n" % _src) + _s.strip() + "\n"
-    assert len(_s) < 50000, (_src, len(_s))
-    (Path(__file__).resolve().parent / ("home-hero-embed-%s.html" % _lang)).write_text(_s)
-    print("embed", _lang, len(_s), "chars")
+    _st = re.findall(r"<style>([\s\S]*?)</style>", _s)
+    _sc = [x for x in re.findall(r"<script>[\s\S]*?</script>", _s)]
+    assert _WIDTH in _sc, "width script"
+    _keep = [_WIDTH] + [x for x in _sc if "Spanish Home:" in x]
+    _shared = [re.sub(r"^<script>|</script>$", "", x).strip() for x in _sc if x not in _keep]
+    _c = "\n".join(x.strip() for x in _st)
+    _j = "\n;\n".join(_shared)
+    assert _css in (None, _c) and _js in (None, _j), "EN and ES hero styles/scripts differ"
+    _css, _js = _c, _j
+    _m = re.search(r'(<div class="mwh-stamps" aria-hidden="true">)([\s\S]*?)(</div>\s*</div>\s*</section>)', _s)
+    _stamps[_lang] = _m.group(2)
+    _mark = _s[:_m.start(2)] + _s[_m.end(2):]
+    _mark = re.sub(r"<style>[\s\S]*?</style>\s*|<script>[\s\S]*?</script>\s*", "", _mark).strip()
+    _out = ("<!-- Home hero (split Nov 25, 2026). Source: page-embeds/%s.html, built by tools/make_home_draft.py. Styles, scripts and stamps: page-embeds/home-hero.css/.js @ %s. -->\n" % (_src, _sha[:7])
+            + '<link rel="stylesheet" href="%shome-hero.css">\n' % _cdn + _mark + "\n" + "\n".join(_keep)
+            + '\n<script src="%shome-hero.js" defer></script>\n' % _cdn)
+    assert len(_out) < 50000, (_src, len(_out))
+    (_T / ("home-hero-embed-%s.html" % _lang)).write_text(_out)
+    print("embed", _lang, len(_out), "chars")
+(PE / "home-hero.css").write_text("/* Home and /es hero styles. Built by tools/make_home_draft.py from page-embeds/home-hero-draft.html. Do not edit by hand. */\n" + _css + "\n")
+(PE / "home-hero.js").write_text("/* Home and /es hero: ink stamps, slider and form helpers. Built by tools/make_home_draft.py. Do not edit by hand. */\n"
+    + "(function(){var S=" + json.dumps(_stamps) + ";var b=document.querySelector('.mwh .mwh-stamps');if(b&&!b.firstChild){var l=(document.querySelector('.mwh')||{}).lang==='es'?'es':'en';b.innerHTML=S[l];}})();\n;\n"
+    + _js + "\n")
+print("home-hero.css", len(_css), "home-hero.js", len(_js))
