@@ -557,15 +557,15 @@ def mapfacade(es):
 
 STRIPES["mapblue"] = MAP_STRIPES
 
-# Nov 25, 2026 (Marlon): after a date tap, Cal.com asks the page to scroll down to the times, which pushed the
-# calendar out of view on phones. Its embed does that through a "__scrollByDistance" message; drop that one message
-# (capture listener runs before the embed's own) so the calendar stays put and the times appear below it.
+# Nov 25, 2026 (Marlon): after a date tap, Cal.com scrolls the page on phones (it jumps to the top of the calendar
+# when you are partway down it, "__routeChanged", or scrolls toward the times, "__scrollByDistance"). Drop those two
+# messages (capture listener runs before the embed's own) so the calendar stays put and the times appear below it.
 CAL_NOSCROLL = """<script>
 (function () {
   if (window.__mwCalNoScroll) return; window.__mwCalNoScroll = true;
   window.addEventListener('message', function (e) {
     var d = e.data;
-    if (d && typeof d === 'object' && typeof d.fullType === 'string' && /__scrollByDistance$/.test(d.fullType) && /(^|\\.)cal\\.com$/.test((e.origin || '').replace(/^https?:\\/\\//, ''))) e.stopImmediatePropagation();
+    if (d && typeof d === 'object' && typeof d.fullType === 'string' && /__(scrollByDistance|routeChanged)$/.test(d.fullType) && /(^|\\.)cal\\.com$/.test((e.origin || '').replace(/^https?:\\/\\//, ''))) e.stopImmediatePropagation();
   }, true);
 })();
 </script>

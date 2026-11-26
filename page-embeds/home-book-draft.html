@@ -197,7 +197,7 @@
   if (window.__mwCalNoScroll) return; window.__mwCalNoScroll = true;
   window.addEventListener('message', function (e) {
     var d = e.data;
-    if (d && typeof d === 'object' && typeof d.fullType === 'string' && /__scrollByDistance$/.test(d.fullType) && /(^|\.)cal\.com$/.test((e.origin || '').replace(/^https?:\/\//, ''))) e.stopImmediatePropagation();
+    if (d && typeof d === 'object' && typeof d.fullType === 'string' && /__(scrollByDistance|routeChanged)$/.test(d.fullType) && /(^|\.)cal\.com$/.test((e.origin || '').replace(/^https?:\/\//, ''))) e.stopImmediatePropagation();
   }, true);
 })();
 </script>
