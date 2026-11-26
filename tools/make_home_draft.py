@@ -659,6 +659,54 @@ def mapfacade(es):
     return postcard(html, "#FFF6E6", "mapblue")
 
 
+
+def la_map_svg(es):
+    """Nov 26, 2026: postcard-style LA map built from the stamp icon library. Decorative, roughly placed.
+    Labels are live text (EN/ES). viewBox 600 x 360; the guide cards cover the bottom third."""
+    import sys as _s4
+    _s4.path.insert(0, str(PE))
+    import stamps as _ST
+    def ic(name, ink, x, y, w):
+        body, dims = _ST.icon(name, ink)
+        vb = dims[2]; vw, vh = [float(v) for v in vb.split()[2:]]
+        h = w * vh / vw
+        return '<svg x="%.0f" y="%.0f" width="%.0f" height="%.0f" viewBox="%s" fill="%s">%s</svg>' % (x - w / 2, y - h, w, h, vb, ink, body)
+    def lab(x, y, t, size=15, anchor="middle"):
+        return ('<text x="%d" y="%d" text-anchor="%s" font-family="Fredoka, sans-serif" font-weight="600" font-size="%d" fill="#27302E" '
+                'stroke="#FFF6E6" stroke-width="4" paint-order="stroke" stroke-linejoin="round">%s</text>') % (x, y, anchor, size, t)
+    L = (lambda en, sp: sp) if es else (lambda en, sp: en)
+    parts = [
+        '<rect width="600" height="360" fill="#F7EBD2"/>',
+        # hills: Santa Monica Mountains and Griffith Park
+        '<path d="M150 0 C200 40 260 58 330 54 C390 50 430 30 470 0 Z" fill="#CFE8BE"/>',
+        '<path d="M330 0 C350 50 400 78 450 70 C480 64 500 40 505 0 Z" fill="#BFE0AA"/>',
+        # ocean and coastline (Santa Monica Bay)
+        '<path d="M0 0 H118 C108 60 92 110 84 160 C76 210 92 262 74 310 C66 334 60 350 56 360 H0 Z" fill="#BFE3F2"/>',
+        '<path d="M118 0 C108 60 92 110 84 160 C76 210 92 262 74 310 C66 334 60 350 56 360" fill="none" stroke="#8ECFEA" stroke-width="4"/>',
+        '<path d="M28 120 q8 -6 16 0 t16 0 M22 230 q8 -6 16 0 t16 0" fill="none" stroke="#7CC6E6" stroke-width="2.5" stroke-linecap="round"/>',
+        # roads (dashed postcard style)
+        '<path d="M88 214 C200 206 330 214 470 222 C520 225 560 230 600 232" fill="none" stroke="#F4B942" stroke-width="7" stroke-linecap="round"/>',
+        '<path d="M250 120 C320 150 380 175 470 212" fill="none" stroke="#F4B942" stroke-width="6" stroke-linecap="round"/>',
+        '<path d="M190 0 C196 80 200 200 205 360" fill="none" stroke="#F4B942" stroke-width="5" stroke-linecap="round" opacity=".8"/>',
+        '<path d="M120 150 C230 140 340 130 470 140" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>',
+        # landmarks from the stamp icon library
+        ic("pier", "#2890B6", 104, 206, 92),
+        ic("palms3", "#2E9E57", 290, 128, 92),
+        ic("obs", "#7A3FA0", 420, 76, 92),
+        ic("wdch", "#C2318A", 512, 206, 104),
+        # pins
+        '<g fill="#FFD43B" stroke="#27302E" stroke-width="2.5">'
+        '<circle cx="150" cy="186" r="7"/><circle cx="338" cy="168" r="7"/><circle cx="248" cy="100" r="6"/><circle cx="468" cy="168" r="7"/><circle cx="548" cy="250" r="6"/></g>',
+        lab(52, 64, L("Pacific Ocean", "Oc&eacute;ano Pac&iacute;fico"), 12),
+        lab(118, 232, "Santa Monica"),
+        lab(290, 148, "Hollywood"),
+        lab(420, 98, L("Griffith Observatory", "Observatorio Griffith"), 14),
+        lab(520, 230, L("Downtown LA", "Centro de LA")),
+    ]
+    return ('<svg class="gc-svg" viewBox="0 0 600 360" role="img" aria-label="%s" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">%s</svg>'
+            % (L("Illustrated map of Los Angeles: Santa Monica, Hollywood, Griffith Observatory and Downtown LA",
+                 "Mapa ilustrado de Los &Aacute;ngeles: Santa Monica, Hollywood, el Observatorio Griffith y el centro de LA"), "".join(parts)))
+
 def guidescard(es):
     """Nov 26, 2026 (Marlon): "Not Sure What to Do in LA?" One decision (the yellow button to the map, passport-first).
     Right side: the real map preview tilted, two real passports overlapping it (LA Tourist, Photo Spots), a stamp."""
@@ -671,9 +719,9 @@ def guidescard(es):
     t = dict(
         title=("&iquest;No Sabes Qu&eacute; Hacer en LA?" if es else "Not Sure What to Do in LA?"),
         sub=("Deja que Ernesto te gu&iacute;e." if es else "Let Ernesto show you."),
-        body=(("Ernesto arm&oacute; gu&iacute;as gratis de LA para lo que quieras ver: %s, %s, %s y m&aacute;s. Elige una y explora la ciudad como un local." % (M("green", "Hollywood"), M("orange", "tacos"), M("blue", "cine y TV"))) if es else
-              ("Ernesto put together free LA guides for whatever you want to see: %s, %s, %s and more. Pick one and explore the city like a local." % (M("green", "Hollywood"), M("orange", "tacos"), M("blue", "film and TV")))),
-        btn=("Ver las Gu&iacute;as de Ernesto" if es else "See Ernesto&rsquo;s Guides"),
+        body=(("Ernesto arm&oacute; gu&iacute;as gratis de %s, %s y %s por toda la ciudad. Elige una y explora como local." % (M("blue", "Turista en LA"), M("pink", "Lugares para Fotos"), M("orange", "comida local"))) if es else
+              ("Ernesto put together free LA guides for %s must-sees, %s, and %s across the city. Pick one and explore like a local." % (M("blue", "LA Tourist"), M("pink", "Photo Spots"), M("orange", "local food")))),
+        btn=("Ver Gu&iacute;as" if es else "View Guides"),
         href="/maps?%sfrom=home" % q,
         alt=("Vista previa del mapa de recomendaciones de Los &Aacute;ngeles de Marlon" if es else "Preview of Marlon&rsquo;s Los Angeles recommendations map"),
         ern=("Ernesto, el burrito de pi&ntilde;ata, se&ntilde;alando las gu&iacute;as" if es else "Ernesto the pi&ntilde;ata donkey pointing to the guides"),
@@ -692,13 +740,14 @@ def guidescard(es):
 <section class="gc" aria-label="%(title)s" data-lang="%(lang)s">
   <div class="gc-grid">
     <div class="gc-text">
-      <div class="gc-head"><img class="gc-badge" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%%20Full.avif" alt="%(ern)s" width="512" height="512" loading="lazy" decoding="async"><h2 class="gc-title">%(title)s</h2></div>
+      <h2 class="gc-title">%(title)s</h2>
       <p class="gc-sub">%(sub)s</p>
       <p class="gc-body">%(body)s</p>
     </div>
     <div class="gc-col">
       <div class="gc-stamp" aria-hidden="true">%(corner)s</div>
-      <a class="gc-map" href="%(href)s" tabindex="-1" aria-hidden="true"><img src="%(shot)s" alt="%(alt)s" width="780" height="468" loading="lazy" decoding="async"></a>
+      <a class="gc-map" href="%(href)s" tabindex="-1" aria-hidden="true">%(svgmap)s</a>
+      <img class="gc-ern" src="%(ern_src)s" alt="%(ern)s" width="541" height="800" loading="lazy" decoding="async">
       <div class="gc-cards">%(cards)s</div>
     </div>
     <div class="gc-act">
@@ -715,18 +764,20 @@ def guidescard(es):
   .gc-sub { margin: 8px 0 10px; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 19px; line-height: 1.3; color: #1D6F8F; }
   .gc-body { margin: 0; font-size: 16.5px; line-height: 1.75; color: #27302E; }
   .gc mark.mk { color: #27302E; font-weight: 700; padding: 2px 7px; border-radius: 5px; background: var(--tone); white-space: nowrap; }
-  .gc mark.mk[data-tone="green"] { --tone: #B9EBC8; } .gc mark.mk[data-tone="blue"] { --tone: #C7E7F5; }
+  .gc mark.mk[data-tone="green"] { --tone: #B9EBC8; } .gc mark.mk[data-tone="blue"] { --tone: #C7E7F5; } .gc mark.mk[data-tone="pink"] { --tone: #FFD0E4; } .gc mark.mk[data-tone="orange"] { --tone: #FFD3A8; }
   .gc-col { position: relative; }
   .gc-map { display: block; position: relative; border: 2.5px solid #27302E; border-radius: 14px; box-shadow: 5px 5px 0 #27302E; overflow: hidden; background: #E0F1F8; transform: rotate(-1.5deg); aspect-ratio: 5 / 3; }
-  .gc-map img { position: absolute; inset: 0; width: 100%%; height: 100%%; object-fit: cover; display: block; }
+  .gc-map .gc-svg { position: absolute; inset: 0; width: 100%%; height: 100%%; display: block; }
+  .gc-ern { position: absolute; z-index: 4; width: 64px; height: auto; right: -14px; top: 18%%; pointer-events: none; }
+  .gc-title { font-size: 31px !important; }
   .gc-cards { position: absolute; left: 4%%; right: 4%%; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .gc-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding: 10px 10px 12px; background: #fff; border: 2.5px solid #27302E; border-radius: 12px; box-shadow: 4px 4px 0 #27302E; transform: rotate(var(--rot)); text-decoration: none !important; color: #27302E !important; transition: transform .18s ease-out; }
   .gc-card:hover, .gc-card:focus-visible { transform: rotate(0deg) translateY(-4px); }
   .gc-card:focus-visible { outline: 3px solid #2890B6; outline-offset: 3px; }
   .gc-tape { position: absolute; top: -9px; left: 50%%; width: 52px; height: 16px; transform: translateX(-50%%) rotate(-3deg); background: rgba(255, 212, 59, .7); }
   .gc-art { display: flex; justify-content: center; width: 100%%; background: var(--bg); border-radius: 8px; padding: 6px 0; }
-  .gc-art svg.stamp { width: 58px; height: auto; display: block; mix-blend-mode: multiply; }
-  .gc-col { padding-bottom: 70px; }
+  .gc-art svg.stamp { width: 46px; height: auto; display: block; mix-blend-mode: multiply; }
+  .gc-col { padding-bottom: 140px; }
   .gc-kind { margin-top: 8px; font-family: "Fredoka", sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #5B6663; }
   .gc-name { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 16px; line-height: 1.2; }
   .gc-chip { margin-top: 6px; font-family: "Fredoka", sans-serif; font-size: 12.5px; font-weight: 500; padding: 2px 8px; border-radius: 99px; background: #F1ECE0; }
@@ -739,7 +790,7 @@ def guidescard(es):
   .gc-badge { flex: none; width: 68px; height: 68px; border-radius: 50%%; transform: rotate(-4deg); filter: drop-shadow(3px 4px 0 rgba(39, 48, 46, .18)); }
   .gc-btn { white-space: nowrap; }
   @media (max-width: 899px) { .gc-act { justify-content: center; } .gc-btn { width: 100%%; justify-content: center; } }
-  .gc-stamp { position: absolute; top: -24px; right: -8px; width: 64px; pointer-events: none; z-index: 3; }
+  .gc-stamp { position: absolute; top: -26px; left: -10px; width: 64px; pointer-events: none; z-index: 3; }
   .gc-stamp svg.stamp { width: 100%%; height: auto; display: block; mix-blend-mode: multiply; opacity: .85; transform: rotate(var(--r, 8deg)); }
   @media (max-width: 380px) { .gc-btn { font-size: 16px; padding: 11px 16px; } .gc-name { font-size: 14.5px; } }
   @media (min-width: 900px) {
@@ -754,9 +805,9 @@ def guidescard(es):
     .gc-art svg.stamp { width: 92px; }
     .gc-name { font-size: 18px; }
     .gc-btn { font-size: 20px; padding: 14px 28px; }
-    .gc-badge { width: 104px; height: 104px; }
-    .gc-head { gap: 18px; }
-    .gc-stamp { top: -38px; right: -30px; width: 92px; }
+    .gc-stamp { top: -40px; left: -34px; width: 90px; }
+    .gc-ern { width: 96px; right: -46px; top: 14%%; }
+    .gc-title { font-size: 44px !important; }
   }
   @media (prefers-reduced-motion: reduce) { .gc-btn, .gc-card { transition: none; } }
 </style>
@@ -766,7 +817,7 @@ def guidescard(es):
   for (var i = 0; i < r.length; i++) if (!r[i].getAttribute('data-ga')) { r[i].setAttribute('data-ga', '1'); r[i].addEventListener('click', function () { var p = (this.getAttribute('href').match(/passport=([a-z-]+)/) || [])[1] || 'all'; try { if (window.gtag) gtag('event', 'home_guides_click', { lang: document.documentElement.lang || '', passport: p }); } catch (e) {} }); }
 })();
 </script>
-""" % dict(t, lang=L, shot=MAPSHOT, ern_src=ERNESTO_POINT, cards=ch, corner=corner)
+""" % dict(t, lang=L, shot=MAPSHOT, ern_src=ERNESTO_POINT, cards=ch, corner=corner, svgmap=la_map_svg(es))
     return postcard(html, "#FFF6E6", "mapblue")
 
 STRIPES["mapblue"] = MAP_STRIPES
