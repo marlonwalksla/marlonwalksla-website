@@ -179,7 +179,7 @@
 #pmx .pmx-go.on .pmx-go-t small{color:#4A4B43}
 @media (prefers-reduced-motion:reduce){#pmx .pmx-corner{transition:none}}
 
-/* Nov 6, 2026 (pm): list first. Progress lives in the passport button; "Open my passport" sits under the list. */
+/* Nov 6, 2026 (pm): list first. Progress lives in the passport button; "Open my guide" sits under the list. */
 #pmx h1{margin-bottom:2px}
 #pmx .pmx-sub{margin-bottom:10px}
 #pmx .pmx-pick{flex-wrap:wrap;row-gap:6px;padding:10px 12px 10px 14px}
@@ -305,21 +305,21 @@
   var Q = new URLSearchParams(location.search);
   var ES = (Q.get('lang') || '').toLowerCase().indexOf('es') === 0 || /^\/mapa-/.test(location.pathname);
   var T = ES ? {
-    title: 'Explora LA', sub: 'Sigue tu aventura. Sella tu pasaporte.', saved: 'Tus sellos se guardan en este teléfono.',
-    all: 'Todos los lugares', soon: 'pronto', of: function (d, t) { return d + ' de ' + t + ' sellos'; }, open: 'Abrir mi pasaporte',
-    done: '¡Pasaporte completo! Envía una postal desde tu pasaporte.', search: 'Busca entre los lugares', places: function (n) { return n + ' lugares'; },
+    title: 'Explora LA', sub: 'Sigue tu aventura. Colecciona los sellos.', saved: 'Tus sellos se guardan en este teléfono.',
+    all: 'Todos los lugares', soon: 'pronto', of: function (d, t) { return d + ' de ' + t + ' sellos'; }, open: 'Abrir mi guía',
+    done: '¡Guía completa! Envía una postal desde tu guía.', search: 'Busca entre los lugares', places: function (n) { return n + ' lugares'; },
     more: 'Ver más', dir: 'Cómo llegar', story: 'Leer la historia', stampIt: '¡Sella!', stampedBtn: '¡Sellado!', tapRemove: 'Toca para quitar el sello', unstamp: 'Quitar el sello',
     stampFor: 'Sello para', stampedIn: 'Sellado en', goNote: 'Los sellos se ganan yendo.', stampedNote: 'Ya estuviste aquí.',
-    noPP: 'Aún no está en un pasaporte.', trust: 'Elegido por Marlon, guía local de LA · 4,9 en más de 500 opiniones', about: 'Conoce a Marlon',
-    updated: 'Actualizado en noviembre de 2026', anywhere: 'Reto: vale cualquier lugar. Séllalo en tu pasaporte.', pps: 'Pasaportes', pick: function (n) { return n + ' pasaportes'; }, ofP: function (i, n) { return i + ' de ' + n + ' pasaportes'; }, prevP: 'Pasaporte anterior', nextP: 'Siguiente pasaporte', showAll: function () { return 'Ver todo'; }, bonusH: 'Sellos extra', plusBonus: function (n) { return '+' + n + ' extra'; }, choose: 'Elige un pasaporte', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
+    noPP: 'Aún no está en una guía.', trust: 'Elegido por Marlon, guía local de LA · 4,9 en más de 500 opiniones', about: 'Conoce a Marlon',
+    updated: 'Actualizado en noviembre de 2026', anywhere: 'Reto: vale cualquier lugar. Colecciona su sello.', pps: 'Guías', pick: function (n) { return n + ' guías'; }, ofP: function (i, n) { return i + ' de ' + n + ' guías'; }, prevP: 'Guía anterior', nextP: 'Siguiente guía', showAll: function () { return 'Ver todo'; }, bonusH: 'Sellos extra', plusBonus: function (n) { return '+' + n + ' extra'; }, choose: 'Elige una guía', loading: 'Cargando el mapa...', fail: 'El mapa no cargó. Intenta de nuevo.'
   } : {
-    title: 'Explore LA', sub: 'Track your adventure. Stamp your passport.', saved: 'Your stamps are saved on this phone.',
-    all: 'All places', soon: 'soon', of: function (d, t) { return d + ' of ' + t + ' stamped'; }, open: 'Open my passport',
-    done: 'Passport complete! Send a postcard from your passport.', search: 'Search all places', places: function (n) { return n + ' places'; },
+    title: 'Explore LA', sub: 'Track your adventure. Collect the stamps.', saved: 'Your stamps are saved on this phone.',
+    all: 'All places', soon: 'soon', of: function (d, t) { return d + ' of ' + t + ' stamped'; }, open: 'Open my guide',
+    done: 'Guide complete! Send a postcard from your guide.', search: 'Search all places', places: function (n) { return n + ' places'; },
     more: 'Show more', dir: 'Directions', story: 'Read the story', stampIt: 'Stamp!', stampedBtn: 'Stamped!', tapRemove: 'Tap to remove the stamp', unstamp: 'Remove stamp',
     stampFor: 'Stamp for', stampedIn: 'Stamped in', goNote: 'Stamps are earned by going.', stampedNote: "You've been here.",
-    noPP: 'Not in a passport yet.', trust: 'Picked by Marlon, a local LA guide · 4.9 from 500+ reviews', about: 'Meet Marlon',
-    updated: 'Updated November 2026', anywhere: 'A challenge: any spot counts. Stamp it in your passport.', pps: 'Passports', pick: function (n) { return n + ' passports'; }, ofP: function (i, n) { return i + ' of ' + n + ' passports'; }, prevP: 'Previous passport', nextP: 'Next passport', showAll: function () { return 'Show all'; }, bonusH: 'Bonus stamps', plusBonus: function (n) { return '+' + n + ' bonus'; }, choose: 'Pick a passport', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
+    noPP: 'Not in a guide yet.', trust: 'Picked by Marlon, a local LA guide · 4.9 from 500+ reviews', about: 'Meet Marlon',
+    updated: 'Updated November 2026', anywhere: 'A challenge: any spot counts. Collect its stamp.', pps: 'Guides', pick: function (n) { return n + ' guides'; }, ofP: function (i, n) { return i + ' of ' + n + ' guides'; }, prevP: 'Previous guide', nextP: 'Next guide', showAll: function () { return 'Show all'; }, bonusH: 'Bonus stamps', plusBonus: function (n) { return '+' + n + ' bonus'; }, choose: 'Pick a guide', loading: 'Loading the map...', fail: "The map didn't load. Please try again."
   };
 
   var CATS = {
