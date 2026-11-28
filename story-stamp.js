@@ -15,11 +15,11 @@
   var BASE = PROD ? 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/' : 'https://raw.githubusercontent.com/marlonwalksla/marlonwalksla-website/test/';
   var CDN = 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@' + (PROD ? 'main' : 'test') + '/';
   var T = ES ? {
-    h: 'Sella este lugar', p: 'Ya lo leíste. Ahora ve, tómate la foto y sella tu pasaporte. Es un juego de honor.',
-    stamp: 'Ver el sello', map: 'Verlo en el mapa', book: 'Ver el pasaporte', mapPath: '/mapa-los-angeles', bookPath: '/pasaportes', stampPath: '/stamps/'
+    h: 'Sella este lugar', p: 'Ya lo leíste. Ahora ve, tómate la foto y gana el sello. Es un juego de honor.',
+    stamp: 'Ver el sello', map: 'Verlo en el mapa', book: 'Ver la guía', mapPath: '/mapa-los-angeles', bookPath: '/pasaportes', stampPath: '/stamps/'
   } : {
-    h: 'Stamp this place', p: 'You read the story. Now go, take the photo and stamp your passport. It is the honor system.',
-    stamp: 'See the stamp', map: 'See it on the map', book: 'See the passport', mapPath: '/maps', bookPath: '/passports', stampPath: '/stamps/'
+    h: 'Stamp this place', p: 'You read the story. Now go, take the photo and collect the stamp. It is the honor system.',
+    stamp: 'See the stamp', map: 'See it on the map', book: 'See the guide', mapPath: '/maps', bookPath: '/passports', stampPath: '/stamps/'
   };
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function L(o) { return o ? (ES ? (o.es || o.en) : o.en) || '' : ''; }

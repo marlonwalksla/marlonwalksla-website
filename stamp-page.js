@@ -20,12 +20,12 @@
   var ES = (Q.get('lang') || '').toLowerCase().indexOf('es') === 0 || document.documentElement.lang === 'es';
   var TT = ES ? {
     stampIt: 'Sellar', undo: 'Quitar sello', of: 'de', todo: 'Para hacer aquí', place: 'Lugar', bonusAt: 'Extra en', map: 'Ver en el mapa', gmaps: 'Horarios y cómo llegar',
-    book: 'Ver el pasaporte', history: 'Lee la historia', tryIt: 'Pruébalo', free: 'Gratis', honest: 'Se sella cuando tú estás ahí. Es un juego de honor.',
-    all: 'Todos los pasaportes', pass: 'Pasaporte', mapPath: '/mapa-los-angeles', bookPath: '/pasaportes', stamped: 'Sellado', here: 'Estás aquí', err: 'No se pudo cargar el sello.'
+    book: 'Ver la guía', history: 'Lee la historia', tryIt: 'Pruébalo', free: 'Gratis', honest: 'Se sella cuando tú estás ahí. Es un juego de honor.',
+    all: 'Todas las guías', pass: 'Guía', mapPath: '/mapa-los-angeles', bookPath: '/pasaportes', stamped: 'Sellado', here: 'Estás aquí', err: 'No se pudo cargar el sello.'
   } : {
     stampIt: 'Stamp it', undo: 'Remove stamp', of: 'of', todo: 'To do here', place: 'Place', bonusAt: 'Bonus at', map: 'See on the map', gmaps: 'Hours and directions',
-    book: 'See the passport', history: 'Read the story', tryIt: 'Try this', free: 'Free', honest: 'Stamp it when you are there. It is the honor system.',
-    all: 'All passports', pass: 'Passport', mapPath: '/maps', bookPath: '/passports', stamped: 'Stamped', here: 'You are here', err: 'Could not load the stamp.'
+    book: 'See the guide', history: 'Read the story', tryIt: 'Try this', free: 'Free', honest: 'Stamp it when you are there. It is the honor system.',
+    all: 'All guides', pass: 'Guide', mapPath: '/maps', bookPath: '/passports', stamped: 'Stamped', here: 'You are here', err: 'Could not load the stamp.'
   };
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function L(o) { return o ? (ES ? (o.es || o.en) : o.en) || '' : ''; }

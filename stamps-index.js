@@ -19,15 +19,15 @@
   var lang = (mount.getAttribute('data-lang') || Q.get('lang') || document.documentElement.lang || '').toLowerCase();
   var ES = lang.indexOf('es') === 0 || /^\/sellos/.test(location.pathname);
   var T = ES ? {
-    title: 'Todos los sellos', sub: 'Cada lugar de los pasaportes de LA, en un solo lugar. Toca un sello para ver el lugar. Los que ya sellaste se ven con una palomita.',
-    search: 'Buscar un lugar', all: 'Todos', jump: 'Ir a un pasaporte', none: 'No hay sellos con ese nombre.', loading: 'Cargando…',
-    err: 'No se pudo cargar. Intenta de nuevo.', stamped: 'Ya lo sellaste', places: 'lugares', of: 'de', yours: 'Tus sellos', books: 'Ver los pasaportes',
-    map: 'Explora todos los lugares en el mapa', mapPath: '/mapa-los-angeles', bookPath: '/pasaportes', open: 'Abrir el pasaporte'
+    title: 'Todos los sellos', sub: 'Cada lugar de las guías de LA, en un solo lugar. Toca un sello para ver el lugar. Los que ya sellaste se ven con una palomita.',
+    search: 'Buscar un lugar', all: 'Todos', jump: 'Ir a una guía', none: 'No hay sellos con ese nombre.', loading: 'Cargando…',
+    err: 'No se pudo cargar. Intenta de nuevo.', stamped: 'Ya lo sellaste', places: 'lugares', of: 'de', yours: 'Tus sellos', books: 'Ver las guías',
+    map: 'Explora todos los lugares en el mapa', mapPath: '/mapa-los-angeles', bookPath: '/pasaportes', open: 'Abrir la guía'
   } : {
-    title: 'All the stamps', sub: 'Every place in the LA passports, in one spot. Tap a stamp to see the place. The ones you already stamped show a check mark.',
-    search: 'Search for a place', all: 'All', jump: 'Jump to a passport', none: 'No stamps with that name.', loading: 'Loading…',
-    err: 'Could not load. Please try again.', stamped: 'You stamped this', places: 'places', of: 'of', yours: 'Your stamps', books: 'See the passports',
-    map: 'Explore all places on the map', mapPath: '/maps', bookPath: '/passports', open: 'Open the passport'
+    title: 'All the stamps', sub: 'Every place in the LA guides, in one spot. Tap a stamp to see the place. The ones you already stamped show a check mark.',
+    search: 'Search for a place', all: 'All', jump: 'Jump to a guide', none: 'No stamps with that name.', loading: 'Loading…',
+    err: 'Could not load. Please try again.', stamped: 'You stamped this', places: 'places', of: 'of', yours: 'Your stamps', books: 'See the guides',
+    map: 'Explore all places on the map', mapPath: '/maps', bookPath: '/passports', open: 'Open the guide'
   };
   var qs = ES ? '?lang=es' : '';
 

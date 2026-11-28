@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('DOMContentLoaded', function () {
     var path = (location.pathname.replace(/\/+$/, '') || '/');
     var ES = document.documentElement.lang === 'es' || /^\/(pasaportes|sellos)$/.test(path) || /^\/es(\/|$)/.test(path);
-    var href = ES ? '/pasaportes' : '/passports', label = ES ? 'Pasaportes' : 'Passports';
+    var href = ES ? '/pasaportes' : '/passports', label = ES ? 'Guías' : 'Guides';
     // Header: after the Maps link
     var maps = document.querySelector('.mwhd-nav a[data-k="maps"]');
     if (maps && !document.querySelector('.mwhd-nav a[data-k="passports"]')) {

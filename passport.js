@@ -18,15 +18,15 @@
   var PG = document.querySelector('[data-pp-page]');   // page mode: the CMS template page hands us its data in data-pp-* attributes
   var ES = PG ? PG.getAttribute('data-pp-lang') === 'es' : (Q.get('lang') || '').toLowerCase().indexOf('es') === 0 || /^\/es(\/|$)/.test(location.pathname) || /^\/pasaporte/.test(location.pathname);
   var T = ES ? {
-    title: 'Pasaportes de LA', sub: 'Explora la ciudad un sello a la vez. Se guarda en este navegador, sin cuenta.',
-    stamped: 'sellos', of: 'de', open: 'Abrir', soon: 'Muy pronto', all: 'Todos los pasaportes', stampIt: 'Sellar',
-    undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', gmaps: 'Horarios y cómo llegar', story: 'Lee la historia', hint: 'Toca un sello para ver más.', close: 'Cerrar', done: '¡Pasaporte completo! Explora el siguiente.',
-    honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', mapAll: 'Explora todos los lugares en el mapa', mapPass: 'Ver este pasaporte en el mapa', stops: 'paradas', draft: 'Ilustración pendiente', tryIt: 'Prueba esto', free: 'Gratis', next: 'Siguiente pasaporte', bonus: 'Extra', bonusAt: 'Extra en', alsoHere: 'Para hacer aquí', bonusLine: 'Sellos extra'
+    title: 'Guías de LA', sub: 'Explora la ciudad un sello a la vez. Se guarda en este navegador, sin cuenta.',
+    stamped: 'sellos', of: 'de', open: 'Abrir', soon: 'Muy pronto', all: 'Todas las guías', stampIt: 'Sellar',
+    undo: 'Quitar sello', stampedMsg: 'Sellado', map: 'Ver en el mapa', gmaps: 'Horarios y cómo llegar', story: 'Lee la historia', hint: 'Toca un sello para ver más.', close: 'Cerrar', done: '¡Guía completa! Explora la siguiente.',
+    honest: 'Se sella cuando tú estás ahí. Es un juego de honor.', loading: 'Cargando…', err: 'No se pudo cargar. Intenta de nuevo.', mapPath: '/mapa-los-angeles', mapAll: 'Explora todos los lugares en el mapa', mapPass: 'Ver esta guía en el mapa', stops: 'paradas', draft: 'Ilustración pendiente', tryIt: 'Prueba esto', free: 'Gratis', next: 'Siguiente guía', bonus: 'Extra', bonusAt: 'Extra en', alsoHere: 'Para hacer aquí', bonusLine: 'Sellos extra'
   } : {
-    title: 'LA Passports', sub: 'Explore the city one stamp at a time. Saved in this browser, no account.',
-    stamped: 'stamps', of: 'of', open: 'Open', soon: 'Coming soon', all: 'All passports', stampIt: 'Stamp it',
-    undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', gmaps: 'Hours and directions', story: 'Read the story', hint: 'Tap a stamp to see more.', close: 'Close', done: 'Passport complete! Explore the next one.',
-    honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', mapAll: 'Explore all places on the map', mapPass: 'See this passport on the map', stops: 'stops', draft: 'Drawing coming soon', tryIt: 'Try this', free: 'Free', next: 'Next passport', bonus: 'Bonus', bonusAt: 'Bonus at', alsoHere: 'To do here', bonusLine: 'Bonus stamps'
+    title: 'LA Guides', sub: 'Explore the city one stamp at a time. Saved in this browser, no account.',
+    stamped: 'stamps', of: 'of', open: 'Open', soon: 'Coming soon', all: 'All guides', stampIt: 'Stamp it',
+    undo: 'Remove stamp', stampedMsg: 'Stamped', map: 'See on the map', gmaps: 'Hours and directions', story: 'Read the story', hint: 'Tap a stamp to see more.', close: 'Close', done: 'Guide complete! Explore the next one.',
+    honest: 'Stamp it when you are there. It is the honor system.', loading: 'Loading…', err: 'Could not load. Please try again.', mapPath: '/maps', mapAll: 'Explore all places on the map', mapPass: 'See this guide on the map', stops: 'stops', draft: 'Drawing coming soon', tryIt: 'Try this', free: 'Free', next: 'Next guide', bonus: 'Bonus', bonusAt: 'Bonus at', alsoHere: 'To do here', bonusLine: 'Bonus stamps'
   };
 
   var css = '' +
