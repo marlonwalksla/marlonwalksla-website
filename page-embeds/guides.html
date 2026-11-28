@@ -339,6 +339,21 @@
 .mwg-step7:disabled{opacity:.35;cursor:default}
 .mwg-c7nav .cnt{font:600 14px "Fredoka",sans-serif;white-space:nowrap}
 .mwg-c7nav .cnt b{font-size:18px;color:#FFD43B}
+/* Nov 28, 2026 round 11: compact Prev / Next; "collected" = yellow sticker everywhere, "viewing" = big white */
+.mwg-step7{min-width:0!important;min-height:44px;padding:6px 10px!important;border:0!important;border-radius:10px!important;background:rgba(255,255,255,.12)!important;font:700 14.5px "Nunito",sans-serif!important}
+.mwg-step7:hover,.mwg-step7:focus-visible{background:rgba(255,255,255,.24)!important}
+.mwg-c7 .mwg-dot{border:1.5px solid rgba(255,255,255,.55)!important;background:transparent!important;color:rgba(255,255,255,.8)!important;font-weight:700}
+.mwg-c7 .mwg-dot.on{background:#FFD43B!important;border-color:#27302E!important;color:#27302E!important;font-size:13px}
+.mwg-c7 .mwg-dot.cur{background:#fff!important;border:2px solid #27302E!important;color:#27302E!important;box-shadow:0 0 0 2px #fff!important}
+.mwg-c7 .mwg-dot.cur.on{background:#FFD43B!important}
+.mwg-mk.on{background:#FFD43B!important;color:#27302E!important;border-color:#27302E!important}
+.mwg-mk.sel{background:#fff!important;color:#27302E!important;border:4px solid #27302E!important}
+.mwg-mk.sel.on{background:#FFD43B!important}
+.mwg-r5.on .n{background:#FFD43B!important;color:#27302E!important;border:2px solid #27302E!important}
+.mwg-key .kp.pinon{background:#FFD43B!important;color:#27302E!important;border-color:#27302E!important}
+.mwg-key .kp.pinsel{background:#fff!important;border:4px solid #27302E!important;color:#27302E!important;width:34px;height:34px}
+.mwg-tile.on{background:#FFD43B!important}
+.mwg-tile.on .sv{border-color:#27302E!important}
 [data-mw-postcard]{display:none!important}
 .mwg-note{margin:12px 0 0;padding:10px 12px;background:#E0F1F8;border-radius:12px;font-size:15.5px;line-height:1.5}
 .mwg-svg .mwg-pin{cursor:pointer}
@@ -460,7 +475,7 @@
   var ICONS = { transit: '🚇', foot: '🚶', park: '🅿️', tour: '🎟️' };
   var P2 = ES ? {
     kick: 'Parte 2 · Antes de salir', keyH: 'Qué significan los símbolos',
-    key: [['pin', 'Número blanco: todavía no lo sellas'], ['pinon', 'Número de color con ✓: ya lo sellaste'], ['pinsel', 'Número amarillo: la parada que estás viendo'],
+    key: [['pin', 'Número con contorno: todavía no lo sellas'], ['pinon', 'Sticker amarillo con ✓: ya lo sellaste'], ['pinsel', 'Número blanco grande: la parada que estás viendo'],
       ['transit', 'Llegas en Metro o shuttle'], ['foot', 'Se disfruta a pie'], ['park', 'Vas en auto: planea dónde estacionarte'], ['tour', 'Parte de un tour con Marlon']],
     gaH: 'Cómo moverte por LA',
     ga: [['🕐', 'Planea por zonas', 'Hollywood y Griffith un día; Santa Monica, Venice y el Getty otro; el centro a pie. Deja 30 a 60 minutos entre zonas, y más en hora pico (7 a 10 AM y 3 a 7 PM).'],
@@ -474,7 +489,7 @@
     wa: 'WhatsApp', mail: 'Correo'
   } : {
     kick: 'Part 2 · Before you go', keyH: 'What the symbols mean',
-    key: [['pin', "White number: not stamped yet"], ['pinon', 'Colored number with ✓: stamped'], ['pinsel', 'Yellow number: the stop you are looking at'],
+    key: [['pin', 'Outlined number: not stamped yet'], ['pinon', 'Yellow sticker with ✓: stamped'], ['pinsel', 'Big white number: the stop you are looking at'],
       ['transit', 'Get there by Metro or shuttle'], ['foot', 'Best on foot'], ['park', 'Driving: plan your parking'], ['tour', 'Part of a tour with Marlon']],
     gaH: 'Getting around LA',
     ga: [['🕐', 'Plan by area', 'Hollywood and Griffith one day; Santa Monica, Venice and the Getty another; Downtown on foot. Leave 30 to 60 minutes between areas, more at rush hour (7 to 10 AM and 3 to 7 PM).'],
@@ -810,12 +825,12 @@
         (t0 ? '<p class="mwg-c7tours">' + esc(T.toursHere) + ' ' + esc(t0[0]) + (t1 ? ', ' + esc(t1[0]) : '') + '</p>' : '') +
         (s.history && L(s.history) ? '<div class="mwg-c6acts"><a class="mwg-btn alt" href="' + esc(L(s.history)) + '">📖 ' + esc(T.story) + '</a></div>' : '') +
       '</div></div>' +
-      '<div class="mwg-c7bot"><div class="mwg-c7nav"><button type="button" class="mwg-step7" data-go="' + (selectedStopId - 1) + '"' + (selectedStopId <= 1 ? ' disabled' : '') + '>‹ ' + esc(T.prevS) + '</button>' +
+      '<div class="mwg-c7bot"><div class="mwg-c7nav"><button type="button" class="mwg-step7" data-go="' + (selectedStopId - 1) + '"' + (selectedStopId <= 1 ? ' disabled' : '') + '>← ' + esc(T.prevS) + '</button>' +
         '<span class="cnt"><b>' + prog(G).d + '</b>/' + G.stops.length + ' ' + esc(T.stampedW) + '</span>' +
-        '<button type="button" class="mwg-step7" data-go="' + (selectedStopId + 1) + '"' + (selectedStopId >= G.stops.length ? ' disabled' : '') + '>' + esc(T.nextS2) + ' ›</button></div>' +
+        '<button type="button" class="mwg-step7" data-go="' + (selectedStopId + 1) + '"' + (selectedStopId >= G.stops.length ? ' disabled' : '') + '>' + esc(T.nextS2) + ' →</button></div>' +
       '<div class="mwg-dots" role="group" aria-label="' + esc(T.dotsL) + '">' + G.stops.map(function (x) {
         var xo = has(x), cur = x.n === selectedStopId;
-        return '<button type="button" class="mwg-dot' + (xo ? ' on' : '') + (cur ? ' cur' : '') + '" data-go="' + x.n + '" aria-label="' + esc(x.n + '. ' + L(x.name) + (xo ? ', ' + T.lfDoneOne : '')) + '"' + (cur ? ' aria-current="true"' : '') + '>' + x.n + '</button>';
+        return '<button type="button" class="mwg-dot' + (xo ? ' on' : '') + (cur ? ' cur' : '') + '" data-go="' + x.n + '" aria-label="' + esc(x.n + '. ' + L(x.name) + (xo ? ', ' + T.lfDoneOne : '')) + '"' + (cur ? ' aria-current="true"' : '') + '>' + (xo ? '✓' : x.n) + '</button>';
       }).join('') + '</div></div></div>';
     var box = document.getElementById('mwg-card'); box.innerHTML = c;
     box.querySelector('[data-close]').addEventListener('click', function () { closeStop('x'); });
