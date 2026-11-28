@@ -588,9 +588,10 @@
     sheet.classList.add('open');
     markSel();
     /* coming from the list: bring the map back into view above the panel (no jump when tapping a pin) */
-    if (source === 'list' || source === 'link') {
+    /* keep the whole map visible above the panel (the panel takes up to 60% of the screen) */
+    if (source !== 'arrow' && source !== 'back') {
       var mp = document.getElementById('mwg-map'), r = mp.getBoundingClientRect();
-      if (r.top < 60 || r.bottom > window.innerHeight * 0.42) window.scrollTo({ top: window.scrollY + r.top - 76, behavior: source === 'link' ? 'auto' : 'smooth' });
+      if (r.top < 56 || r.bottom > window.innerHeight * 0.4) window.scrollTo({ top: window.scrollY + r.top - 70, behavior: source === 'link' ? 'auto' : 'smooth' });
     }
     if (was === null || source !== 'arrow') ga('guide_stop_sheet_open', { guide: G.id, stop: s.id, n: n, source: source });
   }
