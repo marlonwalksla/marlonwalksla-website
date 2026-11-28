@@ -350,7 +350,7 @@ Q_BEA = ("Marlon was flexible, I had to reschedule and he was very open to it. H
 Q_MATEO = ("The guide showed us the nicest places in the city and provided the best advices and recommendations.", "Mateo R.")
 PK = {
   "en": dict(
-    title="Explore LA With a Local", sub="The LA you came for, the way locals live it",
+    title="Los Angeles Tours", sub="Explore LA with a local",
     line='You already know the places. I\'ll show you how we live them: <mark class="mk" data-tone="green">where locals eat</mark>, <mark class="mk" data-tone="orange">the best views</mark> and <mark class="mk" data-tone="pink">the stories behind them</mark>. The instant camera captures the moments.',
     g="Google", cards=[
       dict(tone="green", name="Downtown Food Walk", place="Grand Central Market",
@@ -371,7 +371,7 @@ PK = {
     ],
     custom="Want a different day? <a href=\"/los-angeles-tours#private-inquiry\">Tell Marlon where you want to go</a>."),
   "es": dict(
-    title="Explora LA con un local", sub="El LA que viniste a ver, como lo vivimos aquí",
+    title="Excursiones en Los Ángeles", sub="Explora LA con un local",
     line='Ya conoces los lugares. Te enseño cómo los vivimos: <mark class="mk" data-tone="green">dónde comemos</mark>, <mark class="mk" data-tone="orange">las mejores vistas</mark> y <mark class="mk" data-tone="pink">las historias detrás</mark>. La cámara instantánea captura los momentos.',
     g="Google (en inglés)", cards=[
       dict(tone="green", name="Ruta de comida en el centro", place="Grand Central Market",
