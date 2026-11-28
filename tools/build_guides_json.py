@@ -35,7 +35,7 @@ EXTRA = {
     "la-tourist": {
         "areas": [
             {"from": 1, "en": "Hollywood and Griffith", "es": "Hollywood y Griffith"},
-            {"from": 5, "en": "The beach and the Westside", "es": "La playa y el Westside"},
+            {"from": 4, "en": "The beach and the Westside", "es": "La playa y el Westside"},
             {"from": 9, "en": "Downtown on foot", "es": "El centro a pie"},
         ],
         "stops": {
@@ -43,18 +43,18 @@ EXTRA = {
                                      "La mejor vista de LA, con el letrero de Hollywood de un lado y la ciudad del otro.",
                                      "6ad93d4377d6a74feb17629a_6ad92a2e4c83370c9caa0a28_place-griffith-park-and-observatory-01.webp"),
             "hollywood-walk-of-fame": ("More than 2,700 stars line Hollywood Boulevard.",
-                                       "Más de 2,700 estrellas a lo largo de Hollywood Boulevard.", None),
+                                       "Más de 2,700 estrellas a lo largo de Hollywood Boulevard.",
+                                       "6ad93deca132d3bca4ce61f5_6ad9300ccc8517d84355cd90_place-tcl-chinese-theatre-01.webp"),
             "hollywood-sign-viewpoint-lake-hollywood-park": ("See the sign up close from the quiet park below it.",
                                                              "Ve el letrero de cerca desde el parque tranquilo que está abajo.",
                                                              "6ad93d771ae24522ff516014_6ad929e02eb98d1ee52bd0c0_place-hollywood-sign-02.webp"),
-            "tcl-chinese-theatre": ("The 1927 movie palace with the stars' handprints out front.",
-                                    "El cine de 1927 con las huellas de las estrellas en la entrada.",
-                                    "6ad93deca132d3bca4ce61f5_6ad9300ccc8517d84355cd90_place-tcl-chinese-theatre-01.webp"),
             "santa-monica-pier": ("Ferris wheel, ocean air and the end of Route 66.",
                                   "Rueda de la fortuna, aire de mar y el final de la Ruta 66.",
                                   "6ad93deba132d3bca4ce61e6_6ad929e6fd77e7c927620ea9_place-santa-monica-01.webp"),
             "venice-beach-boardwalk": ("LA's most colorful boardwalk, right on the sand.",
                                        "El malecón más colorido de LA, junto a la arena.", None),
+            "the-grove": ("Outdoor shopping, a trolley and dancing fountains.",
+                          "Tiendas al aire libre, un trolebús y fuentes que bailan.", None),
             "the-getty-center": ("Art, gardens and big views from a hilltop.",
                                  "Arte, jardines y grandes vistas desde una colina.",
                                  "6ad93d3f77d6a74feb176166_6ad929db59b1d5ccebe76dc4_place-getty-center-01.webp"),
@@ -88,11 +88,11 @@ META = {
         "griffith-observatory": (("Hollywood / Griffith Park", "Hollywood / Griffith Park"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Views and astronomy", "Vistas y astronomía"), ["sunset"], ["transit","park"]),
         "hollywood-walk-of-fame": (("Hollywood", "Hollywood"), ("45 to 60 min", "45 a 60 min"), ("Pop culture", "Cultura pop"), ["sunset"], ["transit","foot"]),
         "hollywood-sign-viewpoint-lake-hollywood-park": (("Hollywood Hills", "Colinas de Hollywood"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Iconic view", "Vista icónica"), ["sunset"], ["park","foot"]),
-        "tcl-chinese-theatre": (("Hollywood", "Hollywood"), ("30 to 45 min", "30 a 45 min"), ("Movie history", "Historia del cine"), ["sunset"], ["transit","foot"]),
         "santa-monica-pier": (("Santa Monica", "Santa Monica"), ("1.5 to 2.5 hrs", "1.5 a 2.5 h"), ("Beach and boardwalk", "Playa y malecón"), ["beach"], ["transit","foot"]),
         "venice-beach-boardwalk": (("Venice", "Venice"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Street culture and canals", "Cultura callejera y canales"), ["beach"], ["park","foot"]),
         "the-getty-center": (("Brentwood", "Brentwood"), ("2.5 to 3.5 hrs", "2.5 a 3.5 h"), ("Art and hilltop views", "Arte y vistas"), ["getty"], ["park"]),
         "rodeo-drive": (("Beverly Hills", "Beverly Hills"), ("45 to 60 min", "45 a 60 min"), ("Shopping and architecture", "Compras y arquitectura"), ["build"], ["park","foot"]),
+        "the-grove": (("Fairfax", "Fairfax"), ("1 to 2 hrs", "1 a 2 h"), ("Shopping and food", "Compras y comida"), ["build"], ["park","foot"]),
         "walt-disney-concert-hall": (("Downtown LA", "Centro de LA"), ("45 to 60 min", "45 a 60 min"), ("Architecture and music", "Arquitectura y música"), ["free", "foodwalk"], ["transit","tour"]),
         "the-broad": (("Downtown LA", "Centro de LA"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Modern art", "Arte moderno"), ["free", "foodwalk"], ["transit","tour"]),
         "grand-central-market": (("Downtown LA", "Centro de LA"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Food hall", "Mercado de comida"), ["foodwalk", "free"], ["transit","tour"]),
@@ -104,9 +104,9 @@ META = {
 # Nov 28, 2026: street address shown under the stop name (tap = Google Maps directions to the pin coordinates).
 ADDR = {
     "griffith-observatory": "2800 E Observatory Rd, Los Angeles",
-    "hollywood-walk-of-fame": "Hollywood Blvd at Highland Ave, Hollywood",
+    "hollywood-walk-of-fame": "6925 Hollywood Blvd, Hollywood",
     "hollywood-sign-viewpoint-lake-hollywood-park": "Lake Hollywood Park, 3160 Canyon Lake Dr",
-    "tcl-chinese-theatre": "6925 Hollywood Blvd, Hollywood",
+    "the-grove": "189 The Grove Dr, Los Angeles",
     "santa-monica-pier": "200 Santa Monica Pier, Santa Monica",
     "venice-beach-boardwalk": "Ocean Front Walk at Windward Ave, Venice",
     "the-getty-center": "1200 Getty Center Dr, Los Angeles",
@@ -120,17 +120,33 @@ ADDR = {
 # Nov 28, 2026: concrete "getting there" notes per stop, shown under Read more (icon, EN, ES).
 GET = {
     "griffith-observatory": [["🚌", "DASH shuttle from Vermont/Sunset (Metro B)", "Shuttle DASH desde Vermont/Sunset (Metro B)"], ["🅿️", "Paid parking, full at sunset", "Estacionamiento de paga, lleno al atardecer"]],
-    "hollywood-walk-of-fame": [["🚇", "Metro B · Hollywood/Highland", "Metro B · Hollywood/Highland"]],
+    "hollywood-walk-of-fame": [["🚇", "Metro B · Hollywood/Highland", "Metro B · Hollywood/Highland"], ["🅿️", "Paid parking next door", "Estacionamiento de paga al lado"]],
     "hollywood-sign-viewpoint-lake-hollywood-park": [["🅿️", "Street parking only", "Solo estacionamiento en la calle"], ["🚶", "Best view from the park", "La mejor vista desde el parque"]],
-    "tcl-chinese-theatre": [["🚇", "Metro B · Hollywood/Highland", "Metro B · Hollywood/Highland"], ["🅿️", "Paid parking next door", "Estacionamiento de paga al lado"]],
     "santa-monica-pier": [["🚇", "Metro E · Downtown Santa Monica", "Metro E · Downtown Santa Monica"], ["🅿️", "Paid parking", "Estacionamiento de paga"]],
     "venice-beach-boardwalk": [["🅿️", "Paid beach parking", "Estacionamiento de paga en la playa"], ["🚶", "Canals a few blocks inland", "Canales a unas cuadras"]],
     "the-getty-center": [["🎟️", "Free, timed reservation · Closed Mon", "Gratis con reservación · Cerrado lunes"], ["🅿️", "Paid parking + tram up", "Estacionamiento de paga + tranvía"]],
     "rodeo-drive": [["🅿️", "Paid city garages", "Garajes de paga de la ciudad"], ["🚶", "3 blocks on foot", "3 cuadras a pie"]],
+    "the-grove": [["🅿️", "Garage on site", "Garaje en el lugar"], ["🚶", "Farmers Market next door", "Farmers Market al lado"]],
     "walt-disney-concert-hall": [["🚇", "Metro A/E · Grand Av Arts/Bunker Hill", "Metro A/E · Grand Av Arts/Bunker Hill"]],
     "the-broad": [["🚇", "Metro A/E · Grand Av Arts/Bunker Hill", "Metro A/E · Grand Av Arts/Bunker Hill"]],
     "grand-central-market": [["🚡", "Angels Flight from Bunker Hill", "Angels Flight desde Bunker Hill"], ["🚇", "Metro B/D · Pershing Square", "Metro B/D · Pershing Square"]],
     "olvera-street-and-el-pueblo": [["🚇", "Metro A/B/D · Union Station", "Metro A/B/D · Union Station"]],
+}
+
+# Nov 28, 2026 (Marlon): "Nearby" under Read more replaces "Tours that stop here" (the yellow button names the tour).
+NEAR = {
+    "griffith-observatory": [["Greek Theatre", "Greek Theatre"], ["Fern Dell trail", "Sendero Fern Dell"], ["Los Feliz cafes", "Cafés de Los Feliz"]],
+    "hollywood-walk-of-fame": [["TCL Chinese Theatre handprints", "Huellas del Teatro Chino TCL"], ["Dolby Theatre (the Oscars)", "Dolby Theatre (los Óscar)"], ["El Capitan Theatre", "El Capitan Theatre"]],
+    "hollywood-sign-viewpoint-lake-hollywood-park": [["Lake Hollywood Reservoir loop", "Vuelta al Lake Hollywood Reservoir"], ["Griffith Observatory", "Observatorio Griffith"]],
+    "santa-monica-pier": [["Third Street Promenade", "Third Street Promenade"], ["Palisades Park", "Palisades Park"], ["Beach bike path to Venice", "Ciclovía de playa a Venice"]],
+    "venice-beach-boardwalk": [["Venice Canals", "Canales de Venice"], ["Muscle Beach", "Muscle Beach"], ["Abbot Kinney Blvd", "Abbot Kinney Blvd"]],
+    "the-getty-center": [["Skirball Cultural Center", "Skirball Cultural Center"], ["Westwood Village", "Westwood Village"]],
+    "rodeo-drive": [["Beverly Hills sign", "Letrero de Beverly Hills"], ["Two Rodeo", "Two Rodeo"], ["Beverly Wilshire hotel", "Hotel Beverly Wilshire"]],
+    "the-grove": [["Original Farmers Market", "Original Farmers Market"], ["LACMA and Urban Light", "LACMA y Urban Light"], ["Academy Museum", "Academy Museum"]],
+    "walt-disney-concert-hall": [["Grand Park", "Grand Park"], ["The Music Center", "The Music Center"], ["MOCA", "MOCA"]],
+    "the-broad": [["MOCA", "MOCA"], ["Angels Flight", "Angels Flight"]],
+    "grand-central-market": [["Angels Flight", "Angels Flight"], ["Bradbury Building", "Bradbury Building"], ["Million Dollar Theatre", "Million Dollar Theatre"]],
+    "olvera-street-and-el-pueblo": [["Union Station", "Union Station"], ["Avila Adobe", "Avila Adobe"], ["Chinatown", "Chinatown"]],
 }
 
 def coords(mid):
@@ -161,6 +177,8 @@ for p in sorted(PASS["passports"], key=lambda x: x["order"]):
             st["addr"] = ADDR[s["id"]]
         if p["id"] == "la-tourist" and s["id"] in GET:
             st["get"] = [{"i": g[0], "en": g[1], "es": g[2]} for g in GET[s["id"]]]
+        if p["id"] == "la-tourist" and s["id"] in NEAR:
+            st["near"] = [{"en": x[0], "es": x[1]} for x in NEAR[s["id"]]]
         mt = META.get(p["id"], {}).get(s["id"])
         if mt:
             st["hood"] = {"en": mt[0][0], "es": mt[0][1]}

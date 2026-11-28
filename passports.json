@@ -108,38 +108,8 @@
      "slug": "hollywood-sign-view"
     },
     {
-     "id": "tcl-chinese-theatre",
-     "order": 4,
-     "name": {
-      "en": "TCL Chinese Theatre",
-      "es": "Teatro Chino TCL"
-     },
-     "top": {
-      "en": "TCL CHINESE THEATRE",
-      "es": "TEATRO CHINO TCL"
-     },
-     "bottom": {
-      "en": "LOS ANGELES",
-      "es": "LOS ÁNGELES"
-     },
-     "icon": "theater",
-     "year": "1927",
-     "ink": "#1D6F8F",
-     "rot": 7,
-     "seed": 9,
-     "mapId": "tcl-chinese-theatre-b566e",
-     "legacyKey": "tcl-chinese-theatre",
-     "draft": true,
-     "tip": {
-      "en": "Put your hands in the famous cement prints in the front yard.",
-      "es": "Pon tus manos en las huellas de cemento del patio de enfrente."
-     },
-     "mapLink": null,
-     "slug": "tcl-chinese-theatre"
-    },
-    {
      "id": "santa-monica-pier",
-     "order": 5,
+     "order": 4,
      "name": {
       "en": "Santa Monica Pier",
       "es": "Muelle de Santa Mónica"
@@ -155,8 +125,8 @@
      "icon": "pier",
      "year": "1909",
      "ink": "#1D6F8F",
-     "rot": -8,
-     "seed": 11,
+     "rot": 7,
+     "seed": 9,
      "mapId": "santa-monica-pier-6f0bc",
      "legacyKey": "santa-monica-pier",
      "draft": false,
@@ -169,7 +139,7 @@
     },
     {
      "id": "venice-beach-boardwalk",
-     "order": 6,
+     "order": 5,
      "name": {
       "en": "Venice Beach Boardwalk",
       "es": "Malecón de Venice Beach"
@@ -185,8 +155,8 @@
      "icon": "venice_beach",
      "year": "1905",
      "ink": "#1D6F8F",
-     "rot": 4,
-     "seed": 13,
+     "rot": -8,
+     "seed": 11,
      "mapId": "venice-beach-boardwalk-ffbe3",
      "legacyKey": "venice-beach-boardwalk",
      "draft": false,
@@ -199,7 +169,7 @@
     },
     {
      "id": "the-getty-center",
-     "order": 7,
+     "order": 6,
      "name": {
       "en": "The Getty Center",
       "es": "El Getty Center"
@@ -215,8 +185,8 @@
      "icon": "museum",
      "year": "1997",
      "ink": "#1D6F8F",
-     "rot": -3,
-     "seed": 15,
+     "rot": 4,
+     "seed": 13,
      "mapId": "the-getty-center-87f3f",
      "legacyKey": "the-getty-center",
      "draft": true,
@@ -229,7 +199,7 @@
     },
     {
      "id": "rodeo-drive",
-     "order": 8,
+     "order": 7,
      "name": {
       "en": "Rodeo Drive",
       "es": "Rodeo Drive"
@@ -245,8 +215,8 @@
      "icon": "bag",
      "year": "",
      "ink": "#1D6F8F",
-     "rot": 6,
-     "seed": 17,
+     "rot": -3,
+     "seed": 15,
      "mapId": "rodeo-drive-b8f8b",
      "legacyKey": "rodeo-drive",
      "draft": false,
@@ -256,6 +226,36 @@
      },
      "mapLink": null,
      "slug": "rodeo-drive"
+    },
+    {
+     "id": "the-grove",
+     "order": 8,
+     "name": {
+      "en": "The Grove",
+      "es": "The Grove"
+     },
+     "top": {
+      "en": "THE GROVE",
+      "es": "THE GROVE"
+     },
+     "bottom": {
+      "en": "LOS ANGELES",
+      "es": "LOS ÁNGELES"
+     },
+     "icon": "bag",
+     "year": "2002",
+     "ink": "#1D6F8F",
+     "rot": 6,
+     "seed": 17,
+     "mapId": "the-grove-d8dae",
+     "legacyKey": "the-grove",
+     "draft": true,
+     "tip": {
+      "en": "Have lunch at the Original Farmers Market next door.",
+      "es": "Come en el Original Farmers Market, justo al lado."
+     },
+     "mapLink": null,
+     "slug": "the-grove"
     },
     {
      "id": "walt-disney-concert-hall",
