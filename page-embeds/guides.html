@@ -83,13 +83,13 @@
 .mwg-acts{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:14px}
 .mwg-stamp{min-height:44px;padding:10px 18px;font-size:17px}
 .mwg-stop.on .mwg-stamp{background:var(--ink);color:#fff!important}
-.mwg-done{margin:22px 0 0;padding:14px 16px;border:2.5px dashed var(--ink);border-radius:14px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:17px;text-align:center;background:#fff}
+.mwg-done{margin:22px 0 0;padding:14px 16px;border:2.5px solid var(--ink);border-radius:14px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:17px;text-align:center;background:#fff}
 /* postcard ending */
 .mwg-card2{display:grid;grid-template-columns:minmax(0,1fr);background:#FFFDF8;border:2.5px solid #27302E;border-radius:10px;box-shadow:5px 5px 0 #27302E;overflow:hidden;margin-top:16px}
 .mwg-card2 .l,.mwg-card2 .r{min-width:0}
-.mwg-card2 .l{padding:18px;border-bottom:2px dashed #C9BFA9}
+.mwg-card2 .l{padding:18px;border-bottom:2px solid #E4DCCB}
 .mwg-card2 .gr{font-family:"Lilita One",sans-serif;font-size:26px;overflow-wrap:anywhere;line-height:1.05;color:var(--ink)}
-.mwg-card2 textarea{width:100%;min-height:96px;margin-top:10px;padding:8px 10px;font-family:"Caveat",cursive;font-size:24px;line-height:1.2;border:2px dashed #C9BFA9;border-radius:8px;background:transparent;color:#27302E;resize:vertical}
+.mwg-card2 textarea{width:100%;min-height:96px;margin-top:10px;padding:8px 10px;font-family:"Caveat",cursive;font-size:24px;line-height:1.2;border:2px solid #E4DCCB;border-radius:8px;background:transparent;color:#27302E;resize:vertical}
 .mwg-card2 .r{padding:18px;display:flex;flex-direction:column;gap:12px}
 .mwg-card2 .stamps{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end;min-height:84px}
 .mwg-card2 .stamps svg{width:72px;max-width:30%;height:auto;mix-blend-mode:multiply}
@@ -112,10 +112,58 @@
   .mwg-feat{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:36px}
   .mwg-stop{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);padding:24px 26px;gap:24px;align-items:center}
   .mwg-card2{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
-  .mwg-card2 .l{border-bottom:0;border-right:2px dashed #C9BFA9}
+  .mwg-card2 .l{border-bottom:0;border-right:2px solid #E4DCCB}
 }
 @media (max-width:420px){.mwg-photo{flex-basis:170px}.mwg-st,.mwg-st .s{width:96px}.mwg-st .s{height:96px}.mwg-st .s svg{width:90px}}
 @media (prefers-reduced-motion:reduce){.mwg-btn,.mwg-card,.mwg-bar i{transition:none}}
+
+/* ===== Nov 27, 2026 (mobile spec): compact stop rows + slide-up "what to do here" panel ===== */
+[data-mw-postcard]{display:none!important}
+.mwg-note{margin:12px 0 0;padding:10px 12px;background:#E0F1F8;border-radius:12px;font-size:15.5px;line-height:1.5}
+.mwg-svg .mwg-pin{cursor:pointer}
+.mwg-svg .mwg-pin.sel .pc{fill:#FFD43B;stroke:#27302E;stroke-width:4}
+.mwg-svg .mwg-pin.sel text{fill:#27302E}
+.mwg-rows{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.mwg-rowb{display:grid;grid-template-columns:auto 64px minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-height:76px;padding:8px 12px 8px 8px;background:#fff;border:2px solid #27302E;border-radius:14px;box-shadow:3px 3px 0 #27302E;font:inherit;color:#27302E;text-align:left;cursor:pointer;scroll-margin-top:90px}
+.mwg-rowb:hover,.mwg-rowb:focus-visible{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #27302E}
+.mwg-rowb.sel{background:#FFF6D6}
+.mwg-rowb .n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2.5px solid var(--ink);color:var(--ink);background:#fff;font-family:"Lilita One",sans-serif;font-size:17px}
+.mwg-rowb.on .n{background:var(--ink);color:#fff}
+.mwg-rowb .th{width:64px;height:56px;border-radius:10px;overflow:hidden;background:#E0F1F8;display:grid;place-items:center}
+.mwg-rowb .th img{width:100%;height:100%;object-fit:cover;object-position:50% 35%;display:block}
+.mwg-rowb .th svg{width:52px;height:auto;mix-blend-mode:multiply}
+.mwg-rowb .tx{min-width:0;display:flex;flex-direction:column;gap:2px}
+.mwg-rowb .tx b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:19px;line-height:1.1}
+.mwg-rowb .tx small{font-size:13.5px;color:#5B6663;line-height:1.35}
+.mwg-rowb .ch{font-size:22px;color:#5B6663}
+.mwg-sheet{position:fixed;left:50%;bottom:0;z-index:2000;width:min(560px,100%);max-height:60vh;max-height:60dvh;display:flex;flex-direction:column;background:#FFFDF8;border:2.5px solid #27302E;border-bottom:0;border-radius:20px 20px 0 0;box-shadow:0 -10px 30px -12px rgba(39,48,46,.55);transform:translate(-50%,105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+.mwg-sheet.open{transform:translate(-50%,0);visibility:visible}
+.mwg-sheet.drag{transition:none}
+.mwg-sh-top{flex:none;display:flex;align-items:center;gap:6px;padding:6px 8px 4px 12px;touch-action:none}
+.mwg-sh-grab{position:absolute;left:50%;top:7px;width:44px;height:5px;margin-left:-22px;border-radius:9px;background:#C9BFA9}
+.mwg-sh-top .pg{flex:1;padding-top:10px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:13.5px;color:#5B6663}
+.mwg-ib{width:44px;height:44px;border-radius:50%;border:2px solid #27302E;background:#fff;color:#27302E;font:700 20px/1 "Nunito",sans-serif;cursor:pointer;display:grid;place-items:center;margin-top:8px}
+.mwg-ib:disabled{opacity:.35}
+.mwg-sh-body{overflow-y:auto;overscroll-behavior:contain;padding:4px 16px 22px;-webkit-overflow-scrolling:touch}
+.mwg-sh-ph{position:relative;margin:4px 0 12px;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:#E0F1F8;display:grid;place-items:center}
+.mwg-sh-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+.mwg-sh-ph svg{width:150px;height:auto;mix-blend-mode:multiply}
+.mwg-sh-body h2{margin:0;font-family:"Lilita One",sans-serif;font-weight:400;font-size:26px;line-height:1.1}
+.mwg-meta{margin:6px 0 0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:14px;color:#5B6663}
+.mwg-sh-body .mwg-line{font-size:16px;line-height:1.5}
+.mwg-sh-body .mwg-tip{font-size:15.5px}
+.mwg-sh-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 0}
+.mwg-sh-acts .mwg-btn{min-height:48px;font-size:17px;padding:10px 12px}
+.mwg-sh-acts .mwg-stamp[aria-pressed="true"]{background:var(--ink);color:#fff!important}
+.mwg-tourbox{margin:14px 0 0;padding:12px 14px;border-radius:14px;background:#FFF0E2;border:2px solid #27302E}
+.mwg-tourbox p{margin:0 0 8px;font-size:14px;font-weight:700;color:#5B6663}
+.mwg-tourbox .mwg-btn{width:100%;min-height:48px;font-size:17px}
+.mwg-tourbox .mwg-link{display:inline-block;margin-top:8px}
+.mwg-sh-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0}
+.mwg-sh-links .mwg-link{min-height:44px;display:inline-flex;align-items:center}
+.mwg-pc-ok{display:none;margin:12px 0 0;padding:12px 14px;border-radius:12px;background:#E8F6DF;border:2px solid #1F6B35;font-family:"Fredoka",sans-serif;font-weight:600;color:#1F6B35}
+.mwg-pc-ok.show{display:block}
+@media (prefers-reduced-motion:reduce){.mwg-sheet{transition:none}}
 </style>
 <script>
 (function () {
@@ -157,7 +205,12 @@
     noSt: 'Sella tu primera parada para ponerla aquí.', send: 'Enviar mi postal', copied: 'Enlace copiado. Pégalo en un mensaje.',
     shareT: function (d, t, g) { return 'Sellé ' + d + ' de ' + t + ' lugares de la guía ' + g + ' de Marlon.'; },
     next: 'Siguiente guía', loadMap: 'Cargando el mapa...', fail: 'No cargó. Intenta de nuevo.', nf: 'No encontramos esta guía.',
-    mapAlt: 'Mapa ilustrado con las paradas de la guía'
+    mapAlt: 'Mapa ilustrado con las paradas de la guía',
+    note2: 'LA no es una sola caminata, es un conjunto de barrios. Toca un número del mapa o una parada para ver qué hacer ahí, o únete a un tour a pie por el centro para ubicarte primero.',
+    hint2: 'Toca un número o una parada.', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
+    tourH: 'Explóralo con Marlon', see: 'Ver detalles',
+    pcH2: 'Envía una postal desde LA', pcP2: 'Escribe una nota de tu viaje. Le llega a Marlon y a Ernesto, y también la puedes compartir con alguien.',
+    send2: 'Enviar postal', sending: 'Enviando...', sent: '¡Enviada! A Marlon y Ernesto les va a encantar.', share: 'Compártela con alguien', sendFail: 'No se envió. Intenta de nuevo.'
   } : {
     kick: 'LA Guides', h1: 'Free LA Guides from a Local', sub: 'Pick a guide. Explore. Collect the stamps.',
     note: 'Made by Marlon and Ernesto. Your stamps save on this phone, no account needed.',
@@ -173,7 +226,22 @@
     noSt: 'Stamp your first stop to put it here.', send: 'Send my postcard', copied: 'Link copied. Paste it in a message.',
     shareT: function (d, t, g) { return 'I stamped ' + d + ' of ' + t + " places in Marlon's " + g + ' guide.'; },
     next: 'Next guide', loadMap: 'Loading the map...', fail: "It didn't load. Please try again.", nf: "We couldn't find this guide.",
-    mapAlt: "Illustrated map with the guide's stops"
+    mapAlt: "Illustrated map with the guide's stops",
+    note2: "LA isn't a single walk. It's a set of neighborhoods. Tap any numbered pin or stop below to see what to do there, or join a Downtown LA walking tour to get your bearings first.",
+    hint2: 'Tap a number or a stop.', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
+    tourH: 'Explore it with Marlon', see: 'See details',
+    pcH2: 'Send a Postcard from LA', pcP2: 'Write a note from your trip. It goes to Marlon and Ernesto, and you can share it with a friend too.',
+    send2: 'Send Postcard', sending: 'Sending...', sent: 'Sent! Marlon and Ernesto will love it.', share: 'Share it with a friend', sendFail: "It didn't send. Please try again."
+  };
+  /* Tours a stop links to (keys come from guides.json "tours"; the first is the main button) */
+  var TOURS = ES ? {
+    free: ['Free tour a pie por el centro', '/free-tour-los-angeles-espanol'], foodwalk: ['Ruta de comida en el centro', '/excursiones-los-angeles#group-tour'],
+    sunset: ['Letrero de Hollywood y atardecer', '/excursiones-los-angeles#private-inquiry'], beach: ['Día de playa', '/excursiones-los-angeles#private-inquiry'],
+    getty: ['Salida en familia al Getty', '/excursiones-los-angeles#private-inquiry'], build: ['Arma tu propio día', '/excursiones-los-angeles#private-inquiry']
+  } : {
+    free: ['Free Downtown Walking Tour', '/free-walking-tour-los-angeles'], foodwalk: ['Downtown Food Walk', '/los-angeles-tours?tour=foodwalk#book-group'],
+    sunset: ['Hollywood Sign and Sunset Hike', '/los-angeles-tours?tour=sunset#book-private'], beach: ['Beach Day', '/los-angeles-tours?tour=beach#book-private'],
+    getty: ['Family Outing at the Getty', '/los-angeles-tours?tour=getty#book-private'], build: ['Build your own day', '/los-angeles-tours?tour=build#book-private']
   };
 
   function L(o) { return !o ? '' : typeof o === 'string' ? o : (ES ? (o.es || o.en) : (o.en || o.es)) || ''; }
@@ -307,13 +375,13 @@
     if (hen && hes) { hen.href = '/guides/' + G.slug.en; hes.href = '/guias/' + G.slug.es; hen.setAttribute('data-mw-pair', '1'); hes.setAttribute('data-mw-pair', '1'); hen.setAttribute('aria-current', ES ? 'false' : 'true'); hes.setAttribute('aria-current', ES ? 'true' : 'false'); }
     var i0 = D.guides.indexOf(G), nx = D.guides[(i0 + 1) % D.guides.length];
     var h = '<div class="mwg-wrap"><a class="mwg-back" href="' + HUB + '">' + esc(T.back) + '</a>';
-    h += '<section class="mwg-pc" id="mwg-top"><p class="mwg-kick">' + esc(T.guide) + ' · ' + esc(L(G.name)) + ' · ' + esc(T.stops(G.stops.length)) + '</p><div id="mwg-h"></div><div class="mwg-intro" id="mwg-i"></div><p class="mwg-by">' + esc(T.by) + '</p><div id="mwg-p1"></div></section>';
-    h += '<section class="mwg-pc" style="--pc:#E0F1F8"><h2 class="mwg-h2">' + esc(T.mapH) + '</h2><div class="mwg-map" id="mwg-map"></div><div class="mwg-maptools"><button type="button" class="mwg-btn alt" id="mwg-real">🗺️ ' + esc(T.openMap) + '</button><a class="mwg-link" href="' + MAP + '?passport=' + G.id + '&from=guides">' + esc(T.laMap) + '</a><p class="mwg-hint">' + esc(T.hint) + '</p></div></section>';
+    h += '<section class="mwg-pc" id="mwg-top"><p class="mwg-kick">' + esc(T.guide) + ' · ' + esc(L(G.name)) + ' · ' + esc(T.stops(G.stops.length)) + '</p><div id="mwg-h"></div><div class="mwg-intro" id="mwg-i"></div><p class="mwg-note">' + esc(T.note2) + '</p><p class="mwg-by">' + esc(T.by) + '</p><div id="mwg-p1"></div></section>';
+    h += '<section class="mwg-pc" style="--pc:#E0F1F8"><h2 class="mwg-h2">' + esc(T.mapH) + '</h2><div class="mwg-map" id="mwg-map"></div><div class="mwg-maptools"><button type="button" class="mwg-btn alt" id="mwg-real">🗺️ ' + esc(T.openMap) + '</button><a class="mwg-link" href="' + MAP + '?passport=' + G.id + '&from=guides">' + esc(T.laMap) + '</a><p class="mwg-hint">' + esc(T.hint2) + '</p></div></section>';
     h += '<section id="mwg-list"></section>';
-    h += '<section class="mwg-pc" id="mwg-pc" style="--pc:#FFE6EF;--edge1:#D6457A;--edge2:#2890B6"><h2 class="mwg-h2">' + esc(T.pcH) + '</h2><p class="mwg-body">' + esc(T.pcP) + '</p>' +
+    h += '<section class="mwg-pc" id="mwg-pc" style="--pc:#FFE6EF;--edge1:#D6457A;--edge2:#2890B6"><h2 class="mwg-h2">' + esc(T.pcH2) + '</h2><p class="mwg-body">' + esc(T.pcP2) + '</p>' +
       '<div class="mwg-card2"><div class="l"><div class="gr">' + esc(T.greet) + '</div><textarea id="mwg-msg" aria-label="' + esc(T.pcH) + '">' + esc(T.msg) + '</textarea></div>' +
       '<div class="r"><div class="stamps" id="mwg-pst"></div><label>' + esc(T.to) + ' <input id="mwg-to" autocomplete="off"></label><label>' + esc(T.from) + ' <input id="mwg-from" autocomplete="given-name"></label></div></div>' +
-      '<div class="mwg-row"><button type="button" class="mwg-btn" id="mwg-send">✉️ ' + esc(T.send) + '</button><a class="mwg-link" href="' + pageUrl(nx) + '">' + esc(T.next) + ': ' + esc(L(nx.name)) + ' →</a></div><p class="mwg-msg" id="mwg-sent" role="status"></p></section>';
+      '<div class="mwg-row"><button type="button" class="mwg-btn" id="mwg-send">✉️ ' + esc(T.send2) + '</button><button type="button" class="mwg-btn alt" id="mwg-share" hidden>' + esc(T.share) + '</button><a class="mwg-link" href="' + pageUrl(nx) + '">' + esc(T.next) + ': ' + esc(L(nx.name)) + ' →</a></div><p class="mwg-pc-ok" id="mwg-ok" role="status"></p><p class="mwg-msg" id="mwg-sent" role="status"></p></section>';
     root.innerHTML = h + '</div>';
     /* move the CMS headline and intro (real page text) into place */
     var hh = src && src.querySelector('h1'), ii = src && src.querySelector('.w-richtext, [class*="rich"]') || (src && src.children[1]);
@@ -322,7 +390,12 @@
     drawMap(); drawList(); drawProgress(); drawPostcard();
     document.getElementById('mwg-real').addEventListener('click', openReal);
     document.getElementById('mwg-send').addEventListener('click', sendCard);
-    if (location.hash) { var t = document.querySelector(location.hash); if (t) setTimeout(function () { t.scrollIntoView(); }, 50); }
+    document.getElementById('mwg-share').addEventListener('click', shareCard);
+    buildSheet();
+    /* deep links: ?stop=3 or the old #stop-3 open that stop's panel */
+    var q = new URLSearchParams(location.search).get('stop'), hm = (location.hash.match(/^#stop-(\d+)$/) || [])[1], dn = +(q || hm || 0);
+    if (dn && G.stops[dn - 1]) { history.replaceState(null, '', location.pathname); setTimeout(function () { openStop(dn, 'link'); }, 120); }
+    else if (location.hash) { var t = document.querySelector(location.hash); if (t) setTimeout(function () { t.scrollIntoView(); }, 50); }
   }
 
   var mbMap = null, mbMarkers = [];
@@ -331,35 +404,138 @@
     var m = document.getElementById('mwg-map');
     m.innerHTML = mapSvg(G, 600, 400, { uid: 'g' });
     m.querySelectorAll('.mwg-pin').forEach(function (p) {
-      function go() { var el = document.getElementById('stop-' + p.getAttribute('data-n')); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      var pn = +p.getAttribute('data-n');
+      if (pn === selectedStopId) p.classList.add('sel');
+      function go() { ga('guide_pin_select', { guide: G.id, stop: G.stops[pn - 1].id, n: pn, map: 'drawn' }); openStop(pn, 'pin'); }
       p.addEventListener('click', go); p.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
     });
   }
   function drawList() {
-    var areas = G.areas || [], h = '', ai = 0;
-    var parts = [];
+    var areas = G.areas || [], h = '', ai = 0, parts = [];
     G.stops.forEach(function (s, i) {
-      if (areas[ai] && areas[ai].from === s.n) { if (parts.length) h += '<ol class="mwg-stops">' + parts.join('') + '</ol>'; parts = []; h += '<h2 class="mwg-area">' + esc(L(areas[ai])) + '</h2>'; ai++; }
-      parts.push(stopHtml(s, i));
+      if (areas[ai] && areas[ai].from === s.n) { if (parts.length) h += '<ol class="mwg-rows">' + parts.join('') + '</ol>'; parts = []; h += '<h2 class="mwg-area">' + esc(L(areas[ai])) + '</h2>'; ai++; }
+      parts.push(rowHtml(s));
     });
-    h += '<ol class="mwg-stops" start="1">' + parts.join('') + '</ol>';
+    h += '<ol class="mwg-rows">' + parts.join('') + '</ol>';
     var box = document.getElementById('mwg-list');
     box.className = 'mwg-pc'; box.style.setProperty('--pc', '#FFFDF8'); box.style.setProperty('--edge1', '#2E9E57');
     box.innerHTML = h + '<div id="mwg-p2"></div>';
-    box.querySelectorAll('.mwg-stamp').forEach(function (b) { b.addEventListener('click', function () { toggle(+b.getAttribute('data-n')); }); });
+    box.querySelectorAll('[data-stop]').forEach(function (b) { b.addEventListener('click', function () { openStop(+b.getAttribute('data-stop'), 'list'); }); });
   }
-  function stopHtml(s, i) {
-    var on = has(s), dir = s.coords ? 'https://www.google.com/maps/dir/?api=1&destination=' + s.coords[1] + ',' + s.coords[0] : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(L(s.name) + ' Los Angeles');
-    var h = '<li class="mwg-stop' + (on ? ' on' : '') + '" id="stop-' + s.n + '"><span class="mwg-num" aria-hidden="true">' + (on ? '✓' : s.n) + '</span><div>';
-    h += '<h2>' + esc(L(s.name)) + '</h2>' + (s.line ? '<p class="mwg-line">' + esc(L(s.line)) + '</p>' : '');
-    if (s.tip) h += '<p class="mwg-tip"><b>' + esc(T.tip) + '</b>' + esc(L(s.tip)) + '</p>';
-    h += '<div class="mwg-acts"><button type="button" class="mwg-btn mwg-stamp" data-n="' + s.n + '" aria-pressed="' + on + '">' + (on ? '✓ ' + esc(T.stamped) : esc(T.stampIt)) + '</button>' +
-      '<a class="mwg-link" target="_blank" rel="noopener" href="' + dir + '">' + esc(T.dir) + ' ↗</a>' +
-      (s.mapId ? '<a class="mwg-link" href="' + MAP + '?spot=' + encodeURIComponent(s.legacyKey || s.mapId) + '&passport=' + G.id + '">' + esc(T.onLA) + '</a>' : '') +
-      (s.history && L(s.history) ? '<a class="mwg-link" href="' + esc(L(s.history)) + '">' + esc(T.story) + '</a>' : '') + '</div></div>';
-    h += '<div class="mwg-media">' + (s.photo ? '<figure class="mwg-photo" style="--r:' + (i % 2 ? '2deg' : '-2deg') + ';margin:0"><img src="' + esc(s.photo) + '" alt="' + esc((ES ? 'Foto instantánea de ' : 'Instant photo of ') + L(s.name)) + '" loading="lazy" decoding="async"></figure>' : '') +
-      '<div class="mwg-st"><span class="s">' + stampSvg(s, 'mwgs' + s.n) + '</span><small>' + esc(on ? T.got : T.honest) + '</small></div></div></li>';
-    return h;
+  function meta(s) { return [L(s.hood), L(s.time), L(s.cat)].filter(Boolean).join(' · '); }
+  function dirUrl(s) { return s.coords ? 'https://www.google.com/maps/dir/?api=1&destination=' + s.coords[1] + ',' + s.coords[0] : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(L(s.name) + ' Los Angeles'); }
+  function rowHtml(s) {
+    var on = has(s);
+    return '<li><button type="button" class="mwg-rowb' + (on ? ' on' : '') + (s.n === selectedStopId ? ' sel' : '') + '" id="stop-' + s.n + '" data-stop="' + s.n + '" aria-haspopup="dialog">' +
+      '<span class="n" aria-hidden="true">' + (on ? '✓' : s.n) + '</span>' +
+      '<span class="th" aria-hidden="true">' + (s.photo ? '<img src="' + esc(s.photo) + '" alt="" loading="lazy" decoding="async">' : stampSvg(s, 'mwgr' + s.n)) + '</span>' +
+      '<span class="tx"><b>' + esc(L(s.name)) + '</b><small>' + esc([L(s.hood), L(s.time)].filter(Boolean).join(' · ')) + (on ? ' · ' + esc(T.stamped) : '') + '</small></span><span class="ch" aria-hidden="true">›</span></button></li>';
+  }
+
+  /* ---------- the "what to do here" panel. selectedStopId: null = overview, a number = that stop is open ---------- */
+  var selectedStopId = null, sheet = null, shBody = null, histPushed = false, closeHow = '';
+  function buildSheet() {
+    if (sheet) return;
+    sheet = document.createElement('div');
+    sheet.className = 'mwg-sheet'; sheet.setAttribute('role', 'dialog'); sheet.setAttribute('aria-modal', 'false'); sheet.setAttribute('aria-labelledby', 'mwg-sh-h');
+    sheet.style.setProperty('--ink', G.ink);
+    sheet.innerHTML = '<div class="mwg-sh-top"><span class="mwg-sh-grab" aria-hidden="true"></span><button type="button" class="mwg-ib" data-a="prev" aria-label="' + esc(T.prev) + '">‹</button><button type="button" class="mwg-ib" data-a="next" aria-label="' + esc(T.nextS) + '">›</button><span class="pg" id="mwg-sh-pg"></span><button type="button" class="mwg-ib" data-a="x" aria-label="' + esc(T.close) + '">✕</button></div><div class="mwg-sh-body" id="mwg-sh-b"></div>';
+    document.body.appendChild(sheet);
+    shBody = sheet.querySelector('#mwg-sh-b');
+    sheet.querySelector('[data-a="x"]').addEventListener('click', function () { closeStop('x'); });
+    sheet.querySelector('[data-a="prev"]').addEventListener('click', function () { if (selectedStopId > 1) openStop(selectedStopId - 1, 'arrow'); });
+    sheet.querySelector('[data-a="next"]').addEventListener('click', function () { if (selectedStopId < G.stops.length) openStop(selectedStopId + 1, 'arrow'); });
+    /* tap outside the panel closes it, but a tap on another pin or stop switches to that stop */
+    document.addEventListener('click', function (e) {
+      if (selectedStopId === null || sheet.contains(e.target)) return;
+      if (e.target.closest && e.target.closest('.mwg-pin, .mwg-mbpin, [data-stop]')) return;
+      closeStop('outside');
+    }, true);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && selectedStopId !== null) closeStop('esc'); });
+    window.addEventListener('popstate', function () {
+      var st = history.state && history.state.mwgStop;
+      if (st) { openStop(st, 'back', true); return; }
+      if (selectedStopId !== null) { histPushed = false; hideSheet(closeHow || 'back'); }
+      closeHow = '';
+    });
+    /* swipe down to close: from the top bar, or from the body when it is scrolled to the top */
+    var y0 = null, dy = 0;
+    sheet.addEventListener('touchstart', function (e) {
+      var fromTop = e.target.closest('.mwg-sh-top') && !e.target.closest('button');
+      if (!fromTop && shBody.scrollTop > 0) { y0 = null; return; }
+      y0 = e.touches[0].clientY; dy = 0;
+    }, { passive: true });
+    sheet.addEventListener('touchmove', function (e) {
+      if (y0 === null) return;
+      dy = e.touches[0].clientY - y0;
+      if (dy > 0) { sheet.classList.add('drag'); sheet.style.transform = 'translate(-50%,' + dy + 'px)'; }
+    }, { passive: true });
+    sheet.addEventListener('touchend', function () {
+      if (y0 === null) return;
+      sheet.classList.remove('drag'); sheet.style.transform = '';
+      if (dy > 90) closeStop('swipe');
+      y0 = null; dy = 0;
+    });
+  }
+  function openStop(n, source, fromHistory) {
+    var s = G.stops[n - 1]; if (!s) return;
+    var was = selectedStopId;
+    selectedStopId = n;
+    renderSheet();
+    if (!fromHistory) {
+      if (histPushed) history.replaceState({ mwgStop: n }, '', '?stop=' + n);
+      else { history.pushState({ mwgStop: n }, '', '?stop=' + n); histPushed = true; }
+    } else histPushed = true;
+    sheet.classList.add('open');
+    markSel();
+    /* coming from the list: bring the map back into view above the panel (no jump when tapping a pin) */
+    if (source === 'list' || source === 'link') {
+      var mp = document.getElementById('mwg-map'), r = mp.getBoundingClientRect();
+      if (r.top < 60 || r.bottom > window.innerHeight * 0.42) window.scrollTo({ top: window.scrollY + r.top - 76, behavior: source === 'link' ? 'auto' : 'smooth' });
+    }
+    if (was === null || source !== 'arrow') ga('guide_stop_sheet_open', { guide: G.id, stop: s.id, n: n, source: source });
+  }
+  function closeStop(how) {
+    if (selectedStopId === null) return;
+    if (histPushed && history.state && history.state.mwgStop) { closeHow = how; history.back(); return; }
+    hideSheet(how);
+  }
+  function hideSheet(how) {
+    var s = G.stops[selectedStopId - 1];
+    ga('guide_stop_sheet_close', { guide: G.id, stop: s ? s.id : '', how: how });
+    selectedStopId = null; histPushed = false;
+    sheet.classList.remove('open');
+    markSel();
+  }
+  function markSel() {
+    document.querySelectorAll('#mwg-map .mwg-pin').forEach(function (p) { p.classList.toggle('sel', +p.getAttribute('data-n') === selectedStopId); });
+    document.querySelectorAll('.mwg-rowb').forEach(function (b) { b.classList.toggle('sel', +b.getAttribute('data-stop') === selectedStopId); });
+    if (mbMap) drawMarkers();
+  }
+  function renderSheet() {
+    var s = G.stops[selectedStopId - 1], on = has(s), p = prog(G);
+    sheet.querySelector('[data-a="prev"]').disabled = selectedStopId <= 1;
+    sheet.querySelector('[data-a="next"]').disabled = selectedStopId >= G.stops.length;
+    document.getElementById('mwg-sh-pg').textContent = T.of(p.d, p.t);
+    var tours = (s.tours || []).filter(function (k) { return TOURS[k]; });
+    var h = '<div class="mwg-sh-ph">' + (s.photo ? '<img src="' + esc(s.photo) + '" alt="' + esc((ES ? 'Foto instantánea de ' : 'Instant photo of ') + L(s.name)) + '">' : stampSvg(s, 'mwgsh' + s.n)) + '</div>';
+    h += '<h2 id="mwg-sh-h">' + s.n + '. ' + esc(L(s.name)) + '</h2>';
+    if (meta(s)) h += '<p class="mwg-meta">' + esc(meta(s)) + '</p>';
+    if (s.line) h += '<p class="mwg-line">' + esc(L(s.line)) + '</p>';
+    if (s.tip) h += '<p class="mwg-tip"><b>' + esc(T.tip) + '</b> ' + esc(L(s.tip)) + '</p>';
+    h += '<div class="mwg-sh-acts"><button type="button" class="mwg-btn mwg-stamp" aria-pressed="' + on + '">' + (on ? '✓ ' + esc(T.stamped) : esc(T.stampIt)) + '</button>' +
+      '<a class="mwg-btn alt" data-dir target="_blank" rel="noopener" href="' + dirUrl(s) + '">' + esc(T.dir) + ' ↗</a></div>';
+    if (tours.length) {
+      var t0 = TOURS[tours[0]], t1 = tours[1] && TOURS[tours[1]];
+      h += '<div class="mwg-tourbox"><p>' + esc(T.tourH) + '</p><a class="mwg-btn" data-tour="' + tours[0] + '" href="' + t0[1] + '">' + esc(t0[0]) + ' →</a>' +
+        (t1 ? '<a class="mwg-link" data-tour="' + tours[1] + '" href="' + t1[1] + '">' + esc(t1[0]) + ' →</a>' : '') + '</div>';
+    }
+    h += '<div class="mwg-sh-links">' + (s.mapId ? '<a class="mwg-link" href="' + MAP + '?spot=' + encodeURIComponent(s.legacyKey || s.mapId) + '&passport=' + G.id + '">' + esc(T.onLA) + '</a>' : '') +
+      (s.history && L(s.history) ? '<a class="mwg-link" href="' + esc(L(s.history)) + '">' + esc(T.story) + '</a>' : '') + '</div>';
+    shBody.innerHTML = h; shBody.scrollTop = 0;
+    shBody.querySelector('.mwg-stamp').addEventListener('click', function () { toggle(s.n); });
+    shBody.querySelector('[data-dir]').addEventListener('click', function () { ga('guide_directions_click', { guide: G.id, stop: s.id }); });
+    shBody.querySelectorAll('[data-tour]').forEach(function (a) { a.addEventListener('click', function () { ga('guide_tour_cta_click', { guide: G.id, stop: s.id, tour: a.getAttribute('data-tour') }); }); });
   }
   function drawProgress() {
     var p = prog(G), h = bar(p) + (p.t && p.d === p.t ? '<p class="mwg-done">' + esc(T.done) + '</p>' : '');
@@ -368,13 +544,14 @@
   function toggle(n) {
     var s = G.stops[n - 1]; if (!s) return;
     var on = !has(s); set(s, on);
-    ga('guide_stamp', { guide: G.id, stop: s.id, on: on ? 1 : 0 });
-    var li = document.getElementById('stop-' + n), tmp = document.createElement('div');
-    tmp.innerHTML = stopHtml(s, n - 1); var nl = tmp.firstChild; li.parentNode.replaceChild(nl, li);
-    nl.querySelector('.mwg-stamp').addEventListener('click', function () { toggle(n); });
-    nl.querySelector('.mwg-stamp').focus();
-    if (on && window.MWStamp) { var sv = nl.querySelector('.mwg-st .s'); try { MWStamp.press(sv); MWStamp.burst(sv, [G.ink, '#FFD43B', '#27302E']); } catch (e) {} }
-    drawMap(); drawProgress(); drawPostcard();
+    var ev = { guide: G.id, stop: s.id, on: on ? 1 : 0 };
+    ga('guide_stamp_toggle', ev); ga('guide_stamp', ev);   /* old name kept for a while so GA history lines up */
+    drawList(); drawMap(); drawProgress(); drawPostcard();
+    if (selectedStopId === n) {
+      renderSheet();
+      var b = shBody.querySelector('.mwg-stamp'); if (b) b.focus();
+      if (on && window.MWStamp) { var sv = shBody.querySelector('.mwg-sh-ph'); try { MWStamp.burst(sv, [G.ink, '#FFD43B', '#27302E']); } catch (e) {} }
+    }
   }
 
   /* ---------- the real map (Mapbox), on tap ---------- */
@@ -410,7 +587,8 @@
       el.type = 'button'; el.setAttribute('aria-label', s.n + '. ' + L(s.name));
       el.style.cssText = 'width:30px;height:30px;border-radius:50%;border:3px solid ' + G.ink + ';background:' + (on ? G.ink : '#fff') + ';color:' + (on ? '#fff' : G.ink) + ';font:16px "Lilita One",sans-serif;cursor:pointer;box-shadow:2px 2px 0 #27302E;padding:0';
       el.textContent = on ? '✓' : s.n;
-      el.addEventListener('click', function () { var t = document.getElementById('stop-' + s.n); if (t) t.scrollIntoView({ behavior: 'smooth' }); });
+      el.className = 'mwg-mbpin'; el.addEventListener('click', function () { ga('guide_pin_select', { guide: G.id, stop: s.id, n: s.n, map: 'mapbox' }); openStop(s.n, 'pin'); });
+      if (s.n === selectedStopId) el.style.background = '#FFD43B', el.style.color = '#27302E';
       mbMarkers.push(new mapboxgl.Marker({ element: el }).setLngLat(s.coords).addTo(mbMap));
     });
   }
@@ -421,16 +599,41 @@
     if (!box) return;
     box.innerHTML = got.length ? got.slice(-6).map(function (s) { return stampSvg(s, 'mwgp' + s.n); }).join('') : '<p>' + esc(T.noSt) + '</p>';
   }
-  function sendCard() {
+  function cardText() {
     var p = prog(G), msg = document.getElementById('mwg-msg').value.trim(), to = document.getElementById('mwg-to').value.trim(), fr = document.getElementById('mwg-from').value.trim();
-    var text = (to ? (ES ? 'Para ' : 'To ') + to + ': ' : '') + msg + ' ' + T.shareT(p.d, p.t, L(G.name)) + (fr ? ' ' + (ES ? 'De ' : 'From ') + fr + '.' : '');
-    var url = location.origin + location.pathname, out = document.getElementById('mwg-sent');
-    ga('guide_postcard_share', { guide: G.id, stamps: p.d });
-    if (navigator.share) { navigator.share({ title: T.greet, text: text, url: url }).catch(function () {}); return; }
-    var all = text + ' ' + url;
+    return { p: p, msg: msg, to: to, fr: fr, text: (to ? (ES ? 'Para ' : 'To ') + to + ': ' : '') + msg + ' ' + T.shareT(p.d, p.t, L(G.name)) + (fr ? ' ' + (ES ? 'De ' : 'From ') + fr + '.' : '') };
+  }
+  /* Nov 27, 2026: "Send Postcard" submits the hidden native Webflow form "Guide Postcard" (on the guide template), so the note reaches Marlon. */
+  function sendCard() {
+    var c = cardText(), f = document.getElementById('mwg-pcform'), btn = document.getElementById('mwg-send'), ok = document.getElementById('mwg-ok'), out = document.getElementById('mwg-sent');
+    if (!f) { shareCard(); return; }
+    function val(id, v) { var e = document.getElementById(id); if (e) e.value = v; }
+    val('mwg-f-from', c.fr); val('mwg-f-to', c.to); val('mwg-f-msg', c.msg);
+    val('mwg-f-guide', L(G.name) + ' (' + (ES ? 'ES' : 'EN') + ')');
+    val('mwg-f-stamps', c.p.d + '/' + c.p.t + ': ' + G.stops.filter(has).map(function (s) { return L(s.name); }).join(', '));
+    btn.disabled = true; btn.textContent = T.sending; out.textContent = '';
+    var wrap = f.closest('.w-form'), done = wrap && wrap.querySelector('.w-form-done'), fail = wrap && wrap.querySelector('.w-form-fail'), t0 = Date.now();
+    var sub = f.querySelector('[type="submit"]');
+    if (sub) sub.click(); else f.requestSubmit ? f.requestSubmit() : f.submit();
+    (function wait() {
+      var isOk = done && getComputedStyle(done).display !== 'none', isBad = fail && getComputedStyle(fail).display !== 'none';
+      if (isOk) {
+        ok.textContent = T.sent; ok.classList.add('show'); btn.hidden = true; document.getElementById('mwg-share').hidden = false;
+        ga('guide_postcard_submit', { guide: G.id, stamps: c.p.d });
+        return;
+      }
+      if (isBad || Date.now() - t0 > 15000) { btn.disabled = false; btn.textContent = '✉️ ' + T.send2; out.textContent = T.sendFail; return; }
+      setTimeout(wait, 250);
+    })();
+  }
+  function shareCard() {
+    var c = cardText(), url = location.origin + location.pathname, out = document.getElementById('mwg-sent');
+    ga('guide_postcard_share', { guide: G.id, stamps: c.p.d });
+    if (navigator.share) { navigator.share({ title: T.greet, text: c.text, url: url }).catch(function () {}); return; }
+    var all = c.text + ' ' + url;
     (navigator.clipboard ? navigator.clipboard.writeText(all) : Promise.reject()).then(function () { out.textContent = T.copied; }, function () { out.textContent = all; });
   }
 
-  window.addEventListener('storage', function (e) { if (G && (e.key === 'marlon_visited_spots' || e.key === 'marlon_stamps')) { drawList(); drawMap(); drawProgress(); drawPostcard(); } });
+  window.addEventListener('storage', function (e) { if (G && (e.key === 'marlon_visited_spots' || e.key === 'marlon_stamps')) { drawList(); drawMap(); drawProgress(); drawPostcard(); if (selectedStopId !== null) renderSheet(); } });
 })();
 </script>
