@@ -6,6 +6,7 @@
      dropdowns, then History, About, EN | ES and an outline "Book a Free Tour" pill that goes to
      the Home calendar (/#book or /es#book). Phone and tablet (980px and under): logo, EN | ES,
      a small Book pill and the menu button; the menu shows the same two groups.
+     Nov 27, 2026: "Passports & Stamps" renamed "LA Guides" (ES "Guías de LA") and listed first. Address /passports kept.
      The data-k keys are new on purpose: nav-header.js (on main) adds Passports and Stamps
      after a[data-k="maps"], and this header no longer has that key, so nothing is added twice.
      Spanish is detected from the path list OR from <html lang>; labelling runs again on
@@ -30,8 +31,8 @@
         <div class="mwhd-dd">
           <button type="button" class="mwhd-link mwhd-ddbtn" aria-expanded="false" aria-haspopup="true"><span data-t="guides">Guides</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
           <div class="mwhd-ddlist" role="group" aria-label="Guides">
+            <a href="/passports" class="mwhd-link" data-k="pp">LA Guides</a>
             <a href="/maps" class="mwhd-link" data-k="lamap">LA Map</a>
-            <a href="/passports" class="mwhd-link" data-k="pp">Passports &amp; Stamps</a>
           </div>
         </div>
         <a href="/history" class="mwhd-link" data-k="history">History</a>
@@ -143,12 +144,12 @@
       free: ['/free-tour-los-angeles-espanol', 'Free Tour'],
       'private': ['/tours-privados-los-angeles', 'Tour Privado'],
       lamap: ['/mapa-los-angeles', 'Mapa de LA'],
-      pp: ['/pasaportes', 'Pasaportes y Sellos'],
+      pp: ['/pasaportes', 'Guías de LA'],
       history: ['/historia-de-los-angeles', 'Historia'],
       about: ['/about', 'Sobre mí']
     };
     var ES_T = { tours: 'Tours', guides: 'Guías' };
-    // Pages that count as "here" for a menu item (Passports & Stamps covers both pages)
+    // Pages that count as "here" for a menu item (LA Guides covers the guides and stamps pages)
     var ALSO = { pp: ['/passports', '/pasaportes', '/stamps', '/sellos'], lamap: ['/maps', '/mapa-los-angeles'] };
 
     function isSpanish() {
