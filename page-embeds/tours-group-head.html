@@ -1,0 +1,43 @@
+<style>.tp.pc .tp-hero-visual .tp-polaroid{width:min(387px,100%)}.tp.pc .tp-hero-visual .tp-polaroid img:first-child{width:100% !important;aspect-ratio:493/600}</style>
+<style>
+/* Oct 29, 2026: tour pages use the Brand Ernesto Blue Dark for links and prices (the old global blue stays off these pages). */
+.tp, .tp * { --ernesto-blue: #1B6688; --ernesto-blue-dark: #14506b; }
+/* Oct 18, 2026 (round 28): one primary button style site-wide (yellow, dark outline, offset shadow). Tour colors stay on backgrounds, tags and highlights. */
+.tp-btn.yellow { background: #FFD43B; color: #27302E !important; border: 2.5px solid #27302E; border-radius: 999px; box-shadow: 4px 4px 0 #27302E; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.15rem; padding: 13px 26px; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+.tp-btn.yellow:hover { background: #FFD43B; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+.tp-btn.yellow:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
+/* round 29: Team = lime green */
+.tp-bg-team { background: #E3F6D8; }
+.tp-eyebrow.blue { color: #14532D; background: #C9ECC0; }
+</style>
+<!-- ==============================================================================
+     MARLONWALKSLA - TEAM TOURS PAGE, TOP  /team-outings-los-angeles
+     Oct 2026 draft. Styles: tour-pages.css + route-anim.css/js. RED (.tp-todo) = Marlon to fill in.
+     The inquiry form below is the native Webflow form "Team Tour Inquiry".
+     ============================================================================== -->
+<div class="tp pc pc-team">
+
+  <section class="tp-section" id="group-tour" style="scroll-margin-top:90px">
+    <svg class="stamp pc-stamp r t" viewBox="0 0 200 200" aria-hidden="true" focusable="false" style="--r:-8deg" xmlns="http://www.w3.org/2000/svg"><defs><filter id="tqsoff-f" x="-8%" y="-12%" width="116%" height="124%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3" result="w"/><feDisplacementMap in="SourceGraphic" in2="w" scale="3.2" result="d"/><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -5 0 0 0 3.7" result="m"/><feComposite in="d" in2="m" operator="in"/></filter><path id="tqsoff-t" d="M 38.0 122.6 A 66 66 0 1 1 162.0 122.6"/><path id="tqsoff-b" d="M 18 100 A 82 82 0 0 0 182 100"/></defs><g filter="url(#tqsoff-f)" fill="#2E9E57" stroke="none" font-family="Fredoka, Lilita One, sans-serif" font-weight="700" style="color:#2E9E57"><circle cx="100" cy="100" r="96" fill="none" stroke="#2E9E57" stroke-width="4"/><circle cx="100" cy="100" r="89" fill="none" stroke="#2E9E57" stroke-width="1.5"/><text font-size="13" letter-spacing="1.2" text-anchor="middle"><textPath href="#tqsoff-t" startOffset="50%">OUT OF OFFICE</textPath></text><text font-size="12.5" letter-spacing="1.8" text-anchor="middle"><textPath href="#tqsoff-b" startOffset="50%">TEAM OUTINGS</textPath></text><svg x="41.8" y="60.8" width="119.0" height="70.7" viewBox="121.5 49.0 277.5 165.0" fill="#2E9E57"><path d="M135.6 214 Q152.4 166.0 154.8 118 L169.2 118 Q168.0 166.0 164.4 214 Z"/><path d="M162 118 Q135.6 98.8 121.2 125.2 Q146.16 112.24 162 121.6 Z"/><path d="M162 118 Q135.6 113.2 126.0 144.4 Q146.16 120.16 162 121.6 Z"/><path d="M162 118 Q188.4 98.8 202.8 125.2 Q177.84 112.24 162 121.6 Z"/><path d="M162 118 Q188.4 113.2 198.0 144.4 Q177.84 120.16 162 121.6 Z"/><path d="M162 118 Q152.4 82.0 150.0 91.6 Q156.24 103.0 162 121.6 Z"/><path d="M162 118 Q174.0 82.0 176.4 91.6 Q169.2 103.0 162 121.6 Z"/><path d="M162 118 Q162.0 77.2 162.0 82.0 Q162.0 100.36 162 121.6 Z"/><path d="M240.4 214 Q259.2 148.0 246.2 82 L265.8 82 Q280.2 148.0 279.6 214 Z"/><path d="M256 82 Q225.2 59.6 208.4 90.4 Q237.52 75.28 256 86.2 Z"/><path d="M256 82 Q225.2 76.4 214.0 112.8 Q237.52 84.52 256 86.2 Z"/><path d="M256 82 Q286.8 59.6 303.6 90.4 Q274.48 75.28 256 86.2 Z"/><path d="M256 82 Q286.8 76.4 298.0 112.8 Q274.48 84.52 256 86.2 Z"/><path d="M256 82 Q244.8 40.0 242.0 51.2 Q249.28 64.5 256 86.2 Z"/><path d="M256 82 Q270.0 40.0 272.8 51.2 Q264.4 64.5 256 86.2 Z"/><path d="M256 82 Q256.0 34.400000000000006 256.0 40.0 Q256.0 61.42 256 86.2 Z"/><path d="M359.35 214 Q369.6 174.0 353.675 134 L366.325 134 Q383.40000000000003 174.0 384.65 214 Z"/><path d="M360 134 Q334.7 115.6 320.9 140.9 Q344.82 128.48 360 137.45 Z"/><path d="M360 134 Q334.7 129.4 325.5 159.3 Q344.82 136.07 360 137.45 Z"/><path d="M360 134 Q385.3 115.6 399.1 140.9 Q375.18 128.48 360 137.45 Z"/><path d="M360 134 Q385.3 129.4 394.5 159.3 Q375.18 136.07 360 137.45 Z"/><path d="M360 134 Q350.8 99.5 348.5 108.7 Q354.48 119.625 360 137.45 Z"/><path d="M360 134 Q371.5 99.5 373.8 108.7 Q366.9 119.625 360 137.45 Z"/><path d="M360 134 Q360.0 94.9 360.0 99.5 Q360.0 117.095 360 137.45 Z"/></svg></g></svg>
+    <div class="tp-wrap">
+      <h2 class="tp-h2">Why a group walk works</h2>
+      <p class="tp-sub">A group walk does what a conference room can't.</p>
+      <div class="tp-grid-3">
+        <div class="tp-card"><span class="icon">&#128694;</span><h3 class="tp-h3">People actually talk</h3><p>Walking side by side, people who never sit together end up chatting for hours.</p></div>
+        <div class="tp-card"><span class="icon">&#127942;</span><h3 class="tp-h3">A little surprise</h3><p>There&rsquo;s a game along the way. We keep the details a surprise until the day.</p></div>
+        <div class="tp-card"><span class="icon">&#128248;</span><h3 class="tp-h3">Photo for everyone</h3><p>Pass the instant camera around all day. Everyone leaves with a printed photo, and the group has proof of a great day.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tp-section" id="team-inquiry" style="scroll-margin-top:90px;padding-bottom:0">
+    <svg class="stamp pc-stamp r b" viewBox="0 0 200 200" aria-hidden="true" focusable="false" style="--r:7deg" xmlns="http://www.w3.org/2000/svg"><defs><filter id="hsb-f" x="-8%" y="-12%" width="116%" height="124%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="6" result="w"/><feDisplacementMap in="SourceGraphic" in2="w" scale="3.2" result="d"/><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="10" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -5 0 0 0 3.7" result="m"/><feComposite in="d" in2="m" operator="in"/></filter><path id="hsb-t" d="M 38.0 122.6 A 66 66 0 1 1 162.0 122.6"/><path id="hsb-b" d="M 18 100 A 82 82 0 0 0 182 100"/></defs><g filter="url(#hsb-f)" fill="#7A3FA0" stroke="none" font-family="Fredoka, Lilita One, sans-serif" font-weight="700" style="color:#7A3FA0"><circle cx="100" cy="100" r="96" fill="none" stroke="#7A3FA0" stroke-width="4"/><circle cx="100" cy="100" r="89" fill="none" stroke="#7A3FA0" stroke-width="1.5"/><text font-size="12.5" letter-spacing="1.1" text-anchor="middle" stroke="#7A3FA0" stroke-width="0.9" stroke-linejoin="round"><textPath href="#hsb-t" startOffset="50%">WALT DISNEY CONCERT HALL</textPath></text><text font-size="12.5" letter-spacing="1.8" text-anchor="middle"><textPath href="#hsb-b" startOffset="50%">FREE TOUR</textPath></text><svg x="39.8" y="63.7" width="118.0" height="45.5" viewBox="50.0 29.9 436.0 168.1" fill="#7A3FA0"><path d="M70 176 L96 112 Q124 96 156 100 L170 176 Z" stroke="#fff" stroke-width="5" stroke-linejoin="round"/><path d="M150 176 L196 72 Q232 52 276 58 L270 112 L246 176 Z" stroke="#fff" stroke-width="5" stroke-linejoin="round"/><path d="M232 176 L286 40 Q330 22 372 36 L352 104 L318 176 Z" stroke="#fff" stroke-width="5" stroke-linejoin="round"/><path d="M308 176 L360 96 Q398 84 430 98 L418 148 L392 176 Z" stroke="#fff" stroke-width="5" stroke-linejoin="round"/><path d="M388 176 L428 130 Q452 124 470 134 L466 176 Z" stroke="#fff" stroke-width="5" stroke-linejoin="round"/><path d="M196 72 L246 176 M286 40 L318 176 M360 96 L392 176" stroke="#fff" stroke-width="3" fill="none"/><rect x="50" y="176" width="440" height="22"/><rect x="214" y="182" width="52" height="16" fill="#fff"/></svg></g></svg>
+    <div class="tp-wrap">
+      <span class="tp-eyebrow blue">Book your group walk</span>
+      <h2 class="tp-h2">Pick a date, see the day</h2>
+      <p class="tp-sub" style="margin-bottom:0">Choose your day on the calendar. Marlon confirms by email and plans the day around your group. Follow Ernesto around a sample 5-hour loop: we start and finish at Grand Central Market, with lunch as the last stop.</p>
+    </div>
+  </section>
+
+</div>
+<style>.tp-chips li{color:#334155 !important}</style>
