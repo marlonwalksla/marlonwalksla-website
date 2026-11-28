@@ -242,6 +242,28 @@
 .mwg-c5ic{display:flex;flex-wrap:wrap;gap:4px 14px;margin:10px 0 0;font-size:14px;color:#3B4440}
 .mwg-c5tour{display:flex;align-items:center;min-height:44px;margin-top:6px;font-weight:800;color:var(--ink)!important;text-decoration:underline!important;text-underline-offset:3px}
 @media (max-width:899px){.mwg-v5.mwg-wrap{padding:0 8px}.mwg-env{padding:8px;margin-right:6px}}
+/* Nov 27, 2026 round 6: no guide switching, full-width card buttons, 1 to 12 dot line */
+.mwg-gbar6{display:flex;align-items:center;gap:10px;min-height:52px;padding:0 4px 0 6px}
+.mwg-gbar6 .mwg-gmid{flex:1}
+.mwg-moreg{flex:none;min-height:40px;display:inline-flex;align-items:center;padding:4px 14px;border:2px solid #27302E;border-radius:999px;background:#fff;color:#27302E!important;text-decoration:none!important;font:600 14px "Fredoka",sans-serif;box-shadow:2px 2px 0 #27302E}
+.mwg-h1line{margin:0 8px 10px}
+.mwg-h1line h1{font-family:"Fredoka",sans-serif!important;font-weight:500!important;font-size:16px!important;line-height:1.35!important;color:#27302E!important}
+.mwg-c6{background:#fff;border:2px solid #27302E;border-radius:14px;box-shadow:3px 3px 0 #27302E;padding:10px 14px 14px}
+.mwg-c6 .mwg-c5hd{margin-top:2px}
+.mwg-c6 h2 .no{display:inline-grid;place-items:center;width:28px;height:28px;margin-right:8px;border-radius:50%;background:var(--ink);color:#fff;font-size:16px;vertical-align:3px}
+.mwg-c6 .mwg-line{margin:6px 0 0;font-size:15.5px;line-height:1.45}
+.mwg-c6 .mwg-stampbtn{width:84px}
+.mwg-c6 .mwg-stampbtn .sv{width:72px;height:72px}
+.mwg-c6 .mwg-stampbtn .sv svg{width:68px}
+.mwg-c6 .mwg-stampbtn small{font:800 11px/1.2 "Fredoka",sans-serif;letter-spacing:.04em;color:#27302E;background:#FFD43B;border:1.5px solid #27302E;border-radius:999px;padding:3px 7px;margin-top:3px}
+.mwg-c6 .mwg-stampbtn.on small{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mwg-c6acts{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+.mwg-c6acts .mwg-btn{width:100%;min-height:48px;font-size:16.5px;padding:10px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-dots{display:flex;justify-content:space-between;gap:3px;margin-top:14px;padding-top:12px;border-top:1.5px solid #E4DCCB}
+.mwg-dot{flex:1 1 0;max-width:30px;aspect-ratio:1;min-width:0;display:grid;place-items:center;padding:0;border:2px solid var(--ink);border-radius:50%;background:#fff;color:var(--ink);font:700 12px/1 "Nunito",sans-serif;cursor:pointer}
+.mwg-dot.on{background:var(--ink);color:#fff}
+.mwg-dot.cur{box-shadow:0 0 0 3px #FFD43B,0 0 0 5px #27302E}
+@media (min-width:600px){.mwg-c6acts{grid-template-columns:1fr 1fr}.mwg-c6acts .mwg-btn:first-child{grid-column:1 / -1}}
 [data-mw-postcard]{display:none!important}
 .mwg-note{margin:12px 0 0;padding:10px 12px;background:#E0F1F8;border-radius:12px;font-size:15.5px;line-height:1.5}
 .mwg-svg .mwg-pin{cursor:pointer}
@@ -332,7 +354,7 @@
     mapAlt: 'Mapa ilustrado con las paradas de la guía',
     sub2: 'A dónde ir, qué se necesita de verdad para moverte y cómo armar tu viaje por LA sin perder medio día en el tráfico.',
     note2: 'LA no es una sola caminata, es un conjunto de barrios. Toca un número del mapa o una parada para ver qué hacer ahí, o únete a un tour a pie por el centro para ubicarte primero.',
-    hint2: 'Toca un número o una parada.', prevG: 'Guía anterior', nextG: 'Siguiente guía', gpos: function (i, n) { return 'Guía ' + i + ' de ' + n; }, showAll: 'Ver todo', stopOf: function (i, n) { return i + ' de ' + n; }, moreS: 'Más detalles', less: 'Menos', lfL: 'Mostrar paradas', lfAll: 'Todas', lfLeft: 'Por visitar', lfDone: 'Visitadas', lfDoneOne: 'Visitada', lfNone: 'Todavía no hay sellos. Toca una parada y luego su sello.', lfAllDone: '¡Visitaste las 12! Sigue con la próxima guía.', introB: 'Lee la intro de Marlon', stampTap: 'Toca el sello cuando llegues', stampOn: '¡Sellado! Toca para quitarlo', prevS: 'Anterior', nextS2: 'Siguiente', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
+    hint2: 'Toca un número o una parada.', moreG: 'Más guías', dotsL: 'Ir a una parada', prevG: 'Guía anterior', nextG: 'Siguiente guía', gpos: function (i, n) { return 'Guía ' + i + ' de ' + n; }, showAll: 'Ver todo', stopOf: function (i, n) { return i + ' de ' + n; }, moreS: 'Más detalles', less: 'Menos', lfL: 'Mostrar paradas', lfAll: 'Todas', lfLeft: 'Por visitar', lfDone: 'Visitadas', lfDoneOne: 'Visitada', lfNone: 'Todavía no hay sellos. Toca una parada y luego su sello.', lfAllDone: '¡Visitaste las 12! Sigue con la próxima guía.', introB: 'Lee la intro de Marlon', stampTap: 'TOCA PARA SELLAR', stampOn: 'SELLADO ✓ toca para quitar', prevS: 'Anterior', nextS2: 'Siguiente', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
     tourH: 'Explóralo con Marlon', see: 'Ver detalles',
     pcH2: 'Envía una postal desde LA', pcP2: 'Mándale una nota a MarlonWalksLA o guarda un recuerdo de tu viaje.',
     send2: 'Enviar postal', sending: 'Enviando...', sent: '¡Enviada! A Marlon y Ernesto les va a encantar.', share: 'Compártela con alguien', sendFail: 'No se envió. Intenta de nuevo.'
@@ -354,7 +376,7 @@
     mapAlt: "Illustrated map with the guide's stops",
     sub2: 'Where to go, what it actually takes to get around, and how to piece together your LA trip without wasting half your day in traffic.',
     note2: "LA is not a single walk, it is a set of neighborhoods. Tap any numbered pin or stop below to see what to do there, or join a Downtown LA walking tour to get your bearings first.",
-    hint2: 'Tap a number or a stop.', prevG: 'Previous guide', nextG: 'Next guide', gpos: function (i, n) { return 'Guide ' + i + ' of ' + n; }, showAll: 'Show all', stopOf: function (i, n) { return i + ' of ' + n; }, moreS: 'More about it', less: 'Less', lfL: 'Show stops', lfAll: 'All', lfLeft: 'Still to do', lfDone: 'Visited', lfDoneOne: 'Visited', lfNone: 'Nothing stamped yet. Tap a stop, then tap its stamp.', lfAllDone: 'You visited all 12. Time for the next guide!', introB: "Read Marlon's intro", stampTap: 'Tap the stamp when you get there', stampOn: 'Stamped! Tap to remove', prevS: 'Previous', nextS2: 'Next', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
+    hint2: 'Tap a number or a stop.', moreG: 'More guides', dotsL: 'Jump to a stop', prevG: 'Previous guide', nextG: 'Next guide', gpos: function (i, n) { return 'Guide ' + i + ' of ' + n; }, showAll: 'Show all', stopOf: function (i, n) { return i + ' of ' + n; }, moreS: 'More about it', less: 'Less', lfL: 'Show stops', lfAll: 'All', lfLeft: 'Still to do', lfDone: 'Visited', lfDoneOne: 'Visited', lfNone: 'Nothing stamped yet. Tap a stop, then tap its stamp.', lfAllDone: 'You visited all 12. Time for the next guide!', introB: "Read Marlon's intro", stampTap: 'TAP TO STAMP', stampOn: 'STAMPED ✓ tap to undo', prevS: 'Previous', nextS2: 'Next', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
     tourH: 'Explore it with Marlon', see: 'See details',
     pcH2: 'Send a Postcard from LA', pcP2: 'Send a note to MarlonWalksLA or save a memory from your trip.',
     send2: 'Send Postcard', sending: 'Sending...', sent: 'Sent! Marlon and Ernesto will love it.', share: 'Share it with a friend', sendFail: "It didn't send. Please try again."
@@ -536,10 +558,9 @@
     var i0 = D.guides.indexOf(G), n0 = D.guides.length, pv = D.guides[(i0 - 1 + n0) % n0], nx = D.guides[(i0 + 1) % n0];
     var h = '<div class="mwg-wrap mwg-v5">';
     h += '<section class="mwg-env" id="mwg-env">' +
-      '<div class="mwg-gbar"><a class="mwg-ga-btn" data-gsw="prev" href="' + pageUrl(pv) + '" aria-label="' + esc(T.prevG + ': ' + L(pv.name)) + '">‹</a>' +
-      '<div class="mwg-gmid"><small>' + esc(T.gpos(i0 + 1, n0)) + '</small><b><i style="background:' + G.ink + '"></i>' + esc(L(G.name)) + '</b></div>' +
+      '<div class="mwg-gbar6"><div class="mwg-gmid"><b><i style="background:' + G.ink + '"></i>' + esc(L(G.name)) + '</b></div>' +
       '<span class="mwg-gcount" id="mwg-gc"></span>' +
-      '<a class="mwg-ga-btn" data-gsw="next" href="' + pageUrl(nx) + '" aria-label="' + esc(T.nextG + ': ' + L(nx.name)) + '">›</a></div>' +
+      '<a class="mwg-moreg" data-gsw="hub" href="' + HUB + '">' + esc(T.moreG) + '</a></div>' +
       '<div class="mwg-h1line" id="mwg-h"></div>' +
       '<div class="mwg-mapwrap" id="mwg-mapwrap"><div class="mwg-map5" id="mwg-map"></div><button type="button" class="mwg-showall" id="mwg-all">⤢ ' + esc(T.showAll) + '</button></div>' +
       '<div class="mwg-cardslot" id="mwg-card" hidden></div>' +
@@ -702,24 +723,30 @@
   }
   function renderCard() {
     var s = G.stops[selectedStopId - 1], on = has(s), tours = (s.tours || []).filter(function (k) { return TOURS[k]; }), t0 = tours[0] && TOURS[tours[0]], t1 = tours[1] && TOURS[tours[1]];
-    var c = '<div class="mwg-c5' + (expanded ? ' exp' : '') + '">' +
-      '<button type="button" class="mwg-side" data-step="-1" aria-label="' + esc(T.prev) + '"' + (selectedStopId <= 1 ? ' disabled' : '') + '>‹</button><div class="mwg-c5b">' +
-      '<div class="mwg-c5top"><span class="mwg-c5n">' + esc(T.stopOf(s.n, G.stops.length)) + '</span>' + (s.cat ? '<span class="mwg-c5cat">' + esc(L(s.cat)) + '</span>' : '') + '<button type="button" class="mwg-x" data-close aria-label="' + esc(T.close) + '">✕</button></div>' +
-      '<div class="mwg-c5hd"><div class="t"><h2 id="mwg-c5h">' + esc(L(s.name)) + '</h2><p class="mwg-meta">📍 ' + esc(meta(s)) + '</p></div>' +
+    var c = '<div class="mwg-c6' + (expanded ? ' exp' : '') + '">' +
+      '<div class="mwg-c5top">' + (s.cat ? '<span class="mwg-c5cat">' + esc(L(s.cat)) + '</span>' : '') + '<button type="button" class="mwg-x" data-close aria-label="' + esc(T.close) + '">✕</button></div>' +
+      '<div class="mwg-c5hd"><div class="t"><h2 id="mwg-c5h"><span class="no">' + s.n + '</span>' + esc(L(s.name)) + '</h2><p class="mwg-meta">📍 ' + esc(meta(s)) + '</p>' +
+        (s.line ? '<p class="mwg-line">' + esc(L(s.line)) + '</p>' : '') + '</div>' +
       '<button type="button" class="mwg-stampbtn' + (on ? ' on' : '') + '" aria-pressed="' + on + '" aria-label="' + esc((on ? T.stampOn : T.stampTap) + ': ' + L(s.name)) + '"><span class="sv">' + stampSvg(s, 'mwgc' + s.n) + '</span><small>' + esc(on ? T.stampOn : T.stampTap) + '</small></button></div>' +
-      (s.line ? '<p class="mwg-line">' + esc(L(s.line)) + '</p>' : '') +
-      '<div class="mwg-c5acts"><a class="mwg-btn alt" data-dir target="_blank" rel="noopener" href="' + dirUrl(s) + '">🚗 ' + esc(T.dir) + '</a><button type="button" class="mwg-btn alt" data-exp aria-expanded="' + expanded + '">' + esc(expanded ? T.less : T.moreS) + '</button></div>' +
+      '<div class="mwg-c6acts">' +
+        (t0 ? '<a class="mwg-btn" data-tour="' + tours[0] + '" href="' + t0[1] + '">🎟️ ' + esc(t0[0]) + '</a>' : '') +
+        '<a class="mwg-btn alt" data-dir target="_blank" rel="noopener" href="' + dirUrl(s) + '">🚗 ' + esc(T.dir) + '</a>' +
+        '<button type="button" class="mwg-btn alt" data-exp aria-expanded="' + expanded + '">' + esc(expanded ? T.less : T.moreS) + (expanded ? ' ▴' : ' ▾') + '</button></div>' +
       '<div class="mwg-c5more"' + (expanded ? '' : ' hidden') + '>' +
         (s.photo ? '<div class="mwg-sh-ph"><img src="' + esc(s.photo) + '" alt="' + esc((ES ? 'Foto instantánea de ' : 'Instant photo of ') + L(s.name)) + '" loading="lazy"></div>' : '') +
         (s.tip ? '<p class="mwg-tip"><b>' + esc(T.tip) + '</b> ' + esc(L(s.tip)) + '</p>' : '') +
         ((s.icons || []).length ? '<p class="mwg-c5ic">' + s.icons.map(function (k) { var x = P2.key.filter(function (y) { return y[0] === k; })[0]; return '<span>' + (ICONS[k] || '') + ' ' + esc(x ? x[1] : '') + '</span>'; }).join('') + '</p>' : '') +
-        (t0 ? '<div class="mwg-tourbox"><p>' + esc(T.tourH) + '</p><a class="mwg-btn" data-tour="' + tours[0] + '" href="' + t0[1] + '">' + esc(t0[0]) + ' →</a>' + (t1 ? '<a class="mwg-link" data-tour="' + tours[1] + '" href="' + t1[1] + '">' + esc(t1[0]) + ' →</a>' : '') + '</div>' : '') +
-        '<p class="mwg-sh-dir">' + (s.mapId ? '<a class="mwg-link" href="' + MAP + '?spot=' + encodeURIComponent(s.legacyKey || s.mapId) + '&passport=' + G.id + '">' + esc(T.onLA) + '</a>' : '') + (s.history && L(s.history) ? '<a class="mwg-link" href="' + esc(L(s.history)) + '">' + esc(T.story) + '</a>' : '') + '</p>' +
-      '</div>' + (t0 && !expanded ? '<a class="mwg-c5tour" data-tour="' + tours[0] + '" href="' + t0[1] + '">🎟️ ' + esc(t0[0]) + ' →</a>' : '') +
-      '</div><button type="button" class="mwg-side" data-step="1" aria-label="' + esc(T.nextS) + '"' + (selectedStopId >= G.stops.length ? ' disabled' : '') + '>›</button></div>';
+        '<div class="mwg-c6acts">' + (t1 ? '<a class="mwg-btn alt" data-tour="' + tours[1] + '" href="' + t1[1] + '">🎟️ ' + esc(t1[0]) + '</a>' : '') +
+          (s.mapId ? '<a class="mwg-btn alt" href="' + MAP + '?spot=' + encodeURIComponent(s.legacyKey || s.mapId) + '&passport=' + G.id + '">🗺️ ' + esc(T.onLA) + '</a>' : '') +
+          (s.history && L(s.history) ? '<a class="mwg-btn alt" href="' + esc(L(s.history)) + '">📖 ' + esc(T.story) + '</a>' : '') + '</div>' +
+      '</div>' +
+      '<div class="mwg-dots" role="group" aria-label="' + esc(T.dotsL) + '">' + G.stops.map(function (x) {
+        var xo = has(x), cur = x.n === selectedStopId;
+        return '<button type="button" class="mwg-dot' + (xo ? ' on' : '') + (cur ? ' cur' : '') + '" data-go="' + x.n + '" aria-label="' + esc(x.n + '. ' + L(x.name) + (xo ? ', ' + T.lfDoneOne : '')) + '"' + (cur ? ' aria-current="true"' : '') + '>' + x.n + '</button>';
+      }).join('') + '</div></div>';
     var box = document.getElementById('mwg-card'); box.innerHTML = c;
     box.querySelector('[data-close]').addEventListener('click', function () { closeStop('x'); });
-    box.querySelectorAll('[data-step]').forEach(function (b) { b.addEventListener('click', function () { var n = selectedStopId + +b.getAttribute('data-step'); if (G.stops[n - 1]) openStop(n, 'arrow'); }); });
+    box.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { var n = +b.getAttribute('data-go'); if (n !== selectedStopId) { ga('guide_dot_select', { guide: G.id, n: n }); openStop(n, 'arrow'); } }); });
     box.querySelector('.mwg-stampbtn').addEventListener('click', function () { toggle(s.n); });
     box.querySelector('[data-exp]').addEventListener('click', function () {
       expanded = !expanded; document.getElementById('mwg-env').classList.toggle('is-exp', expanded);
