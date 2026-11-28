@@ -311,7 +311,8 @@
 .mwg-c7in .mwg-line{margin:6px 0 0;font-size:15.5px;line-height:1.45}
 .mwg-tile{flex:none;width:86px;height:98px;margin-top:2px;padding:7px;border:0;cursor:pointer;background:#fff;
   --p:radial-gradient(circle at 4px 4px,transparent 3.2px,#000 3.6px);
-  -webkit-mask:var(--p) -4px -4px/8px 8px;mask:var(--p) -4px -4px/8px 8px;filter:drop-shadow(0 0 0 #27302E)}
+  -webkit-mask:linear-gradient(#000 0 0) content-box,var(--p) -4px -4px/8px 8px;-webkit-mask-composite:source-over;
+  mask:linear-gradient(#000 0 0) content-box,var(--p) -4px -4px/8px 8px;mask-composite:add}
 .mwg-tile .sv{display:grid;place-items:center;width:100%;height:100%;border:2px solid #D9D0BE;background:#FFFDF7}
 .mwg-tile .sv svg{width:66px;height:auto;mix-blend-mode:multiply;opacity:.22;filter:grayscale(1);transition:opacity .25s,filter .25s,transform .25s}
 .mwg-tile.on{background:var(--ink)}
