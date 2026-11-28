@@ -31,4 +31,4 @@ MarlonWalksLA is Marlon Gonzalez's walking-tour business in Los Angeles: free to
 - Copy: simple words ("if every word cost $1000"), English and Spanish, "Explore" as the key verb, no "hidden history", no em dashes.
 - Real photos (guest Polaroids) over designed marketing images. No numbers baked into images. No off-brand AI Ernesto art. Guest photos only with permission.
 - Review numbers come from Marlon's review sheet (Oct 14, 2026: 505 reviews, 4.86; Google 309 at 4.95). Update by hand; do not invent ratings in schema markup.
-- Log every change in the claude.ai Project doc `claude/changelog.md`.
+- Log changes in the claude.ai Project: current thread state in the handoff doc (now `claude/handoff-nov27.md`), finished build history in dated `claude/history-*.md` docs, current facts in `claude/CANON.md`. `claude/changelog.md` is the archive through Oct 26 and is no longer updated.

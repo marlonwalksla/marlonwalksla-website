@@ -730,7 +730,7 @@ def guidescard(es):
         body=(("Ernesto arm&oacute; gu&iacute;as gratis de %s, %s y %s por toda la ciudad. Elige una y explora como local." % (M("blue", "Turista en LA"), M("pink", "Lugares para Fotos"), M("orange", "comida local"))) if es else
               ("Ernesto put together free LA guides for %s must-sees, %s, and %s across the city. Pick one and explore like a local." % (M("blue", "LA Tourist"), M("pink", "Photo Spots"), M("orange", "local food")))),
         btn=("Ver Gu&iacute;as" if es else "View Guides"),
-        href="/maps?%sfrom=home" % q,
+        href=("/guias" if es else "/guides"),  # Nov 28, 2026: the LA Guides page (was /maps)
         alt=("Vista previa del mapa de recomendaciones de Los &Aacute;ngeles de Marlon" if es else "Preview of Marlon&rsquo;s Los Angeles recommendations map"),
         ern=("Ernesto, el burrito de pi&ntilde;ata, se&ntilde;alando las gu&iacute;as" if es else "Ernesto the pi&ntilde;ata donkey pointing to the guides"),
         pass_=("Gu&iacute;a de LA" if es else "LA Guide"),
@@ -740,9 +740,11 @@ def guidescard(es):
     ch = ""
     for i, (pid, name, n, ink, bg, icon, rot) in enumerate(cards):
         st = _ST.stamp("gc%d" % i, name.upper().replace("&IACUTE;", "Í"), "LOS ANGELES", icon, "", ink, rot=0, seed=4 + i)
-        ch += ('<a class="gc-card" href="/maps?%spassport=%s&amp;from=home" style="--rot:%s;--bg:%s">'
+        # Nov 28, 2026: a guide with its own page links there; the others open the LA Map on that guide
+        gl = {"la-tourist": ("/guias/turista-en-la" if es else "/guides/la-tourist")}.get(pid) or ("/maps?%spassport=%s&amp;from=home" % (q, pid))
+        ch += ('<a class="gc-card" href="%s" style="--rot:%s;--bg:%s">'
                '<span class="gc-tape" aria-hidden="true"></span><span class="gc-art" aria-hidden="true">%s</span>'
-               '<span class="gc-kind">%s</span><span class="gc-name">%s</span><span class="gc-chip">%s</span></a>') % (q, pid, rot, bg, st, t["pass_"], name, n)
+               '<span class="gc-kind">%s</span><span class="gc-name">%s</span><span class="gc-chip">%s</span></a>') % (gl, rot, bg, st, t["pass_"], name, n)
     corner = _ST.stamp("gcx", "FREE GUIDES" if not es else "GU&Iacute;AS GRATIS", "LOS ANGELES", "palms3", "", "#2890B6", rot=8, seed=9)
     html = """<!-- MARLONWALKSLA - HOME: GUIDES CARD (Nov 26, 2026). Built by tools/make_home_draft.py (guidescard). -->
 <section class="gc" aria-label="%(title)s" data-lang="%(lang)s">
@@ -822,7 +824,7 @@ def guidescard(es):
 <script>
 (function () {
   var r = document.querySelectorAll('.gc a');
-  for (var i = 0; i < r.length; i++) if (!r[i].getAttribute('data-ga')) { r[i].setAttribute('data-ga', '1'); r[i].addEventListener('click', function () { var p = (this.getAttribute('href').match(/passport=([a-z-]+)/) || [])[1] || 'all'; try { if (window.gtag) gtag('event', 'home_guides_click', { lang: document.documentElement.lang || '', passport: p }); } catch (e) {} }); }
+  for (var i = 0; i < r.length; i++) if (!r[i].getAttribute('data-ga')) { r[i].setAttribute('data-ga', '1'); r[i].addEventListener('click', function () { var hr = this.getAttribute('href'), p = (hr.match(/passport=([a-z-]+)/) || hr.match(/[/]gui(?:de|a)s[/]([a-z-]+)/) || [])[1] || 'all'; try { if (window.gtag) gtag('event', 'home_guides_click', { lang: document.documentElement.lang || '', passport: p }); } catch (e) {} }); }
 })();
 </script>
 """ % dict(t, lang=L, shot=MAPSHOT, ern_src=ERNESTO_POINT, cards=ch, corner=corner, svgmap=la_map_svg(es))

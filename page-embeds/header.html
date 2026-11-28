@@ -7,6 +7,8 @@
      the Home calendar (/#book or /es#book). Phone and tablet (980px and under): logo, EN | ES,
      a small Book pill and the menu button; the menu shows the same two groups.
      Nov 27, 2026: "Passports & Stamps" renamed "LA Guides" (ES "Guías de LA") and listed first. Address /passports kept.
+     Nov 28, 2026: LA Guides goes to /guides (ES /guias); /passports, /pasaportes, /stamps, /sellos retired. Guide pages
+     (/guides/<slug>, /guias/<slug>) mark EN | ES with data-mw-pair themselves (page-embeds/guides.html).
      The data-k keys are new on purpose: nav-header.js (on main) adds Passports and Stamps
      after a[data-k="maps"], and this header no longer has that key, so nothing is added twice.
      Spanish is detected from the path list OR from <html lang>; labelling runs again on
@@ -31,7 +33,7 @@
         <div class="mwhd-dd">
           <button type="button" class="mwhd-link mwhd-ddbtn" aria-expanded="false" aria-haspopup="true"><span data-t="guides">Guides</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
           <div class="mwhd-ddlist" role="group" aria-label="Guides">
-            <a href="/passports" class="mwhd-link" data-k="pp">LA Guides</a>
+            <a href="/guides" class="mwhd-link" data-k="pp">LA Guides</a>
             <a href="/maps" class="mwhd-link" data-k="lamap">LA Map</a>
           </div>
         </div>
@@ -131,30 +133,29 @@
       ['/free-walking-tour-los-angeles', '/free-tour-los-angeles-espanol'],
       ['/ernesto', '/ernesto-es'],
       ['/group-tours-los-angeles', '/tours-para-grupos-los-angeles'],
-      ['/passports', '/pasaportes'],
-      ['/stamps', '/sellos'],
+      ['/guides', '/guias'],
       ['/private-tour-los-angeles', '/tours-privados-los-angeles'],
       ['/maps', '/mapa-los-angeles'],
       ['/history', '/historia-de-los-angeles']
     ];
-    var esPages = ['/es', '/free-tour-los-angeles-espanol', '/ernesto-es', '/tours-para-grupos-los-angeles', '/tours-privados-los-angeles', '/mapa-los-angeles', '/historia-de-los-angeles', '/pasaportes', '/sellos'];
+    var esPages = ['/es', '/free-tour-los-angeles-espanol', '/ernesto-es', '/tours-para-grupos-los-angeles', '/tours-privados-los-angeles', '/mapa-los-angeles', '/historia-de-los-angeles', '/guias'];
     // Blog stories: /blog/<slug> (English) and /historias/<slug> (Spanish)
     var STORIES = { 'walt-disney-concert-hall': 'walt-disney-concert-hall', 'the-broad': 'the-broad', 'angels-flight': 'angels-flight', 'city-hall': 'city-hall', 'olvera-street': 'calle-olvera' };
     var ES = {
       free: ['/free-tour-los-angeles-espanol', 'Free Tour'],
       'private': ['/tours-privados-los-angeles', 'Tour Privado'],
       lamap: ['/mapa-los-angeles', 'Mapa de LA'],
-      pp: ['/pasaportes', 'Guías de LA'],
+      pp: ['/guias', 'Guías de LA'],
       history: ['/historia-de-los-angeles', 'Historia'],
       about: ['/about', 'Sobre mí']
     };
     var ES_T = { tours: 'Tours', guides: 'Guías' };
     // Pages that count as "here" for a menu item (LA Guides covers the guides and stamps pages)
-    var ALSO = { pp: ['/passports', '/pasaportes', '/stamps', '/sellos'], lamap: ['/maps', '/mapa-los-angeles'] };
+    var ALSO = { pp: ['/guides', '/guias'], lamap: ['/maps', '/mapa-los-angeles'] };
 
     function isSpanish() {
       if (esPages.indexOf(path) > -1) return true;
-      if (path.indexOf('/historias/') === 0) return true;
+      if (path.indexOf('/historias/') === 0 || path.indexOf('/guias/') === 0) return true;
       return (document.documentElement.lang || '').toLowerCase().indexOf('es') === 0;
     }
 
@@ -167,10 +168,6 @@
       for (i = 0; i < pairs.length; i++) {
         if (path === pairs[i][0] || path === pairs[i][1]) { enHref = pairs[i][0]; esHref = pairs[i][1]; }
       }
-      if (/^\/(passports|pasaportes)$/.test(path)) {
-        var q = location.search.replace(/[?&]lang=[a-z]+/i, '').replace(/^&/, '?');
-        enHref += q; esHref += q;
-      }
       if (storyEn) { enHref = storyEn; esHref = storyEs; }
       var en = document.getElementById('mwhd-en'), es = document.getElementById('mwhd-es');
       var home = document.getElementById('mwhd-home');
@@ -181,7 +178,7 @@
       for (j = 0; j < links.length; j++) {
         var a = links[j], dk = a.getAttribute('data-k');
         if (isEs && ES[dk]) { a.href = ES[dk][0]; a.textContent = ES[dk][1]; }
-        var here = (a.getAttribute('href') || '').replace(/\/+$/, '') === path || (ALSO[dk] && ALSO[dk].indexOf(path) > -1);
+        var here = (a.getAttribute('href') || '').replace(/\/+$/, '') === path || (ALSO[dk] && ALSO[dk].indexOf(path) > -1) || (dk === 'pp' && /^\/(guides|guias)\//.test(path));
         if (here) a.setAttribute('aria-current', 'page');
       }
       if (isEs) {
