@@ -593,6 +593,9 @@
       var mp = document.getElementById('mwg-map'), r = mp.getBoundingClientRect();
       if (r.top < 56 || r.bottom > window.innerHeight * 0.4) window.scrollTo({ top: window.scrollY + r.top - 70, behavior: source === 'link' ? 'auto' : 'smooth' });
     }
+    /* short phones: end the panel just below the map (never taller than 60% of the screen, never shorter than 45%) */
+    var mh = document.getElementById('mwg-map').getBoundingClientRect().height, ih = window.innerHeight;
+    sheet.style.maxHeight = Math.round(Math.max(ih * 0.45, Math.min(ih * 0.6, ih - 70 - mh - 8))) + 'px';
     if (was === null || source !== 'arrow') ga('guide_stop_sheet_open', { guide: G.id, stop: s.id, n: n, source: source });
   }
   function closeStop(how) {
