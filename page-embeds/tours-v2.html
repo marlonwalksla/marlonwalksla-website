@@ -1,0 +1,179 @@
+<!-- =====================================================================
+     MARLONWALKSLA - LOS ANGELES TOURS v2 (draft, Nov 27, 2026)  /los-angeles-tours-v2
+     One menu of tours. Each card is clickable and goes straight to the
+     right booking form on this page (private day -> #book-private with the
+     tour name filled in; group walk -> #book-group; free tour -> its page).
+     .tp-todo = red placeholder Marlon still has to confirm (prices, lengths).
+     ===================================================================== -->
+<section class="t2" id="tours">
+  <div class="t2-wrap">
+    <header class="t2-hero">
+      <p class="t2-eyebrow">Los Angeles Tours with Marlon</p>
+      <h1 class="t2-h1">Pick your LA tour</h1>
+      <p class="t2-lead">Hollywood Sign at sunset, the beach, tacos or a food walk downtown. A local guide, instant photos, English or Español.</p>
+      <ul class="t2-facts">
+        <li>&#9733; 4.9 from 525+ reviews</li>
+        <li>&#128663; Hotel pickup on private tours</li>
+        <li>&#128248; Instant photos included</li>
+      </ul>
+    </header>
+
+    <div class="t2-filters" role="group" aria-label="Filter tours">
+      <button type="button" class="t2-chip is-on" data-f="all">All tours</button>
+      <button type="button" class="t2-chip" data-f="car">Private, by car (up to 4)</button>
+      <button type="button" class="t2-chip" data-f="walk">Group walks (5 to 35)</button>
+      <button type="button" class="t2-chip" data-f="free">Free</button>
+    </div>
+
+    <div class="t2-grid">
+
+      <a class="t2-card" data-k="car" data-tour="Hollywood Sign and Sunset Hike" href="#book-private">
+        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04.webp" alt="Guests at Griffith Observatory with the city behind them" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
+        <div class="t2-body">
+          <h2 class="t2-name">Hollywood Sign and Sunset Hike</h2>
+          <p class="t2-where">Griffith Observatory &middot; Hollywood Sign viewpoint &middot; Hollywood</p>
+          <p class="t2-meta"><span>&#9201; <span class="tp-todo">about 5 hours?</span></span><span>&#128101; up to 4</span></p>
+          <p class="t2-price"><span class="tp-todo">Price for 2: confirm</span></p>
+          <span class="t2-btn">Book this tour</span>
+        </div>
+      </a>
+
+      <a class="t2-card" data-k="walk" data-tour="Downtown Food Walk" href="#book-group">
+        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4441660c929ab6108a7d5_birthday.avif" alt="A birthday group under the neon lights at Grand Central Market" loading="lazy" decoding="async"><span class="t2-tag walk">Group walk</span></div>
+        <div class="t2-body">
+          <h2 class="t2-name">Downtown Food Walk</h2>
+          <p class="t2-where">Angels Flight &middot; historic Downtown &middot; lunch at Grand Central Market</p>
+          <p class="t2-meta"><span>&#9201; about 5 hours</span><span>&#128101; 5 to 35</span></p>
+          <p class="t2-price"><span class="tp-todo">$30 per person? (calculator says about $53)</span></p>
+          <span class="t2-btn">Pick a date</span>
+        </div>
+      </a>
+
+      <a class="t2-card" data-k="car" data-tour="Beach Day" href="#book-private">
+        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad929e61c74efa5d6a35519_guest-santa-monica-01.avif" alt="Guests on the beach at Santa Monica" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
+        <div class="t2-body">
+          <h2 class="t2-name">Beach Day</h2>
+          <p class="t2-where">Santa Monica Pier &middot; Venice Beach &middot; Venice Canals</p>
+          <p class="t2-meta"><span>&#9201; <span class="tp-todo">about 4 hours?</span></span><span>&#128101; up to 4</span></p>
+          <p class="t2-price"><span class="tp-todo">Price for 2: confirm</span></p>
+          <span class="t2-btn">Book this tour</span>
+        </div>
+      </a>
+
+      <a class="t2-card" data-k="car" data-tour="Date Night" href="#book-private">
+        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae44416fcf6b9e32bb6aa97_tacos.avif" alt="Tacos in Los Angeles" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
+        <div class="t2-body">
+          <h2 class="t2-name">Date Night</h2>
+          <p class="t2-where">Tacos &middot; Griffith sunset &middot; Venice Canals &middot; Santa Monica</p>
+          <p class="t2-meta"><span>&#9201; 5 hours</span><span>&#128101; 2 to 4</span></p>
+          <p class="t2-price">$379 for 2 &middot; $469 for 4</p>
+          <span class="t2-btn">Book this tour</span>
+        </div>
+      </a>
+
+      <a class="t2-card" data-k="car" data-tour="Family Outing at the Getty" href="#book-private">
+        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad929daefa7590f943caa69_guest-getty-center-01.webp" alt="A family at the Getty Center" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
+        <div class="t2-body">
+          <h2 class="t2-name">Family Outing at the Getty</h2>
+          <p class="t2-where">Art, gardens and a sunset view at the Getty Center</p>
+          <p class="t2-meta"><span>&#9201; 4 hours</span><span>&#128101; 2 to 4</span></p>
+          <p class="t2-price">$309 for 2 &middot; $389 for 4</p>
+          <span class="t2-btn">Book this tour</span>
+        </div>
+      </a>
+
+      <a class="t2-card" data-k="car" data-tour="Build my own day" href="#book-private">
+        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300bb3475c17e0bb3730_Hiking.avif" alt="Hiking in the hills of Los Angeles" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
+        <div class="t2-body">
+          <h2 class="t2-name">Build your own day</h2>
+          <p class="t2-where">Pick your stops: Rodeo Drive, The Grove, Urban Light and more</p>
+          <p class="t2-meta"><span>&#9201; 2 to 12 hours</span><span>&#128101; up to 4</span></p>
+          <p class="t2-price">$20 to $40 per person, per hour</p>
+          <span class="t2-btn">Plan my day</span>
+        </div>
+      </a>
+
+      <a class="t2-card" data-k="free" href="/free-walking-tour-los-angeles">
+        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae451a4a161d7286632251d_free%20group%20polaroid.avif" alt="A free tour group holding their instant photo" loading="lazy" decoding="async"><span class="t2-tag free">Free &middot; tip what you like</span></div>
+        <div class="t2-body">
+          <h2 class="t2-name">Free Downtown Walking Tour</h2>
+          <p class="t2-where">Disney Hall &middot; Angels Flight &middot; Bradbury &middot; Olvera Street</p>
+          <p class="t2-meta"><span>&#9201; about 2.5 hours</span><span>&#128344; 9:30 ES &middot; 12:30 EN</span></p>
+          <p class="t2-price">Free to book</p>
+          <span class="t2-btn">See dates</span>
+        </div>
+      </a>
+
+    </div>
+
+    <ol class="t2-steps" aria-label="How booking works">
+      <li><b>1</b> Pick a tour</li>
+      <li><b>2</b> Send your date. No payment now.</li>
+      <li><b>3</b> Marlon replies within one business day with the plan and price.</li>
+    </ol>
+  </div>
+</section>
+
+<style>
+  .t2 { background: #FFF6E6; padding: 40px 0 28px; font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
+  .t2-wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+  .t2-hero { text-align: center; max-width: 720px; margin: 0 auto 22px; }
+  .t2-eyebrow { display: inline-block; font-weight: 800; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: #6B4A00; background: #FFE9A8; border-radius: 999px; padding: 5px 12px; margin: 0 0 10px; }
+  .t2-h1 { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1.05; margin: 0 0 10px; }
+  .t2-lead { font-size: 1.08rem; line-height: 1.5; margin: 0 0 14px; }
+  .t2-facts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; font-size: .9rem; font-weight: 700; }
+  .t2-facts li { background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 4px 12px; }
+  .t2-filters { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 12px; margin: 0 0 6px; scrollbar-width: none; justify-content: center; }
+  .t2-filters::-webkit-scrollbar { display: none; }
+  .t2-chip { flex: none; font: 800 .9rem "Nunito", sans-serif; color: #27302E; background: #fff; border: 2px solid #27302E; border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+  .t2-chip.is-on { background: #27302E; color: #FFF6E6; }
+  .t2-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .t2-card { display: flex; flex-direction: column; background: #FFFDF8; border: 2px solid #27302E; border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 4px 4px 0 #27302E; transition: transform .15s, box-shadow .15s; }
+  .t2-card:hover, .t2-card:focus-visible { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #27302E; }
+  .t2-card[hidden] { display: none; }
+  .t2-ph { position: relative; aspect-ratio: 4 / 3; background: #eee; }
+  .t2-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .t2-tag { position: absolute; left: 10px; top: 10px; font-weight: 800; font-size: .75rem; border-radius: 999px; padding: 4px 10px; border: 2px solid #27302E; background: #fff; }
+  .t2-tag.car { background: #FFD9B8; } .t2-tag.walk { background: #CDEFD0; } .t2-tag.free { background: #CFE9F5; }
+  .t2-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .t2-name { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.4rem; line-height: 1.1; margin: 0; }
+  .t2-where { margin: 0; font-size: .92rem; line-height: 1.4; color: #4a5552; }
+  .t2-meta { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .9rem; font-weight: 700; }
+  .t2-price { margin: 2px 0 6px; font-weight: 800; font-size: 1rem; }
+  .t2-btn { margin-top: auto; align-self: flex-start; font-weight: 800; background: #FFD43B; border: 2px solid #27302E; border-radius: 999px; padding: 9px 18px; box-shadow: 2px 2px 0 #27302E; }
+  .t2-steps { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: center; padding: 0; margin: 26px 0 0; font-weight: 700; }
+  .t2-steps b { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #27302E; color: #FFF6E6; margin-right: 6px; font-size: .85rem; }
+  @media (max-width: 1023px) { .t2-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) {
+    .t2 { padding-top: 26px; }
+    .t2-filters { justify-content: flex-start; }
+    .t2-grid { grid-template-columns: 1fr; gap: 14px; }
+    .t2-card { flex-direction: row; }
+    .t2-ph { flex: none; width: 38%; aspect-ratio: auto; }
+    .t2-tag { left: 6px; top: 6px; font-size: .66rem; padding: 2px 7px; }
+    .t2-body { padding: 10px 12px 12px; gap: 4px; }
+    .t2-name { font-size: 1.15rem; }
+    .t2-where { font-size: .82rem; }
+    .t2-meta, .t2-price { font-size: .82rem; }
+    .t2-btn { padding: 6px 12px; font-size: .85rem; }
+    .t2-steps { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+<script>
+(function () {
+  var root = document.getElementById('tours'); if (!root || root.dataset.on) return; root.dataset.on = '1';
+  var chips = root.querySelectorAll('.t2-chip'), cards = root.querySelectorAll('.t2-card');
+  chips.forEach(function (c) { c.addEventListener('click', function () {
+    chips.forEach(function (x) { x.classList.toggle('is-on', x === c); });
+    var f = c.getAttribute('data-f');
+    cards.forEach(function (k) { k.hidden = !(f === 'all' || k.getAttribute('data-k') === f); });
+  }); });
+  cards.forEach(function (k) { k.addEventListener('click', function () {
+    var t = k.getAttribute('data-tour'); if (!t || k.getAttribute('data-k') !== 'car') return;
+    var o = document.getElementById('priv-occasion'), m = document.getElementById('priv-msg');
+    if (o) o.value = t;
+    if (m && !m.value) m.value = "I'd like the " + t + " tour.";
+    var h = document.getElementById('t2-picked'); if (h) { h.textContent = 'You picked: ' + t; h.hidden = false; }
+  }); });
+})();
+</script>
