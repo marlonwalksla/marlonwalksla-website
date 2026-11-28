@@ -83,7 +83,7 @@
       </a>
 
       <a class="t2-card" data-k="car" data-tour="Build my own day" href="#book-private">
-        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300bb3475c17e0bb3730_Hiking.avif" alt="Hiking in the hills of Los Angeles" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
+        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cb571259b0be160b001_guest-la-07.webp" alt="Guests exploring Los Angeles with Marlon" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
         <div class="t2-body">
           <h2 class="t2-name">Build your own day</h2>
           <p class="t2-where">Pick your stops: Rodeo Drive, The Grove, Urban Light and more</p>
@@ -131,8 +131,8 @@
   .t2-card { display: flex; flex-direction: column; background: #FFFDF8; border: 2px solid #27302E; border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 4px 4px 0 #27302E; transition: transform .15s, box-shadow .15s; }
   .t2-card:hover, .t2-card:focus-visible { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #27302E; }
   .t2-card[hidden] { display: none; }
-  .t2-ph { position: relative; aspect-ratio: 4 / 3; background: #eee; }
-  .t2-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .t2-ph { position: relative; aspect-ratio: 4 / 3; background: #eee; overflow: hidden; }
+  .t2 .t2-ph img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; max-width: none; object-fit: cover; display: block; }
   .t2-tag { position: absolute; left: 10px; top: 10px; font-weight: 800; font-size: .75rem; border-radius: 999px; padding: 4px 10px; border: 2px solid #27302E; background: #fff; }
   .t2-tag.car { background: #FFD9B8; } .t2-tag.walk { background: #CDEFD0; } .t2-tag.free { background: #CFE9F5; }
   .t2-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
@@ -149,7 +149,7 @@
     .t2-filters { justify-content: flex-start; }
     .t2-grid { grid-template-columns: 1fr; gap: 14px; }
     .t2-card { flex-direction: row; }
-    .t2-ph { flex: none; width: 38%; aspect-ratio: auto; }
+    .t2-ph { flex: none; width: 38%; aspect-ratio: auto; min-height: 150px; }
     .t2-tag { left: 6px; top: 6px; font-size: .66rem; padding: 2px 7px; }
     .t2-body { padding: 10px 12px 12px; gap: 4px; }
     .t2-name { font-size: 1.15rem; }
