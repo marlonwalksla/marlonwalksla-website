@@ -82,20 +82,21 @@ EXTRA = {
 # Nov 27, 2026 (mobile spec): stop details for the slide-up panel on the guide page.
 # hood (EN, ES), time (EN, ES), category (EN, ES), tours: first is the main button, second a small link.
 # Tour keys are resolved in page-embeds/guides.html (free, foodwalk, sunset, beach, getty, build).
+# Last item: row icons (transit, foot, park, tour), at most 2, explained in the guide's symbol key.
 META = {
     "la-tourist": {
-        "griffith-observatory": (("Hollywood / Griffith Park", "Hollywood / Griffith Park"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Views and astronomy", "Vistas y astronomía"), ["sunset"]),
-        "hollywood-walk-of-fame": (("Hollywood", "Hollywood"), ("45 to 60 min", "45 a 60 min"), ("Pop culture", "Cultura pop"), ["sunset"]),
-        "hollywood-sign-viewpoint-lake-hollywood-park": (("Hollywood Hills", "Colinas de Hollywood"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Iconic view", "Vista icónica"), ["sunset"]),
-        "tcl-chinese-theatre": (("Hollywood", "Hollywood"), ("30 to 45 min", "30 a 45 min"), ("Movie history", "Historia del cine"), ["sunset"]),
-        "santa-monica-pier": (("Santa Monica", "Santa Monica"), ("1.5 to 2.5 hrs", "1.5 a 2.5 h"), ("Beach and boardwalk", "Playa y malecón"), ["beach"]),
-        "venice-beach-boardwalk": (("Venice", "Venice"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Street culture and canals", "Cultura callejera y canales"), ["beach"]),
-        "the-getty-center": (("Brentwood", "Brentwood"), ("2.5 to 3.5 hrs", "2.5 a 3.5 h"), ("Art and hilltop views", "Arte y vistas"), ["getty"]),
-        "rodeo-drive": (("Beverly Hills", "Beverly Hills"), ("45 to 60 min", "45 a 60 min"), ("Shopping and architecture", "Compras y arquitectura"), ["build"]),
-        "walt-disney-concert-hall": (("Downtown LA", "Centro de LA"), ("45 to 60 min", "45 a 60 min"), ("Architecture and music", "Arquitectura y música"), ["free", "foodwalk"]),
-        "the-broad": (("Downtown LA", "Centro de LA"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Modern art", "Arte moderno"), ["free", "foodwalk"]),
-        "grand-central-market": (("Downtown LA", "Centro de LA"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Food hall", "Mercado de comida"), ["foodwalk", "free"]),
-        "olvera-street-and-el-pueblo": (("Downtown LA", "Centro de LA"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Where LA began", "Donde nació LA"), ["free", "foodwalk"]),
+        "griffith-observatory": (("Hollywood / Griffith Park", "Hollywood / Griffith Park"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Views and astronomy", "Vistas y astronomía"), ["sunset"], ["transit","park"]),
+        "hollywood-walk-of-fame": (("Hollywood", "Hollywood"), ("45 to 60 min", "45 a 60 min"), ("Pop culture", "Cultura pop"), ["sunset"], ["transit","foot"]),
+        "hollywood-sign-viewpoint-lake-hollywood-park": (("Hollywood Hills", "Colinas de Hollywood"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Iconic view", "Vista icónica"), ["sunset"], ["park","foot"]),
+        "tcl-chinese-theatre": (("Hollywood", "Hollywood"), ("30 to 45 min", "30 a 45 min"), ("Movie history", "Historia del cine"), ["sunset"], ["transit","foot"]),
+        "santa-monica-pier": (("Santa Monica", "Santa Monica"), ("1.5 to 2.5 hrs", "1.5 a 2.5 h"), ("Beach and boardwalk", "Playa y malecón"), ["beach"], ["transit","foot"]),
+        "venice-beach-boardwalk": (("Venice", "Venice"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Street culture and canals", "Cultura callejera y canales"), ["beach"], ["park","foot"]),
+        "the-getty-center": (("Brentwood", "Brentwood"), ("2.5 to 3.5 hrs", "2.5 a 3.5 h"), ("Art and hilltop views", "Arte y vistas"), ["getty"], ["park"]),
+        "rodeo-drive": (("Beverly Hills", "Beverly Hills"), ("45 to 60 min", "45 a 60 min"), ("Shopping and architecture", "Compras y arquitectura"), ["build"], ["park","foot"]),
+        "walt-disney-concert-hall": (("Downtown LA", "Centro de LA"), ("45 to 60 min", "45 a 60 min"), ("Architecture and music", "Arquitectura y música"), ["free", "foodwalk"], ["transit","tour"]),
+        "the-broad": (("Downtown LA", "Centro de LA"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Modern art", "Arte moderno"), ["free", "foodwalk"], ["transit","tour"]),
+        "grand-central-market": (("Downtown LA", "Centro de LA"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Food hall", "Mercado de comida"), ["foodwalk", "free"], ["transit","tour"]),
+        "olvera-street-and-el-pueblo": (("Downtown LA", "Centro de LA"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Where LA began", "Donde nació LA"), ["free", "foodwalk"], ["transit","tour"]),
     },
 }
 
@@ -130,6 +131,8 @@ for p in sorted(PASS["passports"], key=lambda x: x["order"]):
             st["time"] = {"en": mt[1][0], "es": mt[1][1]}
             st["cat"] = {"en": mt[2][0], "es": mt[2][1]}
             st["tours"] = mt[3]
+            if len(mt) > 4:
+                st["icons"] = mt[4]
         if line:
             st["line"] = {"en": line[0], "es": line[1]}
             if line[2]:

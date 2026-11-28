@@ -118,6 +118,24 @@
 @media (prefers-reduced-motion:reduce){.mwg-btn,.mwg-card,.mwg-bar i{transition:none}}
 
 /* ===== Nov 27, 2026 (mobile spec): compact stop rows + slide-up "what to do here" panel ===== */
+.mwg-sub2{margin:8px 0 0;font-family:"Fredoka",sans-serif;font-weight:500;font-size:18px;line-height:1.4;color:#3B4440}
+.mwg-rowb .ics{font-size:14px;letter-spacing:2px;margin-top:2px}
+.mwg-key{list-style:none;margin:0 0 22px;padding:0;display:grid;grid-template-columns:1fr;gap:8px}
+.mwg-key li,.mwg-ga li{display:flex;align-items:center;gap:12px;font-size:15.5px;line-height:1.45}
+.mwg-key .ic,.mwg-ga .ic{flex:none;width:36px;height:36px;display:grid;place-items:center;font-size:20px;background:#FFF6E6;border-radius:50%}
+.mwg-key .kp{flex:none;width:30px;height:30px;margin:0 3px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--ink);background:#fff;color:var(--ink);font-family:"Lilita One",sans-serif;font-size:15px}
+.mwg-key .kp.pinon{background:var(--ink);color:#fff}
+.mwg-key .kp.pinsel{background:#FFD43B;border-color:#27302E;color:#27302E}
+.mwg-ga{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.mwg-ga li{align-items:flex-start}
+.mwg-ga b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:18px}
+.mwg-ga p{margin:2px 0 0;font-size:15.5px;line-height:1.5}
+.mwg-sign{max-width:640px;margin:8px auto 0;padding:24px 16px 8px;text-align:center;border-top:2.5px solid #27302E}
+.mwg-sign img{display:block;margin:0 auto 8px;border-radius:50%}
+.mwg-sign-t{margin:2px 0 6px;font-family:"Lilita One",sans-serif;font-size:22px;line-height:1.15}
+.mwg-sign-c{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 20px;margin:12px 0 0}
+.mwg-sign-c .mwg-link{min-height:44px;display:inline-flex;align-items:center}
+@media (min-width:900px){.mwg-key{grid-template-columns:1fr 1fr}.mwg-ga{grid-template-columns:1fr 1fr;gap:18px 28px}}
 [data-mw-postcard]{display:none!important}
 .mwg-note{margin:12px 0 0;padding:10px 12px;background:#E0F1F8;border-radius:12px;font-size:15.5px;line-height:1.5}
 .mwg-svg .mwg-pin{cursor:pointer}
@@ -206,10 +224,11 @@
     shareT: function (d, t, g) { return 'Sellé ' + d + ' de ' + t + ' lugares de la guía ' + g + ' de Marlon.'; },
     next: 'Siguiente guía', loadMap: 'Cargando el mapa...', fail: 'No cargó. Intenta de nuevo.', nf: 'No encontramos esta guía.',
     mapAlt: 'Mapa ilustrado con las paradas de la guía',
+    sub2: 'A dónde ir, qué se necesita de verdad para moverte y cómo armar tu viaje por LA sin perder medio día en el tráfico.',
     note2: 'LA no es una sola caminata, es un conjunto de barrios. Toca un número del mapa o una parada para ver qué hacer ahí, o únete a un tour a pie por el centro para ubicarte primero.',
     hint2: 'Toca un número o una parada.', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
     tourH: 'Explóralo con Marlon', see: 'Ver detalles',
-    pcH2: 'Envía una postal desde LA', pcP2: 'Escribe una nota de tu viaje. Le llega a Marlon y a Ernesto, y también la puedes compartir con alguien.',
+    pcH2: 'Envía una postal desde LA', pcP2: 'Mándale una nota a MarlonWalksLA o guarda un recuerdo de tu viaje.',
     send2: 'Enviar postal', sending: 'Enviando...', sent: '¡Enviada! A Marlon y Ernesto les va a encantar.', share: 'Compártela con alguien', sendFail: 'No se envió. Intenta de nuevo.'
   } : {
     kick: 'LA Guides', h1: 'Free LA Guides from a Local', sub: 'Pick a guide. Explore. Collect the stamps.',
@@ -227,12 +246,45 @@
     shareT: function (d, t, g) { return 'I stamped ' + d + ' of ' + t + " places in Marlon's " + g + ' guide.'; },
     next: 'Next guide', loadMap: 'Loading the map...', fail: "It didn't load. Please try again.", nf: "We couldn't find this guide.",
     mapAlt: "Illustrated map with the guide's stops",
-    note2: "LA isn't a single walk. It's a set of neighborhoods. Tap any numbered pin or stop below to see what to do there, or join a Downtown LA walking tour to get your bearings first.",
+    sub2: 'Where to go, what it actually takes to get around, and how to piece together your LA trip without wasting half your day in traffic.',
+    note2: "LA is not a single walk, it is a set of neighborhoods. Tap any numbered pin or stop below to see what to do there, or join a Downtown LA walking tour to get your bearings first.",
     hint2: 'Tap a number or a stop.', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
     tourH: 'Explore it with Marlon', see: 'See details',
-    pcH2: 'Send a Postcard from LA', pcP2: 'Write a note from your trip. It goes to Marlon and Ernesto, and you can share it with a friend too.',
+    pcH2: 'Send a Postcard from LA', pcP2: 'Send a note to MarlonWalksLA or save a memory from your trip.',
     send2: 'Send Postcard', sending: 'Sending...', sent: 'Sent! Marlon and Ernesto will love it.', share: 'Share it with a friend', sendFail: "It didn't send. Please try again."
   };
+  /* Nov 27, 2026 (spec V2): Part 2, the back of the guide: symbols, getting around, sign-off */
+  var ICONS = { transit: '🚇', foot: '🚶', park: '🅿️', tour: '🎟️' };
+  var P2 = ES ? {
+    kick: 'Parte 2 · Antes de salir', keyH: 'Qué significan los símbolos',
+    key: [['pin', 'Número blanco: todavía no lo sellas'], ['pinon', 'Número de color con ✓: ya lo sellaste'], ['pinsel', 'Número amarillo: la parada que estás viendo'],
+      ['transit', 'Llegas en Metro o shuttle'], ['foot', 'Se disfruta a pie'], ['park', 'Vas en auto: planea dónde estacionarte'], ['tour', 'Parte de un tour con Marlon']],
+    gaH: 'Cómo moverte por LA',
+    ga: [['🕐', 'Planea por zonas', 'Hollywood y Griffith un día; Santa Monica, Venice y el Getty otro; el centro a pie. Deja 30 a 60 minutos entre zonas, y más en hora pico (7 a 10 AM y 3 a 7 PM).'],
+      ['🚇', 'Centro sin auto', 'Metro línea A o E a Grand Av Arts/Bunker Hill para la Sala Disney y The Broad. Angels Flight baja a Grand Central Market. Union Station queda junto a la Placita Olvera.'],
+      ['🅿️', 'Centro en auto', 'Estaciona una vez en un garaje y camina. Las calles del centro tienen reglas de parquímetro y de horario: lee los letreros.'],
+      ['🚌', 'Griffith Observatory', 'El estacionamiento de arriba cobra y se llena cerca del atardecer. El DASH Observatory/Los Feliz de LADOT sube desde la estación Vermont/Sunset (línea B).'],
+      ['🎟️', 'Getty Center', 'Entrada gratis con reservación con horario. El estacionamiento se paga abajo y subes en el tranvía. Cerrado los lunes.'],
+      ['🌊', 'La playa', 'La línea E del Metro termina en Downtown Santa Monica, a unas cuadras del muelle. Venice queda al sur por el camino junto a la arena.'],
+      ['⛰️', 'Letrero de Hollywood', 'No se puede llegar al letrero. Míralo desde Lake Hollywood Park o un sendero marcado, respeta los letreros de estacionamiento y lleva agua.']],
+    signH: 'Guía de LA de MarlonWalksLA', signP: 'Hecha por Marlon, guía local, y Ernesto. ¿Quieres ver LA con un local?', signB: 'Ver las excursiones en Los Ángeles', tours: '/excursiones-los-angeles',
+    wa: 'WhatsApp', mail: 'Correo'
+  } : {
+    kick: 'Part 2 · Before you go', keyH: 'What the symbols mean',
+    key: [['pin', "White number: not stamped yet"], ['pinon', 'Colored number with ✓: stamped'], ['pinsel', 'Yellow number: the stop you are looking at'],
+      ['transit', 'Get there by Metro or shuttle'], ['foot', 'Best on foot'], ['park', 'Driving: plan your parking'], ['tour', 'Part of a tour with Marlon']],
+    gaH: 'Getting around LA',
+    ga: [['🕐', 'Plan by area', 'Hollywood and Griffith one day; Santa Monica, Venice and the Getty another; Downtown on foot. Leave 30 to 60 minutes between areas, more at rush hour (7 to 10 AM and 3 to 7 PM).'],
+      ['🚇', 'Downtown without a car', 'Metro A or E line to Grand Av Arts/Bunker Hill for Disney Hall and The Broad. Angels Flight drops you at Grand Central Market. Union Station is next to Olvera Street.'],
+      ['🅿️', 'Downtown by car', 'Park once in a garage and walk. Downtown streets have meter and time rules, so read the signs.'],
+      ['🚌', 'Griffith Observatory', 'Hilltop parking is paid and fills up near sunset. The LADOT DASH Observatory/Los Feliz runs up from the Vermont/Sunset Metro station (B line).'],
+      ['🎟️', 'Getty Center', 'Free entry with a timed reservation. Parking is paid at the bottom, then a tram takes you up. Closed Mondays.'],
+      ['🌊', 'The beach', 'The Metro E line ends at Downtown Santa Monica, a few blocks from the pier. Venice is south along the beach path.'],
+      ['⛰️', 'Hollywood Sign', "You can't reach the sign itself. See it from Lake Hollywood Park or a marked trail, follow the parking signs and bring water."]],
+    signH: 'An LA Guide by MarlonWalksLA', signP: 'Made by Marlon, a local guide, and Ernesto. Want to see LA with a local?', signB: 'See Los Angeles Tours', tours: '/los-angeles-tours',
+    wa: 'WhatsApp', mail: 'Email'
+  };
+  var LOGO = 'https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%20Full.avif';
   /* Tours a stop links to (keys come from guides.json "tours"; the first is the main button) */
   var TOURS = ES ? {
     free: ['Free tour a pie por el centro', '/free-tour-los-angeles-espanol'], foodwalk: ['Ruta de comida en el centro', '/excursiones-los-angeles#group-tour'],
@@ -375,13 +427,20 @@
     if (hen && hes) { hen.href = '/guides/' + G.slug.en; hes.href = '/guias/' + G.slug.es; hen.setAttribute('data-mw-pair', '1'); hes.setAttribute('data-mw-pair', '1'); hen.setAttribute('aria-current', ES ? 'false' : 'true'); hes.setAttribute('aria-current', ES ? 'true' : 'false'); }
     var i0 = D.guides.indexOf(G), nx = D.guides[(i0 + 1) % D.guides.length];
     var h = '<div class="mwg-wrap"><a class="mwg-back" href="' + HUB + '">' + esc(T.back) + '</a>';
-    h += '<section class="mwg-pc" id="mwg-top"><p class="mwg-kick">' + esc(T.guide) + ' · ' + esc(L(G.name)) + ' · ' + esc(T.stops(G.stops.length)) + '</p><div id="mwg-h"></div><div class="mwg-intro" id="mwg-i"></div><p class="mwg-note">' + esc(T.note2) + '</p><p class="mwg-by">' + esc(T.by) + '</p><div id="mwg-p1"></div></section>';
+    h += '<section class="mwg-pc" id="mwg-top"><p class="mwg-kick">' + esc(T.guide) + ' · ' + esc(L(G.name)) + ' · ' + esc(T.stops(G.stops.length)) + '</p><div id="mwg-h"></div>' + (G.id === 'la-tourist' ? '<p class="mwg-sub2">' + esc(T.sub2) + '</p>' : '') + '<div class="mwg-intro" id="mwg-i"></div><p class="mwg-note">' + esc(T.note2) + '</p><p class="mwg-by">' + esc(T.by) + '</p><div id="mwg-p1"></div></section>';
     h += '<section class="mwg-pc" style="--pc:#E0F1F8"><h2 class="mwg-h2">' + esc(T.mapH) + '</h2><div class="mwg-map" id="mwg-map"></div><div class="mwg-maptools"><button type="button" class="mwg-btn alt" id="mwg-real">🗺️ ' + esc(T.openMap) + '</button><a class="mwg-link" href="' + MAP + '?passport=' + G.id + '&from=guides">' + esc(T.laMap) + '</a><p class="mwg-hint">' + esc(T.hint2) + '</p></div></section>';
     h += '<section id="mwg-list"></section>';
+    h += '<section class="mwg-pc mwg-ref" id="mwg-ref" style="--pc:#FFFDF8"><p class="mwg-kick">' + esc(P2.kick) + '</p><h2 class="mwg-h2">' + esc(P2.keyH) + '</h2><ul class="mwg-key">' + P2.key.map(function (k) {
+      var ic = ICONS[k[0]] ? '<span class="ic">' + ICONS[k[0]] + '</span>' : '<span class="kp ' + k[0] + '">' + (k[0] === 'pinon' ? '✓' : '3') + '</span>';
+      return '<li>' + ic + '<span>' + esc(k[1]) + '</span></li>'; }).join('') + '</ul>' +
+      (G.id === 'la-tourist' ? '<h2 class="mwg-h2">' + esc(P2.gaH) + '</h2><ul class="mwg-ga">' + P2.ga.map(function (x) { return '<li><span class="ic">' + x[0] + '</span><div><b>' + esc(x[1]) + '</b><p>' + esc(x[2]) + '</p></div></li>'; }).join('') + '</ul>' : '') + '</section>';
     h += '<section class="mwg-pc" id="mwg-pc" style="--pc:#FFE6EF;--edge1:#D6457A;--edge2:#2890B6"><h2 class="mwg-h2">' + esc(T.pcH2) + '</h2><p class="mwg-body">' + esc(T.pcP2) + '</p>' +
       '<div class="mwg-card2"><div class="l"><div class="gr">' + esc(T.greet) + '</div><textarea id="mwg-msg" aria-label="' + esc(T.pcH) + '">' + esc(T.msg) + '</textarea></div>' +
       '<div class="r"><div class="stamps" id="mwg-pst"></div><label>' + esc(T.to) + ' <input id="mwg-to" autocomplete="off"></label><label>' + esc(T.from) + ' <input id="mwg-from" autocomplete="given-name"></label></div></div>' +
       '<div class="mwg-row"><button type="button" class="mwg-btn" id="mwg-send">✉️ ' + esc(T.send2) + '</button><button type="button" class="mwg-btn alt" id="mwg-share" hidden>' + esc(T.share) + '</button><a class="mwg-link" href="' + pageUrl(nx) + '">' + esc(T.next) + ': ' + esc(L(nx.name)) + ' →</a></div><p class="mwg-pc-ok" id="mwg-ok" role="status"></p><p class="mwg-msg" id="mwg-sent" role="status"></p></section>';
+    h += '<footer class="mwg-sign"><img src="' + LOGO + '" alt="MarlonWalksLA" width="56" height="56" loading="lazy"><p class="mwg-kick">' + esc(P2.signH) + '</p><p class="mwg-sign-t" id="mwg-sign-t"></p><p class="mwg-body">' + esc(P2.signP) + '</p>' +
+      '<div class="mwg-row" style="justify-content:center"><a class="mwg-btn" data-sign="tours" href="' + P2.tours + '">' + esc(P2.signB) + ' →</a></div>' +
+      '<p class="mwg-sign-c"><a class="mwg-link" data-sign="whatsapp" href="https://wa.me/12692670410" target="_blank" rel="noopener">💬 ' + esc(P2.wa) + '</a><a class="mwg-link" data-sign="email" href="mailto:marlonwalksla@gmail.com">✉️ marlonwalksla@gmail.com</a></p></footer>';
     root.innerHTML = h + '</div>';
     /* move the CMS headline and intro (real page text) into place */
     var hh = src && src.querySelector('h1'), ii = src && src.querySelector('.w-richtext, [class*="rich"]') || (src && src.children[1]);
@@ -391,9 +450,12 @@
     document.getElementById('mwg-real').addEventListener('click', openReal);
     document.getElementById('mwg-send').addEventListener('click', sendCard);
     document.getElementById('mwg-share').addEventListener('click', shareCard);
+    var stt = document.getElementById('mwg-sign-t'), hh1 = document.querySelector('#mwg-h h1'); if (stt) stt.textContent = hh1 ? hh1.textContent.trim() : L(G.name);
+    document.querySelectorAll('[data-sign]').forEach(function (a) { a.addEventListener('click', function () { ga('guide_signoff_click', { guide: G.id, link: a.getAttribute('data-sign') }); }); });
     buildSheet();
     /* deep links: ?stop=3 or the old #stop-3 open that stop's panel */
-    var q = new URLSearchParams(location.search).get('stop'), hm = (location.hash.match(/^#stop-(\d+)$/) || [])[1], dn = +(q || hm || 0);
+    var qs = new URLSearchParams(location.search), sk = qs.get('spot'), sp = sk ? G.stops.filter(function (x) { return ids(x).indexOf(sk) > -1 || x.id === sk; })[0] : null;
+    var q = qs.get('stop') || (sp ? String(sp.n) : ''), hm = (location.hash.match(/^#stop-(\d+)$/) || [])[1], dn = +(q || hm || 0);
     if (dn && G.stops[dn - 1]) { history.replaceState(null, '', location.pathname); setTimeout(function () { openStop(dn, 'link'); }, 120); }
     else if (location.hash) { var t = document.querySelector(location.hash); if (t) setTimeout(function () { t.scrollIntoView(); }, 50); }
   }
@@ -429,7 +491,7 @@
     return '<li><button type="button" class="mwg-rowb' + (on ? ' on' : '') + (s.n === selectedStopId ? ' sel' : '') + '" id="stop-' + s.n + '" data-stop="' + s.n + '" aria-haspopup="dialog">' +
       '<span class="n" aria-hidden="true">' + (on ? '✓' : s.n) + '</span>' +
       '<span class="th" aria-hidden="true">' + (s.photo ? '<img src="' + esc(s.photo) + '" alt="" loading="lazy" decoding="async">' : stampSvg(s, 'mwgr' + s.n)) + '</span>' +
-      '<span class="tx"><b>' + esc(L(s.name)) + '</b><small>' + esc([L(s.hood), L(s.time)].filter(Boolean).join(' · ')) + (on ? ' · ' + esc(T.stamped) : '') + '</small></span><span class="ch" aria-hidden="true">›</span></button></li>';
+      '<span class="tx"><b>' + esc(L(s.name)) + '</b><small>' + esc([L(s.hood), L(s.time)].filter(Boolean).join(' · ')) + (on ? ' · ' + esc(T.stamped) : '') + '</small>' + ((s.icons || []).length ? '<span class="ics" aria-label="' + esc(s.icons.map(function (k) { var x = P2.key.filter(function (y) { return y[0] === k; })[0]; return x ? x[1] : k; }).join(', ')) + '">' + s.icons.map(function (k) { return ICONS[k] || ''; }).join(' ') + '</span>' : '') + '</span><span class="ch" aria-hidden="true">›</span></button></li>';
   }
 
   /* ---------- the "what to do here" panel. selectedStopId: null = overview, a number = that stop is open ---------- */

@@ -610,7 +610,7 @@
   }
 
   function openCard(o, still, pressed) {
-    card = o;
+    card = o; mwSyncOpen();
     var c = cat(o.cat), st = o.st || stampObj(o.key), members = memberOf(o.key), on = st ? stamped(st) : false;
     var ink = (members[0] && members[0].ink) || '#27302E';
     var names = members.map(function (p) { return L(p.name); }).join(' · ');
@@ -694,7 +694,15 @@
     return '';
   }
 
-  function closeCard(refit) { card = null; $('pmx-card').hidden = true; if (mode !== 'all') { if (refit) fitFor = ''; renderPassport(); } }
+  /* Nov 27, 2026: "Open my guide" opens the guide page on the place that is open on the map (?spot=<key>). */
+  function mwSyncOpen() {
+    document.querySelectorAll('#pmx .pmx-open').forEach(function (a) {
+      var base = a.getAttribute('href').split('?')[0];
+      a.setAttribute('href', base + (card && mode !== 'all' && /\/(guides|guias)\/./.test(base) ? '?spot=' + encodeURIComponent(card.key) : ''));
+    });
+  }
+  document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('#pmx .pmx-open')) mwSyncOpen(); }, true);
+  function closeCard(refit) { card = null; mwSyncOpen(); $('pmx-card').hidden = true; if (mode !== 'all') { if (refit) fitFor = ''; renderPassport(); } }
 
   /* ---------- events ---------- */
   root.addEventListener('click', function (e) {
