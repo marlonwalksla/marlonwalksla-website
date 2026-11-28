@@ -38,11 +38,11 @@
 <h2>Explore LA With a Local</h2>
 <p>The LA you came for, the way locals live it. You already know the places. I'll show you how we live them: where locals eat, the best views and the stories behind them. The instant camera captures the moments.</p>
 <h3>Downtown Food Walk: Grand Central Market</h3>
-<p>Five hours eating and exploring the historic center. Great for birthdays and big groups. $30 per person · up to 35 guests. <a href="/group-tours-los-angeles">See details</a></p>
+<p>Five hours eating and exploring the historic center. Great for birthdays and big groups. $30 per person · up to 35 guests. <a href="/los-angeles-tours#group-tour">See details</a></p>
 <h3>Sunset Hikes: Hollywood + Griffith Observatory</h3>
-<p>Hike up to Griffith Observatory for the sunset, then dinner in Hollywood. Up to 4 guests · hotel pickup · ask for a price. <a href="/private-tour-los-angeles">See details</a></p>
+<p>Hike up to Griffith Observatory for the sunset, then dinner in Hollywood. Up to 4 guests · hotel pickup · ask for a price. <a href="/los-angeles-tours#private-inquiry">See details</a></p>
 <h3>Beach Day: Santa Monica + Venice Beach</h3>
-<p>The pier, the beach and the Venice Canals. Stay for the sunset. Up to 4 guests · hotel pickup · ask for a price. <a href="/private-tour-los-angeles">See details</a></p>
+<p>The pier, the beach and the Venice Canals. Stay for the sunset. Up to 4 guests · hotel pickup · ask for a price. <a href="/los-angeles-tours#private-inquiry">See details</a></p>
 <h2>LA Recommendations Map</h2>
 <p>Food, shopping and more, all on one map. <a href="/maps">Explore the map</a></p>
 <h2>Meet Your Local Guide</h2>
@@ -98,11 +98,11 @@
 <h2>Explora LA con un local</h2>
 <p>El LA que viniste a ver, como lo vivimos aquí. Ya conoces los lugares. Te enseño cómo los vivimos: dónde comemos, las mejores vistas y las historias detrás. La cámara instantánea captura los momentos.</p>
 <h3>Ruta de comida en el centro: Grand Central Market</h3>
-<p>Cinco horas comiendo y explorando el centro histórico. Ideal para cumpleaños y grupos grandes. $30 por persona · hasta 35 personas. <a href="/tours-para-grupos-los-angeles">Ver detalles</a></p>
+<p>Cinco horas comiendo y explorando el centro histórico. Ideal para cumpleaños y grupos grandes. $30 por persona · hasta 35 personas. <a href="/excursiones-los-angeles#group-tour">Ver detalles</a></p>
 <h3>Caminatas al atardecer: Hollywood + Observatorio Griffith</h3>
-<p>Subimos al Observatorio Griffith para el atardecer y cenamos en Hollywood. Hasta 4 personas · te recojo en tu hotel · pide tu precio. <a href="/tours-privados-los-angeles">Ver detalles</a></p>
+<p>Subimos al Observatorio Griffith para el atardecer y cenamos en Hollywood. Hasta 4 personas · te recojo en tu hotel · pide tu precio. <a href="/excursiones-los-angeles#private-inquiry">Ver detalles</a></p>
 <h3>Día de playa: Santa Monica + Venice Beach</h3>
-<p>El muelle, la playa y los canales de Venice. Quédate al atardecer. Hasta 4 personas · te recojo en tu hotel · pide tu precio. <a href="/tours-privados-los-angeles">Ver detalles</a></p>
+<p>El muelle, la playa y los canales de Venice. Quédate al atardecer. Hasta 4 personas · te recojo en tu hotel · pide tu precio. <a href="/excursiones-los-angeles#private-inquiry">Ver detalles</a></p>
 <h2>Mapa de recomendaciones de LA</h2>
 <p>Comida, compras y más, todo en un mapa. <a href="/mapa-los-angeles">Explora el mapa</a></p>
 <h2>Conoce a tu guía local</h2>
