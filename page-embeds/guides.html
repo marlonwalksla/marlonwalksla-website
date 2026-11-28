@@ -302,6 +302,9 @@
     [['en', '/guides/' + G.slug.en], ['es', '/guias/' + G.slug.es], ['x-default', '/guides/' + G.slug.en]].forEach(function (x) {
       var l = document.createElement('link'); l.rel = 'alternate'; l.hreflang = x[0]; l.href = 'https://www.marlonwalksla.com' + x[1]; document.head.appendChild(l);
     });
+    /* header EN | ES: this guide's twin page (data-mw-pair tells the header and footer scripts to leave these alone) */
+    var hen = document.getElementById('mwhd-en'), hes = document.getElementById('mwhd-es');
+    if (hen && hes) { hen.href = '/guides/' + G.slug.en; hes.href = '/guias/' + G.slug.es; hen.setAttribute('data-mw-pair', '1'); hes.setAttribute('data-mw-pair', '1'); hen.setAttribute('aria-current', ES ? 'false' : 'true'); hes.setAttribute('aria-current', ES ? 'true' : 'false'); }
     var i0 = D.guides.indexOf(G), nx = D.guides[(i0 + 1) % D.guides.length];
     var h = '<div class="mwg-wrap"><a class="mwg-back" href="' + HUB + '">' + esc(T.back) + '</a>';
     h += '<section class="mwg-pc" id="mwg-top"><p class="mwg-kick">' + esc(T.guide) + ' · ' + esc(L(G.name)) + ' · ' + esc(T.stops(G.stops.length)) + '</p><div id="mwg-h"></div><div class="mwg-intro" id="mwg-i"></div><p class="mwg-by">' + esc(T.by) + '</p><div id="mwg-p1"></div></section>';
@@ -350,7 +353,6 @@
     var h = '<li class="mwg-stop' + (on ? ' on' : '') + '" id="stop-' + s.n + '"><span class="mwg-num" aria-hidden="true">' + (on ? '✓' : s.n) + '</span><div>';
     h += '<h2>' + esc(L(s.name)) + '</h2>' + (s.line ? '<p class="mwg-line">' + esc(L(s.line)) + '</p>' : '');
     if (s.tip) h += '<p class="mwg-tip"><b>' + esc(T.tip) + '</b>' + esc(L(s.tip)) + '</p>';
-    if (s.free) h += '<a class="mwg-free" href="' + FREE + '">' + esc(T.free) + '</a>';
     h += '<div class="mwg-acts"><button type="button" class="mwg-btn mwg-stamp" data-n="' + s.n + '" aria-pressed="' + on + '">' + (on ? '✓ ' + esc(T.stamped) : esc(T.stampIt)) + '</button>' +
       '<a class="mwg-link" target="_blank" rel="noopener" href="' + dir + '">' + esc(T.dir) + ' ↗</a>' +
       (s.mapId ? '<a class="mwg-link" href="' + MAP + '?spot=' + encodeURIComponent(s.legacyKey || s.mapId) + '&passport=' + G.id + '">' + esc(T.onLA) + '</a>' : '') +

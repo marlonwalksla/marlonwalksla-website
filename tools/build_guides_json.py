@@ -26,6 +26,7 @@ for k, v in PC.items():
 PAGES = {"la-tourist"}
 
 # Free walking tour stops (Downtown LA History Walk). Guide stops here get a small "On the free tour" note.
+# Nov 28, 2026 (Marlon): the "On my free walking tour" tag is off. Kept in the data in case it comes back.
 FREE_TOUR = {"walt-disney-concert-hall", "the-broad", "grand-central-market", "olvera-street-and-el-pueblo", "olvera-street",
              "angels-flight", "bradbury-building", "la-city-hall"}
 

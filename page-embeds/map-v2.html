@@ -332,7 +332,8 @@
     nightlife: { e: '🍸', c: '#7C3AED', en: 'Nightlife', es: 'Vida nocturna' }
   };
   var STORY = { 'walt-disney-concert-hall': '/blog/walt-disney-concert-hall', 'the-broad': '/blog/the-broad', 'angels-flight-railway': '/blog/angels-flight', 'la-city-hall': '/blog/city-hall', 'olvera-street-and-el-pueblo': '/blog/olvera-street' };
-  var PPAGE = { 'downtown-classic': '/passports?passport=downtown-classic', 'la-tourist': '/passports?passport=la-tourist' };
+  /* Nov 28, 2026: "Open my guide" goes to the guide's own page (/guides/<slug>, ES /guias/<slug>); guides without a page yet go to the LA Guides page. */
+  var PPAGE = { 'la-tourist': ['/guides/la-tourist', '/guias/turista-en-la'] };
   var BASE = 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@main/';
   /* Nov 6, 2026: the test site reads passport-collections.json from the test branch so data fixes can be checked before they go live. */
   var COLS = /\.webflow\.io$/.test(location.hostname) ? 'https://raw.githubusercontent.com/marlonwalksla/marlonwalksla-website/test/passport-collections.json' : BASE + 'passport-collections.json';
@@ -545,8 +546,7 @@
 
   function renderPassport() {
     var p = pp(mode); if (!p) return;
-    var ink = p.ink || '#27302E', list = stops(p), g = prog(p), page = PPAGE[p.id] || '/passports?passport=' + encodeURIComponent(p.id);
-    if (ES) page = page.replace('/passports', '/pasaportes');
+    var ink = p.ink || '#27302E', list = stops(p), g = prog(p), page = (PPAGE[p.id] || ['/guides', '/guias'])[ES ? 1 : 0];
     root.style.setProperty('--ink', ink);
     var h = '';
     h += '<ol class="pmx-list">' + list.map(function (o) {
@@ -555,7 +555,7 @@
       return '<li><button type="button" data-key="' + esc(o.key) + '"><span class="pmx-num' + (on ? ' on' : '') + '">' + (on ? '✓' : o.n) + '</span><span class="pmx-li-t"><b>' + esc(o.name) + '</b><small>' + c.e + ' ' + esc(L(c)) + (o.city ? ' · ' + esc(o.city) : '') + '</small></span>' + (function () { var n = bonusCount(p, o.st); return n ? '<span class="pmx-bn">' + esc(T.plusBonus(n)) + '</span>' : ''; })() + '</button></li>';
     }).join('') + '</ol>';
     if (g.t && g.d === g.t) h += '<div class="pmx-done">🎉 ' + esc(T.done) + '</div>';
-    h += '<div class="pmx-after"><a class="pmx-open" href="' + page + (ES ? (page.indexOf('?') < 0 ? '?' : '&') + 'lang=es' : '') + '">' + esc(T.open) + ' →</a></div>';
+    h += '<div class="pmx-after"><a class="pmx-open" href="' + page + '">' + esc(PPAGE[p.id] ? T.open : (ES ? 'Ver todas las Guías de LA' : 'See all LA Guides')) + ' →</a></div>';
     $('pmx-pp').innerHTML = h;
     var fb = $('pmx-fit'); if (fb) { fb.hidden = !map || !list.some(function (o) { return o.coords; }); fb.textContent = '⤢ ' + T.showAll(list.filter(function (o) { return o.coords; }).length); }
     clearMarkers();
