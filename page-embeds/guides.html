@@ -354,6 +354,10 @@
 .mwg-key .kp.pinsel{background:#fff!important;border:4px solid #27302E!important;color:#27302E!important;width:34px;height:34px}
 .mwg-tile.on{background:#FFD43B!important}
 .mwg-tile.on .sv{border-color:#27302E!important}
+/* Nov 28, 2026 round 12: address link, Ernesto sticker tile */
+.mwg-addr{display:inline-flex;align-items:center;min-height:40px;margin:0 0 2px;font:700 15px/1.3 "Nunito",sans-serif;color:var(--ink)!important;text-decoration:underline!important;text-underline-offset:3px}
+.mwg-tile .sv img{width:70px;height:70px;object-fit:contain;opacity:.28;filter:grayscale(1);transition:opacity .25s,filter .25s,transform .25s}
+.mwg-tile.on .sv img{opacity:1;filter:none;transform:rotate(-6deg) scale(1.05)}
 [data-mw-postcard]{display:none!important}
 .mwg-note{margin:12px 0 0;padding:10px 12px;background:#E0F1F8;border-radius:12px;font-size:15.5px;line-height:1.5}
 .mwg-svg .mwg-pin{cursor:pointer}
@@ -444,7 +448,7 @@
     mapAlt: 'Mapa ilustrado con las paradas de la guía',
     sub2: 'A dónde ir, qué se necesita de verdad para moverte y cómo armar tu viaje por LA sin perder medio día en el tráfico.',
     note2: 'LA no es una sola caminata, es un conjunto de barrios. Toca un número del mapa o una parada para ver qué hacer ahí, o únete a un tour a pie por el centro para ubicarte primero.',
-    hint2: 'Toca un número o una parada.', moreG: 'Más guías', seeG: 'Ver más guías', dotsL: 'Ir a una parada', prevG: 'Guía anterior', nextG: 'Siguiente guía', gpos: function (i, n) { return 'Guía ' + i + ' de ' + n; }, showAll: 'Ver todo', stopOf: function (i, n) { return i + ' de ' + n; }, moreS: 'Leer más', less: 'Leer menos', viewTours: 'Ver tours', toursHere: 'Tours que pasan por aquí:', lfL: 'Mostrar paradas', lfShow: 'Ver:', lfAll: 'Todas', lfLeft: 'Sin sellar', lfDone: 'Visitadas', lfDoneOne: 'Visitada', lfNone: 'Todavía no hay sellos. Toca una parada y luego su sello.', lfAllDone: '¡Visitaste las 12! Sigue con la próxima guía.', introB: 'Lee la intro de Marlon', stampTap: 'TOCA PARA SELLAR', stampOn: 'SELLADO ✓ toca para quitar', prevS: 'Anterior', nextS2: 'Siguiente', stampedW: 'sellados', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
+    hint2: 'Toca un número o una parada.', moreG: 'Más guías', seeG: 'Ver más guías', dotsL: 'Ir a una parada', prevG: 'Guía anterior', nextG: 'Siguiente guía', gpos: function (i, n) { return 'Guía ' + i + ' de ' + n; }, showAll: 'Ver todo', stopOf: function (i, n) { return i + ' de ' + n; }, moreS: 'Leer más', less: 'Leer menos', viewTours: 'Ver tours', toursHere: 'Tours que pasan por aquí:', lfL: 'Mostrar paradas', lfShow: 'Ver:', lfAll: 'Todas', lfLeft: 'Sin sellar', lfDone: 'Visitadas', lfDoneOne: 'Visitada', lfNone: 'Todavía no hay sellos. Toca una parada y luego su sello.', lfAllDone: '¡Visitaste las 12! Sigue con la próxima guía.', introB: 'Lee la intro de Marlon', stampTap: 'TOCA PARA SELLAR', stampOn: 'SELLADO ✓ toca para quitar', prevS: 'Anterior', nextS2: 'Siguiente', stampedW: 'sellados', ern: 'Ernestos', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
     tourH: 'Explóralo con Marlon', see: 'Ver detalles',
     pcH2: 'Envía una postal desde LA', pcP2: 'Mándale una nota a MarlonWalksLA o guarda un recuerdo de tu viaje.',
     send2: 'Enviar postal', sending: 'Enviando...', sent: '¡Enviada! A Marlon y Ernesto les va a encantar.', share: 'Compártela con alguien', sendFail: 'No se envió. Intenta de nuevo.'
@@ -466,7 +470,7 @@
     mapAlt: "Illustrated map with the guide's stops",
     sub2: 'Where to go, what it actually takes to get around, and how to piece together your LA trip without wasting half your day in traffic.',
     note2: "LA is not a single walk, it is a set of neighborhoods. Tap any numbered pin or stop below to see what to do there, or join a Downtown LA walking tour to get your bearings first.",
-    hint2: 'Tap a number or a stop.', moreG: 'More guides', seeG: 'See more guides', dotsL: 'Jump to a stop', prevG: 'Previous guide', nextG: 'Next guide', gpos: function (i, n) { return 'Guide ' + i + ' of ' + n; }, showAll: 'Show all', stopOf: function (i, n) { return i + ' of ' + n; }, moreS: 'Read more', less: 'Read less', viewTours: 'View tours', toursHere: 'Tours that stop here:', lfL: 'Show stops', lfShow: 'Show:', lfAll: 'All', lfLeft: 'Unstamped', lfDone: 'Visited', lfDoneOne: 'Visited', lfNone: 'Nothing stamped yet. Tap a stop, then tap its stamp.', lfAllDone: 'You visited all 12. Time for the next guide!', introB: "Read Marlon's intro", stampTap: 'TAP TO STAMP', stampOn: 'STAMPED ✓ tap to undo', prevS: 'Prev', nextS2: 'Next', stampedW: 'stamped', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
+    hint2: 'Tap a number or a stop.', moreG: 'More guides', seeG: 'See more guides', dotsL: 'Jump to a stop', prevG: 'Previous guide', nextG: 'Next guide', gpos: function (i, n) { return 'Guide ' + i + ' of ' + n; }, showAll: 'Show all', stopOf: function (i, n) { return i + ' of ' + n; }, moreS: 'Read more', less: 'Read less', viewTours: 'View tours', toursHere: 'Tours that stop here:', lfL: 'Show stops', lfShow: 'Show:', lfAll: 'All', lfLeft: 'Unstamped', lfDone: 'Visited', lfDoneOne: 'Visited', lfNone: 'Nothing stamped yet. Tap a stop, then tap its stamp.', lfAllDone: 'You visited all 12. Time for the next guide!', introB: "Read Marlon's intro", stampTap: 'TAP TO STAMP', stampOn: 'STAMPED ✓ tap to undo', prevS: 'Prev', nextS2: 'Next', stampedW: 'stamped', ern: 'Ernestos', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
     tourH: 'Explore it with Marlon', see: 'See details',
     pcH2: 'Send a Postcard from LA', pcP2: 'Send a note to MarlonWalksLA or save a memory from your trip.',
     send2: 'Send Postcard', sending: 'Sending...', sent: 'Sent! Marlon and Ernesto will love it.', share: 'Share it with a friend', sendFail: "It didn't send. Please try again."
@@ -502,6 +506,7 @@
     signH: 'An LA Guide by MarlonWalksLA', signP: 'Made by Marlon, a local guide, and Ernesto. Want to see LA with a local?', signB: 'See Los Angeles Tours', tours: '/los-angeles-tours',
     wa: 'WhatsApp', mail: 'Email'
   };
+  var ERNST = 'https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b9212a0209aa9528b_Santa%20Monica.avif';
   var LOGO = 'https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%20Full.avif';
   /* Tours a stop links to (keys come from guides.json "tours"; the first is the main button) */
   var TOURS = ES ? {
@@ -762,7 +767,7 @@
     box.querySelectorAll('[data-stop]').forEach(function (b) { b.addEventListener('click', function () { openStop(+b.getAttribute('data-stop'), 'list'); }); });
     box.querySelectorAll('[data-lf]').forEach(function (b) { b.addEventListener('click', function () { listFilter = b.getAttribute('data-lf'); ga('guide_list_filter', { guide: G.id, filter: listFilter }); drawList(); var f = box.querySelector('[data-lf="' + listFilter + '"]'); if (f) f.focus(); }); });
   }
-  function drawProgress() { var p = prog(G), e = document.getElementById('mwg-gc'); if (e) e.innerHTML = '<b>' + p.d + '</b>/' + p.t + ' <span aria-hidden="true">✓</span><span class="sr">' + esc(T.of(p.d, p.t)) + '</span>'; }
+  function drawProgress() { var p = prog(G), e = document.getElementById('mwg-gc'); if (e) e.innerHTML = '<b>' + p.d + '</b>/' + p.t + ' ' + esc(T.ern) + '<span class="sr">' + esc(T.of(p.d, p.t)) + '</span>'; }
 
   /* ---------- the stop card (selectedStopId: null = map + list, a number = map + that stop) ---------- */
   function openStop(n, source, fromHistory) {
@@ -811,12 +816,12 @@
     var s = G.stops[selectedStopId - 1], on = has(s), tours = (s.tours || []).filter(function (k) { return TOURS[k]; }), t0 = tours[0] && TOURS[tours[0]], t1 = tours[1] && TOURS[tours[1]];
     var c = '<div class="mwg-c7' + (expanded ? ' exp' : '') + '">' +
       '<div class="mwg-c7top"><h2 class="mwg-c7h" id="mwg-c5h">' + esc(L(s.name)) + '</h2><button type="button" class="mwg-x" data-close aria-label="' + esc(T.close) + '">✕</button></div>' +
-      '<div class="mwg-c7in"><div class="mwg-c5hd"><div class="t"><p class="mwg-meta">' + esc([L(s.cat), L(s.hood), L(s.time)].filter(Boolean).join(' · ')) + '</p>' +
+      '<div class="mwg-c7in"><a class="mwg-addr" data-dir target="_blank" rel="noopener" href="' + dirUrl(s) + '">📍 ' + esc(s.addr || L(s.hood)) + ' ↗</a>' +
+      '<div class="mwg-c5hd"><div class="t"><p class="mwg-meta">' + esc([L(s.cat), L(s.time)].filter(Boolean).join(' · ')) + '</p>' +
         (s.line ? '<p class="mwg-line">' + esc(L(s.line)) + '</p>' : '') + '</div>' +
-      '<button type="button" class="mwg-tile' + (on ? ' on' : '') + '" aria-pressed="' + on + '" aria-label="' + esc((on ? T.stampOn : T.stampTap) + ': ' + L(s.name)) + '"><span class="sv">' + stampSvg(s, 'mwgc' + s.n) + '</span></button></div>' +
+      '<button type="button" class="mwg-tile' + (on ? ' on' : '') + '" aria-pressed="' + on + '" aria-label="' + esc((on ? T.stampOn : T.stampTap) + ': ' + L(s.name)) + '"><span class="sv"><img src="' + ERNST + '" alt="" width="70" height="70"></span></button></div>' +
       '<div class="mwg-c6acts">' +
         (t0 ? '<a class="mwg-btn" data-tour="' + tours[0] + '" href="' + t0[1] + '">🎟️ ' + esc(T.viewTours) + '</a>' : '') +
-        '<a class="mwg-btn alt" data-dir target="_blank" rel="noopener" href="' + dirUrl(s) + '">🚗 ' + esc(T.dir) + '</a>' +
         '<button type="button" class="mwg-btn alt" data-exp aria-expanded="' + expanded + '">' + esc(expanded ? T.less : T.moreS) + (expanded ? ' ▴' : ' ▾') + '</button></div>' +
       '<div class="mwg-c5more"' + (expanded ? '' : ' hidden') + '>' +
         (s.photo ? '<div class="mwg-sh-ph"><img src="' + esc(s.photo) + '" alt="' + esc((ES ? 'Foto instantánea de ' : 'Instant photo of ') + L(s.name)) + '" loading="lazy"></div>' : '') +
@@ -825,9 +830,9 @@
         (t0 ? '<p class="mwg-c7tours">' + esc(T.toursHere) + ' ' + esc(t0[0]) + (t1 ? ', ' + esc(t1[0]) : '') + '</p>' : '') +
         (s.history && L(s.history) ? '<div class="mwg-c6acts"><a class="mwg-btn alt" href="' + esc(L(s.history)) + '">📖 ' + esc(T.story) + '</a></div>' : '') +
       '</div></div>' +
-      '<div class="mwg-c7bot"><div class="mwg-c7nav"><button type="button" class="mwg-step7" data-go="' + (selectedStopId - 1) + '"' + (selectedStopId <= 1 ? ' disabled' : '') + '>← ' + esc(T.prevS) + '</button>' +
-        '<span class="cnt"><b>' + prog(G).d + '</b>/' + G.stops.length + ' ' + esc(T.stampedW) + '</span>' +
-        '<button type="button" class="mwg-step7" data-go="' + (selectedStopId + 1) + '"' + (selectedStopId >= G.stops.length ? ' disabled' : '') + '>' + esc(T.nextS2) + ' →</button></div>' +
+      '<div class="mwg-c7bot"><div class="mwg-c7nav"><button type="button" class="mwg-step7" data-go="' + (selectedStopId > 1 ? selectedStopId - 1 : G.stops.length) + '">← ' + esc(T.prevS) + '</button>' +
+        '<span class="cnt"><b>' + prog(G).d + '</b>/' + G.stops.length + ' ' + esc(T.ern) + '</span>' +
+        '<button type="button" class="mwg-step7" data-go="' + (selectedStopId < G.stops.length ? selectedStopId + 1 : 1) + '">' + esc(T.nextS2) + ' →</button></div>' +
       '<div class="mwg-dots" role="group" aria-label="' + esc(T.dotsL) + '">' + G.stops.map(function (x) {
         var xo = has(x), cur = x.n === selectedStopId;
         return '<button type="button" class="mwg-dot' + (xo ? ' on' : '') + (cur ? ' cur' : '') + '" data-go="' + x.n + '" aria-label="' + esc(x.n + '. ' + L(x.name) + (xo ? ', ' + T.lfDoneOne : '')) + '"' + (cur ? ' aria-current="true"' : '') + '>' + (xo ? '✓' : x.n) + '</button>';
