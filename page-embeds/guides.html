@@ -629,10 +629,7 @@
       var ic = ICONS[k[0]] ? '<span class="ic">' + ICONS[k[0]] + '</span>' : '<span class="kp ' + k[0] + '">' + (k[0] === 'pinon' ? '✓' : '3') + '</span>';
       return '<li>' + ic + '<span>' + esc(k[1]) + '</span></li>'; }).join('') + '</ul>' +
       (G.id === 'la-tourist' ? '<h2 class="mwg-h2">' + esc(P2.gaH) + '</h2><ul class="mwg-ga">' + P2.ga.map(function (x) { return '<li><span class="ic">' + x[0] + '</span><div><b>' + esc(x[1]) + '</b><p>' + esc(x[2]) + '</p></div></li>'; }).join('') + '</ul>' : '') + '</section>';
-    h += '<section class="mwg-pc" id="mwg-pc" style="--pc:#FFE6EF;--edge1:#D6457A;--edge2:#2890B6"><h2 class="mwg-h2">' + esc(T.pcH2) + '</h2><p class="mwg-body">' + esc(T.pcP2) + '</p>' +
-      '<div class="mwg-card2"><div class="l"><div class="gr">' + esc(T.greet) + '</div><textarea id="mwg-msg" aria-label="' + esc(T.pcH) + '">' + esc(T.msg) + '</textarea></div>' +
-      '<div class="r"><div class="stamps" id="mwg-pst"></div><label>' + esc(T.to) + ' <input id="mwg-to" autocomplete="off"></label><label>' + esc(T.from) + ' <input id="mwg-from" autocomplete="given-name"></label></div></div>' +
-      '<div class="mwg-row"><button type="button" class="mwg-btn" id="mwg-send">✉️ ' + esc(T.send2) + '</button><button type="button" class="mwg-btn alt" id="mwg-share" hidden>' + esc(T.share) + '</button><a class="mwg-link" href="' + pageUrl(nx) + '">' + esc(T.next) + ': ' + esc(L(nx.name)) + ' →</a></div><p class="mwg-pc-ok" id="mwg-ok" role="status"></p><p class="mwg-msg" id="mwg-sent" role="status"></p></section>';
+    /* Nov 28, 2026 (Marlon): postcard removed from the guide page */
     h += '<footer class="mwg-sign"><img src="' + LOGO + '" alt="MarlonWalksLA" width="56" height="56" loading="lazy"><p class="mwg-kick">' + esc(P2.signH) + '</p><p class="mwg-sign-t" id="mwg-sign-t"></p><p class="mwg-body">' + esc(P2.signP) + '</p>' +
       '<div class="mwg-row" style="justify-content:center"><a class="mwg-btn" data-sign="tours" href="' + P2.tours + '">' + esc(P2.signB) + ' →</a><a class="mwg-btn alt" data-sign="guides" href="' + HUB + '">' + esc(T.seeG) + '</a></div>' +
       '<p class="mwg-sign-c"><a class="mwg-link" data-sign="whatsapp" href="https://wa.me/12692670410" target="_blank" rel="noopener">💬 ' + esc(P2.wa) + '</a><a class="mwg-link" data-sign="email" href="mailto:marlonwalksla@gmail.com">✉️ marlonwalksla@gmail.com</a></p></footer>';
@@ -643,8 +640,6 @@
     if (window.matchMedia('(min-width: 900px)').matches) document.getElementById('mwg-more').open = true;
     var stt = document.getElementById('mwg-sign-t'), hh1 = document.querySelector('#mwg-h h1'); if (stt) stt.textContent = hh1 ? hh1.textContent.trim() : L(G.name);
     drawMap(); drawList(); drawProgress(); drawPostcard();
-    document.getElementById('mwg-send').addEventListener('click', sendCard);
-    document.getElementById('mwg-share').addEventListener('click', shareCard);
     document.getElementById('mwg-all').addEventListener('click', function () { ga('guide_show_all', { guide: G.id }); if (selectedStopId !== null) closeStop('showall'); else fitAll(true); });
     document.querySelectorAll('[data-gsw]').forEach(function (a) { a.addEventListener('click', function () { ga('guide_switch', { from: G.id, dir: a.getAttribute('data-gsw') }); }); });
     document.querySelectorAll('[data-sign]').forEach(function (a) { a.addEventListener('click', function () { ga('guide_signoff_click', { guide: G.id, link: a.getAttribute('data-sign') }); }); });
