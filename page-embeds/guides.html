@@ -264,6 +264,14 @@
 .mwg-dot.on{background:var(--ink);color:#fff}
 .mwg-dot.cur{box-shadow:0 0 0 3px #FFD43B,0 0 0 5px #27302E}
 @media (min-width:600px){.mwg-c6acts{grid-template-columns:1fr 1fr}.mwg-c6acts .mwg-btn:first-child{grid-column:1 / -1}}
+/* Nov 27, 2026 round 7: guide color on the header bar, single shadow on the envelope */
+.mwg-env{box-shadow:4px 4px 0 #27302E!important;margin-right:4px!important}
+.mwg-gbar7{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;margin:0 0 8px;padding:6px 16px;border-radius:999px;background:var(--ink);color:#fff}
+.mwg-gbar7 b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:22px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-gbar7 .mwg-gcount{color:#fff}
+.mwg-gbar7 .mwg-gcount b{font-size:18px;color:#FFD43B}
+.mwg-ref .mwg-note{margin-top:0}
+.mwg-ref .mwg-more{margin-bottom:8px}
 [data-mw-postcard]{display:none!important}
 .mwg-note{margin:12px 0 0;padding:10px 12px;background:#E0F1F8;border-radius:12px;font-size:15.5px;line-height:1.5}
 .mwg-svg .mwg-pin{cursor:pointer}
@@ -354,7 +362,7 @@
     mapAlt: 'Mapa ilustrado con las paradas de la guía',
     sub2: 'A dónde ir, qué se necesita de verdad para moverte y cómo armar tu viaje por LA sin perder medio día en el tráfico.',
     note2: 'LA no es una sola caminata, es un conjunto de barrios. Toca un número del mapa o una parada para ver qué hacer ahí, o únete a un tour a pie por el centro para ubicarte primero.',
-    hint2: 'Toca un número o una parada.', moreG: 'Más guías', dotsL: 'Ir a una parada', prevG: 'Guía anterior', nextG: 'Siguiente guía', gpos: function (i, n) { return 'Guía ' + i + ' de ' + n; }, showAll: 'Ver todo', stopOf: function (i, n) { return i + ' de ' + n; }, moreS: 'Más detalles', less: 'Menos', lfL: 'Mostrar paradas', lfAll: 'Todas', lfLeft: 'Por visitar', lfDone: 'Visitadas', lfDoneOne: 'Visitada', lfNone: 'Todavía no hay sellos. Toca una parada y luego su sello.', lfAllDone: '¡Visitaste las 12! Sigue con la próxima guía.', introB: 'Lee la intro de Marlon', stampTap: 'TOCA PARA SELLAR', stampOn: 'SELLADO ✓ toca para quitar', prevS: 'Anterior', nextS2: 'Siguiente', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
+    hint2: 'Toca un número o una parada.', moreG: 'Más guías', seeG: 'Ver más guías', dotsL: 'Ir a una parada', prevG: 'Guía anterior', nextG: 'Siguiente guía', gpos: function (i, n) { return 'Guía ' + i + ' de ' + n; }, showAll: 'Ver todo', stopOf: function (i, n) { return i + ' de ' + n; }, moreS: 'Más detalles', less: 'Menos', lfL: 'Mostrar paradas', lfAll: 'Todas', lfLeft: 'Sin sellar', lfDone: 'Visitadas', lfDoneOne: 'Visitada', lfNone: 'Todavía no hay sellos. Toca una parada y luego su sello.', lfAllDone: '¡Visitaste las 12! Sigue con la próxima guía.', introB: 'Lee la intro de Marlon', stampTap: 'TOCA PARA SELLAR', stampOn: 'SELLADO ✓ toca para quitar', prevS: 'Anterior', nextS2: 'Siguiente', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
     tourH: 'Explóralo con Marlon', see: 'Ver detalles',
     pcH2: 'Envía una postal desde LA', pcP2: 'Mándale una nota a MarlonWalksLA o guarda un recuerdo de tu viaje.',
     send2: 'Enviar postal', sending: 'Enviando...', sent: '¡Enviada! A Marlon y Ernesto les va a encantar.', share: 'Compártela con alguien', sendFail: 'No se envió. Intenta de nuevo.'
@@ -376,7 +384,7 @@
     mapAlt: "Illustrated map with the guide's stops",
     sub2: 'Where to go, what it actually takes to get around, and how to piece together your LA trip without wasting half your day in traffic.',
     note2: "LA is not a single walk, it is a set of neighborhoods. Tap any numbered pin or stop below to see what to do there, or join a Downtown LA walking tour to get your bearings first.",
-    hint2: 'Tap a number or a stop.', moreG: 'More guides', dotsL: 'Jump to a stop', prevG: 'Previous guide', nextG: 'Next guide', gpos: function (i, n) { return 'Guide ' + i + ' of ' + n; }, showAll: 'Show all', stopOf: function (i, n) { return i + ' of ' + n; }, moreS: 'More about it', less: 'Less', lfL: 'Show stops', lfAll: 'All', lfLeft: 'Still to do', lfDone: 'Visited', lfDoneOne: 'Visited', lfNone: 'Nothing stamped yet. Tap a stop, then tap its stamp.', lfAllDone: 'You visited all 12. Time for the next guide!', introB: "Read Marlon's intro", stampTap: 'TAP TO STAMP', stampOn: 'STAMPED ✓ tap to undo', prevS: 'Previous', nextS2: 'Next', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
+    hint2: 'Tap a number or a stop.', moreG: 'More guides', seeG: 'See more guides', dotsL: 'Jump to a stop', prevG: 'Previous guide', nextG: 'Next guide', gpos: function (i, n) { return 'Guide ' + i + ' of ' + n; }, showAll: 'Show all', stopOf: function (i, n) { return i + ' of ' + n; }, moreS: 'More about it', less: 'Less', lfL: 'Show stops', lfAll: 'All', lfLeft: 'Unstamped', lfDone: 'Visited', lfDoneOne: 'Visited', lfNone: 'Nothing stamped yet. Tap a stop, then tap its stamp.', lfAllDone: 'You visited all 12. Time for the next guide!', introB: "Read Marlon's intro", stampTap: 'TAP TO STAMP', stampOn: 'STAMPED ✓ tap to undo', prevS: 'Previous', nextS2: 'Next', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
     tourH: 'Explore it with Marlon', see: 'See details',
     pcH2: 'Send a Postcard from LA', pcP2: 'Send a note to MarlonWalksLA or save a memory from your trip.',
     send2: 'Send Postcard', sending: 'Sending...', sent: 'Sent! Marlon and Ernesto will love it.', share: 'Share it with a friend', sendFail: "It didn't send. Please try again."
@@ -558,17 +566,14 @@
     var i0 = D.guides.indexOf(G), n0 = D.guides.length, pv = D.guides[(i0 - 1 + n0) % n0], nx = D.guides[(i0 + 1) % n0];
     var h = '<div class="mwg-wrap mwg-v5">';
     h += '<section class="mwg-env" id="mwg-env">' +
-      '<div class="mwg-gbar6"><div class="mwg-gmid"><b><i style="background:' + G.ink + '"></i>' + esc(L(G.name)) + '</b></div>' +
-      '<span class="mwg-gcount" id="mwg-gc"></span>' +
-      '<a class="mwg-moreg" data-gsw="hub" href="' + HUB + '">' + esc(T.moreG) + '</a></div>' +
+      '<div class="mwg-gbar7"><b>' + esc(L(G.name)) + '</b><span class="mwg-gcount" id="mwg-gc"></span></div>' +
       '<div class="mwg-h1line" id="mwg-h"></div>' +
       '<div class="mwg-mapwrap" id="mwg-mapwrap"><div class="mwg-map5" id="mwg-map"></div><button type="button" class="mwg-showall" id="mwg-all">⤢ ' + esc(T.showAll) + '</button></div>' +
       '<div class="mwg-cardslot" id="mwg-card" hidden></div>' +
       '<div class="mwg-list5" id="mwg-list"></div></section>';
     /* Part 2: the back of the guide */
-    h += '<section class="mwg-pc mwg-about"><p class="mwg-kick">' + esc(P2.kick) + '</p>' + (G.id === 'la-tourist' ? '<p class="mwg-sub2">' + esc(T.sub2) + '</p>' : '') + '<p class="mwg-note">' + esc(T.note2) + '</p>' +
-      '<details class="mwg-more" id="mwg-more"><summary>' + esc(T.introB) + '</summary><div class="mwg-intro" id="mwg-i"></div><p class="mwg-by">' + esc(T.by) + '</p></details></section>';
-    h += '<section class="mwg-pc mwg-ref" id="mwg-ref" style="--pc:#FFFDF8"><h2 class="mwg-h2">' + esc(P2.keyH) + '</h2><ul class="mwg-key">' + P2.key.map(function (k) {
+    h += '<section class="mwg-pc mwg-ref" id="mwg-ref" style="--pc:#FFFDF8"><p class="mwg-kick">' + esc(P2.kick) + '</p><p class="mwg-note">' + esc(T.note2) + '</p>' +
+      '<details class="mwg-more" id="mwg-more"><summary>' + esc(T.introB) + '</summary><div class="mwg-intro" id="mwg-i"></div><p class="mwg-by">' + esc(T.by) + '</p></details><h2 class="mwg-h2">' + esc(P2.keyH) + '</h2><ul class="mwg-key">' + P2.key.map(function (k) {
       var ic = ICONS[k[0]] ? '<span class="ic">' + ICONS[k[0]] + '</span>' : '<span class="kp ' + k[0] + '">' + (k[0] === 'pinon' ? '✓' : '3') + '</span>';
       return '<li>' + ic + '<span>' + esc(k[1]) + '</span></li>'; }).join('') + '</ul>' +
       (G.id === 'la-tourist' ? '<h2 class="mwg-h2">' + esc(P2.gaH) + '</h2><ul class="mwg-ga">' + P2.ga.map(function (x) { return '<li><span class="ic">' + x[0] + '</span><div><b>' + esc(x[1]) + '</b><p>' + esc(x[2]) + '</p></div></li>'; }).join('') + '</ul>' : '') + '</section>';
@@ -577,7 +582,7 @@
       '<div class="r"><div class="stamps" id="mwg-pst"></div><label>' + esc(T.to) + ' <input id="mwg-to" autocomplete="off"></label><label>' + esc(T.from) + ' <input id="mwg-from" autocomplete="given-name"></label></div></div>' +
       '<div class="mwg-row"><button type="button" class="mwg-btn" id="mwg-send">✉️ ' + esc(T.send2) + '</button><button type="button" class="mwg-btn alt" id="mwg-share" hidden>' + esc(T.share) + '</button><a class="mwg-link" href="' + pageUrl(nx) + '">' + esc(T.next) + ': ' + esc(L(nx.name)) + ' →</a></div><p class="mwg-pc-ok" id="mwg-ok" role="status"></p><p class="mwg-msg" id="mwg-sent" role="status"></p></section>';
     h += '<footer class="mwg-sign"><img src="' + LOGO + '" alt="MarlonWalksLA" width="56" height="56" loading="lazy"><p class="mwg-kick">' + esc(P2.signH) + '</p><p class="mwg-sign-t" id="mwg-sign-t"></p><p class="mwg-body">' + esc(P2.signP) + '</p>' +
-      '<div class="mwg-row" style="justify-content:center"><a class="mwg-btn" data-sign="tours" href="' + P2.tours + '">' + esc(P2.signB) + ' →</a></div>' +
+      '<div class="mwg-row" style="justify-content:center"><a class="mwg-btn" data-sign="tours" href="' + P2.tours + '">' + esc(P2.signB) + ' →</a><a class="mwg-btn alt" data-sign="guides" href="' + HUB + '">' + esc(T.seeG) + '</a></div>' +
       '<p class="mwg-sign-c"><a class="mwg-link" data-sign="whatsapp" href="https://wa.me/12692670410" target="_blank" rel="noopener">💬 ' + esc(P2.wa) + '</a><a class="mwg-link" data-sign="email" href="mailto:marlonwalksla@gmail.com">✉️ marlonwalksla@gmail.com</a></p></footer>';
     root.innerHTML = h + '</div>';
     var hh = src && src.querySelector('h1'), ii = src && src.querySelector('.w-richtext, [class*="rich"]') || (src && src.children[1]);
