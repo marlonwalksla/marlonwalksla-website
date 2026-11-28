@@ -141,7 +141,8 @@
 .mwg-head h1{font-size:28px}
 .mwg-head .mwg-prog{margin-top:10px}
 .mwg-mapsec{padding:14px 14px 12px}
-@media (max-width:899px){.mwg-wrap:has(.mwg-mapsec){padding:0 10px}.mwg-mapsec{padding:10px 8px 10px;margin-bottom:14px}.mwg-mapsec::after{display:none}.mwg-head{margin-bottom:12px}}
+/* Nov 27, 2026 (Marlon): no striped postcard edges on phones, clarity first */
+@media (max-width:899px){.mwg-pc::after{display:none}.mwg-pc{padding:18px 16px;margin-bottom:14px;border-radius:14px}.mwg-wrap{padding:0 10px}.mwg-wrap:has(.mwg-mapsec){padding:0 10px}.mwg-mapsec{padding:10px 8px 10px;margin-bottom:14px}.mwg-mapsec::after{display:none}.mwg-head{margin-bottom:12px}}
 .mwg-mapsec .mwg-map{aspect-ratio:16/10}
 .mwg-mapsec .mwg-maptools{margin-top:10px;gap:6px 16px}
 .mwg-mapsec .mwg-maptools .mwg-btn{min-height:44px;font-size:16px;padding:8px 16px}
