@@ -136,6 +136,39 @@
 .mwg-sign-c{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 20px;margin:12px 0 0}
 .mwg-sign-c .mwg-link{min-height:44px;display:inline-flex;align-items:center}
 @media (min-width:900px){.mwg-key{grid-template-columns:1fr 1fr}.mwg-ga{grid-template-columns:1fr 1fr;gap:18px 28px}}
+/* Nov 27, 2026 (round 3): compact first screen, wide map, stamp artwork is the stamp button, simple sheet bar */
+.mwg-head{padding:18px 20px 16px}
+.mwg-head h1{font-size:28px}
+.mwg-head .mwg-prog{margin-top:10px}
+.mwg-mapsec{padding:14px 14px 12px}
+.mwg-mapsec .mwg-map{aspect-ratio:16/10}
+.mwg-mapsec .mwg-maptools{margin-top:10px;gap:6px 16px}
+.mwg-mapsec .mwg-maptools .mwg-btn{min-height:44px;font-size:16px;padding:8px 16px}
+.mwg-about .mwg-sub2{margin-top:0}
+.mwg-more{margin:12px 0 0}
+.mwg-more summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-family:"Fredoka",sans-serif;font-weight:600;font-size:16px;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.mwg-sh-top{justify-content:space-between;padding:14px 8px 4px 16px}
+.mwg-sh-top .pg{padding-top:0}
+.mwg-x{width:44px;height:44px;border:0;background:none;border-radius:50%;font:700 20px/1 "Nunito",sans-serif;color:#27302E;cursor:pointer}
+.mwg-x:hover,.mwg-x:focus-visible{background:#F1EADB}
+.mwg-sh-hd{display:flex;align-items:flex-start;gap:10px;margin:2px 0 0}
+.mwg-sh-hd .t{flex:1;min-width:0}
+.mwg-stampbtn{flex:none;width:96px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0;border:0;background:none;cursor:pointer;color:#5B6663;font:inherit}
+.mwg-stampbtn .sv{width:84px;height:84px;display:grid;place-items:center;border-radius:50%;border:2px solid #E4DCCB;background:#fff;transition:border-color .2s}
+.mwg-stampbtn .sv svg{width:80px;height:auto;mix-blend-mode:multiply;opacity:.28;filter:grayscale(1);transition:opacity .25s,filter .25s}
+.mwg-stampbtn.on .sv{border-color:transparent}
+.mwg-stampbtn.on .sv svg{opacity:1;filter:none}
+.mwg-stampbtn small{font-family:"Fredoka",sans-serif;font-weight:600;font-size:11.5px;line-height:1.2;text-align:center}
+.mwg-stampbtn.on small{color:var(--ink)}
+.mwg-stampbtn:focus-visible{outline:3px solid #2890B6;outline-offset:2px;border-radius:12px}
+.mwg-sh-dir{display:flex;flex-wrap:wrap;gap:0 18px;margin:8px 0 0}
+.mwg-sh-dir .mwg-link{min-height:44px;display:inline-flex;align-items:center}
+.mwg-step{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0;padding-top:12px;border-top:1.5px solid #E4DCCB}
+.mwg-step button{min-height:52px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;padding:6px 10px;border:2px solid #27302E;border-radius:12px;background:#fff;color:#27302E;font:inherit;cursor:pointer;text-align:left;min-width:0}
+.mwg-step button.r{align-items:flex-end;text-align:right}
+.mwg-step small{font-family:"Fredoka",sans-serif;font-weight:600;font-size:12.5px;color:#5B6663}
+.mwg-step span{max-width:100%;font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (min-width:900px){.mwg-head{padding:30px 40px 24px}.mwg-head h1{font-size:40px}.mwg-mapsec{padding:22px 26px}}
 [data-mw-postcard]{display:none!important}
 .mwg-note{margin:12px 0 0;padding:10px 12px;background:#E0F1F8;border-radius:12px;font-size:15.5px;line-height:1.5}
 .mwg-svg .mwg-pin{cursor:pointer}
@@ -226,7 +259,7 @@
     mapAlt: 'Mapa ilustrado con las paradas de la guía',
     sub2: 'A dónde ir, qué se necesita de verdad para moverte y cómo armar tu viaje por LA sin perder medio día en el tráfico.',
     note2: 'LA no es una sola caminata, es un conjunto de barrios. Toca un número del mapa o una parada para ver qué hacer ahí, o únete a un tour a pie por el centro para ubicarte primero.',
-    hint2: 'Toca un número o una parada.', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
+    hint2: 'Toca un número o una parada.', introB: 'Lee la intro de Marlon', stampTap: 'Toca el sello cuando llegues', stampOn: '¡Sellado! Toca para quitarlo', prevS: 'Anterior', nextS2: 'Siguiente', close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
     tourH: 'Explóralo con Marlon', see: 'Ver detalles',
     pcH2: 'Envía una postal desde LA', pcP2: 'Mándale una nota a MarlonWalksLA o guarda un recuerdo de tu viaje.',
     send2: 'Enviar postal', sending: 'Enviando...', sent: '¡Enviada! A Marlon y Ernesto les va a encantar.', share: 'Compártela con alguien', sendFail: 'No se envió. Intenta de nuevo.'
@@ -248,7 +281,7 @@
     mapAlt: "Illustrated map with the guide's stops",
     sub2: 'Where to go, what it actually takes to get around, and how to piece together your LA trip without wasting half your day in traffic.',
     note2: "LA is not a single walk, it is a set of neighborhoods. Tap any numbered pin or stop below to see what to do there, or join a Downtown LA walking tour to get your bearings first.",
-    hint2: 'Tap a number or a stop.', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
+    hint2: 'Tap a number or a stop.', introB: "Read Marlon's intro", stampTap: 'Tap the stamp when you get there', stampOn: 'Stamped! Tap to remove', prevS: 'Previous', nextS2: 'Next', close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
     tourH: 'Explore it with Marlon', see: 'See details',
     pcH2: 'Send a Postcard from LA', pcP2: 'Send a note to MarlonWalksLA or save a memory from your trip.',
     send2: 'Send Postcard', sending: 'Sending...', sent: 'Sent! Marlon and Ernesto will love it.', share: 'Share it with a friend', sendFail: "It didn't send. Please try again."
@@ -427,8 +460,11 @@
     if (hen && hes) { hen.href = '/guides/' + G.slug.en; hes.href = '/guias/' + G.slug.es; hen.setAttribute('data-mw-pair', '1'); hes.setAttribute('data-mw-pair', '1'); hen.setAttribute('aria-current', ES ? 'false' : 'true'); hes.setAttribute('aria-current', ES ? 'true' : 'false'); }
     var i0 = D.guides.indexOf(G), nx = D.guides[(i0 + 1) % D.guides.length];
     var h = '<div class="mwg-wrap"><a class="mwg-back" href="' + HUB + '">' + esc(T.back) + '</a>';
-    h += '<section class="mwg-pc" id="mwg-top"><p class="mwg-kick">' + esc(T.guide) + ' · ' + esc(L(G.name)) + ' · ' + esc(T.stops(G.stops.length)) + '</p><div id="mwg-h"></div>' + (G.id === 'la-tourist' ? '<p class="mwg-sub2">' + esc(T.sub2) + '</p>' : '') + '<div class="mwg-intro" id="mwg-i"></div><p class="mwg-note">' + esc(T.note2) + '</p><p class="mwg-by">' + esc(T.by) + '</p><div id="mwg-p1"></div></section>';
-    h += '<section class="mwg-pc" style="--pc:#E0F1F8"><h2 class="mwg-h2">' + esc(T.mapH) + '</h2><div class="mwg-map" id="mwg-map"></div><div class="mwg-maptools"><button type="button" class="mwg-btn alt" id="mwg-real">🗺️ ' + esc(T.openMap) + '</button><a class="mwg-link" href="' + MAP + '?passport=' + G.id + '&from=guides">' + esc(T.laMap) + '</a><p class="mwg-hint">' + esc(T.hint2) + '</p></div></section>';
+    /* Nov 27, 2026: first screen = compact title + stamp counter + wide map. The longer intro sits below the map and opens on tap. */
+    h += '<section class="mwg-pc mwg-head" id="mwg-top"><p class="mwg-kick">' + esc(T.guide) + ' · ' + esc(L(G.name)) + ' · ' + esc(T.stops(G.stops.length)) + '</p><div id="mwg-h"></div><div id="mwg-p1"></div></section>';
+    h += '<section class="mwg-pc mwg-mapsec" style="--pc:#E0F1F8"><div class="mwg-map" id="mwg-map"></div><div class="mwg-maptools"><button type="button" class="mwg-btn alt" id="mwg-real">🗺️ ' + esc(T.openMap) + '</button><a class="mwg-link" href="' + MAP + '?passport=' + G.id + '&from=guides">' + esc(T.laMap) + '</a><p class="mwg-hint">' + esc(T.hint2) + '</p></div></section>';
+    h += '<section class="mwg-pc mwg-about">' + (G.id === 'la-tourist' ? '<p class="mwg-sub2">' + esc(T.sub2) + '</p>' : '') + '<p class="mwg-note">' + esc(T.note2) + '</p>' +
+      '<details class="mwg-more" id="mwg-more"><summary>' + esc(T.introB) + '</summary><div class="mwg-intro" id="mwg-i"></div><p class="mwg-by">' + esc(T.by) + '</p></details></section>';
     h += '<section id="mwg-list"></section>';
     h += '<section class="mwg-pc mwg-ref" id="mwg-ref" style="--pc:#FFFDF8"><p class="mwg-kick">' + esc(P2.kick) + '</p><h2 class="mwg-h2">' + esc(P2.keyH) + '</h2><ul class="mwg-key">' + P2.key.map(function (k) {
       var ic = ICONS[k[0]] ? '<span class="ic">' + ICONS[k[0]] + '</span>' : '<span class="kp ' + k[0] + '">' + (k[0] === 'pinon' ? '✓' : '3') + '</span>';
@@ -446,6 +482,7 @@
     var hh = src && src.querySelector('h1'), ii = src && src.querySelector('.w-richtext, [class*="rich"]') || (src && src.children[1]);
     if (hh && hh.textContent.trim()) document.getElementById('mwg-h').appendChild(hh); else document.getElementById('mwg-h').innerHTML = '<h1>' + esc(L(G.name)) + '</h1>';
     if (ii) document.getElementById('mwg-i').appendChild(ii);
+    if (window.matchMedia('(min-width: 900px)').matches) document.getElementById('mwg-more').open = true;
     drawMap(); drawList(); drawProgress(); drawPostcard();
     document.getElementById('mwg-real').addEventListener('click', openReal);
     document.getElementById('mwg-send').addEventListener('click', sendCard);
@@ -464,7 +501,7 @@
   function drawMap() {
     if (mbMap) return drawMarkers();
     var m = document.getElementById('mwg-map');
-    m.innerHTML = mapSvg(G, 600, 400, { uid: 'g' });
+    m.innerHTML = mapSvg(G, 600, 375, { uid: 'g' });
     m.querySelectorAll('.mwg-pin').forEach(function (p) {
       var pn = +p.getAttribute('data-n');
       if (pn === selectedStopId) p.classList.add('sel');
@@ -501,12 +538,10 @@
     sheet = document.createElement('div');
     sheet.className = 'mwg-sheet'; sheet.setAttribute('role', 'dialog'); sheet.setAttribute('aria-modal', 'false'); sheet.setAttribute('aria-labelledby', 'mwg-sh-h');
     sheet.style.setProperty('--ink', G.ink);
-    sheet.innerHTML = '<div class="mwg-sh-top"><span class="mwg-sh-grab" aria-hidden="true"></span><button type="button" class="mwg-ib" data-a="prev" aria-label="' + esc(T.prev) + '">‹</button><button type="button" class="mwg-ib" data-a="next" aria-label="' + esc(T.nextS) + '">›</button><span class="pg" id="mwg-sh-pg"></span><button type="button" class="mwg-ib" data-a="x" aria-label="' + esc(T.close) + '">✕</button></div><div class="mwg-sh-body" id="mwg-sh-b"></div>';
+    sheet.innerHTML = '<div class="mwg-sh-top"><span class="mwg-sh-grab" aria-hidden="true"></span><span class="pg" id="mwg-sh-pg"></span><button type="button" class="mwg-x" data-a="x" aria-label="' + esc(T.close) + '">✕</button></div><div class="mwg-sh-body" id="mwg-sh-b"></div>';
     document.body.appendChild(sheet);
     shBody = sheet.querySelector('#mwg-sh-b');
     sheet.querySelector('[data-a="x"]').addEventListener('click', function () { closeStop('x'); });
-    sheet.querySelector('[data-a="prev"]').addEventListener('click', function () { if (selectedStopId > 1) openStop(selectedStopId - 1, 'arrow'); });
-    sheet.querySelector('[data-a="next"]').addEventListener('click', function () { if (selectedStopId < G.stops.length) openStop(selectedStopId + 1, 'arrow'); });
     /* tap outside the panel closes it, but a tap on another pin or stop switches to that stop */
     document.addEventListener('click', function (e) {
       if (selectedStopId === null || sheet.contains(e.target)) return;
@@ -576,26 +611,27 @@
   }
   function renderSheet() {
     var s = G.stops[selectedStopId - 1], on = has(s), p = prog(G);
-    sheet.querySelector('[data-a="prev"]').disabled = selectedStopId <= 1;
-    sheet.querySelector('[data-a="next"]').disabled = selectedStopId >= G.stops.length;
     document.getElementById('mwg-sh-pg').textContent = T.of(p.d, p.t);
     var tours = (s.tours || []).filter(function (k) { return TOURS[k]; });
-    var h = '<div class="mwg-sh-ph">' + (s.photo ? '<img src="' + esc(s.photo) + '" alt="' + esc((ES ? 'Foto instantánea de ' : 'Instant photo of ') + L(s.name)) + '">' : stampSvg(s, 'mwgsh' + s.n)) + '</div>';
-    h += '<h2 id="mwg-sh-h">' + s.n + '. ' + esc(L(s.name)) + '</h2>';
-    if (meta(s)) h += '<p class="mwg-meta">' + esc(meta(s)) + '</p>';
+    var pv = G.stops[selectedStopId - 2], nx = G.stops[selectedStopId];
+    var h = s.photo ? '<div class="mwg-sh-ph"><img src="' + esc(s.photo) + '" alt="' + esc((ES ? 'Foto instantánea de ' : 'Instant photo of ') + L(s.name)) + '"></div>' : '';
+    h += '<div class="mwg-sh-hd"><div class="t"><h2 id="mwg-sh-h">' + s.n + '. ' + esc(L(s.name)) + '</h2>' + (meta(s) ? '<p class="mwg-meta">' + esc(meta(s)) + '</p>' : '') + '</div>' +
+      '<button type="button" class="mwg-stampbtn' + (on ? ' on' : '') + '" aria-pressed="' + on + '" aria-label="' + esc((on ? T.stampOn : T.stampTap) + ': ' + L(s.name)) + '"><span class="sv">' + stampSvg(s, 'mwgsb' + s.n) + '</span><small>' + esc(on ? T.stampOn : T.stampTap) + '</small></button></div>';
     if (s.line) h += '<p class="mwg-line">' + esc(L(s.line)) + '</p>';
     if (s.tip) h += '<p class="mwg-tip"><b>' + esc(T.tip) + '</b> ' + esc(L(s.tip)) + '</p>';
-    h += '<div class="mwg-sh-acts"><button type="button" class="mwg-btn mwg-stamp" aria-pressed="' + on + '">' + (on ? '✓ ' + esc(T.stamped) : esc(T.stampIt)) + '</button>' +
-      '<a class="mwg-btn alt" data-dir target="_blank" rel="noopener" href="' + dirUrl(s) + '">' + esc(T.dir) + ' ↗</a></div>';
+    h += '<p class="mwg-sh-dir"><a class="mwg-link" data-dir target="_blank" rel="noopener" href="' + dirUrl(s) + '">📍 ' + esc(T.dir) + ' ↗</a>' +
+      (s.mapId ? '<a class="mwg-link" href="' + MAP + '?spot=' + encodeURIComponent(s.legacyKey || s.mapId) + '&passport=' + G.id + '">' + esc(T.onLA) + '</a>' : '') +
+      (s.history && L(s.history) ? '<a class="mwg-link" href="' + esc(L(s.history)) + '">' + esc(T.story) + '</a>' : '') + '</p>';
     if (tours.length) {
       var t0 = TOURS[tours[0]], t1 = tours[1] && TOURS[tours[1]];
       h += '<div class="mwg-tourbox"><p>' + esc(T.tourH) + '</p><a class="mwg-btn" data-tour="' + tours[0] + '" href="' + t0[1] + '">' + esc(t0[0]) + ' →</a>' +
         (t1 ? '<a class="mwg-link" data-tour="' + tours[1] + '" href="' + t1[1] + '">' + esc(t1[0]) + ' →</a>' : '') + '</div>';
     }
-    h += '<div class="mwg-sh-links">' + (s.mapId ? '<a class="mwg-link" href="' + MAP + '?spot=' + encodeURIComponent(s.legacyKey || s.mapId) + '&passport=' + G.id + '">' + esc(T.onLA) + '</a>' : '') +
-      (s.history && L(s.history) ? '<a class="mwg-link" href="' + esc(L(s.history)) + '">' + esc(T.story) + '</a>' : '') + '</div>';
+    h += '<div class="mwg-step">' + (pv ? '<button type="button" data-step="' + pv.n + '"><small>‹ ' + esc(T.prevS) + '</small><span>' + esc(L(pv.name)) + '</span></button>' : '<span></span>') +
+      (nx ? '<button type="button" class="r" data-step="' + nx.n + '"><small>' + esc(T.nextS2) + ' ›</small><span>' + esc(L(nx.name)) + '</span></button>' : '<span></span>') + '</div>';
     shBody.innerHTML = h; shBody.scrollTop = 0;
-    shBody.querySelector('.mwg-stamp').addEventListener('click', function () { toggle(s.n); });
+    shBody.querySelector('.mwg-stampbtn').addEventListener('click', function () { toggle(s.n); });
+    shBody.querySelectorAll('[data-step]').forEach(function (b) { b.addEventListener('click', function () { openStop(+b.getAttribute('data-step'), 'arrow'); }); });
     shBody.querySelector('[data-dir]').addEventListener('click', function () { ga('guide_directions_click', { guide: G.id, stop: s.id }); });
     shBody.querySelectorAll('[data-tour]').forEach(function (a) { a.addEventListener('click', function () { ga('guide_tour_cta_click', { guide: G.id, stop: s.id, tour: a.getAttribute('data-tour') }); }); });
   }
@@ -611,8 +647,8 @@
     drawList(); drawMap(); drawProgress(); drawPostcard();
     if (selectedStopId === n) {
       renderSheet();
-      var b = shBody.querySelector('.mwg-stamp'); if (b) b.focus();
-      if (on && window.MWStamp) { var sv = shBody.querySelector('.mwg-sh-ph'); try { MWStamp.burst(sv, [G.ink, '#FFD43B', '#27302E']); } catch (e) {} }
+      var b = shBody.querySelector('.mwg-stampbtn'); if (b) b.focus();
+      if (on && window.MWStamp && b) { var sv = b.querySelector('.sv'); try { MWStamp.press(sv); MWStamp.burst(sv, [G.ink, '#FFD43B', '#27302E']); } catch (e) {} }
     }
   }
 
