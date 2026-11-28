@@ -101,6 +101,22 @@ META = {
 }
 
 
+# Nov 28, 2026: street address shown under the stop name (tap = Google Maps directions to the pin coordinates).
+ADDR = {
+    "griffith-observatory": "2800 E Observatory Rd, Los Angeles",
+    "hollywood-walk-of-fame": "Hollywood Blvd at Highland Ave, Hollywood",
+    "hollywood-sign-viewpoint-lake-hollywood-park": "Lake Hollywood Park, 3160 Canyon Lake Dr",
+    "tcl-chinese-theatre": "6925 Hollywood Blvd, Hollywood",
+    "santa-monica-pier": "200 Santa Monica Pier, Santa Monica",
+    "venice-beach-boardwalk": "Ocean Front Walk at Windward Ave, Venice",
+    "the-getty-center": "1200 Getty Center Dr, Los Angeles",
+    "rodeo-drive": "Rodeo Dr at Wilshire Blvd, Beverly Hills",
+    "walt-disney-concert-hall": "111 S Grand Ave, Downtown LA",
+    "the-broad": "221 S Grand Ave, Downtown LA",
+    "grand-central-market": "317 S Broadway, Downtown LA",
+    "olvera-street-and-el-pueblo": "125 Paseo de la Plaza, Downtown LA",
+}
+
 def coords(mid):
     f = SPOTS.get(mid or "")
     return f["geometry"]["coordinates"] if f else None
@@ -125,6 +141,8 @@ for p in sorted(PASS["passports"], key=lambda x: x["order"]):
             "coords": coords(s.get("mapId")), "free": (s.get("legacyKey") or s["id"]) in FREE_TOUR or s["id"] in FREE_TOUR,
             "history": s.get("history"),
         }
+        if p["id"] == "la-tourist" and s["id"] in ADDR:
+            st["addr"] = ADDR[s["id"]]
         mt = META.get(p["id"], {}).get(s["id"])
         if mt:
             st["hood"] = {"en": mt[0][0], "es": mt[0][1]}
