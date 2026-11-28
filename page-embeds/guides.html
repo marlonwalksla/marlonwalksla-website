@@ -317,7 +317,7 @@
     nodes.forEach(function (n) { if (Math.abs(n.x - n.ox) + Math.abs(n.y - n.oy) > 4) o += '<line x1="' + n.ox.toFixed(1) + '" y1="' + n.oy.toFixed(1) + '" x2="' + n.x.toFixed(1) + '" y2="' + n.y.toFixed(1) + '" stroke="#27302E" stroke-width="1.5" opacity=".5"/><circle cx="' + n.ox.toFixed(1) + '" cy="' + n.oy.toFixed(1) + '" r="2.5" fill="#27302E"/>'; });
     nodes.forEach(function (n) {
       var on = has(n.s), ink = g.ink;
-      o += '<g class="mwg-pin" data-n="' + n.s.n + '" tabindex="' + (opt.static ? -1 : 0) + '" role="link" aria-label="' + esc(n.s.n + '. ' + L(n.s.name)) + '"><circle class="pc" cx="' + n.x.toFixed(1) + '" cy="' + n.y.toFixed(1) + '" r="' + R + '" fill="' + (on ? ink : '#fff') + '" stroke="' + ink + '" stroke-width="3"/>' +
+      o += '<g class="mwg-pin" data-n="' + n.s.n + '" tabindex="' + (opt.static ? -1 : 0) + '" role="link" aria-label="' + esc(n.s.n + '. ' + L(n.s.name)) + '"><circle cx="' + n.x.toFixed(1) + '" cy="' + n.y.toFixed(1) + '" r="' + (R + 13) + '" fill="transparent"/><circle class="pc" cx="' + n.x.toFixed(1) + '" cy="' + n.y.toFixed(1) + '" r="' + R + '" fill="' + (on ? ink : '#fff') + '" stroke="' + ink + '" stroke-width="3"/>' +
         '<text x="' + n.x.toFixed(1) + '" y="' + (n.y + R * 0.38).toFixed(1) + '" text-anchor="middle" font-family="Lilita One, sans-serif" font-size="' + Math.round(R * 1.05) + '" fill="' + (on ? '#fff' : ink) + '">' + (on ? '✓' : n.s.n) + '</text></g>';
     });
     return o + '</svg>';
