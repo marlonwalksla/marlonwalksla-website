@@ -27,7 +27,7 @@
 
     <div class="t2-grid">
 
-      <a class="t2-card" data-k="car" data-tour="Hollywood Sign and Sunset Hike" href="#book-private">
+      <a class="t2-card" data-k="car" data-tour="Hollywood Sign and Sunset Hike" data-stops="griffith,sign" href="#book-private">
         <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92a2e8aa41f8f19ce753e_guest-griffith-park-and-observatory-04.webp" alt="Guests at Griffith Observatory with the city behind them" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
         <div class="t2-body">
           <h2 class="t2-name">Hollywood Sign and Sunset Hike</h2>
@@ -49,7 +49,7 @@
         </div>
       </a>
 
-      <a class="t2-card" data-k="car" data-tour="Beach Day" href="#book-private">
+      <a class="t2-card" data-k="car" data-tour="Beach Day" data-stops="pier,venice" href="#book-private">
         <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad929e61c74efa5d6a35519_guest-santa-monica-01.avif" alt="Guests on the beach at Santa Monica" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
         <div class="t2-body">
           <h2 class="t2-name">Beach Day</h2>
@@ -60,7 +60,7 @@
         </div>
       </a>
 
-      <a class="t2-card" data-k="car" data-tour="Date Night" href="#book-private">
+      <a class="t2-card" data-k="car" data-tour="Date Night" data-stops="griffith,venice,pier" href="#book-private">
         <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae44416fcf6b9e32bb6aa97_tacos.avif" alt="Tacos in Los Angeles" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
         <div class="t2-body">
           <h2 class="t2-name">Date Night</h2>
@@ -71,7 +71,7 @@
         </div>
       </a>
 
-      <a class="t2-card" data-k="car" data-tour="Family Outing at the Getty" href="#book-private">
+      <a class="t2-card" data-k="car" data-tour="Family Outing at the Getty" data-stops="" href="#book-private">
         <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad929daefa7590f943caa69_guest-getty-center-01.webp" alt="A family at the Getty Center" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
         <div class="t2-body">
           <h2 class="t2-name">Family Outing at the Getty</h2>
@@ -82,7 +82,7 @@
         </div>
       </a>
 
-      <a class="t2-card" data-k="car" data-tour="Build my own day" href="#book-private">
+      <a class="t2-card" data-k="car" data-tour="Build my own day" data-stops="" href="#book-private">
         <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ad92cb571259b0be160b001_guest-la-07.webp" alt="Guests exploring Los Angeles with Marlon" loading="lazy" decoding="async"><span class="t2-tag car">Private &middot; by car</span></div>
         <div class="t2-body">
           <h2 class="t2-name">Build your own day</h2>
@@ -93,18 +93,14 @@
         </div>
       </a>
 
-      <a class="t2-card" data-k="free" href="/free-walking-tour-los-angeles">
-        <div class="t2-ph"><img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae451a4a161d7286632251d_free%20group%20polaroid.avif" alt="A free tour group holding their instant photo" loading="lazy" decoding="async"><span class="t2-tag free">Free &middot; tip what you like</span></div>
-        <div class="t2-body">
-          <h2 class="t2-name">Free Downtown Walking Tour</h2>
-          <p class="t2-where">Disney Hall &middot; Angels Flight &middot; Bradbury &middot; Olvera Street</p>
-          <p class="t2-meta"><span>&#9201; about 2.5 hours</span><span>&#128344; 9:30 ES &middot; 12:30 EN</span></p>
-          <p class="t2-price">Free to book</p>
-          <span class="t2-btn">See dates</span>
-        </div>
-      </a>
 
     </div>
+
+    <a class="t2-free" data-k="free" href="/free-walking-tour-los-angeles">
+      <img src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae451a4a161d7286632251d_free%20group%20polaroid.avif" alt="A free tour group holding their instant photo" loading="lazy" decoding="async">
+      <span class="t2-free-txt"><b>Free Downtown Walking Tour</b><span>Daily &middot; about 2.5 hours &middot; 9:30 AM Espa&ntilde;ol, 12:30 PM English &middot; tip what you like</span></span>
+      <span class="t2-btn">See dates</span>
+    </a>
 
     <ol class="t2-steps" aria-label="How booking works">
       <li><b>1</b> Pick a tour</li>
@@ -115,7 +111,7 @@
 </section>
 
 <style>
-  .t2 { background: #FFF6E6; padding: 40px 0 28px; font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
+  .t2 { background: #FFF6E6; padding: 28px 0 20px; font-family: "Nunito", system-ui, sans-serif; color: #27302E; }
   .t2-wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
   .t2-hero { text-align: center; max-width: 720px; margin: 0 auto 22px; }
   .t2-eyebrow { display: inline-block; font-weight: 800; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: #6B4A00; background: #FFE9A8; border-radius: 999px; padding: 5px 12px; margin: 0 0 10px; }
@@ -132,7 +128,7 @@
   .t2-card:hover, .t2-card:focus-visible { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #27302E; }
   .t2-card[hidden] { display: none; }
   .t2-ph { position: relative; aspect-ratio: 4 / 3; background: #eee; overflow: hidden; }
-  .t2 .t2-ph img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; max-width: none; object-fit: cover; display: block; }
+  .t2 .t2-ph img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; max-width: none; object-fit: cover; object-position: 50% 30%; display: block; }
   .t2-tag { position: absolute; left: 10px; top: 10px; font-weight: 800; font-size: .75rem; border-radius: 999px; padding: 4px 10px; border: 2px solid #27302E; background: #fff; }
   .t2-tag.car { background: #FFD9B8; } .t2-tag.walk { background: #CDEFD0; } .t2-tag.free { background: #CFE9F5; }
   .t2-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
@@ -141,7 +137,13 @@
   .t2-meta { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .9rem; font-weight: 700; }
   .t2-price { margin: 2px 0 6px; font-weight: 800; font-size: 1rem; }
   .t2-btn { margin-top: auto; align-self: flex-start; font-weight: 800; background: #FFD43B; border: 2px solid #27302E; border-radius: 999px; padding: 9px 18px; box-shadow: 2px 2px 0 #27302E; }
-  .t2-steps { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: center; padding: 0; margin: 26px 0 0; font-weight: 700; }
+  .t2-free { display: flex; align-items: center; gap: 14px; margin: 18px 0 0; padding: 10px 14px 10px 10px; background: #E8F5FB; border: 2px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; color: inherit; text-decoration: none; }
+  .t2-free img { flex: none; width: 84px; height: 64px; object-fit: cover; object-position: 50% 30%; border-radius: 10px; }
+  .t2-free-txt { flex: 1; display: flex; flex-direction: column; gap: 2px; line-height: 1.35; }
+  .t2-free-txt b { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.2rem; }
+  .t2-free-txt span { font-size: .9rem; }
+  .t2-free .t2-btn { margin: 0; }
+  .t2-steps { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 26px; justify-content: center; padding: 0; margin: 18px 0 0; font-weight: 700; }
   .t2-steps b { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #27302E; color: #FFF6E6; margin-right: 6px; font-size: .85rem; }
   @media (max-width: 1023px) { .t2-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) {
@@ -156,23 +158,35 @@
     .t2-where { font-size: .82rem; }
     .t2-meta, .t2-price { font-size: .82rem; }
     .t2-btn { padding: 6px 12px; font-size: .85rem; }
-    .t2-steps { flex-direction: column; align-items: flex-start; }
+    .t2-free { display: flex; align-items: center; gap: 14px; margin: 18px 0 0; padding: 10px 14px 10px 10px; background: #E8F5FB; border: 2px solid #27302E; border-radius: 16px; box-shadow: 4px 4px 0 #27302E; color: inherit; text-decoration: none; }
+  .t2-free img { flex: none; width: 84px; height: 64px; object-fit: cover; object-position: 50% 30%; border-radius: 10px; }
+  .t2-free-txt { flex: 1; display: flex; flex-direction: column; gap: 2px; line-height: 1.35; }
+  .t2-free-txt b { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.2rem; }
+  .t2-free-txt span { font-size: .9rem; }
+  .t2-free .t2-btn { margin: 0; }
+  .t2-steps { flex-direction: column; align-items: flex-start; }
   }
 </style>
 <script>
 (function () {
   var root = document.getElementById('tours'); if (!root || root.dataset.on) return; root.dataset.on = '1';
-  var chips = root.querySelectorAll('.t2-chip'), cards = root.querySelectorAll('.t2-card');
+  function ga(ev, p) { try { if (window.gtag) gtag('event', ev, Object.assign({ page_path: location.pathname }, p || {})); } catch (e) {} }
+  var chips = root.querySelectorAll('.t2-chip'), cards = root.querySelectorAll('.t2-card'), free = root.querySelector('.t2-free');
   chips.forEach(function (c) { c.addEventListener('click', function () {
     chips.forEach(function (x) { x.classList.toggle('is-on', x === c); });
     var f = c.getAttribute('data-f');
     cards.forEach(function (k) { k.hidden = !(f === 'all' || k.getAttribute('data-k') === f); });
+    if (free) free.hidden = !(f === 'all' || f === 'free');
+    ga('tours_filter', { filter: f });
   }); });
+  if (free) free.addEventListener('click', function () { ga('tours_card_click', { tour: 'Free Downtown Walking Tour', kind: 'free' }); });
   cards.forEach(function (k) { k.addEventListener('click', function () {
-    var t = k.getAttribute('data-tour'); if (!t || k.getAttribute('data-k') !== 'car') return;
-    var o = document.getElementById('priv-occasion'), m = document.getElementById('priv-msg');
-    if (o) o.value = t;
-    if (m && !m.value) m.value = "I'd like the " + t + " tour.";
+    var t = k.getAttribute('data-tour'), kind = k.getAttribute('data-k');
+    ga('tours_card_click', { tour: t, kind: kind });
+    if (kind !== 'car') return;
+    var st = (k.getAttribute('data-stops') || '').split(',').filter(Boolean);
+    // One place for the chosen tour: the builder below listens and updates its stops, estimate and the form.
+    document.dispatchEvent(new CustomEvent('mw:tour', { detail: { tour: t, stops: st } }));
     var h = document.getElementById('t2-picked'); if (h) { h.textContent = 'You picked: ' + t; h.hidden = false; }
   }); });
 })();

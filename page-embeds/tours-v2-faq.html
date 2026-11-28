@@ -10,7 +10,7 @@
   <p class="t2q-more"><a href="#tours">&#8593; Back to all tours</a> &middot; <a href="https://wa.me/12692670410" target="_blank" rel="noopener">&#128172; Message Marlon</a></p>
 </section>
 <style>
-  .t2q { max-width: 760px; margin: 0 auto; padding: 40px 20px 50px; font-family: "Nunito", sans-serif; color: #27302E; }
+  .t2q { max-width: 760px; margin: 0 auto; padding: 28px 20px 36px; font-family: "Nunito", sans-serif; color: #27302E; }
   .t2q-h { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: clamp(1.7rem, 4vw, 2.3rem); text-align: center; margin: 0 0 16px; }
   .t2q details { background: #fff; border: 2px solid #27302E; border-radius: 12px; margin: 0 0 10px; }
   .t2q summary { cursor: pointer; font-weight: 800; padding: 12px 14px; }
@@ -18,3 +18,14 @@
   .t2q-more { text-align: center; font-weight: 800; margin-top: 18px; }
   .t2q-more a { color: #1B6688; text-decoration: none; }
 </style>
+<script>
+(function () {
+  var q = document.querySelector('.t2q'); if (!q || q.dataset.on) return; q.dataset.on = '1';
+  var all = q.querySelectorAll('details');
+  all.forEach(function (d) { d.addEventListener('toggle', function () {
+    if (!d.open) return;
+    all.forEach(function (o) { if (o !== d) o.open = false; });   /* one open at a time */
+    try { if (window.gtag) gtag('event', 'tours_faq_open', { question: d.querySelector('summary').textContent, page_path: location.pathname }); } catch (e) {}
+  }); });
+})();
+</script>

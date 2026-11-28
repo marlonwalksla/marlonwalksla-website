@@ -35,7 +35,11 @@
     var celebEs = { "birthday": "un cumplea\u00f1os", "milestone": "un logro importante", "retirement": "una jubilaci\u00f3n", "offsite": "un retiro de la empresa", "just-because": "porque s\u00ed" };
     var calCfg = { layout: "month_view", theme: "light" }; if (celebNames[celeb]) calCfg.notes = es ? "Estamos celebrando " + celebEs[celeb] + "." : "We are celebrating " + celebNames[celeb] + ".";
     Cal.ns["group-tours"]("inline", { elementOrSelector: "#tcal-inline", config: calCfg, calLink: "marlonwalksla/group-tours" });
-    Cal.ns["group-tours"]("ui", { theme: "light", hideEventTypeDetails: true, layout: "month_view" }); // Oct 16, 2026: no title/length/location/time zone panel, the page already says it
+    Cal.ns["group-tours"]("ui", { theme: "light", hideEventTypeDetails: true, layout: "month_view" });
+    // Nov 27, 2026: GA4 events. Cal.com handles past/unavailable dates and times itself (from Marlon's Cal.com availability).
+    var gaC = function (ev, p) { try { if (window.gtag) gtag("event", ev, Object.assign({ page_path: location.pathname }, p || {})); } catch (e) {} };
+    Cal.ns["group-tours"]("on", { action: "linkReady", callback: function () { gaC("group_calendar_ready"); } });
+    Cal.ns["group-tours"]("on", { action: "bookingSuccessfulV2", callback: function (e) { var d = (e && e.detail && e.detail.data) || {}; gaC("group_booking_complete", { start: d.startTime || "" }); } }); // Oct 16, 2026: no title/length/location/time zone panel, the page already says it
   }
   // Oct 29, 2026 (speed): wait for the first scroll, touch or key press (or 8 s), then load Cal.com when the calendar is within 250 px of the screen.
   var armed = false, evs = ["scroll", "touchstart", "pointerdown", "keydown", "mousemove"];

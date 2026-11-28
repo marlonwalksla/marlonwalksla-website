@@ -38,7 +38,7 @@
       .pb-card:has(input:checked) .pb-check { background: var(--c); border-color: var(--c); box-shadow: inset 0 0 0 4px #fff; }
       .pb-sum { background: #fff; border: 1.5px solid #E4DCCB; border-radius: 14px; padding: 18px; box-shadow: 0 10px 26px -18px rgba(39, 48, 46, 0.6); }
       .pb-sum-h { margin: 0 0 8px; font-size: 1.25rem; }
-      .pb-list { margin: 0 0 12px; padding-left: 20px; display: grid; gap: 3px; color: #27302E; font-size: 0.95rem; }
+      .pb-list { min-height: 4.6em; margin: 0 0 12px; padding-left: 20px; display: grid; gap: 3px; color: #27302E; font-size: 0.95rem; }
       .pb-empty { list-style: none; margin-left: -20px; color: #64748b; }
       .pb-total { display: flex; align-items: baseline; gap: 8px; margin: 6px 0 12px; }
       .pb-total span { font-size: 1.45rem; font-weight: 900; color: #27302E; }
@@ -56,7 +56,7 @@
       .pb-pkg-h { font-weight: 800; font-size: 0.92rem; }
       .pb-pkg-t { font-size: 0.78rem; }
       .pb-pkg-p { font-weight: 900; font-size: 1.2rem; margin-top: 4px; }
-      .pb-fit { min-height: 1.2em; margin: 10px 0 12px; font-size: 0.92rem; color: #27302E; }
+      .pb-fit { min-height: 2.6em; margin: 10px 0 12px; font-size: 0.92rem; color: #27302E; }
       .pb-btn { display: block; text-align: center; font-weight: 800; color: #27302E !important; text-decoration: none !important; background: #FFD43B; border: 2.5px solid #27302E; border-radius: 999px; padding: 12px 18px; box-shadow: 4px 4px 0 #27302E; }
       .pb-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #27302E; }
       .pb-btn[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
@@ -107,8 +107,34 @@
         var msg = "Hi Marlon, I'd like a private tour. Pickup: " + start.name + ". Stops: " + order.map(function (s) { return s.name; }).join(", ") + ". " + n + " people" + (q ? ", about $" + q.hi + "." : ".");
         send.href = "https://wa.me/12692670410?text=" + encodeURIComponent(msg);
         send.setAttribute("aria-disabled", order.length ? "false" : "true");
+        // Nov 27, 2026: one state object for the whole plan; the inquiry form reads from it (no second copy of the logic).
+        S.pickup = start.name; S.stops = order.map(function (s) { return s.name; }); S.n = n;
+        S.hours = order.length ? fmt(lo).replace("&frac12;", ".5") + "-" + fmt(hi).replace("&frac12;", ".5") : "";
+        S.price = q ? (q.lo === q.hi ? "$" + q.lo : "$" + q.lo + "-" + q.hi) : "";
+        sync();
       }
-      pick.addEventListener("change", upd); boxes.forEach(function (b) { b.addEventListener("change", upd); });
+      var S = window.mwPrivPlan = { tour: "", pickup: "", stops: [], n: 2, hours: "", price: "" };
+      function ga(ev, p) { try { if (window.gtag) gtag("event", ev, Object.assign({ page_path: location.pathname }, p || {})); } catch (e) {} }
+      function sync() {
+        var f = document.getElementById("private-tour-form"); if (!f) return;
+        var h = f.querySelector('input[name="Tour Plan"]');
+        if (!h) { h = document.createElement("input"); h.type = "hidden"; h.name = "Tour Plan"; h.setAttribute("data-name", "Tour Plan"); f.appendChild(h); }
+        h.value = (S.tour ? "Tour: " + S.tour + " | " : "") + "Pickup: " + S.pickup + " | Stops: " + (S.stops.join(", ") || "none yet") + " | " + S.n + " people" + (S.hours ? " | about " + S.hours + " h" : "") + (S.price ? " | estimate " + S.price : "");
+        var sz = document.getElementById("priv-size"); if (sz && (!sz.value || sz.dataset.auto)) { sz.value = S.n; sz.dataset.auto = "1"; }
+      }
+      pick.addEventListener("change", upd);
+      boxes.forEach(function (b) { b.addEventListener("change", function () { upd(); ga("private_stop_toggle", { stop: b.value, on: b.checked, stops: S.stops.length }); }); });
+      document.querySelectorAll(".pb-g").forEach(function (g) { g.addEventListener("click", function () { ga("private_group_size", { size: +g.dataset.n }); }); });
+      var szIn = document.getElementById("priv-size"); if (szIn) szIn.addEventListener("input", function () { delete szIn.dataset.auto; });
+      // A tour card on the page was picked: set its stops and name the tour on the form.
+      document.addEventListener("mw:tour", function (e) {
+        var d = e.detail || {}; S.tour = d.tour || "";
+        if (d.stops && d.stops.length) boxes.forEach(function (b) { b.checked = d.stops.indexOf(b.value) > -1; });
+        var o = document.getElementById("priv-occasion"); if (o && S.tour) o.value = S.tour;
+        upd();
+      });
+      var form = document.getElementById("private-tour-form");
+      if (form) form.addEventListener("submit", function () { sync(); ga("private_form_submit", { tour: S.tour || "custom", stops: S.stops.length, size: S.n }); });
       // Start with a classic first day so the tool shows what it does
       ["griffith", "sign", "urban"].forEach(function (id) { var b = document.querySelector('.pb-card input[value="' + id + '"]'); if (b) b.checked = true; });
       upd();
