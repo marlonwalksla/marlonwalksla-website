@@ -299,6 +299,8 @@
 .mwg-r5 .n{width:32px;height:32px;font-size:16px}
 .mwg-r5 .tx{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mwg-r5 .tx small{font-size:12.5px;margin-left:4px}
+.mwg-r5{height:48px;box-sizing:border-box}
+@media (max-width:899px){.mwg-cap{max-height:178px}}
 /* Nov 28, 2026 round 9: guide color on the filter and card bars, stamp tile, one-line names */
 .mwg-seg button[aria-pressed="true"]{background:var(--ink)!important;color:#fff!important}
 .mwg-seg button[aria-pressed="true"] b{color:#FFD43B!important}
@@ -791,13 +793,6 @@
   /* ---------- list: simple rows like /maps (number box, name, area and time) ---------- */
   function meta(s) { return [L(s.hood), L(s.time)].filter(Boolean).join(' · '); }
   function dirUrl(s) { return s.coords ? 'https://www.google.com/maps/dir/?api=1&destination=' + s.coords[1] + ',' + s.coords[0] : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(L(s.name) + ' Los Angeles'); }
-  /* phones: the list window ends right after the 3rd row, a sliver of the 4th hints at scrolling */
-  function capList(box) {
-    var ol = box.querySelector('.mwg-cap'); if (!ol) return;
-    if (window.innerWidth > 899) { ol.style.maxHeight = ''; return; }
-    var li = ol.children; if (li.length <= 3) { ol.style.maxHeight = 'none'; return; }
-    ol.style.maxHeight = (li[2].offsetTop - ol.offsetTop + li[2].offsetHeight + 16) + 'px';
-  }
   function drawList() {
     var pg = prog(G), box = document.getElementById('mwg-list');
     var h = '<div class="mwg-seg" role="group" aria-label="' + esc(T.lfL) + '"><div class="trk">' + [['all', T.lfAll, pg.t], ['left', T.lfLeft, pg.t - pg.d], ['done', T.lfDone, pg.d]].map(function (x) {
@@ -808,7 +803,7 @@
       return '<li><button type="button" class="mwg-r5' + (on ? ' on' : '') + '" id="stop-' + s.n + '" data-stop="' + s.n + '"><span class="n" aria-hidden="true">' + (on ? '✓' : s.n) + '</span>' +
         '<span class="tx"><b>' + esc(L(s.name)) + '</b> <small>' + esc(L(s.hood)) + '</small></span>' + (on ? '<span class="sr">' + esc(T.lfDoneOne) + '</span>' : '') + '</button></li>';
     }).join('') + '</ol>' : '<p class="mwg-lf-empty">' + esc(listFilter === 'done' ? T.lfNone : T.lfAllDone) + '</p>';
-    box.innerHTML = h; capList(box);
+    box.innerHTML = h;
     box.querySelectorAll('[data-stop]').forEach(function (b) { b.addEventListener('click', function () { openStop(+b.getAttribute('data-stop'), 'list'); }); });
     box.querySelectorAll('[data-lf]').forEach(function (b) { b.addEventListener('click', function () { listFilter = b.getAttribute('data-lf'); ga('guide_list_filter', { guide: G.id, filter: listFilter }); drawList(); var f = box.querySelector('[data-lf="' + listFilter + '"]'); if (f) f.focus(); }); });
   }
