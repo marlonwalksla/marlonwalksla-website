@@ -119,26 +119,18 @@ ADDR = {
 
 # Nov 28, 2026: concrete "getting there" notes per stop, shown under Read more (icon, EN, ES).
 GET = {
-    "griffith-observatory": [["🚌", "DASH Observatory/Los Feliz shuttle from Vermont/Sunset station (Metro B line).", "Shuttle DASH Observatory/Los Feliz desde la estación Vermont/Sunset (línea B del Metro)."],
-                             ["🅿️", "Paid hilltop parking fills up near sunset. Come early or take the shuttle.", "El estacionamiento de arriba cobra y se llena al atardecer. Llega temprano o toma el shuttle."]],
-    "hollywood-walk-of-fame": [["🚇", "Metro B line to Hollywood/Highland. You come up right on the stars.", "Línea B del Metro a Hollywood/Highland. Sales justo sobre las estrellas."]],
-    "hollywood-sign-viewpoint-lake-hollywood-park": [["🚗", "Drive or take a rideshare. Street parking only, so follow the posted signs.", "Ve en auto o en Uber. Solo hay estacionamiento en la calle: respeta los letreros."],
-                                                     ["🚶", "You can't reach the sign itself. This park is the closest easy view.", "No se puede llegar al letrero. Este parque es la vista cercana más fácil."]],
-    "tcl-chinese-theatre": [["🚇", "Metro B line to Hollywood/Highland, a few steps away.", "Línea B del Metro a Hollywood/Highland, a unos pasos."],
-                            ["🅿️", "The Ovation Hollywood garage is right next door.", "El garaje de Ovation Hollywood está al lado."]],
-    "santa-monica-pier": [["🚇", "Metro E line to Downtown Santa Monica, then about a 10-minute walk.", "Línea E del Metro a Downtown Santa Monica y unos 10 minutos a pie."],
-                          ["🅿️", "Paid lots on and next to the pier fill up on weekends.", "Los estacionamientos de paga junto al muelle se llenan los fines de semana."]],
-    "venice-beach-boardwalk": [["🅿️", "Paid beach lots near Windward Ave and Rose Ave.", "Estacionamientos de paga junto a la playa cerca de Windward Ave y Rose Ave."],
-                               ["🚶", "Walk the boardwalk, then head a few blocks inland to the canals.", "Camina el malecón y luego unas cuadras tierra adentro hasta los canales."]],
-    "the-getty-center": [["🎟️", "Free entry with a timed reservation. Book online. Closed Mondays.", "Entrada gratis con reservación con horario. Resérvala en línea. Cerrado los lunes."],
-                         ["🅿️", "Paid parking at the bottom of the hill, then the tram takes you up.", "Estacionamiento de paga abajo de la colina y el tranvía te sube."]],
-    "rodeo-drive": [["🅿️", "Public city garages are a block or two away.", "Hay garajes públicos de la ciudad a una o dos cuadras."],
-                    ["🚶", "Walk the three blocks from Wilshire Blvd up to Santa Monica Blvd.", "Camina las tres cuadras de Wilshire Blvd a Santa Monica Blvd."]],
-    "walt-disney-concert-hall": [["🚇", "Metro A or E line to Grand Av Arts/Bunker Hill, one block away.", "Línea A o E del Metro a Grand Av Arts/Bunker Hill, a una cuadra."]],
-    "the-broad": [["🚇", "Metro A or E line to Grand Av Arts/Bunker Hill. Next door to Disney Hall.", "Línea A o E del Metro a Grand Av Arts/Bunker Hill. Junto a la Sala Disney."]],
-    "grand-central-market": [["🚡", "Ride Angels Flight down from Bunker Hill. It stops right across the street.", "Baja de Bunker Hill en Angels Flight. Para justo enfrente."],
-                             ["🚇", "Metro B or D line to Pershing Square, a short walk.", "Línea B o D del Metro a Pershing Square, a poca distancia."]],
-    "olvera-street-and-el-pueblo": [["🚇", "Union Station (Metro A, B and D lines) is right across Alameda St.", "Union Station (líneas A, B y D del Metro) está cruzando Alameda St."]],
+    "griffith-observatory": [["🚌", "DASH shuttle from Vermont/Sunset (Metro B)", "Shuttle DASH desde Vermont/Sunset (Metro B)"], ["🅿️", "Paid parking, full at sunset", "Estacionamiento de paga, lleno al atardecer"]],
+    "hollywood-walk-of-fame": [["🚇", "Metro B · Hollywood/Highland", "Metro B · Hollywood/Highland"]],
+    "hollywood-sign-viewpoint-lake-hollywood-park": [["🅿️", "Street parking only", "Solo estacionamiento en la calle"], ["🚶", "Best view from the park", "La mejor vista desde el parque"]],
+    "tcl-chinese-theatre": [["🚇", "Metro B · Hollywood/Highland", "Metro B · Hollywood/Highland"], ["🅿️", "Paid parking next door", "Estacionamiento de paga al lado"]],
+    "santa-monica-pier": [["🚇", "Metro E · Downtown Santa Monica", "Metro E · Downtown Santa Monica"], ["🅿️", "Paid parking", "Estacionamiento de paga"]],
+    "venice-beach-boardwalk": [["🅿️", "Paid beach parking", "Estacionamiento de paga en la playa"], ["🚶", "Canals a few blocks inland", "Canales a unas cuadras"]],
+    "the-getty-center": [["🎟️", "Free, timed reservation · Closed Mon", "Gratis con reservación · Cerrado lunes"], ["🅿️", "Paid parking + tram up", "Estacionamiento de paga + tranvía"]],
+    "rodeo-drive": [["🅿️", "Paid city garages", "Garajes de paga de la ciudad"], ["🚶", "3 blocks on foot", "3 cuadras a pie"]],
+    "walt-disney-concert-hall": [["🚇", "Metro A/E · Grand Av Arts/Bunker Hill", "Metro A/E · Grand Av Arts/Bunker Hill"]],
+    "the-broad": [["🚇", "Metro A/E · Grand Av Arts/Bunker Hill", "Metro A/E · Grand Av Arts/Bunker Hill"]],
+    "grand-central-market": [["🚡", "Angels Flight from Bunker Hill", "Angels Flight desde Bunker Hill"], ["🚇", "Metro B/D · Pershing Square", "Metro B/D · Pershing Square"]],
+    "olvera-street-and-el-pueblo": [["🚇", "Metro A/B/D · Union Station", "Metro A/B/D · Union Station"]],
 }
 
 def coords(mid):
