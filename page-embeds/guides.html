@@ -655,7 +655,7 @@
   }
   function fitAll(anim) {
     if (!mbMap) return;
-    mbMap.resize();
+    mbMap.resize(); mbMap.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
     var b = new mapboxgl.LngLatBounds(); G.stops.forEach(function (s) { if (s.coords) b.extend(s.coords); });
     mbMap.fitBounds(b, { padding: padding(), maxZoom: 14, duration: anim ? 600 : 0 });
   }
@@ -686,7 +686,7 @@
   }
   function focusStop(anim) {
     var s = G.stops[selectedStopId - 1]; if (!mbMap || !s || !s.coords) return;
-    mbMap.easeTo({ center: s.coords, zoom: Math.max(mbMap.getZoom(), 13), padding: padding(), duration: anim ? 600 : 0 });
+    mbMap.easeTo({ center: s.coords, zoom: Math.max(mbMap.getZoom(), 13), duration: anim ? 600 : 0 });
   }
   function resizeMap() { if (mbMap) { mbMap.resize(); setTimeout(function () { mbMap.resize(); if (selectedStopId !== null) focusStop(true); }, 280); } }
 
