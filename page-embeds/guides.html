@@ -673,7 +673,12 @@
     drawMap(); markSel(); resizeMap(); focusStop(true);
     /* the screen holds the map + the card: slide the page so the map sits right under the site header */
     var mt = document.getElementById('mwg-mapwrap').getBoundingClientRect().top;
-    if (source !== 'arrow' && Math.abs(mt - 70) > 12) window.scrollTo({ top: window.scrollY + mt - 70, behavior: source === 'link' ? 'auto' : 'smooth' });
+    if (source !== 'arrow' && Math.abs(mt - 70) > 12) {
+      var tgt = Math.round(window.scrollY + mt - 70);
+      requestAnimationFrame(function () { window.scrollTo({ top: tgt, behavior: source === 'link' ? 'auto' : 'smooth' }); });
+      /* some phones cancel the smooth scroll while the map resizes: make sure we get there */
+      setTimeout(function () { if (Math.abs(window.scrollY - tgt) > 4) window.scrollTo(0, tgt); }, 450);
+    }
     if (was === null || source !== 'arrow') ga('guide_stop_sheet_open', { guide: G.id, stop: s.id, n: n, source: source });
   }
   function closeStop(how) {
