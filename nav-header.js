@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Nov 3, 2026: passports in the header and footer, and the EN | ES switch on the two passport pages.
+// Nov 28, 2026: the guides live at /guides (ES /guias). /passports, /pasaportes, /stamps, /sellos are gone, so their
+// EN | ES switches are removed; the footer Guides link now goes to /guides. The header has its own LA Guides item.
 // ON everywhere since Nov 3, 2026 (Marlon said go). Set PP_NAV_LIVE to false to hide the passport links on marlonwalksla.com again.
 (function () {
   var PP_NAV_LIVE = true;
@@ -48,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (live && !PP_NAV_LIVE) return;
   document.addEventListener('DOMContentLoaded', function () {
     var path = (location.pathname.replace(/\/+$/, '') || '/');
-    var ES = document.documentElement.lang === 'es' || /^\/(pasaportes|sellos)$/.test(path) || /^\/es(\/|$)/.test(path);
-    var href = ES ? '/pasaportes' : '/passports', label = ES ? 'Guías' : 'Guides';
+    var ES = document.documentElement.lang === 'es' || /^\/guias(\/|$)/.test(path) || /^\/es(\/|$)/.test(path);
+    var href = ES ? '/guias' : '/guides', label = ES ? 'Guías' : 'Guides';
     // Header: after the Maps link
     var maps = document.querySelector('.mwhd-nav a[data-k="maps"]');
     if (maps && !document.querySelector('.mwhd-nav a[data-k="passports"]')) {
@@ -59,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       maps.parentNode.insertBefore(a, maps.nextSibling);
     }
     // Stamps link: after the Passports link (header) and after the Passports item (footer)
-    var showSt = !live || ST_NAV_LIVE, stHref = ES ? '/sellos' : '/stamps', stLabel = ES ? 'Sellos' : 'Stamps';
+    var showSt = false && (!live || ST_NAV_LIVE), stHref = ES ? '/sellos' : '/stamps', stLabel = ES ? 'Sellos' : 'Stamps';
     if (showSt) {
       var hp = document.querySelector('.mwhd-nav a[data-k="passports"]');
       if (hp && !document.querySelector('.mwhd-nav a[data-k="stamps"]')) {
@@ -70,13 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     // EN | ES switch on the two stamps pages (Nov 4, 2026)
-    if (path === '/stamps' || path === '/sellos') {
+    if (false) {
       var sen = document.getElementById('mwhd-en'), ses = document.getElementById('mwhd-es');
       if (sen) { sen.href = '/stamps'; if (!ES) sen.setAttribute('aria-current', 'true'); else sen.removeAttribute('aria-current'); }
       if (ses) { ses.href = '/sellos'; if (ES) ses.setAttribute('aria-current', 'true'); else ses.removeAttribute('aria-current'); }
     }
     // EN | ES switch on the two passport pages
-    if (path === '/passports' || path === '/pasaportes') {
+    if (false) {
       var en = document.getElementById('mwhd-en'), es = document.getElementById('mwhd-es');
       var q = location.search.replace(/[?&]lang=[a-z]+/i, '').replace(/^&/, '?');
       if (en) { en.href = '/passports' + q; if (!ES) en.setAttribute('aria-current', 'true'); else en.removeAttribute('aria-current'); }

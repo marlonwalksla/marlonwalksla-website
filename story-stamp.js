@@ -5,6 +5,8 @@
    under the article: the stamp, "Stamp this place", and links to the stamp page,
    the map pin and the passport. Stamp data: passports.json (field "history" on each stamp).
    Loaded from the footer code of the Blogs and Historias templates (same branch rule as the loader).
+   Nov 28, 2026: stamp pages and /passports are gone. Buttons: the place on the LA Map (stamp it there) and the guide
+   (its own page at /guides/<slug> when it has one, otherwise the LA Guides page).
    ========================================================================== */
 (function () {
   var m = location.pathname.match(/^\/(blog|historias)\/([^\/?#]+)\/?$/);
@@ -16,10 +18,10 @@
   var CDN = 'https://cdn.jsdelivr.net/gh/marlonwalksla/marlonwalksla-website@' + (PROD ? 'main' : 'test') + '/';
   var T = ES ? {
     h: 'Sella este lugar', p: 'Ya lo leíste. Ahora ve, tómate la foto y gana el sello. Es un juego de honor.',
-    stamp: 'Ver el sello', map: 'Verlo en el mapa', book: 'Ver la guía', mapPath: '/mapa-los-angeles', bookPath: '/pasaportes', stampPath: '/stamps/'
+    stamp: 'Ver el sello', map: 'Verlo en el mapa', book: 'Ver la guía', all: 'Ver las Guías de LA', mapPath: '/mapa-los-angeles', hub: '/guias'
   } : {
     h: 'Stamp this place', p: 'You read the story. Now go, take the photo and collect the stamp. It is the honor system.',
-    stamp: 'See the stamp', map: 'See it on the map', book: 'See the guide', mapPath: '/maps', bookPath: '/passports', stampPath: '/stamps/'
+    stamp: 'See the stamp', map: 'See it on the map', book: 'See the guide', all: 'See all LA Guides', mapPath: '/maps', hub: '/guides'
   };
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function L(o) { return o ? (ES ? (o.es || o.en) : o.en) || '' : ''; }
@@ -62,14 +64,14 @@
     var p = h.p, s = h.s, lang = ES ? '?lang=es' : '', lang2 = ES ? '&lang=es' : '';
     var svg = '';
     try { svg = MWStamp.svg({ uid: 'mwss', top: L(s.top), bottom: L(s.bottom), icon: s.icon, year: s.year, ink: s.ink || p.ink, rot: s.rot, seed: s.seed }); } catch (e) {}
-    var mapUrl = s.mapId ? T.mapPath + '?spot=' + encodeURIComponent(s.mapId) + '&passport=' + encodeURIComponent(p.id) + lang2 : '';
+    var mapUrl = s.mapId ? T.mapPath + '?spot=' + encodeURIComponent(s.mapId) + '&passport=' + encodeURIComponent(p.id) : '';
+    var GP = { 'la-tourist': ['/guides/la-tourist', '/guias/turista-en-la'] }, gp = GP[p.id];
     var el = document.createElement('section');
     el.className = 'mwss'; el.setAttribute('aria-label', T.h);
     el.innerHTML = '<div class="mwss-card"><div class="mwss-st" style="color:' + esc(s.ink || p.ink) + '">' + svg + '</div>' +
       '<div class="mwss-tx"><h2>' + T.h + '</h2><span class="mwss-nm">' + esc(L(s.name)) + ' · ' + esc(L(p.name)) + '</span><p>' + T.p + '</p></div>' +
-      '<div class="mwss-row"><a class="mwss-b" href="' + T.stampPath + esc(s.slug || (p.id + '-' + s.id)) + lang + '">' + T.stamp + '</a>' +
-      (mapUrl ? '<a class="mwss-b alt" href="' + esc(mapUrl) + '">' + T.map + '</a>' : '') +
-      '<a class="mwss-b alt" href="' + T.bookPath + '?passport=' + encodeURIComponent(p.id) + lang2 + '">' + T.book + '</a></div></div>';
+      '<div class="mwss-row">' + (mapUrl ? '<a class="mwss-b" href="' + esc(mapUrl) + '">' + T.map + '</a>' : '') +
+      '<a class="mwss-b alt" href="' + (gp ? gp[ES ? 1 : 0] : T.hub) + '">' + (gp ? T.book : T.all) + '</a></div></div>';
     var rt = document.querySelector('.w-richtext');
     var host = rt && rt.parentNode;
     if (rt && host) host.insertBefore(el, rt.nextSibling); else (document.querySelector('main') || document.body).appendChild(el);
