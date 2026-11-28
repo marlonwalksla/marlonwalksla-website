@@ -83,13 +83,13 @@
 .mwg-acts{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:14px}
 .mwg-stamp{min-height:44px;padding:10px 18px;font-size:17px}
 .mwg-stop.on .mwg-stamp{background:var(--ink);color:#fff!important}
-.mwg-done{margin:22px 0 0;padding:14px 16px;border:2.5px dashed var(--ink);border-radius:14px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:17px;text-align:center;background:#fff}
+.mwg-done{margin:22px 0 0;padding:14px 16px;border:2.5px solid var(--ink);border-radius:14px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:17px;text-align:center;background:#fff}
 /* postcard ending */
 .mwg-card2{display:grid;grid-template-columns:minmax(0,1fr);background:#FFFDF8;border:2.5px solid #27302E;border-radius:10px;box-shadow:5px 5px 0 #27302E;overflow:hidden;margin-top:16px}
 .mwg-card2 .l,.mwg-card2 .r{min-width:0}
-.mwg-card2 .l{padding:18px;border-bottom:2px dashed #C9BFA9}
+.mwg-card2 .l{padding:18px;border-bottom:2px solid #E4DCCB}
 .mwg-card2 .gr{font-family:"Lilita One",sans-serif;font-size:26px;overflow-wrap:anywhere;line-height:1.05;color:var(--ink)}
-.mwg-card2 textarea{width:100%;min-height:96px;margin-top:10px;padding:8px 10px;font-family:"Caveat",cursive;font-size:24px;line-height:1.2;border:2px dashed #C9BFA9;border-radius:8px;background:transparent;color:#27302E;resize:vertical}
+.mwg-card2 textarea{width:100%;min-height:96px;margin-top:10px;padding:8px 10px;font-family:"Caveat",cursive;font-size:24px;line-height:1.2;border:2px solid #E4DCCB;border-radius:8px;background:transparent;color:#27302E;resize:vertical}
 .mwg-card2 .r{padding:18px;display:flex;flex-direction:column;gap:12px}
 .mwg-card2 .stamps{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end;min-height:84px}
 .mwg-card2 .stamps svg{width:72px;max-width:30%;height:auto;mix-blend-mode:multiply}
@@ -112,10 +112,313 @@
   .mwg-feat{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:36px}
   .mwg-stop{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);padding:24px 26px;gap:24px;align-items:center}
   .mwg-card2{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
-  .mwg-card2 .l{border-bottom:0;border-right:2px dashed #C9BFA9}
+  .mwg-card2 .l{border-bottom:0;border-right:2px solid #E4DCCB}
 }
 @media (max-width:420px){.mwg-photo{flex-basis:170px}.mwg-st,.mwg-st .s{width:96px}.mwg-st .s{height:96px}.mwg-st .s svg{width:90px}}
 @media (prefers-reduced-motion:reduce){.mwg-btn,.mwg-card,.mwg-bar i{transition:none}}
+
+/* ===== Nov 27, 2026 (mobile spec): compact stop rows + slide-up "what to do here" panel ===== */
+.mwg-sub2{margin:8px 0 0;font-family:"Fredoka",sans-serif;font-weight:500;font-size:18px;line-height:1.4;color:#3B4440}
+.mwg-rowb .ics{font-size:14px;letter-spacing:2px;margin-top:2px}
+.mwg-key{list-style:none;margin:0 0 22px;padding:0;display:grid;grid-template-columns:1fr;gap:8px}
+.mwg-key li,.mwg-ga li{display:flex;align-items:center;gap:12px;font-size:15.5px;line-height:1.45}
+.mwg-key .ic,.mwg-ga .ic{flex:none;width:36px;height:36px;display:grid;place-items:center;font-size:20px;background:#FFF6E6;border-radius:50%}
+.mwg-key .kp{flex:none;width:30px;height:30px;margin:0 3px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--ink);background:#fff;color:var(--ink);font-family:"Lilita One",sans-serif;font-size:15px}
+.mwg-key .kp.pinon{background:var(--ink);color:#fff}
+.mwg-key .kp.pinsel{background:#FFD43B;border-color:#27302E;color:#27302E}
+.mwg-ga{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.mwg-ga li{align-items:flex-start}
+.mwg-ga b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:18px}
+.mwg-ga p{margin:2px 0 0;font-size:15.5px;line-height:1.5}
+.mwg-sign{max-width:640px;margin:8px auto 0;padding:24px 16px 8px;text-align:center;border-top:2.5px solid #27302E}
+.mwg-sign img{display:block;margin:0 auto 8px;border-radius:50%}
+.mwg-sign-t{margin:2px 0 6px;font-family:"Lilita One",sans-serif;font-size:22px;line-height:1.15}
+.mwg-sign-c{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 20px;margin:12px 0 0}
+.mwg-sign-c .mwg-link{min-height:44px;display:inline-flex;align-items:center}
+@media (min-width:900px){.mwg-key{grid-template-columns:1fr 1fr}.mwg-ga{grid-template-columns:1fr 1fr;gap:18px 28px}}
+/* Nov 27, 2026 (round 3): compact first screen, wide map, stamp artwork is the stamp button, simple sheet bar */
+.mwg-head{padding:18px 20px 16px}
+.mwg-head h1{font-size:28px}
+.mwg-head .mwg-prog{margin-top:10px}
+.mwg-mapsec{padding:14px 14px 12px}
+/* Nov 27, 2026 (Marlon): no striped postcard edges on phones, clarity first */
+@media (max-width:899px){.mwg-pc::after{display:none}.mwg-pc{padding:18px 16px;margin-bottom:14px;border-radius:14px}.mwg-wrap{padding:0 10px}.mwg-wrap:has(.mwg-mapsec){padding:0 10px}.mwg-mapsec{padding:10px 8px 10px;margin-bottom:14px}.mwg-mapsec::after{display:none}.mwg-head{margin-bottom:12px}}
+.mwg-mapsec .mwg-map{aspect-ratio:16/10}
+.mwg-mapsec .mwg-maptools{margin-top:10px;gap:6px 16px}
+.mwg-mapsec .mwg-maptools .mwg-btn{min-height:44px;font-size:16px;padding:8px 16px}
+.mwg-about .mwg-sub2{margin-top:0}
+.mwg-more{margin:12px 0 0}
+.mwg-more summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-family:"Fredoka",sans-serif;font-weight:600;font-size:16px;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.mwg-sh-top{justify-content:space-between;padding:14px 8px 4px 16px}
+.mwg-sh-top .pg{padding-top:0}
+.mwg-x{width:44px;height:44px;border:0;background:none;border-radius:50%;font:700 20px/1 "Nunito",sans-serif;color:#27302E;cursor:pointer}
+.mwg-x:hover,.mwg-x:focus-visible{background:#F1EADB}
+.mwg-sh-hd{display:flex;align-items:flex-start;gap:10px;margin:2px 0 0}
+.mwg-sh-hd .t{flex:1;min-width:0}
+.mwg-stampbtn{flex:none;width:96px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0;border:0;background:none;cursor:pointer;color:#5B6663;font:inherit}
+.mwg-stampbtn .sv{width:84px;height:84px;display:grid;place-items:center;border-radius:50%;border:2px solid #E4DCCB;background:#fff;transition:border-color .2s}
+.mwg-stampbtn .sv svg{width:80px;height:auto;mix-blend-mode:multiply;opacity:.28;filter:grayscale(1);transition:opacity .25s,filter .25s}
+.mwg-stampbtn.on .sv{border-color:transparent}
+.mwg-stampbtn.on .sv svg{opacity:1;filter:none}
+.mwg-stampbtn small{font-family:"Fredoka",sans-serif;font-weight:600;font-size:11.5px;line-height:1.2;text-align:center}
+.mwg-stampbtn.on small{color:var(--ink)}
+.mwg-stampbtn:focus-visible{outline:3px solid #2890B6;outline-offset:2px;border-radius:12px}
+.mwg-sh-dir{display:flex;flex-wrap:wrap;gap:0 18px;margin:8px 0 0}
+.mwg-sh-dir .mwg-link{min-height:44px;display:inline-flex;align-items:center}
+.mwg-step{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0;padding-top:12px;border-top:1.5px solid #E4DCCB}
+.mwg-step button{min-height:52px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;padding:6px 10px;border:2px solid #27302E;border-radius:12px;background:#fff;color:#27302E;font:inherit;cursor:pointer;text-align:left;min-width:0}
+.mwg-step button.r{align-items:flex-end;text-align:right}
+.mwg-step small{font-family:"Fredoka",sans-serif;font-weight:600;font-size:12.5px;color:#5B6663}
+.mwg-step span{max-width:100%;font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (min-width:900px){.mwg-head{padding:30px 40px 24px}.mwg-head h1{font-size:40px}.mwg-mapsec{padding:22px 26px}}
+/* Nov 27, 2026: visited vs still to do */
+.mwg-lf{display:flex;gap:6px;margin:0 0 14px;flex-wrap:nowrap}
+.mwg-lf button{flex:1 1 auto;white-space:nowrap;min-height:44px;padding:6px 10px;border:2px solid #27302E;border-radius:999px;background:#fff;color:#27302E;font:700 14px "Nunito",sans-serif;cursor:pointer}
+.mwg-lf button b{display:inline-block;min-width:22px;margin-left:4px;padding:1px 6px;border-radius:999px;background:#F1EADB;font-size:13px}
+.mwg-lf button[aria-pressed="true"]{background:#27302E;color:#FFF6E6}
+.mwg-lf button[aria-pressed="true"] b{background:#FFD43B;color:#27302E}
+.mwg-lf-empty{margin:6px 0 0;padding:14px;border-radius:12px;background:#FFF6D6;font-weight:700;text-align:center}
+.mwg-rowb.on{background:#EEF6F9;border-color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.mwg-rowb.on .tx b{color:#3B4440}
+.mwg-rowb.on .th{filter:saturate(.55)}
+.mwg-rowb .vis{flex:none;padding:3px 9px;border-radius:999px;background:var(--ink);color:#fff;font-family:"Fredoka",sans-serif;font-weight:600;font-size:12.5px;white-space:nowrap}
+/* ===== Nov 27, 2026 round 5: guide page on the /maps layout ===== */
+.mwg-c5 .mwg-stampbtn{width:78px}
+.mwg-c5 .mwg-stampbtn .sv{width:66px;height:66px}
+.mwg-c5 .mwg-stampbtn .sv svg{width:62px}
+.mwg-c5 .mwg-stampbtn small{font-size:10.5px}
+.mwg-v5{max-width:760px}
+.mwg-env{position:relative;background:#FFFDF7;border:2.5px solid #27302E;border-radius:16px;box-shadow:4px 4px 0 var(--ink),8px 8px 0 #27302E;padding:10px;margin:4px 8px 26px 0}
+.mwg-gbar{display:grid;grid-template-columns:44px minmax(0,1fr) auto 44px;align-items:center;gap:6px;min-height:52px}
+.mwg-ga-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;font:900 26px/1 "Nunito",sans-serif;color:#27302E!important;text-decoration:none!important}
+.mwg-ga-btn:hover,.mwg-ga-btn:focus-visible{background:#F1EADB}
+.mwg-gmid{min-width:0;display:flex;flex-direction:column;line-height:1.1}
+.mwg-gmid small{font-family:"Fredoka",sans-serif;font-weight:600;font-size:12px;color:#5B6663}
+.mwg-gmid b{display:flex;align-items:center;gap:8px;font-family:"Lilita One",sans-serif;font-weight:400;font-size:22px;color:#1D3F4F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-gmid b i{flex:none;width:13px;height:13px;border-radius:50%}
+.mwg-gcount{font-family:"Fredoka",sans-serif;font-weight:600;font-size:15px;color:#3B4440;white-space:nowrap}
+.mwg-gcount b{font-size:18px;color:var(--ink)}
+.mwg-gcount .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.mwg-h1line{margin:0 6px 8px}
+.mwg-h1line h1{font-family:"Fredoka",sans-serif!important;font-weight:600!important;font-size:14.5px!important;line-height:1.35!important;color:#5B6663!important;margin:0!important}
+.mwg-mapwrap{position:relative;border:2px solid #27302E;border-radius:12px;overflow:hidden;background:#E0F1F8;height:min(56vh,480px);min-height:280px;transition:height .25s ease}
+.mwg-env.has-card .mwg-mapwrap{height:min(38vh,360px);min-height:220px}
+.mwg-env.is-exp .mwg-mapwrap{height:min(24vh,220px);min-height:150px}
+.mwg-map5,.mwg-mb5{position:absolute;inset:0}
+.mwg-map5 svg.mwg-svg{display:block;width:100%;height:100%}
+.mwg-showall{position:absolute;left:10px;top:10px;z-index:3;min-height:44px;padding:6px 14px;border:2px solid #27302E;border-radius:999px;background:#FFFDF7;color:#27302E;font:600 15px "Fredoka",sans-serif;box-shadow:3px 3px 0 #27302E;cursor:pointer}
+.mwg-mk{width:34px;height:34px;border-radius:50%;border:3px solid var(--ink);background:#fff;color:var(--ink);font:17px/1 "Lilita One",sans-serif;cursor:pointer;box-shadow:2px 2px 0 #27302E;padding:0;display:grid;place-items:center}
+.mwg-mk.on{background:var(--ink);color:#fff}
+.mwg-mk.sel{background:#FFD43B;border-color:#27302E;color:#27302E;width:42px;height:42px;font-size:20px;z-index:2}
+.mwg-list5{margin-top:12px}
+.mwg-rows5{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.mwg-r5{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:8px 12px;background:#fff;border:1.5px solid #D9D0BE;border-radius:12px;font:inherit;color:#27302E;text-align:left;cursor:pointer}
+.mwg-r5:hover,.mwg-r5:focus-visible{border-color:#27302E}
+.mwg-r5 .n{flex:none;width:36px;height:36px;display:grid;place-items:center;border:2px dashed var(--ink);border-radius:8px;color:var(--ink);font:17px "Lilita One",sans-serif}
+.mwg-r5.on{background:#EEF6F9}
+.mwg-r5.on .n{border:0;background:var(--ink);color:#fff}
+.mwg-r5 .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.mwg-r5 .tx b{font-weight:800;font-size:16.5px;line-height:1.2}
+.mwg-r5 .tx small{font-size:13.5px;color:#5B6663}
+.mwg-r5 .vis{flex:none;padding:3px 9px;border-radius:999px;background:var(--ink);color:#fff;font:600 12px "Fredoka",sans-serif}
+.mwg-cardslot{margin-top:10px}
+.mwg-c5{display:grid;grid-template-columns:34px minmax(0,1fr) 34px;background:#fff;border:2px solid #27302E;border-radius:14px;box-shadow:3px 3px 0 #27302E;overflow:hidden}
+.mwg-side{border:0;background:#F6F1E6;color:#27302E;font:900 26px/1 "Nunito",sans-serif;cursor:pointer;padding:0}
+.mwg-side:hover,.mwg-side:focus-visible{background:#FFE9A8}
+.mwg-side:disabled{color:#C9BFA9;cursor:default;background:#FBF8F1}
+.mwg-c5b{min-width:0;padding:8px 12px 12px}
+.mwg-c5top{display:flex;align-items:center;gap:8px}
+.mwg-c5n{font:600 13px "Fredoka",sans-serif;color:#5B6663}
+.mwg-c5cat{padding:3px 10px;border-radius:999px;background:#E0F1F8;font:600 12.5px "Fredoka",sans-serif;color:#1D3F4F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.mwg-c5top .mwg-x{margin-left:auto;flex:none}
+.mwg-c5hd{display:flex;align-items:flex-start;gap:8px}
+.mwg-c5hd .t{flex:1;min-width:0}
+.mwg-c5hd h2{margin:2px 0 0;font-family:"Lilita One",sans-serif;font-weight:400;font-size:23px;line-height:1.1}
+.mwg-c5b .mwg-line{margin:8px 0 0;font-size:15.5px;line-height:1.5}
+.mwg-c5acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.mwg-c5acts .mwg-btn{min-height:46px;font-size:16px;padding:8px 10px}
+.mwg-c5more{margin-top:10px}
+.mwg-c5more .mwg-sh-ph{margin:0 0 10px}
+.mwg-c5ic{display:flex;flex-wrap:wrap;gap:4px 14px;margin:10px 0 0;font-size:14px;color:#3B4440}
+.mwg-c5tour{display:flex;align-items:center;min-height:44px;margin-top:6px;font-weight:800;color:var(--ink)!important;text-decoration:underline!important;text-underline-offset:3px}
+@media (max-width:899px){.mwg-v5.mwg-wrap{padding:0 8px}.mwg-env{padding:8px;margin-right:6px}}
+/* Nov 27, 2026 round 6: no guide switching, full-width card buttons, 1 to 12 dot line */
+.mwg-gbar6{display:flex;align-items:center;gap:10px;min-height:52px;padding:0 4px 0 6px}
+.mwg-gbar6 .mwg-gmid{flex:1}
+.mwg-moreg{flex:none;min-height:40px;display:inline-flex;align-items:center;padding:4px 14px;border:2px solid #27302E;border-radius:999px;background:#fff;color:#27302E!important;text-decoration:none!important;font:600 14px "Fredoka",sans-serif;box-shadow:2px 2px 0 #27302E}
+.mwg-h1line{margin:0 8px 10px}
+.mwg-h1line h1{font-family:"Fredoka",sans-serif!important;font-weight:500!important;font-size:16px!important;line-height:1.35!important;color:#27302E!important}
+.mwg-c6{background:#fff;border:2px solid #27302E;border-radius:14px;box-shadow:3px 3px 0 #27302E;padding:10px 14px 14px}
+.mwg-c6 .mwg-c5hd{margin-top:2px}
+.mwg-c6 h2 .no{display:inline-grid;place-items:center;width:28px;height:28px;margin-right:8px;border-radius:50%;background:var(--ink);color:#fff;font-size:16px;vertical-align:3px}
+.mwg-c6 .mwg-line{margin:6px 0 0;font-size:15.5px;line-height:1.45}
+.mwg-c6 .mwg-stampbtn{width:84px}
+.mwg-c6 .mwg-stampbtn .sv{width:72px;height:72px}
+.mwg-c6 .mwg-stampbtn .sv svg{width:68px}
+.mwg-c6 .mwg-stampbtn small{font:800 11px/1.2 "Fredoka",sans-serif;letter-spacing:.04em;color:#27302E;background:#FFD43B;border:1.5px solid #27302E;border-radius:999px;padding:3px 7px;margin-top:3px}
+.mwg-c6 .mwg-stampbtn.on small{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mwg-c6acts{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+.mwg-c6acts .mwg-btn{width:100%;min-height:48px;font-size:16.5px;padding:10px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-dots{display:flex;justify-content:space-between;gap:3px;margin-top:14px;padding-top:12px;border-top:1.5px solid #E4DCCB}
+.mwg-dot{flex:1 1 0;max-width:30px;aspect-ratio:1;min-width:0;display:grid;place-items:center;padding:0;border:2px solid var(--ink);border-radius:50%;background:#fff;color:var(--ink);font:700 12px/1 "Nunito",sans-serif;cursor:pointer}
+.mwg-dot.on{background:var(--ink);color:#fff}
+.mwg-dot.cur{box-shadow:0 0 0 3px #FFD43B,0 0 0 5px #27302E}
+@media (min-width:600px){.mwg-c6acts{grid-template-columns:1fr 1fr}.mwg-c6acts .mwg-btn:first-child{grid-column:1 / -1}}
+/* Nov 27, 2026 round 7: guide color on the header bar, single shadow on the envelope */
+.mwg-env{box-shadow:4px 4px 0 #27302E!important;margin-right:4px!important}
+.mwg-gbar7{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;margin:0 0 8px;padding:6px 16px;border-radius:999px;background:var(--ink);color:#fff}
+.mwg-gbar7 b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:22px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-gbar7 .mwg-gcount{color:#fff}
+.mwg-gbar7 .mwg-gcount b{font-size:18px;color:#FFD43B}
+.mwg-ref .mwg-note{margin-top:0}
+.mwg-ref .mwg-more{margin-bottom:8px}
+/* Nov 28, 2026 round 8: full-width colored header band, segmented filter, shorter map, capped list */
+.mwg-env{padding-top:0!important;overflow:hidden}
+.mwg-band{margin:0 -10px 10px;padding:10px 16px 12px;background:var(--ink);color:#fff;border-bottom:2.5px solid #27302E}
+.mwg-band-r{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mwg-band-r>b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:24px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-band .mwg-gcount{color:#fff;font-size:15px}
+.mwg-band .mwg-gcount b{font-size:19px;color:#FFD43B}
+.mwg-band-h{margin-top:2px}
+.mwg-band-h h1{font-family:"Fredoka",sans-serif!important;font-weight:500!important;font-size:16px!important;line-height:1.3!important;color:#fff!important;margin:0!important;opacity:.95}
+.mwg-mapwrap{height:min(30vh,260px)!important;min-height:190px!important}
+.mwg-env.has-card .mwg-mapwrap{height:min(28vh,240px)!important;min-height:180px!important}
+.mwg-env.is-exp .mwg-mapwrap{height:min(20vh,190px)!important;min-height:140px!important}
+.mwg-seg{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+.mwg-seg .lbl{flex:none;font:600 14px "Fredoka",sans-serif;color:#5B6663}
+.mwg-seg .trk{flex:1;display:flex;padding:3px;gap:3px;border:2px solid #27302E;border-radius:999px;background:#F6F1E6}
+.mwg-seg button{flex:1 1 0;min-width:0;min-height:40px;padding:4px 6px;border:0;border-radius:999px;background:transparent;color:#27302E;font:700 14px "Nunito",sans-serif;white-space:nowrap;cursor:pointer}
+.mwg-seg button b{margin-left:3px;font-size:13px;color:var(--ink)}
+.mwg-seg button[aria-pressed="true"]{background:#27302E;color:#FFF6E6}
+.mwg-seg button[aria-pressed="true"] b{color:#FFD43B}
+.mwg-cap{max-height:min(46vh,420px);overflow-y:auto;overscroll-behavior:contain;padding:2px 4px 6px 2px;-webkit-overflow-scrolling:touch}
+@media (max-width:899px){.mwg-band{margin:0 -8px 10px}}
+@media (max-width:360px){.mwg-seg .lbl{display:none}}
+/* Nov 28, 2026 round 9: guide color on the filter and card bars, stamp tile, one-line names */
+.mwg-seg button[aria-pressed="true"]{background:var(--ink)!important;color:#fff!important}
+.mwg-seg button[aria-pressed="true"] b{color:#FFD43B!important}
+.mwg-seg .trk{border-color:var(--ink)}
+.mwg-r5 .tx b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-r5 .tx small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-r5 .sr,.mwg-c7 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.mwg-c7{background:#fff;border:2px solid #27302E;border-radius:14px;box-shadow:3px 3px 0 #27302E;overflow:hidden}
+.mwg-c7top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;padding:2px 4px 2px 14px;background:var(--ink);color:#fff}
+.mwg-c7top .cat{font:600 13.5px "Fredoka",sans-serif;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mwg-c7top .mwg-x{color:#fff}
+.mwg-c7top .mwg-x:hover,.mwg-c7top .mwg-x:focus-visible{background:rgba(255,255,255,.18)}
+.mwg-c7in{padding:10px 14px 14px}
+.mwg-c7h{margin:0 0 4px;font-family:"Lilita One",sans-serif;font-weight:400;font-size:23px;line-height:1.1}
+.mwg-c7in .mwg-meta{margin-top:2px}
+.mwg-c7in .mwg-line{margin:6px 0 0;font-size:15.5px;line-height:1.45}
+.mwg-tile{flex:none;width:86px;height:98px;margin-top:2px;padding:7px;border:0;cursor:pointer;background:#fff;
+  --p:radial-gradient(circle at 4px 4px,transparent 3.2px,#000 3.6px);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,var(--p) -4px -4px/8px 8px;-webkit-mask-composite:source-over;
+  mask:linear-gradient(#000 0 0) content-box,var(--p) -4px -4px/8px 8px;mask-composite:add}
+.mwg-tile .sv{display:grid;place-items:center;width:100%;height:100%;border:2px solid #D9D0BE;background:#FFFDF7}
+.mwg-tile .sv svg{width:66px;height:auto;mix-blend-mode:multiply;opacity:.22;filter:grayscale(1);transition:opacity .25s,filter .25s,transform .25s}
+.mwg-tile.on{background:var(--ink)}
+.mwg-tile.on .sv{border-color:#fff;background:#fff}
+.mwg-tile.on .sv svg{opacity:1;filter:none;transform:rotate(-6deg)}
+.mwg-tile:focus-visible{outline:3px solid #2890B6;outline-offset:2px}
+.mwg-c7tours{margin:10px 0 0;font-size:14.5px;color:#3B4440}
+.mwg-c7 .mwg-dots{margin:0;padding:10px 12px;border-top:0;background:var(--ink)}
+.mwg-c7 .mwg-dot{border-color:#fff;color:#fff;background:transparent}
+.mwg-c7 .mwg-dot.on{background:#fff;color:var(--ink)}
+.mwg-c7 .mwg-dot.cur{box-shadow:0 0 0 3px #FFD43B}
+/* Nov 28, 2026 round 10: full width, title in the card bar, bottom progress/navigation band */
+.mwg-env{box-shadow:none!important;margin:4px 0 22px!important}
+.mwg-c7{box-shadow:none!important}
+.mwg-c7top{align-items:flex-start!important;padding:8px 4px 8px 14px!important}
+.mwg-c7top .mwg-c7h{margin:6px 0 2px;color:#fff;font-size:22px}
+.mwg-c7in .mwg-meta{margin:0;font:600 14px/1.35 "Fredoka",sans-serif;color:#5B6663}
+.mwg-c7bot{background:var(--ink);padding:8px 10px 12px;color:#fff}
+.mwg-c7bot .mwg-dots{padding:8px 2px 0!important;background:transparent!important}
+.mwg-c7nav{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mwg-step7{min-width:84px;min-height:44px;padding:6px 12px;border:2px solid #fff;border-radius:999px;background:transparent;color:#fff;font:700 15px "Nunito",sans-serif;cursor:pointer}
+.mwg-step7:hover,.mwg-step7:focus-visible{background:rgba(255,255,255,.16)}
+.mwg-step7:disabled{opacity:.35;cursor:default}
+.mwg-c7nav .cnt{font:600 14px "Fredoka",sans-serif;white-space:nowrap}
+.mwg-c7nav .cnt b{font-size:18px;color:#FFD43B}
+/* Nov 28, 2026 round 11: compact Prev / Next; "collected" = yellow sticker everywhere, "viewing" = big white */
+.mwg-step7{min-width:0!important;min-height:44px;padding:6px 10px!important;border:0!important;border-radius:10px!important;background:rgba(255,255,255,.12)!important;font:700 14.5px "Nunito",sans-serif!important}
+.mwg-step7:hover,.mwg-step7:focus-visible{background:rgba(255,255,255,.24)!important}
+.mwg-c7 .mwg-dot{border:1.5px solid rgba(255,255,255,.55)!important;background:transparent!important;color:rgba(255,255,255,.8)!important;font-weight:700}
+.mwg-c7 .mwg-dot.on{background:#FFD43B!important;border-color:#27302E!important;color:#27302E!important;font-size:13px}
+.mwg-c7 .mwg-dot.cur{background:#fff!important;border:2px solid #27302E!important;color:#27302E!important;box-shadow:0 0 0 2px #fff!important}
+.mwg-c7 .mwg-dot.cur.on{background:#FFD43B!important}
+.mwg-mk.on{background:#FFD43B!important;color:#27302E!important;border-color:#27302E!important}
+.mwg-mk.sel{background:#fff!important;color:#27302E!important;border:4px solid #27302E!important}
+.mwg-mk.sel.on{background:#FFD43B!important}
+.mwg-r5.on .n{background:#FFD43B!important;color:#27302E!important;border:2px solid #27302E!important}
+.mwg-key .kp.pinon{background:#FFD43B!important;color:#27302E!important;border-color:#27302E!important}
+.mwg-key .kp.pinsel{background:#fff!important;border:4px solid #27302E!important;color:#27302E!important;width:34px;height:34px}
+.mwg-tile.on{background:#FFD43B!important}
+.mwg-tile.on .sv{border-color:#27302E!important}
+/* Nov 28, 2026 round 12: address link, Ernesto sticker tile */
+.mwg-addr{display:inline-flex;align-items:center;min-height:40px;margin:0 0 2px;font:700 15px/1.3 "Nunito",sans-serif;color:var(--ink)!important;text-decoration:underline!important;text-underline-offset:3px}
+.mwg-tile .sv img{width:70px;height:70px;object-fit:contain;opacity:.28;filter:grayscale(1);transition:opacity .25s,filter .25s,transform .25s}
+.mwg-tile.on .sv img{opacity:1;filter:none;transform:rotate(-6deg) scale(1.05)}
+/* Nov 28, 2026 round 13: centered top bar, one-line address */
+.mwg-c7top{align-items:center!important;padding:4px 4px 4px 14px!important;min-height:52px}
+.mwg-c7top .mwg-c7h{margin:0!important;line-height:1.15}
+.mwg-addr{display:flex!important;max-width:100%;overflow:hidden}
+.mwg-addr{white-space:nowrap;text-overflow:ellipsis}
+/* Nov 28, 2026 round 14: Ernesto tips + concrete getting there */
+.mwg-etips{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:#FFF6D6}
+.mwg-etips>b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:17px}
+.mwg-etips ul,.mwg-get{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:6px;font-size:15px;line-height:1.45}
+.mwg-etips li{padding-left:14px;position:relative}
+.mwg-etips li::before{content:"";position:absolute;left:2px;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--ink)}
+.mwg-get{margin-top:12px}
+.mwg-get .h{font-family:"Lilita One",sans-serif;font-size:17px}
+.mwg-get li{display:flex;gap:8px}
+.mwg-get li span{flex:none;width:22px;text-align:center}
+[data-mw-postcard]{display:none!important}
+.mwg-note{margin:12px 0 0;padding:10px 12px;background:#E0F1F8;border-radius:12px;font-size:15.5px;line-height:1.5}
+.mwg-svg .mwg-pin{cursor:pointer}
+.mwg-svg .mwg-pin.sel .pc{fill:#FFD43B;stroke:#27302E;stroke-width:4}
+.mwg-svg .mwg-pin.sel text{fill:#27302E}
+.mwg-rows{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.mwg-rowb{display:grid;grid-template-columns:auto 64px minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-height:76px;padding:8px 12px 8px 8px;background:#fff;border:2px solid #27302E;border-radius:14px;box-shadow:3px 3px 0 #27302E;font:inherit;color:#27302E;text-align:left;cursor:pointer;scroll-margin-top:90px}
+.mwg-rowb:hover,.mwg-rowb:focus-visible{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #27302E}
+.mwg-rowb.sel{background:#FFF6D6}
+.mwg-rowb .n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2.5px solid var(--ink);color:var(--ink);background:#fff;font-family:"Lilita One",sans-serif;font-size:17px}
+.mwg-rowb.on .n{background:var(--ink);color:#fff}
+.mwg-rowb .th{width:64px;height:56px;border-radius:10px;overflow:hidden;background:#E0F1F8;display:grid;place-items:center}
+.mwg-rowb .th img{width:100%;height:100%;object-fit:cover;object-position:50% 35%;display:block}
+.mwg-rowb .th svg{width:52px;height:auto;mix-blend-mode:multiply}
+.mwg-rowb .tx{min-width:0;display:flex;flex-direction:column;gap:2px}
+.mwg-rowb .tx b{font-family:"Lilita One",sans-serif;font-weight:400;font-size:19px;line-height:1.1}
+.mwg-rowb .tx small{font-size:13.5px;color:#5B6663;line-height:1.35}
+.mwg-rowb .ch{font-size:22px;color:#5B6663}
+.mwg-sheet{position:fixed;left:50%;bottom:0;z-index:2000;width:min(560px,100%);max-height:60vh;max-height:60dvh;display:flex;flex-direction:column;background:#FFFDF8;border:2.5px solid #27302E;border-bottom:0;border-radius:20px 20px 0 0;box-shadow:0 -10px 30px -12px rgba(39,48,46,.55);transform:translate(-50%,105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+.mwg-sheet.open{transform:translate(-50%,0);visibility:visible}
+.mwg-sheet.drag{transition:none}
+.mwg-sh-top{flex:none;display:flex;align-items:center;gap:6px;padding:6px 8px 4px 12px;touch-action:none}
+.mwg-sh-grab{position:absolute;left:50%;top:7px;width:44px;height:5px;margin-left:-22px;border-radius:9px;background:#C9BFA9}
+.mwg-sh-top .pg{flex:1;padding-top:10px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:13.5px;color:#5B6663}
+.mwg-ib{width:44px;height:44px;border-radius:50%;border:2px solid #27302E;background:#fff;color:#27302E;font:700 20px/1 "Nunito",sans-serif;cursor:pointer;display:grid;place-items:center;margin-top:8px}
+.mwg-ib:disabled{opacity:.35}
+.mwg-sh-body{overflow-y:auto;overscroll-behavior:contain;padding:4px 16px 22px;-webkit-overflow-scrolling:touch}
+.mwg-sh-ph{position:relative;margin:4px 0 12px;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:#E0F1F8;display:grid;place-items:center}
+.mwg-sh-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+.mwg-sh-ph svg{width:150px;height:auto;mix-blend-mode:multiply}
+.mwg-sh-body h2{margin:0;font-family:"Lilita One",sans-serif;font-weight:400;font-size:26px;line-height:1.1}
+.mwg-meta{margin:6px 0 0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:14px;color:#5B6663}
+.mwg-sh-body .mwg-line{font-size:16px;line-height:1.5}
+.mwg-sh-body .mwg-tip{font-size:15.5px}
+.mwg-sh-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 0}
+.mwg-sh-acts .mwg-btn{min-height:48px;font-size:17px;padding:10px 12px}
+.mwg-sh-acts .mwg-stamp[aria-pressed="true"]{background:var(--ink);color:#fff!important}
+.mwg-tourbox{margin:14px 0 0;padding:12px 14px;border-radius:14px;background:#FFF0E2;border:2px solid #27302E}
+.mwg-tourbox p{margin:0 0 8px;font-size:14px;font-weight:700;color:#5B6663}
+.mwg-tourbox .mwg-btn{width:100%;min-height:48px;font-size:17px}
+.mwg-tourbox .mwg-link{display:inline-block;margin-top:8px}
+.mwg-sh-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0}
+.mwg-sh-links .mwg-link{min-height:44px;display:inline-flex;align-items:center}
+.mwg-pc-ok{display:none;margin:12px 0 0;padding:12px 14px;border-radius:12px;background:#E8F6DF;border:2px solid #1F6B35;font-family:"Fredoka",sans-serif;font-weight:600;color:#1F6B35}
+.mwg-pc-ok.show{display:block}
+@media (prefers-reduced-motion:reduce){.mwg-sheet{transition:none}}
 </style>
 <script>
 (function () {
@@ -157,7 +460,13 @@
     noSt: 'Sella tu primera parada para ponerla aquí.', send: 'Enviar mi postal', copied: 'Enlace copiado. Pégalo en un mensaje.',
     shareT: function (d, t, g) { return 'Sellé ' + d + ' de ' + t + ' lugares de la guía ' + g + ' de Marlon.'; },
     next: 'Siguiente guía', loadMap: 'Cargando el mapa...', fail: 'No cargó. Intenta de nuevo.', nf: 'No encontramos esta guía.',
-    mapAlt: 'Mapa ilustrado con las paradas de la guía'
+    mapAlt: 'Mapa ilustrado con las paradas de la guía',
+    sub2: 'A dónde ir, qué se necesita de verdad para moverte y cómo armar tu viaje por LA sin perder medio día en el tráfico.',
+    note2: 'LA no es una sola caminata, es un conjunto de barrios. Toca un número del mapa o una parada para ver qué hacer ahí, o únete a un tour a pie por el centro para ubicarte primero.',
+    hint2: 'Toca un número o una parada.', moreG: 'Más guías', seeG: 'Ver más guías', dotsL: 'Ir a una parada', prevG: 'Guía anterior', nextG: 'Siguiente guía', gpos: function (i, n) { return 'Guía ' + i + ' de ' + n; }, showAll: 'Ver todo', stopOf: function (i, n) { return i + ' de ' + n; }, moreS: 'Leer más', less: 'Leer menos', viewTours: 'Ver tours', toursHere: 'Tours que pasan por aquí:', lfL: 'Mostrar paradas', lfShow: 'Ver:', lfAll: 'Todas', lfLeft: 'Sin sellar', lfDone: 'Visitadas', lfDoneOne: 'Visitada', lfNone: 'Todavía no hay sellos. Toca una parada y luego su sello.', lfAllDone: '¡Visitaste las 12! Sigue con la próxima guía.', introB: 'Lee la intro de Marlon', stampTap: 'TOCA PARA SELLAR', stampOn: 'SELLADO ✓ toca para quitar', prevS: 'Anterior', nextS2: 'Siguiente', stampedW: 'sellados', ern: 'Ernestos', etips: 'Tips de Ernesto', getH: 'Cómo llegar', plan: function (t) { return 'Calcula ' + t; }, stopOf2: function (i, n) { return 'Parada ' + i + ' de ' + n; }, close: 'Cerrar', prev: 'Parada anterior', nextS: 'Siguiente parada',
+    tourH: 'Explóralo con Marlon', see: 'Ver detalles',
+    pcH2: 'Envía una postal desde LA', pcP2: 'Mándale una nota a MarlonWalksLA o guarda un recuerdo de tu viaje.',
+    send2: 'Enviar postal', sending: 'Enviando...', sent: '¡Enviada! A Marlon y Ernesto les va a encantar.', share: 'Compártela con alguien', sendFail: 'No se envió. Intenta de nuevo.'
   } : {
     kick: 'LA Guides', h1: 'Free LA Guides from a Local', sub: 'Pick a guide. Explore. Collect the stamps.',
     note: 'Made by Marlon and Ernesto. Your stamps save on this phone, no account needed.',
@@ -173,7 +482,56 @@
     noSt: 'Stamp your first stop to put it here.', send: 'Send my postcard', copied: 'Link copied. Paste it in a message.',
     shareT: function (d, t, g) { return 'I stamped ' + d + ' of ' + t + " places in Marlon's " + g + ' guide.'; },
     next: 'Next guide', loadMap: 'Loading the map...', fail: "It didn't load. Please try again.", nf: "We couldn't find this guide.",
-    mapAlt: "Illustrated map with the guide's stops"
+    mapAlt: "Illustrated map with the guide's stops",
+    sub2: 'Where to go, what it actually takes to get around, and how to piece together your LA trip without wasting half your day in traffic.',
+    note2: "LA is not a single walk, it is a set of neighborhoods. Tap any numbered pin or stop below to see what to do there, or join a Downtown LA walking tour to get your bearings first.",
+    hint2: 'Tap a number or a stop.', moreG: 'More guides', seeG: 'See more guides', dotsL: 'Jump to a stop', prevG: 'Previous guide', nextG: 'Next guide', gpos: function (i, n) { return 'Guide ' + i + ' of ' + n; }, showAll: 'Show all', stopOf: function (i, n) { return i + ' of ' + n; }, moreS: 'Read more', less: 'Read less', viewTours: 'View tours', toursHere: 'Tours that stop here:', lfL: 'Show stops', lfShow: 'Show:', lfAll: 'All', lfLeft: 'Unstamped', lfDone: 'Visited', lfDoneOne: 'Visited', lfNone: 'Nothing stamped yet. Tap a stop, then tap its stamp.', lfAllDone: 'You visited all 12. Time for the next guide!', introB: "Read Marlon's intro", stampTap: 'TAP TO STAMP', stampOn: 'STAMPED ✓ tap to undo', prevS: 'Prev', nextS2: 'Next', stampedW: 'stamped', ern: 'Ernestos', etips: 'Ernesto tips', getH: 'Getting there', plan: function (t) { return 'Plan ' + t; }, stopOf2: function (i, n) { return 'Stop ' + i + ' of ' + n; }, close: 'Close', prev: 'Previous stop', nextS: 'Next stop',
+    tourH: 'Explore it with Marlon', see: 'See details',
+    pcH2: 'Send a Postcard from LA', pcP2: 'Send a note to MarlonWalksLA or save a memory from your trip.',
+    send2: 'Send Postcard', sending: 'Sending...', sent: 'Sent! Marlon and Ernesto will love it.', share: 'Share it with a friend', sendFail: "It didn't send. Please try again."
+  };
+  /* Nov 27, 2026 (spec V2): Part 2, the back of the guide: symbols, getting around, sign-off */
+  var ICONS = { transit: '🚇', foot: '🚶', park: '🅿️', tour: '🎟️' };
+  var P2 = ES ? {
+    kick: 'Parte 2 · Antes de salir', keyH: 'Qué significan los símbolos',
+    key: [['pin', 'Número con contorno: todavía no lo sellas'], ['pinon', 'Sticker amarillo con ✓: ya lo sellaste'], ['pinsel', 'Número blanco grande: la parada que estás viendo'],
+      ['transit', 'Llegas en Metro o shuttle'], ['foot', 'Se disfruta a pie'], ['park', 'Vas en auto: planea dónde estacionarte'], ['tour', 'Parte de un tour con Marlon']],
+    gaH: 'Cómo moverte por LA',
+    ga: [['🕐', 'Planea por zonas', 'Hollywood y Griffith un día; Santa Monica, Venice y el Getty otro; el centro a pie. Deja 30 a 60 minutos entre zonas, y más en hora pico (7 a 10 AM y 3 a 7 PM).'],
+      ['🚇', 'Centro sin auto', 'Metro línea A o E a Grand Av Arts/Bunker Hill para la Sala Disney y The Broad. Civic Center/Grand Park (líneas B y D) queda entre Bunker Hill y la Placita Olvera. Angels Flight baja a Grand Central Market, y Union Station queda junto a la Placita Olvera.'],
+      ['🅿️', 'Centro en auto', 'Estaciona una vez en un garaje y camina. Las calles del centro tienen reglas de parquímetro y de horario: lee los letreros.'],
+      ['🚌', 'Griffith Observatory', 'El estacionamiento de arriba cobra y se llena cerca del atardecer. El DASH Observatory/Los Feliz de LADOT sube desde la estación Vermont/Sunset (línea B).'],
+      ['🎟️', 'Getty Center', 'Entrada gratis con reservación con horario. El estacionamiento se paga abajo y subes en el tranvía. Cerrado los lunes.'],
+      ['🌊', 'La playa', 'La línea E del Metro termina en Downtown Santa Monica, a unas cuadras del muelle. Venice queda al sur por el camino junto a la arena.'],
+      ['⛰️', 'Letrero de Hollywood', 'No se puede llegar al letrero. Míralo desde Lake Hollywood Park o un sendero marcado, respeta los letreros de estacionamiento y lleva agua.']],
+    signH: 'Guía de LA de MarlonWalksLA', signP: 'Hecha por Marlon, guía local, y Ernesto. ¿Quieres ver LA con un local?', signB: 'Ver las excursiones en Los Ángeles', tours: '/excursiones-los-angeles',
+    wa: 'WhatsApp', mail: 'Correo'
+  } : {
+    kick: 'Part 2 · Before you go', keyH: 'What the symbols mean',
+    key: [['pin', 'Outlined number: not stamped yet'], ['pinon', 'Yellow sticker with ✓: stamped'], ['pinsel', 'Big white number: the stop you are looking at'],
+      ['transit', 'Get there by Metro or shuttle'], ['foot', 'Best on foot'], ['park', 'Driving: plan your parking'], ['tour', 'Part of a tour with Marlon']],
+    gaH: 'Getting around LA',
+    ga: [['🕐', 'Plan by area', 'Hollywood and Griffith one day; Santa Monica, Venice and the Getty another; Downtown on foot. Leave 30 to 60 minutes between areas, more at rush hour (7 to 10 AM and 3 to 7 PM).'],
+      ['🚇', 'Downtown without a car', 'Metro A or E line to Grand Av Arts/Bunker Hill for Disney Hall and The Broad. Civic Center/Grand Park (B and D lines) sits between Bunker Hill and Olvera Street. Angels Flight drops you at Grand Central Market, and Union Station is next to Olvera Street.'],
+      ['🅿️', 'Downtown by car', 'Park once in a garage and walk. Downtown streets have meter and time rules, so read the signs.'],
+      ['🚌', 'Griffith Observatory', 'Hilltop parking is paid and fills up near sunset. The LADOT DASH Observatory/Los Feliz runs up from the Vermont/Sunset Metro station (B line).'],
+      ['🎟️', 'Getty Center', 'Free entry with a timed reservation. Parking is paid at the bottom, then a tram takes you up. Closed Mondays.'],
+      ['🌊', 'The beach', 'The Metro E line ends at Downtown Santa Monica, a few blocks from the pier. Venice is south along the beach path.'],
+      ['⛰️', 'Hollywood Sign', "You can't reach the sign itself. See it from Lake Hollywood Park or a marked trail, follow the parking signs and bring water."]],
+    signH: 'An LA Guide by MarlonWalksLA', signP: 'Made by Marlon, a local guide, and Ernesto. Want to see LA with a local?', signB: 'See Los Angeles Tours', tours: '/los-angeles-tours',
+    wa: 'WhatsApp', mail: 'Email'
+  };
+  var ERNST = 'https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b9212a0209aa9528b_Santa%20Monica.avif';
+  var LOGO = 'https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4300b0f4f05b22191d298_Circle%20Full.avif';
+  /* Tours a stop links to (keys come from guides.json "tours"; the first is the main button) */
+  var TOURS = ES ? {
+    free: ['Free tour a pie por el centro', '/free-tour-los-angeles-espanol'], foodwalk: ['Ruta de comida en el centro', '/excursiones-los-angeles#group-tour'],
+    sunset: ['Letrero de Hollywood y atardecer', '/excursiones-los-angeles#private-inquiry'], beach: ['Día de playa', '/excursiones-los-angeles#private-inquiry'],
+    getty: ['Salida en familia al Getty', '/excursiones-los-angeles#private-inquiry'], build: ['Arma tu propio día', '/excursiones-los-angeles#private-inquiry']
+  } : {
+    free: ['Free Downtown Walking Tour', '/free-walking-tour-los-angeles'], foodwalk: ['Downtown Food Walk', '/los-angeles-tours?tour=foodwalk#book-group'],
+    sunset: ['Hollywood Sign and Sunset Hike', '/los-angeles-tours?tour=sunset#book-private'], beach: ['Beach Day', '/los-angeles-tours?tour=beach#book-private'],
+    getty: ['Family Outing at the Getty', '/los-angeles-tours?tour=getty#book-private'], build: ['Build your own day', '/los-angeles-tours?tour=build#book-private']
   };
 
   function L(o) { return !o ? '' : typeof o === 'string' ? o : (ES ? (o.es || o.en) : (o.en || o.es)) || ''; }
@@ -249,7 +607,7 @@
     nodes.forEach(function (n) { if (Math.abs(n.x - n.ox) + Math.abs(n.y - n.oy) > 4) o += '<line x1="' + n.ox.toFixed(1) + '" y1="' + n.oy.toFixed(1) + '" x2="' + n.x.toFixed(1) + '" y2="' + n.y.toFixed(1) + '" stroke="#27302E" stroke-width="1.5" opacity=".5"/><circle cx="' + n.ox.toFixed(1) + '" cy="' + n.oy.toFixed(1) + '" r="2.5" fill="#27302E"/>'; });
     nodes.forEach(function (n) {
       var on = has(n.s), ink = g.ink;
-      o += '<g class="mwg-pin" data-n="' + n.s.n + '" tabindex="' + (opt.static ? -1 : 0) + '" role="link" aria-label="' + esc(n.s.n + '. ' + L(n.s.name)) + '"><circle class="pc" cx="' + n.x.toFixed(1) + '" cy="' + n.y.toFixed(1) + '" r="' + R + '" fill="' + (on ? ink : '#fff') + '" stroke="' + ink + '" stroke-width="3"/>' +
+      o += '<g class="mwg-pin" data-n="' + n.s.n + '" tabindex="' + (opt.static ? -1 : 0) + '" role="link" aria-label="' + esc(n.s.n + '. ' + L(n.s.name)) + '"><circle cx="' + n.x.toFixed(1) + '" cy="' + n.y.toFixed(1) + '" r="' + (R + 13) + '" fill="transparent"/><circle class="pc" cx="' + n.x.toFixed(1) + '" cy="' + n.y.toFixed(1) + '" r="' + R + '" fill="' + (on ? ink : '#fff') + '" stroke="' + ink + '" stroke-width="3"/>' +
         '<text x="' + n.x.toFixed(1) + '" y="' + (n.y + R * 0.38).toFixed(1) + '" text-anchor="middle" font-family="Lilita One, sans-serif" font-size="' + Math.round(R * 1.05) + '" fill="' + (on ? '#fff' : ink) + '">' + (on ? '✓' : n.s.n) + '</text></g>';
     });
     return o + '</svg>';
@@ -291,93 +649,91 @@
     root.querySelectorAll('[data-g]').forEach(function (a) { a.addEventListener('click', function () { ga('guides_hub_click', { guide: a.getAttribute('data-g') }); }); });
   }
 
-  /* ---------- guide page ---------- */
-  var G = null;
+  /* ---------- guide page (Nov 27, 2026, round 5: rebuilt on the /maps layout) ----------
+     Part 1 = one "envelope" card: guide bar (‹ guide · count ›), the real map, the stop list.
+     Tapping a pin or a stop: the screen holds the map + that stop's card (list hides). "More" opens the details and the map shrinks.
+     ‹ › on the card step through the stops. Part 2 (intro, symbols, getting around, postcard, sign-off) follows. */
+  var G = null, selectedStopId = null, histPushed = false, expanded = false, listFilter = 'all';
+  var mbMap = null, mbMarkers = [], mbReady = false;
   function renderGuide() {
     var gid = src && src.getAttribute('data-guide');
     G = D.guides.filter(function (g) { return g.id === gid || L(g.slug) === slug; })[0];
     if (!G) { root.innerHTML = '<div class="mwg-wrap"><p class="mwg-load">' + esc(T.nf) + ' <a href="' + HUB + '">' + esc(T.back) + '</a></p></div>'; return; }
     root.style.setProperty('--ink', G.ink);
-    /* hreflang pair, for search engines */
     [['en', '/guides/' + G.slug.en], ['es', '/guias/' + G.slug.es], ['x-default', '/guides/' + G.slug.en]].forEach(function (x) {
       var l = document.createElement('link'); l.rel = 'alternate'; l.hreflang = x[0]; l.href = 'https://www.marlonwalksla.com' + x[1]; document.head.appendChild(l);
     });
-    /* header EN | ES: this guide's twin page (data-mw-pair tells the header and footer scripts to leave these alone) */
     var hen = document.getElementById('mwhd-en'), hes = document.getElementById('mwhd-es');
     if (hen && hes) { hen.href = '/guides/' + G.slug.en; hes.href = '/guias/' + G.slug.es; hen.setAttribute('data-mw-pair', '1'); hes.setAttribute('data-mw-pair', '1'); hen.setAttribute('aria-current', ES ? 'false' : 'true'); hes.setAttribute('aria-current', ES ? 'true' : 'false'); }
-    var i0 = D.guides.indexOf(G), nx = D.guides[(i0 + 1) % D.guides.length];
-    var h = '<div class="mwg-wrap"><a class="mwg-back" href="' + HUB + '">' + esc(T.back) + '</a>';
-    h += '<section class="mwg-pc" id="mwg-top"><p class="mwg-kick">' + esc(T.guide) + ' · ' + esc(L(G.name)) + ' · ' + esc(T.stops(G.stops.length)) + '</p><div id="mwg-h"></div><div class="mwg-intro" id="mwg-i"></div><p class="mwg-by">' + esc(T.by) + '</p><div id="mwg-p1"></div></section>';
-    h += '<section class="mwg-pc" style="--pc:#E0F1F8"><h2 class="mwg-h2">' + esc(T.mapH) + '</h2><div class="mwg-map" id="mwg-map"></div><div class="mwg-maptools"><button type="button" class="mwg-btn alt" id="mwg-real">🗺️ ' + esc(T.openMap) + '</button><a class="mwg-link" href="' + MAP + '?passport=' + G.id + '&from=guides">' + esc(T.laMap) + '</a><p class="mwg-hint">' + esc(T.hint) + '</p></div></section>';
-    h += '<section id="mwg-list"></section>';
-    h += '<section class="mwg-pc" id="mwg-pc" style="--pc:#FFE6EF;--edge1:#D6457A;--edge2:#2890B6"><h2 class="mwg-h2">' + esc(T.pcH) + '</h2><p class="mwg-body">' + esc(T.pcP) + '</p>' +
-      '<div class="mwg-card2"><div class="l"><div class="gr">' + esc(T.greet) + '</div><textarea id="mwg-msg" aria-label="' + esc(T.pcH) + '">' + esc(T.msg) + '</textarea></div>' +
-      '<div class="r"><div class="stamps" id="mwg-pst"></div><label>' + esc(T.to) + ' <input id="mwg-to" autocomplete="off"></label><label>' + esc(T.from) + ' <input id="mwg-from" autocomplete="given-name"></label></div></div>' +
-      '<div class="mwg-row"><button type="button" class="mwg-btn" id="mwg-send">✉️ ' + esc(T.send) + '</button><a class="mwg-link" href="' + pageUrl(nx) + '">' + esc(T.next) + ': ' + esc(L(nx.name)) + ' →</a></div><p class="mwg-msg" id="mwg-sent" role="status"></p></section>';
+    var i0 = D.guides.indexOf(G), n0 = D.guides.length, pv = D.guides[(i0 - 1 + n0) % n0], nx = D.guides[(i0 + 1) % n0];
+    /* Nov 28, 2026: schema for search engines: the 12 places (TouristAttraction) + breadcrumbs. No ratings (never invent them). */
+    try {
+      var base = 'https://www.marlonwalksla.com', pageU = base + (ES ? '/guias/' : '/guides/') + L(G.slug);
+      var ld = [{ '@context': 'https://schema.org', '@type': 'ItemList', name: L(G.name) + (ES ? ': guía de Los Ángeles' : ': Los Angeles guide'), url: pageU, numberOfItems: G.stops.length,
+        itemListElement: G.stops.map(function (x) {
+          var it = { '@type': 'TouristAttraction', name: L(x.name), url: pageU + '?stop=' + x.n };
+          if (x.line) it.description = L(x.line);
+          if (x.photo) it.image = x.photo;
+          if (x.coords) it.geo = { '@type': 'GeoCoordinates', latitude: x.coords[1], longitude: x.coords[0] };
+          if (x.addr) it.address = { '@type': 'PostalAddress', streetAddress: x.addr, addressRegion: 'CA', addressCountry: 'US' };
+          return { '@type': 'ListItem', position: x.n, item: it };
+        }) },
+        { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+          { '@type': 'ListItem', position: 1, name: ES ? 'Inicio' : 'Home', item: base + (ES ? '/es' : '/') },
+          { '@type': 'ListItem', position: 2, name: ES ? 'Guías de LA' : 'LA Guides', item: base + (ES ? '/guias' : '/guides') },
+          { '@type': 'ListItem', position: 3, name: L(G.name), item: pageU }] }];
+      var sc = document.createElement('script'); sc.type = 'application/ld+json'; sc.id = 'mwg-ld'; sc.textContent = JSON.stringify(ld); document.head.appendChild(sc);
+    } catch (e) {}
+    var h = '<div class="mwg-wrap mwg-v5">';
+    h += '<section class="mwg-env" id="mwg-env">' +
+      '<div class="mwg-band"><div class="mwg-band-r"><b>' + esc(L(G.name)) + '</b><span class="mwg-gcount" id="mwg-gc"></span></div><div class="mwg-band-h" id="mwg-h"></div></div>' +
+      '<div class="mwg-mapwrap" id="mwg-mapwrap"><div class="mwg-map5" id="mwg-map"></div><button type="button" class="mwg-showall" id="mwg-all">⤢ ' + esc(T.showAll) + '</button></div>' +
+      '<div class="mwg-cardslot" id="mwg-card" hidden></div>' +
+      '<div class="mwg-list5" id="mwg-list"></div></section>';
+    /* Part 2: the back of the guide */
+    h += '<section class="mwg-pc mwg-ref" id="mwg-ref" style="--pc:#FFFDF8"><p class="mwg-kick">' + esc(P2.kick) + '</p><p class="mwg-note">' + esc(T.note2) + '</p>' +
+      '<details class="mwg-more" id="mwg-more"><summary>' + esc(T.introB) + '</summary><div class="mwg-intro" id="mwg-i"></div><p class="mwg-by">' + esc(T.by) + '</p></details><h2 class="mwg-h2">' + esc(P2.keyH) + '</h2><ul class="mwg-key">' + P2.key.map(function (k) {
+      var ic = ICONS[k[0]] ? '<span class="ic">' + ICONS[k[0]] + '</span>' : '<span class="kp ' + k[0] + '">' + (k[0] === 'pinon' ? '✓' : '3') + '</span>';
+      return '<li>' + ic + '<span>' + esc(k[1]) + '</span></li>'; }).join('') + '</ul>' +
+      (G.id === 'la-tourist' ? '<h2 class="mwg-h2">' + esc(P2.gaH) + '</h2><ul class="mwg-ga">' + P2.ga.map(function (x) { return '<li><span class="ic">' + x[0] + '</span><div><b>' + esc(x[1]) + '</b><p>' + esc(x[2]) + '</p></div></li>'; }).join('') + '</ul>' : '') + '</section>';
+    /* Nov 28, 2026 (Marlon): postcard removed from the guide page */
+    h += '<footer class="mwg-sign"><img src="' + LOGO + '" alt="MarlonWalksLA" width="56" height="56" loading="lazy"><p class="mwg-kick">' + esc(P2.signH) + '</p><p class="mwg-sign-t" id="mwg-sign-t"></p><p class="mwg-body">' + esc(P2.signP) + '</p>' +
+      '<div class="mwg-row" style="justify-content:center"><a class="mwg-btn" data-sign="tours" href="' + P2.tours + '">' + esc(P2.signB) + ' →</a><a class="mwg-btn alt" data-sign="guides" href="' + HUB + '">' + esc(T.seeG) + '</a></div>' +
+      '<p class="mwg-sign-c"><a class="mwg-link" data-sign="whatsapp" href="https://wa.me/12692670410" target="_blank" rel="noopener">💬 ' + esc(P2.wa) + '</a><a class="mwg-link" data-sign="email" href="mailto:marlonwalksla@gmail.com">✉️ marlonwalksla@gmail.com</a></p></footer>';
     root.innerHTML = h + '</div>';
-    /* move the CMS headline and intro (real page text) into place */
     var hh = src && src.querySelector('h1'), ii = src && src.querySelector('.w-richtext, [class*="rich"]') || (src && src.children[1]);
     if (hh && hh.textContent.trim()) document.getElementById('mwg-h').appendChild(hh); else document.getElementById('mwg-h').innerHTML = '<h1>' + esc(L(G.name)) + '</h1>';
     if (ii) document.getElementById('mwg-i').appendChild(ii);
+    if (window.matchMedia('(min-width: 900px)').matches) document.getElementById('mwg-more').open = true;
+    var stt = document.getElementById('mwg-sign-t'), hh1 = document.querySelector('#mwg-h h1'); if (stt) stt.textContent = hh1 ? hh1.textContent.trim() : L(G.name);
     drawMap(); drawList(); drawProgress(); drawPostcard();
-    document.getElementById('mwg-real').addEventListener('click', openReal);
-    document.getElementById('mwg-send').addEventListener('click', sendCard);
-    if (location.hash) { var t = document.querySelector(location.hash); if (t) setTimeout(function () { t.scrollIntoView(); }, 50); }
+    document.getElementById('mwg-all').addEventListener('click', function () { ga('guide_show_all', { guide: G.id }); if (selectedStopId !== null) closeStop('showall'); else fitAll(true); });
+    document.querySelectorAll('[data-gsw]').forEach(function (a) { a.addEventListener('click', function () { ga('guide_switch', { from: G.id, dir: a.getAttribute('data-gsw') }); }); });
+    document.querySelectorAll('[data-sign]').forEach(function (a) { a.addEventListener('click', function () { ga('guide_signoff_click', { guide: G.id, link: a.getAttribute('data-sign') }); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && selectedStopId !== null) closeStop('esc'); });
+    window.addEventListener('popstate', function () {
+      var st = history.state && history.state.mwgStop;
+      if (st) { openStop(st, 'back', true); return; }
+      if (selectedStopId !== null) { histPushed = false; hideCard('back'); }
+    });
+    loadMapbox().then(mountMapbox).catch(function () {});
+    var qs = new URLSearchParams(location.search), sk = qs.get('spot'), sp = sk ? G.stops.filter(function (x) { return ids(x).indexOf(sk) > -1 || x.id === sk; })[0] : null;
+    var q = qs.get('stop') || (sp ? String(sp.n) : ''), hm = (location.hash.match(/^#stop-(\d+)$/) || [])[1], dn = +(q || hm || 0);
+    if (dn && G.stops[dn - 1]) { history.replaceState(null, '', location.pathname); setTimeout(function () { openStop(dn, 'link'); }, 150); }
   }
 
-  var mbMap = null, mbMarkers = [];
+  /* ---------- map: drawn map first (instant), then the real Mapbox map ---------- */
   function drawMap() {
-    if (mbMap) return drawMarkers();
+    if (mbReady) return drawMarkers();
     var m = document.getElementById('mwg-map');
-    m.innerHTML = mapSvg(G, 600, 400, { uid: 'g' });
+    m.innerHTML = mapSvg(G, 600, 420, { uid: 'g' });
     m.querySelectorAll('.mwg-pin').forEach(function (p) {
-      function go() { var el = document.getElementById('stop-' + p.getAttribute('data-n')); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      var pn = +p.getAttribute('data-n');
+      if (pn === selectedStopId) p.classList.add('sel');
+      function go() { ga('guide_pin_select', { guide: G.id, stop: G.stops[pn - 1].id, n: pn, map: 'drawn' }); openStop(pn, 'pin'); }
       p.addEventListener('click', go); p.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
     });
   }
-  function drawList() {
-    var areas = G.areas || [], h = '', ai = 0;
-    var parts = [];
-    G.stops.forEach(function (s, i) {
-      if (areas[ai] && areas[ai].from === s.n) { if (parts.length) h += '<ol class="mwg-stops">' + parts.join('') + '</ol>'; parts = []; h += '<h2 class="mwg-area">' + esc(L(areas[ai])) + '</h2>'; ai++; }
-      parts.push(stopHtml(s, i));
-    });
-    h += '<ol class="mwg-stops" start="1">' + parts.join('') + '</ol>';
-    var box = document.getElementById('mwg-list');
-    box.className = 'mwg-pc'; box.style.setProperty('--pc', '#FFFDF8'); box.style.setProperty('--edge1', '#2E9E57');
-    box.innerHTML = h + '<div id="mwg-p2"></div>';
-    box.querySelectorAll('.mwg-stamp').forEach(function (b) { b.addEventListener('click', function () { toggle(+b.getAttribute('data-n')); }); });
-  }
-  function stopHtml(s, i) {
-    var on = has(s), dir = s.coords ? 'https://www.google.com/maps/dir/?api=1&destination=' + s.coords[1] + ',' + s.coords[0] : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(L(s.name) + ' Los Angeles');
-    var h = '<li class="mwg-stop' + (on ? ' on' : '') + '" id="stop-' + s.n + '"><span class="mwg-num" aria-hidden="true">' + (on ? '✓' : s.n) + '</span><div>';
-    h += '<h2>' + esc(L(s.name)) + '</h2>' + (s.line ? '<p class="mwg-line">' + esc(L(s.line)) + '</p>' : '');
-    if (s.tip) h += '<p class="mwg-tip"><b>' + esc(T.tip) + '</b>' + esc(L(s.tip)) + '</p>';
-    h += '<div class="mwg-acts"><button type="button" class="mwg-btn mwg-stamp" data-n="' + s.n + '" aria-pressed="' + on + '">' + (on ? '✓ ' + esc(T.stamped) : esc(T.stampIt)) + '</button>' +
-      '<a class="mwg-link" target="_blank" rel="noopener" href="' + dir + '">' + esc(T.dir) + ' ↗</a>' +
-      (s.mapId ? '<a class="mwg-link" href="' + MAP + '?spot=' + encodeURIComponent(s.legacyKey || s.mapId) + '&passport=' + G.id + '">' + esc(T.onLA) + '</a>' : '') +
-      (s.history && L(s.history) ? '<a class="mwg-link" href="' + esc(L(s.history)) + '">' + esc(T.story) + '</a>' : '') + '</div></div>';
-    h += '<div class="mwg-media">' + (s.photo ? '<figure class="mwg-photo" style="--r:' + (i % 2 ? '2deg' : '-2deg') + ';margin:0"><img src="' + esc(s.photo) + '" alt="' + esc((ES ? 'Foto instantánea de ' : 'Instant photo of ') + L(s.name)) + '" loading="lazy" decoding="async"></figure>' : '') +
-      '<div class="mwg-st"><span class="s">' + stampSvg(s, 'mwgs' + s.n) + '</span><small>' + esc(on ? T.got : T.honest) + '</small></div></div></li>';
-    return h;
-  }
-  function drawProgress() {
-    var p = prog(G), h = bar(p) + (p.t && p.d === p.t ? '<p class="mwg-done">' + esc(T.done) + '</p>' : '');
-    ['mwg-p1', 'mwg-p2'].forEach(function (id) { var e = document.getElementById(id); if (e) e.innerHTML = h; });
-  }
-  function toggle(n) {
-    var s = G.stops[n - 1]; if (!s) return;
-    var on = !has(s); set(s, on);
-    ga('guide_stamp', { guide: G.id, stop: s.id, on: on ? 1 : 0 });
-    var li = document.getElementById('stop-' + n), tmp = document.createElement('div');
-    tmp.innerHTML = stopHtml(s, n - 1); var nl = tmp.firstChild; li.parentNode.replaceChild(nl, li);
-    nl.querySelector('.mwg-stamp').addEventListener('click', function () { toggle(n); });
-    nl.querySelector('.mwg-stamp').focus();
-    if (on && window.MWStamp) { var sv = nl.querySelector('.mwg-st .s'); try { MWStamp.press(sv); MWStamp.burst(sv, [G.ink, '#FFD43B', '#27302E']); } catch (e) {} }
-    drawMap(); drawProgress(); drawPostcard();
-  }
-
-  /* ---------- the real map (Mapbox), on tap ---------- */
   function loadMapbox() {
     if (window.mapboxgl) return Promise.resolve();
     return new Promise(function (res, rej) {
@@ -385,34 +741,159 @@
       var s = document.createElement('script'); s.src = 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s);
     });
   }
-  function openReal() {
-    var btn = document.getElementById('mwg-real'), m = document.getElementById('mwg-map');
-    if (mbMap) return;
-    btn.disabled = true; btn.textContent = T.loadMap; ga('guide_map_open', { guide: G.id });
-    loadMapbox().then(function () {
-      m.innerHTML = '<div class="mwg-mb" id="mwg-mb"></div>';
+  /* padding scales with the map box, so a short phone map still frames the 12 stops tightly (Show all button top left, zoom buttons top right) */
+  function padding() {
+    var el = document.getElementById('mwg-mapwrap'), w = el ? el.clientWidth : 360, h = el ? el.clientHeight : 240;
+    return { top: Math.min(54, Math.round(h * 0.2)), bottom: Math.min(30, Math.round(h * 0.1)), left: Math.min(30, Math.round(w * 0.07)), right: Math.min(50, Math.round(w * 0.12)) };
+  }
+  function fitAll(anim) {
+    if (!mbMap) return;
+    mbMap.resize(); mbMap.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
+    var b = new mapboxgl.LngLatBounds(); G.stops.forEach(function (s) { if (s.coords) b.extend(s.coords); });
+    mbMap.fitBounds(b, { padding: padding(), maxZoom: 14, duration: anim ? 600 : 0 });
+  }
+  function mountMapbox() {
+    var m = document.getElementById('mwg-map'), keep = m.innerHTML;
+    m.innerHTML = '<div class="mwg-mb5" id="mwg-mb"></div>';
+    try {
       mapboxgl.accessToken = TOKEN;
-      var phone = window.matchMedia('(max-width: 899px)').matches;
-      mbMap = new mapboxgl.Map({ container: 'mwg-mb', style: 'mapbox://styles/mapbox/streets-v12', center: [-118.35, 34.05], zoom: 10, cooperativeGestures: phone });
+      mbMap = new mapboxgl.Map({ container: 'mwg-mb', style: 'mapbox://styles/mapbox/streets-v12', center: [-118.35, 34.07], zoom: 9.6, cooperativeGestures: window.innerWidth < 900, attributionControl: true });
       mbMap.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
       mbMap.addControl(new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true }), 'top-right');
-      var b = new mapboxgl.LngLatBounds(); G.stops.forEach(function (s) { if (s.coords) b.extend(s.coords); });
-      mbMap.fitBounds(b, { padding: 50, duration: 0 });
-      drawMarkers();
-      btn.style.display = 'none';
-    }).catch(function () { btn.disabled = false; btn.textContent = T.fail; });
+      mbReady = true; fitAll(false); drawMarkers();
+      if (selectedStopId !== null) focusStop(false);
+      ga('guide_map_ready', { guide: G.id });
+    } catch (e) { mbReady = false; mbMap = null; m.innerHTML = keep; drawMap(); }
   }
   function drawMarkers() {
+    if (!mbMap) return;
     mbMarkers.forEach(function (x) { x.remove(); }); mbMarkers = [];
     G.stops.forEach(function (s) {
       if (!s.coords) return;
       var on = has(s), el = document.createElement('button');
-      el.type = 'button'; el.setAttribute('aria-label', s.n + '. ' + L(s.name));
-      el.style.cssText = 'width:30px;height:30px;border-radius:50%;border:3px solid ' + G.ink + ';background:' + (on ? G.ink : '#fff') + ';color:' + (on ? '#fff' : G.ink) + ';font:16px "Lilita One",sans-serif;cursor:pointer;box-shadow:2px 2px 0 #27302E;padding:0';
-      el.textContent = on ? '✓' : s.n;
-      el.addEventListener('click', function () { var t = document.getElementById('stop-' + s.n); if (t) t.scrollIntoView({ behavior: 'smooth' }); });
+      el.type = 'button'; el.className = 'mwg-mk' + (on ? ' on' : '') + (s.n === selectedStopId ? ' sel' : '');
+      el.setAttribute('aria-label', s.n + '. ' + L(s.name)); el.textContent = on ? '✓' : s.n;
+      el.addEventListener('click', function (e) { e.stopPropagation(); ga('guide_pin_select', { guide: G.id, stop: s.id, n: s.n, map: 'mapbox' }); openStop(s.n, 'pin'); });
       mbMarkers.push(new mapboxgl.Marker({ element: el }).setLngLat(s.coords).addTo(mbMap));
     });
+  }
+  function focusStop(anim) {
+    var s = G.stops[selectedStopId - 1]; if (!mbMap || !s || !s.coords) return;
+    mbMap.easeTo({ center: s.coords, zoom: Math.max(mbMap.getZoom(), 13), duration: anim ? 600 : 0 });
+  }
+  function resizeMap() { if (mbMap) { mbMap.resize(); setTimeout(function () { mbMap.resize(); if (selectedStopId !== null) focusStop(true); }, 280); } }
+
+  /* ---------- list: simple rows like /maps (number box, name, area and time) ---------- */
+  function meta(s) { return [L(s.hood), L(s.time)].filter(Boolean).join(' · '); }
+  function dirUrl(s) { return s.coords ? 'https://www.google.com/maps/dir/?api=1&destination=' + s.coords[1] + ',' + s.coords[0] : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(L(s.name) + ' Los Angeles'); }
+  function drawList() {
+    var pg = prog(G), box = document.getElementById('mwg-list');
+    var h = '<div class="mwg-seg" role="group" aria-label="' + esc(T.lfL) + '"><div class="trk">' + [['all', T.lfAll, pg.t], ['left', T.lfLeft, pg.t - pg.d], ['done', T.lfDone, pg.d]].map(function (x) {
+      return '<button type="button" data-lf="' + x[0] + '" aria-pressed="' + (listFilter === x[0]) + '">' + esc(x[1]) + ' <b>' + x[2] + '</b></button>'; }).join('') + '</div></div>';
+    var rows = G.stops.filter(function (s) { return listFilter === 'all' || (listFilter === 'done') === has(s); });
+    h += rows.length ? '<ol class="mwg-rows5 mwg-cap">' + rows.map(function (s) {
+      var on = has(s);
+      return '<li><button type="button" class="mwg-r5' + (on ? ' on' : '') + '" id="stop-' + s.n + '" data-stop="' + s.n + '"><span class="n" aria-hidden="true">' + (on ? '✓' : s.n) + '</span>' +
+        '<span class="tx"><b>' + esc(L(s.name)) + '</b><small>' + esc(L(s.hood)) + '</small></span>' + (on ? '<span class="sr">' + esc(T.lfDoneOne) + '</span>' : '') + '</button></li>';
+    }).join('') + '</ol>' : '<p class="mwg-lf-empty">' + esc(listFilter === 'done' ? T.lfNone : T.lfAllDone) + '</p>';
+    box.innerHTML = h;
+    box.querySelectorAll('[data-stop]').forEach(function (b) { b.addEventListener('click', function () { openStop(+b.getAttribute('data-stop'), 'list'); }); });
+    box.querySelectorAll('[data-lf]').forEach(function (b) { b.addEventListener('click', function () { listFilter = b.getAttribute('data-lf'); ga('guide_list_filter', { guide: G.id, filter: listFilter }); drawList(); var f = box.querySelector('[data-lf="' + listFilter + '"]'); if (f) f.focus(); }); });
+  }
+  function drawProgress() { var p = prog(G), e = document.getElementById('mwg-gc'); if (e) e.innerHTML = '<b>' + p.d + '</b>/' + p.t + ' ' + esc(T.ern) + '<span class="sr">' + esc(T.of(p.d, p.t)) + '</span>'; }
+
+  /* ---------- the stop card (selectedStopId: null = map + list, a number = map + that stop) ---------- */
+  function openStop(n, source, fromHistory) {
+    var s = G.stops[n - 1]; if (!s) return;
+    var was = selectedStopId; selectedStopId = n;
+    if (!fromHistory) {
+      if (histPushed) history.replaceState({ mwgStop: n }, '', '?stop=' + n);
+      else { history.pushState({ mwgStop: n }, '', '?stop=' + n); histPushed = true; }
+    } else histPushed = true;
+    var env = document.getElementById('mwg-env');
+    env.classList.add('has-card');
+    document.getElementById('mwg-list').hidden = true;
+    renderCard();
+    document.getElementById('mwg-card').hidden = false;
+    drawMap(); markSel(); resizeMap(); focusStop(true);
+    /* the screen holds the map + the card: slide the page so the map sits right under the site header */
+    var mt = document.getElementById('mwg-mapwrap').getBoundingClientRect().top;
+    if (source !== 'arrow' && Math.abs(mt - 70) > 12) {
+      var tgt = Math.round(window.scrollY + mt - 70);
+      requestAnimationFrame(function () { window.scrollTo({ top: tgt, behavior: source === 'link' ? 'auto' : 'smooth' }); });
+      /* some phones cancel the smooth scroll while the map resizes: make sure we get there */
+      setTimeout(function () { if (Math.abs(window.scrollY - tgt) > 4) window.scrollTo(0, tgt); }, 450);
+    }
+    if (was === null || source !== 'arrow') ga('guide_stop_sheet_open', { guide: G.id, stop: s.id, n: n, source: source });
+  }
+  function closeStop(how) {
+    if (selectedStopId === null) return;
+    if (histPushed && history.state && history.state.mwgStop) { history.replaceState(null, '', location.pathname + location.hash); histPushed = false; }
+    hideCard(how);
+  }
+  function hideCard(how) {
+    var s = G.stops[selectedStopId - 1], n = selectedStopId;
+    ga('guide_stop_sheet_close', { guide: G.id, stop: s ? s.id : '', how: how });
+    selectedStopId = null; histPushed = false; expanded = false;
+    var env = document.getElementById('mwg-env'); env.classList.remove('has-card', 'is-exp');
+    document.getElementById('mwg-card').hidden = true;
+    document.getElementById('mwg-list').hidden = false;
+    drawMap(); markSel(); resizeMap(); setTimeout(function () { fitAll(true); }, 320);
+    var row = document.getElementById('stop-' + n); if (row && how !== 'back') row.focus({ preventScroll: true });
+  }
+  function markSel() {
+    document.querySelectorAll('#mwg-map .mwg-pin').forEach(function (p) { p.classList.toggle('sel', +p.getAttribute('data-n') === selectedStopId); });
+    if (mbMap) drawMarkers();
+  }
+  function renderCard() {
+    var s = G.stops[selectedStopId - 1], on = has(s), tours = (s.tours || []).filter(function (k) { return TOURS[k]; }), t0 = tours[0] && TOURS[tours[0]], t1 = tours[1] && TOURS[tours[1]];
+    var c = '<div class="mwg-c7' + (expanded ? ' exp' : '') + '">' +
+      '<div class="mwg-c7top"><h2 class="mwg-c7h" id="mwg-c5h">' + esc(L(s.name)) + '</h2><button type="button" class="mwg-x" data-close aria-label="' + esc(T.close) + '">✕</button></div>' +
+      '<div class="mwg-c7in"><a class="mwg-addr" data-dir target="_blank" rel="noopener" href="' + dirUrl(s) + '">📍 ' + esc(s.addr || L(s.hood)) + ' ↗</a>' +
+      '<div class="mwg-c5hd"><div class="t">' +
+        (s.line ? '<p class="mwg-line">' + esc(L(s.line)) + '</p>' : '') + '</div>' +
+      '<button type="button" class="mwg-tile' + (on ? ' on' : '') + '" aria-pressed="' + on + '" aria-label="' + esc((on ? T.stampOn : T.stampTap) + ': ' + L(s.name)) + '"><span class="sv"><img src="' + ERNST + '" alt="" width="70" height="70"></span></button></div>' +
+      '<div class="mwg-c6acts">' +
+        (t0 ? '<a class="mwg-btn" data-tour="' + tours[0] + '" href="' + t0[1] + '">🎟️ ' + esc(T.viewTours) + '</a>' : '') +
+        '<button type="button" class="mwg-btn alt" data-exp aria-expanded="' + expanded + '">' + esc(expanded ? T.less : T.moreS) + (expanded ? ' ▴' : ' ▾') + '</button></div>' +
+      '<div class="mwg-c5more"' + (expanded ? '' : ' hidden') + '>' +
+        (s.photo ? '<div class="mwg-sh-ph"><img src="' + esc(s.photo) + '" alt="' + esc((ES ? 'Foto instantánea de ' : 'Instant photo of ') + L(s.name)) + '" loading="lazy"></div>' : '') +
+        '<div class="mwg-etips"><b>' + esc(T.etips) + '</b><ul>' + (s.tip ? '<li>' + esc(L(s.tip)) + '</li>' : '') +
+          (L(s.time) ? '<li>' + esc(T.plan(L(s.time))) + (L(s.cat) ? ' · ' + esc(L(s.cat)) : '') + '</li>' : '') + '</ul></div>' +
+        ((s.get || []).length ? '<ul class="mwg-get"><li class="h">' + esc(T.getH) + '</li>' + s.get.map(function (g) { return '<li><span>' + g.i + '</span>' + esc(L(g)) + '</li>'; }).join('') + '</ul>' : '') +
+        (t0 ? '<p class="mwg-c7tours">' + esc(T.toursHere) + ' ' + esc(t0[0]) + (t1 ? ', ' + esc(t1[0]) : '') + '</p>' : '') +
+        (s.history && L(s.history) ? '<div class="mwg-c6acts"><a class="mwg-btn alt" href="' + esc(L(s.history)) + '">📖 ' + esc(T.story) + '</a></div>' : '') +
+      '</div></div>' +
+      '<div class="mwg-c7bot"><div class="mwg-c7nav"><button type="button" class="mwg-step7" data-go="' + (selectedStopId > 1 ? selectedStopId - 1 : G.stops.length) + '">← ' + esc(T.prevS) + '</button>' +
+        '<span class="cnt">' + esc(T.stopOf2(s.n, G.stops.length)) + '</span>' +
+        '<button type="button" class="mwg-step7" data-go="' + (selectedStopId < G.stops.length ? selectedStopId + 1 : 1) + '">' + esc(T.nextS2) + ' →</button></div>' +
+      '<div class="mwg-dots" role="group" aria-label="' + esc(T.dotsL) + '">' + G.stops.map(function (x) {
+        var xo = has(x), cur = x.n === selectedStopId;
+        return '<button type="button" class="mwg-dot' + (xo ? ' on' : '') + (cur ? ' cur' : '') + '" data-go="' + x.n + '" aria-label="' + esc(x.n + '. ' + L(x.name) + (xo ? ', ' + T.lfDoneOne : '')) + '"' + (cur ? ' aria-current="true"' : '') + '>' + (xo ? '✓' : x.n) + '</button>';
+      }).join('') + '</div></div></div>';
+    var box = document.getElementById('mwg-card'); box.innerHTML = c;
+    box.querySelector('[data-close]').addEventListener('click', function () { closeStop('x'); });
+    box.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { var n = +b.getAttribute('data-go'); if (n !== selectedStopId && G.stops[n - 1]) { ga(b.classList.contains('mwg-step7') ? 'guide_step' : 'guide_dot_select', { guide: G.id, n: n }); openStop(n, 'arrow'); } }); });
+    box.querySelector('.mwg-tile').addEventListener('click', function () { toggle(s.n); });
+    box.querySelector('[data-exp]').addEventListener('click', function () {
+      expanded = !expanded; document.getElementById('mwg-env').classList.toggle('is-exp', expanded);
+      ga('guide_card_expand', { guide: G.id, stop: s.id, open: expanded ? 1 : 0 }); renderCard(); resizeMap();
+    });
+    box.querySelector('[data-dir]').addEventListener('click', function () { ga('guide_directions_click', { guide: G.id, stop: s.id }); });
+    box.querySelectorAll('[data-tour]').forEach(function (a) { a.addEventListener('click', function () { ga('guide_tour_cta_click', { guide: G.id, stop: s.id, tour: a.getAttribute('data-tour') }); }); });
+  }
+  function renderSheet() { if (selectedStopId !== null) renderCard(); }
+  function toggle(n) {
+    var s = G.stops[n - 1]; if (!s) return;
+    var on = !has(s); set(s, on);
+    var ev = { guide: G.id, stop: s.id, on: on ? 1 : 0 };
+    ga('guide_stamp_toggle', ev); ga('guide_stamp', ev);
+    drawList(); drawMap(); drawProgress(); drawPostcard();
+    if (selectedStopId === n) {
+      renderCard();
+      var b = document.querySelector('#mwg-card .mwg-tile'); if (b) b.focus();
+      if (on && window.MWStamp && b) { var sv = b.querySelector('.sv'); try { MWStamp.press(sv); MWStamp.burst(sv, [G.ink, '#FFD43B', '#27302E']); } catch (e) {} }
+    }
   }
 
   /* ---------- postcard ---------- */
@@ -421,16 +902,41 @@
     if (!box) return;
     box.innerHTML = got.length ? got.slice(-6).map(function (s) { return stampSvg(s, 'mwgp' + s.n); }).join('') : '<p>' + esc(T.noSt) + '</p>';
   }
-  function sendCard() {
+  function cardText() {
     var p = prog(G), msg = document.getElementById('mwg-msg').value.trim(), to = document.getElementById('mwg-to').value.trim(), fr = document.getElementById('mwg-from').value.trim();
-    var text = (to ? (ES ? 'Para ' : 'To ') + to + ': ' : '') + msg + ' ' + T.shareT(p.d, p.t, L(G.name)) + (fr ? ' ' + (ES ? 'De ' : 'From ') + fr + '.' : '');
-    var url = location.origin + location.pathname, out = document.getElementById('mwg-sent');
-    ga('guide_postcard_share', { guide: G.id, stamps: p.d });
-    if (navigator.share) { navigator.share({ title: T.greet, text: text, url: url }).catch(function () {}); return; }
-    var all = text + ' ' + url;
+    return { p: p, msg: msg, to: to, fr: fr, text: (to ? (ES ? 'Para ' : 'To ') + to + ': ' : '') + msg + ' ' + T.shareT(p.d, p.t, L(G.name)) + (fr ? ' ' + (ES ? 'De ' : 'From ') + fr + '.' : '') };
+  }
+  /* Nov 27, 2026: "Send Postcard" submits the hidden native Webflow form "Guide Postcard" (on the guide template), so the note reaches Marlon. */
+  function sendCard() {
+    var c = cardText(), f = document.getElementById('mwg-pcform'), btn = document.getElementById('mwg-send'), ok = document.getElementById('mwg-ok'), out = document.getElementById('mwg-sent');
+    if (!f) { shareCard(); return; }
+    function val(id, v) { var e = document.getElementById(id); if (e) e.value = v; }
+    val('mwg-f-from', c.fr); val('mwg-f-to', c.to); val('mwg-f-msg', c.msg);
+    val('mwg-f-guide', L(G.name) + ' (' + (ES ? 'ES' : 'EN') + ')');
+    val('mwg-f-stamps', c.p.d + '/' + c.p.t + ': ' + G.stops.filter(has).map(function (s) { return L(s.name); }).join(', '));
+    btn.disabled = true; btn.textContent = T.sending; out.textContent = '';
+    var wrap = f.closest('.w-form'), done = wrap && wrap.querySelector('.w-form-done'), fail = wrap && wrap.querySelector('.w-form-fail'), t0 = Date.now();
+    var sub = f.querySelector('[type="submit"]');
+    if (sub) sub.click(); else f.requestSubmit ? f.requestSubmit() : f.submit();
+    (function wait() {
+      var isOk = done && getComputedStyle(done).display !== 'none', isBad = fail && getComputedStyle(fail).display !== 'none';
+      if (isOk) {
+        ok.textContent = T.sent; ok.classList.add('show'); btn.hidden = true; document.getElementById('mwg-share').hidden = false;
+        ga('guide_postcard_submit', { guide: G.id, stamps: c.p.d });
+        return;
+      }
+      if (isBad || Date.now() - t0 > 15000) { btn.disabled = false; btn.textContent = '✉️ ' + T.send2; out.textContent = T.sendFail; return; }
+      setTimeout(wait, 250);
+    })();
+  }
+  function shareCard() {
+    var c = cardText(), url = location.origin + location.pathname, out = document.getElementById('mwg-sent');
+    ga('guide_postcard_share', { guide: G.id, stamps: c.p.d });
+    if (navigator.share) { navigator.share({ title: T.greet, text: c.text, url: url }).catch(function () {}); return; }
+    var all = c.text + ' ' + url;
     (navigator.clipboard ? navigator.clipboard.writeText(all) : Promise.reject()).then(function () { out.textContent = T.copied; }, function () { out.textContent = all; });
   }
 
-  window.addEventListener('storage', function (e) { if (G && (e.key === 'marlon_visited_spots' || e.key === 'marlon_stamps')) { drawList(); drawMap(); drawProgress(); drawPostcard(); } });
+  window.addEventListener('storage', function (e) { if (G && (e.key === 'marlon_visited_spots' || e.key === 'marlon_stamps')) { drawList(); drawMap(); drawProgress(); drawPostcard(); if (selectedStopId !== null) renderSheet(); } });
 })();
 </script>

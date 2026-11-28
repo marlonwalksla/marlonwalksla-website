@@ -79,6 +79,60 @@ EXTRA = {
 }
 
 
+# Nov 27, 2026 (mobile spec): stop details for the slide-up panel on the guide page.
+# hood (EN, ES), time (EN, ES), category (EN, ES), tours: first is the main button, second a small link.
+# Tour keys are resolved in page-embeds/guides.html (free, foodwalk, sunset, beach, getty, build).
+# Last item: row icons (transit, foot, park, tour), at most 2, explained in the guide's symbol key.
+META = {
+    "la-tourist": {
+        "griffith-observatory": (("Hollywood / Griffith Park", "Hollywood / Griffith Park"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Views and astronomy", "Vistas y astronomía"), ["sunset"], ["transit","park"]),
+        "hollywood-walk-of-fame": (("Hollywood", "Hollywood"), ("45 to 60 min", "45 a 60 min"), ("Pop culture", "Cultura pop"), ["sunset"], ["transit","foot"]),
+        "hollywood-sign-viewpoint-lake-hollywood-park": (("Hollywood Hills", "Colinas de Hollywood"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Iconic view", "Vista icónica"), ["sunset"], ["park","foot"]),
+        "tcl-chinese-theatre": (("Hollywood", "Hollywood"), ("30 to 45 min", "30 a 45 min"), ("Movie history", "Historia del cine"), ["sunset"], ["transit","foot"]),
+        "santa-monica-pier": (("Santa Monica", "Santa Monica"), ("1.5 to 2.5 hrs", "1.5 a 2.5 h"), ("Beach and boardwalk", "Playa y malecón"), ["beach"], ["transit","foot"]),
+        "venice-beach-boardwalk": (("Venice", "Venice"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Street culture and canals", "Cultura callejera y canales"), ["beach"], ["park","foot"]),
+        "the-getty-center": (("Brentwood", "Brentwood"), ("2.5 to 3.5 hrs", "2.5 a 3.5 h"), ("Art and hilltop views", "Arte y vistas"), ["getty"], ["park"]),
+        "rodeo-drive": (("Beverly Hills", "Beverly Hills"), ("45 to 60 min", "45 a 60 min"), ("Shopping and architecture", "Compras y arquitectura"), ["build"], ["park","foot"]),
+        "walt-disney-concert-hall": (("Downtown LA", "Centro de LA"), ("45 to 60 min", "45 a 60 min"), ("Architecture and music", "Arquitectura y música"), ["free", "foodwalk"], ["transit","tour"]),
+        "the-broad": (("Downtown LA", "Centro de LA"), ("1.5 to 2 hrs", "1.5 a 2 h"), ("Modern art", "Arte moderno"), ["free", "foodwalk"], ["transit","tour"]),
+        "grand-central-market": (("Downtown LA", "Centro de LA"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Food hall", "Mercado de comida"), ["foodwalk", "free"], ["transit","tour"]),
+        "olvera-street-and-el-pueblo": (("Downtown LA", "Centro de LA"), ("1 to 1.5 hrs", "1 a 1.5 h"), ("Where LA began", "Donde nació LA"), ["free", "foodwalk"], ["transit","tour"]),
+    },
+}
+
+
+# Nov 28, 2026: street address shown under the stop name (tap = Google Maps directions to the pin coordinates).
+ADDR = {
+    "griffith-observatory": "2800 E Observatory Rd, Los Angeles",
+    "hollywood-walk-of-fame": "Hollywood Blvd at Highland Ave, Hollywood",
+    "hollywood-sign-viewpoint-lake-hollywood-park": "Lake Hollywood Park, 3160 Canyon Lake Dr",
+    "tcl-chinese-theatre": "6925 Hollywood Blvd, Hollywood",
+    "santa-monica-pier": "200 Santa Monica Pier, Santa Monica",
+    "venice-beach-boardwalk": "Ocean Front Walk at Windward Ave, Venice",
+    "the-getty-center": "1200 Getty Center Dr, Los Angeles",
+    "rodeo-drive": "Rodeo Dr at Wilshire Blvd, Beverly Hills",
+    "walt-disney-concert-hall": "111 S Grand Ave, Downtown LA",
+    "the-broad": "221 S Grand Ave, Downtown LA",
+    "grand-central-market": "317 S Broadway, Downtown LA",
+    "olvera-street-and-el-pueblo": "125 Paseo de la Plaza, Downtown LA",
+}
+
+# Nov 28, 2026: concrete "getting there" notes per stop, shown under Read more (icon, EN, ES).
+GET = {
+    "griffith-observatory": [["🚌", "DASH shuttle from Vermont/Sunset (Metro B)", "Shuttle DASH desde Vermont/Sunset (Metro B)"], ["🅿️", "Paid parking, full at sunset", "Estacionamiento de paga, lleno al atardecer"]],
+    "hollywood-walk-of-fame": [["🚇", "Metro B · Hollywood/Highland", "Metro B · Hollywood/Highland"]],
+    "hollywood-sign-viewpoint-lake-hollywood-park": [["🅿️", "Street parking only", "Solo estacionamiento en la calle"], ["🚶", "Best view from the park", "La mejor vista desde el parque"]],
+    "tcl-chinese-theatre": [["🚇", "Metro B · Hollywood/Highland", "Metro B · Hollywood/Highland"], ["🅿️", "Paid parking next door", "Estacionamiento de paga al lado"]],
+    "santa-monica-pier": [["🚇", "Metro E · Downtown Santa Monica", "Metro E · Downtown Santa Monica"], ["🅿️", "Paid parking", "Estacionamiento de paga"]],
+    "venice-beach-boardwalk": [["🅿️", "Paid beach parking", "Estacionamiento de paga en la playa"], ["🚶", "Canals a few blocks inland", "Canales a unas cuadras"]],
+    "the-getty-center": [["🎟️", "Free, timed reservation · Closed Mon", "Gratis con reservación · Cerrado lunes"], ["🅿️", "Paid parking + tram up", "Estacionamiento de paga + tranvía"]],
+    "rodeo-drive": [["🅿️", "Paid city garages", "Garajes de paga de la ciudad"], ["🚶", "3 blocks on foot", "3 cuadras a pie"]],
+    "walt-disney-concert-hall": [["🚇", "Metro A/E · Grand Av Arts/Bunker Hill", "Metro A/E · Grand Av Arts/Bunker Hill"]],
+    "the-broad": [["🚇", "Metro A/E · Grand Av Arts/Bunker Hill", "Metro A/E · Grand Av Arts/Bunker Hill"]],
+    "grand-central-market": [["🚡", "Angels Flight from Bunker Hill", "Angels Flight desde Bunker Hill"], ["🚇", "Metro B/D · Pershing Square", "Metro B/D · Pershing Square"]],
+    "olvera-street-and-el-pueblo": [["🚇", "Metro A/B/D · Union Station", "Metro A/B/D · Union Station"]],
+}
+
 def coords(mid):
     f = SPOTS.get(mid or "")
     return f["geometry"]["coordinates"] if f else None
@@ -103,6 +157,18 @@ for p in sorted(PASS["passports"], key=lambda x: x["order"]):
             "coords": coords(s.get("mapId")), "free": (s.get("legacyKey") or s["id"]) in FREE_TOUR or s["id"] in FREE_TOUR,
             "history": s.get("history"),
         }
+        if p["id"] == "la-tourist" and s["id"] in ADDR:
+            st["addr"] = ADDR[s["id"]]
+        if p["id"] == "la-tourist" and s["id"] in GET:
+            st["get"] = [{"i": g[0], "en": g[1], "es": g[2]} for g in GET[s["id"]]]
+        mt = META.get(p["id"], {}).get(s["id"])
+        if mt:
+            st["hood"] = {"en": mt[0][0], "es": mt[0][1]}
+            st["time"] = {"en": mt[1][0], "es": mt[1][1]}
+            st["cat"] = {"en": mt[2][0], "es": mt[2][1]}
+            st["tours"] = mt[3]
+            if len(mt) > 4:
+                st["icons"] = mt[4]
         if line:
             st["line"] = {"en": line[0], "es": line[1]}
             if line[2]:

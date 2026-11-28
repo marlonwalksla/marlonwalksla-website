@@ -1,0 +1,48 @@
+<style>.tp.pc .tp-hero-visual .tp-polaroid{width:min(387px,100%)}.tp.pc .tp-hero-visual .tp-polaroid img:first-child{width:100% !important;aspect-ratio:493/600}</style>
+<style>
+/* Oct 29, 2026: tour pages use the Brand Ernesto Blue Dark for links and prices (the old global blue stays off these pages). */
+.tp, .tp * { --ernesto-blue: #1B6688; --ernesto-blue-dark: #14506b; }
+/* Oct 18, 2026 (round 28): one primary button style site-wide (yellow, dark outline, offset shadow). Tour colors stay on backgrounds, tags and highlights. */
+.tp-btn.yellow { background: #FFD43B; color: #27302E !important; border: 2.5px solid #27302E; border-radius: 999px; box-shadow: 4px 4px 0 #27302E; font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 1.15rem; padding: 13px 26px; transition: transform 0.18s ease-out, box-shadow 0.18s ease-out; }
+.tp-btn.yellow:hover { background: #FFD43B; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #27302E; }
+.tp-btn.yellow:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #27302E; }
+/* Nov 2026: Los Angeles Tours hero (group + private on one page) = pastel yellow */
+.tp-bg-tours { background: #FFF6D6; }
+.tp.pc.pc-tours { --pc-wash: #FFF6D6; --pc-edge-a: #8A5A00; }
+.tp-eyebrow.yellow { color: #6B4A00; background: #FFE9A8; }
+</style>
+<!-- ==============================================================================
+     MARLONWALKSLA - LOS ANGELES TOURS PAGE, TOP  /los-angeles-tours
+     Oct 2026 draft. Styles: tour-pages.css + route-anim.css/js. RED (.tp-todo) = Marlon to fill in.
+     Group walk (calendar) first, then private driving days (inquiry form).
+     ============================================================================== -->
+<div class="tp pc pc-tours">
+
+  <section class="tp-hero tp-bg-tours">
+    <div class="tp-wrap tp-hero-grid">
+      <div>
+        <span class="tp-eyebrow yellow">Los Angeles Tours &middot; Group and Private</span>
+        <h1 class="tp-h1">Private and Group Tours in Los Angeles</h1>
+        <p class="tp-lead">Walk Downtown LA with your group, or see the whole city by car. Marlon guides both, in English or Espa&ntilde;ol.</p>
+        <ul class="tp-chips">
+          <li>&#128101; Group walk: 5 to 35 guests, about 5 hours</li>
+          <li>&#128663; Private day: up to 4 guests, hotel pickup and driving</li>
+          <li>&#128248; Instant photos for everyone</li>
+          <li>&#127758; English or Espa&ntilde;ol</li>
+        </ul>
+        <div class="tp-btns">
+          <a class="tp-btn yellow" href="#group-tour">Book a group walk</a>
+          <a class="tp-btn ghost" href="#private-inquiry">Plan a private day</a>
+        </div>
+      </div>
+      <div class="tp-hero-visual">
+        <div class="tp-polaroid">
+          <img width="493" height="600" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae4d2341e57e27b3075fc39_team-guest-olvera-street-09.avif" alt="A group of five posing at the Olvera Street gazebo">
+          <div class="cap">Group photo at the Olvera gazebo</div>
+        </div>
+        <img class="tp-ernesto" src="https://cdn.prod.website-files.com/6a050f29c558b4d909196aad/6ae43686de3b227659989aa2_Polaroid%20Photographer%20378x800.avif" alt="Ernesto with an instant camera">
+      </div>
+    </div>
+  </section>
+</div>
+<style>.tp-chips li{color:#334155 !important}</style>

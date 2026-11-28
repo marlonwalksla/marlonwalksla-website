@@ -45,7 +45,7 @@ T = {
         quote="Marlon was flexible, I had to reschedule and he was very open to it. He is very knowledgeable, he shared so much and went over time.",
         by="Beatrice", src="Google",
         p_title="Your LA day", p_line="Tell Marlon where you want to go. He plans the day and sends you the price.",
-        p_btn="Plan your private tour", p_href="/private-tour-los-angeles", p_note="No payment now.",
+        p_btn="Plan your private tour", p_href="/los-angeles-tours#private-inquiry", p_note="No payment now.",
         ern_alt="Ernesto the piñata donkey dressed as a tour guide",
     ),
     "es": dict(
@@ -54,7 +54,7 @@ T = {
         quote="Marlon was flexible, I had to reschedule and he was very open to it. He is very knowledgeable, he shared so much and went over time.",
         by="Beatrice", src="Google (en inglés)",
         p_title="Tu día en LA", p_line="Cuéntale a Marlon a dónde quieres ir. Él arma el día y te manda el precio.",
-        p_btn="Planea tu tour privado", p_href="/tours-privados-los-angeles", p_note="Sin pago ahora.",
+        p_btn="Planea tu tour privado", p_href="/excursiones-los-angeles#private-inquiry", p_note="Sin pago ahora.",
         ern_alt="Ernesto, el burrito piñata vestido de guía",
     ),
 }

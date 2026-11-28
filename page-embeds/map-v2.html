@@ -190,8 +190,8 @@
 #pmx .pmx-pick-p small{flex:none;font-family:Fredoka,sans-serif;font-size:.8rem;color:#4A4B43}
 #pmx .pmx-after{margin:14px 0 4px;display:flex;justify-content:center}
 #pmx .pmx-done{margin:12px 0 0}
-#pmx .pmx-fit{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:6;min-height:44px;padding:8px 16px;border:2px solid #27302E;border-radius:999px;background:#FFFDF7;color:#27302E;font-family:Fredoka,sans-serif;font-weight:500;font-size:.95rem;box-shadow:3px 3px 0 #27302E;cursor:pointer;white-space:nowrap;transition:transform .15s ease-out}
-#pmx .pmx-fit:hover{transform:translate(-50%,-2px)}
+#pmx .pmx-fit{position:absolute;left:18px;top:18px;bottom:auto;transform:none;z-index:6;min-height:44px;padding:8px 16px;border:2px solid #27302E;border-radius:999px;background:#FFFDF7;color:#27302E;font-family:Fredoka,sans-serif;font-weight:500;font-size:.95rem;box-shadow:3px 3px 0 #27302E;cursor:pointer;white-space:nowrap;transition:transform .15s ease-out}
+#pmx .pmx-fit:hover{transform:translateY(-2px)}
 @media (prefers-reduced-motion:reduce){#pmx .pmx-fit{transition:none}}
 
 /* Nov 6, 2026 (pm): bonus stamps on the place card */
@@ -492,7 +492,8 @@
     coords.forEach(function (c) { b.extend(c); });
     var phone = window.innerWidth < 900;
     var left = $('pmx-card').hidden ? 60 : 380;
-    map.fitBounds(b, { padding: phone ? 40 : { top: 60, bottom: 60, left: left, right: 60 }, maxZoom: 15, duration: 700 });
+    /* Nov 27, 2026: phones keep edge pins clear of the frame, the Show all button (top left), the zoom buttons (top right) and the Mapbox logo/credit (bottom) */
+    map.fitBounds(b, { padding: phone ? { top: 74, bottom: 56, left: 44, right: 64 } : { top: 70, bottom: 60, left: left, right: 70 }, maxZoom: 15, duration: 700 });
   }
 
   function clearMarkers() { markers.forEach(function (m) { m.remove(); }); markers = []; }
@@ -609,7 +610,7 @@
   }
 
   function openCard(o, still, pressed) {
-    card = o;
+    card = o; mwSyncOpen();
     var c = cat(o.cat), st = o.st || stampObj(o.key), members = memberOf(o.key), on = st ? stamped(st) : false;
     var ink = (members[0] && members[0].ink) || '#27302E';
     var names = members.map(function (p) { return L(p.name); }).join(' · ');
@@ -693,7 +694,15 @@
     return '';
   }
 
-  function closeCard(refit) { card = null; $('pmx-card').hidden = true; if (mode !== 'all') { if (refit) fitFor = ''; renderPassport(); } }
+  /* Nov 27, 2026: "Open my guide" opens the guide page on the place that is open on the map (?spot=<key>). */
+  function mwSyncOpen() {
+    document.querySelectorAll('#pmx .pmx-open').forEach(function (a) {
+      var base = a.getAttribute('href').split('?')[0];
+      a.setAttribute('href', base + (card && mode !== 'all' && /\/(guides|guias)\/./.test(base) ? '?spot=' + encodeURIComponent(card.key) : ''));
+    });
+  }
+  document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('#pmx .pmx-open')) mwSyncOpen(); }, true);
+  function closeCard(refit) { card = null; mwSyncOpen(); $('pmx-card').hidden = true; if (mode !== 'all') { if (refit) fitFor = ''; renderPassport(); } }
 
   /* ---------- events ---------- */
   root.addEventListener('click', function (e) {
