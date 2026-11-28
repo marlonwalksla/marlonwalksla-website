@@ -307,7 +307,8 @@
 .mwg-c7top .mwg-x{color:#fff}
 .mwg-c7top .mwg-x:hover,.mwg-c7top .mwg-x:focus-visible{background:rgba(255,255,255,.18)}
 .mwg-c7in{padding:10px 14px 14px}
-.mwg-c7in .mwg-c5hd h2{margin:0;font-size:23px}
+.mwg-c7h{margin:0 0 4px;font-family:"Lilita One",sans-serif;font-weight:400;font-size:23px;line-height:1.1}
+.mwg-c7in .mwg-meta{margin-top:2px}
 .mwg-c7in .mwg-line{margin:6px 0 0;font-size:15.5px;line-height:1.45}
 .mwg-tile{flex:none;width:86px;height:98px;margin-top:2px;padding:7px;border:0;cursor:pointer;background:#fff;
   --p:radial-gradient(circle at 4px 4px,transparent 3.2px,#000 3.6px);
@@ -786,7 +787,7 @@
     var s = G.stops[selectedStopId - 1], on = has(s), tours = (s.tours || []).filter(function (k) { return TOURS[k]; }), t0 = tours[0] && TOURS[tours[0]], t1 = tours[1] && TOURS[tours[1]];
     var c = '<div class="mwg-c7' + (expanded ? ' exp' : '') + '">' +
       '<div class="mwg-c7top">' + (s.cat ? '<span class="cat">' + esc(L(s.cat)) + '</span>' : '<span></span>') + '<button type="button" class="mwg-x" data-close aria-label="' + esc(T.close) + '">✕</button></div>' +
-      '<div class="mwg-c7in"><div class="mwg-c5hd"><div class="t"><h2 id="mwg-c5h">' + esc(L(s.name)) + '</h2><p class="mwg-meta">📍 ' + esc(meta(s)) + '</p>' +
+      '<div class="mwg-c7in"><h2 class="mwg-c7h" id="mwg-c5h">' + esc(L(s.name)) + '</h2><div class="mwg-c5hd"><div class="t"><p class="mwg-meta">📍 ' + esc(meta(s)) + '</p>' +
         (s.line ? '<p class="mwg-line">' + esc(L(s.line)) + '</p>' : '') + '</div>' +
       '<button type="button" class="mwg-tile' + (on ? ' on' : '') + '" aria-pressed="' + on + '" aria-label="' + esc((on ? T.stampOn : T.stampTap) + ': ' + L(s.name)) + '"><span class="sv">' + stampSvg(s, 'mwgc' + s.n) + '</span></button></div>' +
       '<div class="mwg-c6acts">' +
