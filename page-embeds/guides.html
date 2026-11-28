@@ -183,6 +183,10 @@
 .mwg-rowb.on .th{filter:saturate(.55)}
 .mwg-rowb .vis{flex:none;padding:3px 9px;border-radius:999px;background:var(--ink);color:#fff;font-family:"Fredoka",sans-serif;font-weight:600;font-size:12.5px;white-space:nowrap}
 /* ===== Nov 27, 2026 round 5: guide page on the /maps layout ===== */
+.mwg-c5 .mwg-stampbtn{width:78px}
+.mwg-c5 .mwg-stampbtn .sv{width:66px;height:66px}
+.mwg-c5 .mwg-stampbtn .sv svg{width:62px}
+.mwg-c5 .mwg-stampbtn small{font-size:10.5px}
 .mwg-v5{max-width:760px}
 .mwg-env{position:relative;background:#FFFDF7;border:2.5px solid #27302E;border-radius:16px;box-shadow:4px 4px 0 var(--ink),8px 8px 0 #27302E;padding:10px;margin:4px 8px 26px 0}
 .mwg-gbar{display:grid;grid-template-columns:44px minmax(0,1fr) auto 44px;align-items:center;gap:6px;min-height:52px}
@@ -667,8 +671,9 @@
     renderCard();
     document.getElementById('mwg-card').hidden = false;
     drawMap(); markSel(); resizeMap(); focusStop(true);
-    var r = env.getBoundingClientRect();
-    if (source !== 'arrow' && (r.top < 50 || r.top > 90)) window.scrollTo({ top: window.scrollY + r.top - 70, behavior: source === 'link' ? 'auto' : 'smooth' });
+    /* the screen holds the map + the card: slide the page so the map sits right under the site header */
+    var mt = document.getElementById('mwg-mapwrap').getBoundingClientRect().top;
+    if (source !== 'arrow' && Math.abs(mt - 70) > 12) window.scrollTo({ top: window.scrollY + mt - 70, behavior: source === 'link' ? 'auto' : 'smooth' });
     if (was === null || source !== 'arrow') ga('guide_stop_sheet_open', { guide: G.id, stop: s.id, n: n, source: source });
   }
   function closeStop(how) {
