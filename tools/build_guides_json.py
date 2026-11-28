@@ -53,10 +53,10 @@ EXTRA = {
             "santa-monica-pier": ("Ferris wheel, ocean air and the end of Route 66.",
                                   "Rueda de la fortuna, aire de mar y el final de la Ruta 66.",
                                   "6ad93deba132d3bca4ce61e6_6ad929e6fd77e7c927620ea9_place-santa-monica-01.webp"),
-            "venice-beach-boardwalk": ("LA's most colorful boardwalk: skaters, artists and Muscle Beach.",
-                                       "El malecón más colorido de LA: patinadores, artistas y Muscle Beach.", None),
-            "the-getty-center": ("Art, gardens and big views from a hilltop, free to get in.",
-                                 "Arte, jardines y grandes vistas desde una colina, con entrada gratis.",
+            "venice-beach-boardwalk": ("LA's most colorful boardwalk, right on the sand.",
+                                       "El malecón más colorido de LA, junto a la arena.", None),
+            "the-getty-center": ("Art, gardens and big views from a hilltop.",
+                                 "Arte, jardines y grandes vistas desde una colina.",
                                  "6ad93d3f77d6a74feb176166_6ad929db59b1d5ccebe76dc4_place-getty-center-01.webp"),
             "rodeo-drive": ("Three famous blocks of Beverly Hills shops and photo spots.",
                             "Tres cuadras famosas de tiendas y fotos en Beverly Hills.", None),
@@ -111,7 +111,10 @@ for p in sorted(PASS["passports"], key=lambda x: x["order"]):
     for i, st in enumerate(stops):
         st["n"] = i + 1
     en, es = SLUGS[p["id"]]
-    out.append({"id": p["id"], "name": p["name"], "tagline": p["tagline"], "ink": p["ink"], "slug": {"en": en, "es": es},
+    tg = dict(p["tagline"])
+    if "tour gratis" in tg.get("es", ""):
+        tg["es"] = tg["es"].replace("tour gratis", "free tour")  # CANON: never "tour gratis" in Spanish copy
+    out.append({"id": p["id"], "name": p["name"], "tagline": tg, "ink": p["ink"], "slug": {"en": en, "es": es},
                 "page": p["id"] in PAGES, "areas": ex.get("areas", []), "stops": stops})
 
 missing = [(g["id"], s["id"]) for g in out for s in g["stops"] if not s["coords"]]
